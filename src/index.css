@@ -22,6 +22,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Fullerton Next';
+  src: url('/ai-mastery/assets/fonts/Fullerton Next-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* --- Reset & Variables --- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -381,10 +389,10 @@ nav .btn {
 .track-cards:hover .track-card:hover {
   opacity: 1;
 }
-.track-card-img {
-  height: 54px;
-  background: rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid var(--border);
+.track-card-thumb {
+  width: 130px;
+  height: auto;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 .track-card-body {
@@ -871,11 +879,16 @@ nav .btn {
 
 /* --- Certification --- */
 .certification {
-  padding: 80px 0;
+  padding: 80px 0 0;
   background: var(--bg);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .cert-intro {
   margin-bottom: 48px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 .cert-intro h2 {
   font-size: 36px;
@@ -886,65 +899,67 @@ nav .btn {
   color: var(--text-secondary);
   line-height: 1.55;
   max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Certificate CardSwap Wrapper */
+.cert-swap-wrapper {
+  position: relative;
+  height: 600px;
+  max-height: 400px;
+  margin-top: 80px;
+  margin-bottom: 0;
+  overflow: visible;
+  z-index: 0;
 }
 
 /* Certificate Card */
-.cert-card {
+.cert-card-inner {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
+  width: 100%;
+  height: 100%;
   padding: 4px;
-  margin-bottom: 48px;
+  overflow: hidden;
+  border-radius: 10px;
 }
-.cert-corner {
+
+/* Seal */
+.cert-seal {
   position: absolute;
-  width: 24px;
-  height: 24px;
-  z-index: 2;
+  bottom: 16px;
+  right: 20px;
+  width: 72px;
+  height: auto;
+  z-index: 3;
+  opacity: 0.7;
 }
-.cert-corner::before,
-.cert-corner::after {
-  content: '';
-  position: absolute;
-  background: var(--accent);
-}
-.cert-corner-tl { top: -1px; left: -1px; }
-.cert-corner-tl::before { top: 0; left: 0; width: 24px; height: 1px; }
-.cert-corner-tl::after { top: 0; left: 0; width: 1px; height: 24px; }
-.cert-corner-tr { top: -1px; right: -1px; }
-.cert-corner-tr::before { top: 0; right: 0; width: 24px; height: 1px; }
-.cert-corner-tr::after { top: 0; right: 0; width: 1px; height: 24px; }
-.cert-corner-bl { bottom: -1px; left: -1px; }
-.cert-corner-bl::before { bottom: 0; left: 0; width: 24px; height: 1px; }
-.cert-corner-bl::after { bottom: 0; left: 0; width: 1px; height: 24px; }
-.cert-corner-br { bottom: -1px; right: -1px; }
-.cert-corner-br::before { bottom: 0; right: 0; width: 24px; height: 1px; }
-.cert-corner-br::after { bottom: 0; right: 0; width: 1px; height: 24px; }
 
 .cert-inner {
   border: 1px dashed rgba(255, 255, 255, 0.08);
-  padding: 56px 48px;
+  border-radius: 7px;
+  padding: 28px 32px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 40px;
+  gap: 16px;
+  height: 100%;
+  justify-content: center;
 }
 .cert-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
 }
 .cert-logo {
-  height: 20px;
+  height: 16px;
   width: auto;
   opacity: 0.5;
 }
 .cert-header-label {
   font-family: var(--font-meta);
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 400;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -954,34 +969,35 @@ nav .btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 }
 .cert-awarded {
   font-family: var(--font-meta);
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-tertiary);
 }
 .cert-name {
-  font-family: var(--font-heading);
-  font-size: 44px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: 'Fullerton Next', Georgia, serif;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   color: var(--text-primary);
   opacity: 0.25;
-  font-style: italic;
+  padding-bottom: 6px;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
 }
 .cert-divider {
-  width: 60px;
+  width: 50px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.12);
-  margin: 8px 0;
+  background: linear-gradient(90deg, transparent, rgba(165,228,70,0.3), transparent);
+  margin: 4px 0;
 }
 .cert-achievement {
   font-family: var(--font-meta);
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -989,34 +1005,34 @@ nav .btn {
 }
 .cert-program {
   font-family: var(--font-heading);
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--accent);
+  color: #ffffff;
 }
 .cert-subprogram {
   font-family: var(--font-meta);
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  max-width: 600px;
+  max-width: 380px;
   line-height: 1.8;
 }
 .cert-footer {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 64px;
+  gap: 32px;
   width: 100%;
-  max-width: 600px;
+  max-width: 380px;
 }
 .cert-sig {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   flex: 1;
 }
 .cert-sig-line {
@@ -1027,7 +1043,7 @@ nav .btn {
 }
 .cert-sig-label {
   font-family: var(--font-meta);
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1037,12 +1053,12 @@ nav .btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   flex-shrink: 0;
 }
 .cert-date-label {
   font-family: var(--font-meta);
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1050,7 +1066,7 @@ nav .btn {
 }
 .cert-date-value {
   font-family: var(--font-meta);
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.1em;
   color: var(--text-primary);
@@ -1067,18 +1083,13 @@ nav .btn {
   align-items: flex-start;
   gap: 16px;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
 }
-.cert-feature-num {
-  font-family: var(--font-meta);
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--accent);
-  letter-spacing: 0.05em;
+.cert-feature-icon {
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
-  padding-top: 2px;
+  color: var(--accent);
+  margin-top: 1px;
 }
 .cert-feature-text h4 {
   font-size: 16px;
@@ -1092,7 +1103,7 @@ nav .btn {
 
 /* --- FAQ --- */
 .faq {
-  padding: 80px 0;
+  padding: 48px 0 80px;
   background: var(--bg);
 }
 .faq-header {
@@ -1461,13 +1472,17 @@ footer a:hover {
   .cert-intro h2 { font-size: 28px; }
   .cert-intro { margin-bottom: 32px; }
   .cert-desc { font-size: 15px; }
-  .cert-card { margin-bottom: 32px; }
-  .cert-inner { padding: 32px 20px; gap: 28px; }
-  .cert-name { font-size: 28px; }
-  .cert-program { font-size: 22px; }
-  .cert-subprogram { font-size: 9px; line-height: 2; }
-  .cert-footer { flex-direction: column; align-items: center; gap: 24px; }
-  .cert-sig { width: 100%; max-width: 200px; }
+  .cert-swap-wrapper { height: 300px; margin-bottom: 32px; }
+  .cert-inner { padding: 20px 16px 18px; gap: 12px; }
+  .cert-name { font-size: 22px; }
+  .cert-program { font-size: 16px; }
+  .cert-header-label { font-size: 7px; }
+  .cert-awarded, .cert-achievement { font-size: 7px; }
+  .cert-subprogram { font-size: 6px; line-height: 1.6; }
+  .cert-footer { gap: 16px; }
+  .cert-sig-label, .cert-date-label { font-size: 6px; }
+  .cert-date-value { font-size: 10px; }
+  .cert-seal { bottom: 12px; right: 12px; width: 48px; }
   .cert-features { grid-template-columns: 1fr; gap: 10px; }
   .cert-feature { padding: 18px; gap: 12px; }
   .cert-feature-text h4 { font-size: 15px; }

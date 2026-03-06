@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Marquee from 'react-fast-marquee'
 import Squares from './components/Squares'
+import CardSwap, { Card } from './components/CardSwap'
 
 const LEVELS = [
   {
@@ -526,11 +527,11 @@ function App() {
   ]
 
   const trackItems = [
-    { num: '01', name: 'Learn Foundations', tagline: "Understand what's possible with AI and start using it today.", href: '#course-1', seats: 12 },
-    { num: '02', name: 'Intelligent Automation', tagline: 'Make AI work for you. Automate the tasks eating your week.', href: '#course-2', seats: 12 },
-    { num: '03', name: 'Agentic Workflows', tagline: 'Build AI agents that plan, decide, and execute without babysitting.', href: '#course-3' },
-    { num: '04', name: 'AI Systems Design', tagline: 'Design AI-powered systems that scale across your org.', href: '#course-4' },
-    { num: '05', name: 'Advanced AI Architecture', tagline: 'Orchestrate multi-agent systems and enterprise-grade AI infrastructure.', href: '#course-5' },
+    { num: '01', name: 'Learn Foundations', tagline: "Understand what's possible with AI and start using it today.", href: '#course-1', seats: 12, thumb: 'Image-1.png' },
+    { num: '02', name: 'Intelligent Automation', tagline: 'Make AI work for you. Automate the tasks eating your week.', href: '#course-2', seats: 12, thumb: 'Image-2.png' },
+    { num: '03', name: 'Agentic Workflows', tagline: 'Build AI agents that plan, decide, and execute without babysitting.', href: '#course-3', thumb: 'Image-3.png' },
+    { num: '04', name: 'AI Systems Design', tagline: 'Design AI-powered systems that scale across your org.', href: '#course-4', thumb: 'Image-4.png' },
+    { num: '05', name: 'Advanced AI Architecture', tagline: 'Orchestrate multi-agent systems and enterprise-grade AI infrastructure.', href: '#course-5', thumb: 'Image-5.png' },
   ]
 
   return (
@@ -621,8 +622,12 @@ function App() {
           <div className="track-cards">
             {trackItems.map((item) => (
               <div className="track-card" key={item.num} onClick={() => document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' })}>
-                <div className="track-card-img"></div>
                 <div className="track-card-body">
+                  <img
+                    src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
+                    alt={item.name}
+                    className="track-card-thumb"
+                  />
                   <div className="track-label">
                     <span className="track-label-text">LEVEL</span>
                     <span className="track-label-num">{item.num}</span>
@@ -701,80 +706,144 @@ function App() {
         </div>
       </section>
 
-      {/* Certification Section (hidden for now) */}
-      {false && <section className="certification" id="certification">
+      {/* Certification Section */}
+      <section className="certification" id="certification">
         <div className="container">
           <div className="cert-intro">
-            <span className="section-label">CREDENTIALS</span>
             <h2>Walk away certified.</h2>
             <p className="cert-desc">
               Every course in the series culminates in a verified certificate of completion from Leland. Finish all five and earn the full AI Mastery designation — a signal to employers, clients, and colleagues that you operate at the highest level of AI proficiency.
             </p>
           </div>
 
-          <div className="cert-card">
-            <div className="cert-corner cert-corner-tl"></div>
-            <div className="cert-corner cert-corner-tr"></div>
-            <div className="cert-corner cert-corner-bl"></div>
-            <div className="cert-corner cert-corner-br"></div>
-
-            <div className="cert-inner">
-              <div className="cert-header">
-                <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="cert-logo" />
-                <span className="cert-header-label">CERTIFICATE OF COMPLETION</span>
-              </div>
-
-              <div className="cert-body">
-                <span className="cert-awarded">This certifies that</span>
-                <span className="cert-name">Your Name Here</span>
-                <span className="cert-divider"></span>
-                <span className="cert-achievement">has successfully completed the</span>
-                <span className="cert-program">AI Mastery Series</span>
-                <span className="cert-subprogram">Foundations &middot; Intelligent Automation &middot; Agentic Workflows &middot; AI Systems Design &middot; Advanced AI Architecture</span>
-              </div>
-
-              <div className="cert-footer">
-                <div className="cert-sig">
-                  <span className="cert-sig-line"></span>
-                  <span className="cert-sig-label">Program Director</span>
+          <div className="cert-swap-wrapper">
+            <CardSwap
+              cardDistance={60}
+              verticalDistance={70}
+              delay={5000}
+              pauseOnHover={false}
+            >
+              {/* Card 1: Full AI Mastery Series */}
+              <Card>
+                <div className="cert-card-inner">
+                  <img
+                    src={`${import.meta.env.BASE_URL}assets/seal.png`}
+                    alt="Leland Verified Seal"
+                    className="cert-seal"
+                  />
+                  <div className="cert-inner">
+                    <div className="cert-header">
+                      <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="cert-logo" />
+                      <span className="cert-header-label">Certificate of Completion</span>
+                    </div>
+                    <div className="cert-body">
+                      <span className="cert-awarded">This certifies that</span>
+                      <span className="cert-name">Your Name Here</span>
+                      <span className="cert-divider"></span>
+                      <span className="cert-achievement">has successfully completed the</span>
+                      <span className="cert-program">AI Mastery Series</span>
+                      <span className="cert-subprogram">Foundations &middot; Intelligent Automation &middot; Agentic Workflows &middot; AI Systems Design &middot; Advanced AI Architecture</span>
+                    </div>
+                    <div className="cert-footer">
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Program Director</span>
+                      </div>
+                      <div className="cert-meta">
+                        <span className="cert-date-label">ISSUED</span>
+                        <span className="cert-date-value">2026</span>
+                      </div>
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Leland Verification</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="cert-meta">
-                  <span className="cert-date-label">ISSUED</span>
-                  <span className="cert-date-value">2026</span>
+              </Card>
+
+              {/* Card 2: Foundations */}
+              <Card>
+                <div className="cert-card-inner">
+                  <img
+                    src={`${import.meta.env.BASE_URL}assets/seal.png`}
+                    alt="Leland Verified Seal"
+                    className="cert-seal"
+                  />
+                  <div className="cert-inner">
+                    <div className="cert-header">
+                      <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="cert-logo" />
+                      <span className="cert-header-label">Certificate of Completion</span>
+                    </div>
+                    <div className="cert-body">
+                      <span className="cert-awarded">This certifies that</span>
+                      <span className="cert-name">Your Name Here</span>
+                      <span className="cert-divider"></span>
+                      <span className="cert-achievement">has successfully completed</span>
+                      <span className="cert-program">Learn Foundations</span>
+                      <span className="cert-subprogram">Level 01 &middot; AI Mastery Series</span>
+                    </div>
+                    <div className="cert-footer">
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Program Director</span>
+                      </div>
+                      <div className="cert-meta">
+                        <span className="cert-date-label">ISSUED</span>
+                        <span className="cert-date-value">2026</span>
+                      </div>
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Leland Verification</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="cert-sig">
-                  <span className="cert-sig-line"></span>
-                  <span className="cert-sig-label">Leland Verification</span>
+              </Card>
+
+              {/* Card 3: Intelligent Automation */}
+              <Card>
+                <div className="cert-card-inner">
+                  <img
+                    src={`${import.meta.env.BASE_URL}assets/seal.png`}
+                    alt="Leland Verified Seal"
+                    className="cert-seal"
+                  />
+                  <div className="cert-inner">
+                    <div className="cert-header">
+                      <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="cert-logo" />
+                      <span className="cert-header-label">Certificate of Completion</span>
+                    </div>
+                    <div className="cert-body">
+                      <span className="cert-awarded">This certifies that</span>
+                      <span className="cert-name">Your Name Here</span>
+                      <span className="cert-divider"></span>
+                      <span className="cert-achievement">has successfully completed</span>
+                      <span className="cert-program">Intelligent Automation</span>
+                      <span className="cert-subprogram">Level 02 &middot; AI Mastery Series</span>
+                    </div>
+                    <div className="cert-footer">
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Program Director</span>
+                      </div>
+                      <div className="cert-meta">
+                        <span className="cert-date-label">ISSUED</span>
+                        <span className="cert-date-value">2026</span>
+                      </div>
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Leland Verification</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </Card>
+            </CardSwap>
           </div>
 
-          <div className="cert-features">
-            <div className="cert-feature">
-              <span className="cert-feature-num">01</span>
-              <div className="cert-feature-text">
-                <h4>Verified & Shareable</h4>
-                <p>Each certificate includes a unique verification link. Add it to your LinkedIn, resume, or portfolio.</p>
-              </div>
-            </div>
-            <div className="cert-feature">
-              <span className="cert-feature-num">02</span>
-              <div className="cert-feature-text">
-                <h4>Earned Through Application</h4>
-                <p>Certificates are issued upon completing hands-on projects and live sessions — not passive video watching.</p>
-              </div>
-            </div>
-            <div className="cert-feature">
-              <span className="cert-feature-num">03</span>
-              <div className="cert-feature-text">
-                <h4>Full Series Designation</h4>
-                <p>Complete all five courses to earn the AI Mastery designation — a credential that signals top-tier AI proficiency.</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>}
+      </section>
 
       {/* FAQ Section */}
       <section className="faq">
