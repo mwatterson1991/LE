@@ -544,7 +544,7 @@ function App() {
           </a>
           <div className={`nav-default${scrolled ? ' hidden' : ''}`}>
             <a
-              href="#"
+              href="https://joinleland.typeform.com/to/tjyc1wni"
               className="btn btn-secondary btn-sm"
               style={{ textTransform: 'uppercase', borderRadius: '4px', fontSize: '12px' }}
             >
@@ -602,13 +602,9 @@ function App() {
 
           <div className="hero-cta-row">
             <a
-              href="#course-1"
+              href="https://joinleland.typeform.com/to/tjyc1wni"
               className="btn btn-primary btn-lg"
               style={{ textTransform: 'uppercase' }}
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById('course-1')?.scrollIntoView({ behavior: 'smooth' })
-              }}
             >
               Get started
               <span className="arrow">&rarr;</span>
@@ -873,7 +869,7 @@ function App() {
           </div>
           <div className="final-rec">
             <span className="final-rec-label">Not sure where to start?</span>
-            <a href="#" className="final-rec-link">Get a recommendation</a>
+            <a href="https://joinleland.typeform.com/to/tjyc1wni" className="final-rec-link">Get a recommendation</a>
           </div>
         </div>
       </section>
