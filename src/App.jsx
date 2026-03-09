@@ -306,8 +306,8 @@ function CourseSection({ id, num, type, title, tagline, tags, sessions, cohorts,
                   <span className="cohort-cal-day">{cohorts[0].day}</span>
                 </div>
                 <div className="cohort-info">
-                  <span className="cohort-label">Next Cohort</span>
                   <span className="cohort-date">Starting {cohorts[0].date}</span>
+                  <span className="cohort-label">$999</span>
                 </div>
                 <a href="#" className="btn btn-primary">
                   Enroll
