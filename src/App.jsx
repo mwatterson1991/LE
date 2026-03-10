@@ -3,159 +3,6 @@ import Marquee from 'react-fast-marquee'
 import Squares from './components/Squares'
 import CardSwap, { Card } from './components/CardSwap'
 
-const LEVELS = [
-  {
-    id: 1, color: '#A5E446', accent: '#A5E446', svgW: 280, svgH: 400, svgScale: 308,
-    nodes: [
-      { id: 'input', x: 140, y: 60, type: 'source' },
-      { id: 'ai', x: 140, y: 200, type: 'ai' },
-      { id: 'output', x: 140, y: 340, type: 'output' },
-    ],
-    edges: [{ from: 'input', to: 'ai' }, { from: 'ai', to: 'output' }],
-    loops: [],
-  },
-  {
-    id: 2, color: '#A5E446', accent: '#A5E446', svgW: 280, svgH: 420, svgScale: 330,
-    nodes: [
-      { id: 'trigger', x: 140, y: 45, type: 'source' },
-      { id: 'ai', x: 140, y: 145, type: 'ai' },
-      { id: 'tool1', x: 70, y: 250, type: 'tool' },
-      { id: 'tool2', x: 140, y: 250, type: 'tool' },
-      { id: 'tool3', x: 210, y: 250, type: 'tool' },
-      { id: 'log', x: 140, y: 360, type: 'output' },
-    ],
-    edges: [
-      { from: 'trigger', to: 'ai' }, { from: 'ai', to: 'tool1' }, { from: 'ai', to: 'tool2' },
-      { from: 'ai', to: 'tool3' }, { from: 'tool1', to: 'log' }, { from: 'tool2', to: 'log' },
-      { from: 'tool3', to: 'log' },
-    ],
-    loops: [],
-  },
-  {
-    id: 3, color: '#A5E446', accent: '#A5E446', svgW: 280, svgH: 420, svgScale: 330,
-    nodes: [
-      { id: 'input', x: 140, y: 35, type: 'source' },
-      { id: 'research', x: 90, y: 140, type: 'agent' },
-      { id: 'write', x: 190, y: 140, type: 'agent' },
-      { id: 'tools', x: 140, y: 250, type: 'ai' },
-      { id: 'crm', x: 90, y: 360, type: 'tool' },
-      { id: 'email', x: 190, y: 360, type: 'output' },
-    ],
-    edges: [
-      { from: 'input', to: 'research' }, { from: 'input', to: 'write' },
-      { from: 'research', to: 'tools' }, { from: 'write', to: 'tools' },
-      { from: 'tools', to: 'crm' }, { from: 'tools', to: 'email' },
-      { from: 'research', to: 'write', dashed: true },
-    ],
-    loops: [{ x: 90, y: 140, r: 25 }],
-  },
-  {
-    id: 4, color: '#A5E446', accent: '#A5E446', svgW: 450, svgH: 280, svgScale: 242,
-    nodes: [
-      { id: 'orch', x: 210, y: 40, type: 'orchestrator' },
-      { id: 'a1', x: 90, y: 130, type: 'agent' },
-      { id: 'a2', x: 210, y: 130, type: 'agent' },
-      { id: 'a3', x: 330, y: 130, type: 'agent' },
-      { id: 'eval', x: 210, y: 210, type: 'eval' },
-      { id: 'qa', x: 360, y: 210, type: 'eval' },
-    ],
-    edges: [
-      { from: 'orch', to: 'a1' }, { from: 'orch', to: 'a2' }, { from: 'orch', to: 'a3' },
-      { from: 'a1', to: 'eval' }, { from: 'a2', to: 'eval' }, { from: 'a3', to: 'qa' },
-      { from: 'eval', to: 'orch', dashed: true }, { from: 'qa', to: 'orch', dashed: true },
-    ],
-    loops: [],
-  },
-  {
-    id: 5, color: '#A5E446', accent: '#A5E446', svgW: 450, svgH: 280, svgScale: 242,
-    nodes: [
-      { id: 'goal', x: 225, y: 25, type: 'source' },
-      { id: 'orch', x: 225, y: 90, type: 'orchestrator' },
-      { id: 'mem', x: 85, y: 150, type: 'agent' },
-      { id: 'a1', x: 165, y: 170, type: 'agent' },
-      { id: 'a2', x: 285, y: 170, type: 'agent' },
-      { id: 'build', x: 365, y: 150, type: 'agent' },
-      { id: 'eval', x: 225, y: 235, type: 'eval' },
-      { id: 'fix', x: 105, y: 235, type: 'eval' },
-      { id: 'dash', x: 345, y: 235, type: 'output' },
-    ],
-    edges: [
-      { from: 'goal', to: 'orch' }, { from: 'orch', to: 'mem' }, { from: 'orch', to: 'a1' },
-      { from: 'orch', to: 'a2' }, { from: 'orch', to: 'build' }, { from: 'a1', to: 'eval' },
-      { from: 'a2', to: 'eval' }, { from: 'build', to: 'dash' },
-      { from: 'eval', to: 'fix', dashed: true }, { from: 'fix', to: 'orch', dashed: true },
-      { from: 'eval', to: 'orch', dashed: true }, { from: 'mem', to: 'a1' }, { from: 'mem', to: 'a2' },
-    ],
-    loops: [{ x: 225, y: 90, r: 28 }],
-  },
-]
-
-function getNodeCenter(nodeId, nodes) {
-  const n = nodes.find((x) => x.id === nodeId)
-  if (!n) return { x: 0, y: 0 }
-  return { x: n.x, y: n.y }
-}
-
-function WorkflowDiagram({ level }) {
-  const { nodes, edges, loops, color, accent } = level
-  const svgW = level.svgW || 450, svgH = level.svgH || 280
-  const nodeRadius = (type) => {
-    if (type === 'orchestrator') return 26
-    if (type === 'source') return 18
-    if (type === 'ai') return 22
-    if (type === 'agent') return 20
-    return 16
-  }
-  return (
-    <svg viewBox={`0 0 ${svgW} ${svgH}`} style={{ height: level.svgScale || 260, width: 'auto', overflow: 'visible' }}>
-      <defs>
-        <radialGradient id={`bg-${level.id}`} cx="50%" cy="50%" r="60%">
-          <stop offset="0%" stopColor={color} stopOpacity="0.05" />
-          <stop offset="100%" stopColor="transparent" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <rect width={svgW} height={svgH} fill={`url(#bg-${level.id})`} rx="8" />
-      {edges.map((edge, i) => {
-        const from = getNodeCenter(edge.from, nodes)
-        const to = getNodeCenter(edge.to, nodes)
-        const dx = to.x - from.x, dy = to.y - from.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        const fromR = nodeRadius(nodes.find((n) => n.id === edge.from)?.type)
-        const toR = nodeRadius(nodes.find((n) => n.id === edge.to)?.type)
-        const startX = from.x + (dx / dist) * fromR, startY = from.y + (dy / dist) * fromR
-        const endX = to.x - (dx / dist) * (toR + 4), endY = to.y - (dy / dist) * (toR + 4)
-        const cpx = (startX + endX) / 2 + (edge.dashed ? (dy > 0 ? -30 : 30) : 0)
-        const cpy = (startY + endY) / 2 + (edge.dashed ? (dx > 0 ? -20 : 20) : 0)
-        return (
-          <g key={i}>
-            <path d={`M ${startX} ${startY} Q ${cpx} ${cpy} ${endX} ${endY}`} stroke={color} strokeWidth="1" strokeDasharray="2,4" strokeLinecap="round" fill="none" opacity="0.7" />
-            <circle r="3" fill={edge.dashed ? accent : color} opacity="0.9">
-              <animateMotion dur={`${1.5 + i * 0.3}s`} repeatCount="indefinite" path={`M ${startX} ${startY} Q ${cpx} ${cpy} ${endX} ${endY}`} />
-            </circle>
-          </g>
-        )
-      })}
-      {loops.map((loop, i) => (
-        <g key={i}>
-          <path d={`M ${loop.x + loop.r} ${loop.y} C ${loop.x + loop.r * 2.5} ${loop.y - loop.r * 2}, ${loop.x - loop.r * 1.5} ${loop.y - loop.r * 2}, ${loop.x - loop.r} ${loop.y}`} stroke={color} strokeWidth="1" strokeDasharray="2,4" strokeLinecap="round" fill="none" opacity="0.7" />
-        </g>
-      ))}
-      {nodes.map((node) => {
-        const r = nodeRadius(node.type)
-        return (
-          <g key={node.id}>
-            {node.type === 'orchestrator' ? (
-              <rect x={node.x - r} y={node.y - r * 0.7} width={r * 2} height={r * 1.4} rx="5" fill="#121212" stroke={color} strokeWidth="1" />
-            ) : (
-              <circle cx={node.x} cy={node.y} r={r} fill="#121212" stroke={color} strokeWidth="1" />
-            )}
-          </g>
-        )
-      })}
-    </svg>
-  )
-}
-
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -250,79 +97,60 @@ function FaqItem({ question, answer, index }) {
   )
 }
 
-function CourseScreenshot({ level }) {
+function CourseAccordionItem({ course, defaultOpen }) {
+  const [open, setOpen] = useState(defaultOpen)
   return (
-    <div className="course-screenshot">
-      <WorkflowDiagram level={level} />
-    </div>
-  )
-}
-
-function CourseSection({ id, num, type, title, tagline, tags, sessions, cohorts, reversed, levelIndex }) {
-  const [expanded, setExpanded] = useState(false)
-  return (
-    <section className="course-section" id={id}>
-      <div className="container">
-        <div className={`course-layout${reversed ? ' reversed' : ''}`}>
-          <div className="course-content">
-            <div className="course-label">
-              <span>LEVEL</span>
-              <span className="num">{num}</span>
-            </div>
-            <h2>{title}</h2>
-            <p className="course-tagline">{tagline}</p>
-            <div className="course-audience">
-              {tags.map((tag, i) => (
-                <span className="tag" key={i}>{tag}</span>
-              ))}
-            </div>
-            <div className={`course-sessions${expanded ? ' expanded' : ''}`}>
-              <div className="course-sessions-label">Curriculum</div>
-              <div className="course-sessions-inner">
-                {sessions.map((session, i) => (
-                  <div className="course-session" key={i}>
-                    <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
-                    <div className="course-session-text">
-                      <span className="course-session-title">{session.title}</span>
-                      <span className="course-session-sub">{session.sub}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {!expanded ? (
-                <div className="course-sessions-fade" onClick={() => setExpanded(true)}>
-                  <span className="course-sessions-toggle">Show all sessions</span>
-                </div>
-              ) : (
-                <div className="course-sessions-collapse" onClick={() => setExpanded(false)}>
-                  <span className="course-sessions-toggle">Show less</span>
-                </div>
-              )}
-            </div>
-            <div className="course-cta-group">
-              <div className="cohort-row cohort-next">
-                <div className="cohort-cal">
-                  <span className="cohort-cal-month">{cohorts[0].month}</span>
-                  <span className="cohort-cal-day">{cohorts[0].day}</span>
-                </div>
-                <div className="cohort-info">
-                  <span className="cohort-date">Starting {cohorts[0].date}</span>
-                  <span className="cohort-label">$999</span>
-                </div>
-                <a href="#" className="btn btn-primary">
-                  Enroll
-                  <span className="arrow">&rarr;</span>
-                </a>
-              </div>
-              {cohorts.length > 1 && (
-                <span className="cohort-upcoming">Also runs {cohorts.slice(1).map(c => c.date).join(' & ')}</span>
-              )}
-            </div>
-          </div>
-          <CourseScreenshot level={LEVELS[levelIndex]} />
+    <div className={`accordion-item${open ? ' open' : ''}`}>
+      <div className="accordion-header" onClick={() => setOpen(!open)}>
+        <div className="accordion-header-left">
+          <span className="accordion-level">LEVEL {course.num}</span>
+          <h3 className="accordion-title">{course.title}</h3>
+          <p className="accordion-tagline">{course.tagline.split('.')[0]}.</p>
+        </div>
+        <div className="accordion-header-right">
+          <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)" target="_blank" rel="noopener noreferrer" className="accordion-enroll-link" onClick={(e) => e.stopPropagation()}>Enroll &rarr;</a>
+          <ChevronIcon />
         </div>
       </div>
-    </section>
+      <div className="accordion-body">
+        <div className="accordion-sessions">
+          <div className="course-sessions-label">Curriculum</div>
+          {course.sessions.map((session, i) => (
+            <div className="course-session" key={i}>
+              <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
+              <div className="course-session-text">
+                <span className="course-session-title">{session.title}</span>
+                <span className="course-session-sub">{session.sub}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="accordion-meta">
+          <div className="accordion-meta-row">
+            <span className="accordion-meta-label">Schedule</span>
+            <span className="accordion-meta-value">Tuesdays & Fridays &middot; 3 Weeks</span>
+          </div>
+          <div className="accordion-meta-row">
+            <span className="accordion-meta-label">Next Cohort</span>
+            <span className="accordion-meta-value">{course.cohorts[0].date}</span>
+          </div>
+          {course.cohorts.length > 1 && (
+            <div className="accordion-meta-row">
+              <span className="accordion-meta-label">Also runs</span>
+              <span className="accordion-meta-value">{course.cohorts.slice(1).map(c => c.date).join(' & ')}</span>
+            </div>
+          )}
+          <div className="accordion-meta-row">
+            <span className="accordion-meta-label">Price</span>
+            <span className="accordion-meta-value accordion-price">{course.price}</span>
+          </div>
+          <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', marginTop: 12 }}>
+            Enroll Now
+            <span className="arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -333,11 +161,7 @@ function App() {
   const [activeSection, setActiveSection] = useState(null)
 
   const navSections = [
-    { id: 'course-1', label: 'Level 01' },
-    { id: 'course-2', label: '02' },
-    { id: 'course-3', label: '03' },
-    { id: 'course-4', label: '04' },
-    { id: 'course-5', label: '05' },
+    { id: 'course-accordion', label: 'Program Overview' },
     { id: 'enterprise', label: 'For Teams' },
   ]
 
@@ -400,6 +224,7 @@ function App() {
         { month: 'JUN', day: '16', date: 'June 16' },
       ],
       levelIndex: 0,
+      price: '$999',
       reversed: false,
     },
     {
@@ -420,6 +245,7 @@ function App() {
         { month: 'MAY', day: '19', date: 'May 19' },
       ],
       levelIndex: 1,
+      price: '$999',
       reversed: true,
     },
     {
@@ -439,6 +265,7 @@ function App() {
         { month: 'MAY', day: '19', date: 'May 19' },
       ],
       levelIndex: 2,
+      price: '$999',
       reversed: false,
     },
     {
@@ -458,6 +285,7 @@ function App() {
         { month: 'JUN', day: '16', date: 'June 16' },
       ],
       levelIndex: 3,
+      price: '$999',
       reversed: true,
     },
     {
@@ -477,6 +305,7 @@ function App() {
         { month: 'JUL', day: '14', date: 'July 14' },
       ],
       levelIndex: 4,
+      price: '$999',
       reversed: false,
     },
   ]
@@ -508,27 +337,9 @@ function App() {
     },
   ]
 
-  const testimonials = [
-    {
-      headline: 'I automated 6 hours of weekly reporting in the first week.',
-      quote: 'My manager asked how I did it. The automation module alone paid for the entire course. I went from copying data between spreadsheets to having AI handle the entire pipeline while I focus on analysis.',
-      initials: 'SK', name: 'Sarah K.', role: 'Operations Lead',
-    },
-    {
-      headline: "This wasn't another 'intro to ChatGPT' course.",
-      quote: 'I built real systems I still use every day. The agentic workflows module changed how I think about product development entirely. We shipped a feature in 2 days that would have taken 2 weeks before.',
-      initials: 'MT', name: 'Marcus T.', role: 'Product Manager',
-    },
-    {
-      headline: 'Zero to agentic workflows in production within a month.',
-      quote: 'Our team went from no AI adoption to running agentic workflows in production. The systems design course gave us the architecture to do it right. Best investment our engineering org made this year.',
-      initials: 'RL', name: 'Rachel L.', role: 'Director of Engineering',
-    },
-  ]
-
   const trackItems = [
-    { num: '01', name: 'Learn Foundations', tagline: "Understand what's possible with AI and start using it today.", href: '#course-1', seats: 12, thumb: 'Image-1.png' },
-    { num: '02', name: 'Intelligent Automation', tagline: 'Make AI work for you. Automate the tasks eating your week.', href: '#course-2', seats: 12, thumb: 'Image-2.png' },
+    { num: '01', name: 'Learn Foundations', tagline: "Understand what's possible with AI and start using it today.", href: '#course-1', thumb: 'Image-1.png' },
+    { num: '02', name: 'Intelligent Automation', tagline: 'Make AI work for you. Automate the tasks eating your week.', href: '#course-2', thumb: 'Image-2.png' },
     { num: '03', name: 'Agentic Workflows', tagline: 'Build AI agents that plan, decide, and execute without babysitting.', href: '#course-3', thumb: 'Image-3.png' },
     { num: '04', name: 'AI Systems Design', tagline: 'Design AI-powered systems that scale across your org.', href: '#course-4', thumb: 'Image-4.png' },
     { num: '05', name: 'Advanced AI Architecture', tagline: 'Orchestrate multi-agent systems and enterprise-grade AI infrastructure.', href: '#course-5', thumb: 'Image-5.png' },
@@ -600,20 +411,10 @@ function App() {
             RECORDED
           </div>
 
-          <div className="hero-cta-row">
-            <a
-              href="https://joinleland.typeform.com/to/tjyc1wni"
-              className="btn btn-primary btn-lg"
-              style={{ textTransform: 'uppercase' }}
-            >
-              Get started
-              <span className="arrow">&rarr;</span>
-            </a>
-          </div>
-
           <div className="track-cards">
-            {trackItems.map((item) => (
-              <div className="track-card" key={item.num} onClick={() => document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' })}>
+            {trackItems.map((item, idx) => (
+              <div className={`track-card${idx === 0 ? ' track-card-featured' : ''}`} key={item.num} onClick={() => document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' })}>
+                {idx === 0 && <div className="track-card-start-badge">START HERE</div>}
                 <div className="track-card-body">
                   <img
                     src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
@@ -631,6 +432,18 @@ function App() {
                     <span className="track-tag">6 Sessions</span>
                     {item.seats && <span className="track-tag track-tag-accent">{item.seats} Seats Left!</span>}
                   </div>
+                  {idx === 0 && (
+                    <a
+                      href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary btn-sm track-card-enroll"
+                      style={{ textTransform: 'uppercase' }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Enroll Now <span className="arrow">&rarr;</span>
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -668,10 +481,18 @@ function App() {
         </div>
       </section>
 
-      {/* Course Sections */}
-      {courses.map((course) => (
-        <CourseSection key={course.id} {...course} />
-      ))}
+      {/* The 5-Course Program — Collapsible Accordion */}
+      <section className="accordion-section" id="course-accordion">
+        <div className="container">
+          <h2 className="accordion-section-headline">The 5-Course Program</h2>
+          <p className="accordion-section-sub">Each course builds on the last. We recommend starting with Level 01 to build a strong foundation, but you can jump in wherever fits your experience.</p>
+          <div className="accordion-list">
+            {courses.map((course, i) => (
+              <CourseAccordionItem key={course.id} course={course} defaultOpen={i === 0} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Enterprise Section */}
       <section className="enterprise" id="enterprise">
@@ -858,7 +679,7 @@ function App() {
           <h2>Start building with AI.</h2>
           <p>The next cohort begins April 21. Spots are limited.</p>
           <div className="cta-row">
-            <a href="#courses" className="btn btn-primary btn-lg">
+            <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
               Enroll Now
               <span className="arrow">&rarr;</span>
             </a>
