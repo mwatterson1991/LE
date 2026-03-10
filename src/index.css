@@ -269,7 +269,7 @@ nav .btn {
 
 /* --- Hero --- */
 .hero {
-  padding: 300px 0 80px;
+  padding: 180px 0 80px;
   position: relative;
   overflow: hidden;
   background: var(--bg);
@@ -372,6 +372,7 @@ nav .btn {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 12px;
+  padding-top: 28px;
   scrollbar-width: none;
 }
 .track-cards::-webkit-scrollbar { display: none; }
@@ -382,6 +383,29 @@ nav .btn {
   background: var(--bg);
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s, opacity 0.3s ease;
+  position: relative;
+}
+.track-card-featured {
+  border-color: var(--accent);
+  border-width: 2px;
+}
+.track-card-start-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #000;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 4px 14px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.track-card-enroll {
+  margin-top: auto;
+  align-self: flex-start;
 }
 .track-cards:hover .track-card {
   opacity: 0.4;
@@ -557,6 +581,145 @@ nav .btn {
   border: 1px solid var(--border);
   text-transform: uppercase;
 }
+/* --- Course Accordion Section --- */
+.accordion-section {
+  padding: 80px 0;
+  background: var(--bg);
+}
+.accordion-section-headline {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+.accordion-section-sub {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+}
+.accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.accordion-item {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.accordion-item.open {
+  border-color: rgba(165,228,70,0.3);
+}
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  cursor: pointer;
+  gap: 24px;
+  transition: background 0.15s;
+}
+.accordion-header:hover {
+  background: rgba(255,255,255,0.02);
+}
+.accordion-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+.accordion-level {
+  font-family: var(--font-meta);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.accordion-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.accordion-tagline {
+  font-size: 15px;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+  margin: 0;
+}
+.accordion-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.accordion-enroll-link {
+  font-family: var(--font-meta);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.accordion-enroll-link:hover {
+  opacity: 0.8;
+}
+.accordion-body {
+  display: none;
+  padding: 0 28px 28px;
+}
+.accordion-item.open .accordion-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+}
+.accordion-item.open .faq-chevron {
+  transform: rotate(180deg);
+}
+.accordion-sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.accordion-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  align-self: start;
+}
+.accordion-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.accordion-meta-label {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.accordion-meta-value {
+  font-family: var(--font-meta);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+.accordion-price {
+  color: var(--accent) !important;
+  font-size: 24px !important;
+}
+
 .course-sessions {
   position: relative;
   margin-bottom: 28px;
@@ -1373,9 +1536,11 @@ footer a:hover {
     grid-template-columns: none;
     display: flex;
     overflow-x: auto;
+    overflow-y: visible;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
     gap: 10px;
+    padding-top: 28px;
     padding-bottom: 8px;
     margin: 0 -16px;
     padding-left: 16px;
@@ -1411,6 +1576,22 @@ footer a:hover {
   .review-hero-headline { font-size: 24px; }
   .review-hero-quote { font-size: 15px; margin-bottom: 16px; }
   .review-hero-author { font-size: 11px; }
+
+  /* Accordion */
+  .accordion-section { padding: 48px 0; }
+  .accordion-section-headline { font-size: 24px; }
+  .accordion-section-sub { font-size: 15px; margin-bottom: 24px; }
+  .accordion-header { padding: 18px 20px; gap: 12px; }
+  .accordion-title { font-size: 18px; }
+  .accordion-tagline { font-size: 13px; }
+  .accordion-enroll-link { font-size: 11px; }
+  .accordion-body { padding: 0 20px 20px; }
+  .accordion-item.open .accordion-body {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .accordion-sessions { gap: 6px; }
+  .accordion-meta { padding: 18px; }
 
   /* Course sections */
   .course-section { padding: 48px 0; }
