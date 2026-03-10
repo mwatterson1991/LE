@@ -355,11 +355,13 @@ function App() {
           </a>
           <div className={`nav-default${scrolled ? ' hidden' : ''}`}>
             <a
-              href="https://joinleland.typeform.com/to/tjyc1wni"
-              className="btn btn-secondary btn-sm"
+              href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-sm"
               style={{ textTransform: 'uppercase', borderRadius: '4px', fontSize: '12px' }}
             >
-              Get a recommendation
+              Enroll Now
             </a>
           </div>
           <div className={`nav-tabs${scrolled ? '' : ' hidden'}`}>
@@ -376,6 +378,14 @@ function App() {
                 {s.label}
               </a>
             ))}
+            <a
+              href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-sm nav-enroll-btn"
+            >
+              ENROLL NOW
+            </a>
           </div>
         </div>
       </nav>
@@ -448,6 +458,10 @@ function App() {
               </div>
             ))}
           </div>
+
+          <p className="track-cards-quiz">
+            Not sure which level to start with? <a href="https://joinleland.typeform.com/to/tjyc1wni" target="_blank" rel="noopener noreferrer">Take this quiz</a> to get your best fit recommendation.
+          </p>
 
           <div className="logo-ticker">
             <span className="logo-ticker-label">Taught by experts from places like:</span>

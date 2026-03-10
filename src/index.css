@@ -266,6 +266,11 @@ nav .btn {
   color: var(--accent);
   background: rgba(165,228,70,0.10);
 }
+.nav-enroll-btn {
+  margin-left: 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
 
 /* --- Hero --- */
 .hero {
@@ -406,6 +411,21 @@ nav .btn {
 .track-card-enroll {
   margin-top: auto;
   align-self: flex-start;
+}
+.track-cards-quiz {
+  margin-top: 20px;
+  font-size: 15px;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+.track-cards-quiz a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.15s;
+}
+.track-cards-quiz a:hover {
+  opacity: 0.8;
 }
 .track-cards:hover .track-card {
   opacity: 0.4;
