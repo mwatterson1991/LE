@@ -372,6 +372,7 @@ nav .btn {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 12px;
+  padding-top: 28px;
   scrollbar-width: none;
 }
 .track-cards::-webkit-scrollbar { display: none; }
@@ -1535,9 +1536,11 @@ footer a:hover {
     grid-template-columns: none;
     display: flex;
     overflow-x: auto;
+    overflow-y: visible;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
     gap: 10px;
+    padding-top: 28px;
     padding-bottom: 8px;
     margin: 0 -16px;
     padding-left: 16px;

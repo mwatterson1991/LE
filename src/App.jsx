@@ -394,9 +394,9 @@ function App() {
         <div className="container">
           <Countdown />
 
-          <h1>AI Mastery Program</h1>
+          <h1>AI is here.<br />Don't get left behind.</h1>
 
-          <p className="hero-sub">Our five-course series is designed to help any knowledge worker 100x their output with an AI-first approach.</p>
+          <p className="hero-sub">Leland's AI Mastery Program helps you build the skills, tools, and workflows to 100x your output with an AI-first approach.</p>
 
           <div className="proof-bar" id="courses">
             <StarRow />
