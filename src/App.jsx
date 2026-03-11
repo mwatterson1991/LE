@@ -115,7 +115,6 @@ function CourseAccordionItem({ course, defaultOpen }) {
           <p className="accordion-tagline">{course.tagline.split('.')[0]}.</p>
         </div>
         <div className="accordion-header-right">
-          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="accordion-enroll-link" onClick={(e) => e.stopPropagation()}>Enroll &rarr;</a>
           <ChevronIcon />
         </div>
       </div>
@@ -137,25 +136,25 @@ function CourseAccordionItem({ course, defaultOpen }) {
             <span className="accordion-meta-label">Schedule</span>
             <span className="accordion-meta-value">Tuesdays & Fridays &middot; 3 Weeks</span>
           </div>
+          <hr className="accordion-meta-divider" />
           <div className="accordion-meta-row">
             <span className="accordion-meta-label">Next Cohort</span>
             <span className="accordion-meta-value">{course.cohorts[0].date}</span>
           </div>
           {course.cohorts.length > 1 && (
             <div className="accordion-meta-row">
-              <span className="accordion-meta-label">Also runs</span>
-              <span className="accordion-meta-value">{course.cohorts.slice(1).map(c => c.date).join(' & ')}</span>
+              <span className="accordion-meta-label">Also runs {course.cohorts.slice(1).map(c => c.date).join(' & ')}</span>
             </div>
           )}
-          <div className="accordion-meta-row">
-            <span className="accordion-meta-label">Price</span>
-            <span className="accordion-meta-value accordion-price">{course.price}</span>
-          </div>
-          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', marginTop: 12 }}>
+          <span className="accordion-price">{course.price}</span>
+          <a href={course.enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase' }}>
             Enroll Now
             <span className="arrow">&rarr;</span>
           </a>
-          <a href="#course-accordion" className="accordion-learn-more" onClick={(e) => { e.preventDefault(); }}>Learn More</a>
+          <a href={course.learnMoreUrl} target="_blank" rel="noopener noreferrer" className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }}>
+            Learn More
+            <span className="arrow">&rarr;</span>
+          </a>
         </div>
       </div>
     </div>
@@ -172,37 +171,17 @@ function IcebergVisualization() {
   ]
 
   return (
-    <div className="iceberg">
-      <div className="iceberg-visual">
-        <div className="iceberg-above">
-          <span className="iceberg-above-desc">In our 5-course mastery program, each course builds on the last.</span>
-          <span className="iceberg-above-recommend">We recommend starting with Level 1 to build a strong foundation</span>
+    <div className="iceberg-levels">
+      {levels.map((level, i) => (
+        <div
+          key={i}
+          className={`iceberg-level${i === 0 ? ' iceberg-level-active' : ''}`}
+          style={{ width: `${level.width}%` }}
+        >
+          <span className="iceberg-level-num">Level {i + 1}</span>
+          <span className="iceberg-level-name">{level.label}</span>
         </div>
-        <div className="iceberg-chatgpt-row">
-          <span className="iceberg-chatgpt-label">What most people know</span>
-          <div className="iceberg-tip">
-            <span className="iceberg-tip-label">ChatGPT</span>
-          </div>
-        </div>
-        <div className="iceberg-waterline"></div>
-        <div className="iceberg-below">
-          <div className="iceberg-below-sidebar">
-            <span className="iceberg-below-sidebar-text">What we teach</span>
-          </div>
-          <div className="iceberg-levels">
-            {levels.map((level, i) => (
-              <div
-                key={i}
-                className={`iceberg-level${i === 0 ? ' iceberg-level-active' : ''}`}
-                style={{ width: `${level.width}%` }}
-              >
-                <span className="iceberg-level-num">Level {i + 1}</span>
-                <span className="iceberg-level-name">{level.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   )
 }
@@ -352,7 +331,6 @@ function DiscountPopup() {
 
 function RotatingText({ items, interval = 2500 }) {
   const [index, setIndex] = useState(0)
-  const [animating, setAnimating] = useState(false)
   const [minHeight, setMinHeight] = useState(0)
   const measureRef = useRef(null)
 
@@ -364,12 +342,17 @@ function RotatingText({ items, interval = 2500 }) {
     setMinHeight(max)
   }, [items])
 
+  const [phase, setPhase] = useState('idle') // idle | out | in
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setAnimating(true)
+      setPhase('out')
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % items.length)
-        setAnimating(false)
+        setPhase('in')
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => setPhase('idle'))
+        })
       }, 400)
     }, interval)
     return () => clearInterval(timer)
@@ -382,7 +365,7 @@ function RotatingText({ items, interval = 2500 }) {
           <span key={i} className="rotating-text rotating-text-measure" style={{ display: 'inline-block' }}>{item}</span>
         ))}
       </span>
-      <span className={`rotating-text${animating ? ' rotating-out' : ''}`} style={{ minHeight: minHeight || undefined }}>
+      <span className={`rotating-text${phase === 'out' ? ' rotating-out' : phase === 'in' ? ' rotating-in' : ''}`} style={{ minHeight: minHeight || undefined }}>
         {items[index]}
       </span>
     </>
@@ -456,6 +439,8 @@ function App() {
       levelIndex: 0,
       price: '$999',
       reversed: false,
+      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-build-foundations',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)',
     },
     {
       id: 'course-2', num: '02', type: 'BOOTCAMP',
@@ -479,6 +464,8 @@ function App() {
       levelIndex: 1,
       price: '$999',
       reversed: true,
+      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-intelligent-automation',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)',
     },
     {
       id: 'course-3', num: '03', type: 'LIVE COURSE',
@@ -501,6 +488,8 @@ function App() {
       levelIndex: 2,
       price: '$999',
       reversed: false,
+      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-agentic-workflows',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)',
     },
     {
       id: 'course-4', num: '04', type: 'BOOTCAMP',
@@ -522,6 +511,8 @@ function App() {
       levelIndex: 3,
       price: '$999',
       reversed: true,
+      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-ai-systems-design',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)',
     },
     {
       id: 'course-5', num: '05', type: 'LIVE COURSE',
@@ -542,6 +533,8 @@ function App() {
       levelIndex: 4,
       price: '$999',
       reversed: false,
+      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-advanced-ai-architecture',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69b19cc2f61c38f9e9bc9066)',
     },
   ]
 
@@ -609,12 +602,12 @@ function App() {
   ]
 
   const toolPills = [
-    { name: 'OpenAI', logo: 'openai.png' },
-    { name: 'Claude', logo: 'anthropic.png' },
-    { name: 'Gemini', logo: 'google.png' },
-    { name: 'Perplexity', logo: 'perplexity.png' },
-    { name: 'Cursor', logo: 'cursor.png' },
-    { name: 'n8n', logo: 'n8n.svg' },
+    { name: 'ChatGPT', logo: 'new-ChatGPT-icon-white-png-large-size.png', size: 42 },
+    { name: 'Claude', logo: 'claude-ai.png' },
+    { name: 'Gemini', logo: 'gemini-ai.png' },
+    { name: 'Perplexity', logo: 'perlexity.png', size: 56 },
+    { name: 'Cursor', logo: 'cursor-1.png', size: 42 },
+    { name: 'n8n', logo: '682c6141f8ac4babe589ee0d_n8n_white_new.png', size: 84 },
   ]
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
@@ -654,14 +647,14 @@ function App() {
             borderColor="#1a1a1a"
             hoverFillColor="#111111"
             squareSize={40}
-            speed={0.5}
+            speed={0.4}
           />
         </div>
         <div className="hero-image-bg"></div>
         <div className="container">
           <Countdown />
 
-          <h1>Master AI to <RotatingText items={['advance your career', 'reach your audience', 'build new products', 'grow your business', 'automate manual work', '100x your impact', 'scale your mind']} interval={1250} /></h1>
+          <h1>Master AI to <br className="mobile-br" /><RotatingText items={['advance your career', 'reach your audience', 'build new products', 'grow your business', 'automate manual work', '100x your impact', 'scale your mind']} interval={2500} /></h1>
 
           <p className="hero-sub">Leland's AI Mastery Program helps you build tools that 100x your impact, so you have more time and leverage to pursue what you love.</p>
 
@@ -683,10 +676,10 @@ function App() {
           </div>
 
           <div className="track-cards-section" id="courses">
+            <div className="track-card-start-bar">Start Here</div>
             <div className="track-cards">
               {trackItems.map((item, idx) => (
-                <div className={`track-card${idx === 0 ? ' track-card-featured' : ''}`} key={item.num} onClick={() => document.getElementById('course-accordion')?.scrollIntoView({ behavior: 'smooth' })}>
-                  {idx === 0 && <div className="track-card-start-badge">START HERE</div>}
+                <div className={`track-card${idx === 0 ? ' track-card-featured' : ''}`} key={item.num} {...(idx === 0 ? { onClick: () => document.getElementById('course-accordion')?.scrollIntoView({ behavior: 'smooth' }) } : {})}>
                   <div className="track-card-body">
                     <img
                       src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
@@ -729,41 +722,36 @@ function App() {
       {/* ====== 3. "Why This Course" ====== */}
       <section className="why-section" id="about">
         <div className="container">
-          <h2 className="why-headline">Build an AI foundation for your work in 3 weeks</h2>
-          <div className="why-tools">
-            <p className="why-tools-label">Learn how to use all the best tools, including:</p>
-            <div className="why-pills">
-              {toolPills.map(tool => (
-                <span className="why-pill" key={tool.name}>
-                  {tool.logo && <img src={`${import.meta.env.BASE_URL}assets/logos/tools/${tool.logo}`} alt={tool.name} className="why-pill-logo" />}
-                  {tool.name}
-                </span>
-              ))}
+          <div className="why-grid">
+            <div className="why-left">
+              <h2 className="why-headline">Build an AI foundation for your work in 3 weeks</h2>
+              <p className="why-skills-label">Updated weekly, so you're always learning at the frontier of AI. We'll teach you best practices for AI in:</p>
+              <div className="why-pills why-pills-skills">
+                {skillPills.map(skill => (
+                  <span className="why-pill why-pill-skill" key={skill}>{skill}</span>
+                ))}
+              </div>
             </div>
-          </div>
-          <p className="why-updated">Updated weekly, so you're always learning at the frontier of AI</p>
-          <div className="why-skills">
-            <p className="why-skills-label">We'll teach you best practices for AI in...</p>
-            <div className="why-pills why-pills-skills">
-              {skillPills.map(skill => (
-                <span className="why-pill why-pill-skill" key={skill}>{skill}</span>
-              ))}
+            <div className="why-right">
+              <p className="why-tools-label">Learn how to use all the best tools</p>
+              <div className="why-tools-grid">
+                {toolPills.map(tool => (
+                  <div className="why-tool" key={tool.name}>
+                    {tool.logo && <img src={`${import.meta.env.BASE_URL}assets/logos/tools/${tool.logo}`} alt={tool.name} className="why-tool-logo" style={tool.size ? { width: tool.size, height: tool.size } : undefined} />}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ====== VP1 — after Why This Course ====== */}
-      <section className="value-props-section">
+      <section className="value-props-section value-props-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(${import.meta.env.BASE_URL}assets/review-bg.png)` }}>
         <div className="container">
-          <div className="value-prop-row">
-            <div className="value-prop-text">
-              <h2>Become the AI expert your team turns to</h2>
-              <p>Earn a credential and build skills your boss and colleagues will notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
-            </div>
-            <div className="value-prop-image">
-              <img src={`${import.meta.env.BASE_URL}assets/images/value-prop-1.jpg`} alt="Professionals collaborating" />
-            </div>
+          <div className="value-prop-text">
+            <h2>Become the AI expert your team turns to</h2>
+            <p>Earn a credential and build skills your boss and colleagues will notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
           </div>
         </div>
       </section>
@@ -771,42 +759,36 @@ function App() {
       {/* ====== 4. Testimonials — Consolidated 6 + Leland social proof ====== */}
       <section className="testimonials-new" id="testimonials">
         <div className="container">
-          <h2 className="testimonials-headline">Proven to transform how you work</h2>
-          <div className="social-proof-bar">
-            <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="social-proof-logo" />
-            <div className="social-proof-stats">
-              <span className="social-proof-stat">30,000+ five-star reviews</span>
-              <span className="social-proof-stat">A community of 200,000+ ambitious people advancing their careers</span>
-            </div>
+          <div className="testimonials-stars-lg">
+            {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
           </div>
+          <div className="testimonials-review-count">
+            <span className="testimonials-review-number">30,000+ reviews</span>
+            <span className="testimonials-review-community">in the Leland community</span>
+          </div>
+          <h2 className="testimonials-headline">Proven to transform how you work</h2>
           <div className="testimonials-grid testimonials-grid-6">
             <div className="testimonial-card">
-              <StarRow />
               <p className="testimonial-quote">&ldquo;This course changed my workflow completely. I went from spending hours on repetitive tasks to having AI handle them in minutes. My team keeps asking how I'm getting so much done.&rdquo;</p>
               <span className="testimonial-author">Angela S.</span>
             </div>
             <div className="testimonial-card">
-              <StarRow />
               <p className="testimonial-quote">&ldquo;I was skeptical that a 3-week course could actually change how I work. By session two, I had already built an automation that saved me 3 hours a week. By the end, I had five.&rdquo;</p>
               <span className="testimonial-author">Hannah P.</span>
             </div>
             <div className="testimonial-card">
-              <StarRow />
               <p className="testimonial-quote">&ldquo;The hands-on approach is what sets this apart. Every session ended with something I could use at work the next day. Not theory, not slides, actual tools I still use months later.&rdquo;</p>
               <span className="testimonial-author">Tyler G.</span>
             </div>
             <div className="testimonial-card">
-              <StarRow />
               <p className="testimonial-quote">&ldquo;AI used to feel overwhelming and too complicated. This course broke it down in a way that finally made sense. I walked away with real tools I use every day.&rdquo;</p>
               <span className="testimonial-author">Chimerika A.</span>
             </div>
             <div className="testimonial-card">
-              <StarRow />
               <p className="testimonial-quote">&ldquo;You couldn't make this box long enough for me to describe what I got out of this program. The live instruction, the hands-on projects, the community. It completely changed how I work.&rdquo;</p>
               <span className="testimonial-author">Christina G.</span>
             </div>
             <div className="testimonial-card">
-              <StarRow />
               <p className="testimonial-quote">&ldquo;From learning how to prompt, vibe coding an app, to building AI agents, this series took me from curious to competent in weeks. Best investment in my career this year.&rdquo;</p>
               <span className="testimonial-author">Caroline D.</span>
             </div>
@@ -864,16 +846,11 @@ function App() {
       </section>
 
       {/* ====== VP3 — after Save Time ====== */}
-      <section className="value-props-section">
+      <section className="value-props-section value-props-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(${import.meta.env.BASE_URL}assets/images/image2.jpg)` }}>
         <div className="container">
-          <div className="value-prop-row value-prop-row-reversed">
-            <div className="value-prop-text">
-              <h2>Work smarter with reusable skills and workflows</h2>
-              <p>Advance beyond typing questions into ChatGPT by learning to build workflows, automate tasks, and create reusable skills that make AI work the way you want it to.</p>
-            </div>
-            <div className="value-prop-image">
-              <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/lg/woman-remote-work-sunny-home-office.jpg" alt="Working smarter with AI" />
-            </div>
+          <div className="value-prop-text">
+            <h2>Work smarter with reusable skills and workflows</h2>
+            <p>Advance beyond typing questions into ChatGPT by learning to build workflows, automate tasks, and create reusable skills that make AI work the way you want it to.</p>
           </div>
         </div>
       </section>
@@ -904,12 +881,27 @@ function App() {
                 <p>Tuesdays and Fridays, plus weekly office hours</p>
               </div>
             </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              </span>
+              <div>
+                <h3>Best Course Guarantee</h3>
+                <p>If a competitor's course is better, we'll refund you up to the value of that course.</p>
+              </div>
+            </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+              </span>
+              <div>
+                <h3>Retake for 1 Year Guarantee</h3>
+                <p>Curriculum updates as tools change. Retake anytime for a full year.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* ====== 9. Value Stack 2 ====== */}
-      <ValueStack headline="Invest now to get ahead on AI" />
 
       {/* ====== 10. Instructors (REMOVED — commented out) ====== */}
       {/*
@@ -976,57 +968,30 @@ function App() {
       </section>
       */}
 
-      {/* ====== VP2 — before Guarantees ====== */}
-      <section className="value-props-section">
-        <div className="container">
-          <div className="value-prop-row">
-            <div className="value-prop-text">
-              <h2>Each session, build something you'll use at work the next day</h2>
-              <p>Every session ends with a deliverable you can put to work immediately. From automations to data analysis to personalized skills, you'll save hours every week.</p>
-            </div>
-            <div className="value-prop-image">
-              <img src={`${import.meta.env.BASE_URL}assets/images/value-prop-2.jpg`} alt="Building with AI at work" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====== 11. Guarantees ====== */}
-      <section className="guarantees-section">
-        <div className="container">
-          <h2 className="guarantees-headline">Guaranteed to teach you current, valuable skills</h2>
-          <div className="guarantees-grid">
-            <div className="guarantee-card">
-              <svg className="guarantee-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="M9 12l2 2 4-4"/>
-              </svg>
-              <h3>Best Course Guarantee</h3>
-              <p>Complete our course, then take a competitor's course and complete it too. If you think theirs was better, we'll refund you up to the value of that course. We're that confident in the quality.</p>
-            </div>
-            <div className="guarantee-card">
-              <svg className="guarantee-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M23 4v6h-6"/>
-                <path d="M1 20v-6h6"/>
-                <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
-              </svg>
-              <h3>Retake for 1 Year</h3>
-              <p>Retake any course for a full year. Curriculum updates as tools change, so you're always current. It's not just a refresher, it's new content every time.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
       <section className="accordion-section" id="course-accordion">
         <div className="container">
-          <h2 className="accordion-section-headline">A program to fundamentally change the way you work</h2>
-          <p className="accordion-section-sub">Build a foundation with Level 1 and progress to building systems that run without you</p>
-          <IcebergVisualization />
+          <div className="accordion-section-header">
+            <div className="accordion-section-header-text">
+              <h2 className="accordion-section-headline">A program to fundamentally change the way you work</h2>
+              <p className="accordion-section-sub">In our 5-course mastery program, each course builds on the last. We recommend starting with Level 1 to build a strong foundation.</p>
+            </div>
+            <IcebergVisualization />
+          </div>
           <div className="accordion-list" style={{ marginTop: 48 }}>
             {courses.map((course, i) => (
               <CourseAccordionItem key={course.id} course={course} defaultOpen={i === 0} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ====== VP2 — before Certification ====== */}
+      <section className="value-props-section value-props-bg" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/value-prop-2.jpg)` }}>
+        <div className="container">
+          <div className="value-prop-text">
+            <h2>Each session, build something you'll use at work the next day</h2>
+            <p>Every session ends with a deliverable you can put to work immediately. From automations to data analysis to personalized skills, you'll save hours every week.</p>
           </div>
         </div>
       </section>
@@ -1170,14 +1135,9 @@ function App() {
       <section className="advisor-section">
         <div className="container">
           <div className="advisor-card">
-            <img
-              src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/md/man-video-call-home-office.jpg"
-              alt="Talk to an advisor"
-              className="advisor-photo"
-            />
             <h2>Not sure which course is right for you?</h2>
             <p>Book a free call with an advisor to find the right fit.</p>
-            <a href="https://joinleland.typeform.com/to/a4DMXJjV#" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
+            <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
               Schedule a Call
               <span className="arrow">&rarr;</span>
             </a>
