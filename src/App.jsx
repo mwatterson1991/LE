@@ -199,7 +199,7 @@ function ValueStack({ id, headline }) {
             </div>
             <div className="value-stack-item">
               <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">5+ hands-on deliverables (AI Opportunity Map, Context Templates, Collaboration Protocol, working AI-powered workflow, system blueprints)</span>
+              <span className="value-stack-label">6+ hands-on deliverables you can use in your work</span>
             </div>
             <div className="value-stack-item">
               <span className="value-stack-check">&#10003;</span>
@@ -433,8 +433,6 @@ function App() {
         { month: 'APR', day: '21', date: 'April 21' },
         { month: 'MAY', day: '19', date: 'May 19' },
         { month: 'JUN', day: '16', date: 'June 16' },
-        { month: 'JUL', day: '14', date: 'July 14' },
-        { month: 'AUG', day: '11', date: 'August 11' },
       ],
       levelIndex: 0,
       price: '$999',
@@ -456,16 +454,15 @@ function App() {
         { title: 'Ship Your Operating Stack', sub: 'Connect your automations into a coherent system where inputs flow and exceptions surface.' },
       ],
       cohorts: [
+        { month: 'APR', day: '21', date: 'April 21' },
         { month: 'MAY', day: '19', date: 'May 19' },
         { month: 'JUN', day: '16', date: 'June 16' },
-        { month: 'JUL', day: '14', date: 'July 14' },
-        { month: 'AUG', day: '11', date: 'August 11' },
       ],
       levelIndex: 1,
       price: '$999',
       reversed: true,
       learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-intelligent-automation',
-      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)',
     },
     {
       id: 'course-3', num: '03', type: 'LIVE COURSE',
@@ -481,15 +478,15 @@ function App() {
         { title: 'Build Your Full Agent Pipeline', sub: 'Chain agents into one pipeline that researches, personalizes, logs, and follows up.' },
       ],
       cohorts: [
+        { month: 'MAY', day: '19', date: 'May 19' },
         { month: 'JUN', day: '16', date: 'June 16' },
         { month: 'JUL', day: '14', date: 'July 14' },
-        { month: 'AUG', day: '11', date: 'August 11' },
       ],
       levelIndex: 2,
       price: '$999',
       reversed: false,
       learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-agentic-workflows',
-      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)',
     },
     {
       id: 'course-4', num: '04', type: 'BOOTCAMP',
@@ -507,6 +504,7 @@ function App() {
       cohorts: [
         { month: 'JUL', day: '14', date: 'July 14' },
         { month: 'AUG', day: '11', date: 'August 11' },
+        { month: 'SEP', day: '8', date: 'September 8' },
       ],
       levelIndex: 3,
       price: '$999',
@@ -529,6 +527,8 @@ function App() {
       ],
       cohorts: [
         { month: 'AUG', day: '11', date: 'August 11' },
+        { month: 'SEP', day: '8', date: 'September 8' },
+        { month: 'OCT', day: '6', date: 'October 6' },
       ],
       levelIndex: 4,
       price: '$999',
@@ -897,6 +897,15 @@ function App() {
               <div>
                 <h3>Retake for 1 Year Guarantee</h3>
                 <p>Curriculum updates as tools change. Retake anytime for a full year.</p>
+              </div>
+            </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </span>
+              <div>
+                <h3>Access to Leland's exclusive AI community</h3>
+                <p>Get daily AI news, tips to improve your workflow, and perspectives from peers in the AI Mastery Program</p>
               </div>
             </div>
           </div>
