@@ -29,6 +29,7 @@ const LelandIcon = ({ name }) => (
 )
 
 function Countdown() {
+  console.log('Countdown')
   const [time, setTime] = useState({ d: '--', h: '--', m: '--', s: '--' })
   const [started, setStarted] = useState(false)
 
