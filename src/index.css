@@ -324,8 +324,9 @@ nav .btn {
 .track-card-start-badge {
   position: absolute;
   top: -13px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 12px;
+  left: auto;
+  transform: none;
   background: var(--accent);
   color: #000;
   font-size: 11px;
@@ -336,7 +337,7 @@ nav .btn {
   white-space: nowrap;
 }
 .track-card-enroll {
-  margin-top: auto;
+  margin-top: 8px;
   align-self: flex-start;
 }
 .track-card-learn-more {
@@ -440,13 +441,13 @@ nav .btn {
 }
 .track-tag {
   font-family: var(--font-meta);
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-secondary);
   border: 1px solid var(--border);
-  padding: 4px 8px;
+  padding: 3px 6px;
 }
 
 /* --- Logo Ticker --- */
@@ -825,22 +826,12 @@ nav .btn {
   grid-template-columns: 1fr 1fr;
   gap: 48px;
   align-items: center;
-  margin-bottom: 80px;
-}
-.value-prop-row:last-child {
-  margin-bottom: 0;
 }
 .value-prop-row-reversed {
   direction: rtl;
 }
 .value-prop-row-reversed > * {
   direction: ltr;
-}
-.value-prop-text .section-label {
-  display: block;
-  font-size: 14px;
-  color: var(--accent);
-  margin-bottom: 12px;
 }
 .value-prop-text h2 {
   font-size: 36px;
@@ -1133,10 +1124,11 @@ nav .btn {
 
 /* --- Iceberg Visualization --- */
 .iceberg {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 48px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  margin: 0 auto;
 }
 .iceberg-visual {
   display: flex;
@@ -1144,36 +1136,54 @@ nav .btn {
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.10);
+  width: 100%;
 }
 .iceberg-above {
   background: rgba(255,255,255,0.04);
-  padding: 20px 24px 16px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
+  text-align: center;
 }
-.iceberg-above-label {
+.iceberg-above-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.iceberg-above-recommend {
   font-family: var(--font-meta);
-  font-size: 10px;
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+.iceberg-chatgpt-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.02);
+}
+.iceberg-chatgpt-label {
+  font-family: var(--font-meta);
+  font-size: 9px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-tertiary);
 }
 .iceberg-tip {
-  width: 40%;
-  padding: 10px 0;
-  text-align: center;
+  padding: 3px 10px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 4px;
 }
 .iceberg-tip-label {
   font-family: var(--font-meta);
-  font-size: 13px;
+  font-size: 9px;
   color: var(--text-tertiary);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 .iceberg-waterline {
   height: 3px;
@@ -1218,17 +1228,14 @@ nav .btn {
 .iceberg-level {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   padding: 14px 20px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 6px;
-  cursor: pointer;
   transition: all 0.2s;
-}
-.iceberg-level:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.15);
+  text-align: center;
 }
 .iceberg-level-active {
   background: rgba(165,228,70,0.10) !important;
@@ -1255,33 +1262,6 @@ nav .btn {
 .iceberg-level-active .iceberg-level-name {
   color: var(--text-primary);
 }
-.iceberg-detail {
-  padding: 32px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  position: sticky;
-  top: 100px;
-}
-.iceberg-detail-level {
-  font-family: var(--font-meta);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: block;
-  margin-bottom: 8px;
-}
-.iceberg-detail-title {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-.iceberg-detail-desc {
-  font-size: 16px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
 
 /* --- Course Accordion Section --- */
 .accordion-section {
@@ -1296,7 +1276,7 @@ nav .btn {
 .accordion-section-sub {
   font-size: 18px;
   color: var(--text-secondary);
-  margin-bottom: 40px;
+  margin-bottom: 16px;
 }
 .accordion-list {
   display: flex;
@@ -1430,7 +1410,7 @@ nav .btn {
   margin-top: 4px;
   display: inline-block;
   transition: color 0.15s;
-  text-align: center;
+  text-align: left;
 }
 .accordion-learn-more:hover {
   color: var(--text-secondary);
@@ -1494,6 +1474,15 @@ nav .btn {
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
+}
+.advisor-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 24px;
+  display: block;
+  border: 2px solid rgba(255,255,255,0.12);
 }
 .advisor-card h2 {
   font-size: 32px;
@@ -1651,6 +1640,33 @@ nav .btn {
   line-height: 1.65;
 }
 
+/* --- Testimonials Headline --- */
+.testimonials-headline {
+  font-size: 36px;
+  margin-bottom: 24px;
+}
+
+/* --- Guarantee Icons --- */
+.guarantee-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+/* --- Footer CTA --- */
+.footer-cta {
+  padding: 60px 0;
+}
+.footer-cta-sub {
+  font-family: var(--font-meta);
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
 /* --- Footer --- */
 footer {
   background: var(--bg);
@@ -1668,36 +1684,6 @@ footer a:hover {
   color: var(--accent);
 }
 
-/* --- Mobile Sticky CTA --- */
-.sticky-cta {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
-  background: var(--bg);
-  padding: 10px 16px;
-  border-top: 1px solid var(--border);
-}
-.sticky-cta .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.sticky-cta .sticky-text {
-  font-family: var(--font-meta);
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  font-weight: 400;
-}
-.sticky-cta .sticky-sub {
-  font-family: var(--font-meta);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-}
 
 /* --- Countdown Timer --- */
 .countdown {
@@ -1971,6 +1957,7 @@ footer a:hover {
   .social-proof-stat { font-size: 11px; }
 
   /* Testimonials */
+  .testimonials-headline { font-size: 24px; }
   .testimonials-new { padding: 48px 0; }
   .testimonials-grid,
   .testimonials-grid-6 { grid-template-columns: 1fr; gap: 12px; }
@@ -2006,7 +1993,6 @@ footer a:hover {
     grid-template-columns: 1fr;
     gap: 24px;
     direction: ltr;
-    margin-bottom: 48px;
   }
   .value-prop-text h2 { font-size: 24px; }
   .value-prop-text p { font-size: 15px; }
@@ -2047,14 +2033,11 @@ footer a:hover {
 
   /* Iceberg */
   .iceberg {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    max-width: 100%;
   }
-  .iceberg-tip { width: 60%; }
   .iceberg-level { width: 100% !important; padding: 12px 16px; }
-  .iceberg-detail { position: static; }
-  .iceberg-detail-title { font-size: 22px; }
-  .iceberg-above-label { font-size: 9px; }
+  .iceberg-above-desc { font-size: 13px; }
+  .iceberg-above-recommend { font-size: 11px; }
   .iceberg-below-sidebar { width: 28px; }
   .iceberg-below-sidebar-text { font-size: 9px; }
   .iceberg-level-name { font-size: 14px; }
@@ -2064,7 +2047,7 @@ footer a:hover {
   /* Accordion */
   .accordion-section { padding: 48px 0; }
   .accordion-section-headline { font-size: 24px; }
-  .accordion-section-sub { font-size: 15px; margin-bottom: 24px; }
+  .accordion-section-sub { font-size: 15px; margin-bottom: 12px; }
   .accordion-header { padding: 18px 20px; gap: 12px; }
   .accordion-title { font-size: 18px; }
   .accordion-tagline { font-size: 13px; }
@@ -2109,11 +2092,6 @@ footer a:hover {
   .faq-index { font-size: 12px; }
   .faq-q h3 { font-size: 15px; }
   .faq-a p { font-size: 14px; }
-
-  /* Sticky CTA */
-  .sticky-cta { padding: 8px 12px; }
-  .sticky-cta .sticky-text { font-size: 13px; }
-  .sticky-cta .sticky-sub { font-size: 8px; }
 
   /* Footer */
   footer { padding: 20px 0; }

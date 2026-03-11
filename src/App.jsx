@@ -5,7 +5,6 @@ import CardSwap, { Card } from './components/CardSwap'
 
 const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)'
 const DISCOUNT_WEBHOOK_URL = '' // TODO: set n8n webhook URL for discount emails
-const SYLLABUS_WEBHOOK_URL = '' // TODO: set n8n webhook URL for syllabus emails
 
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
@@ -156,17 +155,14 @@ function CourseAccordionItem({ course, defaultOpen }) {
             Enroll Now
             <span className="arrow">&rarr;</span>
           </a>
-          <a href="#course-accordion" className="accordion-learn-more" onClick={(e) => { e.preventDefault(); }}>learn more</a>
+          <a href="#course-accordion" className="accordion-learn-more" onClick={(e) => { e.preventDefault(); }}>Learn More</a>
         </div>
       </div>
     </div>
   )
 }
 
-function IcebergVisualization({ courses }) {
-  const [selectedLevel, setSelectedLevel] = useState(0)
-  const selected = courses[selectedLevel]
-
+function IcebergVisualization() {
   const levels = [
     { label: 'Build Foundations', width: 50 },
     { label: 'Intelligent Automation', width: 60 },
@@ -179,7 +175,11 @@ function IcebergVisualization({ courses }) {
     <div className="iceberg">
       <div className="iceberg-visual">
         <div className="iceberg-above">
-          <span className="iceberg-above-label">What most people know</span>
+          <span className="iceberg-above-desc">In our 5-course mastery program, each course builds on the last.</span>
+          <span className="iceberg-above-recommend">We recommend starting with Level 1 to build a strong foundation</span>
+        </div>
+        <div className="iceberg-chatgpt-row">
+          <span className="iceberg-chatgpt-label">What most people know</span>
           <div className="iceberg-tip">
             <span className="iceberg-tip-label">ChatGPT</span>
           </div>
@@ -193,9 +193,8 @@ function IcebergVisualization({ courses }) {
             {levels.map((level, i) => (
               <div
                 key={i}
-                className={`iceberg-level${selectedLevel === i ? ' iceberg-level-active' : ''}`}
+                className={`iceberg-level${i === 0 ? ' iceberg-level-active' : ''}`}
                 style={{ width: `${level.width}%` }}
-                onClick={() => setSelectedLevel(i)}
               >
                 <span className="iceberg-level-num">Level {i + 1}</span>
                 <span className="iceberg-level-name">{level.label}</span>
@@ -203,15 +202,6 @@ function IcebergVisualization({ courses }) {
             ))}
           </div>
         </div>
-      </div>
-      <div className="iceberg-detail">
-        <span className="iceberg-detail-level">Level {selected.num}</span>
-        <h3 className="iceberg-detail-title">{selected.title}</h3>
-        <p className="iceberg-detail-desc">{selected.tagline}</p>
-        <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', marginTop: 16 }}>
-          Enroll Now
-          <span className="arrow">&rarr;</span>
-        </a>
       </div>
     </div>
   )
@@ -222,7 +212,7 @@ function ValueStack({ id, headline }) {
     <section className={`value-stack${id ? '' : ' value-stack-secondary'}`} id={id || undefined}>
       <div className="container">
         <div className="value-stack-box">
-          <h2 className="value-stack-headline">{headline || 'Everything you get with our AI Mastery: Build Foundations Course'}</h2>
+          <h2 className="value-stack-headline">{headline || <>Everything you get with our <span style={{ color: 'var(--accent)' }}>AI Mastery: Build Foundations</span> Course</>}</h2>
           <div className="value-stack-list">
             <div className="value-stack-item">
               <span className="value-stack-check">&#10003;</span>
@@ -359,105 +349,20 @@ function DiscountPopup() {
   )
 }
 
-function ExitIntentPopup() {
-  const [visible, setVisible] = useState(false)
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
-  const triggered = useRef(false)
-
-  useEffect(() => {
-    if (localStorage.getItem('syllabus_popup_dismissed')) return
-
-    const handleMouseLeave = (e) => {
-      if (triggered.current) return
-      if (e.clientY <= 0) {
-        triggered.current = true
-        setVisible(true)
-      }
-    }
-
-    document.addEventListener('mouseout', handleMouseLeave)
-
-    const mobileTimer = setTimeout(() => {
-      if (triggered.current) return
-      if (window.innerWidth <= 768) {
-        triggered.current = true
-        setVisible(true)
-      }
-    }, 45000)
-
-    return () => {
-      document.removeEventListener('mouseout', handleMouseLeave)
-      clearTimeout(mobileTimer)
-    }
-  }, [])
-
-  const handleClose = () => {
-    setVisible(false)
-    localStorage.setItem('syllabus_popup_dismissed', '1')
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Please enter a valid email address')
-      return
-    }
-    setError('')
-    localStorage.setItem('syllabus_popup_dismissed', '1')
-    localStorage.setItem('syllabus_email', email)
-    if (SYLLABUS_WEBHOOK_URL) {
-      try {
-        await fetch(SYLLABUS_WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, type: 'syllabus', timestamp: new Date().toISOString() }),
-        })
-      } catch (_) { /* silent fail */ }
-    }
-    setSubmitted(true)
-  }
-
-  if (!visible) return null
-
-  return (
-    <div className="popup-overlay" onClick={handleClose}>
-      <div className="popup-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="popup-close" onClick={handleClose}>&times;</button>
-        {submitted ? (
-          <div className="popup-success">
-            <span className="popup-success-icon">&#10003;</span>
-            <h3>Check your inbox!</h3>
-            <p>We'll send the full syllabus to your email shortly.</p>
-          </div>
-        ) : (
-          <>
-            <h3 className="popup-title">Get the syllabus</h3>
-            <p className="popup-sub">See a breakdown of what you'll do and learn<br />in each of Level 1's 6 sessions.</p>
-            <form className="popup-form" onSubmit={handleSubmit}>
-              <input
-                type="email"
-                className="popup-input"
-                placeholder="you@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoFocus
-              />
-              {error && <span className="popup-error">{error}</span>}
-              <button type="submit" className="btn btn-primary popup-submit">Send Me the Syllabus</button>
-            </form>
-            <span className="popup-dismiss" onClick={handleClose}>No thanks</span>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
 
 function RotatingText({ items, interval = 2500 }) {
   const [index, setIndex] = useState(0)
   const [animating, setAnimating] = useState(false)
+  const [minHeight, setMinHeight] = useState(0)
+  const measureRef = useRef(null)
+
+  useEffect(() => {
+    if (!measureRef.current) return
+    const spans = measureRef.current.querySelectorAll('.rotating-text-measure')
+    let max = 0
+    spans.forEach(s => { max = Math.max(max, s.offsetHeight) })
+    setMinHeight(max)
+  }, [items])
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -471,15 +376,21 @@ function RotatingText({ items, interval = 2500 }) {
   }, [items.length, interval])
 
   return (
-    <span className={`rotating-text${animating ? ' rotating-out' : ''}`}>
-      {items[index]}
-    </span>
+    <>
+      <span ref={measureRef} aria-hidden="true" style={{ position: 'absolute', visibility: 'hidden', pointerEvents: 'none', left: 0, right: 0 }}>
+        {items.map((item, i) => (
+          <span key={i} className="rotating-text rotating-text-measure" style={{ display: 'inline-block' }}>{item}</span>
+        ))}
+      </span>
+      <span className={`rotating-text${animating ? ' rotating-out' : ''}`} style={{ minHeight: minHeight || undefined }}>
+        {items[index]}
+      </span>
+    </>
   )
 }
 
 function App() {
   const heroRef = useRef(null)
-  const [showSticky, setShowSticky] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState(null)
 
@@ -492,17 +403,12 @@ function App() {
   useEffect(() => {
     const hero = heroRef.current
     if (!hero) return
-    const stickyObserver = new IntersectionObserver((entries) => {
-      setShowSticky(!entries[0].isIntersecting)
-    }, { threshold: 0 })
-    stickyObserver.observe(hero)
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
     }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
-      stickyObserver.disconnect()
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
@@ -544,6 +450,8 @@ function App() {
         { month: 'APR', day: '21', date: 'April 21' },
         { month: 'MAY', day: '19', date: 'May 19' },
         { month: 'JUN', day: '16', date: 'June 16' },
+        { month: 'JUL', day: '14', date: 'July 14' },
+        { month: 'AUG', day: '11', date: 'August 11' },
       ],
       levelIndex: 0,
       price: '$999',
@@ -563,9 +471,10 @@ function App() {
         { title: 'Ship Your Operating Stack', sub: 'Connect your automations into a coherent system where inputs flow and exceptions surface.' },
       ],
       cohorts: [
-        { month: 'APR', day: '21', date: 'April 21' },
         { month: 'MAY', day: '19', date: 'May 19' },
         { month: 'JUN', day: '16', date: 'June 16' },
+        { month: 'JUL', day: '14', date: 'July 14' },
+        { month: 'AUG', day: '11', date: 'August 11' },
       ],
       levelIndex: 1,
       price: '$999',
@@ -585,8 +494,9 @@ function App() {
         { title: 'Build Your Full Agent Pipeline', sub: 'Chain agents into one pipeline that researches, personalizes, logs, and follows up.' },
       ],
       cohorts: [
-        { month: 'MAY', day: '19', date: 'May 19' },
         { month: 'JUN', day: '16', date: 'June 16' },
+        { month: 'JUL', day: '14', date: 'July 14' },
+        { month: 'AUG', day: '11', date: 'August 11' },
       ],
       levelIndex: 2,
       price: '$999',
@@ -606,8 +516,8 @@ function App() {
         { title: 'Ship a Goal-Directed Delivery System', sub: 'Deploy an end-to-end autonomous pipeline with evals and human checkpoints.' },
       ],
       cohorts: [
-        { month: 'MAY', day: '19', date: 'May 19' },
-        { month: 'JUN', day: '16', date: 'June 16' },
+        { month: 'JUL', day: '14', date: 'July 14' },
+        { month: 'AUG', day: '11', date: 'August 11' },
       ],
       levelIndex: 3,
       price: '$999',
@@ -627,8 +537,7 @@ function App() {
         { title: 'Build a System That Runs the Business', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input.' },
       ],
       cohorts: [
-        { month: 'MAY', day: '19', date: 'May 19' },
-        { month: 'JUN', day: '16', date: 'June 16' },
+        { month: 'AUG', day: '11', date: 'August 11' },
       ],
       levelIndex: 4,
       price: '$999',
@@ -710,11 +619,11 @@ function App() {
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
   const trackItems = [
-    { num: '01', name: 'Build Foundations', tagline: "Learn the fundamentals you need to save hours every week with AI.", href: '#course-1', thumb: 'Image-1.png', cohort: 'Next cohort: April 21', also: 'Also: May 19, June 16' },
-    { num: '02', name: 'Intelligent Automation', tagline: 'Make AI work for you. Automate the tasks eating your week.', href: '#course-2', thumb: 'Image-2.png', cohort: 'Next cohort: April 21', also: 'Also: May 19, June 16' },
-    { num: '03', name: 'Agentic Workflows', tagline: 'Build AI agents that plan, decide, and execute without babysitting.', href: '#course-3', thumb: 'Image-3.png', cohort: 'Next cohort: May 19', also: 'Also: June 16' },
-    { num: '04', name: 'AI Systems Design', tagline: 'Design AI-powered systems that scale across your org.', href: '#course-4', thumb: 'Image-4.png', cohort: 'Next cohort: May 19', also: 'Also: June 16' },
-    { num: '05', name: 'Advanced AI Architecture', tagline: 'Orchestrate multi-agent systems and enterprise-grade AI infrastructure.', href: '#course-5', thumb: 'Image-5.png', cohort: 'Next cohort: May 19', also: 'Also: June 16' },
+    { num: '01', name: 'Build Foundations', tagline: "Learn the fundamentals you need to save hours every week with AI.", href: '#course-1', thumb: 'Image-1.png', cohort: 'Next cohort: April 21' },
+    { num: '02', name: 'Intelligent Automation', tagline: 'Make AI work for you. Automate the tasks eating your week.', href: '#course-2', thumb: 'Image-2.png' },
+    { num: '03', name: 'Agentic Workflows', tagline: 'Build AI agents that plan, decide, and execute without babysitting.', href: '#course-3', thumb: 'Image-3.png' },
+    { num: '04', name: 'AI Systems Design', tagline: 'Design AI-powered systems that scale across your org.', href: '#course-4', thumb: 'Image-4.png' },
+    { num: '05', name: 'Advanced AI Architecture', tagline: 'Orchestrate multi-agent systems and enterprise-grade AI infrastructure.', href: '#course-5', thumb: 'Image-5.png' },
   ]
 
   return (
@@ -752,11 +661,11 @@ function App() {
         <div className="container">
           <Countdown />
 
-          <h1>Master AI to <RotatingText items={['reach your audience', 'build new products', 'advance your career faster', 'automate manual work']} interval={1250} /></h1>
+          <h1>Master AI to <RotatingText items={['advance your career', 'reach your audience', 'build new products', 'grow your business', 'automate manual work', '100x your impact', 'scale your mind']} interval={1250} /></h1>
 
-          <p className="hero-sub">Our mastery program helps you build tools that 100x your output, so you have more time and leverage to pursue what you love.</p>
+          <p className="hero-sub">Leland's AI Mastery Program helps you build tools that 100x your impact, so you have more time and leverage to pursue what you love.</p>
 
-          <div className="logo-ticker" style={{ marginTop: 24, marginBottom: 96 }}>
+          <div className="logo-ticker" style={{ marginTop: 32, marginBottom: 48 }}>
             <span className="logo-ticker-label">Taught by experts from places like:</span>
             <Marquee gradient gradientColor="#000000" gradientWidth={80} speed={35}>
               {[...Array(2)].flatMap((_, round) => [
@@ -774,8 +683,6 @@ function App() {
           </div>
 
           <div className="track-cards-section" id="courses">
-            <h2 className="track-cards-headline">You only know 1% of what's possible</h2>
-            <p className="track-cards-subtext">Our 5-course series is designed to take you from someone who uses ChatGPT for one-off tasks to an AI-native builder who runs agentic workflows to accelerate all aspects of their work.</p>
             <div className="track-cards">
               {trackItems.map((item, idx) => (
                 <div className={`track-card${idx === 0 ? ' track-card-featured' : ''}`} key={item.num} onClick={() => document.getElementById('course-accordion')?.scrollIntoView({ behavior: 'smooth' })}>
@@ -796,29 +703,25 @@ function App() {
                       <span className="track-tag">3 Weeks</span>
                       <span className="track-tag">6 Sessions</span>
                     </div>
-                    <div className="track-card-cohort">{item.cohort}</div>
-                    <div className="track-card-also">{item.also}</div>
                     {idx === 0 && (
-                      <a
-                        href={ENROLL_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-primary btn-sm track-card-enroll"
-                        style={{ textTransform: 'uppercase' }}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Enroll Now <span className="arrow">&rarr;</span>
-                      </a>
+                      <>
+                        <div className="track-card-cohort">{item.cohort}</div>
+                        <a
+                          href={ENROLL_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-primary btn-sm track-card-enroll"
+                          style={{ textTransform: 'uppercase' }}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Enroll Now <span className="arrow">&rarr;</span>
+                        </a>
+                      </>
                     )}
-                    <a href="#course-accordion" className="track-card-learn-more" onClick={(e) => { e.stopPropagation(); e.preventDefault(); document.getElementById('course-accordion')?.scrollIntoView({ behavior: 'smooth' }); }}>learn more</a>
                   </div>
                 </div>
               ))}
             </div>
-
-            <p className="track-cards-quiz">
-              Not sure which level to start with? <a href="https://joinleland.typeform.com/to/tjyc1wni" target="_blank" rel="noopener noreferrer">Take this quiz</a> to get your best fit recommendation.
-            </p>
           </div>
         </div>
       </section>
@@ -847,13 +750,28 @@ function App() {
               ))}
             </div>
           </div>
-          <p className="why-guarantee-text">If you find a course that's better, we'll give you your money back</p>
+        </div>
+      </section>
+
+      {/* ====== VP1 — after Why This Course ====== */}
+      <section className="value-props-section">
+        <div className="container">
+          <div className="value-prop-row">
+            <div className="value-prop-text">
+              <h2>Become the AI expert your team turns to</h2>
+              <p>Earn a credential and build skills your boss and colleagues will notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
+            </div>
+            <div className="value-prop-image">
+              <img src={`${import.meta.env.BASE_URL}assets/images/value-prop-1.jpg`} alt="Professionals collaborating" />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ====== 4. Testimonials — Consolidated 6 + Leland social proof ====== */}
       <section className="testimonials-new" id="testimonials">
         <div className="container">
+          <h2 className="testimonials-headline">Proven to transform how you work</h2>
           <div className="social-proof-bar">
             <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="social-proof-logo" />
             <div className="social-proof-stats">
@@ -938,53 +856,32 @@ function App() {
               <a href="https://cep.lse.ac.uk/pubs/download/dp2048.pdf" target="_blank" rel="noopener noreferrer" className="save-time-source">Source: London School of Economics</a>
             </div>
             <div className="save-time-right">
-              <h2 className="save-time-headline">Automate your work. 100x your impact.</h2>
+              <h2 className="save-time-headline">Automate your work and 100x your impact</h2>
               <p className="save-time-sub">Save hours every week AND multiply your output. Build automations that handle the busywork while you focus on strategy, creativity, and leadership.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ====== 7. 3 Value Props (updated copy + images) ====== */}
+      {/* ====== VP3 — after Save Time ====== */}
       <section className="value-props-section">
         <div className="container">
-          <div className="value-prop-row">
-            <div className="value-prop-text">
-              <span className="section-label">01</span>
-              <h2>Become the person your team turns to for AI</h2>
-              <p>Earn a credential and build skills your boss and colleagues will notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
-            </div>
-            <div className="value-prop-image">
-              <img src={`${import.meta.env.BASE_URL}assets/images/value-prop-1.png`} alt="Professional working with AI" />
-            </div>
-          </div>
           <div className="value-prop-row value-prop-row-reversed">
             <div className="value-prop-text">
-              <span className="section-label">02</span>
-              <h2>Each session, build something you'll use at work the next day</h2>
-              <p>Every session ends with a deliverable you can put to work immediately. From automations to data analysis to personalized skills, you'll save hours every week.</p>
-            </div>
-            <div className="value-prop-image">
-              <img src={`${import.meta.env.BASE_URL}assets/images/value-prop-2-new.jpg`} alt="Woman studying with laptop" />
-            </div>
-          </div>
-          <div className="value-prop-row">
-            <div className="value-prop-text">
-              <span className="section-label">03</span>
               <h2>Work smarter with reusable skills and workflows</h2>
               <p>Advance beyond typing questions into ChatGPT by learning to build workflows, automate tasks, and create reusable skills that make AI work the way you want it to.</p>
             </div>
             <div className="value-prop-image">
-              <img src={`${import.meta.env.BASE_URL}assets/images/value-prop-3-new.jpg`} alt="Home office workspace" />
+              <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/lg/woman-remote-work-sunny-home-office.jpg" alt="Working smarter with AI" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ====== 8. When & Where (moved below value props) ====== */}
+      {/* ====== 8. When & Where ====== */}
       <section className="when-where-section">
         <div className="container">
-          <h2>A flexible and collaborative course structure to fit any busy professional's schedule</h2>
+          <h2>A flexible and collaborative course structure to fit your busy schedule</h2>
           <div className="when-where-grid">
             <div className="when-where-item">
               <span className="when-where-icon"><LelandIcon name="calendar" /></span>
@@ -1079,16 +976,40 @@ function App() {
       </section>
       */}
 
+      {/* ====== VP2 — before Guarantees ====== */}
+      <section className="value-props-section">
+        <div className="container">
+          <div className="value-prop-row">
+            <div className="value-prop-text">
+              <h2>Each session, build something you'll use at work the next day</h2>
+              <p>Every session ends with a deliverable you can put to work immediately. From automations to data analysis to personalized skills, you'll save hours every week.</p>
+            </div>
+            <div className="value-prop-image">
+              <img src={`${import.meta.env.BASE_URL}assets/images/value-prop-2.jpg`} alt="Building with AI at work" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ====== 11. Guarantees ====== */}
       <section className="guarantees-section">
         <div className="container">
           <h2 className="guarantees-headline">Guaranteed to teach you current, valuable skills</h2>
           <div className="guarantees-grid">
             <div className="guarantee-card">
+              <svg className="guarantee-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
               <h3>Best Course Guarantee</h3>
               <p>Complete our course, then take a competitor's course and complete it too. If you think theirs was better, we'll refund you up to the value of that course. We're that confident in the quality.</p>
             </div>
             <div className="guarantee-card">
+              <svg className="guarantee-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M23 4v6h-6"/>
+                <path d="M1 20v-6h6"/>
+                <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+              </svg>
               <h3>Retake for 1 Year</h3>
               <p>Retake any course for a full year. Curriculum updates as tools change, so you're always current. It's not just a refresher, it's new content every time.</p>
             </div>
@@ -1096,7 +1017,21 @@ function App() {
         </div>
       </section>
 
-      {/* ====== 12. Certification (CardSwap) ====== */}
+      {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
+      <section className="accordion-section" id="course-accordion">
+        <div className="container">
+          <h2 className="accordion-section-headline">A program to fundamentally change the way you work</h2>
+          <p className="accordion-section-sub">Build a foundation with Level 1 and progress to building systems that run without you</p>
+          <IcebergVisualization />
+          <div className="accordion-list" style={{ marginTop: 48 }}>
+            {courses.map((course, i) => (
+              <CourseAccordionItem key={course.id} course={course} defaultOpen={i === 0} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ====== 13. Certification (CardSwap) ====== */}
       <section className="certification" id="certification">
         <div className="container">
           <div className="cert-intro">
@@ -1231,24 +1166,15 @@ function App() {
         </div>
       </section>
 
-      {/* ====== 13. Iceberg + 5-Course Accordion ====== */}
-      <section className="accordion-section" id="course-accordion">
-        <div className="container">
-          <h2 className="accordion-section-headline">Build a foundation with level 1 and progress to building systems that run without you</h2>
-          <p className="accordion-section-sub">In our 5-course mastery program, each course builds on the last. We recommend starting with Level 1 to build a strong foundation, but you can jump in wherever fits your experience.</p>
-          <IcebergVisualization courses={courses} />
-          <div className="accordion-list" style={{ marginTop: 48 }}>
-            {courses.map((course, i) => (
-              <CourseAccordionItem key={course.id} course={course} defaultOpen={i === 0} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ====== 14. Advisor CTA ====== */}
       <section className="advisor-section">
         <div className="container">
           <div className="advisor-card">
+            <img
+              src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/md/man-video-call-home-office.jpg"
+              alt="Talk to an advisor"
+              className="advisor-photo"
+            />
             <h2>Not sure which course is right for you?</h2>
             <p>Book a free call with an advisor to find the right fit.</p>
             <a href="https://joinleland.typeform.com/to/a4DMXJjV#" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
@@ -1299,30 +1225,25 @@ function App() {
         </div>
       </section>
 
-      {/* ====== 17. Footer ====== */}
+      {/* ====== Footer CTA ====== */}
+      <section className="footer-cta">
+        <div className="container" style={{ textAlign: 'center' }}>
+          <p className="footer-cta-sub">Our next cohort starts April 21</p>
+          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
+            Enroll Now <span className="arrow">&rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      {/* ====== Footer ====== */}
       <footer>
         <div className="container">
           <p>&copy; 2026 <a href="https://www.joinleland.com">Leland</a>. All rights reserved.</p>
         </div>
       </footer>
 
-      {/* Mobile Sticky CTA */}
-      <div className="sticky-cta" style={{ display: showSticky ? 'block' : 'none' }}>
-        <div className="container">
-          <div>
-            <div className="sticky-text">AI Mastery Series</div>
-            <div className="sticky-sub">Next cohort: April 21</div>
-          </div>
-          <a href="#courses" className="btn btn-primary btn-sm">
-            Explore Courses
-            <span className="arrow">&rarr;</span>
-          </a>
-        </div>
-      </div>
-
       {/* Popups */}
       <DiscountPopup />
-      <ExitIntentPopup />
     </>
   )
 }
