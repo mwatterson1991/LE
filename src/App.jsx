@@ -311,6 +311,7 @@ function DiscountPopup() {
             <form id="discount-form" className="popup-form" onSubmit={handleSubmit}>
               <input
                 type="email"
+                name="email"
                 className="popup-input"
                 placeholder="you@email.com"
                 value={email}
