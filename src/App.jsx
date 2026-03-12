@@ -279,6 +279,19 @@ function DiscountPopup() {
     setError('')
     sessionStorage.setItem('discount_popup_dismissed', '1')
     localStorage.setItem('discount_email', email)
+
+    // Submit natively to a hidden iframe so HubSpot's collected forms can capture it
+    // const form = e.target
+    // const iframe = document.createElement('iframe')
+    // iframe.name = 'hs-form-target'
+    // iframe.style.display = 'none'
+    // document.body.appendChild(iframe)
+    // form.target = 'hs-form-target'
+    // form.method = 'POST'
+    // form.action = 'about:blank'
+    // form.submit()
+    // setTimeout(() => iframe.remove(), 2000)
+
     if (DISCOUNT_WEBHOOK_URL) {
       try {
         await fetch(DISCOUNT_WEBHOOK_URL, {
