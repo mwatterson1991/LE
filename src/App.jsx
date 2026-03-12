@@ -542,7 +542,7 @@ function App() {
   const faqs = [
     {
       q: 'Do I need coding experience?',
-      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Agentic Workflows and Advanced Architecture) go deep enough to challenge experienced builders.',
+      a: 'No. The series is designed for knowledge workers without a technical background. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Agentic Workflows and Advanced Architecture) go deep enough to challenge experienced builders.',
     },
     {
       q: 'Can I take just one course?',
@@ -554,7 +554,7 @@ function App() {
     },
     {
       q: 'Is this for individuals or teams?',
-      a: 'Both. Individuals can enroll directly. Teams of 5+ get volume pricing, a dedicated account manager, and custom use case workshops. <a href="#enterprise">Learn more about team training.</a>',
+      a: 'Both. Individuals can enroll directly. Teams of 5+ get volume pricing, a dedicated account manager, and custom use case workshops. <a href="https://joinleland.typeform.com/to/a4DMXJjV#" target="_blank" rel="noopener noreferrer">Learn more about team training.</a>',
     },
     {
       q: "What's included in each course?",
@@ -570,7 +570,7 @@ function App() {
     },
     {
       q: 'How long is each course?',
-      a: 'Each course runs for 3 weeks with 6 live sessions (Tuesdays and Fridays). Sessions are 60-90 minutes. Plan for 3-5 hours per week including hands-on work.',
+      a: 'Each course runs for 3 weeks with 6 live sessions (Tuesdays and Fridays). Sessions are 90 minutes. Plan for 3-5 hours per week including hands-on work.',
     },
     {
       q: "What's the Best Course Guarantee?",
@@ -595,10 +595,6 @@ function App() {
     {
       q: 'Will I get a certificate?',
       a: 'Yes. Each course includes a verified certificate of completion. Finish all five courses and earn the full AI Mastery designation, a credential you can add to LinkedIn and your resume.',
-    },
-    {
-      q: 'Who are the instructors?',
-      a: 'Our instructors are practitioners from companies like OpenAI, Google, Spotify, and Amazon. They don\'t just teach AI, they build with it every day. You\'ll also get weekly office hours for direct Q&A.',
     },
   ]
 
@@ -697,6 +693,17 @@ function App() {
                       <span className="track-tag">3 Weeks</span>
                       <span className="track-tag">6 Sessions</span>
                     </div>
+                    <a
+                      href="#course-accordion"
+                      className="track-card-learn-more"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        document.getElementById('course-accordion')?.scrollIntoView({ behavior: 'smooth' })
+                      }}
+                    >
+                      Learn more
+                    </a>
                     {idx === 0 && (
                       <>
                         <div className="track-card-cohort">{item.cohort}</div>
@@ -751,7 +758,7 @@ function App() {
       <section className="value-props-section value-props-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(${import.meta.env.BASE_URL}assets/review-bg.png)` }}>
         <div className="container">
           <div className="value-prop-text">
-            <h2>Become the AI expert your team turns to</h2>
+            <h2>Become the AI expert<br />your team turns to</h2>
             <p>Earn a credential and build skills your boss and colleagues will notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
           </div>
         </div>
@@ -764,7 +771,7 @@ function App() {
             {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
           </div>
           <div className="testimonials-review-count">
-            <span className="testimonials-review-number">30,000+ reviews</span>
+            <span className="testimonials-review-number">26,132 reviews</span>
             <span className="testimonials-review-community">in the Leland community</span>
           </div>
           <h2 className="testimonials-headline">Proven to transform how you work</h2>
@@ -850,7 +857,7 @@ function App() {
       <section className="value-props-section value-props-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(${import.meta.env.BASE_URL}assets/images/image2.jpg)` }}>
         <div className="container">
           <div className="value-prop-text">
-            <h2>Work smarter with reusable skills and workflows</h2>
+            <h2>Work smarter with<br className="mobile-br" /> reusable skills and workflows</h2>
             <p>Advance beyond typing questions into ChatGPT by learning to build workflows, automate tasks, and create reusable skills that make AI work the way you want it to.</p>
           </div>
         </div>
