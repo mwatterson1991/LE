@@ -308,7 +308,7 @@ function DiscountPopup() {
             <div className="popup-badge">LIMITED OFFER</div>
             <h3 className="popup-title">Get $200 off</h3>
             <p className="popup-sub">Enter your email to receive an exclusive $200 discount on AI Mastery: Build Foundations.</p>
-            <form className="popup-form" onSubmit={handleSubmit}>
+            <form id="discount-form" className="popup-form" onSubmit={handleSubmit}>
               <input
                 type="email"
                 className="popup-input"
