@@ -87,10 +87,9 @@ function Countdown() {
   )
 }
 
-function FaqItem({ question, answer, index }) {
-  const [open, setOpen] = useState(false)
+function FaqItem({ question, answer, index, open, onToggle }) {
   return (
-    <div className={`faq-item${open ? ' open' : ''}`} onClick={() => setOpen(!open)}>
+    <div className={`faq-item${open ? ' open' : ''}`} onClick={onToggle}>
       <span className="faq-index">{String(index + 1).padStart(2, '0')}</span>
       <div className="faq-body">
         <div className="faq-q">
@@ -108,7 +107,7 @@ function FaqItem({ question, answer, index }) {
 function CourseAccordionItem({ course, defaultOpen }) {
   const [open, setOpen] = useState(defaultOpen)
   return (
-    <div className={`accordion-item${open ? ' open' : ''}`}>
+    <div className={`accordion-item${open ? ' open' : ''}`} id={course.id}>
       <div className="accordion-header" onClick={() => setOpen(!open)}>
         <div className="accordion-header-left">
           <span className="accordion-level">LEVEL {course.num}</span>
@@ -164,11 +163,11 @@ function CourseAccordionItem({ course, defaultOpen }) {
 
 function IcebergVisualization() {
   const levels = [
-    { label: 'Build Foundations', width: 50 },
-    { label: 'Intelligent Automation', width: 60 },
-    { label: 'Agentic Workflows', width: 70 },
-    { label: 'AI Systems Design', width: 80 },
-    { label: 'Advanced AI Architecture', width: 90 },
+    { label: 'Ship AI Systems That Scale', width: 50 },
+    { label: 'Design Multi-Agent Systems', width: 60 },
+    { label: 'Create Systems to Run Without You', width: 70 },
+    { label: 'Build Agents That Work for You', width: 80 },
+    { label: 'Use AI to 10x Your Impact', width: 90, active: true },
   ]
 
   return (
@@ -176,13 +175,48 @@ function IcebergVisualization() {
       {levels.map((level, i) => (
         <div
           key={i}
-          className={`iceberg-level${i === 0 ? ' iceberg-level-active' : ''}`}
+          className={`iceberg-level${level.active ? ' iceberg-level-active' : ''}`}
           style={{ width: `${level.width}%` }}
         >
-          <span className="iceberg-level-num">Level {i + 1}</span>
           <span className="iceberg-level-name">{level.label}</span>
         </div>
       ))}
+    </div>
+  )
+}
+
+function WhichLevelDropdown() {
+  const [open, setOpen] = useState(false)
+  const levels = [
+    { num: '1', name: 'Use AI to 10x Your Impact', who: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own." },
+    { num: '2', name: 'Build Agents That Work for You', who: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks." },
+    { num: '3', name: 'Create Systems to Run Without You', who: "You've built multiple AI agents, but they don't run autonomously." },
+    { num: '4', name: 'Design Multi-Agent Systems', who: "You have multiple autonomous agents running, but they don't operate as a unified system." },
+    { num: '5', name: 'Ship AI Systems That Scale', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
+  ]
+
+  return (
+    <div className="which-level">
+      <button className="which-level-toggle" onClick={() => setOpen(!open)}>
+        <span>Not sure which level is right for you?</span>
+        <svg className={`which-level-chevron${open ? ' which-level-chevron-open' : ''}`} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      {open && (
+        <div className="which-level-table">
+          <div className="which-level-header">
+            <span className="which-level-col-num">#</span>
+            <span className="which-level-col-name">Course</span>
+            <span className="which-level-col-who">Who it's for</span>
+          </div>
+          {levels.map(l => (
+            <div className="which-level-row" key={l.num}>
+              <span className="which-level-col-num">{l.num}</span>
+              <span className="which-level-col-name">{l.name}</span>
+              <span className="which-level-col-who">{l.who}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -192,7 +226,7 @@ function ValueStack({ id, headline }) {
     <section className={`value-stack${id ? '' : ' value-stack-secondary'}`} id={id || undefined}>
       <div className="container">
         <div className="value-stack-box">
-          <h2 className="value-stack-headline">{headline || <>Everything you get with our <span style={{ color: 'var(--accent)' }}>AI Mastery: Build Foundations</span> Course</>}</h2>
+          <h2 className="value-stack-headline">{headline || <>Everything you get with our <span style={{ color: 'var(--accent)' }}>Use AI to 10x Your Impact</span> Course</>}</h2>
           <div className="value-stack-list">
             <div className="value-stack-item">
               <span className="value-stack-check">&#10003;</span>
@@ -204,7 +238,7 @@ function ValueStack({ id, headline }) {
             </div>
             <div className="value-stack-item">
               <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">Access to private Leland AI Mastery community</span>
+              <span className="value-stack-label">Access to private Leland AI Builder community</span>
             </div>
             <div className="value-stack-item">
               <span className="value-stack-check">&#10003;</span>
@@ -312,8 +346,8 @@ function DiscountPopup() {
           <>
             <div className="popup-badge">LIMITED OFFER</div>
             <h3 className="popup-title">Get $200 off</h3>
-            <p className="popup-sub">Enter your email to receive an exclusive $200 discount on AI Mastery: Build Foundations.</p>
-            <form id="discount-form" className="popup-form" onSubmit={handleSubmit}>
+            <p className="popup-sub">Enter your email to receive an exclusive $200 discount on Use AI to 10x Your Impact.</p>
+            <form className="popup-form" onSubmit={handleSubmit}>
               <input
                 type="email"
                 name="email"
@@ -326,6 +360,7 @@ function DiscountPopup() {
               {error && <span className="popup-error">{error}</span>}
               <button type="submit" className="btn btn-primary popup-submit">Claim My Discount</button>
             </form>
+            <span className="popup-legal">By continuing you agree to our <a href="https://www.joinleland.com/legal/terms" target="_blank" rel="noopener noreferrer">terms</a> and <a href="https://www.joinleland.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</span>
             <span className="popup-dismiss" onClick={handleClose}>No thanks</span>
           </>
         )}
@@ -381,6 +416,7 @@ function RotatingText({ items, interval = 2500 }) {
 function App() {
   const heroRef = useRef(null)
   const [scrolled, setScrolled] = useState(false)
+  const [openFaq, setOpenFaq] = useState(null)
   const [activeSection, setActiveSection] = useState(null)
 
   const navSections = [
@@ -424,15 +460,15 @@ function App() {
   const courses = [
     {
       id: 'course-1', num: '01', type: 'LIVE COURSE',
-      title: 'Build Foundations',
-      tagline: "Learn the fundamentals you need to save hours every week with AI. Best for knowledge workers new to AI, professionals building a foundation, and teams preparing for the series.",
+      title: 'Use AI to 10x Your Impact',
+      tagline: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
         { title: 'Transform How You Work Forever', sub: 'AI tool selection, iterative prompting, and turning messy notes into structured outputs.' },
         { title: 'Let AI Research and Synthesize for You', sub: 'Use AI to research markets, synthesize findings, and produce strategic deliverables.' },
         { title: 'Analyze Data in Minutes, Not Hours', sub: 'Work with spreadsheets, build financial models, and create visualizations using AI.' },
         { title: 'Build a Workflow That Runs Daily', sub: 'Chain prompts into repeatable workflows that surface leads and opportunities automatically.' },
-        { title: 'Train AI to Write Emails That Sound Like You', sub: 'Teach AI your voice and build personalized multi-touch communication sequences.' },
+        { title: 'Make Every Output Sound Like You', sub: 'Teach AI your voice and build personalized multi-touch communication sequences.' },
         { title: 'Build an End-to-End Process Workflow', sub: 'Connect research inputs to automated outputs with human-in-the-loop checkpoints.' },
       ],
       cohorts: [
@@ -448,16 +484,16 @@ function App() {
     },
     {
       id: 'course-2', num: '02', type: 'BOOTCAMP',
-      title: 'Intelligent Automation',
-      tagline: 'Make AI work for you. Automate the tasks eating your week. Best for operators and managers, anyone with repetitive workflows, and professionals who want measurable time back.',
+      title: 'Build Agents That Work for You',
+      tagline: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Automate the Task You Do Every Week', sub: 'Build your first connected automation that handles a recurring task without you.' },
-        { title: 'Reframe Your Work as a System', sub: 'Map your recurring work as a system and build a prioritized automation backlog.' },
-        { title: 'Build a Tool or Webpage Without a Developer', sub: 'Use vibe coding to build and publish a working tool or page with AI.' },
-        { title: 'Automate Tasks That Span 5+ Tools', sub: 'Build multi-tool workflows with AI processing, error handling, and parallel outputs.' },
-        { title: 'Build a Content or Reporting Engine', sub: 'Turn one input into multiple formatted outputs across destinations on a schedule.' },
-        { title: 'Ship Your Operating Stack', sub: 'Connect your automations into a coherent system where inputs flow and exceptions surface.' },
+        { title: 'Ship Your First Autonomous Agent', sub: 'Build a research agent that takes an input and returns a structured brief autonomously.' },
+        { title: 'Run an Agent Across a List', sub: 'Process entire lists with an agent that enriches each row with structured data at scale.' },
+        { title: 'Build an Agent That Writes', sub: 'Create an agent that reads context and writes personalized messages for each recipient.' },
+        { title: 'Connect an Agent to Your Tools', sub: 'Build an agent that logs activity and updates records in external systems like a CRM.' },
+        { title: 'Build a Monitoring Agent', sub: 'Build an agent that watches for changes, flags issues, and reports status automatically.' },
+        { title: 'Build Your Full Agent Pipeline', sub: 'Chain agents into one pipeline that researches, personalizes, logs, and follows up.' },
       ],
       cohorts: [
         { month: 'APR', day: '21', date: 'April 21' },
@@ -472,16 +508,16 @@ function App() {
     },
     {
       id: 'course-3', num: '03', type: 'LIVE COURSE',
-      title: 'Agentic Workflows',
-      tagline: 'Build AI agents that plan, decide, and execute without babysitting. Best for technical professionals, product builders, and anyone ready to go beyond prompts.',
+      title: 'Create Systems to Run Without You',
+      tagline: "You've built multiple AI agents, but they don't run autonomously.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Ship Your First Autonomous Agent', sub: 'Build a research agent that takes an input and returns a structured brief autonomously.' },
-        { title: 'Run an Agent Across a List', sub: 'Process entire lists with an agent that enriches each row with structured data at scale.' },
-        { title: 'Build an Agent That Writes', sub: 'Create an agent that reads context and writes personalized messages for each recipient.' },
-        { title: 'Connect an Agent to Your Tools', sub: 'Build an agent that logs activity and updates records in external systems like a CRM.' },
-        { title: 'Build Software With AI', sub: 'Spec and build a working tool or dashboard through natural language, no code required.' },
-        { title: 'Build Your Full Agent Pipeline', sub: 'Chain agents into one pipeline that researches, personalizes, logs, and follows up.' },
+        { title: 'Automate the Task You Do Every Week', sub: 'Build your first connected automation that handles a recurring task without you.' },
+        { title: 'Reframe Your Work as a System', sub: 'Map your recurring work as a system and build a prioritized automation backlog.' },
+        { title: 'Build a Tool or Page Without a Developer', sub: 'Use vibe coding to build and publish a working tool or page with AI.' },
+        { title: 'Automate Tasks That Span 5+ Tools', sub: 'Build multi-tool workflows with AI processing, error handling, and parallel outputs.' },
+        { title: 'Build a Content or Reporting Engine', sub: 'Turn one input into multiple formatted outputs across destinations on a schedule.' },
+        { title: 'Ship Your Operating Stack', sub: 'Connect your automations into a coherent system where inputs flow and exceptions surface.' },
       ],
       cohorts: [
         { month: 'MAY', day: '19', date: 'May 19' },
@@ -496,15 +532,15 @@ function App() {
     },
     {
       id: 'course-4', num: '04', type: 'BOOTCAMP',
-      title: 'AI Systems Design',
-      tagline: 'Design AI-powered systems that scale across your org. Best for team leads and architects, operations and strategy, and professionals designing org-level AI.',
+      title: 'Design Multi-Agent Systems',
+      tagline: "You have multiple autonomous agents running, but they don't operate as a unified system.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
         { title: 'Give an Agent a Goal, Not a Script', sub: 'Design goal-directed agents that plan and execute steps toward an objective autonomously.' },
         { title: 'Build an Eval System', sub: 'Define rubrics and score agent outputs to measure and improve performance over time.' },
         { title: 'Build an Agent That Improves Software', sub: 'Give an agent a codebase and improvement goal, let it build, test, and iterate.' },
         { title: 'Build an Orchestration Layer', sub: 'Build an orchestrator that delegates subtasks to specialized agents and assembles results.' },
-        { title: 'Build a QA Layer for Autonomous Systems', sub: 'Monitor agent outputs, score quality, and alert when something needs human review.' },
+        { title: 'Build a QA Layer for Your System', sub: 'Monitor agent outputs, score quality, and alert when something needs human review.' },
         { title: 'Ship a Goal-Directed Delivery System', sub: 'Deploy an end-to-end autonomous pipeline with evals and human checkpoints.' },
       ],
       cohorts: [
@@ -520,8 +556,8 @@ function App() {
     },
     {
       id: 'course-5', num: '05', type: 'LIVE COURSE',
-      title: 'Advanced AI Architecture',
-      tagline: 'Orchestrate multi-agent systems and enterprise-grade AI infrastructure. Best for senior technical leaders, AI/ML engineers, and enterprise architects.',
+      title: 'Ship AI Systems That Scale',
+      tagline: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
         { title: 'Give Your Agents Institutional Memory', sub: 'Build a retrieval system so agents have real organizational context when they act.' },
@@ -529,7 +565,7 @@ function App() {
         { title: 'Build an Agent That Builds and Tests Software', sub: 'Give an agent a product goal and let it write, test, and iterate autonomously.' },
         { title: 'Build a System That Self-Corrects', sub: 'Create feedback loops that detect errors, attempt corrections, and escalate when needed.' },
         { title: 'Evaluate a System You\'re Not Watching', sub: 'Build a live dashboard with KPIs, anomaly detection, and decision-support alerts.' },
-        { title: 'Build a System That Runs the Business', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input.' },
+        { title: 'Build a System That Runs a Business', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input.' },
       ],
       cohorts: [
         { month: 'AUG', day: '11', date: 'August 11' },
@@ -547,7 +583,7 @@ function App() {
   const faqs = [
     {
       q: 'Do I need coding experience?',
-      a: 'No. The series is designed for knowledge workers without a technical background. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Agentic Workflows and Advanced Architecture) go deep enough to challenge experienced builders.',
+      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Design Multi-Agent Systems and Ship AI Systems That Scale) go deep enough to challenge experienced builders.',
     },
     {
       q: 'Can I take just one course?',
@@ -599,7 +635,7 @@ function App() {
     },
     {
       q: 'Will I get a certificate?',
-      a: 'Yes. Each course includes a verified certificate of completion. Finish all five courses and earn the full AI Mastery designation, a credential you can add to LinkedIn and your resume.',
+      a: 'Yes. Each course includes a verified certificate of completion. Finish all five courses and earn the full AI Builder designation, a credential you can add to LinkedIn and your resume.',
     },
   ]
 
@@ -614,11 +650,11 @@ function App() {
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
   const trackItems = [
-    { num: '01', name: 'Build Foundations', tagline: "Learn the fundamentals you need to save hours every week with AI.", href: '#course-1', thumb: 'Image-1.png', cohort: 'Next cohort: April 21' },
-    { num: '02', name: 'Intelligent Automation', tagline: 'Make AI work for you. Automate the tasks eating your week.', href: '#course-2', thumb: 'Image-2.png' },
-    { num: '03', name: 'Agentic Workflows', tagline: 'Build AI agents that plan, decide, and execute without babysitting.', href: '#course-3', thumb: 'Image-3.png' },
-    { num: '04', name: 'AI Systems Design', tagline: 'Design AI-powered systems that scale across your org.', href: '#course-4', thumb: 'Image-4.png' },
-    { num: '05', name: 'Advanced AI Architecture', tagline: 'Orchestrate multi-agent systems and enterprise-grade AI infrastructure.', href: '#course-5', thumb: 'Image-5.png' },
+    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Learn the fundamentals you need to save hours every week with AI.", href: '#course-1', thumb: 'Image-1.png', cohort: 'Next cohort: April 21', featured: true },
+    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', thumb: 'Image-2.png', cohort: 'Next cohort: April 21', secondary: true },
+    { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', thumb: 'Image-3.png', cohort: 'Next cohort: May 19' },
+    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', thumb: 'Image-4.png', cohort: 'Next cohort: July 14' },
+    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', thumb: 'Image-5.png', cohort: 'Next cohort: August 11' },
   ]
 
   return (
@@ -656,9 +692,9 @@ function App() {
         <div className="container">
           <Countdown />
 
-          <h1>Master AI to <br className="mobile-br" /><RotatingText items={['advance your career', 'reach your audience', 'build new products', 'grow your business', 'automate manual work', '100x your impact', 'scale your mind']} interval={2500} /></h1>
+          <h1>Build with AI to <br className="mobile-br" /><RotatingText items={['advance your career', 'reach your audience', 'build new products', 'grow your business', 'automate manual work', 'scale your mind']} interval={2500} /></h1>
 
-          <p className="hero-sub">Leland's AI Mastery Program helps you build tools that 100x your impact, so you have more time and leverage to pursue what you love.</p>
+          <p className="hero-sub">Leland's AI Builder Program helps you build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
 
           <div className="logo-ticker" style={{ marginTop: 32, marginBottom: 48 }}>
             <span className="logo-ticker-label">Taught by experts from places like:</span>
@@ -681,11 +717,11 @@ function App() {
             <div className="track-card-start-bar">Start Here</div>
             <div className="track-cards">
               {trackItems.map((item, idx) => (
-                <div className={`track-card${idx === 0 ? ' track-card-featured' : ''}`} key={item.num} {...(idx === 0 ? { onClick: () => document.getElementById('course-accordion')?.scrollIntoView({ behavior: 'smooth' }) } : {})}>
+                <div className={`track-card${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num}>
                   <div className="track-card-body">
                     <img
                       src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
-                      alt={item.name}
+                      alt=""
                       className="track-card-thumb"
                     />
                     <div className="track-label">
@@ -698,37 +734,21 @@ function App() {
                       <span className="track-tag">3 Weeks</span>
                       <span className="track-tag">6 Sessions</span>
                     </div>
+                    <div className="track-card-cohort">{item.cohort}</div>
                     <a
-                      href="#course-accordion"
-                      className="track-card-learn-more"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        e.preventDefault()
-                        document.getElementById('course-accordion')?.scrollIntoView({ behavior: 'smooth' })
-                      }}
+                      href={item.href}
+                      className={`btn btn-sm track-card-enroll${item.featured ? ' btn-primary' : ' btn-secondary-outline'}`}
+                      style={{ textTransform: 'uppercase' }}
+                      onClick={(e) => { e.preventDefault(); document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' }) }}
                     >
-                      Learn more
+                      Learn More <span className="arrow">&rarr;</span>
                     </a>
-                    {idx === 0 && (
-                      <>
-                        <div className="track-card-cohort">{item.cohort}</div>
-                        <a
-                          href={ENROLL_URL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn btn-primary btn-sm track-card-enroll"
-                          style={{ textTransform: 'uppercase' }}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          Enroll Now <span className="arrow">&rarr;</span>
-                        </a>
-                      </>
-                    )}
                   </div>
                 </div>
               ))}
             </div>
           </div>
+
         </div>
       </section>
 
@@ -847,12 +867,12 @@ function App() {
                   </div>
                 </div>
               </div>
-              <p className="save-time-cite">Those who invest in AI training are 2x more productive, <strong>saving 11 hours per week</strong> compared with 5 hours for the untrained.</p>
+              <p className="save-time-cite">Those who invest in AI training are 2x more productive than those who try to use AI on their own, <strong>saving an average of 11 hours per week</strong>.</p>
               <a href="https://cep.lse.ac.uk/pubs/download/dp2048.pdf" target="_blank" rel="noopener noreferrer" className="save-time-source">Source: London School of Economics</a>
             </div>
             <div className="save-time-right">
-              <h2 className="save-time-headline">Automate your work and 100x your impact</h2>
-              <p className="save-time-sub">Save hours every week AND multiply your output. Build automations that handle the busywork while you focus on strategy, creativity, and leadership.</p>
+              <h2 className="save-time-headline">Automate your work and multiply your impact</h2>
+              <p className="save-time-sub">Build automations that handle repetitive, manual work so you can spend more time focusing on higher-impact strategic and creative work.</p>
             </div>
           </div>
         </div>
@@ -918,7 +938,7 @@ function App() {
               </span>
               <div>
                 <h3>Access to Leland's exclusive AI community</h3>
-                <p>Get daily AI news, tips to improve your workflow, and perspectives from peers in the AI Mastery Program</p>
+                <p>Get daily AI news, tips to improve your workflow, and perspectives from peers in the AI Builder Program</p>
               </div>
             </div>
           </div>
@@ -1005,6 +1025,7 @@ function App() {
               <CourseAccordionItem key={course.id} course={course} defaultOpen={i === 0} />
             ))}
           </div>
+          <WhichLevelDropdown />
         </div>
       </section>
 
@@ -1024,7 +1045,7 @@ function App() {
           <div className="cert-intro">
             <h2>Walk away certified.</h2>
             <p className="cert-desc">
-              Every course in the series culminates in a verified certificate of completion from Leland. Finish all five and earn the full AI Mastery designation — a signal to employers, clients, and colleagues that you operate at the highest level of AI proficiency.
+              Every course in the series culminates in a verified certificate of completion from Leland. Finish all five and earn the full AI Builder designation — a signal to employers, clients, and colleagues that you operate at the highest level of AI proficiency.
             </p>
           </div>
 
@@ -1052,8 +1073,8 @@ function App() {
                       <span className="cert-name">Your Name Here</span>
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed the</span>
-                      <span className="cert-program">AI Mastery Series</span>
-                      <span className="cert-subprogram">Foundations &middot; Intelligent Automation &middot; Agentic Workflows &middot; AI Systems Design &middot; Advanced AI Architecture</span>
+                      <span className="cert-program">AI Builder Program</span>
+                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Agents That Work for You &middot; Create Systems to Run Without You &middot; Design Multi-Agent Systems &middot; Ship AI Systems That Scale</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
@@ -1090,8 +1111,8 @@ function App() {
                       <span className="cert-name">Your Name Here</span>
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed</span>
-                      <span className="cert-program">Build Foundations</span>
-                      <span className="cert-subprogram">Level 01 &middot; AI Mastery Series</span>
+                      <span className="cert-program">Use AI to 10x Your Impact</span>
+                      <span className="cert-subprogram">Level 01 &middot; AI Builder Program</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
@@ -1128,8 +1149,8 @@ function App() {
                       <span className="cert-name">Your Name Here</span>
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed</span>
-                      <span className="cert-program">Intelligent Automation</span>
-                      <span className="cert-subprogram">Level 02 &middot; AI Mastery Series</span>
+                      <span className="cert-program">Build Agents That Work for You</span>
+                      <span className="cert-subprogram">Level 02 &middot; AI Builder Program</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
@@ -1201,7 +1222,7 @@ function App() {
 
           <div className="faq-grid">
             {faqs.map((faq, i) => (
-              <FaqItem key={i} question={faq.q} answer={faq.a} index={i} />
+              <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
             ))}
           </div>
         </div>

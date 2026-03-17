@@ -356,6 +356,19 @@ nav .btn {
   background-repeat: no-repeat;
   cursor: pointer;
 }
+.track-card-secondary {
+  border: 1px solid var(--border);
+}
+.btn-secondary-outline {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary-outline:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
 .track-card-start-bar {
   background: var(--accent);
   color: #000;
@@ -453,7 +466,7 @@ nav .btn {
 }
 .track-title {
   font-family: var(--font-heading);
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.2;
@@ -1220,6 +1233,82 @@ nav .btn {
 .iceberg-level-active .iceberg-level-name {
   color: var(--text-primary);
 }
+
+/* --- Which Level Dropdown --- */
+.which-level {
+  margin-top: 32px;
+}
+.which-level-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 20px;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.which-level-toggle:hover {
+  border-color: var(--accent);
+}
+.which-level-chevron {
+  transition: transform 0.2s;
+}
+.which-level-chevron-open {
+  transform: rotate(180deg);
+}
+.which-level-table {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.which-level-header {
+  display: grid;
+  grid-template-columns: 40px 1fr 2fr;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+.which-level-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 2fr;
+  gap: 12px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.which-level-col-num {
+  color: var(--accent);
+  font-weight: 600;
+}
+.which-level-col-name {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.which-level-col-who {
+  color: var(--text-secondary);
+}
+@media (max-width: 600px) {
+  .which-level-header { grid-template-columns: 30px 1fr; }
+  .which-level-row { grid-template-columns: 30px 1fr; }
+  .which-level-col-who { grid-column: 1 / -1; margin-top: 4px; }
+  .which-level-header .which-level-col-who { display: none; }
+}
+
 /* --- Course Accordion Section --- */
 .accordion-section {
   padding: 80px 0;
@@ -1843,6 +1932,18 @@ footer a:hover {
 }
 .popup-dismiss:hover { color: var(--text-secondary); }
 
+.popup-legal {
+  display: block;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
+.popup-legal a {
+  color: var(--text-secondary);
+  text-decoration: underline;
+}
+
 .popup-success {
   padding: 20px 0;
 }
@@ -1929,7 +2030,7 @@ footer a:hover {
   .track-card-body { padding: 16px; gap: 10px; }
   .track-label-text { font-size: 12px; }
   .track-label-num { font-size: 12px; }
-  .track-title { font-size: 20px; }
+  .track-title { font-size: 18px; }
   .track-desc { font-size: 16px; }
   .track-tag { font-size: 10px; padding: 3px 6px; }
 
