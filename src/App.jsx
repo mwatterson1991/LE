@@ -104,11 +104,10 @@ function FaqItem({ question, answer, index, open, onToggle }) {
   )
 }
 
-function CourseAccordionItem({ course, defaultOpen }) {
-  const [open, setOpen] = useState(defaultOpen)
+function CourseAccordionItem({ course, open, onToggle }) {
   return (
     <div className={`accordion-item${open ? ' open' : ''}`} id={course.id}>
-      <div className="accordion-header" onClick={() => setOpen(!open)}>
+      <div className="accordion-header" onClick={onToggle}>
         <div className="accordion-header-left">
           <span className="accordion-level">LEVEL {course.num}</span>
           <h3 className="accordion-title">{course.title}</h3>
@@ -417,6 +416,7 @@ function App() {
   const heroRef = useRef(null)
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
+  const [openAccordion, setOpenAccordion] = useState(0)
   const [activeSection, setActiveSection] = useState(null)
 
   const navSections = [
@@ -650,7 +650,7 @@ function App() {
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
   const trackItems = [
-    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Learn the fundamentals you need to save hours every week with AI.", href: '#course-1', thumb: 'Image-1.png', cohort: 'Next cohort: April 21', featured: true },
+    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', thumb: 'Image-1.png', cohort: 'Next cohort: April 21', featured: true },
     { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', thumb: 'Image-2.png', cohort: 'Next cohort: April 21', secondary: true },
     { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', thumb: 'Image-3.png', cohort: 'Next cohort: May 19' },
     { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', thumb: 'Image-4.png', cohort: 'Next cohort: July 14' },
@@ -692,7 +692,7 @@ function App() {
         <div className="container">
           <Countdown />
 
-          <h1>Build with AI to <br className="mobile-br" /><RotatingText items={['advance your career', 'reach your audience', 'build new products', 'grow your business', 'automate manual work', 'scale your mind']} interval={2500} /></h1>
+          <h1>Build with AI to <br className="mobile-br" /><RotatingText items={['advance your career', 'reach your audience', 'grow your business', 'automate manual work', 'scale your mind']} interval={2500} /></h1>
 
           <p className="hero-sub">Leland's AI Builder Program helps you build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
 
@@ -739,7 +739,7 @@ function App() {
                       href={item.href}
                       className={`btn btn-sm track-card-enroll${item.featured ? ' btn-primary' : ' btn-secondary-outline'}`}
                       style={{ textTransform: 'uppercase' }}
-                      onClick={(e) => { e.preventDefault(); document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' }) }}
+                      onClick={(e) => { e.preventDefault(); setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }) } }, 100) }}
                     >
                       Learn More <span className="arrow">&rarr;</span>
                     </a>
@@ -1022,7 +1022,7 @@ function App() {
           </div>
           <div className="accordion-list" style={{ marginTop: 48 }}>
             {courses.map((course, i) => (
-              <CourseAccordionItem key={course.id} course={course} defaultOpen={i === 0} />
+              <CourseAccordionItem key={course.id} course={course} open={openAccordion === i} onToggle={() => setOpenAccordion(openAccordion === i ? null : i)} />
             ))}
           </div>
           <WhichLevelDropdown />
