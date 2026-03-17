@@ -321,7 +321,7 @@ function DiscountPopup() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             fields: [{ name: 'email', value: email }],
-            context: { pageUri: window.location.href, pageName: 'AI Mastery Landing Page' },
+            context: { pageUri: window.location.href, pageName: 'Leland AI Builder Program Landing Page' },
           }),
         }
       )
@@ -488,12 +488,12 @@ function App() {
       tagline: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Ship Your First Autonomous Agent', sub: 'Build a research agent that takes an input and returns a structured brief autonomously.' },
-        { title: 'Run an Agent Across a List', sub: 'Process entire lists with an agent that enriches each row with structured data at scale.' },
-        { title: 'Build an Agent That Writes', sub: 'Create an agent that reads context and writes personalized messages for each recipient.' },
-        { title: 'Connect an Agent to Your Tools', sub: 'Build an agent that logs activity and updates records in external systems like a CRM.' },
-        { title: 'Build a Monitoring Agent', sub: 'Build an agent that watches for changes, flags issues, and reports status automatically.' },
-        { title: 'Build Your Full Agent Pipeline', sub: 'Chain agents into one pipeline that researches, personalizes, logs, and follows up.' },
+        { title: 'Ship Your First Agent', sub: 'Build a research agent that takes an input and returns a structured brief autonomously.' },
+        { title: 'Build an Agent That Writes in Your Voice', sub: 'Create an agent that reads structured input and produces personalized messages in your voice consistently.' },
+        { title: 'Give Your Agent Real Tools', sub: 'Build an agent that reads from live systems, takes action, and logs every write automatically.' },
+        { title: 'Build an Agent That Watches and Decides', sub: 'Build an agent that checks conditions, drafts suggested actions, and executes only after your approval.' },
+        { title: 'Run Your Agents at Scale', sub: 'Process entire lists with an agent that enriches every row with structured data without manual prompting.' },
+        { title: 'Build Your First Agent Team', sub: 'Chain a research agent and writing agent with a clean handoff so input flows to finished output.' },
       ],
       cohorts: [
         { month: 'APR', day: '21', date: 'April 21' },
@@ -512,12 +512,12 @@ function App() {
       tagline: "You've built multiple AI agents, but they don't run autonomously.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Automate the Task You Do Every Week', sub: 'Build your first connected automation that handles a recurring task without you.' },
-        { title: 'Reframe Your Work as a System', sub: 'Map your recurring work as a system and build a prioritized automation backlog.' },
-        { title: 'Build a Tool or Page Without a Developer', sub: 'Use vibe coding to build and publish a working tool or page with AI.' },
-        { title: 'Automate Tasks That Span 5+ Tools', sub: 'Build multi-tool workflows with AI processing, error handling, and parallel outputs.' },
-        { title: 'Build a Content or Reporting Engine', sub: 'Turn one input into multiple formatted outputs across destinations on a schedule.' },
-        { title: 'Ship Your Operating Stack', sub: 'Connect your automations into a coherent system where inputs flow and exceptions surface.' },
+        { title: 'Trigger the Work You Used to Do Manually', sub: 'Build an automation that fires on a trigger and handles your top recurring task end-to-end without you.' },
+        { title: 'Map Your Work as a System', sub: 'Audit your recurring work and build a prioritized automation backlog ranked by frequency and time saved.' },
+        { title: 'Build Workflows Across Your Entire Stack', sub: 'Build a workflow spanning 5+ tools with AI processing, error handling, and outputs to multiple destinations.' },
+        { title: 'Put an Agent Inside a Workflow', sub: 'Replace a manual workflow step with an agent that fires automatically and feeds output to the next step.' },
+        { title: 'Build Agent Teams That Run on a Schedule', sub: 'Run a chain of specialized agents on a schedule with outputs delivered across your full stack automatically.' },
+        { title: 'Ship an Internal Tool Without a Developer', sub: 'Use AI as your developer to build a working internal tool connected to live data from your stack.' },
       ],
       cohorts: [
         { month: 'MAY', day: '19', date: 'May 19' },
@@ -650,11 +650,11 @@ function App() {
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
   const trackItems = [
-    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', thumb: 'Image-1.png', cohort: 'Next cohort: April 21', featured: true },
-    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', thumb: 'Image-2.png', cohort: 'Next cohort: April 21', secondary: true },
-    { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', thumb: 'Image-3.png', cohort: 'Next cohort: May 19' },
-    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', thumb: 'Image-4.png', cohort: 'Next cohort: July 14' },
-    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', thumb: 'Image-5.png', cohort: 'Next cohort: August 11' },
+    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', thumb: 'level-1.png', cohort: 'Next cohort: April 21', featured: true },
+    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', thumb: 'level-2.png', cohort: 'Next cohort: April 21', secondary: true },
+    { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', thumb: 'level-3.png', cohort: 'Next cohort: May 19' },
+    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', thumb: 'level-4.png', cohort: 'Next cohort: July 14' },
+    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', thumb: 'level-5.png', cohort: 'Next cohort: August 11' },
   ]
 
   return (
