@@ -151,12 +151,10 @@ function CourseAccordionItem({ course, open, onToggle }) {
             Enroll Now
             <span className="arrow">&rarr;</span>
           </a>
-          {course.num !== '01' && course.num !== '02' && (
           <a href={course.learnMoreUrl} target="_blank" rel="noopener noreferrer" className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }}>
             Learn More
             <span className="arrow">&rarr;</span>
           </a>
-          )}
         </div>
       </div>
     </div>
@@ -744,7 +742,6 @@ function App() {
                       <span className="track-tag">6 Sessions</span>
                     </div>
                     <div className="track-card-cohort">{item.cohort}</div>
-                    {item.num !== '01' && item.num !== '02' && (
                     <a
                       href={item.href}
                       className={`btn btn-sm track-card-enroll${item.featured ? ' btn-primary' : ' btn-secondary-outline'}`}
@@ -753,7 +750,6 @@ function App() {
                     >
                       Learn More <span className="arrow">&rarr;</span>
                     </a>
-                    )}
                   </div>
                 </div>
               ))}
