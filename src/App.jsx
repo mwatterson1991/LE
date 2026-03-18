@@ -4,8 +4,9 @@ import Squares from './components/Squares'
 import CardSwap, { Card } from './components/CardSwap'
 
 const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)'
-const HUBSPOT_PORTAL_ID = '22467258'
-const HUBSPOT_FORM_GUID = '9672b824-d24d-4407-a7bd-e045b3910388'
+/* DISCOUNT POPUP CONSTANTS — commented out 2026-03-17, used only by DiscountPopup below */
+// const HUBSPOT_PORTAL_ID = '22467258'
+// const HUBSPOT_FORM_GUID = '9672b824-d24d-4407-a7bd-e045b3910388'
 
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
@@ -287,6 +288,11 @@ function ValueStack({ id, headline }) {
   )
 }
 
+/* DISCOUNT POPUP — commented out 2026-03-17, remove distraction for targeted traffic.
+   To re-enable: uncomment DiscountPopup function (lines ~291-372) and render call below.
+   HubSpot form: portal 22467258, form GUID 9672b824-d24d-4407-a7bd-e045b3910388
+   Email gate: captures email first, then sends $200 code via email. */
+/*
 function DiscountPopup() {
   const [visible, setVisible] = useState(false)
   const [email, setEmail] = useState('')
@@ -325,7 +331,7 @@ function DiscountPopup() {
           }),
         }
       )
-    } catch (_) { /* silent fail */ }
+    } catch (_) { } // silent fail
     setSubmitted(true)
   }
 
@@ -367,6 +373,7 @@ function DiscountPopup() {
     </div>
   )
 }
+*/
 
 
 function RotatingText({ items, interval = 2500 }) {
@@ -1246,7 +1253,7 @@ function App() {
       </footer>
 
       {/* Popups */}
-      <DiscountPopup />
+      {/* <DiscountPopup /> — commented out 2026-03-17, see DiscountPopup function above to re-enable */}
     </>
   )
 }
