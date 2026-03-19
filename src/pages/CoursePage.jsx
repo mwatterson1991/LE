@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { courseData, allCourses, ENROLL_URL } from './courseData'
+import { courseData, allCourses, ENROLL_URLS } from './courseData'
 import './CoursePage.css'
 
 /* ─── Shared icons ─── */
@@ -53,12 +53,12 @@ function SessionItem({ session, num, open, onToggle }) {
 }
 
 /* ─── Enroll CTA block ─── */
-function EnrollBlock({ nextCohort, size = 'normal' }) {
+function EnrollBlock({ nextCohort, enrollUrl, size = 'normal' }) {
   const isLg = size === 'lg'
   return (
     <div className="cp-enroll-block">
       <a
-        href={ENROLL_URL}
+        href={enrollUrl}
         target="_blank"
         rel="noopener noreferrer"
         className={`btn btn-primary${isLg ? ' btn-lg' : ''}`}
@@ -118,6 +118,7 @@ export default function CoursePage() {
   const { courseId } = useParams()
   const id = parseInt(courseId, 10)
   const course = courseData[id]
+  const enrollUrl = ENROLL_URLS[id]
 
   const [openSession, setOpenSession] = useState(null)
   const [openFaq, setOpenFaq] = useState(null)
@@ -142,7 +143,7 @@ export default function CoursePage() {
             <img src="/assets/logo-white.svg" alt="Leland" style={{ height: 22, width: 'auto' }} />
           </a>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
-            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ textTransform: 'uppercase', fontSize: '12px' }}>
+            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ textTransform: 'uppercase', fontSize: '12px' }}>
               Enroll Now
             </a>
             <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontFamily: 'var(--font-meta)' }}>Next cohort: {course.nextCohort}</span>
@@ -167,7 +168,7 @@ export default function CoursePage() {
           <p className="cp-hero-sub">{course.heroSubheadline}</p>
 
           {/* Enroll CTA */}
-          <EnrollBlock nextCohort={course.nextCohort} size="lg" />
+          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
         </div>
       </section>
 
@@ -232,7 +233,7 @@ export default function CoursePage() {
       {/* ── ENROLL CTA (after deliverables) ── */}
       <section style={{ padding: '48px 0', background: 'var(--bg)', borderTop: '1px solid rgba(255,255,255,0.07)', textAlign: 'center' }}>
         <div className="container">
-          <EnrollBlock nextCohort={course.nextCohort} size="lg" />
+          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
         </div>
       </section>
 
@@ -301,7 +302,7 @@ export default function CoursePage() {
               <span className="cp-price-crossed">$2,500+ value</span>
               <span className="cp-price">$999</span>
             </div>
-            <EnrollBlock nextCohort={course.nextCohort} size="lg" />
+            <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
           </div>
         </div>
       </section>
@@ -326,7 +327,7 @@ export default function CoursePage() {
       {/* ── FOOTER CTA ── */}
       <section className="footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
-          <EnrollBlock nextCohort={course.nextCohort} size="lg" />
+          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
         </div>
       </section>
 
