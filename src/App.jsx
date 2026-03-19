@@ -153,7 +153,7 @@ function CourseAccordionItem({ course, open, onToggle }) {
             <span className="arrow">&rarr;</span>
           </a>
           {course.num !== '01' && course.num !== '02' && (
-          <a href={course.learnMoreUrl} target="_blank" rel="noopener noreferrer" className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }}>
+          <a href={course.learnMoreUrl} className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }}>
             Learn More
             <span className="arrow">&rarr;</span>
           </a>
@@ -489,7 +489,7 @@ function HomePage() {
       levelIndex: 0,
       price: '$999',
       reversed: false,
-      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-build-foundations',
+      learnMoreUrl: '/level-1',
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)',
     },
     {
@@ -513,7 +513,7 @@ function HomePage() {
       levelIndex: 1,
       price: '$999',
       reversed: true,
-      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-intelligent-automation',
+      learnMoreUrl: '/level-2',
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)',
     },
     {
@@ -537,7 +537,7 @@ function HomePage() {
       levelIndex: 2,
       price: '$999',
       reversed: false,
-      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-agentic-workflows',
+      learnMoreUrl: '/level-3',
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)',
     },
     {
@@ -561,7 +561,7 @@ function HomePage() {
       levelIndex: 3,
       price: '$999',
       reversed: true,
-      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-ai-systems-design',
+      learnMoreUrl: '/level-4',
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)',
     },
     {
@@ -585,7 +585,7 @@ function HomePage() {
       levelIndex: 4,
       price: '$999',
       reversed: false,
-      learnMoreUrl: 'https://www.joinleland.com/bootcamps/ai-mastery-advanced-ai-architecture',
+      learnMoreUrl: '/level-5',
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69b19cc2f61c38f9e9bc9066)',
     },
   ]
