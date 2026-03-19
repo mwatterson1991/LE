@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Marquee from 'react-fast-marquee'
 import Squares from './components/Squares'
 import CardSwap, { Card } from './components/CardSwap'
+import CoursePage from './pages/CoursePage'
 
 const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)'
 /* DISCOUNT POPUP CONSTANTS — commented out 2026-03-17, used only by DiscountPopup below */
@@ -421,7 +423,7 @@ function RotatingText({ items, interval = 2500 }) {
   )
 }
 
-function App() {
+function HomePage() {
   const heroRef = useRef(null)
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
@@ -1259,6 +1261,15 @@ function App() {
       {/* Popups */}
       {/* <DiscountPopup /> — commented out 2026-03-17, see DiscountPopup function above to re-enable */}
     </>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/courses/:courseId" element={<CoursePage />} />
+    </Routes>
   )
 }
 
