@@ -9,11 +9,11 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        'level-1': resolve(__dirname, 'level-1/index.html'),
-        'level-2': resolve(__dirname, 'level-2/index.html'),
-        'level-3': resolve(__dirname, 'level-3/index.html'),
-        'level-4': resolve(__dirname, 'level-4/index.html'),
-        'level-5': resolve(__dirname, 'level-5/index.html'),
+        'level-1': resolve(__dirname, 'level-1.html'),
+        'level-2': resolve(__dirname, 'level-2.html'),
+        'level-3': resolve(__dirname, 'level-3.html'),
+        'level-4': resolve(__dirname, 'level-4.html'),
+        'level-5': resolve(__dirname, 'level-5.html'),
       }
     }
   }
