@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+// Link replaced with <a> tags — no react-router-dom dependency
 import { courseData, allCourses, ENROLL_URLS } from './courseData'
 import './CoursePage.css'
 
@@ -81,18 +81,18 @@ function WhereThisFits({ currentId }) {
         <h2 style={{ fontSize: 28, marginBottom: 8 }}>Where this fits in the program</h2>
         <p style={{ marginBottom: 32, fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
           {currentId < 5
-            ? <>Complete this course, then continue to <Link to={`/level-${currentId + 1}`} style={{ color: 'var(--accent)' }}>{allCourses[currentId].name}</Link> to go deeper.</>
+            ? <>Complete this course, then continue to <a href={`/level-${currentId + 1}`} style={{ color: 'var(--accent)' }}>{allCourses[currentId].name}</a> to go deeper.</>
             : <>This is the final course. You now have the full AI Builder skill set.</>
           }
-          {' '}<Link to="/" style={{ color: 'var(--text-tertiary)', fontSize: '0.85rem', fontFamily: 'var(--font-meta)', letterSpacing: '0.04em', textDecoration: 'underline', textUnderlineOffset: 2 }}>View full program &rarr;</Link>
+          {' '}<a href="/" style={{ color: 'var(--text-tertiary)', fontSize: '0.85rem', fontFamily: 'var(--font-meta)', letterSpacing: '0.04em', textDecoration: 'underline', textUnderlineOffset: 2 }}>View full program &rarr;</a>
         </p>
         <div className="cp-where-strip">
           {allCourses.map((c) => {
             const isCurrent = c.id === currentId
             return (
-              <Link
+              <a
                 key={c.id}
-                to={`/level-${c.id}`}
+                href={`/level-${c.id}`}
                 className={`cp-where-card ${isCurrent ? 'cp-where-card-active' : 'cp-where-card-inactive'}`}
               >
                 <span style={{ fontFamily: 'var(--font-meta)', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: isCurrent ? 'var(--accent)' : 'var(--text-tertiary)' }}>
@@ -104,7 +104,7 @@ function WhereThisFits({ currentId }) {
                 <span style={{ fontFamily: 'var(--font-meta)', fontSize: 10, color: 'var(--text-tertiary)', letterSpacing: '0.04em' }}>
                   Next: {c.nextCohort}
                 </span>
-              </Link>
+              </a>
             )
           })}
         </div>
@@ -114,9 +114,8 @@ function WhereThisFits({ currentId }) {
 }
 
 /* ─── Main CoursePage ─── */
-export default function CoursePage() {
-  const { courseId } = useParams()
-  const id = parseInt(courseId, 10)
+export default function CoursePage({ courseId }) {
+  const id = courseId
   const course = courseData[id]
   const enrollUrl = ENROLL_URLS[id]
 
@@ -128,7 +127,7 @@ export default function CoursePage() {
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
         <div style={{ textAlign: 'center' }}>
           <h2>Course not found</h2>
-          <Link to="/" style={{ color: 'var(--accent)', marginTop: 12, display: 'inline-block' }}>Back to program &rarr;</Link>
+          <a href="/" style={{ color: 'var(--accent)', marginTop: 12, display: 'inline-block' }}>Back to program &rarr;</a>
         </div>
       </div>
     )
@@ -157,7 +156,7 @@ export default function CoursePage() {
         <div className="container">
           {/* Breadcrumb */}
           <p className="cp-breadcrumb">
-            <Link to="/">AI Builder Program</Link>
+            <a href="/">AI Builder Program</a>
             {' '}&rsaquo;{' '}{course.name}
           </p>
 

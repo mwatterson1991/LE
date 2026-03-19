@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Routes, Route } from 'react-router-dom'
 import Marquee from 'react-fast-marquee'
 import Squares from './components/Squares'
 import CardSwap, { Card } from './components/CardSwap'
@@ -1265,12 +1264,12 @@ function HomePage() {
 }
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/level-:courseId" element={<CoursePage />} />
-    </Routes>
-  )
+  const path = window.location.pathname
+  const match = path.match(/\/level-(\d+)/)
+  if (match) {
+    return <CoursePage courseId={parseInt(match[1], 10)} />
+  }
+  return <HomePage />
 }
 
 export default App
