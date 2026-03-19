@@ -662,9 +662,9 @@ function HomePage() {
   const trackItems = [
     { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'level-1.png', cohort: 'Next cohort: April 21', featured: true },
     { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'level-2.png', cohort: 'Next cohort: April 21', secondary: true },
-    { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', thumb: 'level-3.png', cohort: 'Next cohort: May 19' },
-    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', thumb: 'level-4.png', cohort: 'Next cohort: July 14' },
-    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', thumb: 'level-5.png', cohort: 'Next cohort: August 11' },
+    { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'level-3.png', cohort: 'Next cohort: May 19' },
+    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'level-4.png', cohort: 'Next cohort: July 14' },
+    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'level-5.png', cohort: 'Next cohort: August 11' },
   ]
 
   return (
