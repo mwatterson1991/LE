@@ -1268,7 +1268,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/courses/:courseId" element={<CoursePage />} />
+      <Route path="/level-:courseId" element={<CoursePage />} />
     </Routes>
   )
 }

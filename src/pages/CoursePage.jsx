@@ -81,7 +81,7 @@ function WhereThisFits({ currentId }) {
         <h2 style={{ fontSize: 28, marginBottom: 8 }}>Where this fits in the program</h2>
         <p style={{ marginBottom: 32, fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
           {currentId < 5
-            ? <>Complete this course, then continue to <Link to={`/courses/${currentId + 1}`} style={{ color: 'var(--accent)' }}>{allCourses[currentId].name}</Link> to go deeper.</>
+            ? <>Complete this course, then continue to <Link to={`/level-${currentId + 1}`} style={{ color: 'var(--accent)' }}>{allCourses[currentId].name}</Link> to go deeper.</>
             : <>This is the final course. You now have the full AI Builder skill set.</>
           }
           {' '}<Link to="/" style={{ color: 'var(--text-tertiary)', fontSize: '0.85rem', fontFamily: 'var(--font-meta)', letterSpacing: '0.04em', textDecoration: 'underline', textUnderlineOffset: 2 }}>View full program &rarr;</Link>
@@ -92,7 +92,7 @@ function WhereThisFits({ currentId }) {
             return (
               <Link
                 key={c.id}
-                to={`/courses/${c.id}`}
+                to={`/level-${c.id}`}
                 className={`cp-where-card ${isCurrent ? 'cp-where-card-active' : 'cp-where-card-inactive'}`}
               >
                 <span style={{ fontFamily: 'var(--font-meta)', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: isCurrent ? 'var(--accent)' : 'var(--text-tertiary)' }}>
