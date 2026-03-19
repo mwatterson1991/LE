@@ -745,7 +745,6 @@ function HomePage() {
                       <span className="track-tag">6 Sessions</span>
                     </div>
                     <div className="track-card-cohort">{item.cohort}</div>
-                    {item.num !== '01' && item.num !== '02' && (
                     <a
                       href={item.href}
                       className={`btn btn-sm track-card-enroll${item.featured ? ' btn-primary' : ' btn-secondary-outline'}`}
@@ -754,7 +753,6 @@ function HomePage() {
                     >
                       Learn More <span className="arrow">&rarr;</span>
                     </a>
-                    )}
                   </div>
                 </div>
               ))}
