@@ -705,7 +705,7 @@ function HomePage() {
             <span className="track-cards-heading">Choose your level</span>
             <div className="track-cards">
               {trackItems.map((item, idx) => (
-                <div className={`track-card${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num} onClick={() => { window.location.href = item.learnMoreUrl || item.href; }}>
+                <div className={`track-card${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num} onClick={() => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }}>
                   <div className="track-card-body">
                     <img
                       src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
