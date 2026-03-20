@@ -638,11 +638,11 @@ function HomePage() {
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
   const trackItems = [
-    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'level-1.png', cohort: 'Next cohort: April 21', featured: true },
-    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'level-2.png', cohort: 'Next cohort: April 21', secondary: true },
-    { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'level-3.png', cohort: 'Next cohort: May 19' },
-    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'level-4.png', cohort: 'Next cohort: June 16' },
-    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'level-5.png', cohort: 'Next cohort: July 14' },
+    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'April 21, 2026', featured: true },
+    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', secondary: true },
+    { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026' },
+    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026' },
+    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026' },
   ]
 
   return (
@@ -702,10 +702,10 @@ function HomePage() {
           </div>
 
           <div className="track-cards-section" id="courses">
-            <div className="track-card-start-bar">Start Here</div>
+            <span className="track-cards-heading">Choose your level</span>
             <div className="track-cards">
               {trackItems.map((item, idx) => (
-                <div className={`track-card${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num}>
+                <div className={`track-card${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num} onClick={() => { window.location.href = item.learnMoreUrl || item.href; }}>
                   <div className="track-card-body">
                     <img
                       src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
@@ -722,15 +722,15 @@ function HomePage() {
                       <span className="track-tag">3 Weeks</span>
                       <span className="track-tag">6 Sessions</span>
                     </div>
-                    <div className="track-card-cohort">{item.cohort}</div>
-                    <a
-                      href={item.learnMoreUrl || item.href}
-                      className={`btn btn-sm track-card-enroll${item.featured ? ' btn-primary' : ' btn-secondary-outline'}`}
-                      style={{ textTransform: 'uppercase' }}
-                      onClick={item.learnMoreUrl ? undefined : (e) => { e.preventDefault(); setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }) } }, 100) }}
-                    >
-                      Learn More <span className="arrow">&rarr;</span>
-                    </a>
+                    <div className="track-card-footer">
+                      <div className="track-card-cohort-block">
+                        <span className="track-card-cohort-label">NEXT COHORT</span>
+                        <span className="track-card-cohort-date">{item.cohortDate}</span>
+                      </div>
+                      <span className="track-card-arrow-btn">
+                        &rarr;
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
