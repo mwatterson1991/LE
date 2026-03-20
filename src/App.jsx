@@ -3,6 +3,7 @@ import Marquee from 'react-fast-marquee'
 import Squares from './components/Squares'
 import CardSwap, { Card } from './components/CardSwap'
 import CoursePage from './pages/CoursePage'
+import B2BPage from './pages/B2BPage'
 import GetThisExpensed from './components/GetThisExpensed'
 
 const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)'
@@ -1243,6 +1244,9 @@ function HomePage() {
 
 function App() {
   const path = window.location.pathname
+  if (path.startsWith('/teams')) {
+    return <B2BPage />
+  }
   const match = path.match(/\/level-(\d+)/)
   if (match) {
     return <CoursePage courseId={parseInt(match[1], 10)} />
