@@ -855,7 +855,7 @@ function HomePage() {
                 </div>
               </div>
               <p className="save-time-cite">Those who invest in AI training are 2x more productive than those who try to use AI on their own, <strong>saving an average of 11 hours per week</strong>.</p>
-              <a href="https://cep.lse.ac.uk/pubs/download/dp2048.pdf" target="_blank" rel="noopener noreferrer" className="save-time-source">Source: London School of Economics</a>
+              <span className="save-time-source">Source: London School of Economics</span>
             </div>
             <div className="save-time-right">
               <h2 className="save-time-headline">Automate your work and multiply your impact</h2>
