@@ -338,8 +338,6 @@ export default function CoursePage({ courseId }) {
             </div>
           </div>
 
-          <hr className="faq-section-divider" />
-
           {/* About this course sub-group */}
           <div className="faq-subgroup">
             <p className="faq-subgroup-label">About This Course</p>

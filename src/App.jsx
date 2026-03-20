@@ -626,6 +626,14 @@ function HomePage() {
       a: 'Each course runs for 3 weeks with 6 live sessions (Tuesdays and Fridays). Sessions are 90 minutes. Plan for 3-5 hours per week including hands-on work.',
     },
     {
+      q: 'What level should I take?',
+      a: "Level 1 is the right starting point for most people. If you use AI tools but haven't built workflows, automations, or agents yet, start there. If you're already building and running automations in your daily work, reach out and we'll help you find the right entry point.",
+    },
+    {
+      q: 'How do the levels fit together? Are they separate courses?',
+      a: 'Each level is a standalone course you can take on its own. They also build on each other: Level 1 covers core AI fluency, Level 2 builds agents, Level 3 makes them autonomous, Level 4 orchestrates them at scale, and Level 5 ships production systems. You can start at any level, but the series is designed to take you from capable to advanced.',
+    },
+    {
       q: "What's the Best Course Guarantee?",
       a: 'Complete our course, then take a competitor\'s course and complete it too. If you think theirs was better, we\'ll refund you up to the value of that competitor course. We\'re that confident in the quality.',
     },
@@ -1240,38 +1248,30 @@ function HomePage() {
             <p className="faq-subgroup-label">Data &amp; Security</p>
             <div className="faq-grid">
               {[
-                { q: "My company doesn't let me connect AI to our internal systems. Can I still get value from this program?", a: "Yes, and we designed the program with this in mind. A core skill we teach is how to build effective AI workflows without connecting to your company's live data. You'll learn how to structure information manually, build automations around what you can access, and get real results within whatever constraints your IT policy sets. Connecting tools via MCP connectors is something we teach as an optional capability, not a requirement." },
                 { q: "Will my company's data be used to train AI models?", a: "When using Claude (Anthropic) on a paid plan, your inputs are not used to train their models by default. We walk you through exactly how to review and configure privacy settings for every AI tool we cover. That's part of the curriculum, not an afterthought." },
-                { q: "What if IT won't approve the AI tools used in the program?", a: "We teach a specific module on data anonymization: how to strip, generalize, or replace sensitive information so you can build and test real workflows without putting protected data into any AI system. Most students find that once they have a working example to show, internal approval follows. Many get tool approvals after the program because they can demonstrate a concrete use case." },
-                { q: "We handle sensitive customer or financial data. Is this appropriate for our team?", a: "Yes. We cover responsible AI use with sensitive data throughout the curriculum, including how to create anonymized datasets for testing, how to write prompts that don't expose PII, and how to evaluate which tasks are safe to automate versus which require human review. You'll leave with a practical framework for making those calls at your company." },
-                { q: "Does Leland store or have access to anything I build during the program?", a: "No. Everything you build lives in your own tools and accounts. We don't have visibility into your workflows, prompts, or outputs. The program teaches you to build. What you build is yours." },
-                { q: "How is this different from just using ChatGPT or Claude on my own?", a: "Free tools give you nothing to build with. You can use ChatGPT for years and still be doing the same one-off tasks you started with. This program builds your ability to create workflows, automations, and agents that run without you, and it does that in six sessions with a working deliverable at the end of each one." },
+                { q: "My company doesn't let me connect AI to our internal systems. Can I still get value from this program?", a: "Yes, and we designed the program with this in mind. A core skill we teach is how to build effective AI workflows without connecting to your company's live data. You'll learn how to structure information manually, build automations around what you can access, and get real results within whatever constraints your IT policy sets. Connecting tools via MCP connectors is something we teach as an optional capability, not a requirement." },
               ].map((faq, i) => (
                 <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openSafetyFaq === i} onToggle={() => setOpenSafetyFaq(openSafetyFaq === i ? null : i)} />
               ))}
             </div>
           </div>
 
-          <hr className="faq-section-divider" />
-
           {/* The Program sub-group */}
           <div className="faq-subgroup">
             <p className="faq-subgroup-label">The Program</p>
             <div className="faq-grid">
-              {faqs.slice(0, 8).map((faq, i) => (
+              {faqs.slice(0, 10).map((faq, i) => (
                 <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
               ))}
             </div>
           </div>
 
-          <hr className="faq-section-divider" />
-
           {/* Enrollment sub-group */}
           <div className="faq-subgroup">
             <p className="faq-subgroup-label">Enrollment</p>
             <div className="faq-grid">
-              {faqs.slice(8).map((faq, i) => (
-                <FaqItem key={8 + i} question={faq.q} answer={faq.a} index={8 + i} open={openFaq === 8 + i} onToggle={() => setOpenFaq(openFaq === 8 + i ? null : 8 + i)} />
+              {faqs.slice(10).map((faq, i) => (
+                <FaqItem key={10 + i} question={faq.q} answer={faq.a} index={10 + i} open={openFaq === 10 + i} onToggle={() => setOpenFaq(openFaq === 10 + i ? null : 10 + i)} />
               ))}
             </div>
           </div>
