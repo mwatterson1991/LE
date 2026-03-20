@@ -556,9 +556,9 @@ function HomePage() {
         { title: 'Ship a Goal-Directed Delivery System', sub: 'Deploy an end-to-end autonomous pipeline with evals and human checkpoints.' },
       ],
       cohorts: [
+        { month: 'JUN', day: '16', date: 'June 16' },
         { month: 'JUL', day: '14', date: 'July 14' },
         { month: 'AUG', day: '11', date: 'August 11' },
-        { month: 'SEP', day: '8', date: 'September 8' },
       ],
       levelIndex: 3,
       price: '$999',
@@ -580,9 +580,9 @@ function HomePage() {
         { title: 'Build a System That Runs a Business', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input.' },
       ],
       cohorts: [
+        { month: 'JUL', day: '14', date: 'July 14' },
         { month: 'AUG', day: '11', date: 'August 11' },
         { month: 'SEP', day: '8', date: 'September 8' },
-        { month: 'OCT', day: '6', date: 'October 6' },
       ],
       levelIndex: 4,
       price: '$999',
@@ -665,8 +665,8 @@ function HomePage() {
     { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'level-1.png', cohort: 'Next cohort: April 21', featured: true },
     { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'level-2.png', cohort: 'Next cohort: April 21', secondary: true },
     { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'level-3.png', cohort: 'Next cohort: May 19' },
-    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'level-4.png', cohort: 'Next cohort: July 14' },
-    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'level-5.png', cohort: 'Next cohort: August 11' },
+    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'level-4.png', cohort: 'Next cohort: June 16' },
+    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'level-5.png', cohort: 'Next cohort: July 14' },
   ]
 
   return (

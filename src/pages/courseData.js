@@ -106,8 +106,8 @@ export const courseData = {
     id: 2,
     name: 'Build Agents That Work for You',
     badge: 'Course 2 of 5',
-    nextCohort: 'May 19, 2026',
-    cohortDates: ['May 19', 'June 16', 'July 14', 'August 11'],
+    nextCohort: 'April 21, 2026',
+    cohortDates: ['April 21', 'May 19', 'June 16', 'July 14'],
     heroHeadline: 'Eliminate manual work with a team of specialized agents.',
     heroSubheadline:
       "In 6 sessions, you'll build a toolkit of specialized agents and finish with a full pipeline that goes from first message to sale with no manual steps.",
@@ -202,8 +202,8 @@ export const courseData = {
     id: 3,
     name: 'Create Systems That Run Without You',
     badge: 'Course 3 of 5',
-    nextCohort: 'June 16, 2026',
-    cohortDates: ['June 16', 'July 14', 'August 11'],
+    nextCohort: 'May 19, 2026',
+    cohortDates: ['May 19', 'June 16', 'July 14'],
     heroHeadline: 'You\'ve built great agents. Now make them run autonomously.',
     heroSubheadline:
       "In 6 sessions, you'll build systems that trigger automatically, run in the background, and operate 24/7, with no manual step between you and the output.",
@@ -487,8 +487,8 @@ export const courseData = {
 
 export const allCourses = [
   { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'April 21' },
-  { id: 2, name: 'Build Agents That Work for You', nextCohort: 'May 19' },
-  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'June 16' },
+  { id: 2, name: 'Build Agents That Work for You', nextCohort: 'April 21' },
+  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19' },
   { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'June 16' },
   { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'July 14' },
 ]
