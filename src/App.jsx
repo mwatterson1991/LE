@@ -1232,15 +1232,12 @@ function HomePage() {
       <section className="faq" id="faq">
         <div className="container">
           <div className="faq-header">
-            <p className="faq-anchor-callout">Concerned about data restrictions or IT policies? <a href="#data-safety-faq">Start here.</a></p>
             <h2>Frequently Asked Questions</h2>
           </div>
 
           {/* Data & Security sub-group */}
           <div className="faq-subgroup" id="data-safety-faq">
             <p className="faq-subgroup-label">Data &amp; Security</p>
-            <h3 className="faq-subgroup-heading">Using AI Safely at Work</h3>
-            <p className="faq-subgroup-intro">You don't need IT approval to get real value from this program. Here's why.</p>
             <div className="faq-grid">
               {[
                 { q: "My company doesn't let me connect AI to our internal systems. Can I still get value from this program?", a: "Yes, and we designed the program with this in mind. A core skill we teach is how to build effective AI workflows without connecting to your company's live data. You'll learn how to structure information manually, build automations around what you can access, and get real results within whatever constraints your IT policy sets. Connecting tools via MCP connectors is something we teach as an optional capability, not a requirement." },
@@ -1257,10 +1254,26 @@ function HomePage() {
 
           <hr className="faq-section-divider" />
 
-          <div className="faq-grid">
-            {faqs.map((faq, i) => (
-              <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
-            ))}
+          {/* The Program sub-group */}
+          <div className="faq-subgroup">
+            <p className="faq-subgroup-label">The Program</p>
+            <div className="faq-grid">
+              {faqs.slice(0, 8).map((faq, i) => (
+                <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
+              ))}
+            </div>
+          </div>
+
+          <hr className="faq-section-divider" />
+
+          {/* Enrollment sub-group */}
+          <div className="faq-subgroup">
+            <p className="faq-subgroup-label">Enrollment</p>
+            <div className="faq-grid">
+              {faqs.slice(8).map((faq, i) => (
+                <FaqItem key={8 + i} question={faq.q} answer={faq.a} index={8 + i} open={openFaq === 8 + i} onToggle={() => setOpenFaq(openFaq === 8 + i ? null : 8 + i)} />
+              ))}
+            </div>
           </div>
         </div>
       </section>

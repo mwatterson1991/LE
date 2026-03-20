@@ -216,11 +216,11 @@ export default function CoursePage({ courseId }) {
       </section>
 
       {/* ── WHAT YOU'LL BUILD ── */}
-      <section className="cp-section" style={{ background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+      <section className="cp-section" style={{ background: 'rgba(255,255,255,0.02)', borderTop: '1px solid rgba(255,255,255,0.07)', textAlign: 'center' }}>
         <div className="container">
           <p className="cp-section-label">What you'll build</p>
           <h2>6 deliverables you'll take to work</h2>
-          <div className="cp-build-list">
+          <div className="cp-build-list" style={{ margin: '0 auto' }}>
             {course.whatYoullBuild.map((item, i) => (
               <div className="cp-build-item" key={i}>
                 <span className="cp-build-num">{String(i + 1).padStart(2, '0')}</span>
@@ -318,15 +318,12 @@ export default function CoursePage({ courseId }) {
       <section className="faq" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
         <div className="container">
           <div className="faq-header">
-            <p className="faq-anchor-callout">Concerned about data restrictions or IT policies? <a href="#data-safety-faq">Start here.</a></p>
             <h2>Frequently Asked Questions</h2>
           </div>
 
           {/* Data & Security sub-group */}
           <div className="faq-subgroup" id="data-safety-faq">
             <p className="faq-subgroup-label">Data &amp; Security</p>
-            <h3 className="faq-subgroup-heading">Using AI Safely at Work</h3>
-            <p className="faq-subgroup-intro">You don't need IT approval to get real value from this program. Here's why.</p>
             <div className="faq-grid">
               {[
                 { q: "My company doesn't let me connect AI to our internal systems. Can I still get value from this program?", a: "Yes, and we designed the program with this in mind. A core skill we teach is how to build effective AI workflows without connecting to your company's live data. You'll learn how to structure information manually, build automations around what you can access, and get real results within whatever constraints your IT policy sets. Connecting tools via MCP connectors is something we teach as an optional capability, not a requirement." },
@@ -343,10 +340,14 @@ export default function CoursePage({ courseId }) {
 
           <hr className="faq-section-divider" />
 
-          <div className="faq-grid">
-            {course.faqs.map((faq, i) => (
-              <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
-            ))}
+          {/* About this course sub-group */}
+          <div className="faq-subgroup">
+            <p className="faq-subgroup-label">About This Course</p>
+            <div className="faq-grid">
+              {course.faqs.map((faq, i) => (
+                <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
