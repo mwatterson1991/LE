@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 // Link replaced with <a> tags — no react-router-dom dependency
 import { courseData, allCourses, ENROLL_URLS } from './courseData'
 import './CoursePage.css'
+import GetThisExpensed from '../components/GetThisExpensed'
 
 /* ─── Shared icons ─── */
 const ChevronIcon = () => (
@@ -121,6 +122,7 @@ export default function CoursePage({ courseId }) {
 
   const [openSession, setOpenSession] = useState(null)
   const [openFaq, setOpenFaq] = useState(null)
+  const [openSafetyFaq, setOpenSafetyFaq] = useState(null)
 
   if (!course) {
     return (
@@ -309,12 +311,38 @@ export default function CoursePage({ courseId }) {
       {/* ── WHERE THIS FITS ── */}
       <WhereThisFits currentId={id} />
 
+      {/* ── GET THIS EXPENSED ── */}
+      <GetThisExpensed />
+
       {/* ── FAQs ── */}
       <section className="faq" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
         <div className="container">
           <div className="faq-header">
+            <p className="faq-anchor-callout">Concerned about data restrictions or IT policies? <a href="#data-safety-faq">Start here.</a></p>
             <h2>Frequently Asked Questions</h2>
           </div>
+
+          {/* Data & Security sub-group */}
+          <div className="faq-subgroup" id="data-safety-faq">
+            <p className="faq-subgroup-label">Data &amp; Security</p>
+            <h3 className="faq-subgroup-heading">Using AI Safely at Work</h3>
+            <p className="faq-subgroup-intro">You don't need IT approval to get real value from this program. Here's why.</p>
+            <div className="faq-grid">
+              {[
+                { q: "My company doesn't let me connect AI to our internal systems. Can I still get value from this program?", a: "Yes, and we designed the program with this in mind. A core skill we teach is how to build effective AI workflows without connecting to your company's live data. You'll learn how to structure information manually, build automations around what you can access, and get real results within whatever constraints your IT policy sets. Connecting tools via MCP connectors is something we teach as an optional capability, not a requirement." },
+                { q: "Will my company's data be used to train AI models?", a: "When using Claude (Anthropic) on a paid plan, your inputs are not used to train their models by default. We walk you through exactly how to review and configure privacy settings for every AI tool we cover. That's part of the curriculum, not an afterthought." },
+                { q: "What if IT won't approve the AI tools used in the program?", a: "We teach a specific module on data anonymization: how to strip, generalize, or replace sensitive information so you can build and test real workflows without putting protected data into any AI system. Most students find that once they have a working example to show, internal approval follows. Many get tool approvals after the program because they can demonstrate a concrete use case." },
+                { q: "We handle sensitive customer or financial data. Is this appropriate for our team?", a: "Yes. We cover responsible AI use with sensitive data throughout the curriculum, including how to create anonymized datasets for testing, how to write prompts that don't expose PII, and how to evaluate which tasks are safe to automate versus which require human review. You'll leave with a practical framework for making those calls at your company." },
+                { q: "Does Leland store or have access to anything I build during the program?", a: "No. Everything you build lives in your own tools and accounts. We don't have visibility into your workflows, prompts, or outputs. The program teaches you to build. What you build is yours." },
+                { q: "How is this different from just using ChatGPT or Claude on my own?", a: "Free tools give you nothing to build with. You can use ChatGPT for years and still be doing the same one-off tasks you started with. This program builds your ability to create workflows, automations, and agents that run without you, and it does that in six sessions with a working deliverable at the end of each one." },
+              ].map((faq, i) => (
+                <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openSafetyFaq === i} onToggle={() => setOpenSafetyFaq(openSafetyFaq === i ? null : i)} />
+              ))}
+            </div>
+          </div>
+
+          <hr className="faq-section-divider" />
+
           <div className="faq-grid">
             {course.faqs.map((faq, i) => (
               <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />

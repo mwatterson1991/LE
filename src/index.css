@@ -1979,6 +1979,153 @@ footer a:hover {
 /* ==========================================================================
    Responsive (768px)
    ========================================================================== */
+/* ============================================================
+   Get This Expensed
+   ============================================================ */
+.expense-section {
+  padding: 80px 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.expense-card {
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  padding: 48px 40px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.expense-label {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.expense-heading {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.expense-subhead {
+  font-size: 20px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.expense-framing {
+  font-size: 15px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.expense-select {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  padding: 12px 16px;
+  padding-right: 40px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+.expense-select option { background: #111; color: var(--text-primary); }
+.expense-template-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.expense-template-subject {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  font-family: var(--font-meta);
+  line-height: 1.5;
+}
+.expense-template-body {
+  font-family: var(--font-meta);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.expense-copy-row {
+  display: flex;
+  justify-content: flex-end;
+}
+.expense-copy-btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.expense-copy-btn:hover { background: var(--accent-hover); }
+.expense-copy-btn.copied { background: rgba(165,228,70,0.25); color: var(--accent); }
+.expense-placeholder {
+  font-size: 15px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* ============================================================
+   Data & Security FAQ sub-group
+   ============================================================ */
+.faq-subgroup { margin-bottom: 48px; }
+.faq-subgroup-label {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.faq-subgroup-heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.faq-subgroup-intro {
+  font-size: 15px;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+}
+.faq-section-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin: 40px 0;
+}
+.faq-anchor-callout {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-family: var(--font-meta);
+  margin-bottom: 8px;
+}
+.faq-anchor-callout a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 768px) {
   /* Base */
   .container { padding: 0 16px; }
@@ -2215,4 +2362,12 @@ footer a:hover {
   /* .popup-title { font-size: 24px; } */
   /* .popup-sub { font-size: 16px; } */
   /* .popup-input { font-size: 16px; } */
+
+  /* Get This Expensed — mobile (desktop styles in main block below) */
+  .expense-card { padding: 32px 20px; }
+  .expense-heading { font-size: 28px; }
+  .expense-subhead { font-size: 17px; }
+  .expense-copy-row { justify-content: stretch; }
+  .expense-copy-btn { width: 100%; }
+  .expense-template-body { font-size: 12px; }
 }
