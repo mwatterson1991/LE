@@ -427,7 +427,6 @@ function HomePage() {
   const heroRef = useRef(null)
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
-  const [openSafetyFaq, setOpenSafetyFaq] = useState(null)
   const [openAccordion, setOpenAccordion] = useState(0)
   const [activeSection, setActiveSection] = useState(null)
 
@@ -594,38 +593,6 @@ function HomePage() {
 
   const faqs = [
     {
-      q: 'Do I need coding experience?',
-      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Design Multi-Agent Systems and Ship AI Systems That Scale) go deep enough to challenge experienced builders.',
-    },
-    {
-      q: 'Can I take just one course?',
-      a: 'Yes. Each course stands alone. But the series is designed to build on itself, and enrolling in all five gives you the best price and the most complete skill set.',
-    },
-    {
-      q: 'What if I miss a live session?',
-      a: 'Every session is recorded and available within 24 hours. You also get access to async discussion and coach support between sessions.',
-    },
-    {
-      q: 'Is this for individuals or teams?',
-      a: 'Both. Individuals can enroll directly. Teams of 5+ get volume pricing, a dedicated account manager, and custom use case workshops. <a href="https://joinleland.typeform.com/to/a4DMXJjV#" target="_blank" rel="noopener noreferrer">Learn more about team training.</a>',
-    },
-    {
-      q: "What's included in each course?",
-      a: '6 live sessions, recorded replays, hands-on projects, a course community, and direct access to your instructor.',
-    },
-    {
-      q: 'How is this different from free AI tutorials?',
-      a: 'Free content teaches you features. This series teaches you systems. You will build real workflows, get expert feedback, and leave with tools you actually use at work. The cohort format keeps you accountable, and the live instruction means you can ask questions in real time.',
-    },
-    {
-      q: 'What tools will I learn?',
-      a: 'You\'ll work with ChatGPT, Claude, automation platforms like n8n and Zapier, coding tools, and more. We update the curriculum as tools evolve, so you\'re always learning what\'s current, not what was popular six months ago.',
-    },
-    {
-      q: 'How long is each course?',
-      a: 'Each course runs for 3 weeks with 6 live sessions (Tuesdays and Fridays). Sessions are 90 minutes. Plan for 3-5 hours per week including hands-on work.',
-    },
-    {
       q: 'What level should I take?',
       a: "Level 1 is the right starting point for most people. If you use AI tools but haven't built workflows, automations, or agents yet, start there. If you're already building and running automations in your daily work, reach out and we'll help you find the right entry point.",
     },
@@ -634,28 +601,28 @@ function HomePage() {
       a: 'Each level is a standalone course you can take on its own. They also build on each other: Level 1 covers core AI fluency, Level 2 builds agents, Level 3 makes them autonomous, Level 4 orchestrates them at scale, and Level 5 ships production systems. You can start at any level, but the series is designed to take you from capable to advanced.',
     },
     {
-      q: "What's the Best Course Guarantee?",
-      a: 'Complete our course, then take a competitor\'s course and complete it too. If you think theirs was better, we\'ll refund you up to the value of that competitor course. We\'re that confident in the quality.',
-    },
-    {
-      q: 'Can I retake the course?',
-      a: 'Yes. You can retake any course for a full year after your original enrollment. The curriculum updates as tools change, so retaking isn\'t just a refresher, it\'s new content.',
-    },
-    {
       q: 'What if AI tools change after I take the course?',
-      a: 'They will, and that\'s exactly why we built the retake policy. Our curriculum is updated continuously. When you retake, you get the latest version with new tools, new techniques, and new workflows.',
+      a: "They will, and that's exactly why we built the retake policy. Our curriculum is updated continuously. When you retake, you get the latest version with new tools, new techniques, and new workflows.",
     },
     {
-      q: 'Is there a payment plan?',
-      a: 'Yes. Payment plans are available at checkout. Reach out to our team if you need a custom arrangement.',
+      q: 'Is this for individuals or teams?',
+      a: 'Both. Individuals can enroll directly. Teams of 5+ get volume pricing, a dedicated account manager, and custom use case workshops. <a href="https://joinleland.typeform.com/to/a4DMXJjV#" target="_blank" rel="noopener noreferrer">Learn more about team training.</a>',
     },
     {
-      q: 'What happens after I enroll?',
-      a: 'You\'ll receive a welcome email with access to the course community, pre-work materials, and calendar invites for all live sessions. Everything you need to hit the ground running on day one.',
+      q: 'Can I take just one course?',
+      a: 'Yes. Each course stands alone. But the series is designed to build on itself, and enrolling in all five gives you the best price and the most complete skill set.',
     },
     {
-      q: 'Will I get a certificate?',
-      a: 'Yes. Each course includes a verified certificate of completion. Finish all five courses and earn the full AI Builder designation, a credential you can add to LinkedIn and your resume.',
+      q: 'Do I need coding experience?',
+      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Design Multi-Agent Systems and Ship AI Systems That Scale) go deep enough to challenge experienced builders.',
+    },
+    {
+      q: 'Which AI tools do I need for this course?',
+      a: "We focus on teaching concepts in a tool-agnostic way so you can bring whatever AI tools you already use. ChatGPT, Claude, and Gemini will work for the course. We'll use the terminal and workflow builders, and for these interfaces, you can choose from a variety of tool options.",
+    },
+    {
+      q: "My company doesn't let me connect AI to our internal systems. Can I still get value from this program?",
+      a: "Yes, and we designed the program with this in mind. A core skill we teach is how to build effective AI workflows without connecting to your company's live data. You'll learn how to structure information manually, build automations around what you can access, and get real results within whatever constraints your IT policy sets. Connecting tools via MCP connectors is something we teach as an optional capability, not a requirement.",
     },
   ]
 
@@ -1243,37 +1210,10 @@ function HomePage() {
             <h2>Frequently Asked Questions</h2>
           </div>
 
-          {/* Data & Security sub-group */}
-          <div className="faq-subgroup" id="data-safety-faq">
-            <p className="faq-subgroup-label">Data &amp; Security</p>
-            <div className="faq-grid">
-              {[
-                { q: "Will my company's data be used to train AI models?", a: "When using Claude (Anthropic) on a paid plan, your inputs are not used to train their models by default. We walk you through exactly how to review and configure privacy settings for every AI tool we cover. That's part of the curriculum, not an afterthought." },
-                { q: "My company doesn't let me connect AI to our internal systems. Can I still get value from this program?", a: "Yes, and we designed the program with this in mind. A core skill we teach is how to build effective AI workflows without connecting to your company's live data. You'll learn how to structure information manually, build automations around what you can access, and get real results within whatever constraints your IT policy sets. Connecting tools via MCP connectors is something we teach as an optional capability, not a requirement." },
-              ].map((faq, i) => (
-                <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openSafetyFaq === i} onToggle={() => setOpenSafetyFaq(openSafetyFaq === i ? null : i)} />
-              ))}
-            </div>
-          </div>
-
-          {/* The Program sub-group */}
-          <div className="faq-subgroup">
-            <p className="faq-subgroup-label">The Program</p>
-            <div className="faq-grid">
-              {faqs.slice(0, 10).map((faq, i) => (
-                <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
-              ))}
-            </div>
-          </div>
-
-          {/* Enrollment sub-group */}
-          <div className="faq-subgroup">
-            <p className="faq-subgroup-label">Enrollment</p>
-            <div className="faq-grid">
-              {faqs.slice(10).map((faq, i) => (
-                <FaqItem key={10 + i} question={faq.q} answer={faq.a} index={10 + i} open={openFaq === 10 + i} onToggle={() => setOpenFaq(openFaq === 10 + i ? null : 10 + i)} />
-              ))}
-            </div>
+          <div className="faq-grid">
+            {faqs.map((faq, i) => (
+              <FaqItem key={i} question={faq.q} answer={faq.a} index={i} open={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
+            ))}
           </div>
         </div>
       </section>
