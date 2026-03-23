@@ -81,41 +81,6 @@ export default function B2BPage() {
     },
   ]
 
-  const offerings = [
-    {
-      label: 'BASIC',
-      title: 'Level 1',
-      subtitle: 'Use AI to 10x Your Impact',
-      details: ['6 live sessions across 3 weeks', 'Prompt systems, research workflows, content automations'],
-      bestFor: 'Teams who are AI-aware but haven\'t built anything yet',
-      popular: false,
-    },
-    {
-      label: 'FOUNDATION',
-      title: 'Levels 1-3',
-      subtitle: '3-Course Progression',
-      details: ['18 sessions across 9 weeks', 'From foundational use to agents to autonomous systems', 'Ends with team members running agents autonomously'],
-      bestFor: 'Most teams, covering the full "chatbot user to AI builder" progression',
-      popular: true,
-    },
-    {
-      label: 'FULL PROGRAM',
-      title: 'All 5 Levels',
-      subtitle: 'Complete AI Builder Certification',
-      details: ['30 sessions across 15 weeks', 'Ends with team members designing multi-agent systems', 'Verified AI Builder certification for each participant'],
-      bestFor: 'Technical-adjacent teams who want the complete skill set and credential',
-      popular: false,
-    },
-  ]
-
-  const levels = [
-    { num: 'LEVEL 01', title: 'Use AI to 10x Your Impact', desc: 'Build AI tools and automations that amplify your impact at work.' },
-    { num: 'LEVEL 02', title: 'Build Agents That Work for You', desc: 'Ship autonomous agents that handle real work tasks end-to-end.' },
-    { num: 'LEVEL 03', title: 'Create Systems to Run Without You', desc: 'Build automations that operate as a unified, autonomous system.' },
-    { num: 'LEVEL 04', title: 'Design Multi-Agent Systems', desc: 'Orchestrate multiple agents that communicate and collaborate.' },
-    { num: 'LEVEL 05', title: 'Ship AI Systems That Scale', desc: 'Build production AI systems that proactively iterate toward goals.' },
-  ]
-
   const roles = [
     {
       role: 'Marketing',
@@ -168,9 +133,9 @@ export default function B2BPage() {
         <div className="container">
           <div className="b2b-hero-content">
             <span className="b2b-eyebrow">FOR TEAMS</span>
-            <h1 className="b2b-hero-headline">Help your team accelerate with AI</h1>
+            <h1 className="b2b-hero-headline">We meet your team where they are. And take them further.</h1>
             <p className="b2b-hero-sub">
-              Most companies have the tools. Few have the training. AI Builder gives your team a structured path from chatbot users to AI builders in weeks.
+              Most organizations know they need to move faster on AI. We assess where your team is today, align on the right path, and deliver measurable results across every function.
             </p>
             <div className="b2b-hero-ctas">
               <a
@@ -273,74 +238,29 @@ export default function B2BPage() {
         </div>
       </section>
 
-      {/* ====== 5-LEVEL OVERVIEW ====== */}
-      <section className="b2b-levels">
-        <div className="container">
-          <h2 className="b2b-levels-headline">A 5-bootcamp program to help employees build with AI</h2>
-          <div className="b2b-level-list">
-            {levels.map((l) => (
-              <div key={l.num} className="b2b-level-item">
-                <span className="b2b-level-num">{l.num}</span>
-                <div className="b2b-level-text">
-                  <strong className="b2b-level-title">{l.title}</strong>
-                  <span className="b2b-level-desc">{l.desc}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ====== OFFERINGS ====== */}
+      {/* ====== SOLUTIONS ====== */}
       <section className="b2b-offerings">
         <div className="container">
-          <span className="b2b-section-label">Program options</span>
-          <h2 className="b2b-section-headline">Match the program to where your team is</h2>
-          <p className="b2b-section-sub">In our 5-course program, each course builds on the last. We recommend most people start with Level 1 to build a strong foundation.</p>
-          <div className="b2b-offering-cards">
-            {offerings.map((o, i) => (
-              <div key={i} className={`b2b-offering-card${o.popular ? ' b2b-offering-card-featured' : ''}`}>
-                {o.popular && <div className="b2b-offering-badge">Most Popular</div>}
-                <span className="b2b-offering-tier">{o.label}</span>
-                <h3 className="b2b-offering-title">{o.title}</h3>
-                <p className="b2b-offering-subtitle">{o.subtitle}</p>
-                <ul className="b2b-offering-details">
-                  {o.details.map((d, j) => (
-                    <li key={j}>
-                      <span className="b2b-check"><CheckIcon /></span>
-                      {d}
-                    </li>
-                  ))}
-                </ul>
-                <div className="b2b-offering-best-for">
-                  <span className="b2b-best-for-label">Best for:</span> {o.bestFor}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Add-on card */}
-          <div className="b2b-addon-card">
-            <div className="b2b-addon-label">ADD-ON</div>
-            <div className="b2b-addon-content">
-              <div className="b2b-addon-left">
-                <h3>1:1 AI Coaching</h3>
-                <p>Function-specific sessions with expert coaches from ex-OpenAI, Meta, Microsoft, and Google. Matched to each employee's role: marketing, finance, ops, product, strategy, HR.</p>
-              </div>
-              <div className="b2b-addon-right">
-                <div className="b2b-addon-topics">
-                  <span>Skills</span>
-                  <span>Agents</span>
-                  <span>Custom connections</span>
-                  <span>Automation</span>
-                  <span>Tool-specific workflows</span>
-                  <span>Role-specific AI use cases</span>
-                </div>
-                <p className="b2b-addon-note">Designed to pair with the live course so employees apply skills to their own workflows immediately.</p>
-              </div>
+          <span className="b2b-section-label">What we do</span>
+          <h2 className="b2b-section-headline">One partner for your entire AI transformation</h2>
+          <p className="b2b-section-sub">We scope every engagement based on where your team is. Most organizations use a combination of these.</p>
+          <div className="b2b-solution-cards">
+            <div className="b2b-solution-card">
+              <span className="b2b-solution-label">STRATEGIZE</span>
+              <h3 className="b2b-solution-title">Identify where and how AI enables your company</h3>
+              <p className="b2b-solution-body">We assess your team's current capabilities, map the highest-impact opportunities, and build a prioritized roadmap. Designed for leaders who want to move with confidence, not guesswork.</p>
+            </div>
+            <div className="b2b-solution-card">
+              <span className="b2b-solution-label">UPSKILL</span>
+              <h3 className="b2b-solution-title">Don't just teach AI. Get your employees building with it.</h3>
+              <p className="b2b-solution-body">Live bootcamps, role-specific coaching, and 5,000+ self-study resources that build real skills across marketing, finance, ops, HR, strategy, and product. Every employee levels up, regardless of technical background.</p>
+            </div>
+            <div className="b2b-solution-card">
+              <span className="b2b-solution-label">BUILD</span>
+              <h3 className="b2b-solution-title">Leverage world-class AI experts to build for you</h3>
+              <p className="b2b-solution-body">Our expert coaches design and deploy custom agents and automated workflows for your team's specific processes. From research to reporting to client comms, we ship things that work.</p>
             </div>
           </div>
-
           <div className="b2b-offerings-cta">
             <a
               href={CALENDLY_URL}
@@ -363,18 +283,18 @@ export default function B2BPage() {
           <div className="b2b-steps">
             <div className="b2b-step">
               <div className="b2b-step-num">01</div>
-              <h3 className="b2b-step-title">Talk to our team</h3>
-              <p className="b2b-step-desc">We learn your team's tools, workflows, and security requirements. A 30-minute call is all it takes.</p>
+              <h3 className="b2b-step-title">We assess your situation</h3>
+              <p className="b2b-step-desc">We learn your team's current AI capabilities, tools, workflows, and goals. A 30-minute call is all it takes to get started.</p>
             </div>
             <div className="b2b-step">
               <div className="b2b-step-num">02</div>
-              <h3 className="b2b-step-title">We customize the program</h3>
-              <p className="b2b-step-desc">Cohort schedule, curriculum focus, custom use cases tailored to your team's actual work.</p>
+              <h3 className="b2b-step-title">We build your plan</h3>
+              <p className="b2b-step-desc">Custom program design based on what your team actually needs. No guessing, no one-size-fits-all.</p>
             </div>
             <div className="b2b-step">
               <div className="b2b-step-num">03</div>
-              <h3 className="b2b-step-title">Your team builds and ships</h3>
-              <p className="b2b-step-desc">Working workflows by session 6. Participants show up with something they built.</p>
+              <h3 className="b2b-step-title">Your team executes</h3>
+              <p className="b2b-step-desc">Working deliverables by week three.</p>
             </div>
           </div>
         </div>
@@ -384,7 +304,7 @@ export default function B2BPage() {
       <section className="b2b-roles">
         <div className="container">
           <span className="b2b-section-label b2b-section-label-light">What your team will build</span>
-          <h2 className="b2b-section-headline b2b-section-headline-light">Built for every function, not just tech</h2>
+          <h2 className="b2b-section-headline b2b-section-headline-light">Built for every function across your organization</h2>
           <div className="b2b-role-cards">
             {roles.map((r, i) => (
               <div key={i} className="b2b-role-card">
@@ -425,8 +345,8 @@ export default function B2BPage() {
       {/* ====== FOOTER CTA ====== */}
       <section className="b2b-footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
-          <h2 className="b2b-footer-cta-headline">Ready to build an AI-fluent team?</h2>
-          <p className="b2b-footer-cta-sub">Most programs take months to show results. Ours delivers in weeks.</p>
+          <h2 className="b2b-footer-cta-headline">Not sure where to start? That's exactly what we're here for.</h2>
+          <p className="b2b-footer-cta-sub">Tell us where your team is today. We'll tell you what to do next.</p>
           <a
             href={CALENDLY_URL}
             target="_blank"
