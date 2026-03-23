@@ -11,12 +11,6 @@ const ChevronIcon = () => (
   </svg>
 )
 
-const CheckIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 6L9 17l-5-5" />
-  </svg>
-)
-
 /* ─── FAQ accordion ─── */
 function FaqItem({ question, answer, index, open, onToggle }) {
   return (
@@ -132,10 +126,10 @@ export default function B2BPage() {
       <section className="b2b-hero">
         <div className="container">
           <div className="b2b-hero-content">
-            <span className="b2b-eyebrow">FOR TEAMS</span>
-            <h1 className="b2b-hero-headline">We meet your team where they are. And take them further.</h1>
+            <span className="b2b-eyebrow">AI SOLUTIONS FOR TEAMS</span>
+            <h1 className="b2b-hero-headline">Accelerate your business with AI</h1>
             <p className="b2b-hero-sub">
-              Most organizations know they need to move faster on AI. We assess where your team is today, align on the right path, and deliver measurable results across every function.
+              Leland helps organizations move faster on AI. From strategy to execution, we'll co-create tailored solutions to upskill teams, build agents, and transform workflows.
             </p>
             <div className="b2b-hero-ctas">
               <a
@@ -145,7 +139,7 @@ export default function B2BPage() {
                 className="btn btn-primary btn-lg"
                 style={{ textTransform: 'uppercase' }}
               >
-                Talk to Our Team <span className="arrow">&rarr;</span>
+                Learn More <span className="arrow">&rarr;</span>
               </a>
               <a href="/" className="b2b-hero-secondary-link">
                 For individuals &rarr;
@@ -174,12 +168,35 @@ export default function B2BPage() {
         </div>
       </div>
 
-      {/* ====== DON'T GET LEFT BEHIND ====== */}
+      {/* ====== WHAT WE OFFER ====== */}
+      <section className="b2b-offerings">
+        <div className="container">
+          <span className="b2b-section-label">What we offer</span>
+          <h2 className="b2b-section-headline">Everything your organization needs to lead with AI</h2>
+          <div className="b2b-solution-cards">
+            <div className="b2b-solution-card">
+              <h3 className="b2b-solution-title">AI Strategy &amp; Transformation</h3>
+              <p className="b2b-solution-body">Identify where and how you want your company to be enabled with AI.</p>
+            </div>
+            <div className="b2b-solution-card">
+              <h3 className="b2b-solution-title">AI Upskilling &amp; Workforce Enablement</h3>
+              <p className="b2b-solution-body">Don't just teach AI. Get your employees building automations, agents, and more with it.</p>
+            </div>
+            <div className="b2b-solution-card">
+              <h3 className="b2b-solution-title">AI Agent &amp; Workflow Automation Services</h3>
+              <p className="b2b-solution-body">Work with world-class AI experts to build custom solutions for your team.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== CREDIBILITY ====== */}
       <section className="b2b-value-props">
         <div className="container">
           <div className="b2b-vp-grid">
             <div className="b2b-vp-left">
-              <h2 className="b2b-vp-headline">Don't get left behind. Lead with AI.</h2>
+              <span className="b2b-section-label">Your AI transformation partner</span>
+              <h2 className="b2b-vp-headline">Built by AI Experts, Designed for Every Team</h2>
               <div className="b2b-vp-items">
                 <div className="b2b-vp-item">
                   <div className="b2b-vp-icon">
@@ -208,10 +225,66 @@ export default function B2BPage() {
                     <p>Dedicated customer success manager, full implementation support, and engagement reporting so you can measure real business impact.</p>
                   </div>
                 </div>
+                <div className="b2b-vp-item">
+                  <div className="b2b-vp-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </div>
+                  <div>
+                    <h3>Custom support for your tool and security needs</h3>
+                    <p>Get help navigating your specific tools and data security requirements so you can build impactful AI solutions.</p>
+                  </div>
+                </div>
+              </div>
+              <div style={{ marginTop: 32 }}>
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary btn-lg"
+                  style={{ textTransform: 'uppercase' }}
+                >
+                  Learn More <span className="arrow">&rarr;</span>
+                </a>
               </div>
             </div>
             <div className="b2b-vp-right">
               <img src={WAVING_IMG} alt="Person on a video call" className="b2b-vp-photo" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== HOW WE'LL SUPPORT YOU ====== */}
+      <section className="b2b-process">
+        <div className="container">
+          <span className="b2b-section-label">How we'll support you</span>
+          <h2 className="b2b-section-headline">A results-driven approach to AI training</h2>
+          <p className="b2b-section-sub">Invest in AI training that delivers results at scale.</p>
+          <div className="b2b-steps b2b-steps-4">
+            <div className="b2b-step">
+              <div className="b2b-step-num">01</div>
+              <h3 className="b2b-step-title">Identify your organization's needs</h3>
+            </div>
+            <div className="b2b-step-arrow-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div className="b2b-step">
+              <div className="b2b-step-num">02</div>
+              <h3 className="b2b-step-title">Align on a transformation plan</h3>
+            </div>
+            <div className="b2b-step-arrow-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div className="b2b-step">
+              <div className="b2b-step-num">03</div>
+              <h3 className="b2b-step-title">Implement tailored AI solutions</h3>
+            </div>
+            <div className="b2b-step-arrow-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div className="b2b-step">
+              <div className="b2b-step-num">04</div>
+              <h3 className="b2b-step-title">Measure and assess impact</h3>
             </div>
           </div>
         </div>
@@ -233,68 +306,6 @@ export default function B2BPage() {
             </div>
             <div className="b2b-testimonial-description">
               <p>Leland combines expert coaching with hands-on AI training and a comprehensive resource library to help organizations implement AI across every function, from leadership to the front lines.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====== SOLUTIONS ====== */}
-      <section className="b2b-offerings">
-        <div className="container">
-          <span className="b2b-section-label">What we do</span>
-          <h2 className="b2b-section-headline">One partner for your entire AI transformation</h2>
-          <p className="b2b-section-sub">We scope every engagement based on where your team is. Most organizations use a combination of these.</p>
-          <div className="b2b-solution-cards">
-            <div className="b2b-solution-card">
-              <span className="b2b-solution-label">STRATEGIZE</span>
-              <h3 className="b2b-solution-title">Identify where and how AI enables your company</h3>
-              <p className="b2b-solution-body">We assess your team's current capabilities, map the highest-impact opportunities, and build a prioritized roadmap. Designed for leaders who want to move with confidence, not guesswork.</p>
-            </div>
-            <div className="b2b-solution-card">
-              <span className="b2b-solution-label">UPSKILL</span>
-              <h3 className="b2b-solution-title">Don't just teach AI. Get your employees building with it.</h3>
-              <p className="b2b-solution-body">Live bootcamps, role-specific coaching, and 5,000+ self-study resources that build real skills across marketing, finance, ops, HR, strategy, and product. Every employee levels up, regardless of technical background.</p>
-            </div>
-            <div className="b2b-solution-card">
-              <span className="b2b-solution-label">BUILD</span>
-              <h3 className="b2b-solution-title">Leverage world-class AI experts to build for you</h3>
-              <p className="b2b-solution-body">Our expert coaches design and deploy custom agents and automated workflows for your team's specific processes. From research to reporting to client comms, we ship things that work.</p>
-            </div>
-          </div>
-          <div className="b2b-offerings-cta">
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary btn-lg"
-              style={{ textTransform: 'uppercase' }}
-            >
-              Talk to Our Team <span className="arrow">&rarr;</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ====== HOW IT WORKS ====== */}
-      <section className="b2b-process">
-        <div className="container">
-          <span className="b2b-section-label">Our process</span>
-          <h2 className="b2b-section-headline">From kickoff to ROI in three weeks</h2>
-          <div className="b2b-steps">
-            <div className="b2b-step">
-              <div className="b2b-step-num">01</div>
-              <h3 className="b2b-step-title">We assess your situation</h3>
-              <p className="b2b-step-desc">We learn your team's current AI capabilities, tools, workflows, and goals. A 30-minute call is all it takes to get started.</p>
-            </div>
-            <div className="b2b-step">
-              <div className="b2b-step-num">02</div>
-              <h3 className="b2b-step-title">We build your plan</h3>
-              <p className="b2b-step-desc">Custom program design based on what your team actually needs. No guessing, no one-size-fits-all.</p>
-            </div>
-            <div className="b2b-step">
-              <div className="b2b-step-num">03</div>
-              <h3 className="b2b-step-title">Your team executes</h3>
-              <p className="b2b-step-desc">Working deliverables by week three.</p>
             </div>
           </div>
         </div>
@@ -345,7 +356,7 @@ export default function B2BPage() {
       {/* ====== FOOTER CTA ====== */}
       <section className="b2b-footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
-          <h2 className="b2b-footer-cta-headline">Not sure where to start? That's exactly what we're here for.</h2>
+          <h2 className="b2b-footer-cta-headline">Get started today.</h2>
           <p className="b2b-footer-cta-sub">Tell us where your team is today. We'll tell you what to do next.</p>
           <a
             href={CALENDLY_URL}
