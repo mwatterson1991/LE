@@ -477,12 +477,12 @@ function HomePage() {
       tagline: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Transform How You Work Forever', sub: 'AI tool selection, iterative prompting, and turning messy notes into structured outputs.', date: 'Tue, Apr 21', time: '3:00 PM MDT' },
-        { title: 'Let AI Research and Synthesize for You', sub: 'Use AI to research markets, synthesize findings, and produce strategic deliverables.', date: 'Fri, Apr 24', time: '9:00 AM MDT' },
-        { title: 'Analyze Data in Minutes, Not Hours', sub: 'Work with spreadsheets, build financial models, and create visualizations using AI.', date: 'Tue, Apr 28', time: '3:00 PM MDT' },
-        { title: 'Build a Workflow That Runs Daily', sub: 'Chain prompts into repeatable workflows that surface leads and opportunities automatically.', date: 'Fri, May 1', time: '9:00 AM MDT' },
-        { title: 'Make Every Output Sound Like You', sub: 'Teach AI your voice and build personalized multi-touch communication sequences.', date: 'Tue, May 5', time: '3:00 PM MDT' },
-        { title: 'Build an End-to-End Process Workflow', sub: 'Connect research inputs to automated outputs with human-in-the-loop checkpoints.', date: 'Fri, May 8', time: '9:00 AM MDT' },
+        { title: 'Transform How You Work Forever', sub: 'AI tool selection, iterative prompting, and turning messy notes into structured outputs.', date: 'Tue, Apr 21', time: '2pm PT / 5pm ET' },
+        { title: 'Let AI Research and Synthesize for You', sub: 'Use AI to research markets, synthesize findings, and produce strategic deliverables.', date: 'Fri, Apr 24', time: '8am PT / 11am ET' },
+        { title: 'Analyze Data in Minutes, Not Hours', sub: 'Work with spreadsheets, build financial models, and create visualizations using AI.', date: 'Tue, Apr 28', time: '2pm PT / 5pm ET' },
+        { title: 'Build a Workflow That Runs Daily', sub: 'Chain prompts into repeatable workflows that surface leads and opportunities automatically.', date: 'Fri, May 1', time: '8am PT / 11am ET' },
+        { title: 'Make Every Output Sound Like You', sub: 'Teach AI your voice and build personalized multi-touch communication sequences.', date: 'Tue, May 5', time: '2pm PT / 5pm ET' },
+        { title: 'Build an End-to-End Process Workflow', sub: 'Connect research inputs to automated outputs with human-in-the-loop checkpoints.', date: 'Fri, May 8', time: '8am PT / 11am ET' },
       ],
       cohorts: [
         { month: 'APR', day: '21', date: 'April 21' },
@@ -501,12 +501,12 @@ function HomePage() {
       tagline: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Ship Your First Agent', sub: 'Build a research agent that takes an input and returns a structured brief autonomously.', date: 'Tue, Apr 21', time: '5:00 PM MDT' },
-        { title: 'Build an Agent That Writes in Your Voice', sub: 'Create an agent that reads structured input and produces personalized messages in your voice consistently.', date: 'Fri, Apr 24', time: '11:00 AM MDT' },
-        { title: 'Give Your Agent Real Tools', sub: 'Build an agent that reads from live systems, takes action, and logs every write automatically.', date: 'Tue, Apr 28', time: '5:00 PM MDT' },
-        { title: 'Build an Agent That Watches and Decides', sub: 'Build an agent that checks conditions, drafts suggested actions, and executes only after your approval.', date: 'Fri, May 1', time: '11:00 AM MDT' },
-        { title: 'Run Your Agents at Scale', sub: 'Process entire lists with an agent that enriches every row with structured data without manual prompting.', date: 'Tue, May 5', time: '5:00 PM MDT' },
-        { title: 'Build Your First Agent Team', sub: 'Chain a research agent and writing agent with a clean handoff so input flows to finished output.', date: 'Fri, May 8', time: '11:00 AM MDT' },
+        { title: 'Ship Your First Agent', sub: 'Build a research agent that takes an input and returns a structured brief autonomously.', date: 'Tue, Apr 21', time: '4pm PT / 7pm ET' },
+        { title: 'Build an Agent That Writes in Your Voice', sub: 'Create an agent that reads structured input and produces personalized messages in your voice consistently.', date: 'Fri, Apr 24', time: '10am PT / 1pm ET' },
+        { title: 'Give Your Agent Real Tools', sub: 'Build an agent that reads from live systems, takes action, and logs every write automatically.', date: 'Tue, Apr 28', time: '4pm PT / 7pm ET' },
+        { title: 'Build an Agent That Watches and Decides', sub: 'Build an agent that checks conditions, drafts suggested actions, and executes only after your approval.', date: 'Fri, May 1', time: '10am PT / 1pm ET' },
+        { title: 'Run Your Agents at Scale', sub: 'Process entire lists with an agent that enriches every row with structured data without manual prompting.', date: 'Tue, May 5', time: '4pm PT / 7pm ET' },
+        { title: 'Build Your First Agent Team', sub: 'Chain a research agent and writing agent with a clean handoff so input flows to finished output.', date: 'Fri, May 8', time: '10am PT / 1pm ET' },
       ],
       cohorts: [
         { month: 'APR', day: '21', date: 'April 21' },
@@ -525,12 +525,12 @@ function HomePage() {
       tagline: "You've built multiple AI agents, but they don't run autonomously.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Trigger the Work You Used to Do Manually', sub: 'Build an automation that fires on a trigger and handles your top recurring task end-to-end without you.', date: 'Tue, May 19', time: '3:00 PM MDT' },
-        { title: 'Map Your Work as a System', sub: 'Audit your recurring work and build a prioritized automation backlog ranked by frequency and time saved.', date: 'Fri, May 22', time: '9:00 AM MDT' },
-        { title: 'Build Workflows Across Your Entire Stack', sub: 'Build a workflow spanning 5+ tools with AI processing, error handling, and outputs to multiple destinations.', date: 'Tue, May 26', time: '3:00 PM MDT' },
-        { title: 'Put an Agent Inside a Workflow', sub: 'Replace a manual workflow step with an agent that fires automatically and feeds output to the next step.', date: 'Fri, May 29', time: '9:00 AM MDT' },
-        { title: 'Build Agent Teams That Run on a Schedule', sub: 'Run a chain of specialized agents on a schedule with outputs delivered across your full stack automatically.', date: 'Tue, Jun 2', time: '3:00 PM MDT' },
-        { title: 'Ship an Internal Tool Without a Developer', sub: 'Use AI as your developer to build a working internal tool connected to live data from your stack.', date: 'Fri, Jun 5', time: '9:00 AM MDT' },
+        { title: 'Trigger the Work You Used to Do Manually', sub: 'Build an automation that fires on a trigger and handles your top recurring task end-to-end without you.', date: 'Tue, May 19', time: '2pm PT / 5pm ET' },
+        { title: 'Map Your Work as a System', sub: 'Audit your recurring work and build a prioritized automation backlog ranked by frequency and time saved.', date: 'Fri, May 22', time: '8am PT / 11am ET' },
+        { title: 'Build Workflows Across Your Entire Stack', sub: 'Build a workflow spanning 5+ tools with AI processing, error handling, and outputs to multiple destinations.', date: 'Tue, May 26', time: '2pm PT / 5pm ET' },
+        { title: 'Put an Agent Inside a Workflow', sub: 'Replace a manual workflow step with an agent that fires automatically and feeds output to the next step.', date: 'Fri, May 29', time: '8am PT / 11am ET' },
+        { title: 'Build Agent Teams That Run on a Schedule', sub: 'Run a chain of specialized agents on a schedule with outputs delivered across your full stack automatically.', date: 'Tue, Jun 2', time: '2pm PT / 5pm ET' },
+        { title: 'Ship an Internal Tool Without a Developer', sub: 'Use AI as your developer to build a working internal tool connected to live data from your stack.', date: 'Fri, Jun 5', time: '8am PT / 11am ET' },
       ],
       cohorts: [
         { month: 'MAY', day: '19', date: 'May 19' },
@@ -549,12 +549,12 @@ function HomePage() {
       tagline: "You have multiple autonomous agents running, but they don't operate as a unified system.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Give an Agent a Goal, Not a Script', sub: 'Design goal-directed agents that plan and execute steps toward an objective autonomously.', date: 'Tue, Jun 16', time: '3:00 PM MDT' },
-        { title: 'Build an Eval System', sub: 'Define rubrics and score agent outputs to measure and improve performance over time.', date: 'Fri, Jun 19', time: '9:00 AM MDT' },
-        { title: 'Build an Agent That Improves Software', sub: 'Give an agent a codebase and improvement goal, let it build, test, and iterate.', date: 'Tue, Jun 23', time: '9:00 AM MDT' },
-        { title: 'Build an Orchestration Layer', sub: 'Build an orchestrator that delegates subtasks to specialized agents and assembles results.', date: 'Fri, Jun 26', time: '3:00 PM MDT' },
-        { title: 'Build a QA Layer for Your System', sub: 'Monitor agent outputs, score quality, and alert when something needs human review.', date: 'Tue, Jun 30', time: '9:00 AM MDT' },
-        { title: 'Ship a Goal-Directed Delivery System', sub: 'Deploy an end-to-end autonomous pipeline with evals and human checkpoints.', date: 'Fri, Jul 3', time: '3:00 PM MDT' },
+        { title: 'Give an Agent a Goal, Not a Script', sub: 'Design goal-directed agents that plan and execute steps toward an objective autonomously.', date: 'Tue, Jun 16', time: '2pm PT / 5pm ET' },
+        { title: 'Build an Eval System', sub: 'Define rubrics and score agent outputs to measure and improve performance over time.', date: 'Fri, Jun 19', time: '8am PT / 11am ET' },
+        { title: 'Build an Agent That Improves Software', sub: 'Give an agent a codebase and improvement goal, let it build, test, and iterate.', date: 'Tue, Jun 23', time: '8am PT / 11am ET' },
+        { title: 'Build an Orchestration Layer', sub: 'Build an orchestrator that delegates subtasks to specialized agents and assembles results.', date: 'Fri, Jun 26', time: '2pm PT / 5pm ET' },
+        { title: 'Build a QA Layer for Your System', sub: 'Monitor agent outputs, score quality, and alert when something needs human review.', date: 'Tue, Jun 30', time: '8am PT / 11am ET' },
+        { title: 'Ship a Goal-Directed Delivery System', sub: 'Deploy an end-to-end autonomous pipeline with evals and human checkpoints.', date: 'Fri, Jul 3', time: '2pm PT / 5pm ET' },
       ],
       cohorts: [
         { month: 'JUN', day: '16', date: 'June 16' },
@@ -573,12 +573,12 @@ function HomePage() {
       tagline: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Give Your Agents Institutional Memory', sub: 'Build a retrieval system so agents have real organizational context when they act.', date: 'Tue, Jul 14', time: '9:00 AM MDT' },
-        { title: 'Build an Agent That Works Toward a Long-Horizon Goal', sub: 'Design agents that maintain context across days with checkpointing and drift prevention.', date: 'Fri, Jul 17', time: '3:00 PM MDT' },
-        { title: 'Build an Agent That Builds and Tests Software', sub: 'Give an agent a product goal and let it write, test, and iterate autonomously.', date: 'Tue, Jul 21', time: '9:00 AM MDT' },
-        { title: 'Build a System That Self-Corrects', sub: 'Create feedback loops that detect errors, attempt corrections, and escalate when needed.', date: 'Fri, Jul 24', time: '3:00 PM MDT' },
-        { title: 'Evaluate a System You\'re Not Watching', sub: 'Build a live dashboard with KPIs, anomaly detection, and decision-support alerts.', date: 'Tue, Jul 28', time: '9:00 AM MDT' },
-        { title: 'Build a System That Runs a Business', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input.', date: 'Fri, Jul 31', time: '3:00 PM MDT' },
+        { title: 'Give Your Agents Institutional Memory', sub: 'Build a retrieval system so agents have real organizational context when they act.', date: 'Tue, Jul 14', time: '8am PT / 11am ET' },
+        { title: 'Build an Agent That Works Toward a Long-Horizon Goal', sub: 'Design agents that maintain context across days with checkpointing and drift prevention.', date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' },
+        { title: 'Build an Agent That Builds and Tests Software', sub: 'Give an agent a product goal and let it write, test, and iterate autonomously.', date: 'Tue, Jul 21', time: '8am PT / 11am ET' },
+        { title: 'Build a System That Self-Corrects', sub: 'Create feedback loops that detect errors, attempt corrections, and escalate when needed.', date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' },
+        { title: 'Evaluate a System You\'re Not Watching', sub: 'Build a live dashboard with KPIs, anomaly detection, and decision-support alerts.', date: 'Tue, Jul 28', time: '8am PT / 11am ET' },
+        { title: 'Build a System That Runs a Business', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input.', date: 'Fri, Jul 31', time: '2pm PT / 5pm ET' },
       ],
       cohorts: [
         { month: 'JUL', day: '14', date: 'July 14' },
@@ -639,11 +639,11 @@ function HomePage() {
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
   const trackItems = [
-    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'April 21, 2026', schedule: 'Tue 3pm & Fri 9am MDT', featured: true },
-    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', schedule: 'Tue 5pm & Fri 11am MDT', secondary: true },
-    { num: '03', name: 'Create Autonomous Systems', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026', schedule: 'Tue 3pm & Fri 9am MDT' },
-    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026', schedule: 'Tuesdays & Fridays MDT' },
-    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026', schedule: 'Tue 9am & Fri 3pm MDT' },
+    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'April 21, 2026', schedule: 'Tue 2pm PT / 5pm ET · Fri 8am PT / 11am ET', featured: true },
+    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', schedule: 'Tue 4pm PT / 7pm ET · Fri 10am PT / 1pm ET', secondary: true },
+    { num: '03', name: 'Create Autonomous Systems', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026', schedule: 'Tue 2pm PT / 5pm ET · Fri 8am PT / 11am ET' },
+    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026', schedule: 'Tuesdays & Fridays PT/ET' },
+    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026', schedule: 'Tue 8am PT / 11am ET · Fri 2pm PT / 5pm ET' },
   ]
 
   return (
