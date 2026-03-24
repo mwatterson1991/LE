@@ -166,7 +166,7 @@ export default function CoursePage({ courseId }) {
   }
 
   return (
-    <>
+    <div className="cp-page">
       {/* ── NAV ── */}
       <nav>
         <div className="container">
@@ -386,6 +386,6 @@ export default function CoursePage({ courseId }) {
           <p>&copy; 2026 <a href="https://www.joinleland.com">Leland</a>. All rights reserved.</p>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
