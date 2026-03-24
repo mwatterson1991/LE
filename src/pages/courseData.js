@@ -252,7 +252,7 @@ export const courseData = {
       { q: 'Can I take Courses 1 and 2 back-to-back?', a: 'Yes. Many students do Course 1 in one cohort and Course 2 in the next.' },
     ],
     nextCourse: 3,
-    nextCourseName: 'Create Systems That Run Without You',
+    nextCourseName: 'Create Autonomous Systems',
   },
 
   3: {
