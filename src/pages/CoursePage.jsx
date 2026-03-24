@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { courseData, allCourses, ENROLL_URLS, SESSION_SCHEDULES } from './courseData'
 import './CoursePage.css'
 import GetThisExpensed from '../components/GetThisExpensed'
@@ -117,52 +117,77 @@ function EnrollBlock({ nextCohort, enrollUrl, size = 'normal', centered = false 
   )
 }
 
-/* ─── Build carousel ─── */
-function BuildCarousel({ images }) {
-  const [current, setCurrent] = useState(0)
-  const timerRef = useRef(null)
+/* ─── Tools section ─── */
+const TOOL_ICONS = {
+  OpenAI: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.28 9.77a5.85 5.85 0 0 0-.5-4.8 5.93 5.93 0 0 0-6.38-2.85A5.86 5.86 0 0 0 11 .48a5.93 5.93 0 0 0-5.66 4.11 5.86 5.86 0 0 0-3.92 2.84 5.93 5.93 0 0 0 .73 6.96 5.85 5.85 0 0 0 .5 4.8 5.93 5.93 0 0 0 6.38 2.85A5.86 5.86 0 0 0 13 23.52a5.93 5.93 0 0 0 5.66-4.1 5.86 5.86 0 0 0 3.92-2.85 5.93 5.93 0 0 0-.73-6.96l.43-.84zM13 21.98a4.4 4.4 0 0 1-2.82-1.02l.14-.08 4.68-2.7a.77.77 0 0 0 .39-.67v-6.6l1.98 1.14a.07.07 0 0 1 .04.06v5.46A4.42 4.42 0 0 1 13 21.98zM3.63 17.87a4.4 4.4 0 0 1-.53-2.97l.14.08 4.68 2.7a.77.77 0 0 0 .77 0l5.71-3.3v2.28a.08.08 0 0 1-.03.06L9.6 19.48a4.43 4.43 0 0 1-5.97-1.61zm-1.24-10.3A4.4 4.4 0 0 1 4.7 5.42v5.5a.77.77 0 0 0 .39.67l5.71 3.3-1.98 1.14a.08.08 0 0 1-.07 0L4.1 13.36a4.43 4.43 0 0 1-1.71-5.79zm16.27 3.8L13 8.07l1.98-1.14a.08.08 0 0 1 .07 0l4.66 2.69a4.42 4.42 0 0 1-.68 7.98v-5.5a.77.77 0 0 0-.37-.73zm1.97-3.02-.14-.08-4.68-2.7a.77.77 0 0 0-.77 0L9.33 8.87V6.59a.08.08 0 0 1 .03-.06l4.66-2.69a4.42 4.42 0 0 1 6.61 4.58v.03zm-12.4 4.08L6.24 11.3a.08.08 0 0 1-.04-.06V5.78a4.42 4.42 0 0 1 7.25-3.4l-.14.08-4.68 2.7a.77.77 0 0 0-.39.67v6.6l-1.98-1.15v.02zm1.08-2.32 2.54-1.47 2.54 1.47v2.94L11.85 14l-2.54-1.46V10.11z"/></svg>
+  ),
+  Claude: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.999 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.001 4.5c.674 0 1.33.086 1.955.248L8.14 15.238a8.25 8.25 0 0 1-1.89-5.238C6.25 5.612 8.74 4.5 12 4.5zm7.5 7.5c0 1.5-.42 2.9-1.15 4.09l-5.85-3.38v-6.1A7.5 7.5 0 0 1 19.5 12zm-7.501 7.5a7.46 7.46 0 0 1-4.26-1.33L12 9.33l4.26 2.46A7.46 7.46 0 0 1 12 19.5z"/></svg>
+  ),
+  Gemini: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 19.5c-.55 0-1-.45-1-1v-5h-5c-.55 0-1-.45-1-1s.45-1 1-1h5v-5c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1h-5v5c0 .55-.45 1-1 1z"/></svg>
+  ),
+  Perplexity: <span style={{fontWeight:700,fontSize:13,lineHeight:1}}>P</span>,
+  Cursor: <span style={{fontWeight:700,fontSize:13,lineHeight:1}}>↗</span>,
+  n8n: <span style={{fontWeight:700,fontSize:13,lineHeight:1}}>n8n</span>,
+}
 
-  const go = (idx) => {
-    setCurrent((idx + images.length) % images.length)
-  }
-
-  useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setCurrent(prev => (prev + 1) % images.length)
-    }, 3500)
-    return () => clearInterval(timerRef.current)
-  }, [images.length])
-
-  const handleNav = (idx) => {
-    clearInterval(timerRef.current)
-    go(idx)
-    timerRef.current = setInterval(() => {
-      setCurrent(prev => (prev + 1) % images.length)
-    }, 3500)
-  }
-
+function ToolsSection({ course }) {
+  if (!course.tools) return null
   return (
-    <div className="cp-carousel">
-      <div className="cp-carousel-stage">
-        <button className="cp-carousel-arrow cp-carousel-prev" onClick={() => handleNav(current - 1)} aria-label="Previous">&#8249;</button>
-        <img
-          key={current}
-          src={images[current]}
-          alt={`Build example ${current + 1}`}
-          className="cp-carousel-img"
-        />
-        <button className="cp-carousel-arrow cp-carousel-next" onClick={() => handleNav(current + 1)} aria-label="Next">&#8250;</button>
+    <section className="cp-tools-section">
+      <div className="container">
+        <h2 className="cp-tools-headline">{course.toolsSectionHeadline}</h2>
+        <p className="cp-tools-sub">Learn how to use all the best tools, including:</p>
+        <div className="cp-tools-chips">
+          {course.tools.map(t => (
+            <span key={t} className="cp-tool-chip">
+              <span className="cp-tool-icon">{TOOL_ICONS[t] || t[0]}</span>
+              {t}
+            </span>
+          ))}
+        </div>
+        <p className="cp-tools-updated">Updated weekly, so you're always learning at the frontier of AI</p>
+        <p className="cp-tools-sub" style={{marginTop:28}}>We'll teach you best practices for AI in&hellip;</p>
+        <div className="cp-topics-chips">
+          {course.topics.map(t => (
+            <span key={t} className="cp-topic-chip">{t}</span>
+          ))}
+          <span className="cp-topic-chip cp-topic-more">+ more</span>
+        </div>
       </div>
-      <div className="cp-carousel-dots">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            className={`cp-carousel-dot${i === current ? ' active' : ''}`}
-            onClick={() => handleNav(i)}
-            aria-label={`Go to ${i + 1}`}
-          />
-        ))}
-      </div>
+    </section>
+  )
+}
+
+/* ─── Build collage ─── */
+const COLLAGE_IMAGES = [
+  '/assets/builds/build-01.png',
+  '/assets/builds/build-02.png',
+  '/assets/builds/build-03.png',
+  '/assets/builds/build-05.png',
+  '/assets/builds/build-06.png',
+  '/assets/builds/build-09.png',
+  '/assets/builds/build-10.png',
+  '/assets/builds/build-15.png',
+  '/assets/builds/build-16.png',
+  '/assets/builds/build-17.png',
+  '/assets/builds/build-19.png',
+  '/assets/builds/build-21.png',
+  '/assets/builds/build-23.png',
+  '/assets/builds/build-25.png',
+  '/assets/builds/build-27.png',
+]
+
+function BuildCollage() {
+  return (
+    <div className="cp-collage">
+      {COLLAGE_IMAGES.map((src, i) => (
+        <div key={i} className={`cp-collage-item cp-collage-item-${(i % 5) + 1}`}>
+          <img src={src} alt={`Build example ${i + 1}`} loading="lazy" />
+        </div>
+      ))}
     </div>
   )
 }
@@ -202,6 +227,7 @@ function WhereThisFits({ currentId }) {
               >
                 <span className="cp-where-level">Level {c.id}</span>
                 <span className="cp-where-name">{c.name}</span>
+                {c.whoShort && <span className="cp-where-who">{c.whoShort}</span>}
                 <span className="cp-where-cohort">Next: {c.nextCohort}</span>
               </a>
             )
@@ -221,6 +247,8 @@ export default function CoursePage({ courseId }) {
 
   const [openSession, setOpenSession] = useState(null)
   const [openFaq, setOpenFaq] = useState(null)
+  const [showAllBuilds, setShowAllBuilds] = useState(false)
+  const BUILD_VISIBLE = 6
 
   if (!course) {
     return (
@@ -278,139 +306,13 @@ export default function CoursePage({ courseId }) {
         </div>
       </section>
 
-      {/* ── AT A GLANCE ── */}
-      <section className="cp-glance">
-        <div className="container">
-          <div className="cp-glance-grid">
-            <div className="cp-glance-item">
-              <img src="/assets/icons/clock.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">6 Live Sessions</span>
-              <span className="cp-glance-sub">90 minutes each</span>
-            </div>
-            <div className="cp-glance-item">
-              <img src="/assets/icons/play.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">All Sessions Recorded</span>
-              <span className="cp-glance-sub">Watch on demand, forever</span>
-            </div>
-            <div className="cp-glance-item">
-              <img src="/assets/icons/tool.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">Learn by Building</span>
-              <span className="cp-glance-sub">One deliverable per session</span>
-            </div>
-            <div className="cp-glance-item">
-              <img src="/assets/icons/shield.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">Best Course Guarantee</span>
-              <span className="cp-glance-sub">Money-back if you find better</span>
-            </div>
-            <div className="cp-glance-item">
-              <img src="/assets/icons/calendar.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">Retake for 1 Year</span>
-              <span className="cp-glance-sub">Always the latest curriculum</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── TOOLS SECTION ── */}
+      <ToolsSection course={course} />
 
-      {/* ── WHO THIS IS FOR ── */}
-      <section className="cp-section cp-who-section">
-        <div className="container">
-          <p className="cp-section-label">Who this is for</p>
-          <h2>Is this the right course for you?</h2>
-          <div className="cp-who-split">
-            <div className="cp-who-text-col">
-              <p className="cp-who-text">{course.whoItsFor}</p>
-            </div>
-            <div className="cp-who-image-col">
-              <img
-                src="/assets/images/diverse-professionals-collaborating-modern-office.jpg"
-                alt="Professionals collaborating"
-                className="cp-who-image"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHAT YOU'LL BUILD ── */}
-      <section className="cp-section cp-build-section">
-        <div className="container">
-          <p className="cp-section-label">What you'll build</p>
-          <h2>6 deliverables you'll take to work</h2>
-          <div className="cp-build-list">
-            {course.whatYoullBuild.map((item, i) => (
-              <div className="cp-build-item" key={i}>
-                <span className="cp-build-num">{String(i + 1).padStart(2, '0')}</span>
-                <span className="cp-build-text">{item}</span>
-              </div>
-            ))}
-          </div>
-          {(id === 1 || id === 2) && (
-            <div className="cp-build-carousel-wrap">
-              <h2 className="cp-build-carousel-heading">Built by previous cohort members</h2>
-              <BuildCarousel images={BUILD_IMAGES} />
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ── MID-PAGE CTA ── */}
-      <section className="cp-cta-section">
-        <div className="container">
-          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" centered />
-        </div>
-      </section>
-
-      {/* ── WHAT YOU'LL LEARN ── */}
-      <section className="cp-section">
-        <div className="container">
-          <p className="cp-section-label">Curriculum</p>
-          <h2>What you'll learn</h2>
-          <div className="cp-learn-grid">
-            {course.whatYoullLearn.map((col, ci) => (
-              <div className="cp-learn-col" key={ci}>
-                {col.col.map((item, ii) => (
-                  <p className="cp-learn-item" key={ii}>{item}</p>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SESSION BREAKDOWN ── */}
-      <section className="cp-section cp-sessions-section">
-        <div className="container">
-          <p className="cp-section-label">Session breakdown</p>
-          <h2>6 sessions. Learn by building every time.</h2>
-          <div className="cp-session-grid">
-            {course.sessions.map((session, i) => (
-              <SessionItem
-                key={i}
-                session={session}
-                num={i + 1}
-                open={openSession === i}
-                onToggle={() => setOpenSession(openSession === i ? null : i)}
-                sessionDate={schedule[i]}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
+      {/* ── TESTIMONIALS "Proven to transform how you work" ── */}
       <section className="cp-section cp-testimonials-section">
         <div className="container">
-          <div className="cp-testimonials-header">
-            <div className="cp-testimonials-header-text">
-              <p className="cp-section-label">What students say</p>
-              <h2>Real results from real professionals</h2>
-            </div>
-            <img
-              src="/assets/images/hero-person-at-computer.jpg"
-              alt="Professional working with AI"
-              className="cp-testimonials-photo"
-            />
-          </div>
+          <h2 className="cp-proven-headline">Proven to transform how you work</h2>
           <div className="cp-testimonials-grid">
             {TESTIMONIALS.map((t, i) => (
               <TestimonialCard key={i} name={t.name} quote={t.quote} />
@@ -451,6 +353,112 @@ export default function CoursePage({ courseId }) {
             </div>
             <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" centered />
           </div>
+        </div>
+      </section>
+
+      {/* ── AT A GLANCE ── */}
+      <section className="cp-glance">
+        <div className="container">
+          <div className="cp-glance-grid">
+            <div className="cp-glance-item">
+              <img src="/assets/icons/clock.svg" alt="" className="cp-glance-icon" />
+              <span className="cp-glance-label">6 Live Sessions</span>
+              <span className="cp-glance-sub">90 minutes each</span>
+            </div>
+            <div className="cp-glance-item">
+              <img src="/assets/icons/play.svg" alt="" className="cp-glance-icon" />
+              <span className="cp-glance-label">All Sessions Recorded</span>
+              <span className="cp-glance-sub">Watch on demand, forever</span>
+            </div>
+            <div className="cp-glance-item">
+              <img src="/assets/icons/tool.svg" alt="" className="cp-glance-icon" />
+              <span className="cp-glance-label">Learn by Building</span>
+              <span className="cp-glance-sub">One deliverable per session</span>
+            </div>
+            <div className="cp-glance-item">
+              <img src="/assets/icons/shield.svg" alt="" className="cp-glance-icon" />
+              <span className="cp-glance-label">Best Course Guarantee</span>
+              <span className="cp-glance-sub">Money-back if you find better</span>
+            </div>
+            <div className="cp-glance-item">
+              <img src="/assets/icons/calendar.svg" alt="" className="cp-glance-icon" />
+              <span className="cp-glance-label">Retake for 1 Year</span>
+              <span className="cp-glance-sub">Always the latest curriculum</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT YOU'LL LEARN ── */}
+      <section className="cp-section">
+        <div className="container">
+          <p className="cp-section-label">Curriculum</p>
+          <h2>What you'll learn</h2>
+          <div className="cp-learn-grid">
+            {course.whatYoullLearn.map((col, ci) => (
+              <div className="cp-learn-col" key={ci}>
+                {col.col.map((item, ii) => (
+                  <p className="cp-learn-item" key={ii}>{item}</p>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SESSION BREAKDOWN ── */}
+      <section className="cp-section cp-sessions-section">
+        <div className="container">
+          <p className="cp-section-label">Session breakdown</p>
+          <h2>6 sessions. Learn by building every time.</h2>
+          <div className="cp-session-grid">
+            {course.sessions.map((session, i) => (
+              <SessionItem
+                key={i}
+                session={session}
+                num={i + 1}
+                open={openSession === i}
+                onToggle={() => setOpenSession(openSession === i ? null : i)}
+                sessionDate={schedule[i]}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT YOU'LL BUILD (expandable) ── */}
+      <section className="cp-section cp-build-section">
+        <div className="container">
+          <p className="cp-section-label">What you'll build</p>
+          <h2>Build tools you can use at work the next day</h2>
+          <div className="cp-build-list">
+            {course.whatYoullBuild
+              .slice(0, showAllBuilds ? undefined : BUILD_VISIBLE)
+              .map((item, i) => (
+                <div className="cp-build-item" key={i}>
+                  <span className="cp-build-plus">+</span>
+                  <span className="cp-build-text">{item}</span>
+                </div>
+              ))}
+          </div>
+          {course.whatYoullBuild.length > BUILD_VISIBLE && (
+            <button
+              className="cp-build-more-btn"
+              onClick={() => setShowAllBuilds(v => !v)}
+            >
+              {showAllBuilds
+                ? 'Show less'
+                : `+ ${course.whatYoullBuild.length - BUILD_VISIBLE} more`}
+            </button>
+          )}
+        </div>
+      </section>
+
+      {/* ── COLLAGE ── */}
+      <section className="cp-section cp-collage-section">
+        <div className="container">
+          <h2 className="cp-collage-heading">See what previous cohort members built</h2>
+          <BuildCollage />
         </div>
       </section>
 

@@ -62,13 +62,20 @@ export const courseData = {
       "In 6 sessions, you'll go from AI user to AI builder: a research workflow, a data model, a daily automation, and a writing system that sounds like you.",
     whoItsFor:
       "You use ChatGPT or Claude every day to draft, summarize, and ask questions, but you haven't connected AI to your other tools or built anything that runs on its own yet.",
+    toolsSectionHeadline: 'Build an AI foundation for your work in 3 weeks',
+    tools: ['OpenAI', 'Claude', 'Gemini', 'Perplexity', 'Cursor', 'n8n'],
+    topics: ['Data analysis', 'Planning', 'Organization', 'Email and communication', 'Slide design', 'Vibe coding'],
     whatYoullBuild: [
-      'Your AI context file and a notes-to-slide-deck system',
+      'A CLAUDE.md context file that makes every AI output feel like you wrote it',
+      'A slide deck built from raw notes in under a minute',
       'A market research workflow you run on any topic',
-      'A data workflow that turns raw numbers into a shareable report',
+      'A data workflow that turns a spreadsheet into a shareable report',
       'A lead or news finder that runs every morning without you',
-      'A time audit and a writing system trained on your voice',
-      'An agent that researches, writes, and delivers outreach for you',
+      'A daily digest of anything you care about, delivered automatically',
+      'A writing system trained on your voice and style',
+      'An agent that researches, writes, and delivers personalized outreach',
+      'A prompt library organized for the tasks you do most',
+      'A time audit that tells you exactly where AI can save you hours',
     ],
     whatYoullLearn: [
       {
@@ -530,9 +537,9 @@ export const courseData = {
 }
 
 export const allCourses = [
-  { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'Apr 21 – May 8' },
-  { id: 2, name: 'Build Agents That Work for You', nextCohort: 'Apr 21 – May 8' },
-  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19 – Jun 5' },
-  { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'Jun 16 – Jul 3' },
-  { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'Jul 14 – Jul 31' },
+  { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'Apr 21 – May 8', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
+  { id: 2, name: 'Build Agents That Work for You', nextCohort: 'Apr 21 – May 8', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
+  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19 – Jun 5', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
+  { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'Jun 16 – Jul 3', whoShort: "You have multiple autonomous agents running, but they don't operate as a unified system." },
+  { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'Jul 14 – Jul 31', whoShort: "You've built and shipped AI systems, but they don't proactively iterate toward a goal." },
 ]

@@ -891,3 +891,191 @@
   .cp-testimonials-header { flex-direction: column; align-items: flex-start; }
   .cp-testimonials-photo { width: 100%; height: 180px; }
 }
+
+/* ── Tools section ───────────────────────────────────────────────────── */
+
+.cp-tools-section {
+  padding: 64px 0 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.cp-tools-headline {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: #fff;
+  max-width: 640px;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.cp-tools-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 16px;
+}
+
+.cp-tools-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.cp-tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  font-size: 14px;
+  font-family: var(--font-body);
+}
+
+.cp-tool-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  width: 18px;
+  height: 18px;
+}
+
+.cp-tools-updated {
+  font-size: 14px;
+  color: var(--accent);
+  font-family: var(--font-meta);
+  margin: 8px 0 0;
+  letter-spacing: 0.01em;
+}
+
+.cp-topics-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cp-topic-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border: 1px solid rgba(165,228,70,0.35);
+  border-radius: 4px;
+  background: rgba(165,228,70,0.07);
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+  font-family: var(--font-body);
+}
+
+.cp-topic-more {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── Testimonials — proven to transform ─────────────────────────────── */
+
+.cp-proven-headline {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+/* ── Build list — expandable ─────────────────────────────────────────── */
+
+.cp-build-plus {
+  font-size: 18px;
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+  line-height: 1;
+  width: 20px;
+}
+
+.cp-build-more-btn {
+  margin-top: 20px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  font-family: var(--font-body);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.cp-build-more-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Collage ─────────────────────────────────────────────────────────── */
+
+.cp-collage-heading {
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 32px;
+}
+
+.cp-collage {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 180px;
+  gap: 10px;
+}
+
+.cp-collage-item {
+  overflow: hidden;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.cp-collage-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.cp-collage-item:hover img {
+  transform: scale(1.03);
+}
+
+/* Varied sizing for collage feel */
+.cp-collage-item-1 { grid-column: span 2; grid-row: span 2; }
+.cp-collage-item-3 { grid-column: span 2; }
+.cp-collage-item-6 { grid-row: span 2; }
+.cp-collage-item-9 { grid-column: span 2; }
+.cp-collage-item-11 { grid-row: span 2; }
+.cp-collage-item-14 { grid-column: span 2; }
+
+@media (max-width: 768px) {
+  .cp-collage { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; gap: 6px; }
+  .cp-collage-item-1,
+  .cp-collage-item-3,
+  .cp-collage-item-9,
+  .cp-collage-item-14 { grid-column: span 2; }
+  .cp-collage-item-6,
+  .cp-collage-item-11 { grid-row: span 1; }
+}
+
+/* ── Where this fits — whoShort text ────────────────────────────────── */
+
+.cp-where-who {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+  font-family: var(--font-body);
+  margin-top: 2px;
+}
