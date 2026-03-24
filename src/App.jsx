@@ -722,16 +722,14 @@ function HomePage() {
                     <div className="track-tags">
                       <span className="track-tag">3 Weeks</span>
                       <span className="track-tag">6 Sessions</span>
+                      {item.schedule && <span className="track-tag">{item.schedule}</span>}
                     </div>
                     <div className="track-card-footer">
                       <div className="track-card-cohort-block">
                         <span className="track-card-cohort-label">NEXT COHORT</span>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                          <span className="track-card-cohort-date">{item.cohortDate}</span>
-                          <span className="track-card-arrow-btn">&rarr;</span>
-                        </div>
-                        {item.schedule && <span className="track-card-schedule">{item.schedule}</span>}
+                        <span className="track-card-cohort-date">{item.cohortDate}</span>
                       </div>
+                      <span className="track-card-arrow-btn">&rarr;</span>
                     </div>
                   </div>
                 </div>

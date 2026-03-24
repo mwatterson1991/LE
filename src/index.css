@@ -2,21 +2,54 @@
    AI Mastery Series — Phase 4
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Departure+Mono&display=swap');
-
 @font-face {
   font-family: 'Calibre';
-  src: url('/assets/fonts/Calibre-Regular.woff2') format('woff2'),
-       url('/assets/fonts/Calibre-Regular.woff') format('woff');
+  src: url('/assets/fonts/Calibre-OTF/Calibre-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Calibre';
-  src: url('/assets/fonts/Calibre-Semibold.woff2') format('woff2'),
-       url('/assets/fonts/Calibre-Semibold.woff') format('woff');
+  src: url('/assets/fonts/Calibre-OTF/Calibre-RegularItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Calibre';
+  src: url('/assets/fonts/Calibre-OTF/Calibre-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Calibre';
+  src: url('/assets/fonts/Calibre-OTF/Calibre-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Calibre';
+  src: url('/assets/fonts/Calibre-OTF/Calibre-Semibold.otf') format('opentype');
   font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Calibre';
+  src: url('/assets/fonts/Calibre-OTF/Calibre-SemiboldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Departure Mono';
+  src: url('/assets/fonts/Departure Mono/DepartureMono-Regular.woff2') format('woff2'),
+       url('/assets/fonts/Departure Mono/DepartureMono-Regular.woff') format('woff'),
+       url('/assets/fonts/Departure Mono/DepartureMono-Regular.otf') format('opentype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -310,6 +343,16 @@ nav .btn {
 .track-cards-section {
   position: relative;
 }
+.track-cards-heading {
+  display: block;
+  font-family: var(--font-meta);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 20px;
+}
 .start-here-arrow {
   position: absolute;
   top: -24px;
@@ -401,6 +444,15 @@ nav .btn {
   display: inline-block;
   transition: color 0.15s;
 }
+.track-card-cohort-label {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  display: block;
+}
 .track-card-cohort-date {
   font-size: 18px;
   font-weight: 600;
@@ -413,6 +465,11 @@ nav .btn {
   color: var(--text-tertiary);
   letter-spacing: 0.02em;
   margin-top: 1px;
+}
+.track-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .track-card-arrow-btn {
   display: flex;
@@ -2220,6 +2277,8 @@ footer a:hover {
   .track-title { font-size: 18px; }
   .track-desc { font-size: 16px; }
   .track-tag { font-size: 10px; padding: 3px 6px; }
+  .track-cards-heading { font-size: 9px; margin-bottom: 14px; }
+  .track-card-cohort-label { font-size: 9px; }
 
   /* Logo ticker */
   .logo-ticker { margin-top: 28px; }
