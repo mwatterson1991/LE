@@ -6,25 +6,76 @@ export const ENROLL_URLS = {
   5: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)',
 }
 
+// MDT = UTC-6
+export const SESSION_SCHEDULES = {
+  1: [
+    { label: 'Apr 21, 2026', time: '3:00 PM MDT', iso: '2026-04-21T21:00:00Z' },
+    { label: 'Apr 24, 2026', time: '9:00 AM MDT', iso: '2026-04-24T15:00:00Z' },
+    { label: 'Apr 28, 2026', time: '3:00 PM MDT', iso: '2026-04-28T21:00:00Z' },
+    { label: 'May 1, 2026',  time: '9:00 AM MDT', iso: '2026-05-01T15:00:00Z' },
+    { label: 'May 5, 2026',  time: '3:00 PM MDT', iso: '2026-05-05T21:00:00Z' },
+    { label: 'May 8, 2026',  time: '9:00 AM MDT', iso: '2026-05-08T15:00:00Z' },
+  ],
+  2: [
+    { label: 'Apr 21, 2026', time: '5:00 PM MDT', iso: '2026-04-21T23:00:00Z' },
+    { label: 'Apr 24, 2026', time: '11:00 AM MDT', iso: '2026-04-24T17:00:00Z' },
+    { label: 'Apr 28, 2026', time: '5:00 PM MDT', iso: '2026-04-28T23:00:00Z' },
+    { label: 'May 1, 2026',  time: '11:00 AM MDT', iso: '2026-05-01T17:00:00Z' },
+    { label: 'May 5, 2026',  time: '5:00 PM MDT', iso: '2026-05-05T23:00:00Z' },
+    { label: 'May 8, 2026',  time: '11:00 AM MDT', iso: '2026-05-08T17:00:00Z' },
+  ],
+  3: [
+    { label: 'May 19, 2026', time: '3:00 PM MDT', iso: '2026-05-19T21:00:00Z' },
+    { label: 'May 22, 2026', time: '9:00 AM MDT', iso: '2026-05-22T15:00:00Z' },
+    { label: 'May 26, 2026', time: '3:00 PM MDT', iso: '2026-05-26T21:00:00Z' },
+    { label: 'May 29, 2026', time: '9:00 AM MDT', iso: '2026-05-29T15:00:00Z' },
+    { label: 'Jun 2, 2026',  time: '3:00 PM MDT', iso: '2026-06-02T21:00:00Z' },
+    { label: 'Jun 5, 2026',  time: '9:00 AM MDT', iso: '2026-06-05T15:00:00Z' },
+  ],
+  4: [
+    { label: 'Jun 16, 2026', time: '3:00 PM MDT', iso: '2026-06-16T21:00:00Z' },
+    { label: 'Jun 19, 2026', time: '9:00 AM MDT', iso: '2026-06-19T15:00:00Z' },
+    { label: 'Jun 23, 2026', time: '9:00 AM MDT', iso: '2026-06-23T15:00:00Z' },
+    { label: 'Jun 26, 2026', time: '3:00 PM MDT', iso: '2026-06-26T21:00:00Z' },
+    { label: 'Jun 30, 2026', time: '9:00 AM MDT', iso: '2026-06-30T15:00:00Z' },
+    { label: 'Jul 3, 2026',  time: '3:00 PM MDT', iso: '2026-07-03T21:00:00Z' },
+  ],
+  5: [
+    { label: 'Jul 14, 2026', time: '9:00 AM MDT', iso: '2026-07-14T15:00:00Z' },
+    { label: 'Jul 17, 2026', time: '3:00 PM MDT', iso: '2026-07-17T21:00:00Z' },
+    { label: 'Jul 21, 2026', time: '9:00 AM MDT', iso: '2026-07-21T15:00:00Z' },
+    { label: 'Jul 24, 2026', time: '3:00 PM MDT', iso: '2026-07-24T21:00:00Z' },
+    { label: 'Jul 28, 2026', time: '9:00 AM MDT', iso: '2026-07-28T15:00:00Z' },
+    { label: 'Jul 31, 2026', time: '3:00 PM MDT', iso: '2026-07-31T21:00:00Z' },
+  ],
+}
+
 export const courseData = {
   1: {
     id: 1,
     name: 'Use AI to Work 10x Faster',
-    badge: 'Course 1 of 5',
-    nextCohort: 'April 21, 2026',
+    badge: 'Level 1 of 5',
+    nextCohort: 'Apr 21 – May 8, 2026',
     cohortDates: ['April 21', 'May 19', 'June 16', 'July 14', 'August 11'],
     heroHeadline: 'Go beyond chatbots and build AI that works like you.',
     heroSubheadline:
       "In 6 sessions, you'll go from AI user to AI builder: a research workflow, a data model, a daily automation, and a writing system that sounds like you.",
     whoItsFor:
       "You use ChatGPT or Claude every day to draft, summarize, and ask questions, but you haven't connected AI to your other tools or built anything that runs on its own yet.",
+    toolsSectionHeadline: 'Build an AI foundation for your work in 3 weeks',
+    tools: ['OpenAI', 'Claude', 'Gemini', 'Perplexity', 'Cursor', 'n8n'],
+    topics: ['Data analysis', 'Planning', 'Organization', 'Email and communication', 'Slide design', 'Vibe coding'],
     whatYoullBuild: [
-      'Your AI context file and a notes-to-slide-deck system',
+      'A CLAUDE.md context file that makes every AI output feel like you wrote it',
+      'A slide deck built from raw notes in under a minute',
       'A market research workflow you run on any topic',
-      'A data workflow that turns raw numbers into a shareable report',
+      'A data workflow that turns a spreadsheet into a shareable report',
       'A lead or news finder that runs every morning without you',
-      'A time audit and a writing system trained on your voice',
-      'An agent that researches, writes, and delivers outreach for you',
+      'A daily digest of anything you care about, delivered automatically',
+      'A writing system trained on your voice and style',
+      'An agent that researches, writes, and delivers personalized outreach',
+      'A prompt library organized for the tasks you do most',
+      'A time audit that tells you exactly where AI can save you hours',
     ],
     whatYoullLearn: [
       {
@@ -105,21 +156,27 @@ export const courseData = {
   2: {
     id: 2,
     name: 'Build Agents That Work for You',
-    badge: 'Course 2 of 5',
-    nextCohort: 'April 21, 2026',
+    badge: 'Level 2 of 5',
+    nextCohort: 'Apr 21 – May 8, 2026',
     cohortDates: ['April 21', 'May 19', 'June 16', 'July 14'],
     heroHeadline: 'Eliminate manual work with a team of specialized agents.',
     heroSubheadline:
       "In 6 sessions, you'll build a toolkit of specialized agents and finish with a full pipeline that goes from first message to sale with no manual steps.",
     whoItsFor:
       "You've tried AI coding tools in the terminal, MCP connectors, or automated workflow builders, but you haven't built specialized agents or workflows for most of your work yet.",
+    toolsSectionHeadline: 'Build specialized AI agents for your work in 3 weeks',
+    tools: ['Claude', 'n8n', 'Cursor', 'Make', 'Zapier', 'Python'],
+    topics: ['Automation', 'Customer outreach', 'Research pipelines', 'Data sync', 'Agent design', 'Workflow building'],
     whatYoullBuild: [
-      'A team of research agents that analyze a problem from different angles',
+      'A team of research agents that analyze a problem from multiple angles',
       'A writing agent that gathers context, writes, and sends messages for you',
       'An agent that reads and updates your systems on its own',
       'An agent that watches for conditions and reacts when they\'re met',
-      'A team of agents that execute a repetitive process with no manual input',
-      'A full agent pipeline that autonomously goes from first message to sale',
+      'A team of agents that execute a full process with no manual input',
+      'A full pipeline that autonomously goes from first message to sale',
+      'A CRM-connected agent that logs every interaction without you touching it',
+      'A multi-step workflow that spans 3+ tools without breaking',
+      'An agent specialization map for your most repeated job tasks',
     ],
     whatYoullLearn: [
       {
@@ -201,21 +258,27 @@ export const courseData = {
   3: {
     id: 3,
     name: 'Create Systems That Run Without You',
-    badge: 'Course 3 of 5',
-    nextCohort: 'May 19, 2026',
+    badge: 'Level 3 of 5',
+    nextCohort: 'May 19 – Jun 5, 2026',
     cohortDates: ['May 19', 'June 16', 'July 14'],
     heroHeadline: 'You\'ve built great agents. Now make them run autonomously.',
     heroSubheadline:
       "In 6 sessions, you'll build systems that trigger automatically, run in the background, and operate 24/7, with no manual step between you and the output.",
     whoItsFor:
       "You have at least one agent or workflow running on its own, but your automations don't yet operate as a unified system, and you're still the one deciding when most things run.",
+    toolsSectionHeadline: 'Build AI systems that run without you in 3 weeks',
+    tools: ['Claude', 'n8n', 'Python', 'Cron', 'Webhooks', 'APIs'],
+    topics: ['Autonomous systems', 'Scheduling', 'Error handling', 'Monitoring', 'Orchestration', 'Background agents'],
     whatYoullBuild: [
-      "A headless agent you can trigger from your phone to act on your computer",
+      'A headless agent you can trigger from your phone to act on your computer',
       'A multi-step workflow that connects 5+ tools and fixes its own errors',
       'An always-on agent that manages a repetitive task 24/7',
-      'An agent team that proactively monitors a signal and acts the second a problem arises',
+      'An agent team that monitors a signal and acts the moment a problem arises',
       'A scheduled agent team that runs backlog, research, and prep work overnight',
-      "A shared live agent running in the background across multiple team members' workflows",
+      "A shared live agent running in the background across your team's workflows",
+      'A phone-triggered automation that runs complex tasks without opening a laptop',
+      'A self-healing pipeline that retries, fixes, and only escalates when stuck',
+      'An overnight prep agent that has your priorities ready when you wake up',
     ],
     whatYoullLearn: [
       {
@@ -296,21 +359,27 @@ export const courseData = {
   4: {
     id: 4,
     name: 'Design Multi-Agent Systems',
-    badge: 'Course 4 of 5',
-    nextCohort: 'June 16, 2026',
+    badge: 'Level 4 of 5',
+    nextCohort: 'Jun 16 – Jul 3, 2026',
     cohortDates: ['June 16', 'July 14', 'August 11'],
     heroHeadline: 'Build AI that manages AI.',
     heroSubheadline:
       "In 6 sessions, you'll design systems where agents coordinate, delegate, evaluate each other's work, and run full business processes from trigger to done.",
     whoItsFor:
       "You have multiple automations or agents running, but they don't talk to each other and don't operate as a unified system.",
+    toolsSectionHeadline: 'Design multi-agent systems that coordinate and self-improve',
+    tools: ['Claude', 'n8n', 'Python', 'Claude Code', 'Vector DB', 'Evals'],
+    topics: ['Multi-agent design', 'Automated evaluation', 'Orchestration', 'Quality scoring', 'Observability', 'Self-correction'],
     whatYoullBuild: [
       "A goal-directed 'AI employee' that collaborates with your team to hit its weekly target",
       'An automated scoring system that grades every agent output before it reaches you',
       'An agent that finds what\'s broken in a tool you built, fixes it, and proves the fix worked',
       'An orchestrator that assigns tasks in a complex job to best-fit specialist agents',
-      'A monitoring layer that intercepts bad outputs before they hit your systems or your users',
+      'A monitoring layer that intercepts bad outputs before they reach your users',
       'A coordinated multi-agent system that runs a full business process from trigger to done',
+      'A rubric-based eval system that scores outputs against your own quality standards',
+      'A QA agent that runs end-to-end tests on your pipeline before you ship',
+      'A shared-state multi-agent system where agents delegate and hand off tasks',
     ],
     whatYoullLearn: [
       {
@@ -391,21 +460,27 @@ export const courseData = {
   5: {
     id: 5,
     name: 'Ship AI Systems That Scale',
-    badge: 'Course 5 of 5',
-    nextCohort: 'July 14, 2026',
+    badge: 'Level 5 of 5',
+    nextCohort: 'Jul 14 – Jul 31, 2026',
     cohortDates: ['July 14', 'August 11'],
     heroHeadline: 'Build a system that runs a business function and improves itself.',
     heroSubheadline:
       "In 6 sessions, you'll build a fully autonomous AI team that sources, acts, self-corrects, and improves over time, with you setting direction and reviewing exceptions.",
     whoItsFor:
       "You've built and shipped AI systems that run in production, but they don't proactively iterate, pursue long-horizon goals, or improve themselves from corrections.",
+    toolsSectionHeadline: 'Ship AI systems that run in production and improve themselves',
+    tools: ['Claude Code', 'Python', 'n8n', 'RAG', 'Vector DB', 'Monitoring'],
+    topics: ['Production deployment', 'Long-horizon goals', 'Self-correction', 'Autonomous ops', 'Observability', 'Continuous improvement'],
     whatYoullBuild: [
-      'A knowledge base your agents search in real time, built from your actual docs and history',
+      'A knowledge base your agents search in real time, built from your actual docs',
       'An autonomous agent running a multi-day campaign with daily checkpoints',
       'An agent that writes and ships code improvements toward a target, testing its own work',
-      'A system wired to catch its own failures, retry automatically, and only page you when stuck',
-      'A live ops dashboard showing agent health, output quality, and when you need to step in',
+      'A system wired to catch its own failures, retry, and only page you when stuck',
+      'A live ops dashboard showing agent health, output quality, and when to step in',
       'A fully autonomous AI team that runs a business function and improves itself',
+      'A RAG pipeline grounded in your company\'s real documents and history',
+      'A long-horizon agent that resumes mid-goal after interruption',
+      'A self-improving system that logs every override and learns from corrections',
     ],
     whatYoullLearn: [
       {
@@ -486,9 +561,9 @@ export const courseData = {
 }
 
 export const allCourses = [
-  { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'April 21' },
-  { id: 2, name: 'Build Agents That Work for You', nextCohort: 'April 21' },
-  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19' },
-  { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'June 16' },
-  { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'July 14' },
+  { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'Apr 21 – May 8', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
+  { id: 2, name: 'Build Agents That Work for You', nextCohort: 'Apr 21 – May 8', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
+  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19 – Jun 5', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
+  { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'Jun 16 – Jul 3', whoShort: "You have multiple autonomous agents running, but they don't operate as a unified system." },
+  { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'Jul 14 – Jul 31', whoShort: "You've built and shipped AI systems, but they don't proactively iterate toward a goal." },
 ]
