@@ -1,12 +1,44 @@
 /* ==========================================================================
    CoursePage — Level subpages (/level-1 through /level-5)
-   Leonardo design principles applied to AI Builder dark theme.
+   Leonardo design system applied to AI Builder dark theme.
    ========================================================================== */
+
+/* ── Not found ───────────────────────────────────────────────────────── */
+
+.cp-not-found {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--bg);
+  text-align: center;
+}
+
+/* ── Nav overrides ───────────────────────────────────────────────────── */
+
+.cp-nav-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.cp-nav-cohort {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* Leonardo: 8px radius on all buttons in level pages */
+.cp-page .btn {
+  border-radius: 8px;
+}
 
 /* ── Hero ──────────────────────────────────────────────────────────────── */
 
 .cp-hero {
-  padding: 148px 0 72px;
+  padding: 148px 0 80px;
   position: relative;
   overflow: hidden;
   background: var(--bg);
@@ -29,10 +61,29 @@
   z-index: 1;
 }
 
+/* ── Hero social proof ───────────────────────────────────────────────── */
+
+.cp-hero-social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.cp-hero-stars {
+  color: var(--accent);
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.cp-hero-social-text {
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+
 /* ── Breadcrumb ──────────────────────────────────────────────────────── */
 
 .cp-breadcrumb {
-  font-family: var(--font-body);
   font-size: 13px;
   color: var(--text-tertiary);
   margin-bottom: 16px;
@@ -44,7 +95,7 @@
 }
 
 .cp-breadcrumb a:hover {
-  color: var(--accent);
+  color: var(--text-secondary);
 }
 
 /* ── Badge ───────────────────────────────────────────────────────────── */
@@ -52,17 +103,14 @@
 .cp-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   background: rgba(165, 228, 70, 0.08);
-  border: 1px solid rgba(165, 228, 70, 0.30);
+  border: 1px solid rgba(165, 228, 70, 0.28);
   color: var(--accent);
-  font-family: var(--font-meta);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
+  font-size: 12px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 5px 12px;
-  border-radius: 4px;         /* Leonardo: tag, not pill */
+  border-radius: 4px;
   margin-bottom: 20px;
 }
 
@@ -80,7 +128,6 @@
 }
 
 .cp-hero-sub {
-  font-family: var(--font-body);
   font-size: 1.1rem;
   color: var(--text-secondary);
   line-height: 1.6;
@@ -97,33 +144,37 @@
   flex-wrap: wrap;
 }
 
-/* Leonardo: 8px radius on all buttons scoped to level pages */
-.cp-page .btn {
-  border-radius: 8px;
+.cp-enroll-block--centered {
+  justify-content: center;
+}
+
+.cp-enroll-meta {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  line-height: 1.5;
 }
 
 /* ── At-a-glance bar ─────────────────────────────────────────────────── */
 
 .cp-glance {
   padding: 0;
-  background: rgba(255, 255, 255, 0.025);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,0.025);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .cp-glance-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0;
 }
 
 .cp-glance-item {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;         /* Leonardo: left-aligned for clarity */
+  align-items: flex-start;
   gap: 4px;
   padding: 24px 20px;
-  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  border-right: 1px solid rgba(255,255,255,0.07);
 }
 
 .cp-glance-item:last-child {
@@ -140,28 +191,25 @@
 }
 
 .cp-glance-label {
-  font-family: var(--font-heading);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.3;
-  letter-spacing: -0.01em;
 }
 
 .cp-glance-sub {
-  font-family: var(--font-body);
   font-size: 13px;
   color: var(--text-tertiary);
 }
 
-/* ── Generic section wrapper ──────────────────────────────────────────── */
+/* ── Section wrapper ──────────────────────────────────────────────────── */
 
 .cp-section {
   padding: 72px 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
 }
 
 .cp-section-label {
-  font-family: var(--font-body);
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -173,26 +221,123 @@
   font-size: 2rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+}
+
+/* ── Utility ──────────────────────────────────────────────────────────── */
+
+.cp-accent-link {
+  color: var(--accent);
+  transition: opacity 0.15s;
+}
+
+.cp-accent-link:hover {
+  opacity: 0.8;
+}
+
+.cp-accent-text {
+  color: var(--accent);
+}
+
+.cp-quiet-link {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.cp-quiet-link:hover {
+  color: var(--text-secondary);
+}
+
+/* ── Instructors ──────────────────────────────────────────────────────── */
+
+.cp-instructors-section {
+  background: rgba(255,255,255,0.015);
+}
+
+.cp-instructors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.cp-instructor-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  transition: border-color 0.15s;
+}
+
+.cp-instructor-card:hover {
+  border-color: rgba(255,255,255,0.14);
+}
+
+.cp-instructor-photo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.cp-instructor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cp-instructor-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cp-instructor-credential {
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.cp-instructor-bio {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-top: 6px;
 }
 
 /* ── Who this is for ─────────────────────────────────────────────────── */
 
+.cp-who-block {
+  border-left: 3px solid rgba(165,228,70,0.5);
+  padding-left: 28px;
+  max-width: 680px;
+}
+
 .cp-who-text {
   font-size: 1.1rem;
   color: var(--text-secondary);
-  line-height: 1.65;
-  max-width: 680px;
+  line-height: 1.7;
 }
 
 /* ── What You'll Build ────────────────────────────────────────────────── */
 
+.cp-build-section {
+  background: rgba(255,255,255,0.02);
+  text-align: center;
+}
+
 .cp-build-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);   /* 2-col grid — better use of space */
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   max-width: 760px;
   margin: 0 auto;
+  text-align: left;
 }
 
 .cp-build-item {
@@ -200,25 +345,24 @@
   align-items: flex-start;
   gap: 14px;
   padding: 16px 18px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 8px;              /* Leonardo: 8px radius */
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
   transition: background 0.15s, border-color 0.15s;
 }
 
 .cp-build-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.12);
 }
 
 .cp-build-num {
-  font-family: var(--font-body);
   font-size: 13px;
+  font-weight: 600;
   color: var(--accent);
   flex-shrink: 0;
   padding-top: 1px;
   min-width: 22px;
-  font-weight: 600;
 }
 
 .cp-build-text {
@@ -227,22 +371,30 @@
   color: var(--text-secondary);
 }
 
+/* ── Mid-page CTA ─────────────────────────────────────────────────────── */
+
+.cp-cta-section {
+  padding: 48px 0;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  text-align: center;
+}
+
 /* ── What You'll Learn ────────────────────────────────────────────────── */
 
 .cp-learn-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  margin-top: 24px;
 }
 
 .cp-learn-col {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
   border-radius: 8px;
 }
 
@@ -266,52 +418,104 @@
   opacity: 0.65;
 }
 
-/* ── Session accordion ────────────────────────────────────────────────── */
+/* ── Session breakdown ────────────────────────────────────────────────── */
+
+.cp-sessions-section {
+  background: rgba(255,255,255,0.02);
+}
 
 .cp-session-grid {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 8px;
   overflow: hidden;
-  margin-top: 24px;
 }
 
-/* Remove redundant borders inside the contained session accordion */
 .cp-session-grid .faq-item {
   border-radius: 0;
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 
 .cp-session-grid .faq-item:last-child {
   border-bottom: none;
 }
 
-/* Date chip inside session title */
-.session-date-inline {
-  display: block;
-  font-family: var(--font-meta);
-  font-size: 10px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.05em;
-  font-weight: 400;
-  margin-top: 4px;
+.cp-session-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.cp-session-detail p strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.cp-session-note {
+  font-size: 13px !important;
+  color: var(--accent) !important;
+}
+
+/* ── Testimonials ─────────────────────────────────────────────────────── */
+
+.cp-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.cp-testimonial-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+}
+
+.cp-testimonial-stars {
+  color: var(--accent);
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.cp-testimonial-quote {
+  font-size: 0.95rem !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.65 !important;
+  flex: 1;
+}
+
+.cp-testimonial-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 /* ── Value stack ──────────────────────────────────────────────────────── */
 
+.cp-value-section {
+  background: rgba(255,255,255,0.01);
+}
+
 .cp-value-box {
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255,255,255,0.03);
   padding: 48px 44px;
   max-width: 680px;
   margin: 0 auto;
   text-align: center;
+}
+
+.cp-value-box .cp-section-label {
+  margin-bottom: 8px;
 }
 
 .cp-value-box h2 {
@@ -353,17 +557,15 @@
   align-items: baseline;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .cp-price-crossed {
-  font-family: var(--font-meta);
   font-size: 14px;
   color: var(--text-tertiary);
   text-decoration: line-through;
-  letter-spacing: 0.04em;
 }
 
 .cp-price {
@@ -376,23 +578,40 @@
 
 /* ── Where this fits ──────────────────────────────────────────────────── */
 
+.cp-where-section {
+  padding: 64px 0;
+  background: var(--bg);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.cp-where-headline {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.cp-where-sub {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
 .cp-where-strip {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .cp-where-card {
-  flex: 1 1 140px;
   padding: 18px 16px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   text-decoration: none;
-  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  border-right: 1px solid rgba(255,255,255,0.07);
   transition: background 0.15s;
 }
 
@@ -401,7 +620,7 @@
 }
 
 .cp-where-card-active {
-  background: rgba(165, 228, 70, 0.05);
+  background: rgba(165,228,70,0.05);
 }
 
 .cp-where-card-inactive {
@@ -410,7 +629,40 @@
 
 .cp-where-card-inactive:hover {
   opacity: 1;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255,255,255,0.02);
+}
+
+.cp-where-level {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.cp-where-card-active .cp-where-level {
+  color: var(--accent);
+}
+
+.cp-where-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.cp-where-card-active .cp-where-name {
+  color: var(--text-primary);
+}
+
+.cp-where-cohort {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* ── FAQ section override ─────────────────────────────────────────────── */
+
+.cp-faq-section {
+  border-top: 1px solid rgba(255,255,255,0.07);
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────── */
@@ -422,87 +674,50 @@
   .cp-where-card:nth-child(3) {
     border-right: none;
   }
+  .cp-where-card:nth-child(4),
+  .cp-where-card:nth-child(5) {
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
 }
 
 @media (max-width: 768px) {
-  .cp-hero {
-    padding: 120px 0 56px;
-  }
-  .cp-hero-headline {
-    font-size: 2rem;
-  }
-  .cp-hero-sub {
-    font-size: 1rem;
-  }
-  .cp-glance-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .cp-glance-item {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  .cp-glance-item:nth-child(odd) {
-    border-right: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  .cp-glance-item:nth-child(even) {
-    border-right: none;
-  }
-  .cp-build-list {
-    grid-template-columns: 1fr;
-    max-width: 100%;
-  }
-  .cp-learn-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  .cp-section h2 {
-    font-size: 1.6rem;
-  }
-  .cp-value-box {
-    padding: 28px 20px;
-  }
-  .cp-value-box h2 {
-    font-size: 1.4rem;
-  }
-  .cp-where-strip {
-    grid-template-columns: 1fr 1fr;
-  }
-  .cp-where-card:nth-child(even) {
-    border-right: none;
-  }
-  .cp-where-card {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  .cp-where-card:nth-last-child(-n+2) {
-    border-bottom: none;
-  }
+  .cp-hero { padding: 120px 0 56px; }
+  .cp-hero-headline { font-size: 2rem; }
+  .cp-hero-sub { font-size: 1rem; }
+
+  .cp-glance-grid { grid-template-columns: repeat(2, 1fr); }
+  .cp-glance-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .cp-glance-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.07); }
+  .cp-glance-item:nth-child(even) { border-right: none; }
+  .cp-glance-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  .cp-instructors-grid { grid-template-columns: 1fr; gap: 12px; }
+  .cp-build-list { grid-template-columns: 1fr; max-width: 100%; }
+  .cp-learn-grid { grid-template-columns: 1fr; gap: 10px; }
+  .cp-testimonials-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .cp-value-box { padding: 28px 20px; }
+  .cp-value-box h2 { font-size: 1.4rem; }
+
+  .cp-where-strip { grid-template-columns: 1fr 1fr; }
+  .cp-where-card { border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .cp-where-card:nth-child(even) { border-right: none; }
+  .cp-where-card:nth-last-child(-n+2) { border-bottom: none; }
+
+  .cp-enroll-block { flex-direction: column; align-items: flex-start; }
+  .cp-enroll-block--centered { align-items: center; }
+
+  .cp-section h2 { font-size: 1.6rem; }
+  .cp-price { font-size: 2rem; }
 }
 
 @media (max-width: 480px) {
-  .cp-glance-grid {
-    grid-template-columns: 1fr;
-  }
-  .cp-glance-item {
-    border-right: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  .cp-glance-item:last-child {
-    border-bottom: none;
-  }
-  .cp-where-strip {
-    grid-template-columns: 1fr;
-  }
-  .cp-where-card {
-    border-right: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  .cp-where-card:last-child {
-    border-bottom: none;
-  }
-  .cp-price {
-    font-size: 2rem;
-  }
-  .cp-enroll-block {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  .cp-glance-grid { grid-template-columns: 1fr; }
+  .cp-glance-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .cp-glance-item:last-child { border-bottom: none; }
+
+  .cp-where-strip { grid-template-columns: 1fr; }
+  .cp-where-card { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .cp-where-card:last-child { border-bottom: none; }
+  .cp-where-card:nth-child(4), .cp-where-card:nth-child(5) { border-top: none; }
 }
