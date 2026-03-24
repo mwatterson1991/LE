@@ -219,6 +219,9 @@ export default function CoursePage({ courseId }) {
 
           <h1 className="cp-hero-headline">{course.heroHeadline}</h1>
           <p className="cp-hero-sub">{course.heroSubheadline}</p>
+          {course.ableToBlurb && (
+            <p className="cp-hero-able-to">After this 6-session course, you'll be able to {course.ableToBlurb}</p>
+          )}
 
           <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
 
@@ -580,7 +583,7 @@ export default function CoursePage({ courseId }) {
           <div className="accordion-section-header">
             <div className="accordion-section-header-text">
               <h2 className="accordion-section-headline">A program to fundamentally change the way you work</h2>
-              <p className="accordion-section-sub">A 5-course sequence. Each level builds on the last.</p>
+              <p className="accordion-section-sub">A 5-level sequence. Each level builds on the last.</p>
             </div>
             <LevelPyramid activeId={id} />
           </div>

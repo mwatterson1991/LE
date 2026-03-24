@@ -53,13 +53,14 @@ export const SESSION_SCHEDULES = {
 export const courseData = {
   1: {
     id: 1,
-    name: 'Use AI to Work 10x Faster',
+    name: 'Use AI to 10x Your Impact',
     badge: 'Level 1 of 5',
     nextCohort: 'Apr 21 – May 8, 2026',
     cohortDates: ['April 21', 'May 19', 'June 16', 'July 14', 'August 11'],
     heroHeadline: 'Go beyond chatbots and build AI that works like you.',
     heroSubheadline:
       "In 6 sessions, you'll go from AI user to AI builder: a research workflow, a data model, a daily automation, and a writing system that sounds like you.",
+    ableToBlurb: 'build AI skills and workflows that automate research, communication, and analysis.',
     whoItsFor:
       "You use ChatGPT or Claude every day to draft, summarize, and ask questions, but you haven't connected AI to your other tools or built anything that runs on its own yet.",
     whyHeadline: 'Build an AI foundation for your work in 3 weeks',
@@ -165,6 +166,7 @@ export const courseData = {
     heroHeadline: 'Eliminate manual work with a team of specialized agents.',
     heroSubheadline:
       "In 6 sessions, you'll build a toolkit of specialized agents and finish with a full pipeline that goes from first message to sale with no manual steps.",
+    ableToBlurb: 'build agents and agent teams that complete multi-step processes across tools.',
     whoItsFor:
       "You've tried AI coding tools in the terminal, MCP connectors, or automated workflow builders, but you haven't built specialized agents or workflows for most of your work yet.",
     whyHeadline: 'Build AI agents that do your work for you',
@@ -270,6 +272,7 @@ export const courseData = {
     heroHeadline: 'You\'ve built great agents. Now make them run autonomously.',
     heroSubheadline:
       "In 6 sessions, you'll build systems that trigger automatically, run in the background, and operate 24/7, with no manual step between you and the output.",
+    ableToBlurb: 'compose agents and automations into systems that trigger and run without human initiation.',
     whoItsFor:
       "You have at least one agent or workflow running on its own, but your automations don't yet operate as a unified system, and you're still the one deciding when most things run.",
     whyHeadline: 'Build AI systems that run autonomously, around the clock',
@@ -374,6 +377,7 @@ export const courseData = {
     heroHeadline: 'Build AI that manages AI.',
     heroSubheadline:
       "In 6 sessions, you'll design systems where agents coordinate, delegate, evaluate each other's work, and run full business processes from trigger to done.",
+    ableToBlurb: 'design orchestrated multi-agent pipelines with delegation, evals, and quality gates.',
     whoItsFor:
       "You have multiple automations or agents running, but they don't talk to each other and don't operate as a unified system.",
     whyHeadline: 'Design AI systems where agents coordinate and self-improve',
@@ -478,6 +482,7 @@ export const courseData = {
     heroHeadline: 'Build a system that runs a business function and improves itself.',
     heroSubheadline:
       "In 6 sessions, you'll build a fully autonomous AI team that sources, acts, self-corrects, and improves over time, with you setting direction and reviewing exceptions.",
+    ableToBlurb: 'build goal-directed systems with memory, self-correction, and autonomous improvement loops.',
     whoItsFor:
       "You've built and shipped AI systems that run in production, but they don't proactively iterate, pursue long-horizon goals, or improve themselves from corrections.",
     whyHeadline: 'Ship production AI systems that proactively pursue your goals',
@@ -576,7 +581,7 @@ export const courseData = {
 }
 
 export const allCourses = [
-  { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'Apr 21 – May 8', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
+  { id: 1, name: 'Use AI to 10x Your Impact', nextCohort: 'Apr 21 – May 8', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
   { id: 2, name: 'Build Agents That Work for You', nextCohort: 'Apr 21 – May 8', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
   { id: 3, name: 'Create Autonomous Systems', nextCohort: 'May 19 – Jun 5', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
   { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'Jun 16 – Jul 3', whoShort: "You have multiple autonomous agents running, but they don't operate as a unified system." },

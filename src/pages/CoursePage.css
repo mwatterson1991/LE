@@ -132,6 +132,14 @@
   color: var(--text-secondary);
   line-height: 1.6;
   max-width: 620px;
+  margin-bottom: 16px;
+}
+
+.cp-hero-able-to {
+  font-size: 1rem;
+  color: var(--accent);
+  line-height: 1.5;
+  max-width: 620px;
   margin-bottom: 32px;
 }
 
@@ -1083,20 +1091,22 @@
 /* ── Program overview — next level link + advisor link ──────────────── */
 
 .cp-program-next {
-  margin-top: 32px;
-  font-size: 15px;
-  color: rgba(255,255,255,0.65);
+  margin-top: 40px;
+  font-size: 20px;
+  color: rgba(255,255,255,0.8);
   line-height: 1.6;
 }
 
 .cp-program-next p {
-  margin: 0 0 8px;
+  margin: 0 0 12px;
 }
 
 .cp-which-level-link {
+  display: block;
   color: var(--accent);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
+  margin-top: 4px;
 }
 
 .cp-which-level-link:hover {
