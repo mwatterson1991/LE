@@ -316,8 +316,17 @@ export default function CoursePage({ courseId }) {
         <div className="container">
           <p className="cp-section-label">Who this is for</p>
           <h2>Is this the right course for you?</h2>
-          <div className="cp-who-block">
-            <p className="cp-who-text">{course.whoItsFor}</p>
+          <div className="cp-who-split">
+            <div className="cp-who-text-col">
+              <p className="cp-who-text">{course.whoItsFor}</p>
+            </div>
+            <div className="cp-who-image-col">
+              <img
+                src="/assets/images/diverse-professionals-collaborating-modern-office.jpg"
+                alt="Professionals collaborating"
+                className="cp-who-image"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -337,7 +346,7 @@ export default function CoursePage({ courseId }) {
           </div>
           {(id === 1 || id === 2) && (
             <div className="cp-build-carousel-wrap">
-              <p className="cp-build-carousel-label">Built by previous cohort members</p>
+              <h2 className="cp-build-carousel-heading">Built by previous cohort members</h2>
               <BuildCarousel images={BUILD_IMAGES} />
             </div>
           )}
@@ -391,8 +400,17 @@ export default function CoursePage({ courseId }) {
       {/* ── TESTIMONIALS ── */}
       <section className="cp-section cp-testimonials-section">
         <div className="container">
-          <p className="cp-section-label">What students say</p>
-          <h2>Real results from real professionals</h2>
+          <div className="cp-testimonials-header">
+            <div className="cp-testimonials-header-text">
+              <p className="cp-section-label">What students say</p>
+              <h2>Real results from real professionals</h2>
+            </div>
+            <img
+              src="/assets/images/hero-person-at-computer.jpg"
+              alt="Professional working with AI"
+              className="cp-testimonials-photo"
+            />
+          </div>
           <div className="cp-testimonials-grid">
             {TESTIMONIALS.map((t, i) => (
               <TestimonialCard key={i} name={t.name} quote={t.quote} />
