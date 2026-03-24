@@ -164,13 +164,19 @@ export const courseData = {
       "In 6 sessions, you'll build a toolkit of specialized agents and finish with a full pipeline that goes from first message to sale with no manual steps.",
     whoItsFor:
       "You've tried AI coding tools in the terminal, MCP connectors, or automated workflow builders, but you haven't built specialized agents or workflows for most of your work yet.",
+    toolsSectionHeadline: 'Build specialized AI agents for your work in 3 weeks',
+    tools: ['Claude', 'n8n', 'Cursor', 'Make', 'Zapier', 'Python'],
+    topics: ['Automation', 'Customer outreach', 'Research pipelines', 'Data sync', 'Agent design', 'Workflow building'],
     whatYoullBuild: [
-      'A team of research agents that analyze a problem from different angles',
+      'A team of research agents that analyze a problem from multiple angles',
       'A writing agent that gathers context, writes, and sends messages for you',
       'An agent that reads and updates your systems on its own',
       'An agent that watches for conditions and reacts when they\'re met',
-      'A team of agents that execute a repetitive process with no manual input',
-      'A full agent pipeline that autonomously goes from first message to sale',
+      'A team of agents that execute a full process with no manual input',
+      'A full pipeline that autonomously goes from first message to sale',
+      'A CRM-connected agent that logs every interaction without you touching it',
+      'A multi-step workflow that spans 3+ tools without breaking',
+      'An agent specialization map for your most repeated job tasks',
     ],
     whatYoullLearn: [
       {
@@ -260,13 +266,19 @@ export const courseData = {
       "In 6 sessions, you'll build systems that trigger automatically, run in the background, and operate 24/7, with no manual step between you and the output.",
     whoItsFor:
       "You have at least one agent or workflow running on its own, but your automations don't yet operate as a unified system, and you're still the one deciding when most things run.",
+    toolsSectionHeadline: 'Build AI systems that run without you in 3 weeks',
+    tools: ['Claude', 'n8n', 'Python', 'Cron', 'Webhooks', 'APIs'],
+    topics: ['Autonomous systems', 'Scheduling', 'Error handling', 'Monitoring', 'Orchestration', 'Background agents'],
     whatYoullBuild: [
-      "A headless agent you can trigger from your phone to act on your computer",
+      'A headless agent you can trigger from your phone to act on your computer',
       'A multi-step workflow that connects 5+ tools and fixes its own errors',
       'An always-on agent that manages a repetitive task 24/7',
-      'An agent team that proactively monitors a signal and acts the second a problem arises',
+      'An agent team that monitors a signal and acts the moment a problem arises',
       'A scheduled agent team that runs backlog, research, and prep work overnight',
-      "A shared live agent running in the background across multiple team members' workflows",
+      "A shared live agent running in the background across your team's workflows",
+      'A phone-triggered automation that runs complex tasks without opening a laptop',
+      'A self-healing pipeline that retries, fixes, and only escalates when stuck',
+      'An overnight prep agent that has your priorities ready when you wake up',
     ],
     whatYoullLearn: [
       {
@@ -355,13 +367,19 @@ export const courseData = {
       "In 6 sessions, you'll design systems where agents coordinate, delegate, evaluate each other's work, and run full business processes from trigger to done.",
     whoItsFor:
       "You have multiple automations or agents running, but they don't talk to each other and don't operate as a unified system.",
+    toolsSectionHeadline: 'Design multi-agent systems that coordinate and self-improve',
+    tools: ['Claude', 'n8n', 'Python', 'Claude Code', 'Vector DB', 'Evals'],
+    topics: ['Multi-agent design', 'Automated evaluation', 'Orchestration', 'Quality scoring', 'Observability', 'Self-correction'],
     whatYoullBuild: [
       "A goal-directed 'AI employee' that collaborates with your team to hit its weekly target",
       'An automated scoring system that grades every agent output before it reaches you',
       'An agent that finds what\'s broken in a tool you built, fixes it, and proves the fix worked',
       'An orchestrator that assigns tasks in a complex job to best-fit specialist agents',
-      'A monitoring layer that intercepts bad outputs before they hit your systems or your users',
+      'A monitoring layer that intercepts bad outputs before they reach your users',
       'A coordinated multi-agent system that runs a full business process from trigger to done',
+      'A rubric-based eval system that scores outputs against your own quality standards',
+      'A QA agent that runs end-to-end tests on your pipeline before you ship',
+      'A shared-state multi-agent system where agents delegate and hand off tasks',
     ],
     whatYoullLearn: [
       {
@@ -450,13 +468,19 @@ export const courseData = {
       "In 6 sessions, you'll build a fully autonomous AI team that sources, acts, self-corrects, and improves over time, with you setting direction and reviewing exceptions.",
     whoItsFor:
       "You've built and shipped AI systems that run in production, but they don't proactively iterate, pursue long-horizon goals, or improve themselves from corrections.",
+    toolsSectionHeadline: 'Ship AI systems that run in production and improve themselves',
+    tools: ['Claude Code', 'Python', 'n8n', 'RAG', 'Vector DB', 'Monitoring'],
+    topics: ['Production deployment', 'Long-horizon goals', 'Self-correction', 'Autonomous ops', 'Observability', 'Continuous improvement'],
     whatYoullBuild: [
-      'A knowledge base your agents search in real time, built from your actual docs and history',
+      'A knowledge base your agents search in real time, built from your actual docs',
       'An autonomous agent running a multi-day campaign with daily checkpoints',
       'An agent that writes and ships code improvements toward a target, testing its own work',
-      'A system wired to catch its own failures, retry automatically, and only page you when stuck',
-      'A live ops dashboard showing agent health, output quality, and when you need to step in',
+      'A system wired to catch its own failures, retry, and only page you when stuck',
+      'A live ops dashboard showing agent health, output quality, and when to step in',
       'A fully autonomous AI team that runs a business function and improves itself',
+      'A RAG pipeline grounded in your company\'s real documents and history',
+      'A long-horizon agent that resumes mid-goal after interruption',
+      'A self-improving system that logs every override and learns from corrections',
     ],
     whatYoullLearn: [
       {
