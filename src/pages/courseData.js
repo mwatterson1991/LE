@@ -195,12 +195,12 @@ export const courseData = {
       { q: 'Can I take Courses 1 and 2 back-to-back?', a: 'Yes. Many students do Course 1 in one cohort and Course 2 in the next.' },
     ],
     nextCourse: 3,
-    nextCourseName: 'Create Systems That Run Without You',
+    nextCourseName: 'Create Autonomous Systems',
   },
 
   3: {
     id: 3,
-    name: 'Create Systems That Run Without You',
+    name: 'Create Autonomous Systems',
     badge: 'Course 3 of 5',
     nextCohort: 'May 19, 2026',
     cohortDates: ['May 19', 'June 16', 'July 14'],
@@ -488,7 +488,7 @@ export const courseData = {
 export const allCourses = [
   { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'April 21' },
   { id: 2, name: 'Build Agents That Work for You', nextCohort: 'April 21' },
-  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19' },
+  { id: 3, name: 'Create Autonomous Systems', nextCohort: 'May 19' },
   { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'June 16' },
   { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'July 14' },
 ]

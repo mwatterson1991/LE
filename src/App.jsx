@@ -170,7 +170,7 @@ function IcebergVisualization() {
   const levels = [
     { label: 'Ship AI Systems That Scale', width: 50 },
     { label: 'Design Multi-Agent Systems', width: 60 },
-    { label: 'Create Systems to Run Without You', width: 70 },
+    { label: 'Create Autonomous Systems', width: 70 },
     { label: 'Build Agents That Work for You', width: 80 },
     { label: 'Use AI to 10x Your Impact', width: 90, active: true },
   ]
@@ -195,7 +195,7 @@ function WhichLevelDropdown() {
   const levels = [
     { num: '1', name: 'Use AI to 10x Your Impact', who: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own." },
     { num: '2', name: 'Build Agents That Work for You', who: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks." },
-    { num: '3', name: 'Create Systems to Run Without You', who: "You've built multiple AI agents, but they don't run autonomously." },
+    { num: '3', name: 'Create Autonomous Systems', who: "You've built multiple AI agents, but they don't run autonomously." },
     { num: '4', name: 'Design Multi-Agent Systems', who: "You have multiple autonomous agents running, but they don't operate as a unified system." },
     { num: '5', name: 'Ship AI Systems That Scale', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
   ]
@@ -520,7 +520,7 @@ function HomePage() {
     },
     {
       id: 'course-3', num: '03', type: 'LIVE COURSE',
-      title: 'Create Systems to Run Without You',
+      title: 'Create Autonomous Systems',
       tagline: "You've built multiple AI agents, but they don't run autonomously.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
@@ -640,7 +640,7 @@ function HomePage() {
   const trackItems = [
     { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'April 21, 2026', featured: true },
     { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', secondary: true },
-    { num: '03', name: 'Create Systems to Run Without You', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026' },
+    { num: '03', name: 'Create Autonomous Systems', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026' },
     { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026' },
     { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026' },
   ]
@@ -1065,7 +1065,7 @@ function HomePage() {
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed the</span>
                       <span className="cert-program">AI Builder Program</span>
-                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Agents That Work for You &middot; Create Systems to Run Without You &middot; Design Multi-Agent Systems &middot; Ship AI Systems That Scale</span>
+                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Agents That Work for You &middot; Create Autonomous Systems &middot; Design Multi-Agent Systems &middot; Ship AI Systems That Scale</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
