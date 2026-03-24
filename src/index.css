@@ -221,10 +221,10 @@ nav {
   width: calc(100% - 48px);
   max-width: 1280px;
   z-index: 100;
-  background: rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.42);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 8px;
   padding: 20px;
 }
@@ -2402,10 +2402,7 @@ footer a:hover {
   background: var(--bg);
 }
 .b2b-hero .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
+  display: block;
 }
 .b2b-hero-image {
   border-radius: 12px;
@@ -2608,6 +2605,7 @@ footer a:hover {
   color: var(--accent);
   display: block;
   margin-bottom: 12px;
+  text-transform: uppercase;
 }
 .b2b-section-label-light {
   color: var(--accent);
@@ -3051,6 +3049,352 @@ footer a:hover {
   margin-bottom: 36px;
 }
 
+/* =========================================
+   LEONARDO POLISH — B2B page
+   ========================================= */
+
+/* Tighten section rhythm */
+.b2b-offerings, .b2b-value-props, .b2b-process, .b2b-courses, .b2b-faq {
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+/* Section label spacing */
+.b2b-section-label {
+  margin-bottom: 8px;
+}
+
+/* Section headline sizing — bigger, more commanding */
+.b2b-section-headline {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  margin-bottom: 14px;
+}
+.b2b-section-sub {
+  font-size: 17px;
+  margin-bottom: 44px;
+}
+
+/* Solution cards — sharper, elevated feel */
+.b2b-solution-card {
+  border-radius: 10px;
+  padding: 32px 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+}
+.b2b-solution-icon {
+  margin-bottom: 12px;
+}
+.b2b-solution-title {
+  font-size: 18px;
+}
+
+/* VP section — tighten */
+.b2b-vp-headline {
+  font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+  line-height: 1.18;
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+.b2b-vp-item h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+.b2b-vp-item p {
+  font-size: 14px;
+}
+.b2b-vp-items {
+  gap: 20px;
+}
+
+/* Process steps — bigger text, tighter spacing */
+.b2b-steps-4 {
+  gap: 0;
+  margin-top: 8px;
+}
+.b2b-step-title-lg {
+  font-size: 18px !important;
+  line-height: 1.35;
+}
+.b2b-step-block {
+  padding: 24px 22px !important;
+}
+
+/* Track cards — better shadow and hover */
+.b2b-track-card {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.b2b-track-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.14);
+  transform: translateY(-3px);
+}
+.b2b-track-name {
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+/* Button radius — Leonardo standard */
+.b2b-courses-cta .btn,
+.b2b-offerings-cta .btn,
+.b2b-footer-cta .btn,
+.b2b-vp-left .btn,
+.b2b-hero-ctas .btn {
+  border-radius: 8px;
+}
+
+/* FAQ — clean lines, no numbers, bigger chevron spacing */
+.b2b-faq {
+  background: #fafaf8;
+}
+.b2b-faq .faq-item {
+  border-bottom: 1px solid #e8e8e6;
+  padding: 24px 0;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+.b2b-faq .faq-item:first-child {
+  border-top: 1px solid #e8e8e6;
+}
+.b2b-faq .faq-index {
+  display: none;
+}
+.b2b-faq .faq-q {
+  gap: 32px;
+}
+.b2b-faq .faq-chevron {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Footer CTA — more generous */
+.b2b-footer-cta {
+  padding: 112px 0;
+}
+
+/* --- B2B Hero bg image variant --- */
+.b2b-hero-bg {
+  position: relative !important;
+  padding: 0 !important;
+  background-image: url('/assets/images/b2b-hero.jpg') !important;
+  background-size: cover !important;
+  background-position: center 25% !important;
+  min-height: 580px;
+  display: flex !important;
+  align-items: center !important;
+}
+.b2b-hero-content-wrap {
+  width: 100%;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  padding-top: 140px;
+  padding-bottom: 100px;
+}
+.b2b-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.68);
+  z-index: 0;
+}
+.b2b-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 140px;
+  padding-bottom: 100px;
+  max-width: 760px;
+  display: block !important;
+}
+.b2b-hero-headline-light {
+  color: #fff !important;
+  font-size: clamp(2.8rem, 5vw, 4.2rem) !important;
+  line-height: 1.06 !important;
+  margin-bottom: 24px !important;
+}
+.b2b-hero-sub-light {
+  color: rgba(255,255,255,0.8) !important;
+  max-width: 600px;
+  font-size: 20px !important;
+  margin-bottom: 36px;
+}
+.b2b-hero-secondary-link-light {
+  color: rgba(255,255,255,0.6) !important;
+}
+.b2b-hero-secondary-link-light:hover {
+  color: #fff !important;
+}
+
+/* --- Label / eyebrow on different bg --- */
+.b2b-label-on-dark {
+  color: var(--accent) !important;
+}
+.b2b-label-on-light {
+  color: #888 !important;
+}
+
+/* --- Headline / sub on dark --- */
+.b2b-headline-on-dark {
+  color: #fff !important;
+}
+.b2b-sub-on-dark {
+  color: rgba(255,255,255,0.6) !important;
+}
+
+/* --- Trust bar logos --- */
+.b2b-trust-logo-img {
+  height: 26px;
+  width: auto;
+  max-width: 100px;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: grayscale(1) brightness(10);
+}
+
+/* --- Offerings dark variant --- */
+.b2b-offerings-dark {
+  background: #0d0d0d !important;
+}
+
+/* --- Solution card icon --- */
+.b2b-solution-icon {
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+/* --- Process dark variant --- */
+.b2b-process-dark {
+  background: #111 !important;
+}
+.b2b-process-dark .b2b-section-headline {
+  color: #fff;
+}
+.b2b-step-block {
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  padding: 28px 24px !important;
+}
+.b2b-step-title-lg {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+  line-height: 1.3;
+  margin: 0;
+}
+.b2b-step-arrow-accent {
+  color: var(--accent) !important;
+  opacity: 1 !important;
+}
+
+/* --- Live courses section --- */
+.b2b-courses {
+  padding: 96px 0;
+  background: #f5f5f3;
+}
+.b2b-courses .b2b-section-headline {
+  margin-bottom: 40px;
+}
+.b2b-track-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.b2b-track-card {
+  background: #fff;
+  border: 1px solid #e0e0de;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.b2b-track-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+.b2b-track-thumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+.b2b-track-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.b2b-track-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.b2b-track-level {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.b2b-track-badge {
+  font-family: var(--font-meta);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--accent);
+  color: #000;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.b2b-track-name {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #111;
+  margin: 0;
+}
+.b2b-courses-cta {
+  margin-top: 36px;
+}
+.b2b-track-tagline {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+.b2b-track-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0ee;
+}
+.b2b-track-cohort-label {
+  display: block;
+  font-family: var(--font-meta);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+.b2b-track-cohort-date {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111;
+}
+.b2b-track-arrow {
+  color: var(--accent);
+  font-size: 16px;
+}
+
 /* --- Value Props ("Don't get left behind") --- */
 .b2b-value-props {
   padding: 96px 0;
@@ -3231,8 +3575,7 @@ footer a:hover {
 /* --- B2B Mobile --- */
 @media (max-width: 900px) {
   .b2b-hero .container {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    display: block;
   }
   .b2b-hero-stock-img {
     height: 280px;
@@ -3263,16 +3606,27 @@ footer a:hover {
   .b2b-solution-cards {
     grid-template-columns: 1fr;
   }
+  .b2b-track-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .b2b-hero-fullbleed {
+    min-height: 480px;
+  }
   .b2b-addon-content {
     grid-template-columns: 1fr;
     gap: 24px;
   }
   .b2b-steps {
     flex-direction: column;
-    gap: 32px;
+    gap: 0;
+    align-items: stretch !important;
   }
   .b2b-step-arrow-icon {
-    display: none;
+    display: flex !important;
+    justify-content: center;
+    transform: rotate(90deg);
+    padding: 4px 0;
   }
   .b2b-step-arrow {
     display: none;
