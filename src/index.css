@@ -310,16 +310,6 @@ nav .btn {
 .track-cards-section {
   position: relative;
 }
-.track-cards-heading {
-  display: block;
-  font-family: var(--font-meta);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 10px;
-}
 .start-here-arrow {
   position: absolute;
   top: -24px;
@@ -337,24 +327,37 @@ nav .btn {
 .track-card {
   display: flex;
   flex-direction: column;
-  border: none;
-  background: #212121;
-  transition: background 0.15s, opacity 0.3s ease;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  transition: border-color 0.15s, background 0.15s, opacity 0.3s ease;
   position: relative;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
 }
-.track-cards:hover .track-card {
+.track-card-featured:hover ~ .track-card {
   opacity: 0.4;
 }
-.track-cards .track-card:hover {
-  opacity: 1;
-}
 .track-card-featured {
+  border: 1px solid transparent;
+  background-origin: border-box;
+  background-image:
+    repeating-linear-gradient(to right, var(--accent) 0 4px, transparent 4px 8px),
+    repeating-linear-gradient(to right, var(--accent) 0 4px, transparent 4px 8px),
+    repeating-linear-gradient(to bottom, var(--accent) 0 4px, transparent 4px 8px),
+    repeating-linear-gradient(to bottom, var(--accent) 0 4px, transparent 4px 8px);
+  background-size:
+    100% 1px,
+    100% 1px,
+    1px 100%,
+    1px 100%;
+  background-position:
+    top left,
+    bottom left,
+    top left,
+    top right;
+  background-repeat: no-repeat;
   cursor: pointer;
 }
 .track-card-secondary {
+  border: 1px solid var(--border);
 }
 .btn-secondary-outline {
   background: transparent;
@@ -381,52 +384,29 @@ nav .btn {
   position: relative;
   z-index: 1;
 }
-.track-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-top: 12px;
+.track-card-enroll {
+  margin-top: 8px;
+  align-self: stretch;
+  text-align: center;
 }
-.track-card-cohort-block {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.track-card-cohort-label {
+.track-card-learn-more {
   font-family: var(--font-meta);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-}
-.track-card-cohort-date {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
-}
-.track-card-arrow-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: var(--accent);
-  color: #000;
-  font-family: var(--font-meta);
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 12px;
+  color: var(--text-tertiary);
   text-decoration: none;
-  flex-shrink: 0;
-  border: 1px solid var(--accent);
-  transition: background 0.15s, color 0.15s;
+  margin-top: 4px;
+  display: inline-block;
+  transition: color 0.15s;
 }
-.track-card-arrow-btn:hover {
-  background: transparent;
-  border: 1px solid var(--accent);
-  color: #fff;
+.track-card-learn-more:hover {
+  color: var(--text-secondary);
+}
+.track-card-cohort {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  margin-top: 8px;
 }
 .track-card-also {
   font-family: var(--font-meta);
@@ -2799,7 +2779,8 @@ footer a:hover {
   margin-bottom: 40px;
 }
 .b2b-solution-card {
-  background: #111;
+  background: #fff;
+  border: 1px solid #e0e0de;
   border-radius: 12px;
   padding: 36px 28px;
   display: flex;
@@ -2818,13 +2799,13 @@ footer a:hover {
   font-size: 20px;
   font-weight: 600;
   line-height: 1.3;
-  color: #fff;
+  color: var(--text-primary);
   margin: 0;
 }
 .b2b-solution-body {
   font-size: 15px;
   line-height: 1.65;
-  color: rgba(255,255,255,0.65);
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -2834,9 +2815,6 @@ footer a:hover {
   background: #fff;
 }
 .b2b-process .b2b-section-headline {
-  margin-bottom: 12px;
-}
-.b2b-process .b2b-section-sub {
   margin-bottom: 56px;
 }
 .b2b-steps {
@@ -2856,20 +2834,6 @@ footer a:hover {
   padding-top: 8px;
   align-self: flex-start;
   margin-top: 4px;
-}
-.b2b-steps-4 {
-  align-items: center;
-}
-.b2b-steps-4 .b2b-step {
-  text-align: center;
-  padding: 32px 16px;
-  background: #f8f8f6;
-  border-radius: 12px;
-}
-.b2b-step-arrow-icon {
-  flex-shrink: 0;
-  color: var(--accent);
-  opacity: 0.6;
 }
 .b2b-step-num {
   font-family: var(--font-meta);
@@ -3271,9 +3235,6 @@ footer a:hover {
     flex-direction: column;
     gap: 32px;
   }
-  .b2b-step-arrow-icon {
-    display: none;
-  }
   .b2b-step-arrow {
     display: none;
   }
@@ -3282,5 +3243,158 @@ footer a:hover {
   }
   .b2b-instructor-cards {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Countdown Timer ─── */
+.countdown-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: rgba(165, 228, 70, 0.06);
+  border: 1px solid rgba(165, 228, 70, 0.2);
+  border-radius: 8px;
+  max-width: 420px;
+}
+.countdown-label {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.countdown-live {
+  font-family: var(--font-meta);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.countdown-units {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+}
+.countdown-num {
+  font-family: var(--font-meta);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.countdown-unit-label {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+.countdown-sep {
+  font-family: var(--font-meta);
+  font-size: 22px;
+  color: rgba(165, 228, 70, 0.4);
+  line-height: 1;
+  padding-bottom: 12px;
+}
+
+/* ─── Schedule Section ─── */
+.cp-schedule-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cp-schedule-item {
+  display: grid;
+  grid-template-columns: 48px 160px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.15s;
+}
+.cp-schedule-item:last-child {
+  border-bottom: none;
+}
+.cp-schedule-item:hover {
+  background: rgba(255,255,255,0.02);
+}
+.cp-schedule-num {
+  font-family: var(--font-meta);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+.cp-schedule-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cp-schedule-date {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.cp-schedule-time {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+}
+.cp-schedule-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ─── Session date inline ─── */
+.session-date-inline {
+  display: block;
+  font-family: var(--font-meta);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  margin-top: 3px;
+}
+
+/* ─── Schedule responsive ─── */
+@media (max-width: 640px) {
+  .cp-schedule-item {
+    grid-template-columns: 36px 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px 12px;
+  }
+  .cp-schedule-info {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .cp-schedule-title {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .countdown-wrap {
+    max-width: 100%;
+  }
+  .countdown-num {
+    font-size: 22px;
+  }
+  .countdown-unit {
+    min-width: 38px;
   }
 }

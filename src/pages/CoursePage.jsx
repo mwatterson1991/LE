@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 // Link replaced with <a> tags — no react-router-dom dependency
-import { courseData, allCourses, ENROLL_URLS } from './courseData'
+import { courseData, allCourses, ENROLL_URLS, SESSION_SCHEDULES } from './courseData'
 import './CoursePage.css'
 import GetThisExpensed from '../components/GetThisExpensed'
+import CountdownTimer from '../components/CountdownTimer'
 
 /* ─── Shared icons ─── */
 const ChevronIcon = () => (
@@ -30,13 +31,18 @@ function FaqItem({ question, answer, index, open, onToggle }) {
 }
 
 /* ─── Session accordion ─── */
-function SessionItem({ session, num, open, onToggle }) {
+function SessionItem({ session, num, open, onToggle, sessionDate }) {
   return (
     <div className={`faq-item${open ? ' open' : ''}`} onClick={onToggle} style={{ cursor: 'pointer' }}>
       <span className="faq-index">{String(num).padStart(2, '0')}</span>
       <div className="faq-body">
         <div className="faq-q">
-          <h3>{session.title}</h3>
+          <h3>
+            {session.title}
+            {sessionDate && (
+              <span className="session-date-inline">{sessionDate.label} &middot; {sessionDate.time}</span>
+            )}
+          </h3>
           <ChevronIcon />
         </div>
         <div className="faq-a">
@@ -114,11 +120,36 @@ function WhereThisFits({ currentId }) {
   )
 }
 
+/* ─── Session schedule grid ─── */
+function ScheduleSection({ schedule, sessions }) {
+  return (
+    <section className="cp-section cp-schedule-section" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+      <div className="container">
+        <p className="cp-section-label">Schedule</p>
+        <h2>6 live sessions</h2>
+        <div className="cp-schedule-grid">
+          {schedule.map((s, i) => (
+            <div className="cp-schedule-item" key={i}>
+              <span className="cp-schedule-num">{String(i + 1).padStart(2, '0')}</span>
+              <div className="cp-schedule-info">
+                <span className="cp-schedule-date">{s.label}</span>
+                <span className="cp-schedule-time">{s.time}</span>
+              </div>
+              <span className="cp-schedule-title">{sessions[i]?.title}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ─── Main CoursePage ─── */
 export default function CoursePage({ courseId }) {
   const id = courseId
   const course = courseData[id]
   const enrollUrl = ENROLL_URLS[id]
+  const schedule = SESSION_SCHEDULES[id] || []
 
   const [openSession, setOpenSession] = useState(null)
   const [openFaq, setOpenFaq] = useState(null)
@@ -169,6 +200,11 @@ export default function CoursePage({ courseId }) {
 
           {/* Enroll CTA */}
           <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
+
+          {/* Countdown */}
+          {schedule.length > 0 && (
+            <CountdownTimer targetIso={schedule[0].iso} />
+          )}
         </div>
       </section>
 
@@ -204,6 +240,11 @@ export default function CoursePage({ courseId }) {
           </div>
         </div>
       </section>
+
+      {/* ── SCHEDULE ── */}
+      {schedule.length > 0 && (
+        <ScheduleSection schedule={schedule} sessions={course.sessions} />
+      )}
 
       {/* ── WHO THIS IS FOR ── */}
       <section className="cp-section" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
@@ -267,6 +308,7 @@ export default function CoursePage({ courseId }) {
                 num={i + 1}
                 open={openSession === i}
                 onToggle={() => setOpenSession(openSession === i ? null : i)}
+                sessionDate={schedule[i]}
               />
             ))}
           </div>

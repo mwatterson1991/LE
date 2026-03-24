@@ -6,12 +6,56 @@ export const ENROLL_URLS = {
   5: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)',
 }
 
+// MDT = UTC-6
+export const SESSION_SCHEDULES = {
+  1: [
+    { label: 'Apr 21, 2026', time: '3:00 PM MDT', iso: '2026-04-21T21:00:00Z' },
+    { label: 'Apr 24, 2026', time: '9:00 AM MDT', iso: '2026-04-24T15:00:00Z' },
+    { label: 'Apr 28, 2026', time: '3:00 PM MDT', iso: '2026-04-28T21:00:00Z' },
+    { label: 'May 1, 2026',  time: '9:00 AM MDT', iso: '2026-05-01T15:00:00Z' },
+    { label: 'May 5, 2026',  time: '3:00 PM MDT', iso: '2026-05-05T21:00:00Z' },
+    { label: 'May 8, 2026',  time: '9:00 AM MDT', iso: '2026-05-08T15:00:00Z' },
+  ],
+  2: [
+    { label: 'Apr 21, 2026', time: '5:00 PM MDT', iso: '2026-04-21T23:00:00Z' },
+    { label: 'Apr 24, 2026', time: '11:00 AM MDT', iso: '2026-04-24T17:00:00Z' },
+    { label: 'Apr 28, 2026', time: '5:00 PM MDT', iso: '2026-04-28T23:00:00Z' },
+    { label: 'May 1, 2026',  time: '11:00 AM MDT', iso: '2026-05-01T17:00:00Z' },
+    { label: 'May 5, 2026',  time: '5:00 PM MDT', iso: '2026-05-05T23:00:00Z' },
+    { label: 'May 8, 2026',  time: '11:00 AM MDT', iso: '2026-05-08T17:00:00Z' },
+  ],
+  3: [
+    { label: 'May 19, 2026', time: '3:00 PM MDT', iso: '2026-05-19T21:00:00Z' },
+    { label: 'May 22, 2026', time: '9:00 AM MDT', iso: '2026-05-22T15:00:00Z' },
+    { label: 'May 26, 2026', time: '3:00 PM MDT', iso: '2026-05-26T21:00:00Z' },
+    { label: 'May 29, 2026', time: '9:00 AM MDT', iso: '2026-05-29T15:00:00Z' },
+    { label: 'Jun 2, 2026',  time: '3:00 PM MDT', iso: '2026-06-02T21:00:00Z' },
+    { label: 'Jun 5, 2026',  time: '9:00 AM MDT', iso: '2026-06-05T15:00:00Z' },
+  ],
+  4: [
+    { label: 'Jun 16, 2026', time: '3:00 PM MDT', iso: '2026-06-16T21:00:00Z' },
+    { label: 'Jun 19, 2026', time: '9:00 AM MDT', iso: '2026-06-19T15:00:00Z' },
+    { label: 'Jun 23, 2026', time: '9:00 AM MDT', iso: '2026-06-23T15:00:00Z' },
+    { label: 'Jun 26, 2026', time: '3:00 PM MDT', iso: '2026-06-26T21:00:00Z' },
+    { label: 'Jun 30, 2026', time: '9:00 AM MDT', iso: '2026-06-30T15:00:00Z' },
+    { label: 'Jul 3, 2026',  time: '3:00 PM MDT', iso: '2026-07-03T21:00:00Z' },
+  ],
+  5: [
+    { label: 'Jul 14, 2026', time: '9:00 AM MDT', iso: '2026-07-14T15:00:00Z' },
+    { label: 'Jul 17, 2026', time: '3:00 PM MDT', iso: '2026-07-17T21:00:00Z' },
+    { label: 'Jul 21, 2026', time: '9:00 AM MDT', iso: '2026-07-21T15:00:00Z' },
+    { label: 'Jul 24, 2026', time: '3:00 PM MDT', iso: '2026-07-24T21:00:00Z' },
+    { label: 'Jul 28, 2026', time: '9:00 AM MDT', iso: '2026-07-28T15:00:00Z' },
+    { label: 'Jul 31, 2026', time: '3:00 PM MDT', iso: '2026-07-31T21:00:00Z' },
+  ],
+}
+
 export const courseData = {
   1: {
     id: 1,
     name: 'Use AI to Work 10x Faster',
     badge: 'Course 1 of 5',
-    nextCohort: 'April 21, 2026',
+    nextCohort: 'Apr 21 – May 8, 2026',
     cohortDates: ['April 21', 'May 19', 'June 16', 'July 14', 'August 11'],
     heroHeadline: 'Go beyond chatbots and build AI that works like you.',
     heroSubheadline:
@@ -106,7 +150,7 @@ export const courseData = {
     id: 2,
     name: 'Build Agents That Work for You',
     badge: 'Course 2 of 5',
-    nextCohort: 'April 21, 2026',
+    nextCohort: 'Apr 21 – May 8, 2026',
     cohortDates: ['April 21', 'May 19', 'June 16', 'July 14'],
     heroHeadline: 'Eliminate manual work with a team of specialized agents.',
     heroSubheadline:
@@ -202,7 +246,7 @@ export const courseData = {
     id: 3,
     name: 'Create Systems That Run Without You',
     badge: 'Course 3 of 5',
-    nextCohort: 'May 19, 2026',
+    nextCohort: 'May 19 – Jun 5, 2026',
     cohortDates: ['May 19', 'June 16', 'July 14'],
     heroHeadline: 'You\'ve built great agents. Now make them run autonomously.',
     heroSubheadline:
@@ -297,7 +341,7 @@ export const courseData = {
     id: 4,
     name: 'Design Multi-Agent Systems',
     badge: 'Course 4 of 5',
-    nextCohort: 'June 16, 2026',
+    nextCohort: 'Jun 16 – Jul 3, 2026',
     cohortDates: ['June 16', 'July 14', 'August 11'],
     heroHeadline: 'Build AI that manages AI.',
     heroSubheadline:
@@ -392,7 +436,7 @@ export const courseData = {
     id: 5,
     name: 'Ship AI Systems That Scale',
     badge: 'Course 5 of 5',
-    nextCohort: 'July 14, 2026',
+    nextCohort: 'Jul 14 – Jul 31, 2026',
     cohortDates: ['July 14', 'August 11'],
     heroHeadline: 'Build a system that runs a business function and improves itself.',
     heroSubheadline:
@@ -486,9 +530,9 @@ export const courseData = {
 }
 
 export const allCourses = [
-  { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'April 21' },
-  { id: 2, name: 'Build Agents That Work for You', nextCohort: 'April 21' },
-  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19' },
-  { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'June 16' },
-  { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'July 14' },
+  { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'Apr 21 – May 8' },
+  { id: 2, name: 'Build Agents That Work for You', nextCohort: 'Apr 21 – May 8' },
+  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19 – Jun 5' },
+  { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'Jun 16 – Jul 3' },
+  { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'Jul 14 – Jul 31' },
 ]
