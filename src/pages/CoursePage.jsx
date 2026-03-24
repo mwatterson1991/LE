@@ -3,38 +3,44 @@ import { courseData, allCourses, ENROLL_URLS, SESSION_SCHEDULES } from './course
 import './CoursePage.css'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CountdownTimer from '../components/CountdownTimer'
+import CardSwap, { Card } from '../components/CardSwap'
 
-/* ─── Shared data ─── */
-const BUILD_IMAGES = [
+/* ─── Tool pills ─── */
+const TOOL_PILLS = [
+  { name: 'ChatGPT', logo: 'new-ChatGPT-icon-white-png-large-size.png', size: 42 },
+  { name: 'Claude', logo: 'claude-ai.png' },
+  { name: 'Gemini', logo: 'gemini-ai.png' },
+  { name: 'Perplexity', logo: 'perlexity.png', size: 56 },
+  { name: 'Cursor', logo: 'cursor-1.png', size: 42 },
+  { name: 'n8n', logo: '682c6141f8ac4babe589ee0d_n8n_white_new.png', size: 84 },
+]
+
+/* ─── Build collage ─── */
+const COLLAGE_IMAGES = [
   '/assets/builds/build-01.png',
   '/assets/builds/build-02.png',
   '/assets/builds/build-03.png',
-  '/assets/builds/build-04.png',
   '/assets/builds/build-05.png',
   '/assets/builds/build-06.png',
-  '/assets/builds/build-07.png',
-  '/assets/builds/build-08.png',
   '/assets/builds/build-09.png',
   '/assets/builds/build-10.png',
-  '/assets/builds/build-11.png',
+  '/assets/builds/build-15.png',
+  '/assets/builds/build-16.png',
+  '/assets/builds/build-17.png',
+  '/assets/builds/build-19.png',
+  '/assets/builds/build-21.png',
+  '/assets/builds/build-23.png',
+  '/assets/builds/build-25.png',
+  '/assets/builds/build-27.png',
 ]
 
-const TESTIMONIALS = [
-  {
-    name: 'Angela S.',
-    quote: 'This course changed my workflow completely. I went from spending hours on repetitive tasks to having AI handle them in minutes. My team keeps asking how I\'m getting so much done.',
-  },
-  {
-    name: 'Hannah P.',
-    quote: 'I was skeptical that a 3-week course could actually change how I work. By session two I had already built an automation that saved me 3 hours a week. By the end, I had five.',
-  },
-  {
-    name: 'Tyler G.',
-    quote: 'The hands-on approach is what sets this apart. Every session ended with something I could use at work the next day. Not theory, not slides — actual tools I still use months later.',
-  },
-]
+/* ─── Icons ─── */
+const StarIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </svg>
+)
 
-/* ─── Shared icons ─── */
 const ChevronIcon = () => (
   <svg className="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
     <path d="M6 9l6 6 6-6" />
@@ -117,69 +123,7 @@ function EnrollBlock({ nextCohort, enrollUrl, size = 'normal', centered = false 
   )
 }
 
-/* ─── Tools section ─── */
-const TOOL_ICONS = {
-  OpenAI: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.28 9.77a5.85 5.85 0 0 0-.5-4.8 5.93 5.93 0 0 0-6.38-2.85A5.86 5.86 0 0 0 11 .48a5.93 5.93 0 0 0-5.66 4.11 5.86 5.86 0 0 0-3.92 2.84 5.93 5.93 0 0 0 .73 6.96 5.85 5.85 0 0 0 .5 4.8 5.93 5.93 0 0 0 6.38 2.85A5.86 5.86 0 0 0 13 23.52a5.93 5.93 0 0 0 5.66-4.1 5.86 5.86 0 0 0 3.92-2.85 5.93 5.93 0 0 0-.73-6.96l.43-.84zM13 21.98a4.4 4.4 0 0 1-2.82-1.02l.14-.08 4.68-2.7a.77.77 0 0 0 .39-.67v-6.6l1.98 1.14a.07.07 0 0 1 .04.06v5.46A4.42 4.42 0 0 1 13 21.98zM3.63 17.87a4.4 4.4 0 0 1-.53-2.97l.14.08 4.68 2.7a.77.77 0 0 0 .77 0l5.71-3.3v2.28a.08.08 0 0 1-.03.06L9.6 19.48a4.43 4.43 0 0 1-5.97-1.61zm-1.24-10.3A4.4 4.4 0 0 1 4.7 5.42v5.5a.77.77 0 0 0 .39.67l5.71 3.3-1.98 1.14a.08.08 0 0 1-.07 0L4.1 13.36a4.43 4.43 0 0 1-1.71-5.79zm16.27 3.8L13 8.07l1.98-1.14a.08.08 0 0 1 .07 0l4.66 2.69a4.42 4.42 0 0 1-.68 7.98v-5.5a.77.77 0 0 0-.37-.73zm1.97-3.02-.14-.08-4.68-2.7a.77.77 0 0 0-.77 0L9.33 8.87V6.59a.08.08 0 0 1 .03-.06l4.66-2.69a4.42 4.42 0 0 1 6.61 4.58v.03zm-12.4 4.08L6.24 11.3a.08.08 0 0 1-.04-.06V5.78a4.42 4.42 0 0 1 7.25-3.4l-.14.08-4.68 2.7a.77.77 0 0 0-.39.67v6.6l-1.98-1.15v.02zm1.08-2.32 2.54-1.47 2.54 1.47v2.94L11.85 14l-2.54-1.46V10.11z"/></svg>
-  ),
-  Claude: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.999 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.001 4.5c.674 0 1.33.086 1.955.248L8.14 15.238a8.25 8.25 0 0 1-1.89-5.238C6.25 5.612 8.74 4.5 12 4.5zm7.5 7.5c0 1.5-.42 2.9-1.15 4.09l-5.85-3.38v-6.1A7.5 7.5 0 0 1 19.5 12zm-7.501 7.5a7.46 7.46 0 0 1-4.26-1.33L12 9.33l4.26 2.46A7.46 7.46 0 0 1 12 19.5z"/></svg>
-  ),
-  Gemini: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 19.5c-.55 0-1-.45-1-1v-5h-5c-.55 0-1-.45-1-1s.45-1 1-1h5v-5c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1h-5v5c0 .55-.45 1-1 1z"/></svg>
-  ),
-  Perplexity: <span style={{fontWeight:700,fontSize:13,lineHeight:1}}>P</span>,
-  Cursor: <span style={{fontWeight:700,fontSize:13,lineHeight:1}}>↗</span>,
-  n8n: <span style={{fontWeight:700,fontSize:13,lineHeight:1}}>n8n</span>,
-}
-
-function ToolsSection({ course }) {
-  if (!course.tools) return null
-  return (
-    <section className="cp-tools-section">
-      <div className="container">
-        <h2 className="cp-tools-headline">{course.toolsSectionHeadline}</h2>
-        <p className="cp-tools-sub">Learn how to use all the best tools, including:</p>
-        <div className="cp-tools-chips">
-          {course.tools.map(t => (
-            <span key={t} className="cp-tool-chip">
-              <span className="cp-tool-icon">{TOOL_ICONS[t] || t[0]}</span>
-              {t}
-            </span>
-          ))}
-        </div>
-        <p className="cp-tools-updated">Updated weekly, so you're always learning at the frontier of AI</p>
-        <p className="cp-tools-sub" style={{marginTop:28}}>We'll teach you best practices for AI in&hellip;</p>
-        <div className="cp-topics-chips">
-          {course.topics.map(t => (
-            <span key={t} className="cp-topic-chip">{t}</span>
-          ))}
-          <span className="cp-topic-chip cp-topic-more">+ more</span>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 /* ─── Build collage ─── */
-const COLLAGE_IMAGES = [
-  '/assets/builds/build-01.png',
-  '/assets/builds/build-02.png',
-  '/assets/builds/build-03.png',
-  '/assets/builds/build-05.png',
-  '/assets/builds/build-06.png',
-  '/assets/builds/build-09.png',
-  '/assets/builds/build-10.png',
-  '/assets/builds/build-15.png',
-  '/assets/builds/build-16.png',
-  '/assets/builds/build-17.png',
-  '/assets/builds/build-19.png',
-  '/assets/builds/build-21.png',
-  '/assets/builds/build-23.png',
-  '/assets/builds/build-25.png',
-  '/assets/builds/build-27.png',
-]
-
 function BuildCollage() {
   return (
     <div className="cp-collage">
@@ -192,49 +136,31 @@ function BuildCollage() {
   )
 }
 
-/* ─── Testimonial card ─── */
-function TestimonialCard({ name, quote }) {
+/* ─── Level pyramid ─── */
+function LevelPyramid({ activeId }) {
+  const rows = [
+    { id: 5, width: 50 },
+    { id: 4, width: 60 },
+    { id: 3, width: 70 },
+    { id: 2, width: 80 },
+    { id: 1, width: 90 },
+  ]
   return (
-    <div className="cp-testimonial-card">
-      <div className="cp-testimonial-stars">★★★★★</div>
-      <p className="cp-testimonial-quote">{quote}</p>
-      <span className="cp-testimonial-name">{name}</span>
+    <div className="iceberg-levels">
+      {rows.map(({ id, width }) => {
+        const c = allCourses.find(c => c.id === id)
+        return (
+          <a
+            key={id}
+            href={`/level-${id}`}
+            className={`iceberg-level${id === activeId ? ' iceberg-level-active' : ''}`}
+            style={{ width: `${width}%` }}
+          >
+            <span className="iceberg-level-name">{c ? c.name : `Level ${id}`}</span>
+          </a>
+        )
+      })}
     </div>
-  )
-}
-
-/* ─── Where this fits ─── */
-function WhereThisFits({ currentId }) {
-  return (
-    <section className="cp-where-section">
-      <div className="container">
-        <h2 className="cp-where-headline">Where this fits in the program</h2>
-        <p className="cp-where-sub">
-          {currentId < 5
-            ? <>Complete this course, then continue to <a href={`/level-${currentId + 1}`} className="cp-accent-link">{allCourses[currentId].name}</a> to go deeper.</>
-            : <>This is the final course. You now have the full AI Builder skill set.</>
-          }
-          {' '}<a href="/" className="cp-quiet-link">View full program &rarr;</a>
-        </p>
-        <div className="cp-where-strip">
-          {allCourses.map((c) => {
-            const isCurrent = c.id === currentId
-            return (
-              <a
-                key={c.id}
-                href={`/level-${c.id}`}
-                className={`cp-where-card ${isCurrent ? 'cp-where-card-active' : 'cp-where-card-inactive'}`}
-              >
-                <span className="cp-where-level">Level {c.id}</span>
-                <span className="cp-where-name">{c.name}</span>
-                {c.whoShort && <span className="cp-where-who">{c.whoShort}</span>}
-                <span className="cp-where-cohort">Next: {c.nextCohort}</span>
-              </a>
-            )
-          })}
-        </div>
-      </div>
-    </section>
   )
 }
 
@@ -258,6 +184,8 @@ export default function CoursePage({ courseId }) {
       </div>
     )
   }
+
+  const nextLevelCourse = allCourses.find(c => c.id === id + 1)
 
   return (
     <div className="cp-page">
@@ -306,102 +234,266 @@ export default function CoursePage({ courseId }) {
         </div>
       </section>
 
-      {/* ── TOOLS SECTION ── */}
-      <ToolsSection course={course} />
-
-      {/* ── TESTIMONIALS "Proven to transform how you work" ── */}
-      <section className="cp-section cp-testimonials-section">
+      {/* ── WHY THIS COURSE ── */}
+      <section className="why-section">
         <div className="container">
-          <h2 className="cp-proven-headline">Proven to transform how you work</h2>
-          <div className="cp-testimonials-grid">
-            {TESTIMONIALS.map((t, i) => (
-              <TestimonialCard key={i} name={t.name} quote={t.quote} />
-            ))}
+          <div className="why-grid">
+            <div className="why-left">
+              <h2 className="why-headline">{course.whyHeadline}</h2>
+              <p className="why-skills-label">Updated weekly, so you're always learning at the frontier of AI. We'll teach you best practices for AI in:</p>
+              <div className="why-pills why-pills-skills">
+                {(course.skillPills || []).map(skill => (
+                  <span className="why-pill why-pill-skill" key={skill}>{skill}</span>
+                ))}
+              </div>
+            </div>
+            <div className="why-right">
+              <p className="why-tools-label">Learn how to use all the best tools</p>
+              <div className="why-tools-grid">
+                {TOOL_PILLS.map(tool => (
+                  <div className="why-tool" key={tool.name}>
+                    <img
+                      src={`/assets/logos/tools/${tool.logo}`}
+                      alt={tool.name}
+                      className="why-tool-logo"
+                      style={tool.size ? { width: tool.size, height: tool.size } : undefined}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VP1: Become the AI expert your team turns to ── */}
+      <section className="value-props-section value-props-bg" style={{ backgroundImage: 'linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(/assets/review-bg.png)' }}>
+        <div className="container">
+          <div className="value-prop-text">
+            <h2>Become the AI expert<br />your team turns to</h2>
+            <p>Earn a credential and build skills your boss and colleagues will notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section className="testimonials-new">
+        <div className="container">
+          <div className="testimonials-stars-lg">
+            {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
+          </div>
+          <div className="testimonials-review-count">
+            <span className="testimonials-review-number">26,132 reviews</span>
+            <span className="testimonials-review-community">in the Leland community</span>
+          </div>
+          <h2 className="testimonials-headline">Proven to transform how you work</h2>
+          <div className="testimonials-grid testimonials-grid-6">
+            <div className="testimonial-card">
+              <p className="testimonial-quote">&ldquo;This course changed my workflow completely. I went from spending hours on repetitive tasks to having AI handle them in minutes. My team keeps asking how I'm getting so much done.&rdquo;</p>
+              <span className="testimonial-author">Angela S.</span>
+            </div>
+            <div className="testimonial-card">
+              <p className="testimonial-quote">&ldquo;I was skeptical that a 3-week course could actually change how I work. By session two, I had already built an automation that saved me 3 hours a week. By the end, I had five.&rdquo;</p>
+              <span className="testimonial-author">Hannah P.</span>
+            </div>
+            <div className="testimonial-card">
+              <p className="testimonial-quote">&ldquo;The hands-on approach is what sets this apart. Every session ended with something I could use at work the next day. Not theory, not slides, actual tools I still use months later.&rdquo;</p>
+              <span className="testimonial-author">Tyler G.</span>
+            </div>
+            <div className="testimonial-card">
+              <p className="testimonial-quote">&ldquo;AI used to feel overwhelming and too complicated. This course broke it down in a way that finally made sense. I walked away with real tools I use every day.&rdquo;</p>
+              <span className="testimonial-author">Chimerika A.</span>
+            </div>
+            <div className="testimonial-card">
+              <p className="testimonial-quote">&ldquo;You couldn't make this box long enough for me to describe what I got out of this program. The live instruction, the hands-on projects, the community. It completely changed how I work.&rdquo;</p>
+              <span className="testimonial-author">Christina G.</span>
+            </div>
+            <div className="testimonial-card">
+              <p className="testimonial-quote">&ldquo;From learning how to prompt, vibe coding an app, to building AI agents, this series took me from curious to competent in weeks. Best investment in my career this year.&rdquo;</p>
+              <span className="testimonial-author">Caroline D.</span>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── VALUE STACK ── */}
-      <section className="cp-section cp-value-section">
+      <section className="value-stack" id="pricing">
         <div className="container">
-          <div className="cp-value-box">
-            <p className="cp-section-label">What's included</p>
-            <h2>Everything in <span className="cp-accent-text">{course.name}</span></h2>
-            <div className="cp-value-list">
-              {[
-                '12+ hours of live, cohort-based instruction',
-                '6 hands-on deliverables you can use in your work immediately',
-                'Access to the private Leland AI Builder community',
-                'Weekly office hours with instructors',
-                'Full session recordings, accessible for 1 year',
-                'Certification upon completion',
-                '3 months of Leland+ access — 5 AI courses and 250+ resources',
-                'Comprehensive practice environment for every exercise',
-                '100+ skill.md files, folder templates, and AI tools',
-                'Best Course Guarantee: money-back if you find better',
-                'Unlimited retakes for 1 year — always the latest curriculum',
-              ].map((item, i) => (
-                <div className="cp-value-item" key={i}>
-                  <span className="cp-value-check">&#10003;</span>
-                  <span className="cp-value-label">{item}</span>
-                </div>
-              ))}
-            </div>
-            <div className="cp-price-row">
-              <span className="cp-price-crossed">$2,500+ value</span>
-              <span className="cp-price">$999</span>
-            </div>
-            <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" centered />
-          </div>
-        </div>
-      </section>
-
-      {/* ── AT A GLANCE ── */}
-      <section className="cp-glance">
-        <div className="container">
-          <div className="cp-glance-grid">
-            <div className="cp-glance-item">
-              <img src="/assets/icons/clock.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">6 Live Sessions</span>
-              <span className="cp-glance-sub">90 minutes each</span>
-            </div>
-            <div className="cp-glance-item">
-              <img src="/assets/icons/play.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">All Sessions Recorded</span>
-              <span className="cp-glance-sub">Watch on demand, forever</span>
-            </div>
-            <div className="cp-glance-item">
-              <img src="/assets/icons/tool.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">Learn by Building</span>
-              <span className="cp-glance-sub">One deliverable per session</span>
-            </div>
-            <div className="cp-glance-item">
-              <img src="/assets/icons/shield.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">Best Course Guarantee</span>
-              <span className="cp-glance-sub">Money-back if you find better</span>
-            </div>
-            <div className="cp-glance-item">
-              <img src="/assets/icons/calendar.svg" alt="" className="cp-glance-icon" />
-              <span className="cp-glance-label">Retake for 1 Year</span>
-              <span className="cp-glance-sub">Always the latest curriculum</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHAT YOU'LL LEARN ── */}
-      <section className="cp-section">
-        <div className="container">
-          <p className="cp-section-label">Curriculum</p>
-          <h2>What you'll learn</h2>
-          <div className="cp-learn-grid">
-            {course.whatYoullLearn.map((col, ci) => (
-              <div className="cp-learn-col" key={ci}>
-                {col.col.map((item, ii) => (
-                  <p className="cp-learn-item" key={ii}>{item}</p>
-                ))}
+          <div className="value-stack-box">
+            <h2 className="value-stack-headline">Everything you get with our <span style={{ color: 'var(--accent)' }}>{course.name}</span> Course</h2>
+            <div className="value-stack-list">
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">12+ hours of live, cohort-based instruction</span>
               </div>
-            ))}
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">6+ hands-on deliverables you can use in your work</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">Access to private Leland AI Builder community</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">Weekly office hours with instructors</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">Full session recordings + access to future cohort's session recordings for 1 year</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">Certification upon completion</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">3 months of access to Leland+, with 5 specialized AI courses and 250+ AI resources</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">Comprehensive practice environment for you to build everything covered in the course</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">100+ skill.md files, folder templates, and other tools to help you build your AI foundation</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">Best Course Guarantee, money-back if you find better</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">Unlimited course retakes for 1 year, letting you access the most up-to-date curriculum</span>
+              </div>
+            </div>
+            <div className="value-stack-pricing">
+              <span className="value-stack-crossed">$2,500+ value</span>
+              <span className="value-stack-price">$999</span>
+            </div>
+            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta" style={{ textTransform: 'uppercase' }}>
+              Enroll Now <span className="arrow">&rarr;</span>
+            </a>
+            <span className="value-stack-subtext">Next cohort: {course.nextCohort} &middot; Payment plans available</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SAVE TIME ── */}
+      <section className="save-time-section">
+        <div className="container">
+          <div className="save-time-split">
+            <div className="save-time-left">
+              <div className="save-time-calendar">
+                <div className="save-time-week">
+                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day, i) => {
+                    const savedStart = [6, 6, 6, 6, 5][i]
+                    return (
+                      <div className="save-time-day" key={day}>
+                        <span className="save-time-day-label">{day}</span>
+                        <div className="save-time-day-blocks">
+                          {[...Array(8)].map((_, j) => (
+                            <div
+                              key={j}
+                              className={`save-time-block${j >= savedStart ? ' save-time-block-saved' : ''}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="save-time-legend">
+                  <div className="save-time-legend-item">
+                    <span className="save-time-block-sample"></span>
+                    <span>Your work week</span>
+                  </div>
+                  <div className="save-time-legend-item">
+                    <span className="save-time-block-sample save-time-block-saved"></span>
+                    <span>Time saved with AI</span>
+                  </div>
+                </div>
+              </div>
+              <p className="save-time-cite">Those who invest in AI training are 2x more productive than those who try to use AI on their own, <strong>saving an average of 11 hours per week</strong>.</p>
+              <span className="save-time-source">Source: London School of Economics</span>
+            </div>
+            <div className="save-time-right">
+              <h2 className="save-time-headline">{course.saveTimeCopy}</h2>
+              <p className="save-time-sub">Build automations that handle repetitive, manual work so you can spend more time focusing on higher-impact strategic and creative work.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VP3: Work smarter with reusable skills ── */}
+      <section className="value-props-section value-props-bg" style={{ backgroundImage: 'linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(/assets/images/image2.jpg)' }}>
+        <div className="container">
+          <div className="value-prop-text">
+            <h2>Work smarter with<br className="mobile-br" /> reusable skills and workflows</h2>
+            <p>Advance beyond typing questions into ChatGPT by learning to build workflows, automate tasks, and create reusable skills that make AI work the way you want it to.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHEN & WHERE ── */}
+      <section className="when-where-section">
+        <div className="container">
+          <h2>A flexible and collaborative course structure to fit your busy schedule</h2>
+          <div className="when-where-grid">
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <img src="/assets/icons/calendar.svg" alt="calendar" className="when-where-svg-icon" />
+              </span>
+              <div>
+                <h3>Next cohort: {course.nextCohort}</h3>
+                <p>New cohorts start regularly. Pick the date that works for you.</p>
+              </div>
+            </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <img src="/assets/icons/globe.svg" alt="globe" className="when-where-svg-icon" />
+              </span>
+              <div>
+                <h3>100% online</h3>
+                <p>Attend live or watch recordings. All sessions available within 24 hours.</p>
+              </div>
+            </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <img src="/assets/icons/clock.svg" alt="clock" className="when-where-svg-icon" />
+              </span>
+              <div>
+                <h3>Six 90-minute live sessions</h3>
+                <p>Tuesdays and Fridays, plus weekly office hours</p>
+              </div>
+            </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              </span>
+              <div>
+                <h3>Best Course Guarantee</h3>
+                <p>If a competitor's course is better, we'll refund you up to the value of that course.</p>
+              </div>
+            </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+              </span>
+              <div>
+                <h3>Retake for 1 Year Guarantee</h3>
+                <p>Curriculum updates as tools change. Retake anytime for a full year.</p>
+              </div>
+            </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </span>
+              <div>
+                <h3>Access to Leland's exclusive AI community</h3>
+                <p>Get daily AI news, tips to improve your workflow, and perspectives from peers in the AI Builder Program</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -421,6 +513,23 @@ export default function CoursePage({ courseId }) {
                 onToggle={() => setOpenSession(openSession === i ? null : i)}
                 sessionDate={schedule[i]}
               />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT YOU'LL LEARN ── */}
+      <section className="cp-section">
+        <div className="container">
+          <p className="cp-section-label">Curriculum</p>
+          <h2>What you'll learn</h2>
+          <div className="cp-learn-grid">
+            {course.whatYoullLearn.map((col, ci) => (
+              <div className="cp-learn-col" key={ci}>
+                {col.col.map((item, ii) => (
+                  <p className="cp-learn-item" key={ii}>{item}</p>
+                ))}
+              </div>
             ))}
           </div>
         </div>
@@ -462,11 +571,197 @@ export default function CoursePage({ courseId }) {
         </div>
       </section>
 
-      {/* ── WHERE THIS FITS ── */}
-      <WhereThisFits currentId={id} />
-
       {/* ── GET THIS EXPENSED ── */}
       <GetThisExpensed />
+
+      {/* ── PROGRAM OVERVIEW ── */}
+      <section className="accordion-section">
+        <div className="container">
+          <div className="accordion-section-header">
+            <div className="accordion-section-header-text">
+              <h2 className="accordion-section-headline">A program to fundamentally change the way you work</h2>
+              <p className="accordion-section-sub">A 5-course sequence. Each level builds on the last.</p>
+            </div>
+            <LevelPyramid activeId={id} />
+          </div>
+          <div className="cp-program-next">
+            {nextLevelCourse
+              ? <p>Complete this course, then continue to <a href={`/level-${nextLevelCourse.id}`} className="cp-accent-link">{nextLevelCourse.name}</a> to go deeper.</p>
+              : <p>You've reached the top. You now have the full AI Builder skill set.</p>
+            }
+            {' '}<a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" className="cp-which-level-link">Not sure which level is right for you? &rarr;</a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VP2: Each session, build something ── */}
+      <section className="value-props-section value-props-bg" style={{ backgroundImage: 'url(/assets/images/value-prop-2.jpg)' }}>
+        <div className="container">
+          <div className="value-prop-text">
+            <h2>Each session, build something you'll use at work the next day</h2>
+            <p>Every session ends with a deliverable you can put to work immediately. From automations to data analysis to personalized skills, you'll save hours every week.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CERTIFICATION ── */}
+      <section className="certification">
+        <div className="container">
+          <div className="cert-intro">
+            <h2>Walk away certified.</h2>
+            <p className="cert-desc">
+              Every course in the series culminates in a verified certificate of completion from Leland. Finish all five and earn the full AI Builder designation, a signal to employers, clients, and colleagues that you operate at the highest level of AI proficiency.
+            </p>
+          </div>
+          <div className="cert-swap-wrapper">
+            <CardSwap
+              cardDistance={60}
+              verticalDistance={70}
+              delay={5000}
+              pauseOnHover={false}
+            >
+              <Card>
+                <div className="cert-card-inner">
+                  <img src="/assets/seal.png" alt="Leland Verified Seal" className="cert-seal" />
+                  <div className="cert-inner">
+                    <div className="cert-header">
+                      <img src="/assets/logo-white.svg" alt="Leland" className="cert-logo" />
+                      <span className="cert-header-label">Certificate of Completion</span>
+                    </div>
+                    <div className="cert-body">
+                      <span className="cert-awarded">This certifies that</span>
+                      <span className="cert-name">Your Name Here</span>
+                      <span className="cert-divider"></span>
+                      <span className="cert-achievement">has successfully completed the</span>
+                      <span className="cert-program">AI Builder Program</span>
+                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Agents That Work for You &middot; Create Autonomous Systems &middot; Design Multi-Agent Systems &middot; Ship AI Systems That Scale</span>
+                    </div>
+                    <div className="cert-footer">
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Program Director</span>
+                      </div>
+                      <div className="cert-meta">
+                        <span className="cert-date-label">ISSUED</span>
+                        <span className="cert-date-value">2026</span>
+                      </div>
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Leland Verification</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              <Card>
+                <div className="cert-card-inner">
+                  <img src="/assets/seal.png" alt="Leland Verified Seal" className="cert-seal" />
+                  <div className="cert-inner">
+                    <div className="cert-header">
+                      <img src="/assets/logo-white.svg" alt="Leland" className="cert-logo" />
+                      <span className="cert-header-label">Certificate of Completion</span>
+                    </div>
+                    <div className="cert-body">
+                      <span className="cert-awarded">This certifies that</span>
+                      <span className="cert-name">Your Name Here</span>
+                      <span className="cert-divider"></span>
+                      <span className="cert-achievement">has successfully completed</span>
+                      <span className="cert-program">{course.name}</span>
+                      <span className="cert-subprogram">Level 0{id} &middot; AI Builder Program</span>
+                    </div>
+                    <div className="cert-footer">
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Program Director</span>
+                      </div>
+                      <div className="cert-meta">
+                        <span className="cert-date-label">ISSUED</span>
+                        <span className="cert-date-value">2026</span>
+                      </div>
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Leland Verification</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              <Card>
+                <div className="cert-card-inner">
+                  <img src="/assets/seal.png" alt="Leland Verified Seal" className="cert-seal" />
+                  <div className="cert-inner">
+                    <div className="cert-header">
+                      <img src="/assets/logo-white.svg" alt="Leland" className="cert-logo" />
+                      <span className="cert-header-label">Certificate of Completion</span>
+                    </div>
+                    <div className="cert-body">
+                      <span className="cert-awarded">This certifies that</span>
+                      <span className="cert-name">Your Name Here</span>
+                      <span className="cert-divider"></span>
+                      <span className="cert-achievement">has successfully completed</span>
+                      <span className="cert-program">Build Agents That Work for You</span>
+                      <span className="cert-subprogram">Level 02 &middot; AI Builder Program</span>
+                    </div>
+                    <div className="cert-footer">
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Program Director</span>
+                      </div>
+                      <div className="cert-meta">
+                        <span className="cert-date-label">ISSUED</span>
+                        <span className="cert-date-value">2026</span>
+                      </div>
+                      <div className="cert-sig">
+                        <span className="cert-sig-line"></span>
+                        <span className="cert-sig-label">Leland Verification</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </CardSwap>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ADVISOR CTA ── */}
+      <section className="advisor-section">
+        <div className="container">
+          <div className="advisor-card">
+            <h2>Not sure which course is right for you?</h2>
+            <p>Book a free call with an advisor to find the right fit.</p>
+            <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
+              Schedule a Call <span className="arrow">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOR TEAMS ── */}
+      <section className="enterprise">
+        <div className="container">
+          <div className="enterprise-card">
+            <div className="enterprise-card-content">
+              <h2>For Teams</h2>
+              <p className="enterprise-desc">
+                Train your team on AI. See ROI in weeks. We work with companies from 10-person startups to Fortune 500 to design custom AI training programs. Volume pricing, custom use cases, dedicated support.
+              </p>
+              <div className="enterprise-bottom">
+                <ul className="enterprise-points">
+                  <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1h3v1H2v2H1V1zM10 1h3v3h-1V2h-2V1zM1 10v3h3v-1H2v-2H1zM13 10v3h-3v-1h2v-2h1z" fill="currentColor"/><rect x="5" y="5" width="4" height="4" fill="currentColor"/></svg> Team licenses from 5 seats</li>
+                  <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1" width="10" height="3" fill="currentColor"/><rect x="2" y="5.5" width="10" height="3" fill="currentColor"/><rect x="2" y="10" width="10" height="3" fill="currentColor"/></svg> Custom workshops available</li>
+                  <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="5" y="1" width="4" height="4" fill="currentColor"/><rect x="3" y="6" width="8" height="2" fill="currentColor"/><rect x="1" y="9" width="12" height="4" fill="currentColor"/></svg> Dedicated account manager</li>
+                </ul>
+                <a href="https://calendly.com/d/cyhb-yjg-33f/leland-ai-transformation" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+                  Talk to Our Team <span className="arrow">&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── FAQs ── */}
       <section className="faq cp-faq-section">
@@ -489,7 +784,10 @@ export default function CoursePage({ courseId }) {
       {/* ── FOOTER CTA ── */}
       <section className="footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
-          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" centered />
+          <p className="footer-cta-sub">Our next cohort starts {course.nextCohort}</p>
+          <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
+            Enroll Now <span className="arrow">&rarr;</span>
+          </a>
         </div>
       </section>
 

@@ -62,6 +62,9 @@ export const courseData = {
       "In 6 sessions, you'll go from AI user to AI builder: a research workflow, a data model, a daily automation, and a writing system that sounds like you.",
     whoItsFor:
       "You use ChatGPT or Claude every day to draft, summarize, and ask questions, but you haven't connected AI to your other tools or built anything that runs on its own yet.",
+    whyHeadline: 'Build an AI foundation for your work in 3 weeks',
+    skillPills: ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning'],
+    saveTimeCopy: 'Automate your work and multiply your impact',
     toolsSectionHeadline: 'Build an AI foundation for your work in 3 weeks',
     tools: ['OpenAI', 'Claude', 'Gemini', 'Perplexity', 'Cursor', 'n8n'],
     topics: ['Data analysis', 'Planning', 'Organization', 'Email and communication', 'Slide design', 'Vibe coding'],
@@ -164,6 +167,9 @@ export const courseData = {
       "In 6 sessions, you'll build a toolkit of specialized agents and finish with a full pipeline that goes from first message to sale with no manual steps.",
     whoItsFor:
       "You've tried AI coding tools in the terminal, MCP connectors, or automated workflow builders, but you haven't built specialized agents or workflows for most of your work yet.",
+    whyHeadline: 'Build AI agents that do your work for you',
+    skillPills: ['Agent design', 'Workflow automation', 'CRM automation', 'Customer outreach', 'Data pipelines', 'Research pipelines', 'System integration', 'Conditional triggers', 'Batch processing', 'Multi-step workflows', 'Monitoring and alerts', 'Agent specialization'],
+    saveTimeCopy: 'Replace manual workflows with agents that never stop',
     toolsSectionHeadline: 'Build specialized AI agents for your work in 3 weeks',
     tools: ['Claude', 'n8n', 'Cursor', 'Make', 'Zapier', 'Python'],
     topics: ['Automation', 'Customer outreach', 'Research pipelines', 'Data sync', 'Agent design', 'Workflow building'],
@@ -266,6 +272,9 @@ export const courseData = {
       "In 6 sessions, you'll build systems that trigger automatically, run in the background, and operate 24/7, with no manual step between you and the output.",
     whoItsFor:
       "You have at least one agent or workflow running on its own, but your automations don't yet operate as a unified system, and you're still the one deciding when most things run.",
+    whyHeadline: 'Build AI systems that run autonomously, around the clock',
+    skillPills: ['Autonomous systems', 'Background automation', 'Scheduling and cron', 'Error handling', 'Multi-tool orchestration', 'Headless agents', 'Phone-triggered automations', 'Always-on agents', 'Monitoring and alerting', 'System recovery', 'Team-shared agents', 'Overnight prep'],
+    saveTimeCopy: 'Run your work 24/7 while you focus on what matters',
     toolsSectionHeadline: 'Build AI systems that run without you in 3 weeks',
     tools: ['Claude', 'n8n', 'Python', 'Cron', 'Webhooks', 'APIs'],
     topics: ['Autonomous systems', 'Scheduling', 'Error handling', 'Monitoring', 'Orchestration', 'Background agents'],
@@ -367,6 +376,9 @@ export const courseData = {
       "In 6 sessions, you'll design systems where agents coordinate, delegate, evaluate each other's work, and run full business processes from trigger to done.",
     whoItsFor:
       "You have multiple automations or agents running, but they don't talk to each other and don't operate as a unified system.",
+    whyHeadline: 'Design AI systems where agents coordinate and self-improve',
+    skillPills: ['Multi-agent design', 'Orchestration', 'Goal-directed agents', 'Automated evaluation', 'Quality scoring', 'Observability', 'Self-correction', 'Task delegation', 'Rubric design', 'QA layers', 'Human checkpoints', 'End-to-end testing'],
+    saveTimeCopy: 'Coordinate AI systems that get smarter over time',
     toolsSectionHeadline: 'Design multi-agent systems that coordinate and self-improve',
     tools: ['Claude', 'n8n', 'Python', 'Claude Code', 'Vector DB', 'Evals'],
     topics: ['Multi-agent design', 'Automated evaluation', 'Orchestration', 'Quality scoring', 'Observability', 'Self-correction'],
@@ -468,6 +480,9 @@ export const courseData = {
       "In 6 sessions, you'll build a fully autonomous AI team that sources, acts, self-corrects, and improves over time, with you setting direction and reviewing exceptions.",
     whoItsFor:
       "You've built and shipped AI systems that run in production, but they don't proactively iterate, pursue long-horizon goals, or improve themselves from corrections.",
+    whyHeadline: 'Ship production AI systems that proactively pursue your goals',
+    skillPills: ['Production deployment', 'RAG architecture', 'Long-horizon goals', 'Checkpointing', 'Self-correction', 'Feedback loops', 'Autonomous operations', 'Live ops dashboards', 'Anomaly detection', 'Self-improving systems', 'System observability', 'Continuous improvement'],
+    saveTimeCopy: 'Ship systems that compound and improve themselves',
     toolsSectionHeadline: 'Ship AI systems that run in production and improve themselves',
     tools: ['Claude Code', 'Python', 'n8n', 'RAG', 'Vector DB', 'Monitoring'],
     topics: ['Production deployment', 'Long-horizon goals', 'Self-correction', 'Autonomous ops', 'Observability', 'Continuous improvement'],

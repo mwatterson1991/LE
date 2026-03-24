@@ -1079,3 +1079,35 @@
   font-family: var(--font-body);
   margin-top: 2px;
 }
+
+/* ── Program overview — next level link + advisor link ──────────────── */
+
+.cp-program-next {
+  margin-top: 32px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+}
+
+.cp-program-next p {
+  margin: 0 0 8px;
+}
+
+.cp-which-level-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.cp-which-level-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Iceberg levels as links ─────────────────────────────────────────── */
+
+.iceberg-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
