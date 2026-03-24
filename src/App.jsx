@@ -639,11 +639,11 @@ function HomePage() {
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
   const trackItems = [
-    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'April 21, 2026', schedule: 'Tue 2pm PT / 5pm ET · Fri 8am PT / 11am ET', featured: true },
-    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', schedule: 'Tue 4pm PT / 7pm ET · Fri 10am PT / 1pm ET', secondary: true },
-    { num: '03', name: 'Create Autonomous Systems', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026', schedule: 'Tue 2pm PT / 5pm ET · Fri 8am PT / 11am ET' },
-    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026', schedule: 'Tuesdays & Fridays PT/ET' },
-    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026', schedule: 'Tue 8am PT / 11am ET · Fri 2pm PT / 5pm ET' },
+    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'April 21, 2026', schedule: 'Tuesdays & Fridays', featured: true },
+    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', schedule: 'Tuesdays & Fridays', secondary: true },
+    { num: '03', name: 'Create Autonomous Systems', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026', schedule: 'Tuesdays & Fridays' },
+    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026', schedule: 'Tuesdays & Fridays' },
+    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026', schedule: 'Tuesdays & Fridays' },
   ]
 
   return (
@@ -726,12 +726,12 @@ function HomePage() {
                     <div className="track-card-footer">
                       <div className="track-card-cohort-block">
                         <span className="track-card-cohort-label">NEXT COHORT</span>
-                        <span className="track-card-cohort-date">{item.cohortDate}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <span className="track-card-cohort-date">{item.cohortDate}</span>
+                          <span className="track-card-arrow-btn">&rarr;</span>
+                        </div>
                         {item.schedule && <span className="track-card-schedule">{item.schedule}</span>}
                       </div>
-                      <span className="track-card-arrow-btn">
-                        &rarr;
-                      </span>
                     </div>
                   </div>
                 </div>
