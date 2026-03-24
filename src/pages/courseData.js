@@ -257,7 +257,7 @@ export const courseData = {
 
   3: {
     id: 3,
-    name: 'Create Systems That Run Without You',
+    name: 'Create Autonomous Systems',
     badge: 'Level 3 of 5',
     nextCohort: 'May 19 – Jun 5, 2026',
     cohortDates: ['May 19', 'June 16', 'July 14'],
@@ -563,7 +563,7 @@ export const courseData = {
 export const allCourses = [
   { id: 1, name: 'Use AI to Work 10x Faster', nextCohort: 'Apr 21 – May 8', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
   { id: 2, name: 'Build Agents That Work for You', nextCohort: 'Apr 21 – May 8', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
-  { id: 3, name: 'Create Systems That Run Without You', nextCohort: 'May 19 – Jun 5', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
+  { id: 3, name: 'Create Autonomous Systems', nextCohort: 'May 19 – Jun 5', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
   { id: 4, name: 'Design Multi-Agent Systems', nextCohort: 'Jun 16 – Jul 3', whoShort: "You have multiple autonomous agents running, but they don't operate as a unified system." },
   { id: 5, name: 'Ship AI Systems That Scale', nextCohort: 'Jul 14 – Jul 31', whoShort: "You've built and shipped AI systems, but they don't proactively iterate toward a goal." },
 ]
