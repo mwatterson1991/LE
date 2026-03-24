@@ -30,6 +30,14 @@ function FaqItem({ question, answer, index, open, onToggle }) {
   )
 }
 
+/* ─── Day-of-week helper ─── */
+function formatSessionDate(iso, label, time) {
+  const dow = new Date(iso).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/Denver' })
+  // label is e.g. "Apr 21, 2026" — strip the year for display
+  const short = label.replace(/, \d{4}$/, '')
+  return `${dow}, ${short} · ${time}`
+}
+
 /* ─── Session accordion ─── */
 function SessionItem({ session, num, open, onToggle, sessionDate }) {
   return (
@@ -40,7 +48,9 @@ function SessionItem({ session, num, open, onToggle, sessionDate }) {
           <h3>
             {session.title}
             {sessionDate && (
-              <span className="session-date-inline">{sessionDate.label} &middot; {sessionDate.time}</span>
+              <span className="session-date-inline">
+                {formatSessionDate(sessionDate.iso, sessionDate.label, sessionDate.time)}
+              </span>
             )}
           </h3>
           <ChevronIcon />
@@ -120,29 +130,6 @@ function WhereThisFits({ currentId }) {
   )
 }
 
-/* ─── Session schedule grid ─── */
-function ScheduleSection({ schedule, sessions }) {
-  return (
-    <section className="cp-section cp-schedule-section" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-      <div className="container">
-        <p className="cp-section-label">Schedule</p>
-        <h2>6 live sessions</h2>
-        <div className="cp-schedule-grid">
-          {schedule.map((s, i) => (
-            <div className="cp-schedule-item" key={i}>
-              <span className="cp-schedule-num">{String(i + 1).padStart(2, '0')}</span>
-              <div className="cp-schedule-info">
-                <span className="cp-schedule-date">{s.label}</span>
-                <span className="cp-schedule-time">{s.time}</span>
-              </div>
-              <span className="cp-schedule-title">{sessions[i]?.title}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 /* ─── Main CoursePage ─── */
 export default function CoursePage({ courseId }) {
@@ -177,7 +164,7 @@ export default function CoursePage({ courseId }) {
             <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ textTransform: 'uppercase', fontSize: '12px' }}>
               Enroll Now
             </a>
-            <span style={{ fontSize: '11px', color: 'var(--text-tertiary)', fontFamily: 'var(--font-meta)' }}>Next cohort: {course.nextCohort}</span>
+            <span style={{ fontSize: '13px', color: 'var(--text-tertiary)' }}>Next cohort: {course.nextCohort}</span>
           </div>
         </div>
       </nav>
@@ -240,11 +227,6 @@ export default function CoursePage({ courseId }) {
           </div>
         </div>
       </section>
-
-      {/* ── SCHEDULE ── */}
-      {schedule.length > 0 && (
-        <ScheduleSection schedule={schedule} sessions={course.sessions} />
-      )}
 
       {/* ── WHO THIS IS FOR ── */}
       <section className="cp-section" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
@@ -344,7 +326,9 @@ export default function CoursePage({ courseId }) {
               <span className="cp-price-crossed">$2,500+ value</span>
               <span className="cp-price">$999</span>
             </div>
-            <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
+            </div>
           </div>
         </div>
       </section>

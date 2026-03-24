@@ -32,10 +32,8 @@
 /* ── Breadcrumb ──────────────────────────────────────────────────────── */
 
 .cp-breadcrumb {
-  font-family: var(--font-meta);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 13px;
   color: var(--text-tertiary);
   margin-bottom: 16px;
 }
@@ -151,10 +149,9 @@
 }
 
 .cp-glance-sub {
-  font-family: var(--font-meta);
-  font-size: 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
   color: var(--text-tertiary);
-  letter-spacing: 0.04em;
 }
 
 /* ── Generic section wrapper ──────────────────────────────────────────── */
@@ -164,11 +161,11 @@
 }
 
 .cp-section-label {
-  font-family: var(--font-meta);
-  font-size: 10px;
-  letter-spacing: 0.16em;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-tertiary);      /* subtle, not accent — cleaner hierarchy */
+  color: var(--text-tertiary);
   margin-bottom: 10px;
 }
 
@@ -215,17 +212,17 @@
 }
 
 .cp-build-num {
-  font-family: var(--font-meta);
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: 13px;
   color: var(--accent);
-  letter-spacing: 0.08em;
   flex-shrink: 0;
   padding-top: 1px;
-  min-width: 20px;
+  min-width: 22px;
+  font-weight: 600;
 }
 
 .cp-build-text {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1.5;
   color: var(--text-secondary);
 }
@@ -250,7 +247,7 @@
 }
 
 .cp-learn-item {
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.55;
   padding-left: 14px;
@@ -346,7 +343,7 @@
 }
 
 .cp-value-label {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.55;
 }

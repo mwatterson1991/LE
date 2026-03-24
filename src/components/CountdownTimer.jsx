@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-function pad(n) {
-  return String(n).padStart(2, '0')
-}
-
 export default function CountdownTimer({ targetIso, label }) {
   const [timeLeft, setTimeLeft] = useState(null)
 
@@ -35,22 +31,22 @@ export default function CountdownTimer({ targetIso, label }) {
       <span className="countdown-label">{label || 'First session starts in'}</span>
       <div className="countdown-units">
         <div className="countdown-unit">
-          <span className="countdown-num">{pad(timeLeft.days)}</span>
+          <span className="countdown-num">{timeLeft.days}</span>
           <span className="countdown-unit-label">days</span>
         </div>
-        <span className="countdown-sep">:</span>
+        <span className="countdown-dot" />
         <div className="countdown-unit">
-          <span className="countdown-num">{pad(timeLeft.hours)}</span>
+          <span className="countdown-num">{String(timeLeft.hours).padStart(2, '0')}</span>
           <span className="countdown-unit-label">hrs</span>
         </div>
-        <span className="countdown-sep">:</span>
+        <span className="countdown-dot" />
         <div className="countdown-unit">
-          <span className="countdown-num">{pad(timeLeft.mins)}</span>
+          <span className="countdown-num">{String(timeLeft.mins).padStart(2, '0')}</span>
           <span className="countdown-unit-label">min</span>
         </div>
-        <span className="countdown-sep">:</span>
+        <span className="countdown-dot" />
         <div className="countdown-unit">
-          <span className="countdown-num">{pad(timeLeft.secs)}</span>
+          <span className="countdown-num">{String(timeLeft.secs).padStart(2, '0')}</span>
           <span className="countdown-unit-label">sec</span>
         </div>
       </div>

@@ -54,7 +54,7 @@ export const courseData = {
   1: {
     id: 1,
     name: 'Use AI to Work 10x Faster',
-    badge: 'Course 1 of 5',
+    badge: 'Level 1 of 5',
     nextCohort: 'Apr 21 – May 8, 2026',
     cohortDates: ['April 21', 'May 19', 'June 16', 'July 14', 'August 11'],
     heroHeadline: 'Go beyond chatbots and build AI that works like you.',
@@ -149,7 +149,7 @@ export const courseData = {
   2: {
     id: 2,
     name: 'Build Agents That Work for You',
-    badge: 'Course 2 of 5',
+    badge: 'Level 2 of 5',
     nextCohort: 'Apr 21 – May 8, 2026',
     cohortDates: ['April 21', 'May 19', 'June 16', 'July 14'],
     heroHeadline: 'Eliminate manual work with a team of specialized agents.',
@@ -245,7 +245,7 @@ export const courseData = {
   3: {
     id: 3,
     name: 'Create Systems That Run Without You',
-    badge: 'Course 3 of 5',
+    badge: 'Level 3 of 5',
     nextCohort: 'May 19 – Jun 5, 2026',
     cohortDates: ['May 19', 'June 16', 'July 14'],
     heroHeadline: 'You\'ve built great agents. Now make them run autonomously.',
@@ -340,7 +340,7 @@ export const courseData = {
   4: {
     id: 4,
     name: 'Design Multi-Agent Systems',
-    badge: 'Course 4 of 5',
+    badge: 'Level 4 of 5',
     nextCohort: 'Jun 16 – Jul 3, 2026',
     cohortDates: ['June 16', 'July 14', 'August 11'],
     heroHeadline: 'Build AI that manages AI.',
@@ -435,7 +435,7 @@ export const courseData = {
   5: {
     id: 5,
     name: 'Ship AI Systems That Scale',
-    badge: 'Course 5 of 5',
+    badge: 'Level 5 of 5',
     nextCohort: 'Jul 14 – Jul 31, 2026',
     cohortDates: ['July 14', 'August 11'],
     heroHeadline: 'Build a system that runs a business function and improves itself.',
