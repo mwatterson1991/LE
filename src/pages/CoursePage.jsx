@@ -1,29 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { courseData, allCourses, ENROLL_URLS, SESSION_SCHEDULES } from './courseData'
 import './CoursePage.css'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CountdownTimer from '../components/CountdownTimer'
 
 /* ─── Shared data ─── */
-const INSTRUCTORS = [
-  {
-    name: 'Kristen H.',
-    credential: 'Ex-Bain & Co.',
-    bio: 'AI-native builder who has taught dozens of non-technical professionals how to transform their work with AI.',
-    photo: '/assets/instructors/kristen-h.jpg',
-  },
-  {
-    name: 'Andrew Q.',
-    credential: 'Ex-OpenAI',
-    bio: 'Expert in helping you build a custom AI stack that compounds and keeps getting smarter over time.',
-    photo: '/assets/instructors/andrew-q.jpg',
-  },
-  {
-    name: 'Dessy K.',
-    credential: 'TikTok Head of Product',
-    bio: 'Expert at using AI to move faster and grow companies, from vibe-coding to full agent systems.',
-    photo: '/assets/instructors/dessy-k.jpg',
-  },
+const BUILD_IMAGES = [
+  '/assets/builds/build-01.png',
+  '/assets/builds/build-02.png',
+  '/assets/builds/build-03.png',
+  '/assets/builds/build-04.png',
+  '/assets/builds/build-05.png',
+  '/assets/builds/build-06.png',
+  '/assets/builds/build-07.png',
+  '/assets/builds/build-08.png',
+  '/assets/builds/build-09.png',
+  '/assets/builds/build-10.png',
+  '/assets/builds/build-11.png',
 ]
 
 const TESTIMONIALS = [
@@ -124,20 +117,51 @@ function EnrollBlock({ nextCohort, enrollUrl, size = 'normal', centered = false 
   )
 }
 
-/* ─── Instructor card ─── */
-function InstructorCard({ instructor }) {
+/* ─── Build carousel ─── */
+function BuildCarousel({ images }) {
+  const [current, setCurrent] = useState(0)
+  const timerRef = useRef(null)
+
+  const go = (idx) => {
+    setCurrent((idx + images.length) % images.length)
+  }
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setCurrent(prev => (prev + 1) % images.length)
+    }, 3500)
+    return () => clearInterval(timerRef.current)
+  }, [images.length])
+
+  const handleNav = (idx) => {
+    clearInterval(timerRef.current)
+    go(idx)
+    timerRef.current = setInterval(() => {
+      setCurrent(prev => (prev + 1) % images.length)
+    }, 3500)
+  }
+
   return (
-    <div className="cp-instructor-card">
-      <img
-        src={instructor.photo}
-        alt={instructor.name}
-        className="cp-instructor-photo"
-        onError={e => { e.target.style.display = 'none' }}
-      />
-      <div className="cp-instructor-info">
-        <span className="cp-instructor-name">{instructor.name}</span>
-        <span className="cp-instructor-credential">{instructor.credential}</span>
-        <p className="cp-instructor-bio">{instructor.bio}</p>
+    <div className="cp-carousel">
+      <div className="cp-carousel-stage">
+        <button className="cp-carousel-arrow cp-carousel-prev" onClick={() => handleNav(current - 1)} aria-label="Previous">&#8249;</button>
+        <img
+          key={current}
+          src={images[current]}
+          alt={`Build example ${current + 1}`}
+          className="cp-carousel-img"
+        />
+        <button className="cp-carousel-arrow cp-carousel-next" onClick={() => handleNav(current + 1)} aria-label="Next">&#8250;</button>
+      </div>
+      <div className="cp-carousel-dots">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            className={`cp-carousel-dot${i === current ? ' active' : ''}`}
+            onClick={() => handleNav(i)}
+            aria-label={`Go to ${i + 1}`}
+          />
+        ))}
       </div>
     </div>
   )
@@ -287,19 +311,6 @@ export default function CoursePage({ courseId }) {
         </div>
       </section>
 
-      {/* ── INSTRUCTORS ── */}
-      <section className="cp-section cp-instructors-section">
-        <div className="container">
-          <p className="cp-section-label">Your instructors</p>
-          <h2>Learn from practitioners</h2>
-          <div className="cp-instructors-grid">
-            {INSTRUCTORS.map((inst, i) => (
-              <InstructorCard key={i} instructor={inst} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── WHO THIS IS FOR ── */}
       <section className="cp-section cp-who-section">
         <div className="container">
@@ -324,6 +335,12 @@ export default function CoursePage({ courseId }) {
               </div>
             ))}
           </div>
+          {(id === 1 || id === 2) && (
+            <div className="cp-build-carousel-wrap">
+              <p className="cp-build-carousel-label">Built by previous cohort members</p>
+              <BuildCarousel images={BUILD_IMAGES} />
+            </div>
+          )}
         </div>
       </section>
 

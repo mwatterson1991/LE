@@ -721,3 +721,103 @@
   .cp-where-card:last-child { border-bottom: none; }
   .cp-where-card:nth-child(4), .cp-where-card:nth-child(5) { border-top: none; }
 }
+
+/* ── Build carousel ──────────────────────────────────────────────────── */
+
+.cp-build-carousel-wrap {
+  margin-top: 48px;
+}
+
+.cp-build-carousel-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 16px;
+  font-family: var(--font-body);
+  letter-spacing: 0.01em;
+}
+
+.cp-carousel {
+  position: relative;
+  width: 100%;
+}
+
+.cp-carousel-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.cp-carousel-img {
+  width: 100%;
+  display: block;
+  max-height: 480px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 8px;
+  animation: cp-fade-in 0.3s ease;
+}
+
+@keyframes cp-fade-in {
+  from { opacity: 0; transform: scale(0.99); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.cp-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  padding: 0;
+}
+
+.cp-carousel-arrow:hover { background: rgba(0,0,0,0.8); }
+.cp-carousel-prev { left: 12px; }
+.cp-carousel-next { right: 12px; }
+
+.cp-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.cp-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s;
+}
+
+.cp-carousel-dot.active {
+  background: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .cp-carousel-img { max-height: 280px; }
+  .cp-carousel-arrow { width: 32px; height: 32px; font-size: 22px; }
+  .cp-carousel-prev { left: 6px; }
+  .cp-carousel-next { right: 6px; }
+}
