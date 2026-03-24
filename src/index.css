@@ -407,6 +407,13 @@ nav .btn {
   color: var(--text-primary);
   letter-spacing: -0.01em;
 }
+.track-card-schedule {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+  margin-top: 1px;
+}
 .track-card-arrow-btn {
   display: flex;
   align-items: center;
@@ -1535,6 +1542,14 @@ nav .btn {
   font-weight: 400;
   color: var(--text-tertiary);
   line-height: 1.5;
+}
+.course-session-datetime {
+  font-family: var(--font-meta);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.03em;
+  margin-top: 2px;
 }
 
 /* --- Advisor Section --- */
