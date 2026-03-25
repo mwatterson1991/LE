@@ -3167,6 +3167,7 @@ footer a:hover {
 
 /* Process steps — bigger text, tighter spacing */
 .b2b-steps-4 {
+  align-items: center;
   gap: 0;
   margin-top: 8px;
 }
