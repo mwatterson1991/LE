@@ -155,12 +155,10 @@ function CourseAccordionItem({ course, open, onToggle }) {
             Enroll Now
             <span className="arrow">&rarr;</span>
           </a>
-          {course.num !== '01' && course.num !== '02' && (
           <a href={course.learnMoreUrl} className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }}>
             Learn More
             <span className="arrow">&rarr;</span>
           </a>
-          )}
         </div>
       </div>
     </div>
