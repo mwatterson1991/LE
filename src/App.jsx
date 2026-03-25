@@ -911,8 +911,8 @@ function HomePage() {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
               </span>
               <div>
-                <h3>Best Course Guarantee</h3>
-                <p>If a competitor's course is better, we'll refund you up to the value of that course.</p>
+                <h3>Take the Next Level Guarantee<sup style={{ fontSize: '0.65em', color: 'var(--accent)', marginLeft: 2 }}>1</sup></h3>
+                <p>Complete this course, try the next level. If it's not the right fit, we'll refund that course.</p>
               </div>
             </div>
             <div className="when-where-item">
@@ -920,8 +920,8 @@ function HomePage() {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
               </span>
               <div>
-                <h3>Retake for 1 Year Guarantee</h3>
-                <p>Curriculum updates as tools change. Retake anytime for a full year.</p>
+                <h3>1-Year Access Guarantee<sup style={{ fontSize: '0.65em', color: 'var(--accent)', marginLeft: 2 }}>2</sup></h3>
+                <p>All recordings plus access to future cohorts live, at no extra charge, for 12 months.</p>
               </div>
             </div>
             <div className="when-where-item">
@@ -933,6 +933,16 @@ function HomePage() {
                 <p>Get daily AI news, tips to improve your workflow, and perspectives from peers in the AI Builder Program</p>
               </div>
             </div>
+          </div>
+          <div style={{ marginTop: 28, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <p style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.6, fontFamily: 'var(--font-meta)' }}>
+              <sup style={{ color: 'var(--accent)', marginRight: 4 }}>1</sup>
+              <strong style={{ color: 'var(--text-secondary)' }}>Take the Next Level Guarantee:</strong> Complete this course with live attendance at all sessions and verified completion of all modules. Then take the next level and complete all its modules. If it's not the right fit, we'll refund the cost of that course.
+            </p>
+            <p style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.6, fontFamily: 'var(--font-meta)' }}>
+              <sup style={{ color: 'var(--accent)', marginRight: 4 }}>2</sup>
+              <strong style={{ color: 'var(--text-secondary)' }}>1-Year Access Guarantee:</strong> For 12 months from your cohort start date, access all session recordings for this level and rejoin any future cohort live at no additional charge.
+            </p>
           </div>
         </div>
       </section>
@@ -1027,14 +1037,14 @@ function HomePage() {
             <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Get the Full AI Builder Program as a Bundle</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                <span style={{ fontSize: 20, flexShrink: 0 }}>📦</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                 <div>
                   <span style={{ fontWeight: 600, fontSize: 15 }}>5-Level Bundle <span style={{ color: 'var(--accent)', fontSize: 12, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase', marginLeft: 6 }}>best value</span></span>
                   <p style={{ marginTop: 4, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5 }}>The complete AI Builder journey, all five levels.</p>
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                <span style={{ fontSize: 20, flexShrink: 0 }}>📦</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                 <div>
                   <span style={{ fontWeight: 600, fontSize: 15 }}>3-Level Bundle</span>
                   <p style={{ marginTop: 4, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5 }}>Can be used for any combination of three of the five levels of the AI Builder Program.</p>
