@@ -1,0 +1,1380 @@
+/* ==========================================================================
+   B2B PAGE — for-teams
+   ========================================================================== */
+
+/* --- Hero --- */
+.b2b-hero {
+  padding: 120px 0 80px;
+  background: var(--bg);
+}
+.b2b-hero .container {
+  display: block;
+}
+.b2b-hero-image {
+  border-radius: 12px;
+  overflow: hidden;
+}
+.b2b-hero-stock-img {
+  width: 100%;
+  max-width: 1280px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+.b2b-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.b2b-eyebrow {
+  font-family: var(--font-meta);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  display: block;
+}
+.b2b-hero-headline {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0;
+}
+.b2b-hero-sub {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 520px;
+}
+.b2b-hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.b2b-hero-secondary-link {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-family: var(--font-meta);
+  transition: color 0.2s;
+}
+.b2b-hero-secondary-link:hover {
+  color: var(--text-primary);
+}
+.b2b-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 12px;
+}
+.b2b-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  filter: grayscale(20%);
+}
+.b2b-photo-lg {
+  grid-row: 1 / 3;
+  aspect-ratio: 2/3;
+}
+
+/* --- Trust Bar --- */
+.b2b-trust-bar {
+  background: #0a0a0a;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 0;
+}
+.b2b-trust-bar .container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.b2b-trust-label {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+.b2b-trust-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.b2b-trust-logo-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.01em;
+}
+.b2b-trust-divider {
+  color: rgba(255,255,255,0.15);
+  font-size: 12px;
+}
+
+/* --- Problem section --- */
+.b2b-problem {
+  padding: 96px 0;
+  background: #f5f5f3;
+}
+.b2b-problem h2 {
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #111;
+  margin-bottom: 40px;
+}
+.b2b-problem-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 80px;
+  align-items: center;
+}
+.b2b-problem-items {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.b2b-problem-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.b2b-problem-icon {
+  color: #555;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.b2b-problem-item strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 4px;
+}
+.b2b-problem-item p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+.b2b-stat-card {
+  background: #111;
+  border-radius: 12px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+.b2b-stat-number {
+  font-family: var(--font-heading);
+  font-size: 72px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.b2b-stat-unit {
+  font-family: var(--font-meta);
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+.b2b-stat-label {
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+.b2b-stat-source {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  font-family: var(--font-meta);
+  margin-top: 12px;
+}
+
+/* --- Section labels & headlines (light) --- */
+.b2b-section-label {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.b2b-section-label-light {
+  color: var(--accent);
+}
+.b2b-section-headline {
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #111;
+  margin-bottom: 12px;
+}
+.b2b-section-headline-light {
+  color: var(--text-primary);
+}
+.b2b-section-sub {
+  font-size: 16px;
+  color: #666;
+  max-width: 560px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+/* --- Offerings --- */
+.b2b-offerings {
+  padding: 96px 0;
+  background: #f0f0ef;
+}
+.b2b-offerings .b2b-section-sub {
+  margin-bottom: 48px;
+}
+.b2b-offering-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.b2b-offering-card {
+  background: #fff;
+  border: 1px solid #e0e0de;
+  border-radius: 12px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+.b2b-offering-card-featured {
+  border-color: var(--accent);
+  border-width: 2px;
+}
+.b2b-offering-badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-meta);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.b2b-offering-tier {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #888;
+}
+.b2b-offering-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+.b2b-offering-subtitle {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  line-height: 1.4;
+}
+.b2b-offering-details {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.b2b-offering-details li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+.b2b-check {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.b2b-check svg {
+  stroke: #27a017;
+}
+.b2b-offering-best-for {
+  font-size: 13px;
+  color: #666;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.b2b-best-for-label {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Addon card */
+.b2b-addon-card {
+  background: #111;
+  border-radius: 12px;
+  padding: 32px 36px;
+  margin-bottom: 48px;
+}
+.b2b-addon-label {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.b2b-addon-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+.b2b-addon-left h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.b2b-addon-left p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.b2b-addon-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.b2b-addon-topics span {
+  background: rgba(165,228,70,0.10);
+  border: 1px solid rgba(165,228,70,0.25);
+  color: var(--accent);
+  font-size: 12px;
+  font-family: var(--font-meta);
+  padding: 5px 12px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+.b2b-addon-note {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.b2b-offerings-cta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.b2b-offerings-cta-note {
+  font-size: 13px;
+  color: #888;
+  font-family: var(--font-meta);
+}
+
+/* --- Solution Cards --- */
+.b2b-solution-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.b2b-solution-card {
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.b2b-solution-label {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.b2b-solution-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+  margin: 0;
+}
+.b2b-solution-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+}
+
+/* --- Process / How It Works --- */
+.b2b-process {
+  padding: 96px 0;
+  background: #fff;
+}
+.b2b-process .b2b-section-headline {
+  margin-bottom: 56px;
+}
+.b2b-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 0;
+}
+.b2b-step {
+  flex: 1;
+  padding: 0 8px;
+}
+.b2b-step-arrow {
+  flex-shrink: 0;
+  font-size: 24px;
+  color: #ccc;
+  padding-top: 8px;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.b2b-step-num {
+  font-family: var(--font-meta);
+  font-size: 32px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.b2b-step-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 10px;
+}
+.b2b-step-desc {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* --- Roles section --- */
+.b2b-roles {
+  padding: 96px 0;
+  background: #0a0a0a;
+}
+.b2b-role-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.b2b-role-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 24px 24px 28px;
+}
+.b2b-role-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  font-family: var(--font-meta);
+  letter-spacing: 0.04em;
+}
+.b2b-role-outcomes {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.b2b-role-outcomes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.b2b-role-check {
+  color: var(--accent);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* --- Instructors --- */
+.b2b-instructors {
+  padding: 96px 0;
+  background: #f5f5f3;
+}
+.b2b-instructors-headline {
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+}
+.b2b-instructor-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.b2b-instructor-card {
+  background: #fff;
+  border: 1px solid #e0e0de;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.b2b-instructor-photo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+.b2b-instructor-info {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.b2b-instructor-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+.b2b-instructor-role {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #888;
+}
+.b2b-instructor-headline {
+  font-size: 13px;
+  color: #333;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.b2b-instructor-desc {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+/* --- FAQ --- */
+.b2b-faq-single-col {
+  grid-template-columns: 1fr !important;
+}
+.b2b-faq {
+  padding: 96px 0;
+  background: #fff;
+}
+.b2b-faq-headline {
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+}
+.b2b-faq .faq-item {
+  border-color: #e5e5e3;
+}
+.b2b-faq .faq-item .faq-index {
+  color: #bbb;
+}
+.b2b-faq .faq-item h3 {
+  color: #111;
+}
+.b2b-faq .faq-item .faq-chevron {
+  stroke: #333;
+}
+.b2b-faq .faq-item.open h3 {
+  color: #111;
+}
+.b2b-faq .faq-a p {
+  color: #444;
+}
+
+/* --- Footer CTA --- */
+.b2b-footer-cta {
+  padding: 96px 0;
+  background: #000;
+}
+.b2b-footer-cta-headline {
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.b2b-footer-cta-sub {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+}
+
+/* =========================================
+   LEONARDO POLISH — B2B page
+   ========================================= */
+
+/* Tighten section rhythm */
+.b2b-offerings, .b2b-value-props, .b2b-process, .b2b-courses, .b2b-faq {
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+/* Section label spacing */
+.b2b-section-label {
+  margin-bottom: 8px;
+}
+
+/* Section headline sizing — bigger, more commanding */
+.b2b-section-headline {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  margin-bottom: 14px;
+}
+.b2b-section-sub {
+  font-size: 17px;
+  margin-bottom: 44px;
+}
+
+/* Solution cards — sharper, elevated feel */
+.b2b-solution-card {
+  border-radius: 10px;
+  padding: 32px 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+}
+.b2b-solution-icon {
+  margin-bottom: 12px;
+}
+.b2b-solution-title {
+  font-size: 18px;
+}
+
+/* VP section — tighten */
+.b2b-vp-headline {
+  font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+  line-height: 1.18;
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+.b2b-vp-item h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+.b2b-vp-item p {
+  font-size: 14px;
+}
+.b2b-vp-items {
+  gap: 20px;
+}
+
+/* Process steps — bigger text, tighter spacing */
+.b2b-steps-4 {
+  align-items: center;
+  gap: 0;
+  margin-top: 8px;
+}
+.b2b-step-title-lg {
+  font-size: 18px !important;
+  line-height: 1.35;
+}
+.b2b-step-block {
+  padding: 24px 22px !important;
+}
+
+/* Track cards — better shadow and hover */
+.b2b-track-card {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.b2b-track-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.14);
+  transform: translateY(-3px);
+}
+.b2b-track-name {
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+/* Button radius — Leonardo standard */
+.b2b-courses-cta .btn,
+.b2b-offerings-cta .btn,
+.b2b-footer-cta .btn,
+.b2b-vp-left .btn,
+.b2b-hero-ctas .btn {
+  border-radius: 8px;
+}
+
+/* FAQ — clean lines, no numbers, bigger chevron spacing */
+.b2b-faq {
+  background: #fafaf8;
+}
+.b2b-faq .faq-item {
+  border-bottom: 1px solid #e8e8e6;
+  padding: 24px 0;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+.b2b-faq .faq-item:first-child {
+  border-top: 1px solid #e8e8e6;
+}
+.b2b-faq .faq-index {
+  display: none;
+}
+.b2b-faq .faq-q {
+  gap: 32px;
+}
+.b2b-faq .faq-chevron {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Footer CTA — more generous */
+.b2b-footer-cta {
+  padding: 112px 0;
+}
+
+/* --- B2B Hero bg image variant --- */
+.b2b-hero-bg {
+  position: relative !important;
+  padding: 0 !important;
+  background-image: url('/assets/images/b2b-hero.jpg') !important;
+  background-size: cover !important;
+  background-position: center 25% !important;
+  min-height: 580px;
+  display: flex !important;
+  align-items: center !important;
+}
+.b2b-hero-content-wrap {
+  width: 100%;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+  padding-top: 140px;
+  padding-bottom: 100px;
+}
+.b2b-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.68);
+  z-index: 0;
+}
+.b2b-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 140px;
+  padding-bottom: 100px;
+  max-width: 760px;
+  display: block !important;
+}
+.b2b-hero-headline-light {
+  color: #fff !important;
+  font-size: clamp(2.8rem, 5vw, 4.2rem) !important;
+  line-height: 1.06 !important;
+  margin-bottom: 24px !important;
+}
+.b2b-hero-sub-light {
+  color: rgba(255,255,255,0.8) !important;
+  max-width: 600px;
+  font-size: 20px !important;
+  margin-bottom: 36px;
+}
+.b2b-hero-secondary-link-light {
+  color: rgba(255,255,255,0.6) !important;
+}
+.b2b-hero-secondary-link-light:hover {
+  color: #fff !important;
+}
+
+/* --- Label / eyebrow on different bg --- */
+.b2b-label-on-dark {
+  color: var(--accent) !important;
+}
+.b2b-label-on-light {
+  color: #888 !important;
+}
+
+/* --- Headline / sub on dark --- */
+.b2b-headline-on-dark {
+  color: #fff !important;
+}
+.b2b-sub-on-dark {
+  color: rgba(255,255,255,0.6) !important;
+}
+
+/* --- Trust bar logos --- */
+.b2b-trust-logo-img {
+  height: 26px;
+  width: auto;
+  max-width: 100px;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: grayscale(1) brightness(10);
+}
+
+/* --- Offerings dark variant --- */
+.b2b-offerings-dark {
+  background: #0d0d0d !important;
+}
+
+/* --- Solution card icon --- */
+.b2b-solution-icon {
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+/* --- Process dark variant --- */
+.b2b-process-dark {
+  background: #111 !important;
+}
+.b2b-process-dark .b2b-section-headline {
+  color: #fff;
+}
+.b2b-step-block {
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  padding: 28px 24px !important;
+}
+.b2b-step-title-lg {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+  line-height: 1.3;
+  margin: 0;
+}
+.b2b-step-arrow-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  color: var(--accent);
+  opacity: 0.6;
+}
+.b2b-step-arrow-accent {
+  color: var(--accent) !important;
+  opacity: 1 !important;
+}
+
+/* --- Live courses section --- */
+.b2b-courses {
+  padding: 96px 0;
+  background: #f5f5f3;
+}
+.b2b-courses .b2b-section-headline {
+  margin-bottom: 40px;
+}
+.b2b-track-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.b2b-track-card {
+  background: #fff;
+  border: 1px solid #e0e0de;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.b2b-track-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+.b2b-track-thumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+.b2b-track-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.b2b-track-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.b2b-track-level {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.b2b-track-badge {
+  font-family: var(--font-meta);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--accent);
+  color: #000;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.b2b-track-name {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #111;
+  margin: 0;
+}
+.b2b-courses-cta {
+  margin-top: 36px;
+}
+.b2b-track-tagline {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+.b2b-track-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0ee;
+}
+.b2b-track-cohort-label {
+  display: block;
+  font-family: var(--font-meta);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+.b2b-track-cohort-date {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111;
+}
+.b2b-track-arrow {
+  color: var(--accent);
+  font-size: 16px;
+}
+
+/* --- Value Props ("Don't get left behind") --- */
+.b2b-value-props {
+  padding: 96px 0;
+  background: #f5f5f3;
+}
+.b2b-vp-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 80px;
+  align-items: center;
+}
+.b2b-vp-headline {
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #111;
+  margin-bottom: 40px;
+}
+.b2b-vp-items {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.b2b-vp-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.b2b-vp-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: rgba(165,228,70,0.12);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2a7a1a;
+  margin-top: 2px;
+}
+.b2b-vp-item h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 6px;
+}
+.b2b-vp-item p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+.b2b-vp-photo {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  aspect-ratio: 3/4;
+  object-position: top;
+}
+
+/* --- Testimonial --- */
+.b2b-testimonial {
+  padding: 80px 0;
+  background: #111;
+}
+.b2b-testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  gap: 64px;
+  align-items: start;
+}
+.b2b-testimonial-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 8px;
+}
+.b2b-testimonial-stat-num {
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.b2b-testimonial-stat-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.b2b-testimonial-quote-block {
+  border-left: 2px solid var(--accent);
+  padding-left: 28px;
+}
+.b2b-testimonial-quote {
+  font-size: 16px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.b2b-testimonial-name {
+  font-family: var(--font-meta);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.b2b-testimonial-description {
+  padding-top: 8px;
+}
+.b2b-testimonial-description p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* --- 5-Level Overview --- */
+.b2b-levels {
+  padding: 80px 0;
+  background: #fff;
+}
+.b2b-levels-headline {
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-weight: 600;
+  color: #111;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+}
+.b2b-level-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #e5e5e3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.b2b-level-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 28px;
+  border-bottom: 1px solid #e5e5e3;
+}
+.b2b-level-item:last-child {
+  border-bottom: none;
+}
+.b2b-level-num {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  flex-shrink: 0;
+  width: 72px;
+  background: rgba(165,228,70,0.08);
+  border: 1px solid rgba(165,228,70,0.20);
+  border-radius: 4px;
+  padding: 4px 8px;
+  text-align: center;
+}
+.b2b-level-text {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.b2b-level-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+.b2b-level-desc {
+  font-size: 14px;
+  color: #777;
+}
+
+/* --- B2B Mobile --- */
+@media (max-width: 900px) {
+  .b2b-hero .container {
+    display: block;
+  }
+  .b2b-hero-stock-img {
+    height: 280px;
+  }
+  .b2b-vp-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .b2b-vp-photo {
+    aspect-ratio: 16/9;
+  }
+  .b2b-testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .b2b-level-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .b2b-level-text {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .b2b-offering-cards {
+    grid-template-columns: 1fr;
+  }
+  .b2b-solution-cards {
+    grid-template-columns: 1fr;
+  }
+  .b2b-track-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .b2b-hero-fullbleed {
+    min-height: 480px;
+  }
+  .b2b-addon-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .b2b-steps {
+    flex-direction: column;
+    gap: 0;
+    align-items: stretch !important;
+  }
+  .b2b-step-arrow-icon {
+    display: flex !important;
+    justify-content: center;
+    transform: rotate(90deg);
+    padding: 4px 0;
+  }
+  .b2b-step-arrow {
+    display: none;
+  }
+  .b2b-role-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  .b2b-instructor-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Countdown Timer ─── */
+.countdown-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 28px;
+}
+.countdown-label {
+  font-family: var(--font-meta);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.countdown-live {
+  font-family: var(--font-meta);
+  font-size: 16px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.countdown-units {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 28px;
+}
+.countdown-num {
+  font-family: var(--font-meta);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1;
+}
+.countdown-unit-label {
+  font-family: var(--font-meta);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  letter-spacing: 0.1em;
+}
+.countdown-dot {
+  display: none;
+}
+
+/* ─── Schedule Section ─── */
+.cp-schedule-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.cp-schedule-item {
+  display: grid;
+  grid-template-columns: 48px 160px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.15s;
+}
+.cp-schedule-item:last-child {
+  border-bottom: none;
+}
+.cp-schedule-item:hover {
+  background: rgba(255,255,255,0.02);
+}
+.cp-schedule-num {
+  font-family: var(--font-meta);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+.cp-schedule-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cp-schedule-date {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.cp-schedule-time {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+}
+.cp-schedule-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ─── Session date inline ─── */
+.session-date-inline {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  margin-top: 4px;
+  letter-spacing: 0;
+}
+
+/* ─── Schedule responsive ─── */
+@media (max-width: 640px) {
+  .cp-schedule-item {
+    grid-template-columns: 36px 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px 12px;
+  }
+  .cp-schedule-info {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .cp-schedule-title {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .countdown-wrap {
+    gap: 14px;
+  }
+  .countdown-label { font-size: 14px; }
+  .countdown-num { font-size: 14px; }
+  .countdown-unit-label { font-size: 10px; }
+}

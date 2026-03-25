@@ -1,3 +1,4 @@
+import '../b2b.css'
 import React, { useState } from 'react'
 
 const CALENDLY_URL = 'https://calendly.com/d/cyhb-yjg-33f/leland-ai-transformation'
