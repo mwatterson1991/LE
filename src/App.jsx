@@ -620,7 +620,11 @@ function HomePage() {
     },
     {
       q: 'Which AI tools do I need for this course?',
-      a: "We focus on teaching concepts in a tool-agnostic way so you can bring whatever AI tools you already use. ChatGPT, Claude, and Gemini will work for the course. We'll use the terminal and workflow builders, and for these interfaces, you can choose from a variety of tool options.",
+      a: "We focus on teaching concepts in a tool-agnostic way so you can bring whatever AI tools you already use. ChatGPT, Claude, and Gemini will work for the course. We'll use the terminal and workflow builders, and for these interfaces, you can choose from a variety of tool options. Our team will be working from Claude/Claude Code, and that's what we recommend you use if you don't have a preferred LLM you're already using.",
+    },
+    {
+      q: 'Do I need a paid AI subscription?',
+      a: "A paid subscription of $20/mo or higher for ChatGPT or Claude will give you faster responses, the full suite of features, and access to the most capable models. It's strongly recommended you invest in a paid AI subscription to get the full value of the AI Builder Program.",
     },
     {
       q: "My company doesn't let me connect AI to our internal systems. Can I still get value from this program?",
@@ -1017,6 +1021,30 @@ function HomePage() {
             ))}
           </div>
           <WhichLevelDropdown />
+
+          {/* Bundle callout */}
+          <div style={{ marginTop: 32, padding: '28px 32px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10 }}>
+            <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Get the Full AI Builder Program as a Bundle</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                <span style={{ fontSize: 20, flexShrink: 0 }}>📦</span>
+                <div>
+                  <span style={{ fontWeight: 600, fontSize: 15 }}>5-Level Bundle <span style={{ color: 'var(--accent)', fontSize: 12, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase', marginLeft: 6 }}>best value</span></span>
+                  <p style={{ marginTop: 4, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5 }}>The complete AI Builder journey, all five levels.</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                <span style={{ fontSize: 20, flexShrink: 0 }}>📦</span>
+                <div>
+                  <span style={{ fontWeight: 600, fontSize: 15 }}>3-Level Bundle</span>
+                  <p style={{ marginTop: 4, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5 }}>Can be used for any combination of three of the five levels of the AI Builder Program.</p>
+                </div>
+              </div>
+            </div>
+            <a href="https://joinleland.typeform.com/to/vQdhLF0g" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ marginTop: 24, textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              Learn More <span className="arrow">&rarr;</span>
+            </a>
+          </div>
         </div>
       </section>
 
