@@ -913,8 +913,8 @@ function HomePage() {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
               </span>
               <div>
-                <h3>Best Course Guarantee<sup style={{ fontSize: '0.65em', color: 'var(--accent)', marginLeft: 2 }}>1</sup></h3>
-                <p>Attend this course and another live AI course. If the other was better, show us proof and we'll refund you.</p>
+                <h3>Best Course Guarantee</h3>
+                <p>We're so confident that the AI Builder Program will give you more value than any comparable course, we offer a money-back guarantee.</p>
               </div>
             </div>
             <div className="when-where-item">
@@ -922,8 +922,8 @@ function HomePage() {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
               </span>
               <div>
-                <h3>1-Year Access Guarantee<sup style={{ fontSize: '0.65em', color: 'var(--accent)', marginLeft: 2 }}>2</sup></h3>
-                <p>All recordings plus access to future cohorts live, at no extra charge, for 12 months.</p>
+                <h3>1-Year Access Guarantee</h3>
+                <p>For any level you purchase, access recordings and live sessions for all subsequent AI Builder cohorts in the next 12 months</p>
               </div>
             </div>
             <div className="when-where-item">
@@ -935,16 +935,6 @@ function HomePage() {
                 <p>Get daily AI news, tips to improve your workflow, and perspectives from peers in the AI Builder Program</p>
               </div>
             </div>
-          </div>
-          <div style={{ marginTop: 28, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <p style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.6, fontFamily: 'var(--font-meta)' }}>
-              <sup style={{ color: 'var(--accent)', marginRight: 4 }}>1</sup>
-              <strong style={{ color: 'var(--text-secondary)' }}>Best Course Guarantee:</strong> Attend every session of one of our AI Builder levels live and attend every session of another live, paid AI course. If you got more value from the other course, show us proof and we'll refund what you paid for this course.
-            </p>
-            <p style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.6, fontFamily: 'var(--font-meta)' }}>
-              <sup style={{ color: 'var(--accent)', marginRight: 4 }}>2</sup>
-              <strong style={{ color: 'var(--text-secondary)' }}>1-Year Access Guarantee:</strong> For 12 months from your cohort start date, access all session recordings for this level and rejoin any future cohort live at no additional charge.
-            </p>
           </div>
         </div>
       </section>
@@ -1036,26 +1026,31 @@ function HomePage() {
 
           {/* Bundle callout */}
           <div style={{ marginTop: 32, padding: '28px 32px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Get the Full AI Builder Program as a Bundle</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                <div>
-                  <span style={{ fontWeight: 600, fontSize: 15 }}>5-Level Bundle <span style={{ color: 'var(--accent)', fontSize: 12, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase', marginLeft: 6 }}>best value</span></span>
-                  <p style={{ marginTop: 4, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5 }}>The complete AI Builder journey, all five levels.</p>
+            <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Get the full AI Builder Program as a bundle</h3>
+            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+              <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                  <span style={{ fontWeight: 600, fontSize: 15 }}>5-Level Bundle</span>
+                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>best value</span>
                 </div>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The complete AI Builder journey, all five levels.</p>
+                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)&order=urn%3Aorder%3A69c4363edf04fb0e41cf4da2" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
+                  Get the full bundle <span className="arrow">&rarr;</span>
+                </a>
               </div>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                <div>
+              <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                   <span style={{ fontWeight: 600, fontSize: 15 }}>3-Level Bundle</span>
-                  <p style={{ marginTop: 4, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5 }}>Can be used for any combination of three of the five levels of the AI Builder Program.</p>
                 </div>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>Can be used for any combination of three of the five levels of the AI Builder Program.</p>
+                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)&order=urn%3Aorder%3A69c42fca3e28f6893aca80fc" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
+                  Get a 3-level bundle <span className="arrow">&rarr;</span>
+                </a>
               </div>
             </div>
-            <a href="https://joinleland.typeform.com/to/vQdhLF0g" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ marginTop: 24, textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-              Learn More <span className="arrow">&rarr;</span>
-            </a>
+            <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text-tertiary)', fontFamily: 'var(--font-meta)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
           </div>
         </div>
       </section>
@@ -1272,7 +1267,7 @@ function HomePage() {
       {/* ====== Footer ====== */}
       <footer>
         <div className="container">
-          <p>&copy; 2026 <a href="https://www.joinleland.com">Leland</a>. All rights reserved.</p>
+          <p>&copy; 2026 <a href="https://www.joinleland.com">Leland</a>. All rights reserved. &middot; <a href="https://www.notion.so/joinleland/AI-Builder-Program-Guarantee-Terms-32ea84f4c7d28068b213ee17ef868deb" target="_blank" rel="noopener noreferrer">Guarantee Terms</a></p>
         </div>
       </footer>
 
