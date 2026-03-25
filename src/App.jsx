@@ -909,8 +909,8 @@ function HomePage() {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
               </span>
               <div>
-                <h3>Take the Next Level Guarantee<sup style={{ fontSize: '0.65em', color: 'var(--accent)', marginLeft: 2 }}>1</sup></h3>
-                <p>Complete this course, try the next level. If it's not the right fit, we'll refund that course.</p>
+                <h3>Best Course Guarantee<sup style={{ fontSize: '0.65em', color: 'var(--accent)', marginLeft: 2 }}>1</sup></h3>
+                <p>Attend this course and another live AI course. If the other was better, show us proof and we'll refund you.</p>
               </div>
             </div>
             <div className="when-where-item">
@@ -935,7 +935,7 @@ function HomePage() {
           <div style={{ marginTop: 28, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <p style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.6, fontFamily: 'var(--font-meta)' }}>
               <sup style={{ color: 'var(--accent)', marginRight: 4 }}>1</sup>
-              <strong style={{ color: 'var(--text-secondary)' }}>Take the Next Level Guarantee:</strong> Complete this course with live attendance at all sessions and verified completion of all modules. Then take the next level and complete all its modules. If it's not the right fit, we'll refund the cost of that course.
+              <strong style={{ color: 'var(--text-secondary)' }}>Best Course Guarantee:</strong> Attend every session of one of our AI Builder levels live and attend every session of another live, paid AI course. If you got more value from the other course, show us proof and we'll refund what you paid for this course.
             </p>
             <p style={{ fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.6, fontFamily: 'var(--font-meta)' }}>
               <sup style={{ color: 'var(--accent)', marginRight: 4 }}>2</sup>
