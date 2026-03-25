@@ -683,13 +683,15 @@ export default function CoursePage({ courseId }) {
         </div>
       </section>
 
-      {/* ── COLLAGE ── */}
-      <section className="cp-section cp-collage-section">
-        <div className="container">
-          <h2 className="cp-collage-heading">See what previous cohort members built</h2>
-          <BuildCollage />
-        </div>
-      </section>
+      {/* ── COLLAGE (levels 1-2 only) ── */}
+      {id <= 2 && (
+        <section className="cp-section cp-collage-section">
+          <div className="container">
+            <h2 className="cp-collage-heading">See what previous cohort members built</h2>
+            <BuildCollage />
+          </div>
+        </section>
+      )}
 
       {/* ── GET THIS EXPENSED ── */}
       <GetThisExpensed />
