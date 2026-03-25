@@ -116,23 +116,53 @@ function EnrollBlock({ nextCohort, enrollUrl, size = 'normal', centered = false 
       >
         Enroll Now <span className="arrow">&rarr;</span>
       </a>
-      <span className="cp-enroll-meta">
-        Next cohort: {nextCohort} &middot; Payment plans available &middot; Retake for 1 year
-      </span>
     </div>
   )
 }
 
 /* ─── Build collage ─── */
 function BuildCollage() {
+  const VISIBLE_COUNT = 6
+  const [expanded, setExpanded] = useState(false)
+  const [lightbox, setLightbox] = useState(null)
+  const visible = expanded ? COLLAGE_IMAGES : COLLAGE_IMAGES.slice(0, VISIBLE_COUNT)
+
+  useEffect(() => {
+    if (lightbox === null) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') setLightbox(null)
+      if (e.key === 'ArrowRight') setLightbox((prev) => (prev + 1) % COLLAGE_IMAGES.length)
+      if (e.key === 'ArrowLeft') setLightbox((prev) => (prev - 1 + COLLAGE_IMAGES.length) % COLLAGE_IMAGES.length)
+    }
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey) }
+  }, [lightbox])
+
   return (
-    <div className="cp-collage">
-      {COLLAGE_IMAGES.map((src, i) => (
-        <div key={i} className={`cp-collage-item cp-collage-item-${(i % 5) + 1}`}>
-          <img src={src} alt={`Build example ${i + 1}`} loading="lazy" />
+    <>
+      <div className="cp-collage">
+        {visible.map((src, i) => (
+          <div key={i} className="cp-collage-item" onClick={() => setLightbox(i)} style={{ cursor: 'pointer' }}>
+            <img src={src} alt={`Build example ${i + 1}`} loading="lazy" />
+          </div>
+        ))}
+      </div>
+      {COLLAGE_IMAGES.length > VISIBLE_COUNT && (
+        <button className="cp-collage-toggle" onClick={() => setExpanded(!expanded)}>
+          {expanded ? 'Show less' : 'Show more'}
+        </button>
+      )}
+
+      {lightbox !== null && (
+        <div className="cp-lightbox" onClick={() => setLightbox(null)}>
+          <button className="cp-lightbox-close" onClick={() => setLightbox(null)}>&times;</button>
+          <button className="cp-lightbox-arrow cp-lightbox-prev" onClick={(e) => { e.stopPropagation(); setLightbox((lightbox - 1 + COLLAGE_IMAGES.length) % COLLAGE_IMAGES.length) }}>&lsaquo;</button>
+          <img src={COLLAGE_IMAGES[lightbox]} alt={`Build example ${lightbox + 1}`} onClick={(e) => e.stopPropagation()} />
+          <button className="cp-lightbox-arrow cp-lightbox-next" onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % COLLAGE_IMAGES.length) }}>&rsaquo;</button>
         </div>
-      ))}
-    </div>
+      )}
+    </>
   )
 }
 
@@ -283,10 +313,13 @@ export default function CoursePage({ courseId }) {
             <img src="/assets/logo-white.svg" alt="Leland" style={{ height: 22, width: 'auto' }} />
           </a>
           <div className="cp-nav-right">
+            <span className="cp-nav-cohort">
+              <span className="cp-nav-cohort-label">Next cohort</span>
+              <span className="cp-nav-cohort-date">Starts {course.nextCohort.split(' – ')[0]}</span>
+            </span>
             <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
               Enroll Now
             </a>
-            <span className="cp-nav-cohort">Next cohort: {course.nextCohort}</span>
           </div>
         </div>
       </nav>
@@ -296,28 +329,26 @@ export default function CoursePage({ courseId }) {
         <div className="cp-hero-image-bg" />
         <div className="container">
 
-          <p className="cp-breadcrumb">
-            <a href="/">AI Builder Program</a>
-            {' '}&rsaquo;{' '}{course.name}
-          </p>
-
-          <div className="cp-badge">{course.badge}</div>
+          <div className="cp-badge-row">
+            <a href="/" className="cp-badge cp-badge-back"><span className="cp-badge-chevron">&lsaquo;</span> Back to all levels</a>
+            <div className="cp-badge">{course.badge}</div>
+          </div>
 
           <h1 className="cp-hero-headline">{course.heroHeadline}</h1>
-          <p className="cp-hero-sub">{course.heroSubheadline}</p>
-          {course.ableToBlurb && (
-            <p className="cp-hero-able-to">After this 6-session course, you'll be able to {course.ableToBlurb}</p>
-          )}
-
-          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
 
           {schedule.length > 0 && (
             <CountdownTimer targetIso={schedule[0].iso} />
           )}
+          <p className="cp-hero-sub">
+            {course.heroSubheadline}
+            {course.ableToBlurb && <> After this 6-session course, you'll be able to {course.ableToBlurb}</>}
+          </p>
+
+          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
 
           <div className="cp-hero-social">
             <span className="cp-hero-stars">★★★★★</span>
-            <span className="cp-hero-social-text">4.9 from the Leland community &middot; 26,000+ reviews</span>
+            <span className="cp-hero-social-text"><span style={{ color: 'var(--accent)' }}>4.9</span> from the Leland community &middot; 26,000+ reviews</span>
           </div>
 
         </div>
@@ -460,7 +491,7 @@ export default function CoursePage({ courseId }) {
               <span className="value-stack-crossed">$2,500+ value</span>
               <span className="value-stack-price">$999</span>
             </div>
-            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta" style={{ textTransform: 'uppercase' }}>
+            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta">
               Enroll Now <span className="arrow">&rarr;</span>
             </a>
             <span className="value-stack-subtext">Next cohort: {course.nextCohort} &middot; Payment plans available</span>
@@ -874,7 +905,7 @@ export default function CoursePage({ courseId }) {
       <section className="footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
           <p className="footer-cta-sub">Our next cohort starts {course.nextCohort}</p>
-          <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
+          <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
             Enroll Now <span className="arrow">&rarr;</span>
           </a>
         </div>

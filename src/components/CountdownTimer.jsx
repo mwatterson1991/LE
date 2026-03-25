@@ -28,26 +28,23 @@ export default function CountdownTimer({ targetIso, label }) {
 
   return (
     <div className="countdown-wrap">
-      <span className="countdown-label">{label || 'First session starts in'}</span>
+      <span className="countdown-label">{label || 'First session starts'} &rarr;</span>
       <div className="countdown-units">
         <div className="countdown-unit">
           <span className="countdown-num">{timeLeft.days}</span>
-          <span className="countdown-unit-label">days</span>
+          <span className="countdown-unit-label">DAYS</span>
         </div>
-        <span className="countdown-dot" />
         <div className="countdown-unit">
           <span className="countdown-num">{String(timeLeft.hours).padStart(2, '0')}</span>
-          <span className="countdown-unit-label">hrs</span>
+          <span className="countdown-unit-label">HRS</span>
         </div>
-        <span className="countdown-dot" />
         <div className="countdown-unit">
           <span className="countdown-num">{String(timeLeft.mins).padStart(2, '0')}</span>
-          <span className="countdown-unit-label">min</span>
+          <span className="countdown-unit-label">MIN</span>
         </div>
-        <span className="countdown-dot" />
         <div className="countdown-unit">
           <span className="countdown-num">{String(timeLeft.secs).padStart(2, '0')}</span>
-          <span className="countdown-unit-label">sec</span>
+          <span className="countdown-unit-label">SEC</span>
         </div>
       </div>
     </div>

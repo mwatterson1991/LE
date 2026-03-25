@@ -151,7 +151,7 @@ function CourseAccordionItem({ course, open, onToggle }) {
             </div>
           )}
           <span className="accordion-price">{course.price}</span>
-          <a href={course.enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase' }}>
+          <a href={course.enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
             Enroll Now
             <span className="arrow">&rarr;</span>
           </a>
@@ -283,7 +283,7 @@ function ValueStack({ id, headline }) {
             <span className="value-stack-crossed">$2,500+ value</span>
             <span className="value-stack-price">$999</span>
           </div>
-          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta" style={{ textTransform: 'uppercase' }}>
+          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta">
             Enroll Now
             <span className="arrow">&rarr;</span>
           </a>
@@ -663,7 +663,7 @@ function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary btn-sm"
-            style={{ textTransform: 'uppercase', borderRadius: '4px', fontSize: '12px' }}
+            style={{ borderRadius: '4px', fontSize: '12px' }}
           >
             Enroll Now
           </a>
@@ -1199,7 +1199,7 @@ function HomePage() {
           <div className="advisor-card">
             <h2>Not sure which course is right for you?</h2>
             <p>Book a free call with an advisor to find the right fit.</p>
-            <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
+            <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
               Schedule a Call
               <span className="arrow">&rarr;</span>
             </a>
@@ -1251,7 +1251,7 @@ function HomePage() {
       <section className="footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
           <p className="footer-cta-sub">Our next cohort starts April 21</p>
-          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
+          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
             Enroll Now <span className="arrow">&rarr;</span>
           </a>
         </div>
