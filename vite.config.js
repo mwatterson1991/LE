@@ -18,6 +18,7 @@ export default defineConfig({
         'level-4': resolve(__dirname, 'level-4.html'),
         'level-5': resolve(__dirname, 'level-5.html'),
         'teams': resolve(__dirname, 'teams.html'),
+        'syllabus': resolve(__dirname, 'syllabus.html'),
       }
     }
   }
