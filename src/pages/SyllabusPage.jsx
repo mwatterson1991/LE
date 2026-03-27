@@ -146,14 +146,6 @@ export default function SyllabusPage() {
           <a href="/" className="logo">
             <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
           </a>
-          <a
-            href={ENROLL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary btn-sm"
-          >
-            Enroll Now
-          </a>
         </div>
       </nav>
 
@@ -239,15 +231,42 @@ export default function SyllabusPage() {
             Pick the level that matches where you are today. Every course runs for 3 weeks
             with 6 live sessions, and you can retake for a full year.
           </p>
-          <a
-            href={ENROLL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary btn-lg"
-            style={{ textTransform: 'uppercase' }}
-          >
-            Enroll Now <span className="arrow">&rarr;</span>
-          </a>
+          <div className="sy-bundle-grid">
+            <div className="sy-bundle-card">
+              <div className="sy-bundle-card-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <span className="sy-bundle-name">5-Level Bundle</span>
+                <span className="sy-bundle-tag">best value</span>
+              </div>
+              <p className="sy-bundle-desc">The complete AI Builder journey, all five levels.</p>
+              <a
+                href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)&order=urn%3Aorder%3A69c4363edf04fb0e41cf4da2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+                style={{ textTransform: 'uppercase' }}
+              >
+                Get the full bundle <span className="arrow">&rarr;</span>
+              </a>
+            </div>
+            <div className="sy-bundle-card">
+              <div className="sy-bundle-card-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <span className="sy-bundle-name">3-Level Bundle</span>
+              </div>
+              <p className="sy-bundle-desc">Any combination of three of the five levels.</p>
+              <a
+                href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)&order=urn%3Aorder%3A69c42fca3e28f6893aca80fc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+                style={{ textTransform: 'uppercase' }}
+              >
+                Get a 3-level bundle <span className="arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+          <p className="sy-bundle-note">After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
           <div className="sy-bottom-cta-note">
             $999 per course &middot; Payment plans available &middot; <a href="/teams" style={{ color: 'var(--accent)', textDecoration: 'underline' }}>Team pricing for 5+</a>
           </div>
