@@ -8,7 +8,7 @@ import SyllabusPage from './pages/SyllabusPage'
 import GetThisExpensed from './components/GetThisExpensed'
 
 const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)'
-const SALES_URL = 'https://calendly.com/d/cyhb-yjg-33f/leland-ai-transformation'
+const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
 /* DISCOUNT POPUP CONSTANTS — commented out 2026-03-17, used only by DiscountPopup below */
 // const HUBSPOT_PORTAL_ID = '22467258'
 // const HUBSPOT_FORM_GUID = '9672b824-d24d-4407-a7bd-e045b3910388'
