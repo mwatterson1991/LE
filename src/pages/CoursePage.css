@@ -32,6 +32,8 @@
   font-family: var(--font-meta);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-left: auto;
+  margin-right: 16px;
 }
 .cp-nav-cohort-label {
   font-size: 10px;
@@ -737,9 +739,9 @@
 }
 
 @media (max-width: 768px) {
-  .cp-nav-cohort { display: none; }
-  nav .container { flex-wrap: wrap; gap: 10px; }
-  .cp-nav-right { width: 100%; justify-content: center; gap: 8px; }
+  nav .container { flex-wrap: wrap; align-items: center; row-gap: 8px; }
+  .cp-nav-cohort { margin-left: auto; margin-right: 0; align-items: flex-end; }
+  .cp-nav-right { width: 100%; gap: 8px; }
   .cp-nav-right .btn { flex: 1; justify-content: center; white-space: nowrap; }
 
   .cp-hero .countdown-wrap { flex-direction: column; align-items: flex-start; gap: 8px; }

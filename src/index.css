@@ -2258,9 +2258,8 @@ footer a:hover {
     border-radius: 10px;
   }
   nav .logo img { height: 18px; }
-  nav .container { flex-wrap: wrap; gap: 10px; }
-  .nav-cta-pair { width: 100%; justify-content: center; gap: 8px; }
-  .nav-cta-pair .btn { flex: 1; justify-content: center; white-space: nowrap; }
+  .nav-cta-pair { gap: 6px; }
+  .nav-cta-pair .btn { padding: 5px 8px; font-size: 0.6rem; white-space: nowrap; }
 
   /* Hero */
   .hero { padding: 100px 0 48px; }

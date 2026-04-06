@@ -314,11 +314,11 @@ export default function CoursePage({ courseId }) {
           <a href="https://www.joinleland.com" className="logo">
             <img src="/assets/logo-white.svg" alt="Leland" style={{ height: 22, width: 'auto' }} />
           </a>
+          <span className="cp-nav-cohort">
+            <span className="cp-nav-cohort-label">Next cohort</span>
+            <span className="cp-nav-cohort-date">Starts {course.nextCohort.split(' – ')[0]}</span>
+          </span>
           <div className="cp-nav-right">
-            <span className="cp-nav-cohort">
-              <span className="cp-nav-cohort-label">Next cohort</span>
-              <span className="cp-nav-cohort-date">Starts {course.nextCohort.split(' – ')[0]}</span>
-            </span>
             <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm cp-nav-sales-btn">
               Talk to Our Team
             </a>
