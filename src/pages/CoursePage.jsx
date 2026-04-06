@@ -5,6 +5,8 @@ import GetThisExpensed from '../components/GetThisExpensed'
 import CountdownTimer from '../components/CountdownTimer'
 import CardSwap, { Card } from '../components/CardSwap'
 
+const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
+
 /* ─── Tool pills ─── */
 const TOOL_PILLS = [
   { name: 'ChatGPT', logo: 'new-ChatGPT-icon-white-png-large-size.png', size: 42 },
@@ -317,6 +319,9 @@ export default function CoursePage({ courseId }) {
               <span className="cp-nav-cohort-label">Next cohort</span>
               <span className="cp-nav-cohort-date">Starts {course.nextCohort.split(' – ')[0]}</span>
             </span>
+            <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm cp-nav-sales-btn">
+              Talk to Our Team
+            </a>
             <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
               Enroll Now
             </a>
@@ -854,7 +859,7 @@ export default function CoursePage({ courseId }) {
           <div className="advisor-card">
             <h2>Not sure which course is right for you?</h2>
             <p>Book a free call with an advisor to find the right fit.</p>
-            <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
+            <a href={`${SALES_URL}?utm_content=advisor-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
               Schedule a Call <span className="arrow">&rarr;</span>
             </a>
           </div>
@@ -907,9 +912,14 @@ export default function CoursePage({ courseId }) {
       <section className="footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
           <p className="footer-cta-sub">Our next cohort starts {course.nextCohort}</p>
-          <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
-            Enroll Now <span className="arrow">&rarr;</span>
-          </a>
+          <div className="cta-pair">
+            <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
+              Talk to Our Team
+            </a>
+            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+              Enroll Now <span className="arrow">&rarr;</span>
+            </a>
+          </div>
         </div>
       </section>
 

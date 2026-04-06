@@ -663,7 +663,7 @@ function HomePage() {
             <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" style={{ height: 22, width: 'auto' }} />
           </a>
           <div className="nav-cta-pair">
-            <a href={SALES_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
+            <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
               Talk to Our Team
             </a>
             <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ borderRadius: '4px', fontSize: '12px' }}>
@@ -1207,7 +1207,7 @@ function HomePage() {
           <div className="advisor-card">
             <h2>Not sure which course is right for you?</h2>
             <p>Book a free call with an advisor to find the right fit.</p>
-            <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+            <a href={`${SALES_URL}?utm_content=advisor-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
               Schedule a Call
               <span className="arrow">&rarr;</span>
             </a>
@@ -1260,7 +1260,7 @@ function HomePage() {
         <div className="container" style={{ textAlign: 'center' }}>
           <p className="footer-cta-sub">Our next cohort starts April 21</p>
           <div className="cta-pair">
-            <a href={SALES_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
+            <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
               Talk to Our Team
             </a>
             <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">

@@ -737,6 +737,13 @@
 }
 
 @media (max-width: 768px) {
+  .cp-nav-cohort { display: none; }
+  nav .container { flex-wrap: wrap; gap: 10px; }
+  .cp-nav-right { width: 100%; justify-content: center; gap: 8px; }
+  .cp-nav-right .btn { flex: 1; justify-content: center; white-space: nowrap; }
+
+  .cp-hero .countdown-wrap { flex-direction: column; align-items: flex-start; gap: 8px; }
+
   .cp-hero { padding: 120px 0 56px; }
   .cp-hero-headline { font-size: 48px; }
   .cp-hero-sub { font-size: 1rem; }
