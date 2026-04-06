@@ -278,6 +278,31 @@ nav .btn {
   font-size: 0.7rem;
   border-radius: 6px;
 }
+.nav-cta-pair {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ghost / outline button — "Talk to Our Team" */
+.btn-ghost {
+  background: transparent;
+  color: #aaaaaa;
+  border: 1px solid #444444;
+  text-transform: uppercase;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost:hover {
+  border-color: #888888;
+  color: #ffffff;
+}
+
+/* CTA pair used in footer and other sections */
+.cta-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
 
 .mobile-br { display: none; }
 

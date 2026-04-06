@@ -8,6 +8,7 @@ import SyllabusPage from './pages/SyllabusPage'
 import GetThisExpensed from './components/GetThisExpensed'
 
 const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)'
+const SALES_URL = 'https://calendly.com/d/cyhb-yjg-33f/leland-ai-transformation'
 /* DISCOUNT POPUP CONSTANTS — commented out 2026-03-17, used only by DiscountPopup below */
 // const HUBSPOT_PORTAL_ID = '22467258'
 // const HUBSPOT_FORM_GUID = '9672b824-d24d-4407-a7bd-e045b3910388'
@@ -661,15 +662,14 @@ function HomePage() {
           <a href="https://www.joinleland.com" className="logo">
             <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" style={{ height: 22, width: 'auto' }} />
           </a>
-          <a
-            href={ENROLL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary btn-sm"
-            style={{ borderRadius: '4px', fontSize: '12px' }}
-          >
-            Enroll Now
-          </a>
+          <div className="nav-cta-pair">
+            <a href={SALES_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
+              Talk to Our Team
+            </a>
+            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ borderRadius: '4px', fontSize: '12px' }}>
+              Enroll Now
+            </a>
+          </div>
         </div>
       </nav>
 
@@ -1259,9 +1259,14 @@ function HomePage() {
       <section className="footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
           <p className="footer-cta-sub">Our next cohort starts April 21</p>
-          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
-            Enroll Now <span className="arrow">&rarr;</span>
-          </a>
+          <div className="cta-pair">
+            <a href={SALES_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
+              Talk to Our Team
+            </a>
+            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+              Enroll Now <span className="arrow">&rarr;</span>
+            </a>
+          </div>
         </div>
       </section>
 
