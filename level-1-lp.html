@@ -2997,5 +2997,65 @@ footer {
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQ4CB8JQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+<!-- COHORT PICKER MODAL -->
+<div id="cohort-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; align-items:center; justify-content:center; padding:24px;">
+  <div style="background:#111; border:1px solid #333; border-radius:12px; padding:40px 36px; max-width:480px; width:100%; position:relative;">
+    <button onclick="closeCohortModal()" style="position:absolute; top:14px; right:18px; background:none; border:none; color:#666; font-size:22px; cursor:pointer; line-height:1;">&times;</button>
+    <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--lime); margin-bottom:10px;">SELECT YOUR COHORT</p>
+    <h3 style="font-family:'Inter',sans-serif; font-size:22px; font-weight:800; color:#fff; margin-bottom:8px; letter-spacing:-0.5px;">When do you want to start?</h3>
+    <p style="font-size:13px; color:#999; margin-bottom:28px; line-height:1.6;">6 live sessions over 3 weeks. Tuesdays &amp; Fridays, 90 min each.</p>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+
+      <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)" target="_blank" rel="noopener noreferrer" class="cohort-option" style="display:flex; align-items:center; justify-content:space-between; background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:20px 24px; text-decoration:none; transition:border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='var(--lime)'; this.style.background='#1e1e1e';" onmouseout="this.style.borderColor='#333'; this.style.background='#1a1a1a';">
+        <div>
+          <div style="font-family:'Inter',sans-serif; font-size:17px; font-weight:800; color:#fff; margin-bottom:4px;">April 21, 2026</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#999; letter-spacing:0.5px;">STARTS IN DAYS · SPOTS AVAILABLE</div>
+        </div>
+        <span style="color:var(--lime); font-size:20px; font-weight:700;">&rarr;</span>
+      </a>
+
+      <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69cde5b386908d8f28a679ad)" target="_blank" rel="noopener noreferrer" class="cohort-option" style="display:flex; align-items:center; justify-content:space-between; background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:20px 24px; text-decoration:none; transition:border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='var(--lime)'; this.style.background='#1e1e1e';" onmouseout="this.style.borderColor='#333'; this.style.background='#1a1a1a';">
+        <div>
+          <div style="font-family:'Inter',sans-serif; font-size:17px; font-weight:800; color:#fff; margin-bottom:4px;">May 12, 2026</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#999; letter-spacing:0.5px;">OPEN FOR ENROLLMENT</div>
+        </div>
+        <span style="color:var(--lime); font-size:20px; font-weight:700;">&rarr;</span>
+      </a>
+
+    </div>
+    <p style="font-size:11px; color:#555; text-align:center; margin-top:20px;">All cohorts include recordings + 1-year unlimited retakes.</p>
+  </div>
+</div>
+
+<script>
+function openCohortModal() {
+  var modal = document.getElementById('cohort-modal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeCohortModal() {
+  var modal = document.getElementById('cohort-modal');
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+// Close on backdrop click
+document.getElementById('cohort-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeCohortModal();
+});
+// Intercept all Enroll Now buttons
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.btn-lime, .btn-lime-outline').forEach(function(btn) {
+    var text = btn.textContent.trim().toLowerCase();
+    if (text.indexOf('enroll') !== -1) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        openCohortModal();
+      });
+    }
+  });
+});
+</script>
+
 </body>
 </html>
