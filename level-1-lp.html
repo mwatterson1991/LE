@@ -2999,32 +2999,239 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <!-- COHORT PICKER MODAL -->
-<div id="cohort-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; align-items:center; justify-content:center; padding:24px;">
-  <div style="background:#111; border:1px solid #333; border-radius:12px; padding:40px 36px; max-width:480px; width:100%; position:relative;">
-    <button onclick="closeCohortModal()" style="position:absolute; top:14px; right:18px; background:none; border:none; color:#666; font-size:22px; cursor:pointer; line-height:1;">&times;</button>
-    <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--lime); margin-bottom:10px;">SELECT YOUR COHORT</p>
-    <h3 style="font-family:'Inter',sans-serif; font-size:22px; font-weight:800; color:#fff; margin-bottom:8px; letter-spacing:-0.5px;">When do you want to start?</h3>
-    <p style="font-size:13px; color:#999; margin-bottom:28px; line-height:1.6;">6 live sessions over 3 weeks. Tuesdays &amp; Fridays, 90 min each.</p>
-    <div style="display:flex; flex-direction:column; gap:12px;">
+<style>
+#cohort-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.82);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+#cohort-modal-inner {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 14px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+#cohort-modal-header {
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid #222;
+}
+#cohort-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.15s;
+}
+#cohort-modal-close:hover { color: #fff; }
+.cm-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 6px;
+}
+.cm-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  padding-right: 28px;
+}
+#cohort-modal-rows {
+  padding: 0;
+}
+.cm-row {
+  border-bottom: 1px solid #1e1e1e;
+  padding: 16px 24px;
+}
+.cm-row:last-child { border-bottom: none; }
+.cm-row-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cm-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.cm-row.cm-coming-soon .cm-date { color: #555; }
+.cm-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--lime);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 2px;
+  line-height: 1;
+}
+.cm-toggle:hover { text-decoration: underline; }
+.cm-coming-soon-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #555;
+  background: #1c1c1c;
+  border: 1px solid #2e2e2e;
+  border-radius: 20px;
+  padding: 3px 9px;
+  margin-top: 4px;
+  display: block;
+  width: fit-content;
+}
+.cm-enroll-btn {
+  display: inline-block;
+  background: var(--lime);
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, opacity 0.15s;
+  flex-shrink: 0;
+}
+.cm-enroll-btn:hover { background: var(--lime-dark); }
+.cm-enroll-btn.disabled {
+  background: #222;
+  color: #444;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.cm-details {
+  display: none;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #1e1e1e;
+}
+.cm-details.open { display: block; }
+.cm-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.cm-detail-row:last-child { margin-bottom: 0; }
+.cm-detail-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+.cm-curriculum-link {
+  display: inline-block;
+  color: var(--lime);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 10px;
+}
+.cm-curriculum-link:hover { text-decoration: underline; }
+</style>
 
-      <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)" target="_blank" rel="noopener noreferrer" class="cohort-option" style="display:flex; align-items:center; justify-content:space-between; background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:20px 24px; text-decoration:none; transition:border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='var(--lime)'; this.style.background='#1e1e1e';" onmouseout="this.style.borderColor='#333'; this.style.background='#1a1a1a';">
-        <div>
-          <div style="font-family:'Inter',sans-serif; font-size:17px; font-weight:800; color:#fff; margin-bottom:4px;">April 21, 2026</div>
-          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#999; letter-spacing:0.5px;">STARTS IN DAYS · SPOTS AVAILABLE</div>
-        </div>
-        <span style="color:var(--lime); font-size:20px; font-weight:700;">&rarr;</span>
-      </a>
+<div id="cohort-modal">
+  <div id="cohort-modal-inner">
+    <div id="cohort-modal-header">
+      <button id="cohort-modal-close" onclick="closeCohortModal()">&times;</button>
+      <div class="cm-eyebrow">Level 01</div>
+      <div class="cm-title">Use AI to 10x Your Impact</div>
+    </div>
+    <div id="cohort-modal-rows">
 
-      <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69cde5b386908d8f28a679ad)" target="_blank" rel="noopener noreferrer" class="cohort-option" style="display:flex; align-items:center; justify-content:space-between; background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:20px 24px; text-decoration:none; transition:border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='var(--lime)'; this.style.background='#1e1e1e';" onmouseout="this.style.borderColor='#333'; this.style.background='#1a1a1a';">
-        <div>
-          <div style="font-family:'Inter',sans-serif; font-size:17px; font-weight:800; color:#fff; margin-bottom:4px;">May 12, 2026</div>
-          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#999; letter-spacing:0.5px;">OPEN FOR ENROLLMENT</div>
+      <!-- April 21 -->
+      <div class="cm-row">
+        <div class="cm-row-main">
+          <div>
+            <div class="cm-date">April 21 – May 8, 2026</div>
+            <button class="cm-toggle" onclick="toggleDetails('d1', this)">Show details</button>
+          </div>
+          <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)" target="_blank" rel="noopener noreferrer" class="cm-enroll-btn">Enroll</a>
         </div>
-        <span style="color:var(--lime); font-size:20px; font-weight:700;">&rarr;</span>
-      </a>
+        <div id="d1" class="cm-details">
+          <div class="cm-detail-row">
+            <svg class="cm-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            6 sessions — Tuesdays &amp; Fridays
+          </div>
+          <div class="cm-detail-row">
+            <svg class="cm-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            12:00 PM PT &nbsp;/&nbsp; 3:00 PM ET &nbsp;/&nbsp; 8:00 PM GMT
+          </div>
+          <a href="/syllabus" target="_blank" class="cm-curriculum-link">View curriculum →</a>
+        </div>
+      </div>
+
+      <!-- May 12 -->
+      <div class="cm-row">
+        <div class="cm-row-main">
+          <div>
+            <div class="cm-date">May 12 – May 28, 2026</div>
+            <button class="cm-toggle" onclick="toggleDetails('d2', this)">Show details</button>
+          </div>
+          <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69cde5b386908d8f28a679ad)" target="_blank" rel="noopener noreferrer" class="cm-enroll-btn">Enroll</a>
+        </div>
+        <div id="d2" class="cm-details">
+          <div class="cm-detail-row">
+            <svg class="cm-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            6 sessions — Mondays &amp; Wednesdays
+          </div>
+          <div class="cm-detail-row">
+            <svg class="cm-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            12:00 PM PT &nbsp;/&nbsp; 3:00 PM ET &nbsp;/&nbsp; 8:00 PM GMT
+          </div>
+          <a href="/syllabus" target="_blank" class="cm-curriculum-link">View curriculum →</a>
+        </div>
+      </div>
+
+      <!-- June 16 — Coming Soon -->
+      <div class="cm-row cm-coming-soon">
+        <div class="cm-row-main">
+          <div>
+            <div class="cm-date">June 16 – Jul 3, 2026</div>
+            <span class="cm-coming-soon-badge">Coming Soon</span>
+          </div>
+          <span class="cm-enroll-btn disabled">Enroll</span>
+        </div>
+      </div>
 
     </div>
-    <p style="font-size:11px; color:#555; text-align:center; margin-top:20px;">All cohorts include recordings + 1-year unlimited retakes.</p>
   </div>
 </div>
 
@@ -3038,6 +3245,12 @@ function closeCohortModal() {
   var modal = document.getElementById('cohort-modal');
   modal.style.display = 'none';
   document.body.style.overflow = '';
+}
+function toggleDetails(id, btn) {
+  var el = document.getElementById(id);
+  var open = el.classList.contains('open');
+  el.classList.toggle('open', !open);
+  btn.textContent = open ? 'Show details' : 'Hide details';
 }
 // Close on backdrop click
 document.getElementById('cohort-modal').addEventListener('click', function(e) {
