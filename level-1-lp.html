@@ -3298,6 +3298,30 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <!-- HubSpot -->
 <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/22467258.js"></script>
+<!-- PostHog: HubSpot popup tracking -->
+<script>
+window.addEventListener('message', function(event) {
+  if (!event.data || typeof event.data !== 'object') return;
+  // HubSpot form callbacks
+  if (event.data.type === 'hsFormCallback') {
+    if (event.data.eventName === 'onFormReady') {
+      posthog.capture('ai_builder_lp--discount_popup_open', {
+        form_id: event.data.id,
+      });
+    }
+    if (event.data.eventName === 'onFormSubmit') {
+      posthog.capture('ai_builder_lp--discount_form_submit', {
+        form_id: event.data.id,
+      });
+    }
+    if (event.data.eventName === 'onFormSubmitted') {
+      posthog.capture('ai_builder_lp--discount_form_submitted', {
+        form_id: event.data.id,
+      });
+    }
+  }
+});
+</script>
 
 </body>
 </html>
