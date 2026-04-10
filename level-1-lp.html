@@ -29,6 +29,16 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1389688331424669&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- PostHog -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="fi init Oi Fi ft Ii Ai Ri capture calculateEventProperties Ni register register_once register_for_session unregister unregister_for_session Hi getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync qi identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty zi Li createPersonProfile setInternalOrTestUser Bi $i Wi opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Mi debug bt ji getPageViewId captureTraceFeedback captureTraceMetric Si".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_eGjz8gEWbfNB5uoEpNpD2dGvrqKoNmNZyaDVwSIBudZ', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2026-01-30',
+    person_profiles: 'identified_only',
+  });
+</script>
+<!-- End PostHog -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -2633,7 +2643,7 @@ footer {
     <h2 style="font-size: clamp(24px, 3vw, 36px); font-weight: 800; letter-spacing: -1px; margin-bottom: 32px;">Think You're Already an L1+ Builder? Check out <span style="color: var(--lime);">Levels 2–5!</span></h2>
     <div class="program-levels-grid">
 
-      <div class="program-level-card">
+      <a href="/level-2" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 2 })">
         <div class="card-illustration" style="background: linear-gradient(135deg, #1a1a2a 0%, #2a2a1a 50%, #1a2a1a 100%);"></div>
         <div class="card-body">
           <div class="level-badge">
@@ -2657,9 +2667,9 @@ footer {
             <span class="card-arrow">&rarr;</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="program-level-card">
+      <a href="/level-3" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 3 })">
         <div class="card-illustration" style="background: linear-gradient(135deg, #0d2a1a 0%, #1a3a2a 50%, #0d1a2a 100%);"></div>
         <div class="card-body">
           <div class="level-badge">
@@ -2683,9 +2693,9 @@ footer {
             <span class="card-arrow">&rarr;</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="program-level-card">
+      <a href="/level-4" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 4 })">
         <div class="card-illustration" style="background: linear-gradient(135deg, #1a2a2a 0%, #0d2a1a 50%, #1a1a2a 100%);"></div>
         <div class="card-body">
           <div class="level-badge">
@@ -2709,9 +2719,9 @@ footer {
             <span class="card-arrow">&rarr;</span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="program-level-card">
+      <a href="/level-5" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 5 })">
         <div class="card-illustration" style="background: linear-gradient(135deg, #2a2a1a 0%, #1a2a0d 50%, #1a1a2a 100%);"></div>
         <div class="card-body">
           <div class="level-badge">
@@ -2735,7 +2745,7 @@ footer {
             <span class="card-arrow">&rarr;</span>
           </div>
         </div>
-      </div>
+      </a>
 
     </div>
   </div>
@@ -3240,10 +3250,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script>
-function openCohortModal() {
+function openCohortModal(source) {
   var modal = document.getElementById('cohort-modal');
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  posthog.capture('ai_builder_lp--cohort_modal_open', { source: source || 'unknown' });
 }
 function closeCohortModal() {
   var modal = document.getElementById('cohort-modal');
@@ -3260,19 +3271,33 @@ function toggleDetails(id, btn) {
 document.getElementById('cohort-modal').addEventListener('click', function(e) {
   if (e.target === this) closeCohortModal();
 });
-// Intercept all Enroll Now buttons
+// Track cohort enroll clicks
+document.querySelectorAll('.cm-enroll-btn:not(.disabled)').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    posthog.capture('ai_builder_lp--cohort_selected', {
+      cohort_date: btn.closest('.cm-row').querySelector('.cm-date').textContent.trim(),
+    });
+  });
+});
+// Intercept all Enroll Now buttons — detect source by section
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.btn-lime, .btn-lime-outline').forEach(function(btn) {
     var text = btn.textContent.trim().toLowerCase();
     if (text.indexOf('enroll') !== -1) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
-        openCohortModal();
+        // Determine source from section context
+        var section = btn.closest('section, header, div[class*="hero"], div[class*="pricing"], div[class*="cta"], div[class*="footer"]');
+        var source = section ? (section.className || section.tagName).split(' ')[0] : 'unknown';
+        posthog.capture('ai_builder_lp--enroll_cta_click', { source: source });
+        openCohortModal(source);
       });
     }
   });
 });
 </script>
+<!-- HubSpot -->
+<script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/22467258.js"></script>
 
 </body>
 </html>
