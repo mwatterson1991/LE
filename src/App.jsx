@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import Squares from './components/Squares'
 import CardSwap, { Card } from './components/CardSwap'
@@ -153,11 +154,11 @@ function CourseAccordionItem({ course, open, onToggle }) {
             </div>
           )}
           <span className="accordion-price">{course.price}</span>
-          <a href={course.enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+          <a href={course.enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'course-accordion', level: course.num })}>
             Enroll Now
             <span className="arrow">&rarr;</span>
           </a>
-          <a href={course.learnMoreUrl} className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }}>
+          <a href={course.learnMoreUrl} className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }} onClick={() => posthog.capture('app--learn_more_click', { source: 'course-accordion', level: course.num })}>
             Learn More
             <span className="arrow">&rarr;</span>
           </a>
@@ -283,7 +284,7 @@ function ValueStack({ id, headline }) {
             <span className="value-stack-crossed">$2,500+ value</span>
             <span className="value-stack-price">$999</span>
           </div>
-          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta">
+          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'value-stack' })}>
             Enroll Now
             <span className="arrow">&rarr;</span>
           </a>
@@ -295,7 +296,7 @@ function ValueStack({ id, headline }) {
 }
 
 /* DISCOUNT POPUP — commented out 2026-03-17, remove distraction for targeted traffic.
-   To re-enable: uncomment DiscountPopup function (lines ~291-372) and render call below.
+   To re-enable: uncomment DiscountPopup function below and render call in HomePage.
    HubSpot form: portal 22467258, form GUID 9672b824-d24d-4407-a7bd-e045b3910388
    Email gate: captures email first, then sends $200 code via email. */
 /*
@@ -663,10 +664,10 @@ function HomePage() {
             <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" style={{ height: 22, width: 'auto' }} />
           </a>
           <div className="nav-cta-pair">
-            <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
+            <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>
               Talk to Our Team
             </a>
-            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ borderRadius: '4px', fontSize: '12px' }}>
+            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ borderRadius: '4px', fontSize: '12px' }} onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
               Enroll Now
             </a>
           </div>
@@ -1207,7 +1208,7 @@ function HomePage() {
           <div className="advisor-card">
             <h2>Not sure which course is right for you?</h2>
             <p>Book a free call with an advisor to find the right fit.</p>
-            <a href={`${SALES_URL}?utm_content=advisor-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+            <a href={`${SALES_URL}?utm_content=advisor-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'advisor' })}>
               Schedule a Call
               <span className="arrow">&rarr;</span>
             </a>
@@ -1260,10 +1261,10 @@ function HomePage() {
         <div className="container" style={{ textAlign: 'center' }}>
           <p className="footer-cta-sub">Our next cohort starts April 21</p>
           <div className="cta-pair">
-            <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
+            <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'footer' })}>
               Talk to Our Team
             </a>
-            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'footer' })}>
               Enroll Now <span className="arrow">&rarr;</span>
             </a>
           </div>
@@ -1285,6 +1286,20 @@ function HomePage() {
 
 function App() {
   const path = window.location.pathname
+
+  useEffect(() => {
+    const pageNames = {
+      '/teams': 'Teams',
+      '/syllabus': 'Syllabus',
+    }
+    const levelMatch = path.match(/\/level-(\d+)/)
+    const pageName = levelMatch
+      ? `Level ${levelMatch[1]}`
+      : (pageNames[path.replace(/\/$/, '')] || 'Home')
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({ event: 'page_view', page_path: path, page_name: pageName })
+  }, [path])
+
   if (path.startsWith('/teams')) {
     return <B2BPage />
   }

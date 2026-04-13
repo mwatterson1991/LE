@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=1389688331424669&ev=PageView&noscript=1"
 <!-- PostHog -->
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="fi init Oi Fi ft Ii Ai Ri capture calculateEventProperties Ni register register_once register_for_session unregister unregister_for_session Hi getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync qi identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty zi Li createPersonProfile setInternalOrTestUser Bi $i Wi opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Mi debug bt ji getPageViewId captureTraceFeedback captureTraceMetric Si".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-  posthog.init('phc_eGjz8gEWbfNB5uoEpNpD2dGvrqKoNmNZyaDVwSIBudZ', {
+  posthog.init('phc_VD7xQuJG51OK9yk9bvigoWWtJLCiLLSFy35ybhLyPDI', {
     api_host: 'https://us.i.posthog.com',
     defaults: '2026-01-30',
     person_profiles: 'identified_only',
@@ -1883,6 +1883,10 @@ footer {
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQ4CB8JQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- HEADER -->
 <header>
@@ -2229,7 +2233,7 @@ footer {
       <div class="instructor-card">
         <div class="instructor-avatar"><img src="https://leland.imgix.net/profile-photos/62a09121dc24b515cc3977de.jpg" alt="Nick Van Slooten" /></div>
         <h4>Nick Van Slooten</h4>
-        <p class="instructor-role">Head of GMs @ Leland, Ex-YC</p>
+        <p class="instructor-role">AI Lead @ Leland · Ex-BCG</p>
         <p>Non-technical operator who built AI-powered email pipelines and sales automation using Claude, n8n, and Zapier.</p>
       </div>
       <div class="instructor-card">
@@ -2650,7 +2654,7 @@ footer {
     <h2 style="font-size: clamp(24px, 3vw, 36px); font-weight: 800; letter-spacing: -1px; margin-bottom: 32px;">Think You're Already an L1+ Builder? Check out <span style="color: var(--lime);">Levels 2–5!</span></h2>
     <div class="program-levels-grid">
 
-      <a href="/level-2" target="_blank" rel="noopener noreferrer" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 2 })">
+      <a href="/level-2" target="_blank" rel="noopener noreferrer" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 2 }); fbq('track', 'ViewContent', { content_name: 'AI Builder Level 2', content_category: 'Course', content_ids: ['level-2'] }); (window.dataLayer=window.dataLayer||[]).push({ event: 'level_card_click', level: 2 })">
         <div class="card-illustration" style="background: linear-gradient(135deg, #1a1a2a 0%, #2a2a1a 50%, #1a2a1a 100%);"></div>
         <div class="card-body">
           <div class="level-badge">
@@ -2676,7 +2680,7 @@ footer {
         </div>
       </a>
 
-      <a href="/level-3" target="_blank" rel="noopener noreferrer" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 3 })">
+      <a href="/level-3" target="_blank" rel="noopener noreferrer" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 3 }); fbq('track', 'ViewContent', { content_name: 'AI Builder Level 3', content_category: 'Course', content_ids: ['level-3'] }); (window.dataLayer=window.dataLayer||[]).push({ event: 'level_card_click', level: 3 })">
         <div class="card-illustration" style="background: linear-gradient(135deg, #0d2a1a 0%, #1a3a2a 50%, #0d1a2a 100%);"></div>
         <div class="card-body">
           <div class="level-badge">
@@ -2702,7 +2706,7 @@ footer {
         </div>
       </a>
 
-      <a href="/level-4" target="_blank" rel="noopener noreferrer" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 4 })">
+      <a href="/level-4" target="_blank" rel="noopener noreferrer" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 4 }); fbq('track', 'ViewContent', { content_name: 'AI Builder Level 4', content_category: 'Course', content_ids: ['level-4'] }); (window.dataLayer=window.dataLayer||[]).push({ event: 'level_card_click', level: 4 })">
         <div class="card-illustration" style="background: linear-gradient(135deg, #1a2a2a 0%, #0d2a1a 50%, #1a1a2a 100%);"></div>
         <div class="card-body">
           <div class="level-badge">
@@ -2728,7 +2732,7 @@ footer {
         </div>
       </a>
 
-      <a href="/level-5" target="_blank" rel="noopener noreferrer" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 5 })">
+      <a href="/level-5" target="_blank" rel="noopener noreferrer" class="program-level-card" style="text-decoration:none; display:block;" onclick="posthog.capture('ai_builder_lp--level_card_click', { level: 5 }); fbq('track', 'ViewContent', { content_name: 'AI Builder Level 5', content_category: 'Course', content_ids: ['level-5'] }); (window.dataLayer=window.dataLayer||[]).push({ event: 'level_card_click', level: 5 })">
         <div class="card-illustration" style="background: linear-gradient(135deg, #2a2a1a 0%, #1a2a0d 50%, #1a1a2a 100%);"></div>
         <div class="card-body">
           <div class="level-badge">
@@ -3262,6 +3266,9 @@ function openCohortModal(source) {
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
   posthog.capture('ai_builder_lp--cohort_modal_open', { source: source || 'unknown' });
+  fbq('track', 'InitiateCheckout', { content_name: 'AI Builder Level 1', content_category: 'Course', source: source || 'unknown' });
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'cohort_modal_open', source: source || 'unknown' });
 }
 function closeCohortModal() {
   var modal = document.getElementById('cohort-modal');
@@ -3281,9 +3288,11 @@ document.getElementById('cohort-modal').addEventListener('click', function(e) {
 // Track cohort enroll clicks
 document.querySelectorAll('.cm-enroll-btn:not(.disabled)').forEach(function(btn) {
   btn.addEventListener('click', function() {
-    posthog.capture('ai_builder_lp--cohort_selected', {
-      cohort_date: btn.closest('.cm-row').querySelector('.cm-date').textContent.trim(),
-    });
+    var cohortDate = btn.closest('.cm-row').querySelector('.cm-date').textContent.trim();
+    posthog.capture('ai_builder_lp--cohort_selected', { cohort_date: cohortDate });
+    fbq('track', 'InitiateCheckout', { content_name: 'AI Builder Level 1', content_category: 'Course', cohort_date: cohortDate });
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'cohort_selected', cohort_date: cohortDate });
   });
 });
 // Intercept all Enroll Now buttons — detect source by section
@@ -3297,6 +3306,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var section = btn.closest('section, header, div[class*="hero"], div[class*="pricing"], div[class*="cta"], div[class*="footer"]');
         var source = section ? (section.className || section.tagName).split(' ')[0] : 'unknown';
         posthog.capture('ai_builder_lp--enroll_cta_click', { source: source });
+        fbq('track', 'InitiateCheckout', { content_name: 'AI Builder Level 1', content_category: 'Course', source: source });
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'enroll_cta_click', source: source });
         openCohortModal(source);
       });
     }
@@ -3312,19 +3324,21 @@ window.addEventListener('message', function(event) {
   // HubSpot form callbacks
   if (event.data.type === 'hsFormCallback') {
     if (event.data.eventName === 'onFormReady') {
-      posthog.capture('ai_builder_lp--discount_popup_open', {
-        form_id: event.data.id,
-      });
+      posthog.capture('ai_builder_lp--discount_popup_open', { form_id: event.data.id });
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'discount_popup_open', form_id: event.data.id });
     }
     if (event.data.eventName === 'onFormSubmit') {
-      posthog.capture('ai_builder_lp--discount_form_submit', {
-        form_id: event.data.id,
-      });
+      posthog.capture('ai_builder_lp--discount_form_submit', { form_id: event.data.id });
+      fbq('track', 'Lead', { content_name: 'AI Builder Discount Request', content_category: 'Course' });
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'discount_form_submit', form_id: event.data.id });
     }
     if (event.data.eventName === 'onFormSubmitted') {
-      posthog.capture('ai_builder_lp--discount_form_submitted', {
-        form_id: event.data.id,
-      });
+      posthog.capture('ai_builder_lp--discount_form_submitted', { form_id: event.data.id });
+      fbq('track', 'CompleteRegistration', { content_name: 'AI Builder Discount Request', content_category: 'Course', status: 'submitted' });
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'discount_form_submitted', form_id: event.data.id });
     }
   }
 });
