@@ -20,6 +20,8 @@ export default defineConfig({
         'teams': resolve(__dirname, 'teams.html'),
         'syllabus': resolve(__dirname, 'syllabus.html'),
         'level-1-lp': resolve(__dirname, 'level-1-lp.html'),
+        'bundle-3': resolve(__dirname, 'bundle-3.html'),
+        'bundle-5': resolve(__dirname, 'bundle-5.html'),
       }
     }
   }
