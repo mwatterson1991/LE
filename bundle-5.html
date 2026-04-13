@@ -1077,7 +1077,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="/assets/logo-white.svg" alt="Leland">
     </a>
     <div class="nav-ctas">
-      <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" onclick="trackSales('nav')">Talk to our team</a>
+      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_source=bundle-5" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" onclick="trackSales('nav')">Talk to our team</a>
       <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)&order=urn%3Aorder%3A69c4363edf04fb0e41cf4da2" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" onclick="trackEnroll('nav')">Get the Full Program &nbsp;$2,999</a>
     </div>
   </div>
@@ -1095,7 +1095,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="hero-sub">Leland's AI Builder Full Program covers all five levels. Five courses, 30 live sessions, 30 real deliverables you'll use at work, and five certifications for your LinkedIn. Go from ChatGPT to production AI systems in 15 weeks — all for $2,999 instead of $4,995.</p>
     <div class="hero-ctas">
       <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)&order=urn%3Aorder%3A69c4363edf04fb0e41cf4da2" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg" onclick="trackEnroll('hero')">Get the Full Program &nbsp;|&nbsp; $2,999</a>
-      <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" onclick="trackSales('hero')">Talk to our team</a>
+      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_source=bundle-5" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" onclick="trackSales('hero')">Talk to our team</a>
     </div>
     <p class="hero-price-note">Payment plans available</p>
     <div class="hero-trust">
@@ -1681,7 +1681,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="teams-cta">
       <a href="mailto:info@joinleland.com" class="btn btn-ghost">Email info@joinleland.com</a>
-      <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="trackSales('teams')">Talk to our team &rarr;</a>
+      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_source=bundle-5" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="trackSales('teams')">Talk to our team &rarr;</a>
     </div>
   </div>
 </section>
@@ -1776,7 +1776,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>Start building with AI today</h2>
     <div class="hero-ctas">
       <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)&order=urn%3Aorder%3A69c4363edf04fb0e41cf4da2" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg" onclick="trackEnroll('final-cta')">Get the Full Program &nbsp;|&nbsp; $2,999</a>
-      <a href="https://joinleland.typeform.com/to/Gp54Gdd4" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" onclick="trackSales('final-cta')">Talk to our team</a>
+      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_source=bundle-5" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" onclick="trackSales('final-cta')">Talk to our team</a>
     </div>
     <p class="hero-price-note" style="margin-top:16px;">Payment plans available &middot; After you buy the program, we'll send you a form to select cohort dates and times for each level.</p>
   </div>
@@ -1851,6 +1851,22 @@ function toggleFaq(id) {
   posthog.capture('bundle5--faq_toggle', { question: id, opened: !isOpen });
   (window.dataLayer = window.dataLayer || []).push({ event: 'bundle5--faq_toggle', question: id, opened: !isOpen });
 }
+
+// UTM passthrough — forward page UTMs to checkout and sales links
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  const utms = {};
+  utmKeys.forEach(function(k) { if (params.get(k)) utms[k] = params.get(k); });
+  if (!Object.keys(utms).length) return;
+  document.querySelectorAll('a[href*="joinleland.com/checkout"], a[href*="typeform.com"]').forEach(function(link) {
+    try {
+      var url = new URL(link.href);
+      Object.keys(utms).forEach(function(k) { url.searchParams.set(k, utms[k]); });
+      link.href = url.toString();
+    } catch(e) {}
+  });
+})();
 </script>
 </body>
 </html>
