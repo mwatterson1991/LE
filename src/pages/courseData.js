@@ -6,6 +6,34 @@ export const ENROLL_URLS = {
   5: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)',
 }
 
+export const COURSE_COHORTS = {
+  1: [
+    { label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9–10:30am MT', afternoon: '2–3:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)' },
+    { label: 'May 12',   iso: '2026-05-12', scheduleDays: 'Tuesdays & Thursdays', sessionTimes: { morning: '9:30am MT', afternoon: '4:00pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69cde5b386908d8f28a679ad)' },
+    { label: 'June 16',  iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: null },
+  ],
+  2: [
+    { label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)' },
+    { label: 'May 19',   iso: '2026-05-19', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)' },
+    { label: 'June 16',  iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, enrollUrl: null },
+  ],
+  3: [
+    { label: 'May 19',   iso: '2026-05-19', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)' },
+    { label: 'June 16',  iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
+    { label: 'July 14',  iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: null },
+  ],
+  4: [
+    { label: 'June 16',   iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69bd6f92ca371b83aa557c0c)' },
+    { label: 'July 14',   iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
+    { label: 'August 11', iso: '2026-08-11', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: null },
+  ],
+  5: [
+    { label: 'July 14',    iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)' },
+    { label: 'August 11',  iso: '2026-08-11', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69b19cc2f61c38f9e9bc9066)' },
+    { label: 'September 8', iso: '2026-09-08', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: null },
+  ],
+}
+
 // MDT = UTC-6
 export const SESSION_SCHEDULES = {
   1: [
@@ -107,40 +135,28 @@ export const courseData = {
     ],
     sessions: [
       {
-        title: 'Transform How You Work Forever',
-        concepts: 'Context files, iterative prompting, claude.md, tool overview',
-        build: 'AI context file + notes-to-slides system',
-        example: "Build Fawnly's brand context file and turn product brief notes into a pitch deck",
+        title: 'Build a Real Product with World-Class Design',
+        description: 'Create a new product in 90 minutes, without writing a line of code, using a design system that you love.',
       },
       {
-        title: 'Let AI Research and Synthesize for You',
-        concepts: 'Chain prompting, research workflows, source synthesis',
-        build: 'Market research workflow on any topic',
-        example: 'Run a competitive analysis on DTC skincare brands',
+        title: 'Automate Communication in Your Voice',
+        description: 'Connect your communication tools, teach AI how you write, and set it up to manage your inbox.',
       },
       {
-        title: 'Analyze Data in Minutes, Not Hours',
-        concepts: 'Data sanitization, AI for spreadsheets, structured output',
-        build: 'Workflow that turns raw data into a shareable report',
-        example: "Turn Fawnly's monthly sales data into an executive summary with charts",
+        title: 'Design Presentations That Build Themselves',
+        description: 'Go from research question to polished, animated slide deck in a single session.',
       },
       {
-        title: 'Build a Workflow That Runs Daily',
-        concepts: 'MCP connectors, triggers, automated sourcing',
-        build: 'Lead or news finder that runs every morning',
-        example: 'Build a morning brief that surfaces new DTC brand launches and investor activity',
+        title: 'Analyze and Visualize Data Without Writing Formulas',
+        description: 'Go from data and spreadsheets to dashboards and insights in minutes.',
       },
       {
-        title: 'Make Every Output Sound Like You',
-        concepts: 'Voice training, prompt personalization, time audits',
-        build: 'Time audit + writing system trained on your voice',
-        example: "Build Fawnly's brand voice guide and a writing agent that drafts in that tone",
+        title: 'Build Custom Workflows That Run While You Sleep',
+        description: "Set up automations that run on a schedule, connect your tools, and get things done whether you're at your desk or not.",
       },
       {
-        title: 'Build an End-to-End Process Workflow',
-        concepts: 'Agent design, research + write + send loops, tool chaining',
-        build: 'Agent that researches, writes, and delivers outreach',
-        example: "Build an agent that finds influencers, researches their content, and drafts a partnership pitch",
+        title: 'Launch Your AI System + Demo Day',
+        description: 'Cross the finish line with a live, working AI system and show the cohort what you built.',
       },
     ],
     faqs: [
@@ -213,40 +229,28 @@ export const courseData = {
     ],
     sessions: [
       {
-        title: 'Ship Your First Agent Team',
-        concepts: 'Agent vs. prompt, goal-directed behavior, reasoning traces',
-        build: 'Research agent team analyzing a problem from multiple angles',
-        example: "Three agents analyze Fawnly's market from investor, competitor, and customer angles",
+        title: 'Build Your Automation Roadmap',
+        description: "Figure out exactly where your time is going and turn that into a prioritized AI build plan you'll actually execute.",
       },
       {
-        title: 'Build a Writing Agent That Acts for You',
-        concepts: 'Context gathering, voice consistency, send side effects',
-        build: 'Writing agent that gathers context, drafts, and sends',
-        example: "Agent drafts and sends influencer outreach emails using Fawnly's voice guide",
+        title: 'Ship Production-Ready Software',
+        description: 'Go from idea to deployed app with a live URL in 90 minutes, no dev background required.',
       },
       {
-        title: 'Give Your Agent Real Tools',
-        concepts: 'MCP read/write, system updates, Trust Gradient',
-        build: 'Agent that reads and updates your systems autonomously',
-        example: "Agent reads Fawnly's CRM, updates deal stages, and logs next steps",
+        title: 'Deploy Cloud-Based Agentic Automation',
+        description: 'Build your first workflow that runs, decides, and publishes without you touching it.',
       },
       {
-        title: 'Build an Agent That Watches and Decides',
-        concepts: 'Condition monitoring, approval flows, reactive agents',
-        build: 'Agent that monitors for a trigger and acts when conditions are met',
-        example: 'Agent watches for new competitor product launches and alerts with a recommended response',
+        title: 'Create a Second Brain with AI',
+        description: 'Give your AI the context it needs to do your job well, starting with a knowledge base and build brief for your custom workflow.',
       },
       {
-        title: 'Build an Agent Team That Executes at Scale',
-        concepts: 'Batch processing, structured output, agent specialization',
-        build: 'Agent team that runs a repetitive process with no manual input',
-        example: 'Agent team processes 50 influencer profiles and outputs a ranked shortlist',
+        title: 'Launch Your Custom Agentic Workflow',
+        description: 'Build an automation for a critical task on your roadmap and push it live.',
       },
       {
-        title: 'Ship a Full Agent Pipeline',
-        concepts: 'Agent-to-agent handoffs, end-to-end automation',
-        build: 'Full pipeline from first message to sale with no manual steps',
-        example: 'Pipeline that turns an inbound inquiry into a proposal, follow-up, and closed deal',
+        title: 'Build an Eval System + Demo Day',
+        description: 'Build a system that catches its own mistakes, then show the cohort the automation you’ve built.',
       },
     ],
     faqs: [

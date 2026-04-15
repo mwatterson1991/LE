@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { courseData, allCourses, ENROLL_URLS, SESSION_SCHEDULES } from './courseData'
+import posthog from 'posthog-js'
+import { courseData, allCourses, ENROLL_URLS, COURSE_COHORTS, SESSION_SCHEDULES } from './courseData'
 import './CoursePage.css'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CountdownTimer from '../components/CountdownTimer'
 import CardSwap, { Card } from '../components/CardSwap'
+import CohortPicker from '../components/CohortPicker'
+
+function getDefaultCohort(cohorts) {
+  const now = new Date()
+  return (
+    cohorts.find(c => c.enrollUrl && new Date(c.iso) >= now) ||
+    cohorts.find(c => c.enrollUrl) ||
+    cohorts[0]
+  )
+}
 
 const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
 
@@ -93,8 +104,15 @@ function SessionItem({ session, num, open, onToggle, sessionDate }) {
         </div>
         <div className="faq-a">
           <div className="cp-session-detail">
-            <p><strong>Concepts covered:</strong> {session.concepts}</p>
-            <p><strong>Build exercise:</strong> {session.build}</p>
+            {session.description && (
+              <p>{session.description}</p>
+            )}
+            {session.concepts && (
+              <p><strong>Concepts covered:</strong> {session.concepts}</p>
+            )}
+            {session.build && (
+              <p><strong>Build exercise:</strong> {session.build}</p>
+            )}
             <p className="cp-session-note">
               Practice environment included: You'll work through every exercise in a shared live business environment built for this course.
             </p>
@@ -106,18 +124,25 @@ function SessionItem({ session, num, open, onToggle, sessionDate }) {
 }
 
 /* ─── Enroll CTA block ─── */
-function EnrollBlock({ nextCohort, enrollUrl, size = 'normal', centered = false }) {
+function EnrollBlock({ nextCohort, enrollUrl, size = 'normal', centered = false, onClick }) {
   const isLg = size === 'lg'
   return (
     <div className={`cp-enroll-block${centered ? ' cp-enroll-block--centered' : ''}`}>
-      <a
-        href={enrollUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`btn btn-primary${isLg ? ' btn-lg' : ''}`}
-      >
-        Enroll Now <span className="arrow">&rarr;</span>
-      </a>
+      {enrollUrl ? (
+        <a
+          href={enrollUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`btn btn-primary${isLg ? ' btn-lg' : ''}`}
+          onClick={onClick}
+        >
+          Enroll Now <span className="arrow">&rarr;</span>
+        </a>
+      ) : (
+        <span className={`btn btn-primary${isLg ? ' btn-lg' : ''}`} style={{ opacity: 0.5, cursor: 'default', pointerEvents: 'none' }}>
+          Coming Soon
+        </span>
+      )}
     </div>
   )
 }
@@ -286,8 +311,15 @@ function DiscountPopup({ courseName }) {
 export default function CoursePage({ courseId }) {
   const id = courseId
   const course = courseData[id]
-  const enrollUrl = ENROLL_URLS[id]
+  const cohorts = COURSE_COHORTS[id] || []
+  const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(cohorts))
+  const enrollUrl = selectedCohort?.enrollUrl ?? null
   const schedule = SESSION_SCHEDULES[id] || []
+
+  const handleCohortChange = (cohort) => {
+    setSelectedCohort(cohort)
+    posthog.capture('cp--cohort_selected', { level: id, cohort: cohort.iso })
+  }
 
   const [openSession, setOpenSession] = useState(null)
   const [openFaq, setOpenFaq] = useState(null)
@@ -316,15 +348,19 @@ export default function CoursePage({ courseId }) {
           </a>
           <span className="cp-nav-cohort">
             <span className="cp-nav-cohort-label">Next cohort</span>
-            <span className="cp-nav-cohort-date">Starts {course.nextCohort.split(' – ')[0]}</span>
+            <span className="cp-nav-cohort-date">Starts {selectedCohort?.label ?? course.nextCohort.split(' – ')[0]}</span>
           </span>
           <div className="cp-nav-right">
             <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm cp-nav-sales-btn">
               Talk to Our Team
             </a>
-            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
-              Enroll Now
-            </a>
+            {enrollUrl ? (
+              <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" onClick={() => posthog.capture('cp--enroll_cta_click', { source: 'nav', level: id, cohort: selectedCohort?.iso })}>
+                Enroll Now
+              </a>
+            ) : (
+              <span className="btn btn-primary btn-sm" style={{ opacity: 0.5, cursor: 'default', pointerEvents: 'none' }}>Coming Soon</span>
+            )}
           </div>
         </div>
       </nav>
@@ -349,7 +385,8 @@ export default function CoursePage({ courseId }) {
             {course.ableToBlurb && <> After this 6-session course, you'll be able to {course.ableToBlurb}</>}
           </p>
 
-          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" />
+          <CohortPicker cohorts={cohorts} selected={selectedCohort} onChange={handleCohortChange} />
+          <EnrollBlock nextCohort={course.nextCohort} enrollUrl={enrollUrl} size="lg" onClick={() => posthog.capture('cp--enroll_cta_click', { source: 'hero', level: id, cohort: selectedCohort?.iso })} />
 
           <div className="cp-hero-social">
             <span className="cp-hero-stars">★★★★★</span>
@@ -496,9 +533,13 @@ export default function CoursePage({ courseId }) {
               <span className="value-stack-crossed">$2,500+ value</span>
               <span className="value-stack-price">$999</span>
             </div>
-            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta">
-              Enroll Now <span className="arrow">&rarr;</span>
-            </a>
+            {enrollUrl ? (
+              <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta" onClick={() => posthog.capture('cp--enroll_cta_click', { source: 'value-stack', level: id, cohort: selectedCohort?.iso })}>
+                Enroll Now <span className="arrow">&rarr;</span>
+              </a>
+            ) : (
+              <span className="btn btn-primary btn-lg value-stack-cta" style={{ opacity: 0.5, cursor: 'default', pointerEvents: 'none' }}>Coming Soon</span>
+            )}
             <span className="value-stack-subtext">Next cohort: {course.nextCohort} &middot; Payment plans available</span>
           </div>
         </div>
@@ -916,9 +957,13 @@ export default function CoursePage({ courseId }) {
             <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
               Talk to Our Team
             </a>
-            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
-              Enroll Now <span className="arrow">&rarr;</span>
-            </a>
+            {enrollUrl ? (
+              <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('cp--enroll_cta_click', { source: 'footer', level: id, cohort: selectedCohort?.iso })}>
+                Enroll Now <span className="arrow">&rarr;</span>
+              </a>
+            ) : (
+              <span className="btn btn-primary btn-lg" style={{ opacity: 0.5, cursor: 'default', pointerEvents: 'none' }}>Coming Soon</span>
+            )}
           </div>
         </div>
       </section>

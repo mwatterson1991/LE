@@ -1565,6 +1565,84 @@ nav .btn {
   border-top: 1px solid rgba(255,255,255,0.09);
   margin: 12px 0;
 }
+.cohort-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.cohort-picker-label {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.cohort-picker-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cohort-picker-btn {
+  font-family: var(--font-meta);
+  font-size: 13px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  letter-spacing: 0.02em;
+  border-radius: 4px;
+}
+.cohort-picker-btn:hover:not(:disabled) {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+.cohort-picker-btn-active {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+.cohort-picker-btn-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+.cohort-picker-soon {
+  font-size: 10px;
+  opacity: 0.7;
+}
+.cohort-picker-times {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cohort-picker-times-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.cohort-picker-times-day {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  min-width: 68px;
+  flex-shrink: 0;
+}
+.cohort-picker-times-value {
+  font-family: var(--font-meta);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.cohort-picker-times-note {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
 .accordion-price {
   color: var(--accent);
   font-size: 24px;

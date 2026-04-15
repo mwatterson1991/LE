@@ -7,6 +7,7 @@ import CoursePage from './pages/CoursePage'
 import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import GetThisExpensed from './components/GetThisExpensed'
+import CohortPicker from './components/CohortPicker'
 
 const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)'
 const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
@@ -111,7 +112,23 @@ function FaqItem({ question, answer, index, open, onToggle }) {
   )
 }
 
+function getDefaultCohort(cohorts) {
+  const now = new Date()
+  return (
+    cohorts.find(c => c.enrollUrl && new Date(c.iso) >= now) ||
+    cohorts.find(c => c.enrollUrl) ||
+    cohorts[0]
+  )
+}
+
 function CourseAccordionItem({ course, open, onToggle }) {
+  const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
+  const enrollUrl = selectedCohort?.enrollUrl ?? course.enrollUrl
+
+  const handleCohortChange = (cohort) => {
+    setSelectedCohort(cohort)
+    posthog.capture('app--cohort_selected', { level: course.num, cohort: cohort.iso })
+  }
   return (
     <div className={`accordion-item${open ? ' open' : ''}`} id={course.id}>
       <div className="accordion-header" onClick={onToggle}>
@@ -127,38 +144,49 @@ function CourseAccordionItem({ course, open, onToggle }) {
       <div className="accordion-body">
         <div className="accordion-sessions">
           <div className="course-sessions-label">Curriculum</div>
-          {course.sessions.map((session, i) => (
-            <div className="course-session" key={i}>
-              <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
-              <div className="course-session-text">
-                <span className="course-session-title">{session.title}</span>
-                <span className="course-session-sub">{session.sub}</span>
-                {session.date && <span className="course-session-datetime">{session.date} &middot; {session.time}</span>}
+          {course.sessions.map((session, i) => {
+            const cohortSession = selectedCohort?.cohortSessions?.[i]
+            const displayDate = cohortSession?.date ?? session.date
+            const displayTime = cohortSession?.time ?? session.time
+            return (
+              <div className="course-session" key={i}>
+                <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
+                <div className="course-session-text">
+                  <span className="course-session-title">{session.title}</span>
+                  <span className="course-session-sub">{session.sub}</span>
+                  {displayDate && <span className="course-session-datetime">{displayDate} &middot; {displayTime}</span>}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
         <div className="accordion-meta">
           <div className="accordion-meta-row">
             <span className="accordion-meta-label">Schedule</span>
-            <span className="accordion-meta-value">Tuesdays & Fridays &middot; 3 Weeks</span>
+            <span className="accordion-meta-value">{selectedCohort?.scheduleDays ?? 'Tuesdays & Fridays'} &middot; 3 Weeks</span>
+          </div>
+          <div className="accordion-meta-row">
+            <span className="accordion-meta-label">Format</span>
+            <span className="accordion-meta-value">6 Sessions &middot; 90 min each</span>
           </div>
           <hr className="accordion-meta-divider" />
-          <div className="accordion-meta-row">
-            <span className="accordion-meta-label">Next Cohort</span>
-            <span className="accordion-meta-value">{course.cohorts[0].date}</span>
-          </div>
-          {course.cohorts.length > 1 && (
-            <div className="accordion-meta-row">
-              <span className="accordion-meta-label">Also runs {course.cohorts.slice(1).map(c => c.date).join(' & ')}</span>
-            </div>
-          )}
+          <CohortPicker
+            cohorts={course.cohorts}
+            selected={selectedCohort}
+            onChange={handleCohortChange}
+          />
           <span className="accordion-price">{course.price}</span>
-          <a href={course.enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'course-accordion', level: course.num })}>
-            Enroll Now
-            <span className="arrow">&rarr;</span>
-          </a>
-          <a href={course.learnMoreUrl} className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }} onClick={() => posthog.capture('app--learn_more_click', { source: 'course-accordion', level: course.num })}>
+          {enrollUrl ? (
+            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'course-accordion', level: course.num })}>
+              Enroll Now
+              <span className="arrow">&rarr;</span>
+            </a>
+          ) : (
+            <span className="btn btn-primary" style={{ opacity: 0.5, cursor: 'default', pointerEvents: 'none' }}>
+              Coming Soon
+            </span>
+          )}
+          <a href={course.learnMoreUrl} className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }} onClick={() => posthog.capture('app--learn_more_click', { source: 'course-accordion', level: course.num, cohort: selectedCohort?.iso })}>
             Learn More
             <span className="arrow">&rarr;</span>
           </a>
@@ -478,17 +506,17 @@ function HomePage() {
       tagline: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Transform How You Work Forever', sub: 'AI tool selection, iterative prompting, and turning messy notes into structured outputs.', date: 'Tue, Apr 21', time: '2pm PT / 5pm ET' },
-        { title: 'Let AI Research and Synthesize for You', sub: 'Use AI to research markets, synthesize findings, and produce strategic deliverables.', date: 'Fri, Apr 24', time: '8am PT / 11am ET' },
-        { title: 'Analyze Data in Minutes, Not Hours', sub: 'Work with spreadsheets, build financial models, and create visualizations using AI.', date: 'Tue, Apr 28', time: '2pm PT / 5pm ET' },
-        { title: 'Build a Workflow That Runs Daily', sub: 'Chain prompts into repeatable workflows that surface leads and opportunities automatically.', date: 'Fri, May 1', time: '8am PT / 11am ET' },
-        { title: 'Make Every Output Sound Like You', sub: 'Teach AI your voice and build personalized multi-touch communication sequences.', date: 'Tue, May 5', time: '2pm PT / 5pm ET' },
-        { title: 'Build an End-to-End Process Workflow', sub: 'Connect research inputs to automated outputs with human-in-the-loop checkpoints.', date: 'Fri, May 8', time: '8am PT / 11am ET' },
+        { title: 'Build a Real Product with World-Class Design', sub: 'Create a new product in 90 minutes, without writing a line of code, using a design system that you love.', date: 'Tue, Apr 21', time: '9–10:30am or 2–3:30pm MT' },
+        { title: 'Automate Communication in Your Voice', sub: 'Connect your communication tools, teach AI how you write, and set it up to manage your inbox.', date: 'Fri, Apr 24', time: '9–10:30am or 2–3:30pm MT' },
+        { title: 'Design Presentations That Build Themselves', sub: 'Go from research question to polished, animated slide deck in a single session.', date: 'Tue, Apr 28', time: '9–10:30am or 2–3:30pm MT' },
+        { title: 'Analyze and Visualize Data Without Writing Formulas', sub: 'Go from data and spreadsheets to dashboards and insights in minutes.', date: 'Fri, May 1', time: '9–10:30am or 2–3:30pm MT' },
+        { title: 'Build Custom Workflows That Run While You Sleep', sub: 'Set up automations that run on a schedule, connect your tools, and get things done whether you\'re at your desk or not.', date: 'Tue, May 5', time: '9–10:30am or 2–3:30pm MT' },
+        { title: 'Launch Your AI System + Demo Day', sub: 'Cross the finish line with a live, working AI system and show the cohort what you built.', date: 'Fri, May 8', time: '9–10:30am or 2–3:30pm MT' },
       ],
       cohorts: [
-        { month: 'APR', day: '21', date: 'April 21' },
-        { month: 'MAY', day: '19', date: 'May 19' },
-        { month: 'JUN', day: '16', date: 'June 16' },
+        { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9–10:30am MT', afternoon: '2–3:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, Apr 24', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, Apr 28', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 1', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, May 5', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 8', time: '9–10:30am or 2–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)' },
+        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Thursdays', sessionTimes: { morning: '9:30am MT', afternoon: '4:00pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 15', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 19', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 22', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 26', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 29', time: '9:30am or 4:00pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69cde5b386908d8f28a679ad)' },
+        { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: null },
       ],
       levelIndex: 0,
       price: '$999',
@@ -502,17 +530,17 @@ function HomePage() {
       tagline: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks.",
       tags: ['Tuesdays and Fridays', '3 Weeks'],
       sessions: [
-        { title: 'Ship Your First Agent', sub: 'Build a research agent that takes an input and returns a structured brief autonomously.', date: 'Tue, Apr 21', time: '4pm PT / 7pm ET' },
-        { title: 'Build an Agent That Writes in Your Voice', sub: 'Create an agent that reads structured input and produces personalized messages in your voice consistently.', date: 'Fri, Apr 24', time: '10am PT / 1pm ET' },
-        { title: 'Give Your Agent Real Tools', sub: 'Build an agent that reads from live systems, takes action, and logs every write automatically.', date: 'Tue, Apr 28', time: '4pm PT / 7pm ET' },
-        { title: 'Build an Agent That Watches and Decides', sub: 'Build an agent that checks conditions, drafts suggested actions, and executes only after your approval.', date: 'Fri, May 1', time: '10am PT / 1pm ET' },
-        { title: 'Run Your Agents at Scale', sub: 'Process entire lists with an agent that enriches every row with structured data without manual prompting.', date: 'Tue, May 5', time: '4pm PT / 7pm ET' },
-        { title: 'Build Your First Agent Team', sub: 'Chain a research agent and writing agent with a clean handoff so input flows to finished output.', date: 'Fri, May 8', time: '10am PT / 1pm ET' },
+        { title: 'Build Your Automation Roadmap', sub: 'Figure out exactly where your time is going and turn that into a prioritized AI build plan you\'ll actually execute.', date: 'Tue, Apr 21', time: '5–6:30pm MT' },
+        { title: 'Ship Production-Ready Software', sub: 'Go from idea to deployed app with a live URL in 90 minutes, no dev background required.', date: 'Fri, Apr 24', time: '11am–12:30pm MT' },
+        { title: 'Deploy Cloud-Based Agentic Automation', sub: 'Build your first workflow that runs, decides, and publishes without you touching it.', date: 'Tue, Apr 28', time: '5–6:30pm MT' },
+        { title: 'Create a Second Brain with AI', sub: 'Give your AI the context it needs to do your job well, starting with a knowledge base and build brief for your custom workflow.', date: 'Fri, May 1', time: '11am–12:30pm MT' },
+        { title: 'Launch Your Custom Agentic Workflow', sub: 'Build an automation for a critical task on your roadmap and push it live.', date: 'Tue, May 5', time: '5–6:30pm MT' },
+        { title: 'Build an Eval System + Demo Day', sub: 'Build a system that catches its own mistakes, then show the cohort the automation you\'ve built.', date: 'Fri, May 8', time: '11am–12:30pm MT' },
       ],
       cohorts: [
-        { month: 'APR', day: '21', date: 'April 21' },
-        { month: 'MAY', day: '19', date: 'May 19' },
-        { month: 'JUN', day: '16', date: 'June 16' },
+        { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '5–6:30pm MT' }, { date: 'Fri, Apr 24', time: '11am–12:30pm MT' }, { date: 'Tue, Apr 28', time: '5–6:30pm MT' }, { date: 'Fri, May 1', time: '11am–12:30pm MT' }, { date: 'Tue, May 5', time: '5–6:30pm MT' }, { date: 'Fri, May 8', time: '11am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)' },
+        { month: 'MAY', day: '19', date: 'May 19', label: 'May 19', iso: '2026-05-19', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 19', time: '5–6:30pm MT' }, { date: 'Fri, May 22', time: '11am–12:30pm MT' }, { date: 'Tue, May 26', time: '5–6:30pm MT' }, { date: 'Fri, May 29', time: '11am–12:30pm MT' }, { date: 'Tue, Jun 2', time: '5–6:30pm MT' }, { date: 'Fri, Jun 5', time: '11am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)' },
+        { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, enrollUrl: null },
       ],
       levelIndex: 1,
       price: '$999',
@@ -534,9 +562,9 @@ function HomePage() {
         { title: 'Ship an Internal Tool Without a Developer', sub: 'Use AI as your developer to build a working internal tool connected to live data from your stack.', date: 'Fri, Jun 5', time: '8am PT / 11am ET' },
       ],
       cohorts: [
-        { month: 'MAY', day: '19', date: 'May 19' },
-        { month: 'JUN', day: '16', date: 'June 16' },
-        { month: 'JUL', day: '14', date: 'July 14' },
+        { month: 'MAY', day: '19', date: 'May 19', label: 'May 19', iso: '2026-05-19', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, May 19', time: '2pm PT / 5pm ET' }, { date: 'Fri, May 22', time: '8am PT / 11am ET' }, { date: 'Tue, May 26', time: '2pm PT / 5pm ET' }, { date: 'Fri, May 29', time: '8am PT / 11am ET' }, { date: 'Tue, Jun 2', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jun 5', time: '8am PT / 11am ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)' },
+        { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Jun 16', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jun 19', time: '8am PT / 11am ET' }, { date: 'Tue, Jun 23', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jun 26', time: '8am PT / 11am ET' }, { date: 'Tue, Jun 30', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jul 3', time: '8am PT / 11am ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
+        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', enrollUrl: null },
       ],
       levelIndex: 2,
       price: '$999',
@@ -558,9 +586,9 @@ function HomePage() {
         { title: 'Ship a Goal-Directed Delivery System', sub: 'Deploy an end-to-end autonomous pipeline with evals and human checkpoints.', date: 'Fri, Jul 3', time: '2pm PT / 5pm ET' },
       ],
       cohorts: [
-        { month: 'JUN', day: '16', date: 'June 16' },
-        { month: 'JUL', day: '14', date: 'July 14' },
-        { month: 'AUG', day: '11', date: 'August 11' },
+        { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Jun 16', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jun 19', time: '8am PT / 11am ET' }, { date: 'Tue, Jun 23', time: '8am PT / 11am ET' }, { date: 'Fri, Jun 26', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jun 30', time: '8am PT / 11am ET' }, { date: 'Fri, Jul 3', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69bd6f92ca371b83aa557c0c)' },
+        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Jul 14', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jul 17', time: '8am PT / 11am ET' }, { date: 'Tue, Jul 21', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jul 24', time: '8am PT / 11am ET' }, { date: 'Tue, Jul 28', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jul 31', time: '8am PT / 11am ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
+        { month: 'AUG', day: '11', date: 'August 11', label: 'August 11', iso: '2026-08-11', scheduleDays: 'Tuesdays & Fridays', enrollUrl: null },
       ],
       levelIndex: 3,
       price: '$999',
@@ -582,9 +610,9 @@ function HomePage() {
         { title: 'Build a System That Runs a Business', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input.', date: 'Fri, Jul 31', time: '2pm PT / 5pm ET' },
       ],
       cohorts: [
-        { month: 'JUL', day: '14', date: 'July 14' },
-        { month: 'AUG', day: '11', date: 'August 11' },
-        { month: 'SEP', day: '8', date: 'September 8' },
+        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Jul 14', time: '8am PT / 11am ET' }, { date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jul 21', time: '8am PT / 11am ET' }, { date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jul 28', time: '8am PT / 11am ET' }, { date: 'Fri, Jul 31', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)' },
+        { month: 'AUG', day: '11', date: 'August 11', label: 'August 11', iso: '2026-08-11', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Aug 11', time: '8am PT / 11am ET' }, { date: 'Fri, Aug 14', time: '2pm PT / 5pm ET' }, { date: 'Tue, Aug 18', time: '8am PT / 11am ET' }, { date: 'Fri, Aug 21', time: '2pm PT / 5pm ET' }, { date: 'Tue, Aug 25', time: '8am PT / 11am ET' }, { date: 'Fri, Aug 28', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69b19cc2f61c38f9e9bc9066)' },
+        { month: 'SEP', day: '8', date: 'September 8', label: 'September 8', iso: '2026-09-08', scheduleDays: 'Tuesdays & Fridays', enrollUrl: null },
       ],
       levelIndex: 4,
       price: '$999',
