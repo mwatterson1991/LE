@@ -8,7 +8,7 @@ import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import GetThisExpensed from './components/GetThisExpensed'
 
-const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)'
+const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)'
 const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
 /* DISCOUNT POPUP CONSTANTS — commented out 2026-03-17, used only by DiscountPopup below */
 // const HUBSPOT_PORTAL_ID = '22467258'
@@ -494,7 +494,7 @@ function HomePage() {
       price: '$999',
       reversed: false,
       learnMoreUrl: '/level-1',
-      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69af7ea5b3a78d3ad6852270)',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)',
     },
     {
       id: 'course-2', num: '02', type: 'BOOTCAMP',
