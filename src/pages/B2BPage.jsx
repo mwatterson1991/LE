@@ -101,7 +101,7 @@ export default function B2BPage() {
           <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
             className="btn btn-primary btn-sm"
             style={{ textTransform: 'uppercase', borderRadius: '4px', fontSize: '12px' }}>
-            Talk to Our Team &rarr;
+            Talk with Our Team &rarr;
           </a>
         </div>
       </nav>
@@ -349,7 +349,7 @@ export default function B2BPage() {
           <p className="b2b-footer-cta-sub">Tell us where your team is at, and we'll guide you on what to do next.</p>
           <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer"
             className="btn btn-primary btn-lg" style={{ textTransform: 'uppercase' }}>
-            Talk to Our Team <span className="arrow">&rarr;</span>
+            Talk with Our Team <span className="arrow">&rarr;</span>
           </a>
         </div>
       </section>

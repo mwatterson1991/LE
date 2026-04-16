@@ -1,0 +1,58 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Leland//Bootcamp//EN
+BEGIN:VEVENT
+DTSTART:20260421T230000Z
+DTEND:20260421T003000Z
+SUMMARY:L2: Build Your Automation Roadmap
+DESCRIPTION:Figure out exactly where your time is going and turn that into 
+ a prioritized AI build plan you'll actually execute.\n\nAll Leland bootcamp
+  sessions are hosted on the Leland platform. You can join the session here:
+  [appropriate link for the the bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260424T170000Z
+DTEND:20260424T183000Z
+SUMMARY:L2: Ship Production-Ready Software
+DESCRIPTION:Go from idea to deployed app with a live URL in 90 minutes, no 
+ dev background required.\n\nAll Leland bootcamp sessions are hosted on the 
+ Leland platform. You can join the session here: [appropriate link for the t
+ he bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260428T230000Z
+DTEND:20260428T003000Z
+SUMMARY:L2: Deploy Cloud-Based Agentic Automation
+DESCRIPTION:Build your first workflow that runs, decides, and publishes wit
+ hout you touching it.\n\nAll Leland bootcamp sessions are hosted on the Lel
+ and platform. You can join the session here: [appropriate link for the the 
+ bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260501T170000Z
+DTEND:20260501T183000Z
+SUMMARY:L2: Create a Second Brain with AI
+DESCRIPTION:Give your AI the context it needs to do your job well, starting
+  with a knowledge base and build brief for your custom workflow.\n\nAll Lel
+ and bootcamp sessions are hosted on the Leland platform. You can join the s
+ ession here: [appropriate link for the the bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260505T230000Z
+DTEND:20260505T003000Z
+SUMMARY:L2: Launch Your Custom Agentic Workflow
+DESCRIPTION:Build an automation for a critical task on your roadmap and pus
+ h it live.\n\nAll Leland bootcamp sessions are hosted on the Leland platfor
+ m. You can join the session here: [appropriate link for the the bootcamp/co
+ hort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260508T170000Z
+DTEND:20260508T183000Z
+SUMMARY:L2: Build an Eval System + Demo Day
+DESCRIPTION:Build a system that catches its own mistakes, then show the coh
+ ort the automation you’ve built.\n\nAll Leland bootcamp sessions are hosted
+  on the Leland platform. You can join the session here: [appropriate link f
+ or the the bootcamp/cohort on the profile]
+END:VEVENT
+END:VCALENDAR

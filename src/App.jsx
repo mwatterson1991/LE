@@ -603,7 +603,7 @@ function HomePage() {
           </a>
           <div className="nav-cta-pair">
             <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>
-              Talk to Our Team
+              Talk with Our Team
             </a>
             <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ borderRadius: '4px', fontSize: '12px' }} onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
               Enroll Now
@@ -1170,7 +1170,7 @@ function HomePage() {
                   <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="5" y="1" width="4" height="4" fill="currentColor"/><rect x="3" y="6" width="8" height="2" fill="currentColor"/><rect x="1" y="9" width="12" height="4" fill="currentColor"/></svg> Dedicated account manager</li>
                 </ul>
                 <a href="https://calendly.com/d/cyhb-yjg-33f/leland-ai-transformation" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
-                  Talk to Our Team
+                  Talk with Our Team
                   <span className="arrow">&rarr;</span>
                 </a>
               </div>
@@ -1200,7 +1200,7 @@ function HomePage() {
           <p className="footer-cta-sub">Our next cohort starts April 21</p>
           <div className="cta-pair">
             <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'footer' })}>
-              Talk to Our Team
+              Talk with Our Team
             </a>
             <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'footer' })}>
               Enroll Now <span className="arrow">&rarr;</span>

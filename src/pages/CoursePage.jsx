@@ -267,7 +267,7 @@ export default function CoursePage({ courseId }) {
           </span>
           <div className="cp-nav-right">
             <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm cp-nav-sales-btn">
-              Talk to Our Team
+              Talk with Our Team
             </a>
             {enrollUrl ? (
               <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" onClick={() => posthog.capture('cp--enroll_cta_click', { source: 'nav', level: id, cohort: selectedCohort?.iso })}>
@@ -838,7 +838,7 @@ export default function CoursePage({ courseId }) {
                   <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="5" y="1" width="4" height="4" fill="currentColor"/><rect x="3" y="6" width="8" height="2" fill="currentColor"/><rect x="1" y="9" width="12" height="4" fill="currentColor"/></svg> Dedicated account manager</li>
                 </ul>
                 <a href="https://calendly.com/d/cyhb-yjg-33f/leland-ai-transformation" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
-                  Talk to Our Team <span className="arrow">&rarr;</span>
+                  Talk with Our Team <span className="arrow">&rarr;</span>
                 </a>
               </div>
             </div>
@@ -870,7 +870,7 @@ export default function CoursePage({ courseId }) {
           <p className="footer-cta-sub">Our next cohort starts {course.nextCohort}</p>
           <div className="cta-pair">
             <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
-              Talk to Our Team
+              Talk with Our Team
             </a>
             {enrollUrl ? (
               <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('cp--enroll_cta_click', { source: 'footer', level: id, cohort: selectedCohort?.iso })}>

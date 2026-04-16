@@ -22,6 +22,7 @@ export default defineConfig({
         'level-1-lp': resolve(__dirname, 'level-1-lp.html'),
         'bundle-3': resolve(__dirname, 'bundle-3.html'),
         'bundle-5': resolve(__dirname, 'bundle-5.html'),
+        'leland-ai-builders-b2b': resolve(__dirname, 'leland-ai-builders-b2b.html'),
       }
     }
   }
