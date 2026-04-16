@@ -221,91 +221,6 @@ function LevelPyramid({ activeId }) {
   )
 }
 
-/* ─── Discount popup ─── */
-const HUBSPOT_PORTAL_ID = '22467258'
-const HUBSPOT_FORM_GUID = '9672b824-d24d-4407-a7bd-e045b3910388'
-
-function DiscountPopup({ courseName }) {
-  const [visible, setVisible] = useState(false)
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    if (sessionStorage.getItem('discount_popup_dismissed')) return
-    const timer = setTimeout(() => setVisible(true), 15000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  const handleClose = () => {
-    setVisible(false)
-    sessionStorage.setItem('discount_popup_dismissed', '1')
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Please enter a valid email address')
-      return
-    }
-    setError('')
-    sessionStorage.setItem('discount_popup_dismissed', '1')
-    localStorage.setItem('discount_email', email)
-    try {
-      await fetch(
-        `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fields: [{ name: 'email', value: email }],
-            context: { pageUri: window.location.href, pageName: `Leland AI Builder Program — ${courseName}` },
-          }),
-        }
-      )
-    } catch (_) { } // silent fail
-    setSubmitted(true)
-  }
-
-  if (!visible) return null
-
-  return (
-    <div className="popup-overlay" onClick={handleClose}>
-      <div className="popup-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="popup-close" onClick={handleClose}>&times;</button>
-        {submitted ? (
-          <div className="popup-success">
-            <span className="popup-success-icon">&#10003;</span>
-            <h3>You're in!</h3>
-            <p>Check your email for your discount code.</p>
-          </div>
-        ) : (
-          <>
-            <div className="popup-badge">LIMITED OFFER</div>
-            <h3 className="popup-title">Get 50% off</h3>
-            <p className="popup-sub">Enter your email to receive an exclusive discount on {courseName}.</p>
-            <p className="popup-expiry">Offer expires April 1st</p>
-            <form className="popup-form" onSubmit={handleSubmit}>
-              <input
-                type="email"
-                name="email"
-                className="popup-input"
-                placeholder="you@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoFocus
-              />
-              {error && <span className="popup-error">{error}</span>}
-              <button type="submit" className="btn btn-primary popup-submit">Claim My Discount</button>
-            </form>
-            <span className="popup-legal">By continuing you agree to our <a href="https://www.joinleland.com/legal/terms" target="_blank" rel="noopener noreferrer">terms</a> and <a href="https://www.joinleland.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</span>
-            <span className="popup-dismiss" onClick={handleClose}>No thanks</span>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
 
 /* ─── Main CoursePage ─── */
 export default function CoursePage({ courseId }) {
@@ -974,9 +889,6 @@ export default function CoursePage({ courseId }) {
           <p>&copy; 2026 <a href="https://www.joinleland.com">Leland</a>. All rights reserved.</p>
         </div>
       </footer>
-
-      {/* ── DISCOUNT POPUP ── */}
-      <DiscountPopup courseName={course.name} />
 
     </div>
   )

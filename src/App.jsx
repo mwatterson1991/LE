@@ -11,9 +11,6 @@ import CohortPicker from './components/CohortPicker'
 
 const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)'
 const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
-/* DISCOUNT POPUP CONSTANTS — commented out 2026-03-17, used only by DiscountPopup below */
-// const HUBSPOT_PORTAL_ID = '22467258'
-// const HUBSPOT_FORM_GUID = '9672b824-d24d-4407-a7bd-e045b3910388'
 
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
@@ -322,93 +319,6 @@ function ValueStack({ id, headline }) {
     </section>
   )
 }
-
-/* DISCOUNT POPUP — commented out 2026-03-17, remove distraction for targeted traffic.
-   To re-enable: uncomment DiscountPopup function below and render call in HomePage.
-   HubSpot form: portal 22467258, form GUID 9672b824-d24d-4407-a7bd-e045b3910388
-   Email gate: captures email first, then sends $200 code via email. */
-/*
-function DiscountPopup() {
-  const [visible, setVisible] = useState(false)
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    if (sessionStorage.getItem('discount_popup_dismissed')) return
-    const timer = setTimeout(() => setVisible(true), 15000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  const handleClose = () => {
-    setVisible(false)
-    sessionStorage.setItem('discount_popup_dismissed', '1')
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Please enter a valid email address')
-      return
-    }
-    setError('')
-    sessionStorage.setItem('discount_popup_dismissed', '1')
-    localStorage.setItem('discount_email', email)
-    try {
-      await fetch(
-        `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fields: [{ name: 'email', value: email }],
-            context: { pageUri: window.location.href, pageName: 'Leland AI Builder Program Landing Page' },
-          }),
-        }
-      )
-    } catch (_) { } // silent fail
-    setSubmitted(true)
-  }
-
-  if (!visible) return null
-
-  return (
-    <div className="popup-overlay" onClick={handleClose}>
-      <div className="popup-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="popup-close" onClick={handleClose}>&times;</button>
-        {submitted ? (
-          <div className="popup-success">
-            <span className="popup-success-icon">&#10003;</span>
-            <h3>You're in!</h3>
-            <p>Check your email for your $200 discount code.</p>
-          </div>
-        ) : (
-          <>
-            <div className="popup-badge">LIMITED OFFER</div>
-            <h3 className="popup-title">Get $200 off</h3>
-            <p className="popup-sub">Enter your email to receive an exclusive $200 discount on Use AI to 10x Your Impact.</p>
-            <form className="popup-form" onSubmit={handleSubmit}>
-              <input
-                type="email"
-                name="email"
-                className="popup-input"
-                placeholder="you@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoFocus
-              />
-              {error && <span className="popup-error">{error}</span>}
-              <button type="submit" className="btn btn-primary popup-submit">Claim My Discount</button>
-            </form>
-            <span className="popup-legal">By continuing you agree to our <a href="https://www.joinleland.com/legal/terms" target="_blank" rel="noopener noreferrer">terms</a> and <a href="https://www.joinleland.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</span>
-            <span className="popup-dismiss" onClick={handleClose}>No thanks</span>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
-*/
 
 
 function RotatingText({ items, interval = 2500 }) {
@@ -1306,8 +1216,6 @@ function HomePage() {
         </div>
       </footer>
 
-      {/* Popups */}
-      {/* <DiscountPopup /> — commented out 2026-03-17, see DiscountPopup function above to re-enable */}
     </>
   )
 }
