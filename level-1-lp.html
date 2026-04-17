@@ -1774,8 +1774,8 @@ footer {
   section { padding: 48px 0; }
   .header-countdown { display: none; }
   .header-cta { padding: 8px 16px; font-size: 10px; }
-  .header-cta-pair { width: 100%; justify-content: center; }
-  .header-cta-pair .header-cta { flex: 1; text-align: center; justify-content: center; }
+  .header-cta-pair { width: 100%; flex-direction: column; gap: 8px; }
+  .header-cta-pair .header-cta { width: 100%; text-align: center; justify-content: center; }
   .mobile-countdown { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
   .mobile-countdown .countdown-boxes { gap: 4px; margin: 0; }
   .mobile-countdown .countdown-box { padding: 4px 6px; min-width: 34px; }
@@ -1911,7 +1911,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <div class="header-cta-pair">
-      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_content=lp-nav-cta" target="_blank" rel="noopener noreferrer" class="btn-lime-outline header-cta" style="border-width:1.5px;">SCHEDULE A CALL</a>
+      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_content=lp-nav-cta" target="_blank" rel="noopener noreferrer" class="btn-lime-outline header-cta" style="border-width:1.5px;">SPEAK WITH AI EXPERT</a>
       <a href="#pricing" class="btn-lime header-cta">ENROLL NOW</a>
     </div>
   </div>
@@ -2610,7 +2610,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="mid-cta-sub">Join the 26,000+ who have achieved their goals with Leland.</p>
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
       <a href="#pricing" class="btn-lime">Enroll Now &rarr;</a>
-      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_content=lp-mid-cta" target="_blank" rel="noopener noreferrer" class="btn-lime-outline">Schedule a Call &rarr;</a>
+      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_content=lp-mid-cta" target="_blank" rel="noopener noreferrer" class="btn-lime-outline">Speak With AI Expert &rarr;</a>
     </div>
   </div>
 </section>
@@ -2913,7 +2913,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 560px; margin: 16px auto 32px;">Walk away with a verified certificate, a personal AI toolkit, and the confidence to build with AI every day. Backed by our Best Course Guarantee.</p>
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
       <a href="#pricing" class="btn-lime">Enroll Now &rarr;</a>
-      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_content=lp-footer-cta" target="_blank" rel="noopener noreferrer" class="btn-lime-outline">Schedule a Call &rarr;</a>
+      <a href="https://joinleland.typeform.com/to/Gp54Gdd4?utm_content=lp-footer-cta" target="_blank" rel="noopener noreferrer" class="btn-lime-outline">Speak With AI Expert &rarr;</a>
     </div>
   </div>
 </section>
@@ -3314,6 +3314,17 @@ document.querySelectorAll('.cm-enroll-btn:not(.disabled)').forEach(function(btn)
   });
 });
 // Intercept all Enroll Now buttons — detect source by section
+// Dynamically offset hero by fixed header height
+function adjustHeroOffset() {
+  var header = document.querySelector('header');
+  var hero = document.querySelector('.hero');
+  if (header && hero) {
+    hero.style.paddingTop = (header.offsetHeight + 16) + 'px';
+  }
+}
+adjustHeroOffset();
+window.addEventListener('resize', adjustHeroOffset);
+
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.btn-lime, .btn-lime-outline').forEach(function(btn) {
     var text = btn.textContent.trim().toLowerCase();
@@ -3330,7 +3341,7 @@ document.addEventListener('DOMContentLoaded', function() {
         openCohortModal(source);
       });
     }
-    if (text.indexOf('schedule') !== -1) {
+    if (text.indexOf('speak') !== -1) {
       btn.addEventListener('click', function() {
         var section = btn.closest('section, header, div[class*="hero"], div[class*="pricing"], div[class*="cta"], div[class*="footer"]');
         var source = section ? (section.className || section.tagName).split(' ')[0] : 'unknown';
