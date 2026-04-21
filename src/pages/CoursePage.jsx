@@ -10,8 +10,8 @@ import CohortPicker from '../components/CohortPicker'
 function getDefaultCohort(cohorts) {
   const now = new Date()
   return (
-    cohorts.find(c => c.enrollUrl && new Date(c.iso) >= now) ||
-    cohorts.find(c => c.enrollUrl) ||
+    cohorts.find(c => c.enrollUrl && !c.soldOut && new Date(c.iso) >= now) ||
+    cohorts.find(c => c.enrollUrl && !c.soldOut) ||
     cohorts[0]
   )
 }

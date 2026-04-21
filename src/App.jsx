@@ -112,15 +112,15 @@ function FaqItem({ question, answer, index, open, onToggle }) {
 function getDefaultCohort(cohorts) {
   const now = new Date()
   return (
-    cohorts.find(c => c.enrollUrl && new Date(c.iso) >= now) ||
-    cohorts.find(c => c.enrollUrl) ||
+    cohorts.find(c => c.enrollUrl && !c.soldOut && new Date(c.iso) >= now) ||
+    cohorts.find(c => c.enrollUrl && !c.soldOut) ||
     cohorts[0]
   )
 }
 
 function CourseAccordionItem({ course, open, onToggle }) {
   const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
-  const enrollUrl = selectedCohort?.enrollUrl ?? course.enrollUrl
+  const enrollUrl = (selectedCohort && !selectedCohort.soldOut ? selectedCohort.enrollUrl : null) ?? course.enrollUrl
 
   const handleCohortChange = (cohort) => {
     setSelectedCohort(cohort)
@@ -424,7 +424,7 @@ function HomePage() {
         { title: 'Launch Your AI System + Demo Day', sub: 'Cross the finish line with a live, working AI system and show the cohort what you built.', date: 'Fri, May 8', time: '9–10:30am or 2–3:30pm MT' },
       ],
       cohorts: [
-        { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9–10:30am MT', afternoon: '2–3:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, Apr 24', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, Apr 28', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 1', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, May 5', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 8', time: '9–10:30am or 2–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)' },
+        { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9–10:30am MT', afternoon: '2–3:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, Apr 24', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, Apr 28', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 1', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, May 5', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 8', time: '9–10:30am or 2–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)', soldOut: true },
         { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Thursdays', sessionTimes: { morning: '9:30am MT', afternoon: '4:00pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 15', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 19', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 22', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 26', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 29', time: '9:30am or 4:00pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)' },
         { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: null },
       ],
@@ -432,7 +432,7 @@ function HomePage() {
       price: '$999',
       reversed: false,
       learnMoreUrl: '/level-1',
-      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)',
     },
     {
       id: 'course-2', num: '02', type: 'BOOTCAMP',
@@ -586,7 +586,7 @@ function HomePage() {
   const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
 
   const trackItems = [
-    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'April 21, 2026', schedule: 'Tuesdays & Fridays', featured: true },
+    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'May 12, 2026', schedule: 'Tuesdays & Thursdays', featured: true },
     { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', schedule: 'Tuesdays & Fridays', secondary: true },
     { num: '03', name: 'Create Autonomous Systems', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026', schedule: 'Tuesdays & Fridays' },
     { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026', schedule: 'Tuesdays & Fridays' },
@@ -830,7 +830,7 @@ function HomePage() {
             <div className="when-where-item">
               <span className="when-where-icon"><LelandIcon name="calendar" /></span>
               <div>
-                <h3>Next cohort: April 21</h3>
+                <h3>Next cohort: May 12</h3>
                 <p>New cohorts start regularly. Pick the date that works for you.</p>
               </div>
             </div>
@@ -1197,7 +1197,7 @@ function HomePage() {
       {/* ====== Footer CTA ====== */}
       <section className="footer-cta">
         <div className="container" style={{ textAlign: 'center' }}>
-          <p className="footer-cta-sub">Our next cohort starts April 21</p>
+          <p className="footer-cta-sub">Our next cohort starts May 12</p>
           <div className="cta-pair">
             <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'footer' })}>
               Talk with Our Team

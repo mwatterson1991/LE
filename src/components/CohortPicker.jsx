@@ -41,17 +41,18 @@ export default function CohortPicker({ cohorts, selected, onChange }) {
       <span className="cohort-picker-label">Select your start date</span>
       <div className="cohort-picker-options">
         {cohorts.map((cohort) => {
-          const disabled = !cohort.enrollUrl
+          const disabled = !cohort.enrollUrl || cohort.soldOut
           return (
             <button
               key={cohort.iso}
               className={`cohort-picker-btn${selected?.iso === cohort.iso ? ' cohort-picker-btn-active' : ''}${disabled ? ' cohort-picker-btn-disabled' : ''}`}
               onClick={() => !disabled && onChange(cohort)}
               disabled={disabled}
-              title={disabled ? 'Coming soon' : undefined}
+              title={cohort.soldOut ? 'Sold out' : disabled ? 'Coming soon' : undefined}
             >
-              {cohort.label}
-              {disabled && <span className="cohort-picker-soon"> · Soon</span>}
+              {cohort.soldOut ? <span style={{ textDecoration: 'line-through' }}>{cohort.label}</span> : cohort.label}
+              {cohort.soldOut && <span className="cohort-picker-soon"> · Sold out</span>}
+              {!cohort.soldOut && !cohort.enrollUrl && <span className="cohort-picker-soon"> · Soon</span>}
             </button>
           )
         })}

@@ -1604,7 +1604,7 @@ nav .btn {
   color: var(--accent) !important;
 }
 .cohort-picker-btn-disabled {
-  opacity: 0.4;
+  opacity: 0.7;
   cursor: not-allowed;
   border-style: dashed;
 }

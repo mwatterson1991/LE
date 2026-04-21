@@ -3116,6 +3116,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   margin-bottom: 3px;
 }
 .cm-row.cm-coming-soon .cm-date { color: #555; }
+.cm-row.cm-sold-out .cm-date { color: #555; text-decoration: line-through; }
 .cm-toggle {
   background: none;
   border: none;
@@ -3215,29 +3216,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div id="cohort-modal-rows">
 
-      <!-- April 21 -->
-      <div class="cm-row">
+      <!-- April 21 — Sold Out -->
+      <div class="cm-row cm-sold-out">
         <div class="cm-row-main">
           <div>
             <div class="cm-date">April 21 – May 8, 2026</div>
-            <button class="cm-toggle" onclick="toggleDetails('d1', this)">Show details</button>
+            <span class="cm-coming-soon-badge">Sold Out</span>
           </div>
-          <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)" target="_blank" rel="noopener noreferrer" class="cm-enroll-btn">Enroll</a>
-        </div>
-        <div id="d1" class="cm-details">
-          <div class="cm-detail-row">
-            <svg class="cm-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            6 sessions — Tuesdays &amp; Fridays &nbsp;·&nbsp; 90 mins each
-          </div>
-          <div class="cm-detail-row">
-            <svg class="cm-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Morning section: 9:00 AM MT
-          </div>
-          <div class="cm-detail-row">
-            <svg class="cm-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Afternoon section: 2:00 PM MT
-          </div>
-          <a href="/syllabus" target="_blank" class="cm-curriculum-link">View curriculum →</a>
+          <span class="cm-enroll-btn disabled">Enroll</span>
         </div>
       </div>
 
