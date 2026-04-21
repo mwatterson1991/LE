@@ -8,8 +8,15 @@ import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import GetThisExpensed from './components/GetThisExpensed'
 import CohortPicker from './components/CohortPicker'
+import { COURSE_COHORTS } from './pages/courseData'
 
-const ENROLL_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)'
+const ENROLL_URL = (() => {
+  const cohorts = COURSE_COHORTS[1] || []
+  const now = new Date()
+  const next = cohorts.find(c => c.enrollUrl && !c.soldOut && new Date(c.iso) >= now)
+    || cohorts.find(c => c.enrollUrl && !c.soldOut)
+  return next?.enrollUrl || cohorts[0]?.enrollUrl
+})()
 const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
 
 const StarIcon = () => (
