@@ -229,7 +229,9 @@ p{color:var(--text-muted)}
 .level .lvl-num b{color:var(--accent);font-weight:400}
 .level h3{font-size:1.15rem;color:var(--text);margin-bottom:14px;min-height:80px;line-height:1.2}
 .level p{font-size:0.92rem;color:var(--text-muted);margin-bottom:20px;flex:1;line-height:1.5}
-.level .meta{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-top:auto;border-top:1px solid var(--line-soft);padding-top:14px;width:100%}
+.level .meta{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-top:auto;border-top:1px solid var(--line-soft);padding-top:14px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.level-arrow{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent);color:#000;font-size:13px;flex-shrink:0;transition:background .15s ease}
+.level:hover .level-arrow{background:#b8f25a}
 .scroll-hint{display:none;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-top:10px;text-align:right}
 .scroll-hint .arr{color:var(--accent)}
 @media (max-width:1100px){ .scroll-hint{display:block} }
@@ -606,31 +608,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="lvl-num"><b>Level 01</b></div>
           <h3>AI Tools &amp; Workflows</h3>
           <p>Produce in 30 minutes what used to take hours: research, analysis, and polished deliverables created on demand.</p>
-          <div class="meta">3 Wk · 6 Sessions · Learn more →</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-2" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
           <div class="lvl-num"><b>Level 02</b></div>
           <h3>AI Agents</h3>
           <p>Ship agents that handle recurring work, in your voice, with your tools, without your supervision.</p>
-          <div class="meta">3 Wk · 6 Sessions · Learn more →</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-3" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
           <div class="lvl-num"><b>Level 03</b></div>
           <h3>Automations</h3>
           <p>Trigger workflows and ship internal tools without writing code or waiting on engineering.</p>
-          <div class="meta">3 Wk · 6 Sessions · Learn more →</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-4" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
           <div class="lvl-num"><b>Level 04</b></div>
           <h3>Multi-Agent Systems</h3>
           <p>Orchestrate agents that pursue goals, catch their own mistakes, and improve over time.</p>
-          <div class="meta">3 Wk · 6 Sessions · Learn more →</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-5" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
           <div class="lvl-num"><b>Level 05</b></div>
           <h3>Self-Managing Agents</h3>
           <p>Build AI systems with institutional memory that self-correct, scale, and run entire business functions.</p>
-          <div class="meta">3 Wk · 6 Sessions · Learn more →</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
         </a>
       </div>
     </div>
