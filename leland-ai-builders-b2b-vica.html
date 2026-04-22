@@ -52,6 +52,8 @@ src="https://www.facebook.com/tr?id=1389688331424669&ev=PageView&noscript=1"
     api_host: 'https://us.i.posthog.com',
     defaults: '2026-01-30',
     person_profiles: 'identified_only',
+    autocapture: true,
+    enable_heatmaps: true,
   });
 </script>
 <!-- End PostHog -->
@@ -223,14 +225,14 @@ p{color:var(--text-muted)}
 .levels-scroll::-webkit-scrollbar-thumb{background:var(--line-soft);border-radius:0}
 .levels{display:grid;grid-template-columns:repeat(5,minmax(240px,1fr));gap:0;background:var(--line);min-width:1100px}
 @media (min-width:1101px){ .levels{min-width:0} }
-.level{background:var(--bg);padding:28px;display:flex;flex-direction:column;align-items:flex-start;transition:background .15s ease}
+.level{background:var(--bg);padding:28px;display:flex;flex-direction:column;align-items:flex-start;transition:background .15s ease;position:relative}
 .level:hover{background:var(--bg-2)}
 .level .lvl-num{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px}
 .level .lvl-num b{color:var(--accent);font-weight:400}
 .level h3{font-size:1.15rem;color:var(--text);margin-bottom:14px;min-height:80px;line-height:1.2}
 .level p{font-size:0.92rem;color:var(--text-muted);margin-bottom:20px;flex:1;line-height:1.5}
-.level .meta{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-top:auto;border-top:1px solid var(--line-soft);padding-top:14px;width:100%;display:flex;align-items:center;justify-content:space-between}
-.level-arrow{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent);color:#000;font-size:13px;flex-shrink:0;transition:background .15s ease}
+.level .meta{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-top:auto;border-top:1px solid var(--line-soft);padding-top:14px;width:100%}
+.level-arrow{position:absolute;top:28px;right:28px;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent);color:#000;font-size:13px;transition:background .15s ease}
 .level:hover .level-arrow{background:#b8f25a}
 .scroll-hint{display:none;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-top:10px;text-align:right}
 .scroll-hint .arr{color:var(--accent)}
@@ -605,34 +607,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="track-label track-builder"><span class="track-accent">›</span><span class="track-name">Builder Track</span><span class="track-sub">For all non-technical employees: marketing, ops, finance, sales, HR, legal, support, and more</span></div>
         <div class="track-label track-architect"><span class="track-accent">›</span><span class="track-name">Architect Track</span><span class="track-sub">For team leads and power users going deeper on AI</span></div>
         <a class="level" href="https://ai.joinleland.com/level-1" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <div class="lvl-num"><b>Level 01</b></div>
+          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 01</b></div>
           <h3>AI Tools &amp; Workflows</h3>
           <p>Produce in 30 minutes what used to take hours: research, analysis, and polished deliverables created on demand.</p>
-          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
+          <div class="meta">3 Wk · 6 Sessions</div>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-2" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <div class="lvl-num"><b>Level 02</b></div>
+          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 02</b></div>
           <h3>AI Agents</h3>
           <p>Ship agents that handle recurring work, in your voice, with your tools, without your supervision.</p>
-          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
+          <div class="meta">3 Wk · 6 Sessions</div>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-3" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <div class="lvl-num"><b>Level 03</b></div>
+          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 03</b></div>
           <h3>Automations</h3>
           <p>Trigger workflows and ship internal tools without writing code or waiting on engineering.</p>
-          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
+          <div class="meta">3 Wk · 6 Sessions</div>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-4" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <div class="lvl-num"><b>Level 04</b></div>
+          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 04</b></div>
           <h3>Multi-Agent Systems</h3>
           <p>Orchestrate agents that pursue goals, catch their own mistakes, and improve over time.</p>
-          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
+          <div class="meta">3 Wk · 6 Sessions</div>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-5" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <div class="lvl-num"><b>Level 05</b></div>
+          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 05</b></div>
           <h3>Self-Managing Agents</h3>
           <p>Build AI systems with institutional memory that self-correct, scale, and run entire business functions.</p>
-          <div class="meta"><span>3 Wk · 6 Sessions</span><span class="level-arrow">→</span></div>
+          <div class="meta">3 Wk · 6 Sessions</div>
         </a>
       </div>
     </div>
