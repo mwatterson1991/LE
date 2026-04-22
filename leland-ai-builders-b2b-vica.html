@@ -231,9 +231,23 @@ p{color:var(--text-muted)}
 .level .lvl-num b{color:var(--accent);font-weight:400}
 .level h3{font-size:1.15rem;color:var(--text);margin-bottom:14px;min-height:80px;line-height:1.2}
 .level p{font-size:0.92rem;color:var(--text-muted);margin-bottom:20px;flex:1;line-height:1.5}
-.level .meta{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-top:auto;border-top:1px solid var(--line-soft);padding-top:14px;width:100%}
-.level-arrow{position:absolute;top:28px;right:28px;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent);color:#000;font-size:13px;transition:background .15s ease}
-.level:hover .level-arrow{background:#b8f25a}
+.level .meta{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-top:auto;border-top:1px solid var(--line-soft);padding-top:14px;width:100%;display:flex;align-items:center;justify-content:space-between}
+/* Option A: green square arrow — top right corner */
+.lv-opt-a{position:absolute;top:28px;right:28px;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--accent);color:#000;font-size:13px;transition:background .15s ease}
+.level:hover .lv-opt-a{background:#b8f25a}
+/* Option B: outline pill — centered under title */
+.lv-opt-b{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:5px 12px;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);transition:border-color .15s,color .15s;margin-top:-8px;margin-bottom:8px;align-self:center}
+.level:hover .lv-opt-b{border-color:var(--accent);color:var(--accent)}
+/* Option C: ghost outline pill — sits between description and meta */
+.lv-opt-c{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:5px 12px;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);transition:border-color .15s,color .15s;margin-top:14px;align-self:center}
+.level:hover .lv-opt-c{border-color:var(--accent);color:var(--accent)}
+/* Option D: full-width accent bottom strip */
+.lv-opt-d{display:flex;align-items:center;justify-content:center;width:calc(100% + 56px);margin:auto -28px -28px;height:34px;background:var(--accent);color:#000;font-size:15px;margin-top:20px;transition:background .15s;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase}
+.level:hover .lv-opt-d{background:#b8f25a}
+.lv-d-default{display:none}
+/* Option E: arrow only, right-aligned in meta */
+.lv-opt-e{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid var(--line);color:var(--text-dim);font-size:12px;transition:border-color .15s,color .15s,background .15s}
+.level:hover .lv-opt-e{border-color:var(--accent);color:var(--accent)}
 .scroll-hint{display:none;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-top:10px;text-align:right}
 .scroll-hint .arr{color:var(--accent)}
 @media (max-width:1100px){ .scroll-hint{display:block} }
@@ -607,34 +621,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="track-label track-builder"><span class="track-accent">›</span><span class="track-name">Builder Track</span><span class="track-sub">For all non-technical employees: marketing, ops, finance, sales, HR, legal, support, and more</span></div>
         <div class="track-label track-architect"><span class="track-accent">›</span><span class="track-name">Architect Track</span><span class="track-sub">For team leads and power users going deeper on AI</span></div>
         <a class="level" href="https://ai.joinleland.com/level-1" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 01</b></div>
+          <div class="lvl-num"><b>Level 01</b></div>
           <h3>AI Tools &amp; Workflows</h3>
           <p>Produce in 30 minutes what used to take hours: research, analysis, and polished deliverables created on demand.</p>
-          <div class="meta">3 Wk · 6 Sessions</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span></div>
+          <span class="lv-opt-c">Learn more →</span>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-2" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 02</b></div>
+          <div class="lvl-num"><b>Level 02</b></div>
           <h3>AI Agents</h3>
           <p>Ship agents that handle recurring work, in your voice, with your tools, without your supervision.</p>
-          <div class="meta">3 Wk · 6 Sessions</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span></div>
+          <span class="lv-opt-c">Learn more →</span>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-3" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 03</b></div>
+          <div class="lvl-num"><b>Level 03</b></div>
           <h3>Automations</h3>
           <p>Trigger workflows and ship internal tools without writing code or waiting on engineering.</p>
-          <div class="meta">3 Wk · 6 Sessions</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span></div>
+          <span class="lv-opt-c">Learn more →</span>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-4" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 04</b></div>
+          <div class="lvl-num"><b>Level 04</b></div>
           <h3>Multi-Agent Systems</h3>
           <p>Orchestrate agents that pursue goals, catch their own mistakes, and improve over time.</p>
-          <div class="meta">3 Wk · 6 Sessions</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span></div>
+          <span class="lv-opt-c">Learn more →</span>
         </a>
         <a class="level" href="https://ai.joinleland.com/level-5" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;cursor:pointer">
-          <span class="level-arrow">→</span><div class="lvl-num"><b>Level 05</b></div>
+          <div class="lvl-num"><b>Level 05</b></div>
           <h3>Self-Managing Agents</h3>
           <p>Build AI systems with institutional memory that self-correct, scale, and run entire business functions.</p>
-          <div class="meta">3 Wk · 6 Sessions</div>
+          <div class="meta"><span>3 Wk · 6 Sessions</span></div>
+          <span class="lv-opt-c">Learn more →</span>
         </a>
       </div>
     </div>
