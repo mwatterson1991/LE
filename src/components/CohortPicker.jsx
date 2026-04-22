@@ -1,10 +1,15 @@
 import React from 'react'
 
-function SessionTimesLabel({ sessionTimes }) {
+function getWeekday(iso) {
+  return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/Denver' })
+}
+
+function SessionTimesLabel({ sessionTimes, scheduleDays }) {
   if (!sessionTimes) return null
   if (sessionTimes.morning) {
     return (
       <div className="cohort-picker-times">
+        {scheduleDays && <span className="cohort-picker-times-schedule">{scheduleDays}</span>}
         <div className="cohort-picker-times-row">
           <span className="cohort-picker-times-day">Morning</span>
           <span className="cohort-picker-times-value">{sessionTimes.morning}</span>
@@ -13,13 +18,14 @@ function SessionTimesLabel({ sessionTimes }) {
           <span className="cohort-picker-times-day">Afternoon</span>
           <span className="cohort-picker-times-value">{sessionTimes.afternoon}</span>
         </div>
-        <span className="cohort-picker-times-note">Attend either section each week</span>
+        <span className="cohort-picker-times-note">90-min sessions · Attend either section each week</span>
       </div>
     )
   }
   if (sessionTimes.tuesday) {
     return (
       <div className="cohort-picker-times">
+        {scheduleDays && <span className="cohort-picker-times-schedule">{scheduleDays}</span>}
         <div className="cohort-picker-times-row">
           <span className="cohort-picker-times-day">Tuesdays</span>
           <span className="cohort-picker-times-value">{sessionTimes.tuesday}</span>
@@ -57,7 +63,7 @@ export default function CohortPicker({ cohorts, selected, onChange }) {
           )
         })}
       </div>
-      <SessionTimesLabel sessionTimes={selected?.sessionTimes} />
+      <SessionTimesLabel sessionTimes={selected?.sessionTimes} scheduleDays={selected?.scheduleDays} />
     </div>
   )
 }

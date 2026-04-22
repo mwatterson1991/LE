@@ -23,6 +23,7 @@ export default defineConfig({
         'bundle-3': resolve(__dirname, 'bundle-3.html'),
         'bundle-5': resolve(__dirname, 'bundle-5.html'),
         'leland-ai-builders-b2b': resolve(__dirname, 'leland-ai-builders-b2b.html'),
+        'leland-ai-builders-b2b-vica': resolve(__dirname, 'leland-ai-builders-b2b-vica.html'),
       }
     }
   }

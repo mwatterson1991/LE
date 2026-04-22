@@ -46,7 +46,7 @@ function Countdown() {
   const [started, setStarted] = useState(false)
 
   useEffect(() => {
-    const target = new Date('2026-04-21T16:00:00Z')
+    const target = new Date('2026-05-12T15:30:00Z')
     function update() {
       const now = new Date()
       const diff = target - now
