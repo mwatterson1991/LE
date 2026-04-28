@@ -179,7 +179,10 @@ function CourseAccordionItem({ course, open, onToggle }) {
             selected={selectedCohort}
             onChange={handleCohortChange}
           />
-          <span className="accordion-price">{course.price}</span>
+          <div className="accordion-price-row">
+            <span className="accordion-price">{course.price}</span>
+            <span className="accordion-price-sub">As low as $157/mo with a payment plan</span>
+          </div>
           {enrollUrl ? (
             <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'course-accordion', level: course.num })}>
               Enroll Now
@@ -432,7 +435,7 @@ function HomePage() {
       ],
       cohorts: [
         { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9–10:30am MT', afternoon: '2–3:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, Apr 24', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, Apr 28', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 1', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, May 5', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 8', time: '9–10:30am or 2–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)', soldOut: true },
-        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Thursdays', sessionTimes: { morning: '9:30am MT', afternoon: '4:00pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 15', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 19', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 22', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 26', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 29', time: '9:30am or 4:00pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)' },
+        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Thursdays', sessionTimes: { morning: '9:30am MT', afternoon: '4:00pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 15', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 19', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 22', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 26', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 29', time: '9:30am or 4:00pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)', fillingFast: true },
         { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: null },
       ],
       levelIndex: 0,
@@ -455,15 +458,15 @@ function HomePage() {
         { title: 'Build an Eval System + Demo Day', sub: 'Build a system that catches its own mistakes, then show the cohort the automation you\'ve built.', date: 'Fri, May 8', time: '11am–12:30pm MT' },
       ],
       cohorts: [
-        { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '5–6:30pm MT' }, { date: 'Fri, Apr 24', time: '11am–12:30pm MT' }, { date: 'Tue, Apr 28', time: '5–6:30pm MT' }, { date: 'Fri, May 1', time: '11am–12:30pm MT' }, { date: 'Tue, May 5', time: '5–6:30pm MT' }, { date: 'Fri, May 8', time: '11am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)' },
-        { month: 'MAY', day: '19', date: 'May 19', label: 'May 19', iso: '2026-05-19', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 19', time: '5–6:30pm MT' }, { date: 'Fri, May 22', time: '11am–12:30pm MT' }, { date: 'Tue, May 26', time: '5–6:30pm MT' }, { date: 'Fri, May 29', time: '11am–12:30pm MT' }, { date: 'Tue, Jun 2', time: '5–6:30pm MT' }, { date: 'Fri, Jun 5', time: '11am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)' },
+        { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '5–6:30pm MT' }, { date: 'Fri, Apr 24', time: '11am–12:30pm MT' }, { date: 'Tue, Apr 28', time: '5–6:30pm MT' }, { date: 'Fri, May 1', time: '11am–12:30pm MT' }, { date: 'Tue, May 5', time: '5–6:30pm MT' }, { date: 'Fri, May 8', time: '11am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)', soldOut: true },
+        { month: 'MAY', day: '19', date: 'May 19', label: 'May 19', iso: '2026-05-19', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 19', time: '5–6:30pm MT' }, { date: 'Fri, May 22', time: '11am–12:30pm MT' }, { date: 'Tue, May 26', time: '5–6:30pm MT' }, { date: 'Fri, May 29', time: '11am–12:30pm MT' }, { date: 'Tue, Jun 2', time: '5–6:30pm MT' }, { date: 'Fri, Jun 5', time: '11am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)', fillingFast: true },
         { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, enrollUrl: null },
       ],
       levelIndex: 1,
       price: '$999',
       reversed: true,
       learnMoreUrl: '/level-2',
-      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)',
     },
     {
       id: 'course-3', num: '03', type: 'LIVE COURSE',
@@ -590,11 +593,11 @@ function HomePage() {
     { name: 'Cursor', logo: 'cursor-1.png', size: 42 },
     { name: 'n8n', logo: '682c6141f8ac4babe589ee0d_n8n_white_new.png', size: 84 },
   ]
-  const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
+  const skillPills = ['Agent building', 'Workflow automation', 'Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Report generation', 'Client communication', 'Go-to-market systems', 'Content creation', 'Financial modeling']
 
   const trackItems = [
-    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'May 12, 2026', schedule: 'Tuesdays & Thursdays', featured: true },
-    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', schedule: 'Tuesdays & Fridays', secondary: true },
+    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'May 12, 2026', schedule: 'Tuesdays & Thursdays', featured: true, fillingFast: true },
+    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'May 19, 2026', schedule: 'Tuesdays & Fridays', secondary: true, fillingFast: true },
     { num: '03', name: 'Create Autonomous Systems', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026', schedule: 'Tuesdays & Fridays' },
     { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026', schedule: 'Tuesdays & Fridays' },
     { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026', schedule: 'Tuesdays & Fridays' },
@@ -634,7 +637,7 @@ function HomePage() {
         <div className="container">
           <Countdown />
 
-          <h1>Build with AI to <br className="mobile-br" /><RotatingText items={['advance your career', 'reach your audience', 'grow your business', 'automate manual work', 'scale your mind']} interval={2500} /></h1>
+          <h1>Build with AI to <br className="mobile-br" /><RotatingText items={['10x your impact', 'future-proof your work', 'scale your business', 'accelerate your career', 'automate manual work']} interval={2500} /></h1>
 
           <p className="hero-sub">Leland's AI Builder Program helps you build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
 
@@ -669,6 +672,7 @@ function HomePage() {
                     <div className="track-label">
                       <span className="track-label-text">LEVEL</span>
                       <span className="track-label-num">{item.num}</span>
+                      {item.fillingFast && <span className="track-card-filling-fast">Filling fast</span>}
                     </div>
                     <div className="track-title">{item.name}</div>
                     <div className="track-desc">{item.tagline}</div>
@@ -688,6 +692,39 @@ function HomePage() {
                 </div>
               ))}
             </div>
+
+            <div className="cards-cta">
+              <div className="cards-cta-card">
+                <div className="cards-cta-copy">
+                  <div className="cards-cta-eyebrow">For individuals</div>
+                  <p className="cards-cta-text">Not sure which level fits, concerned about price, or have other questions?</p>
+                </div>
+                <a
+                  href={`${SALES_URL}?utm_content=below-cards-individual`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-ghost btn-sm cards-cta-btn"
+                  onClick={() => posthog.capture('app--sales_cta_click', { source: 'below-cards-individual' })}
+                >
+                  Talk with Our Team
+                </a>
+              </div>
+              <div className="cards-cta-card">
+                <div className="cards-cta-copy">
+                  <div className="cards-cta-eyebrow">For teams</div>
+                  <p className="cards-cta-text">Rolling this out to your team? Get custom pricing, dedicated support, and a tailored rollout.</p>
+                </div>
+                <a
+                  href={`${SALES_URL}?utm_content=below-cards-team`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-ghost btn-sm cards-cta-btn"
+                  onClick={() => posthog.capture('app--sales_cta_click', { source: 'below-cards-team' })}
+                >
+                  Talk with Our Team
+                </a>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -698,7 +735,7 @@ function HomePage() {
         <div className="container">
           <div className="why-grid">
             <div className="why-left">
-              <h2 className="why-headline">Build an AI foundation for your work in 3 weeks</h2>
+              <h2 className="why-headline">Become an AI Builder in 3 weeks</h2>
               <p className="why-skills-label">Updated weekly, so you're always learning at the frontier of AI. We'll teach you best practices for AI in:</p>
               <div className="why-pills why-pills-skills">
                 {skillPills.map(skill => (
@@ -724,8 +761,8 @@ function HomePage() {
       <section className="value-props-section value-props-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(${import.meta.env.BASE_URL}assets/review-bg.png)` }}>
         <div className="container">
           <div className="value-prop-text">
-            <h2>Become the AI expert<br />your team turns to</h2>
-            <p>Earn a credential and build skills your boss and colleagues will notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
+            <h2>Be the AI expert<br />your team relies on</h2>
+            <p>Build skills, agents, and systems your colleagues notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
           </div>
         </div>
       </section>
@@ -997,7 +1034,19 @@ function HomePage() {
                 </a>
               </div>
             </div>
-            <p style={{ marginTop: 16, fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
+            <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
+            <div style={{ marginTop: 20, padding: '16px 20px', background: 'rgba(165,228,70,0.06)', border: '1px solid rgba(165,228,70,0.2)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 15, color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.4 }}>Not sure which bundle is right, or have other questions?</span>
+              <a
+                href={`${SALES_URL}?utm_content=bundle-callout`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost btn-sm"
+                onClick={() => posthog.capture('app--sales_cta_click', { source: 'bundle-callout' })}
+              >
+                Talk with Our Team
+              </a>
+            </div>
           </div>
         </div>
       </section>

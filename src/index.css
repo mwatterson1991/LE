@@ -479,6 +479,53 @@ nav .btn {
   color: var(--text-tertiary);
   display: block;
 }
+.track-card-filling-fast {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffb663;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  margin-left: auto;
+}
+.cohort-picker-filling-fast {
+  font-family: var(--font-meta);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffb663;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.cohort-picker-filling-fast::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff9d2a;
+  box-shadow: 0 0 6px rgba(255, 157, 42, 0.6);
+  animation: filling-fast-pulse 1.6s ease-in-out infinite;
+}
+.track-card-filling-fast::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff9d2a;
+  box-shadow: 0 0 8px rgba(255, 157, 42, 0.6);
+  animation: filling-fast-pulse 1.6s ease-in-out infinite;
+}
+@keyframes filling-fast-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
 .track-card-cohort-date {
   font-size: 18px;
   font-weight: 600;
@@ -601,6 +648,46 @@ nav .btn {
   color: var(--text-secondary);
   border: 1px solid var(--border);
   padding: 3px 6px;
+}
+
+/* --- Cards CTA (below the level cards) --- */
+.cards-cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+.cards-cta-card {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.cards-cta-copy {
+  flex: 1;
+  min-width: 0;
+}
+.cards-cta-eyebrow {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.cards-cta-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #fff;
+}
+.cards-cta-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* --- Logo Ticker --- */
@@ -1655,11 +1742,22 @@ nav .btn {
   color: var(--text-tertiary);
   margin-top: 2px;
 }
+.accordion-price-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 16px;
+}
 .accordion-price {
   color: var(--accent);
   font-size: 24px;
   font-weight: 600;
-  margin-top: 16px;
+}
+.accordion-price-sub {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
 }
 .accordion-learn-more-btn {
   margin-top: 4px;
@@ -2234,6 +2332,11 @@ footer a:hover {
   .track-tag { font-size: 10px; padding: 3px 6px; }
   .track-cards-heading { font-size: 9px; margin-bottom: 14px; }
   .track-card-cohort-label { font-size: 9px; }
+
+  /* Cards CTA */
+  .cards-cta { grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+  .cards-cta-card { flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px 20px; }
+  .cards-cta-text { font-size: 14px; }
 
   /* Logo ticker */
   .logo-ticker { margin-top: 28px; }
