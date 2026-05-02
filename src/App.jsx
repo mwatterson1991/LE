@@ -224,7 +224,7 @@ function CourseAccordionItem({ course, open, onToggle }) {
           </div>
           <div className="accordion-meta-row">
             <span className="accordion-meta-label">Format</span>
-            <span className="accordion-meta-value">4 Core Sessions + 2 Optional Workshops &middot; 90 min each</span>
+            <span className="accordion-meta-value">4 Core Sessions + 2 Build Workshops (Optional)</span>
           </div>
           <hr className="accordion-meta-divider" />
           <CohortPicker
@@ -270,7 +270,7 @@ function IcebergVisualization() {
         Advanced · For sophisticated AI builders
       </div>
       {levels.map((l, i) => (
-        <div key={l.num} className={`program-progression-level program-progression-level-${i < 3 ? 'core' : 'advanced'}`} style={{ gridColumn: i + 1 }}>
+        <div key={l.num} className={`program-progression-level program-progression-level-${i < 3 ? 'core' : 'advanced'}`}>
           <span className="program-progression-num">L{l.num}</span>
           <span className="program-progression-name">{l.name}</span>
         </div>
@@ -897,7 +897,7 @@ function HomePage() {
         { title: 'Scope and Build Autonomous Agents', sub: 'Define agent goals and guardrails, then build the autonomous agents that will run inside your system.', date: 'Fri, May 29', time: '9:00–10:30am MT' },
         { title: 'Deploy, Test, and Connect Your Agents', sub: 'Deploy your agents to a 24/7 environment, connect them to your real tools, and run end-to-end tests on the system.', date: 'Tue, Jun 2', time: '2:30–4:00pm MT' },
         { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, Jun 3', time: 'Wednesdays', optional: true },
-        { title: 'Earn Full Auto-Approve + Demo Day', sub: 'Hand your agents the keys: graduate them to full auto-approve, then demo your live autonomous system to the cohort.', date: 'Fri, Jun 5', time: '9:00–10:30am MT' },
+        { title: 'Graduate to Full Autonomy + Demo Day', sub: 'Hand your agents the keys: graduate them to full auto-approve, then demo your live autonomous system to the cohort.', date: 'Fri, Jun 5', time: '9:00–10:30am MT' },
       ],
       cohorts: [
         { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '2:30–4:00pm MT', friday: '9:00–10:30am MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '2:30–4:00pm MT' }, { date: 'Wed, May 27 · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '9:00–10:30am MT' }, { date: 'Tue, Jun 2', time: '2:30–4:00pm MT' }, { date: 'Wed, Jun 3 · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '9:00–10:30am MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)', fillingFast: true },

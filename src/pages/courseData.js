@@ -336,7 +336,7 @@ export const courseData = {
         description: 'Deploy your agents to a 24/7 environment, connect them to your real tools, and run end-to-end tests on the system.',
       },
       {
-        title: 'Earn Full Auto-Approve + Demo Day',
+        title: 'Graduate to Full Autonomy + Demo Day',
         description: 'Hand your agents the keys: graduate them to full auto-approve, then demo your live autonomous system to the cohort.',
       },
       {
