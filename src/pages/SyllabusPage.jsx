@@ -228,33 +228,17 @@ export default function SyllabusPage() {
         <div className="container">
           <h2>Ready to start building?</h2>
           <p className="sy-bottom-cta-sub">
-            Pick the level that matches where you are today. Every course runs for 3 weeks
-            with 6 live sessions, and you can retake for a full year.
+            Pick the level that matches where you are today. Every course runs for 2 weeks
+            with 4 core sessions plus optional Wednesday Build Workshops, and you can retake for a full year.
           </p>
           <div className="sy-bundle-grid">
             <div className="sy-bundle-card">
               <div className="sy-bundle-card-header">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                <span className="sy-bundle-name">5-Level Bundle</span>
-                <span className="sy-bundle-tag">best value</span>
+                <span className="sy-bundle-name">AI Builder Core (Levels 1–3)</span>
+                <span className="sy-bundle-tag">most popular</span>
               </div>
-              <p className="sy-bundle-desc">The complete AI Builder journey, all five levels.</p>
-              <a
-                href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-                style={{ textTransform: 'uppercase' }}
-              >
-                Get the full bundle <span className="arrow">&rarr;</span>
-              </a>
-            </div>
-            <div className="sy-bundle-card">
-              <div className="sy-bundle-card-header">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                <span className="sy-bundle-name">3-Level Bundle</span>
-              </div>
-              <p className="sy-bundle-desc">Any combination of three of the five levels.</p>
+              <p className="sy-bundle-desc">The full Core program — Levels 1, 2, and 3 — completed in 6 weeks. The right starting point for most builders.</p>
               <a
                 href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)"
                 target="_blank"
@@ -262,7 +246,24 @@ export default function SyllabusPage() {
                 className="btn btn-primary"
                 style={{ textTransform: 'uppercase' }}
               >
-                Get a 3-level bundle <span className="arrow">&rarr;</span>
+                Get the Core bundle <span className="arrow">&rarr;</span>
+              </a>
+            </div>
+            <div className="sy-bundle-card">
+              <div className="sy-bundle-card-header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <span className="sy-bundle-name">AI Builder Advanced (Levels 1–5)</span>
+                <span className="sy-bundle-tag">best value</span>
+              </div>
+              <p className="sy-bundle-desc">The complete journey — all five levels — for builders who want to ship production AI systems.</p>
+              <a
+                href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+                style={{ textTransform: 'uppercase' }}
+              >
+                Get the Advanced bundle <span className="arrow">&rarr;</span>
               </a>
             </div>
           </div>
