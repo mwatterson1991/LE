@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Law School Application Coaching - Leland</title>
+<style>
+@font-face { font-family: 'Calibre'; src: local('Calibre'); }
+:root {
+  --primary: #15b078;
+  --primary-hover: #15c385;
+  --primary-xlight: #e3f6ef;
+  --dark-green: #185440;
+  --gray-dark: #222222;
+  --gray-mid: #555555;
+  --gray-light: #707070;
+  --gray-xlight: #9b9b9b;
+  --gray-stroke: #e5e5e5;
+  --gray-hover: #f7f7f7;
+  --warm-bg: #faf8f5;
+  --font: 'Calibre', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:#fff;color:var(--gray-dark);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes countUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);border-bottom:1px solid rgba(0,0,0,0.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:box-shadow 0.3s;}
+.nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.06);}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-link{font-size:0.9rem;color:var(--gray-light);font-weight:500;transition:color 0.2s;}
+.nav-link:hover{color:var(--gray-dark);}
+.nav-cta{display:inline-flex;align-items:center;border-radius:8px;background:var(--primary);color:#fff;border:none;padding:10px 22px;font-size:0.9rem;font-weight:600;font-family:var(--font);cursor:pointer;transition:all 0.25s;box-shadow:0 2px 8px rgba(21,176,120,0.25);}
+.nav-cta:hover{background:var(--primary-hover);box-shadow:0 4px 16px rgba(21,176,120,0.35);transform:translateY(-1px);}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:url('https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/lg/multiracial-graduates-college-garden.jpg') center/cover no-repeat;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(24,84,64,0.88) 0%,rgba(0,0,0,0.55) 60%,rgba(0,0,0,0.4) 100%);}
+.hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:140px 48px 100px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center;}
+.hero-text{color:#fff;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);border-radius:9999px;padding:7px 16px;font-size:0.82rem;font-weight:500;margin-bottom:28px;animation:fadeIn 0.8s ease 0.2s both;letter-spacing:0.03em;}
+.hero-eyebrow .pulse-dot{width:8px;height:8px;border-radius:50%;background:#15b078;animation:pulse 2s ease infinite;box-shadow:0 0 8px rgba(21,176,120,0.5);}
+.hero h1{font-size:3.6rem;font-weight:700;line-height:1.08;margin-bottom:24px;letter-spacing:-0.025em;animation:fadeUp 0.8s ease 0.3s both;}
+.hero h1 em{font-style:normal;position:relative;display:inline-block;}
+.hero h1 em::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:8px;background:rgba(21,176,120,0.5);border-radius:4px;z-index:-1;}
+.hero-sub{font-size:1.15rem;line-height:1.7;opacity:0.88;margin-bottom:36px;max-width:480px;animation:fadeUp 0.8s ease 0.45s both;}
+.hero-actions{display:flex;align-items:center;gap:16px;animation:fadeUp 0.8s ease 0.55s both;flex-wrap:wrap;}
+.hero-btn{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:16px 32px;font-size:1.05rem;font-weight:600;font-family:var(--font);cursor:pointer;transition:all 0.25s;box-shadow:0 4px 20px rgba(21,176,120,0.35);}
+.hero-btn:hover{background:var(--primary-hover);box-shadow:0 6px 28px rgba(21,176,120,0.45);transform:translateY(-2px);}
+.hero-btn svg{width:18px;height:18px;transition:transform 0.2s;}
+.hero-btn:hover svg{transform:translateX(3px);}
+.hero-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:15px 28px;font-size:1rem;font-weight:500;font-family:var(--font);cursor:pointer;transition:all 0.25s;}
+.hero-ghost:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.5);}
+.hero-social-proof{display:flex;align-items:center;gap:16px;margin-top:28px;animation:fadeUp 0.8s ease 0.65s both;}
+.hero-avatars{display:flex;}
+.hero-avatars .avatar{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);margin-left:-10px;background:#ddd;object-fit:cover;}
+.hero-avatars .avatar:first-child{margin-left:0;}
+.hero-social-text{font-size:0.88rem;opacity:0.8;line-height:1.4;}
+.hero-social-text strong{font-weight:600;opacity:1;color:#fff;}
+
+/* Hero right. floating proof card */
+.hero-proof{animation:fadeIn 1s ease 0.6s both;}
+.proof-card-float{background:rgba(255,255,255,0.1);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:36px 32px;color:#fff;animation:float 6s ease-in-out infinite;}
+.proof-card-float .big-stat{font-size:4rem;font-weight:800;line-height:1;color:var(--primary);text-shadow:0 0 40px rgba(21,176,120,0.3);}
+.proof-card-float .stat-label{font-size:1rem;opacity:0.8;margin-top:4px;margin-bottom:24px;}
+.proof-mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.proof-mini{background:rgba(255,255,255,0.08);border-radius:12px;padding:16px;}
+.proof-mini .num{font-size:1.5rem;font-weight:700;color:#fff;}
+.proof-mini .txt{font-size:0.82rem;opacity:0.7;margin-top:2px;}
+
+/* ── LOGO TICKER ── */
+.ticker-section{border-bottom:1px solid var(--gray-stroke);padding:28px 0;overflow:hidden;background:#fff;}
+.ticker-label{text-align:center;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray-xlight);font-weight:600;margin-bottom:20px;}
+.ticker-wrap{overflow:hidden;position:relative;}
+.ticker-track{display:flex;width:max-content;}
+.ticker-track.animate{animation:tickerScroll var(--ticker-duration, 30s) linear infinite;}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-50%))}}
+.ticker-track img{height:36px;width:auto;object-fit:contain;flex-shrink:0;margin:0 28px;filter:none;opacity:1;transition:filter 0.3s, opacity 0.3s;}
+.ticker-track img:hover{filter:grayscale(100%);opacity:0.5;}
+
+/* ── QUIZ ── */
+.quiz-section{padding:100px 32px;background:var(--warm-bg);}
+.quiz-inner{max-width:1100px;margin:0 auto;}
+.quiz-header{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start;margin-bottom:0;}
+.quiz-header-text .overline{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);font-weight:600;margin-bottom:12px;}
+.quiz-header-text h2{font-size:2.6rem;font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;}
+.quiz-header-text h2 span{color:var(--primary);}
+.quiz-header-text p{font-size:1.05rem;color:var(--gray-light);line-height:1.7;}
+.quiz-steps-visual{display:flex;flex-direction:column;gap:16px;}
+.step-row{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--gray-stroke);border-radius:14px;padding:20px 24px;transition:all 0.3s;cursor:default;}
+.step-row:hover{border-color:var(--primary);box-shadow:0 4px 20px rgba(21,176,120,0.08);}
+.step-icon{width:48px;height:48px;border-radius:12px;background:var(--primary-xlight);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-icon svg{width:24px;height:24px;}
+.step-text h4{font-size:1rem;font-weight:600;margin-bottom:2px;}
+.step-text p{font-size:0.88rem;color:var(--gray-light);}
+.step-arrow{margin-left:auto;color:var(--gray-stroke);font-size:1.2rem;}
+
+/* Quiz widget */
+.quiz-widget{background:#fff;border:1px solid var(--gray-stroke);border-radius:20px;padding:36px 32px;box-shadow:0 8px 40px rgba(0,0,0,0.04);position:relative;overflow:hidden;transition:all 0.3s;}
+.quiz-widget.seamless{border-color:transparent;box-shadow:none;background:transparent;padding-left:0;padding-right:0;}
+.quiz-widget.seamless::before{display:none;}
+.quiz-widget.seamless .quiz-progress{display:none;}
+.quiz-widget::before{display:none;}
+.quiz-progress{display:flex;gap:6px;margin-bottom:36px;}
+.quiz-progress .bar{flex:1;height:5px;border-radius:3px;background:var(--gray-stroke);transition:all 0.4s ease;overflow:hidden;position:relative;}
+.quiz-progress .bar.active{background:var(--primary);}
+.quiz-progress .bar.active::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);animation:shimmer 2s ease infinite;}
+
+.quiz-page{display:none;}
+.quiz-page.active{display:block;animation:fadeUp 0.4s ease;}
+.quiz-question{font-size:1.3rem;font-weight:700;margin-bottom:8px;color:var(--gray-dark);}
+.quiz-hint{font-size:0.92rem;color:var(--gray-light);margin-bottom:28px;}
+.quiz-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
+.quiz-card{background:#fff;border:2px solid var(--gray-stroke);border-radius:14px;padding:24px 20px;text-align:center;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+.quiz-card::before{content:'';position:absolute;inset:0;background:var(--primary-xlight);opacity:0;transition:opacity 0.25s;}
+.quiz-card:hover{border-color:#bbb;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.06);}
+.quiz-card.selected{border-color:var(--primary);box-shadow:0 0 0 3px rgba(21,176,120,0.15);}
+.quiz-card.selected::before{opacity:1;}
+.quiz-card .emoji{margin-bottom:10px;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;}
+.quiz-card .emoji svg{width:36px;height:36px;}
+.quiz-card .label{font-size:0.95rem;font-weight:600;color:var(--gray-dark);position:relative;z-index:1;}
+.quiz-card .desc{font-size:0.82rem;color:var(--gray-light);margin-top:6px;position:relative;z-index:1;line-height:1.4;}
+.quiz-card.selected .check-mark{display:flex;}
+.check-mark{display:none;position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--primary);align-items:center;justify-content:center;color:#fff;font-size:0.7rem;font-weight:700;z-index:2;}
+
+/* Quiz text inputs */
+.quiz-form-fields{display:flex;flex-direction:column;gap:16px;margin-bottom:28px;max-width:440px;}
+.quiz-form-fields .form-group{margin:0;}
+.quiz-form-fields .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+/* Yes/No toggle */
+.quiz-yesno{display:flex;gap:12px;margin-bottom:16px;}
+.quiz-yesno-btn{flex:1;padding:16px;border:2px solid var(--gray-stroke);border-radius:12px;background:#fff;font-size:1rem;font-weight:600;font-family:var(--font);cursor:pointer;text-align:center;transition:all 0.25s;color:var(--gray-dark);}
+.quiz-yesno-btn:hover{border-color:#bbb;}
+.quiz-yesno-btn.selected{border-color:var(--primary);background:var(--primary-xlight);color:var(--primary);}
+.quiz-score-field{margin-top:12px;display:none;}
+.quiz-score-field.visible{display:block;}
+
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;}
+.quiz-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-size:0.95rem;font-weight:600;font-family:var(--font);cursor:pointer;transition:all 0.25s;border:none;}
+.quiz-back{background:transparent;color:var(--gray-light);padding-left:0;}
+.quiz-back:hover{color:var(--gray-dark);}
+.quiz-next{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(21,176,120,0.25);}
+.quiz-next:hover{background:var(--primary-hover);transform:translateY(-1px);box-shadow:0 4px 16px rgba(21,176,120,0.35);}
+.quiz-next:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.quiz-result{text-align:center;padding:20px 0;}
+.quiz-result .confetti{margin-bottom:16px;animation:float 3s ease-in-out infinite;display:flex;justify-content:center;}
+.quiz-result h3{font-size:1.6rem;font-weight:700;margin-bottom:10px;}
+.quiz-result p{font-size:1rem;color:var(--gray-light);line-height:1.6;max-width:400px;margin:0 auto 28px;}
+
+/* ── TESTIMONIALS ── */
+.testimonials{padding:100px 32px;background:#fff;}
+.testimonials-inner{max-width:1100px;margin:0 auto;}
+.testimonials .overline{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);font-weight:600;margin-bottom:12px;text-align:center;}
+.testimonials h2{font-size:2.4rem;font-weight:700;text-align:center;line-height:1.12;letter-spacing:-0.02em;margin-bottom:10px;}
+.testimonials h2 span{color:var(--primary);}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.testimonial-card{background:#fff;border:1px solid var(--gray-stroke);border-radius:16px;padding:32px 28px;transition:all 0.3s;position:relative;}
+.testimonial-card:hover{border-color:#ccc;box-shadow:0 8px 32px rgba(0,0,0,0.06);transform:translateY(-4px);}
+.testimonial-card.featured{border-color:var(--primary);background:var(--primary-xlight);}
+.testimonial-stars{color:#ffcb47;font-size:0.9rem;margin-bottom:16px;letter-spacing:2px;}
+.testimonial-quote{font-size:1rem;line-height:1.7;color:var(--gray-dark);margin-bottom:24px;font-style:italic;}
+.testimonial-author{display:flex;align-items:center;gap:12px;}
+.testimonial-avatar{width:44px;height:44px;border-radius:50%;background:var(--gray-stroke);object-fit:cover;}
+.testimonial-info .name{font-size:0.92rem;font-weight:600;}
+.testimonial-info .school{font-size:0.82rem;color:var(--primary);font-weight:500;}
+.testimonial-info .detail{font-size:0.78rem;color:var(--gray-xlight);}
+.admit-badge{display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--primary);border-radius:9999px;padding:3px 10px;font-size:0.72rem;font-weight:600;color:var(--primary);margin-top:8px;}
+
+/* Review card. Leland-style */
+.review-card{background:#fff;border:1px solid var(--gray-stroke);border-radius:16px;padding:32px 28px;transition:all 0.3s;position:relative;display:flex;flex-direction:column;}
+.review-card:hover{border-color:#ccc;box-shadow:0 8px 32px rgba(0,0,0,0.06);transform:translateY(-4px);}
+.review-rating{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.review-rating .stars{color:#ffcb47;font-size:0.9rem;letter-spacing:1px;}
+.review-rating .score{font-size:0.88rem;font-weight:600;color:var(--gray-dark);}
+.review-title{font-size:1.05rem;font-weight:700;color:var(--gray-dark);margin-bottom:10px;}
+.review-body{font-size:0.92rem;line-height:1.7;color:var(--gray-mid);margin-bottom:20px;flex:1;position:relative;}
+.review-body .review-text{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;transition:all 0.3s ease;}
+.review-body.expanded .review-text{display:block;-webkit-line-clamp:unset;}
+.review-toggle{display:inline-flex;align-items:center;gap:4px;background:none;border:none;padding:6px 0 0;font-size:0.85rem;font-weight:500;color:var(--primary);cursor:pointer;font-family:var(--font);transition:color 0.2s;}
+.review-toggle:hover{color:var(--primary-hover);}
+.review-toggle svg{width:14px;height:14px;transition:transform 0.3s;}
+.review-body.expanded .review-toggle svg{transform:rotate(180deg);}
+.review-meta{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.review-avatar{width:36px;height:36px;border-radius:50%;background:var(--primary-xlight);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;color:var(--primary);flex-shrink:0;}
+.review-meta-text .reviewer-name{font-size:0.9rem;font-weight:600;color:var(--gray-dark);}
+.review-meta-text .reviewer-name .date{font-weight:400;color:var(--gray-xlight);margin-left:8px;}
+.review-meta-text .coached-for{font-size:0.82rem;color:var(--gray-light);}
+.review-meta-text .coached-for a{color:var(--gray-dark);text-decoration:underline;text-underline-offset:2px;}
+.review-accepted{margin-top:16px;}
+.review-accepted .accepted-label{font-size:0.82rem;font-weight:500;color:var(--gray-light);margin-bottom:8px;}
+.accepted-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.accepted-chip{display:inline-flex;align-items:center;gap:6px;background:var(--gray-hover);border:1px solid var(--gray-stroke);border-radius:9999px;padding:5px 14px 5px 6px;font-size:0.8rem;font-weight:500;color:var(--gray-dark);}
+.accepted-chip img{width:22px;height:22px;border-radius:50%;object-fit:contain;}
+.review-coach-footer{margin-top:18px;padding-top:16px;border-top:1px solid var(--gray-stroke);display:flex;align-items:center;justify-content:space-between;}
+.review-coach-footer a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--gray-dark);font-size:0.9rem;font-weight:500;}
+.review-coach-footer img{width:40px;height:40px;border-radius:50%;object-fit:cover;}
+.review-coach-footer .arrow{color:var(--gray-xlight);font-size:1.2rem;transition:transform 0.2s;}
+.review-coach-footer a:hover .arrow{transform:translateX(3px);color:var(--gray-dark);}
+
+/* ── EVENTS ── */
+.events-section{padding:100px 32px;background:#fff;}
+.events-inner{max-width:1100px;margin:0 auto;}
+.events-grid{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;padding:12px 32px 24px;scrollbar-width:none;}
+.events-grid::-webkit-scrollbar{display:none;}
+.event-card-item{flex:0 0 320px;}
+.event-card-item{background:#fff;border:1px solid var(--gray-stroke);border-radius:14px;padding:24px;transition:all 0.3s;display:flex;flex-direction:column;text-decoration:none;color:inherit;}
+.event-card-item:hover{border-color:var(--primary);box-shadow:0 6px 20px rgba(0,0,0,0.06);transform:translateY(-2px);}
+.event-date-pill{display:inline-flex;align-items:center;gap:6px;background:var(--primary-xlight);color:var(--dark-green);border-radius:8px;padding:6px 12px;font-size:0.78rem;font-weight:600;margin-bottom:14px;align-self:flex-start;}
+.event-date-pill svg{flex-shrink:0;}
+.event-card-item h4{font-size:1rem;font-weight:600;line-height:1.4;margin-bottom:10px;color:var(--gray-dark);flex:1;}
+.event-coach-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.event-coach-name{font-size:0.85rem;color:var(--gray-light);}
+.event-registered{display:inline-flex;align-items:center;gap:4px;font-size:0.78rem;font-weight:500;color:var(--primary);background:var(--primary-xlight);border-radius:9999px;padding:3px 10px;}
+.event-registered .dot{width:5px;height:5px;border-radius:50%;background:var(--primary);animation:pulse 2s ease infinite;}
+.event-register-btn{display:block;width:100%;text-align:center;padding:11px;border-radius:8px;background:#fff;color:var(--gray-dark);border:1.5px solid var(--gray-stroke);font-size:0.88rem;font-weight:600;margin-top:16px;transition:all 0.2s;}
+.event-card-item:hover .event-register-btn{border-color:var(--primary);color:var(--primary);background:var(--primary-xlight);}
+.events-cta-row{text-align:center;margin-top:36px;}
+.events-cta-link{display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-weight:600;font-size:0.95rem;transition:gap 0.2s;}
+.events-cta-link:hover{gap:10px;}
+@media(max-width:900px){.event-card-item{flex:0 0 280px;}}
+
+/* ── BENEFITS ── */
+.benefits{padding:100px 32px;background:var(--warm-bg);} /* cream */
+.benefits-inner{max-width:1100px;margin:0 auto;}
+.benefit-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;}
+.benefit-row:last-child{margin-bottom:0;}
+.benefit-row.reverse{direction:rtl;}
+.benefit-row.reverse>*{direction:ltr;}
+.benefit-visual{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.1);}
+.benefit-visual img{width:100%;height:380px;object-fit:cover;}
+.benefit-visual .overlay-stat{position:absolute;bottom:20px;left:20px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-radius:12px;padding:16px 20px;box-shadow:0 4px 16px rgba(0,0,0,0.1);animation:float 5s ease-in-out infinite;}
+.overlay-stat .stat-num{font-size:1.6rem;font-weight:800;color:var(--primary);}
+.overlay-stat .stat-txt{font-size:0.78rem;color:var(--gray-light);}
+.benefit-text .overline{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);font-weight:600;margin-bottom:12px;}
+.benefit-text h3{font-size:2rem;font-weight:700;line-height:1.15;letter-spacing:-0.015em;margin-bottom:16px;}
+.benefit-text>p{font-size:1rem;color:var(--gray-light);line-height:1.7;margin-bottom:24px;}
+.benefit-checklist{list-style:none;padding:0;}
+.benefit-checklist li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;font-size:0.95rem;color:var(--gray-dark);line-height:1.5;}
+.benefit-checklist .ico{flex-shrink:0;width:24px;height:24px;border-radius:8px;background:var(--primary-xlight);display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:0.75rem;font-weight:700;margin-top:1px;}
+
+/* ── EVENT REGISTRATION ── */
+.register{padding:100px 32px;background:#fff;position:relative;overflow:hidden;}
+.register::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,var(--primary-xlight) 0%,transparent 70%);pointer-events:none;}
+.register-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.register-text .overline{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);font-weight:600;margin-bottom:12px;}
+.register-text h2{font-size:2.4rem;font-weight:700;line-height:1.12;letter-spacing:-0.02em;margin-bottom:16px;}
+.register-text h2 span{color:var(--primary);}
+.register-text>p{font-size:1.05rem;color:var(--gray-light);line-height:1.7;margin-bottom:32px;}
+.event-preview{background:var(--warm-bg);border:1px solid var(--gray-stroke);border-radius:14px;padding:24px;display:flex;align-items:center;gap:20px;}
+.event-date-box{background:var(--primary);color:#fff;border-radius:10px;padding:12px 16px;text-align:center;flex-shrink:0;}
+.event-date-box .month{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;opacity:0.85;}
+.event-date-box .day{font-size:1.8rem;font-weight:800;line-height:1;}
+.event-info h4{font-size:1rem;font-weight:600;margin-bottom:2px;}
+.event-info p{font-size:0.85rem;color:var(--gray-light);}
+.event-info .live-badge{display:inline-flex;align-items:center;gap:4px;background:var(--red-bg);color:var(--red);border-radius:9999px;padding:2px 8px;font-size:0.72rem;font-weight:600;margin-top:6px;}
+.event-info .live-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1.5s ease infinite;}
+
+.register-card{background:#fff;border:1px solid var(--gray-stroke);border-radius:20px;padding:40px 36px;box-shadow:0 8px 40px rgba(0,0,0,0.05);}
+.register-card h3{font-size:1.3rem;font-weight:700;margin-bottom:6px;}
+.register-card .sub{font-size:0.9rem;color:var(--gray-light);margin-bottom:28px;}
+.form-group{margin-bottom:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-label{display:block;font-size:0.82rem;font-weight:600;color:var(--gray-dark);margin-bottom:6px;}
+.form-input{width:100%;padding:13px 16px;border:1.5px solid var(--gray-stroke);border-radius:10px;font-size:0.95rem;font-family:var(--font);color:var(--gray-dark);background:#fff;outline:none;transition:all 0.25s;}
+.form-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(21,176,120,0.1);}
+.form-input::placeholder{color:#bbb;}
+select.form-input{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;}
+.form-submit{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:1rem;font-weight:600;font-family:var(--font);cursor:pointer;transition:all 0.25s;box-shadow:0 2px 12px rgba(21,176,120,0.25);margin-top:8px;}
+.form-submit:hover{background:var(--primary-hover);box-shadow:0 4px 20px rgba(21,176,120,0.35);transform:translateY(-1px);}
+.form-fine{display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--gray-xlight);margin-top:14px;justify-content:center;}
+.form-fine svg{flex-shrink:0;}
+
+/* ── COACHES CAROUSEL ── */
+.coaches{padding:100px 0;background:var(--warm-bg);overflow:hidden;}
+.coaches-inner{max-width:1100px;margin:0 auto;padding:0 32px;}
+.coaches .overline{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);font-weight:600;margin-bottom:12px;}
+.coaches h2{font-size:2.4rem;font-weight:700;line-height:1.12;letter-spacing:-0.02em;margin-bottom:12px;}
+.coaches h2 span{color:var(--primary);}
+.coaches-inner>p{font-size:1.05rem;color:var(--gray-light);max-width:560px;line-height:1.6;margin-bottom:0;}
+.coaches-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;}
+.coaches-header-text{flex:1;}
+.carousel-nav{display:flex;gap:8px;flex-shrink:0;margin-left:24px;}
+.carousel-nav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--gray-stroke);background:#fff;cursor:pointer;font-size:1.15rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;color:var(--gray-dark);}
+.carousel-nav button:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+.carousel-nav button:disabled{opacity:0.3;cursor:default;background:#fff;color:var(--gray-dark);border-color:var(--gray-stroke);}
+.coaches-track{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;padding:20px 32px 24px;scrollbar-width:none;cursor:grab;}
+.coaches-track::-webkit-scrollbar{display:none;}
+.coach-card{flex:0 0 320px;background:#fff;border:1px solid var(--gray-stroke);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow 0.3s,transform 0.3s;position:relative;}
+.coach-card:hover{box-shadow:0 6px 20px rgba(0,0,0,0.08);transform:translateY(-3px);}
+.coach-card-accent{display:none;}
+.coach-card-body{padding:24px 24px 20px;display:flex;flex-direction:column;align-items:flex-start;flex:1;}
+.coach-top-row{display:flex;align-items:center;gap:14px;margin-bottom:14px;width:100%;}
+.coach-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--primary-xlight);}
+.coach-name-block{flex:1;min-width:0;}
+.coach-name-block h4{font-size:1.05rem;font-weight:700;margin-bottom:2px;color:var(--gray-dark);}
+.coach-rating{display:flex;align-items:center;gap:5px;font-size:0.82rem;color:var(--gray-light);}
+.coach-rating .stars{color:#ffcb47;font-size:0.85rem;letter-spacing:1px;}
+.coach-badge{display:inline-flex;align-items:center;gap:4px;border-radius:9999px;padding:3px 10px;font-size:0.72rem;font-weight:600;white-space:nowrap;position:absolute;top:16px;right:16px;}
+.coach-badge.supercoach{background:var(--primary-xlight);color:var(--dark-green);}
+.coach-badge.favorite{background:#fdf0e1;color:var(--orange);}
+.coach-tagline{font-size:0.88rem;color:var(--gray-mid, #555);line-height:1.45;margin-bottom:12px;}
+.coach-stats{display:flex;gap:16px;margin-bottom:14px;padding:10px 0;border-top:1px solid var(--gray-stroke);border-bottom:1px solid var(--gray-stroke);width:100%;}
+.coach-stat{display:flex;flex-direction:column;align-items:flex-start;}
+.coach-stat .stat-val{font-size:0.95rem;font-weight:700;color:var(--gray-dark);}
+.coach-stat .stat-lbl{font-size:0.72rem;color:var(--gray-xlight);text-transform:uppercase;letter-spacing:0.04em;}
+.coach-stat+.coach-stat{padding-left:16px;border-left:1px solid var(--gray-stroke);}
+.coach-quote{font-size:0.82rem;color:var(--gray-light);line-height:1.5;font-style:italic;margin-bottom:16px;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.coach-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;align-items:flex-start;}
+.coach-tag{display:inline-flex;align-items:center;border-radius:9999px;background:var(--primary-xlight);color:var(--dark-green);padding:4px 10px;font-size:0.75rem;font-weight:500;white-space:nowrap;}
+.coach-tag.gray{background:var(--gray-hover);color:var(--gray-light);}
+.coach-tag.orange{background:var(--orange-bg);color:var(--orange);}
+.coach-cta{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:12px 20px;border:1.5px solid var(--primary);border-radius:8px;font-size:0.9rem;font-weight:600;color:var(--primary);background:#fff;cursor:pointer;font-family:var(--font);transition:all 0.25s;text-decoration:none;}
+.coach-cta:hover{background:var(--primary);color:#fff;}
+@media(max-width:900px){.carousel-nav{display:none;}.coaches-header{flex-direction:column;align-items:flex-start;}.coach-card{flex:0 0 290px;}}
+
+/* ── FINAL CTA ── */
+.final-cta{position:relative;padding:100px 32px;text-align:center;overflow:hidden;background:linear-gradient(135deg,var(--dark-green) 0%,#0d3b2c 50%,#0a2e22 100%);}
+.final-cta::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(21,176,120,0.12) 0%,transparent 50%);pointer-events:none;}
+.final-cta .inner{position:relative;z-index:1;max-width:640px;margin:0 auto;}
+.final-cta h2{font-size:2.8rem;font-weight:700;color:#fff;line-height:1.1;letter-spacing:-0.02em;margin-bottom:20px;}
+.final-cta h2 span{color:var(--primary);}
+.final-cta p{font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;margin-bottom:36px;}
+.final-cta-btn{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:18px 44px;font-size:1.1rem;font-weight:600;font-family:var(--font);cursor:pointer;transition:all 0.25s;box-shadow:0 4px 24px rgba(21,176,120,0.3);}
+.final-cta-btn:hover{background:var(--primary-hover);box-shadow:0 6px 32px rgba(21,176,120,0.45);transform:translateY(-2px);}
+.final-cta-btn svg{width:18px;height:18px;transition:transform 0.2s;}
+.final-cta-btn:hover svg{transform:translateX(3px);}
+.final-sub{margin-top:20px;font-size:0.88rem;color:rgba(255,255,255,0.45);}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid var(--gray-stroke);padding:40px 32px;display:flex;align-items:center;justify-content:center;gap:24px;}
+.footer-text{font-size:0.82rem;color:var(--gray-xlight);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-content{grid-template-columns:1fr;padding:120px 20px 60px;}
+  .hero-proof{display:none;}
+  .hero h1{font-size:2rem;letter-spacing:-0.02em;}
+  .hero-sub{font-size:1rem;}
+  .hero-btn{padding:14px 24px;font-size:0.95rem;width:100%;}
+  .hero-social-proof{flex-direction:column;gap:10px;align-items:flex-start;}
+  .nav-link{display:none;}
+  .nav-link.mobile-show{display:inline;font-size:0.88rem;}
+  .nav-cta{padding:10px 20px;font-size:0.88rem;}
+  .nav-inner{padding:12px 16px;}
+  .quiz-header{grid-template-columns:1fr;gap:32px;}
+  .quiz-steps-visual{display:none;}
+  .quiz-widget{padding:24px 16px;}
+  .quiz-widget iframe{height:500px !important;}
+  .quiz-question{font-size:1.1rem;}
+  .quiz-cards{grid-template-columns:1fr !important;gap:10px;}
+  .quiz-card{padding:16px 14px;}
+  .benefit-row,.benefit-row.reverse{grid-template-columns:1fr;direction:ltr;gap:32px;margin-bottom:48px;}
+  .benefit-row.reverse>*{direction:ltr;}
+  .benefit-visual img{height:240px;}
+  .benefit-text h3{font-size:1.5rem;}
+  .benefits{padding:60px 20px;}
+  .testimonial-grid{grid-template-columns:1fr;}
+  .testimonials{padding:60px 20px;}
+  .register-inner{grid-template-columns:1fr;}
+  .coaches-grid{grid-template-columns:1fr;}
+  .coaches{padding:60px 0;}
+  .coaches-inner{padding:0 20px;}
+  .coaches h2{font-size:1.6rem;}
+  .coaches-track{padding:16px 20px 20px !important;}
+  .coach-card{flex:0 0 280px;}
+  .events-section{padding:60px 20px;}
+  .events-grid{padding:12px 20px 20px !important;}
+  .event-card-item{flex:0 0 270px;}
+  .form-row{grid-template-columns:1fr;}
+  .proof-stats{flex-direction:column;align-items:center;gap:24px;}
+  .section-title,.benefits-inner h2,.testimonials h2,.register-text h2,.coaches h2{font-size:1.6rem;}
+  .final-cta{padding:60px 20px;}
+  .final-cta h2{font-size:1.8rem;}
+  .final-cta p{font-size:0.95rem;}
+  .final-cta-btn{padding:14px 32px;font-size:1rem;width:100%;}
+  .ticker-section{padding:20px 0;}
+  .ticker-track img{height:28px;margin:0 20px;}
+  .quiz-section{padding:60px 20px;}
+  .quiz-header-text h2{font-size:1.8rem;}
+  .quiz-form-fields .form-row{grid-template-columns:1fr;}
+  .footer{padding:24px 20px;flex-direction:column;gap:12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="https://www.joinleland.com" class="nav-logo">
+      <svg width="90" height="21" viewBox="0 0 99 23" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:#15b078;">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.5721 2.33411L6.8221 6.45911L2.23877 20.6674L16.4471 16.5424L20.5721 2.33411ZM11.4052 13.7922C12.6709 13.7922 13.6969 12.7662 13.6969 11.5006C13.6969 10.2349 12.6709 9.2089 11.4052 9.2089C10.1396 9.2089 9.11354 10.2349 9.11354 11.5006C9.11354 12.7662 10.1396 13.7922 11.4052 13.7922Z" fill="currentColor"/>
+        <path d="M80.2848 12.707V19.1726H83.4802V12.0081C83.4802 9.11227 82.6064 6.86554 79.1365 6.86554C77.389 6.86554 76.1658 7.63941 75.5168 8.91256H75.4419L75.4668 7.09021H72.2715V19.1726H75.4668V13.1564C75.4668 11.1343 76.1409 9.48672 78.113 9.48672C79.9603 9.48672 80.2848 10.9097 80.2848 12.707Z" fill="currentColor"/>
+        <path d="M66.415 17.7747L66.4649 19.1726H69.5355V12.2577C69.5355 10.2107 69.0861 9.11227 68.2124 8.2635C67.3137 7.41474 66.0905 6.86554 63.9436 6.86554C61.8467 6.86554 60.1491 7.58949 59.2255 8.13869L60.1991 10.1857C60.7233 9.78629 62.0464 9.18716 63.644 9.18716C65.3166 9.18716 66.3401 9.91111 66.3401 11.4589V11.7834L63.4443 11.9831C60.948 12.1578 58.4766 13.1314 58.4766 15.6527C58.4766 18.1741 60.3738 19.4472 62.7204 19.4472C64.5178 19.4472 65.9157 18.6484 66.415 17.7747ZM64.1932 13.8554L66.3651 13.7305V15.9523C65.9407 16.5514 65.017 17.2754 63.7689 17.2754C62.4458 17.2754 61.6719 16.5764 61.6719 15.5529C61.6719 14.5294 62.4957 13.9552 64.1932 13.8554Z" fill="currentColor"/>
+        <path d="M41.9788 14.1549H50.8659C50.8659 14.1549 50.9158 13.1564 50.9158 12.5323C50.9158 9.31198 48.6691 6.86554 44.9495 6.86554C41.5045 6.86554 38.6836 9.46176 38.6836 13.3311C38.6836 17.2255 41.3797 19.4472 45.0244 19.4472C47.9701 19.4472 49.7924 18.199 50.4664 17.5001L49.2183 15.7776C48.6441 16.2768 47.1962 17.0008 45.5736 17.0008C43.7512 17.0008 42.2784 16.0771 41.9788 14.1549ZM44.9245 9.23709C47.1712 9.23709 47.6705 10.7599 47.7204 12.0829H41.9289C42.0287 10.5602 43.0273 9.23709 44.9245 9.23709Z" fill="currentColor"/>
+        <path d="M31.7384 3.55707V16.4751H37.7546V19.1711H28.5181V3.55707L31.7384 3.55707Z" fill="currentColor"/>
+        <path d="M56.332 3.55707V19.1711H53.1616V3.55707L56.332 3.55707Z" fill="currentColor"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M98.5944 3.55707V19.1711H95.5738L95.5488 17.2739H95.4739C94.5003 18.8216 93.0025 19.4457 91.3299 19.4457C87.7851 19.4457 85.6133 16.6997 85.6133 13.105C85.6133 9.68494 87.885 6.86405 91.5546 6.86405C93.1773 6.86405 94.5503 7.46318 95.399 8.76129H95.449C95.424 8.21209 95.424 7.56303 95.424 6.71427V3.55707L98.5944 3.55707ZM88.8586 13.105C88.8586 15.2019 90.1567 16.8495 92.2286 16.8495C94.1508 16.8495 95.4989 15.3767 95.4989 13.105C95.4989 11.0829 94.1758 9.31049 92.1288 9.31049C90.0568 9.31049 88.8586 11.0829 88.8586 13.105Z" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="#quiz">Coach Matching</a>
+      <a class="nav-link" href="#results">Reviews</a>
+      <a class="nav-link" href="#coaches">Coaches</a>
+      <a class="nav-link mobile-show" href="#register">Free Events</a>
+      <a class="nav-cta" href="https://www.joinleland.com/auth?utm_source=meta&utm_medium=paidsocial&utm_campaign=Law-School-LP" target="_blank" style="text-decoration:none;">Get Started Free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><span class="pulse-dot"></span> Law School Admissions Coaching</div>
+      <h1>A proven system to get you into your <em>ideal law school</em></h1>
+      <p class="hero-sub">Leland combines a structured admissions framework with 1-on-1 expert coaching to turn your profile into a compelling application. From essay strategy to interview prep, every step is designed to maximize your chances at top programs.</p>
+      <div class="hero-actions">
+        <a class="hero-btn" href="https://www.joinleland.com/auth?utm_source=meta&utm_medium=paidsocial&utm_campaign=Law-School-LP" target="_blank" style="text-decoration:none;">
+          Get Matched With A Coach
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+      <div class="hero-social-proof">
+        <div class="hero-avatars">
+          <img class="avatar" src="https://i.pravatar.cc/72?u=grad-emma-23" alt="">
+          <img class="avatar" src="https://i.pravatar.cc/72?u=grad-kai-24" alt="">
+          <img class="avatar" src="https://i.pravatar.cc/72?u=grad-priya-22" alt="">
+          <img class="avatar" src="https://i.pravatar.cc/72?u=grad-marcus-25" alt="">
+        </div>
+        <div class="hero-social-text"><strong>10,000+ applicants</strong> coached into<br>top law school programs this year</div>
+      </div>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-card-float">
+        <div class="big-stat">92%</div>
+        <div class="stat-label">of coached applicants get into one of their top choice programs</div>
+        <div class="proof-mini-stats">
+          <div class="proof-mini">
+            <div class="num">4.97</div>
+            <div class="txt">Avg coach rating</div>
+          </div>
+          <div class="proof-mini">
+            <div class="num">200+</div>
+            <div class="txt">law school coaches</div>
+          </div>
+          <div class="proof-mini">
+            <div class="num">50+</div>
+            <div class="txt">Schools covered</div>
+          </div>
+          <div class="proof-mini">
+            <div class="num">Free</div>
+            <div class="txt">Intro calls available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO TICKER -->
+<div class="ticker-section">
+  <div class="ticker-label">The highest success rate to programs like</div>
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="ticker">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Yale_Law_School.png" alt="Yale Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Stanford_Law_School.png" alt="Stanford Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Harvard_Law_School.png" alt="Harvard Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/The_University_of_Chicago.png" alt="UChicago Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Columbia_Law_School.png" alt="Columbia Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/NYU_School_of_Law.png" alt="NYU Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/University_of_Pennsylvania_Carey_Law_School.png" alt="Penn Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Duke_University_School_of_Law.png" alt="Duke Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Georgetown_University_Law_Center.png" alt="Georgetown Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/University_of_California_Berkeley.png" alt="Berkeley Law">
+      <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Cornell_University.png" alt="Cornell Law">
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="benefits-inner">
+
+    <div class="benefit-row reveal">
+      <div class="benefit-visual">
+        <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/md/hands-writing-notebook-startup-planning.jpg" alt="Essay coaching">
+        <div class="overlay-stat">
+          <div class="stat-num">3.5x</div>
+          <div class="stat-txt">more T14 interviews than national average</div>
+        </div>
+      </div>
+      <div class="benefit-text">
+        <div class="overline">Personal Statements</div>
+        <h3>Personal statements that make adcoms stop scrolling</h3>
+        <p>Your personal statement is the one part of your application where you control the narrative. Our coaches, many of them former adcoms, help you find the story only you can tell.</p>
+        <ul class="benefit-checklist">
+          <li><span class="ico">✓</span> Multiple rounds of review and feedback</li>
+          <li><span class="ico">✓</span> School-specific prompt strategy</li>
+          <li><span class="ico">✓</span> Coaches who were admitted to your target programs</li>
+          <li><span class="ico">✓</span> Resume and short-answer support available</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="benefit-row reverse reveal">
+      <div class="benefit-visual">
+        <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/md/colleagues-discussion-modern-office-plants.jpg" alt="Interview prep">
+        <div class="overlay-stat">
+          <div class="stat-num">88%</div>
+          <div class="stat-txt">interview-to-offer conversion rate</div>
+        </div>
+      </div>
+      <div class="benefit-text">
+        <div class="overline">Interviews</div>
+        <h3>Walk in knowing exactly what to say</h3>
+        <p>law school interviews are conversations, not interrogations. But they do have patterns. Our coaches run live mock interviews so you go in prepared, relaxed, and memorable.</p>
+        <ul class="benefit-checklist">
+          <li><span class="ico">✓</span> Live video mock interviews with real-time feedback</li>
+          <li><span class="ico">✓</span> School-specific interview prep</li>
+          <li><span class="ico">✓</span> Behavioral, case, and blind interview formats</li>
+          <li><span class="ico">✓</span> Detailed feedback to sharpen your delivery</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="benefit-row reveal">
+      <div class="benefit-visual">
+        <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/md/diverse-professionals-brainstorming-session.jpg" alt="Strategy">
+        <div class="overlay-stat">
+          <div class="stat-num">5-8</div>
+          <div class="stat-txt">schools - the ideal application range</div>
+        </div>
+      </div>
+      <div class="benefit-text">
+        <div class="overline">Strategy</div>
+        <h3>A roadmap built around your profile</h3>
+        <p>Should you retake the LSAT? Apply early decision? Target T14 or T30? Your coach builds a plan that accounts for your specific background, goals, and deadlines. No generic advice.</p>
+        <ul class="benefit-checklist">
+          <li><span class="ico">✓</span> Personalized school list and positioning</li>
+          <li><span class="ico">✓</span> Round-by-round application timeline</li>
+          <li><span class="ico">✓</span> Profile gap analysis and improvement plan</li>
+          <li><span class="ico">✓</span> Scholarship and financial aid strategy</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="benefit-row reverse reveal">
+      <div class="benefit-visual">
+        <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/photography/md/man-blazer-working-laptop-home.jpg" alt="Coaching for any budget">
+        <div class="overlay-stat">
+          <div class="stat-num">$40</div>
+          <div class="stat-txt">per hour starting price</div>
+        </div>
+      </div>
+      <div class="benefit-text">
+        <div class="overline">For Any Budget</div>
+        <h3>Top-tier coaching that doesn't require a top-tier budget</h3>
+        <p>Most admissions consulting firms only offer packages starting at $10K+. On Leland, you choose exactly the help you need. Whether it's a full multi-school package or a single mock interview, there's an option that fits.</p>
+        <ul class="benefit-checklist">
+          <li><span class="ico">✓</span> Hourly coaching starting as low as $40/hr</li>
+          <li><span class="ico">✓</span> Targeted packages for essays, interviews, or strategy</li>
+          <li><span class="ico">✓</span> Comprehensive multi-school packages available</li>
+          <li><span class="ico">✓</span> Many coaches offer a free intro call</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="results">
+  <div class="testimonials-inner">
+    <div class="overline">Real Results</div>
+    <h2>Their dream came true. <span>Yours can too.</span></h2>
+    <p style="text-align:center;font-size:1.05rem;color:var(--gray-light);margin-bottom:48px;">Over 27,000 5-star reviews from real applicants.</p>
+
+    <div class="testimonial-grid">
+      <div class="review-card reveal">
+        <div class="review-rating">
+          <span class="stars">★★★★★</span>
+          <span class="score">5.0</span>
+        </div>
+        <div class="review-title">An Amazing Mentor and Worthwhile Investment</div>
+        <div class="review-body">
+          <div class="review-text">During an inherently stressful and uncertain period, Indrani is a steady, grounding presence who provides invaluable clarity and encouragement. Anyone fortunate enough to work with Indrani will feel both challenged and fully supported every step of the way! She is accessible, honest, and incredibly organized. 10000/10 would recommend working with Indrani. With her guidance, I've been accepted into my top programs with top scholarships.</div>
+          <button class="review-toggle" onclick="toggleReview(this)">Read more <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="review-meta">
+          <div class="review-avatar">GK</div>
+          <div class="review-meta-text">
+            <div class="reviewer-name">Grace K. <span class="date">January 2026</span></div>
+            <div class="coached-for">Coached for law school by <a href="https://www.joinleland.com/coach/indrani-stangl">Indrani S.</a></div>
+          </div>
+        </div>
+        <div class="review-accepted">
+          <div class="accepted-label">Grace was accepted to:</div>
+          <div class="accepted-chips">
+            <span class="accepted-chip">
+              <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Cornell_University.png" alt="Cornell">
+              Cornell University
+            </span>
+            <span class="accepted-chip">
+              <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Vanderbilt_University_School_of_Medicine.png" alt="Vanderbilt" onerror="this.style.display='none'">
+              Vanderbilt University
+            </span>
+          </div>
+        </div>
+        <div class="review-coach-footer">
+          <a href="https://www.joinleland.com/coach/indrani-stangl">
+            <img src="https://leland.imgix.net/profile-photos/697c091401f300a4b7b79b2f.png?w=80&h=80&fit=crop&crop=faces" alt="Indrani Stangl">
+            Coached by <strong style="margin-left:4px;">Indrani</strong>
+          </a>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal reveal-delay-1">
+        <div class="review-rating">
+          <span class="stars">★★★★★</span>
+          <span class="score">5.0</span>
+        </div>
+        <div class="review-title">Best in the business!</div>
+        <div class="review-body">
+          <div class="review-text">Machmud's insight and feedback was incredibly helpful during my law school admissions process. His thoughtful questions helped me identify the unique traits I could highlight in my application materials and his encouraging but realistic approach to my school list resulted in acceptances across my reach, match, and safety schools. Machmud was always responsive and provided feedback in a timely manner. I would strongly recommend him to anyone applying to law school and beyond!</div>
+          <button class="review-toggle" onclick="toggleReview(this)">Read more <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="review-meta">
+          <div class="review-avatar">A</div>
+          <div class="review-meta-text">
+            <div class="reviewer-name">Anonymous <span class="date">April 2026</span></div>
+            <div class="coached-for">Coached for law school by <a href="https://www.joinleland.com/coach/machmud-m">Machmud M.</a></div>
+          </div>
+        </div>
+        <div class="review-accepted">
+          <div class="accepted-label">Client was accepted to:</div>
+          <div class="accepted-chips">
+            <span class="accepted-chip">
+              <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/University_of_Virginia_School_of_Law.png" alt="UVA Law" onerror="this.style.display='none'">
+              UVA Law
+            </span>
+          </div>
+        </div>
+        <div class="review-coach-footer">
+          <a href="https://www.joinleland.com/coach/machmud-m">
+            <img src="https://leland.imgix.net/profile-photos/64e4b5bc5149d3790dea763c.jpeg?w=80&h=80&fit=crop&crop=faces" alt="Machmud Makhmudov">
+            Coached by <strong style="margin-left:4px;">Machmud</strong>
+          </a>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+
+      <div class="review-card reveal reveal-delay-2">
+        <div class="review-rating">
+          <span class="stars">★★★★★</span>
+          <span class="score">5.0</span>
+        </div>
+        <div class="review-title">Exceptional coach</div>
+        <div class="review-body">
+          <div class="review-text">Bill is an exceptional coach. brilliant, compassionate, and genuinely invested in students' success. He helped me craft a compelling narrative that tied together my experiences in a way I never could have on my own. His feedback was always thoughtful and specific, and he pushed me to dig deeper while making the process feel manageable.</div>
+          <button class="review-toggle" onclick="toggleReview(this)">Read more <svg viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="review-meta">
+          <div class="review-avatar" style="background:#15b078;color:#fff;">A</div>
+          <div class="review-meta-text">
+            <div class="reviewer-name">Anonymous <span class="date">March 2026</span></div>
+            <div class="coached-for">Coached for law school by <a href="https://www.joinleland.com/coach/bill-d">Bill D.</a></div>
+          </div>
+        </div>
+        <div class="review-accepted">
+          <div class="accepted-label">Client was accepted to:</div>
+          <div class="accepted-chips">
+            <span class="accepted-chip">
+              <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Yale_Law_School.png" alt="Yale Law" style="max-height:36px;object-fit:contain;">
+              Yale Law School
+            </span>
+            <span class="accepted-chip">
+              <img src="https://pub-5ef36b3d06e14b75a428ccf72331240d.r2.dev/organization-logos/square%20logos/Harvard_Law_School.png" alt="Harvard Law" style="max-height:36px;object-fit:contain;">
+              Harvard Law School
+            </span>
+          </div>
+        </div>
+        <div class="review-coach-footer">
+          <a href="https://www.joinleland.com/coach/bill-d">
+            <img src="https://leland.imgix.net/profile-photos/69cdb1860073f37fa7e5524f.png?w=80&h=80&fit=crop&crop=faces" alt="Bill De La Rosa">
+            Coached by <strong style="margin-left:4px;">Bill</strong>
+          </a>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COACHES CAROUSEL -->
+<section class="coaches" id="coaches">
+  <div class="coaches-inner">
+    <div class="coaches-header">
+      <div class="coaches-header-text">
+        <div class="overline">Your Future Coach</div>
+        <h2>They've helped 10,000+ people get in. <span>You're next.</span></h2>
+        <p>Admissions officers, T14 grads, and Poets & Quants top consultants, all in one place.</p>
+      </div>
+      <div class="carousel-nav">
+        <button id="coachPrev" aria-label="Previous" disabled>&#8592;</button>
+        <button id="coachNext" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="coaches-track" id="coachesTrack">
+
+    <!-- Indrani Stangl -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge supercoach">⚡ Supercoach</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/697c091401f300a4b7b79b2f.png?w=160&h=160&fit=crop" alt="Indrani Stangl">
+          <div class="coach-name-block">
+            <h4>Indrani Stangl</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 5.0 (179)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">Former Stanford Law Admissions Officer</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">1,308</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">150+</span><span class="stat-lbl">Clients coached</span></div>
+        </div>
+        <div class="coach-quote">"10000/10 would recommend working with Indrani."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">Stanford Law</span>
+          <span class="coach-tag orange">Ad Comm</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/indrani-stangl/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Machmud Makhmudov -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge supercoach">⚡ Supercoach</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/64e4b5bc5149d3790dea763c.jpeg?w=160&h=160&fit=crop" alt="Machmud Makhmudov">
+          <div class="coach-name-block">
+            <h4>Machmud Makhmudov</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 5.0 (47)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">Stanford JD | Knight-Hennessy & Rhodes Scholar</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">1,106</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">200+</span><span class="stat-lbl">Clients coached</span></div>
+        </div>
+        <div class="coach-quote">"Best in the business! His insight was incredibly helpful."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">Stanford Law</span>
+          <span class="coach-tag gray">White House</span>
+          <span class="coach-tag">Rhodes Scholar</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/machmud-m/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Ruthie Sifuma -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge favorite">★ Customer favorite</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/68ab6c9ba2e7a96798fc75e4.jpeg?w=160&h=160&fit=crop" alt="Ruthie Sifuma">
+          <div class="coach-name-block">
+            <h4>Ruthie Sifuma</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 4.9 (12)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">UPenn Law Student | T14 Admissions Expert</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">83</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">T14</span><span class="stat-lbl">Success with all stats</span></div>
+        </div>
+        <div class="coach-quote">"She gets right to it! All the information was very helpful."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">UPenn Law</span>
+          <span class="coach-tag gray">Davis Polk</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/ruthie-s/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Conor Ahern -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge supercoach">⚡ Supercoach</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/63e005462f92910b014669d3.png?w=160&h=160&fit=crop" alt="Conor Ahern">
+          <div class="coach-name-block">
+            <h4>Conor Ahern</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 5.0 (16)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">8+ Years Admissions Counseling Experience</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">352</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">HLS</span><span class="stat-lbl">Harvard Law JD</span></div>
+        </div>
+        <div class="coach-quote">"I highly recommend him for any support with your law school journey."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">Harvard Law</span>
+          <span class="coach-tag gray">7Sage</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/conor-ahern/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Melissa A. Lee -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge favorite">★ Customer favorite</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/697d28c030859e00f8ef5551.png?w=160&h=160&fit=crop" alt="Melissa A. Lee">
+          <div class="coach-name-block">
+            <h4>Melissa A. Lee</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 5.0 (12)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">Former Villanova Assistant Dean</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">29</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">15+</span><span class="stat-lbl">Years in admissions</span></div>
+        </div>
+        <div class="coach-quote">"Melissa was kind and knew how to transform rough ideas into compelling narrative."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">Villanova</span>
+          <span class="coach-tag gray">Penn</span>
+          <span class="coach-tag gray">Princeton</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/melissa-a-1/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Dylan Moses -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge favorite">★ Customer favorite</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/69d94434ce00bea150954388.jpg?w=160&h=160&fit=crop" alt="Dylan Moses">
+          <div class="coach-name-block">
+            <h4>Dylan Moses</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 5.0 (8)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">Harvard Law Grad | Federal Clerk | BigLaw</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">137</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">HLS</span><span class="stat-lbl">Law Review editor</span></div>
+        </div>
+        <div class="coach-quote">"Dylan is the obvious choice if you want a capable coach."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">Harvard Law</span>
+          <span class="coach-tag gray">Federal Clerk</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/dylan-m-1/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Kevin Paul -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge supercoach">⚡ Supercoach</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/68910513ec9609a2d177fc68.jpeg?w=160&h=160&fit=crop" alt="Kevin Paul">
+          <div class="coach-name-block">
+            <h4>Kevin Paul</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 4.9 (31)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">Duke Law Grad | 15+ Years in Admissions</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">158</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">15+</span><span class="stat-lbl">Years experience</span></div>
+        </div>
+        <div class="coach-quote">"Kevin was very comfortable to work with and helped me focus on my personal statement."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">Duke Law</span>
+          <span class="coach-tag orange">Admissions Expert</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/kevin-p-1/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Jimmy Dahroug -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge favorite">★ Customer favorite</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/694d9c8758df366f39864af6.png?w=160&h=160&fit=crop" alt="Jimmy Dahroug">
+          <div class="coach-name-block">
+            <h4>Jimmy Dahroug</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 5.0 (10)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">Law School Admissions Made Simple and Effective</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">30</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">Harvard</span><span class="stat-lbl">Ed.M, Columbia BA</span></div>
+        </div>
+        <div class="coach-quote">"Jimmy made the admissions process feel simple and achievable."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">Harvard</span>
+          <span class="coach-tag gray">Columbia</span>
+          <span class="coach-tag">LSAT Expert</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/jimmy-d/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Bill De La Rosa -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <span class="coach-badge favorite">★ Customer favorite</span>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/69cdb1860073f37fa7e5524f.png?w=160&h=160&fit=crop" alt="Bill De La Rosa">
+          <div class="coach-name-block">
+            <h4>Bill De La Rosa</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 5.0 (8)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">Yale JD & Oxford PhD | Admissions Counselor</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">100</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">Yale + Oxford</span><span class="stat-lbl">JD + PhD</span></div>
+        </div>
+        <div class="coach-quote">"Bill is an exceptional coach. Brilliant, compassionate, and genuinely invested."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">Yale Law</span>
+          <span class="coach-tag gray">Oxford</span>
+          <span class="coach-tag">First-Gen</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/bill-d/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <!-- Will Sedgwick -->
+    <div class="coach-card">
+      <div class="coach-card-accent"></div>
+      <div class="coach-card-body">
+        <div class="coach-top-row">
+          <img class="coach-avatar" src="https://leland.imgix.net/profile-photos/68bfa1308bef12df9d7166c5.jpg?w=160&h=160&fit=crop" alt="Will Sedgwick">
+          <div class="coach-name-block">
+            <h4>Will Sedgwick</h4>
+            <div class="coach-rating"><span class="stars">★★★★★</span> 5.0 (3)</div>
+          </div>
+        </div>
+        <div class="coach-tagline">JD/MBA from UPenn | Latham & Watkins Associate</div>
+        <div class="coach-stats">
+          <div class="coach-stat"><span class="stat-val">54</span><span class="stat-lbl">Hours coached</span></div>
+          <div class="coach-stat"><span class="stat-val">JD/MBA</span><span class="stat-lbl">UPenn dual degree</span></div>
+        </div>
+        <div class="coach-quote">"Working with Will was single-handedly the best thing I could have done."</div>
+        <div class="coach-tags">
+          <span class="coach-tag">UPenn Law</span>
+          <span class="coach-tag gray">Wharton</span>
+          <span class="coach-tag gray">Latham & Watkins</span>
+        </div>
+        <a class="coach-cta" href="https://www.joinleland.com/coach/will-s/law-school" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FREE EVENTS (moved here) -->
+<section class="events-section" id="register">
+  <div class="events-inner">
+    <div class="overline" style="text-align:center;">Free Events</div>
+    <h2 style="font-size:2.4rem;font-weight:700;text-align:center;line-height:1.12;letter-spacing:-0.02em;margin-bottom:12px;">Upcoming <span style="color:var(--primary);">free law school workshops</span></h2>
+    <p style="font-size:1.05rem;color:var(--gray-light);max-width:560px;margin:0 auto 48px;line-height:1.6;text-align:center;">Live sessions with top coaches. Strategy breakdowns, personal statement reviews, and Q&As. 100% free, 100% valuable.</p>
+  </div>
+
+  <div class="events-grid" id="events-grid-main">
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/crushing-the-bar-exam-advice-from-stanford-25s-only-re-taker-who-passed" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 6</div>
+        <h4>Don't Fail the Bar: Lessons from SLS '25s Only Re-Taker</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Machmud M. · ★ 5.0 (47)</span>
+          <span class="event-registered"><span class="dot"></span> 40 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/the-80-20-of-law-school-admissions-what-actually-moves-the-needle-3" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 7</div>
+        <h4>The 80/20 of Law School Admissions: What Actually Moves the Needle</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Kevin P. · ★ 4.9 (31)</span>
+          <span class="event-registered"><span class="dot"></span> 31 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/inside-law-admissions-what-actually-gets-you-in" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 11</div>
+        <h4>Inside Law Admissions: What Actually Gets You In</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Melissa A. & Dylan M. · ★ 5.0</span>
+          <span class="event-registered"><span class="dot"></span> 23 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/top-5-tips-for-your-law-school-application-2" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 12</div>
+        <h4>Top 5 Tips for Your Law School Application</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Indrani S. · ★ 5.0 (179)</span>
+          <span class="event-registered"><span class="dot"></span> 49 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/telling-your-story-tips-for-crafting-your-perfect-law-school-personal-statement-from-expert-coach-stanford-law-grad" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 13</div>
+        <h4>Crafting Your Perfect Law School Personal Statement</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Machmud M. · ★ 5.0 (47)</span>
+          <span class="event-registered"><span class="dot"></span> 16 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/law-school-admissions-office-hours-ask-me-anything-2" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 14</div>
+        <h4>Law School Admissions Office Hours: Ask Me Anything</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Conor A. · ★ 5.0 (16)</span>
+          <span class="event-registered"><span class="dot"></span> 12 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/ama-office-hours-law-school-admissions-4" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 15</div>
+        <h4>AMA: Office Hours Law School Admissions</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Kevin P. · ★ 4.9 (31)</span>
+          <span class="event-registered"><span class="dot"></span> 8 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/ask-me-anything-office-hour-with-indrani-former-stanford-law-school-admissions" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 18</div>
+        <h4>Ask Me Anything with Indrani, Former Stanford Law Admissions</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Indrani S. · ★ 5.0 (179)</span>
+          <span class="event-registered"><span class="dot"></span> 35 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+      <a class="event-card-item" href="https://www.joinleland.com/event/law-school-applications-top-5-tips-from-indrani-former-sls-admissions-officer" target="_blank">
+        <div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> May 20</div>
+        <h4>Law School Apps: Top 5 Tips from Former SLS Admissions Officer</h4>
+        <div class="event-coach-row">
+          <span class="event-coach-name">Indrani S. · ★ 5.0 (179)</span>
+          <span class="event-registered"><span class="dot"></span> 35 registered</span>
+        </div>
+        <div class="event-register-btn">Register Free</div>
+      </a>
+
+  </div>  </div>
+
+  <div class="events-inner">
+    <div class="events-cta-row">
+      <a class="events-cta-link" href="https://www.joinleland.com/school/law-school/events?action=buttonClick" target="_blank">
+        View all upcoming law school events
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-inner">
+    <div class="quiz-header reveal">
+      <div class="quiz-header-text">
+        <div class="overline">Coach Matching</div>
+        <h2>Get matched with the perfect coach for your <span>unique situation</span></h2>
+        <p>Answer a few quick questions and we'll recommend coaches based on your target schools, timeline, and where you need the most help.</p>
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;border-radius:10px;background:var(--primary-xlight);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185440" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div><span style="font-weight:600;font-size:0.95rem;">92% of coached applicants get admitted</span><br><span style="font-size:0.85rem;color:var(--gray-light);">Our coaches consistently outperform the national average</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;border-radius:10px;background:var(--primary-xlight);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185440" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div><span style="font-weight:600;font-size:0.95rem;">Takes less than 2 minutes</span><br><span style="font-size:0.85rem;color:var(--gray-light);">Get personalized coach recommendations instantly</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;border-radius:10px;background:var(--primary-xlight);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#185440" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <div><span style="font-weight:600;font-size:0.95rem;">Matched to your goals, not just your budget</span><br><span style="font-size:0.85rem;color:var(--gray-light);">We factor in target schools, coaching style, and experience</span></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="quiz-widget reveal" style="background:#fff;border:1px solid var(--gray-stroke);border-radius:20px;padding:48px 36px;box-shadow:0 8px 40px rgba(0,0,0,0.04);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--primary-xlight);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#185440" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:8px;">Ready to find your coach?</h3>
+      <p style="font-size:0.95rem;color:var(--gray-light);line-height:1.6;max-width:320px;margin-bottom:28px;">Create your free Leland account to browse coaches, attend free events, and get matched with the right coach for your goals.</p>
+      <a href="https://www.joinleland.com/auth?utm_source=meta&utm_medium=paidsocial&utm_campaign=Law-School-LP" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--primary);color:#fff;border:none;border-radius:8px;padding:16px 36px;font-size:1.05rem;font-weight:600;font-family:var(--font);text-decoration:none;transition:all 0.25s;box-shadow:0 4px 20px rgba(21,176,120,0.35);width:100%;max-width:320px;">
+        Get Started Free
+        <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <p style="font-size:0.78rem;color:var(--gray-xlight);margin-top:14px;display:flex;align-items:center;gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1a5 5 0 00-5 5v2a2 2 0 00-1 1.73V13a2 2 0 002 2h8a2 2 0 002-2V9.73A2 2 0 0013 8V6a5 5 0 00-5-5zM5 6a3 3 0 116 0v2H5V6z" fill="#bbb"/></svg>
+        No credit card required. Free to join.
+      </p>
+    </div>
+    <!-- Old quiz preserved below as comment for reference -->
+    <div style="display:none;">
+      <div class="quiz-progress">
+        <div class="bar active" id="bar1"></div>
+        <div class="bar" id="bar2"></div>
+        <div class="bar" id="bar3"></div>
+        <div class="bar" id="bar4"></div>
+        <div class="bar" id="bar5"></div>
+        <div class="bar" id="bar6"></div>
+        <div class="bar" id="bar7"></div>
+        <div class="bar" id="bar8"></div>
+        <div class="bar" id="bar9"></div>
+      </div>
+
+      <!-- Q1: Professional background -->
+      <div class="quiz-page active" id="q1">
+        <div class="quiz-question">What does your professional background look like?</div>
+        <div class="quiz-hint">This helps us match you with coaches who understand your career stage.</div>
+        <div class="quiz-cards">
+          <div class="quiz-card" data-q="1" data-v="student_deferred" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 4L4 14h28L18 4z" stroke="#185440" stroke-width="2" fill="#185440" fill-opacity="0.1"/><rect x="8" y="14" width="3.5" height="12" fill="#185440" fill-opacity="0.2" stroke="#185440" stroke-width="1.2"/><rect x="16.25" y="14" width="3.5" height="12" fill="#185440" fill-opacity="0.2" stroke="#185440" stroke-width="1.2"/><rect x="24.5" y="14" width="3.5" height="12" fill="#185440" fill-opacity="0.2" stroke="#185440" stroke-width="1.2"/><rect x="4" y="26" width="28" height="3" rx="1" fill="#185440"/></svg></div>
+            <div class="label">Student - Deferred Admission</div>
+            <div class="desc">I'm currently in school and applying for a deferred admission</div>
+          </div>
+          <div class="quiz-card" data-q="1" data-v="early_career" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 28L12 12l6 10 4-6 10 12" stroke="#185440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="#185440" fill-opacity="0.08"/></svg></div>
+            <div class="label">Steady career path</div>
+            <div class="desc">I'm on a good trajectory and thinking about law school</div>
+          </div>
+          <div class="quiz-card" data-q="1" data-v="mid_career" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="20,3 10,20 17,20 15,33 27,14 20,14" fill="#185440" stroke="#185440" stroke-width="1" stroke-linejoin="round"/></svg></div>
+            <div class="label">Ready for Law School</div>
+            <div class="desc">A couple years in. I'm ready to make the leap</div>
+          </div>
+          <div class="quiz-card" data-q="1" data-v="executive" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="12" r="6" stroke="#185440" stroke-width="2"/><path d="M8 30c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#185440" stroke-width="2"/><path d="M14 8l4-4 4 4" stroke="#185440" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="label">Executive / Senior</div>
+            <div class="desc">Deep in my career. Looking at top law school programs</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <div></div>
+          <button class="quiz-btn quiz-next" id="next1" disabled onclick="goTo(2)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Q2: Schooling (text fields) -->
+      <div class="quiz-page" id="q2">
+        <div class="quiz-question">Tell us about your academic background</div>
+        <div class="quiz-hint">This helps coaches understand your profile and identify strengths.</div>
+        <div class="quiz-form-fields">
+          <div class="form-group">
+            <label class="form-label">Where did you go to school?</label>
+            <input class="form-input" type="text" id="qf-school" placeholder="e.g. University of Michigan" oninput="validateTextStep(2)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">What did you study?</label>
+            <input class="form-input" type="text" id="qf-major" placeholder="e.g. Economics, Engineering" oninput="validateTextStep(2)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">What was your GPA? <span style="font-weight:400;color:var(--gray-xlight);">(optional)</span></label>
+            <input class="form-input" type="text" id="qf-gpa" placeholder="e.g. 3.7">
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-btn quiz-back" onclick="goTo(1)">← Back</button>
+          <button class="quiz-btn quiz-next" id="next2" disabled onclick="goTo(3)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Q3: LSAT/GRE (yes/no + conditional score) -->
+      <div class="quiz-page" id="q3">
+        <div class="quiz-question">Have you taken the LSAT or GRE yet?</div>
+        <div class="quiz-hint">No worries if not. Many applicants start coaching before testing.</div>
+        <div class="quiz-yesno">
+          <button class="quiz-yesno-btn" onclick="selectYesNo(this, 3, 'yes')">Yes</button>
+          <button class="quiz-yesno-btn" onclick="selectYesNo(this, 3, 'no')">Not yet</button>
+        </div>
+        <div class="quiz-score-field" id="score-field">
+          <div class="form-group">
+            <label class="form-label">What did you score?</label>
+            <input class="form-input" type="text" id="qf-testscore" placeholder="e.g. 168 LSAT">
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-btn quiz-back" onclick="goTo(2)">← Back</button>
+          <button class="quiz-btn quiz-next" id="next3" disabled onclick="goTo(4)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Q4: Timeline -->
+      <div class="quiz-page" id="q4">
+        <div class="quiz-question">We're excited to help you get into your dream program. When are you looking for help?</div>
+        <div class="quiz-hint">The sooner you start, the stronger your application.</div>
+        <div class="quiz-cards">
+          <div class="quiz-card" data-q="4" data-v="asap" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="20,3 10,20 17,20 15,33 27,14 20,14" fill="#185440" stroke="#185440" stroke-width="1" stroke-linejoin="round"/></svg></div>
+            <div class="label">As soon as possible</div>
+            <div class="desc">I'm ready. Let's get started now</div>
+          </div>
+          <div class="quiz-card" data-q="4" data-v="6mo" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="7" width="26" height="24" rx="3" stroke="#185440" stroke-width="2"/><path d="M5 14h26" stroke="#185440" stroke-width="2"/><path d="M12 4v6M24 4v6" stroke="#185440" stroke-width="2.2" stroke-linecap="round"/><circle cx="18" cy="22" r="2.5" fill="#185440"/></svg></div>
+            <div class="label">In the next 6 months</div>
+            <div class="desc">Planning ahead for upcoming rounds</div>
+          </div>
+          <div class="quiz-card" data-q="4" data-v="6-12mo" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="14" stroke="#185440" stroke-width="2"/><path d="M18 8v10l6 4" stroke="#185440" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+            <div class="label">6. 12 months</div>
+            <div class="desc">Building my profile before I apply</div>
+          </div>
+          <div class="quiz-card" data-q="4" data-v="12plus" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 32V18" stroke="#185440" stroke-width="2.2" stroke-linecap="round"/><path d="M18 18c0-6 6-12 12-12-1 6-6 12-12 12z" fill="#185440" fill-opacity="0.15" stroke="#185440" stroke-width="1.8"/><path d="M18 22c0-5-5-9-10-9 1 5 5 9 10 9z" fill="#185440" fill-opacity="0.15" stroke="#185440" stroke-width="1.8"/></svg></div>
+            <div class="label">12+ months</div>
+            <div class="desc">Early stage. Exploring my options</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-btn quiz-back" onclick="goTo(3)">← Back</button>
+          <button class="quiz-btn quiz-next" id="next4" disabled onclick="goTo(5)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Q5: Target programs -->
+      <div class="quiz-page" id="q5">
+        <div class="quiz-question">Which programs are on your radar?</div>
+        <div class="quiz-hint">We'll match you with coaches who got into these schools.</div>
+        <div class="quiz-cards">
+          <div class="quiz-card" data-q="5" data-v="m7" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 4L4 14h28L18 4z" stroke="#185440" stroke-width="2" fill="#185440" fill-opacity="0.1"/><rect x="8" y="14" width="3.5" height="12" fill="#185440" fill-opacity="0.2" stroke="#185440" stroke-width="1.2"/><rect x="16.25" y="14" width="3.5" height="12" fill="#185440" fill-opacity="0.2" stroke="#185440" stroke-width="1.2"/><rect x="24.5" y="14" width="3.5" height="12" fill="#185440" fill-opacity="0.2" stroke="#185440" stroke-width="1.2"/><rect x="4" y="26" width="28" height="3" rx="1" fill="#185440"/></svg></div>
+            <div class="label">T14 Programs</div>
+            <div class="desc">HBS, Stanford GSB, Wharton, Booth, Kellogg, Columbia, Sloan</div>
+          </div>
+          <div class="quiz-card" data-q="5" data-v="t15" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="14" stroke="#185440" stroke-width="2"/><circle cx="18" cy="18" r="9" stroke="#185440" stroke-width="1.8"/><circle cx="18" cy="18" r="4.5" fill="#185440"/></svg></div>
+            <div class="label">T15 Programs</div>
+            <div class="desc">Tuck, Fuqua, Ross, Darden, Haas, Yale, Stern</div>
+          </div>
+          <div class="quiz-card" data-q="5" data-v="t25" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="14" stroke="#185440" stroke-width="2"/><ellipse cx="18" cy="18" rx="7" ry="14" stroke="#185440" stroke-width="1.5"/><line x1="4" y1="13" x2="32" y2="13" stroke="#185440" stroke-width="1.3"/><line x1="4" y1="23" x2="32" y2="23" stroke="#185440" stroke-width="1.3"/></svg></div>
+            <div class="label">T25 / International</div>
+            <div class="desc">INSEAD, LBS, Tepper, Marshall, McCombs</div>
+          </div>
+          <div class="quiz-card" data-q="5" data-v="unsure" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 4C12.5 4 8 8.5 8 14c0 4 2.5 7.2 6 8.5V26h8v-3.5c3.5-1.3 6-4.5 6-8.5 0-5.5-4.5-10-10-10z" stroke="#185440" stroke-width="2" fill="#185440" fill-opacity="0.1"/><line x1="14" y1="29" x2="22" y2="29" stroke="#185440" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="32" x2="21" y2="32" stroke="#185440" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="12" x2="18" y2="18" stroke="#185440" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="10" r="1.5" fill="#185440"/></svg></div>
+            <div class="label">Help me decide</div>
+            <div class="desc">I need help building my school list</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-btn quiz-back" onclick="goTo(4)">← Back</button>
+          <button class="quiz-btn quiz-next" id="next5" disabled onclick="goTo(6)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Q6: What are you looking for help with? (multi-select) -->
+      <div class="quiz-page" id="q6">
+        <div class="quiz-question">What do you need the most help with?</div>
+        <div class="quiz-hint">Select all that apply. We'll tailor your coach matches.</div>
+        <div class="quiz-cards" style="grid-template-columns:repeat(3,1fr);">
+          <div class="quiz-card" data-q="6" data-v="e2e" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="26" height="26" rx="4" stroke="#185440" stroke-width="2"/><path d="M12 12h12M12 18h12M12 24h8" stroke="#185440" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <div class="label">End-to-end support</div>
+          </div>
+          <div class="quiz-card" data-q="6" data-v="narrative" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 28V8a2 2 0 012-2h16a2 2 0 012 2v20" stroke="#185440" stroke-width="2"/><path d="M14 14h8M14 19h5" stroke="#185440" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="30" r="3" fill="#185440" fill-opacity="0.2" stroke="#185440" stroke-width="1.5"/></svg></div>
+            <div class="label">Personal narrative</div>
+          </div>
+          <div class="quiz-card" data-q="6" data-v="strategy" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="14" stroke="#185440" stroke-width="2"/><circle cx="18" cy="18" r="9" stroke="#185440" stroke-width="1.8"/><circle cx="18" cy="18" r="4.5" fill="#185440"/></svg></div>
+            <div class="label">Application strategy</div>
+          </div>
+          <div class="quiz-card" data-q="6" data-v="essays" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="4" width="18" height="24" rx="2" stroke="#185440" stroke-width="2"/><line x1="12" y1="11" x2="21" y2="11" stroke="#185440" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="16" x2="21" y2="16" stroke="#185440" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="21" x2="17" y2="21" stroke="#185440" stroke-width="1.8" stroke-linecap="round"/><path d="M24 20l4-4 3 3-4 4-3.5.5.5-3.5z" fill="#185440"/></svg></div>
+            <div class="label">Personal Statements</div>
+          </div>
+          <div class="quiz-card" data-q="6" data-v="resume" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="4" width="20" height="28" rx="2" stroke="#185440" stroke-width="2"/><circle cx="18" cy="13" r="4" stroke="#185440" stroke-width="1.8"/><path d="M12 22h12M12 26h8" stroke="#185440" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div class="label">Resume</div>
+          </div>
+          <div class="quiz-card" data-q="6" data-v="recs" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 4l4 8h9l-7 5 3 9-9-6-9 6 3-9-7-5h9l4-8z" stroke="#185440" stroke-width="2" fill="#185440" fill-opacity="0.1"/></svg></div>
+            <div class="label">Recommendations</div>
+          </div>
+          <div class="quiz-card" data-q="6" data-v="interviews" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="14" r="6" stroke="#185440" stroke-width="2"/><path d="M8 30c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#185440" stroke-width="2"/></svg></div>
+            <div class="label">Interviews</div>
+          </div>
+          <div class="quiz-card" data-q="6" data-v="testprep" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="8" width="24" height="18" rx="3" stroke="#185440" stroke-width="2"/><path d="M14 16l3 3 5-6" stroke="#185440" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 30h10" stroke="#185440" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div class="label">LSAT/GRE prep</div>
+          </div>
+          <div class="quiz-card" data-q="6" data-v="other" onclick="toggleMultiCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="18" r="3" fill="#185440"/><circle cx="18" cy="18" r="3" fill="#185440"/><circle cx="26" cy="18" r="3" fill="#185440"/></svg></div>
+            <div class="label">Other</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-btn quiz-back" onclick="goTo(5)">← Back</button>
+          <button class="quiz-btn quiz-next" id="next6" disabled onclick="goTo(7)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Q7: Budget -->
+      <div class="quiz-page" id="q7">
+        <div class="quiz-question">What's your budget for coaching support?</div>
+        <div class="quiz-hint">This helps us recommend the right package. No commitment yet.</div>
+        <div class="quiz-cards">
+          <div class="quiz-card" data-q="7" data-v="high" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="14" stroke="#185440" stroke-width="2"/><path d="M18 8v20M14 12h8a3 3 0 010 6h-6a3 3 0 000 6h8" stroke="#185440" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div class="label">Invest in the best</div>
+            <div class="desc">I'll pay for top-tier coaching to maximize my chances</div>
+          </div>
+          <div class="quiz-card" data-q="7" data-v="medium" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 28L12 12l6 10 4-6 10 12" stroke="#185440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="#185440" fill-opacity="0.08"/></svg></div>
+            <div class="label">Quality matters</div>
+            <div class="desc">Price matters, but I want expert coaching</div>
+          </div>
+          <div class="quiz-card" data-q="7" data-v="low" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="14" width="24" height="14" rx="2" stroke="#185440" stroke-width="2"/><path d="M6 14l12-8 12 8" stroke="#185440" stroke-width="2" stroke-linejoin="round"/><circle cx="18" cy="21" r="3" stroke="#185440" stroke-width="1.5"/></svg></div>
+            <div class="label">Budget-conscious</div>
+            <div class="desc">Price is a major factor, but I still want coaching</div>
+          </div>
+          <div class="quiz-card" data-q="7" data-v="free" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="10" stroke="#185440" stroke-width="2.2"/><line x1="22.5" y1="22.5" x2="31" y2="31" stroke="#185440" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+            <div class="label">Exploring free resources</div>
+            <div class="desc">Just looking for free events and content for now</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-btn quiz-back" onclick="goTo(6)">← Back</button>
+          <button class="quiz-btn quiz-next" id="next7" disabled onclick="goTo(8)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- Q8: Free consultation -->
+      <div class="quiz-page" id="q8">
+        <div class="quiz-question">When would be the best time for a free consultation with our expert team?</div>
+        <div class="quiz-hint">We'll evaluate your profile and match you with the best coach for your goals.</div>
+        <div class="quiz-cards">
+          <div class="quiz-card" data-q="8" data-v="now" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="20,3 10,20 17,20 15,33 27,14 20,14" fill="#185440" stroke="#185440" stroke-width="1" stroke-linejoin="round"/></svg></div>
+            <div class="label">Call now</div>
+            <div class="desc">I'm ready to talk. Connect me today</div>
+          </div>
+          <div class="quiz-card" data-q="8" data-v="schedule" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="7" width="26" height="24" rx="3" stroke="#185440" stroke-width="2"/><path d="M5 14h26" stroke="#185440" stroke-width="2"/><path d="M12 4v6M24 4v6" stroke="#185440" stroke-width="2.2" stroke-linecap="round"/><circle cx="18" cy="22" r="2.5" fill="#185440"/></svg></div>
+            <div class="label">Schedule a call</div>
+            <div class="desc">Let me pick a time that works</div>
+          </div>
+          <div class="quiz-card" data-q="8" data-v="nocall" onclick="selectCard(this)">
+            <span class="check-mark">✓</span>
+            <div class="emoji"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="14" stroke="#185440" stroke-width="2"/><path d="M18 10v8l5 3" stroke="#185440" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div class="label">No need for a call yet</div>
+            <div class="desc">Just send me resources and event invites</div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="quiz-btn quiz-back" onclick="goTo(7)">← Back</button>
+          <button class="quiz-btn quiz-next" id="next8" disabled onclick="showResults()">See My Matches →</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Contact Form (outside quiz widget. single card) -->
+    <div id="quiz-form-container" style="display:none;max-width:580px;margin:0 auto;background:#fff;border:1px solid var(--gray-stroke);border-radius:20px;padding:48px 44px;box-shadow:0 8px 40px rgba(0,0,0,0.04);">
+      <div id="quiz-form-view">
+        <div style="text-align:center;margin-bottom:24px;">
+          <svg width="44" height="44" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="24" stroke="#185440" stroke-width="2.5" fill="#e3f6ef"/><path d="M18 28l7 7 13-14" stroke="#185440" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="quiz-question" style="text-align:center;">Almost there. Where should we send your personalized plan?</div>
+        <div class="quiz-hint" style="text-align:center;">We'll match you with coaches, send event invites, and build your custom timeline.</div>
+        <form onsubmit="submitQuizForm(event)" style="max-width:440px;margin:0 auto;">
+          <div class="form-row" style="margin-bottom:14px;">
+            <div class="form-group">
+              <label class="form-label">First name *</label>
+              <input class="form-input" type="text" id="qf-first" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last name *</label>
+              <input class="form-input" type="text" id="qf-last" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:14px;">
+            <label class="form-label">Email *</label>
+            <input class="form-input" type="email" id="qf-email" placeholder="jane@email.com" required>
+          </div>
+          <div class="form-group" style="margin-bottom:20px;">
+            <label class="form-label">Phone <span style="font-weight:400;color:var(--gray-xlight);">(optional)</span></label>
+            <input class="form-input" type="tel" id="qf-phone" placeholder="(555) 123-4567">
+          </div>
+          <button type="submit" class="form-submit" id="quiz-submit-btn">Get My Free law school Plan →</button>
+          <div class="form-fine" style="margin-top:12px;">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1a5 5 0 00-5 5v2a2 2 0 00-1 1.73V13a2 2 0 002 2h8a2 2 0 002-2V9.73A2 2 0 0013 8V6a5 5 0 00-5-5zM5 6a3 3 0 116 0v2H5V6z" fill="#bbb"/></svg>
+            No spam. No credit card. Unsubscribe anytime.
+          </div>
+        </form>
+      </div>
+      <div id="quiz-success-view" style="display:none;text-align:center;padding:20px 0;">
+        <div style="margin-bottom:16px;"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="24" stroke="#185440" stroke-width="2.5" fill="#e3f6ef"/><path d="M18 28l7 7 13-14" stroke="#185440" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 style="font-size:1.5rem;font-weight:700;margin-bottom:10px;">You're all set, <span id="quiz-user-name"></span>!</h3>
+        <p style="color:var(--gray-light);font-size:1rem;line-height:1.6;max-width:400px;margin:0 auto 24px;">Check your inbox for your personalized law school roadmap, coach matches, and upcoming event invites. We're excited to help you get into your dream school.</p>
+        <button class="quiz-btn quiz-next" onclick="document.getElementById('results').scrollIntoView({behavior:'smooth'})">See Success Stories →</button>
+      </div>
+    </div>
+    </div><!-- end hidden old quiz -->
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="inner">
+    <h2>Application deadlines are coming.<br><span>Don't go it alone.</span></h2>
+    <p>10,000+ applicants have worked with Leland coaches to get into their dream law programs. Start exploring coaches today.</p>
+    <a class="final-cta-btn" href="https://www.joinleland.com/auth?utm_source=meta&utm_medium=paidsocial&utm_campaign=Law-School-LP" target="_blank" style="text-decoration:none;">
+      Get Started Free
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+    </a>
+    <div class="final-sub">Most application deadlines fall in the fall. Start prep now</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <svg width="72" height="17" viewBox="0 0 99 23" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:#15b078;">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M20.5721 2.33411L6.8221 6.45911L2.23877 20.6674L16.4471 16.5424L20.5721 2.33411ZM11.4052 13.7922C12.6709 13.7922 13.6969 12.7662 13.6969 11.5006C13.6969 10.2349 12.6709 9.2089 11.4052 9.2089C10.1396 9.2089 9.11354 10.2349 9.11354 11.5006C9.11354 12.7662 10.1396 13.7922 11.4052 13.7922Z" fill="currentColor"/>
+    <path d="M80.2848 12.707V19.1726H83.4802V12.0081C83.4802 9.11227 82.6064 6.86554 79.1365 6.86554C77.389 6.86554 76.1658 7.63941 75.5168 8.91256H75.4419L75.4668 7.09021H72.2715V19.1726H75.4668V13.1564C75.4668 11.1343 76.1409 9.48672 78.113 9.48672C79.9603 9.48672 80.2848 10.9097 80.2848 12.707Z" fill="currentColor"/>
+    <path d="M66.415 17.7747L66.4649 19.1726H69.5355V12.2577C69.5355 10.2107 69.0861 9.11227 68.2124 8.2635C67.3137 7.41474 66.0905 6.86554 63.9436 6.86554C61.8467 6.86554 60.1491 7.58949 59.2255 8.13869L60.1991 10.1857C60.7233 9.78629 62.0464 9.18716 63.644 9.18716C65.3166 9.18716 66.3401 9.91111 66.3401 11.4589V11.7834L63.4443 11.9831C60.948 12.1578 58.4766 13.1314 58.4766 15.6527C58.4766 18.1741 60.3738 19.4472 62.7204 19.4472C64.5178 19.4472 65.9157 18.6484 66.415 17.7747ZM64.1932 13.8554L66.3651 13.7305V15.9523C65.9407 16.5514 65.017 17.2754 63.7689 17.2754C62.4458 17.2754 61.6719 16.5764 61.6719 15.5529C61.6719 14.5294 62.4957 13.9552 64.1932 13.8554Z" fill="currentColor"/>
+    <path d="M41.9788 14.1549H50.8659C50.8659 14.1549 50.9158 13.1564 50.9158 12.5323C50.9158 9.31198 48.6691 6.86554 44.9495 6.86554C41.5045 6.86554 38.6836 9.46176 38.6836 13.3311C38.6836 17.2255 41.3797 19.4472 45.0244 19.4472C47.9701 19.4472 49.7924 18.199 50.4664 17.5001L49.2183 15.7776C48.6441 16.2768 47.1962 17.0008 45.5736 17.0008C43.7512 17.0008 42.2784 16.0771 41.9788 14.1549ZM44.9245 9.23709C47.1712 9.23709 47.6705 10.7599 47.7204 12.0829H41.9289C42.0287 10.5602 43.0273 9.23709 44.9245 9.23709Z" fill="currentColor"/>
+    <path d="M31.7384 3.55707V16.4751H37.7546V19.1711H28.5181V3.55707L31.7384 3.55707Z" fill="currentColor"/>
+    <path d="M56.332 3.55707V19.1711H53.1616V3.55707L56.332 3.55707Z" fill="currentColor"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M98.5944 3.55707V19.1711H95.5738L95.5488 17.2739H95.4739C94.5003 18.8216 93.0025 19.4457 91.3299 19.4457C87.7851 19.4457 85.6133 16.6997 85.6133 13.105C85.6133 9.68494 87.885 6.86405 91.5546 6.86405C93.1773 6.86405 94.5503 7.46318 95.399 8.76129H95.449C95.424 8.21209 95.424 7.56303 95.424 6.71427V3.55707L98.5944 3.55707ZM88.8586 13.105C88.8586 15.2019 90.1567 16.8495 92.2286 16.8495C94.1508 16.8495 95.4989 15.3767 95.4989 13.105C95.4989 11.0829 94.1758 9.31049 92.1288 9.31049C90.0568 9.31049 88.8586 11.0829 88.8586 13.105Z" fill="currentColor"/>
+  </svg>
+  <div class="footer-text">© 2026 Leland. All rights reserved.</div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Quiz logic
+const TOTAL_STEPS = 9;
+let answers = {};
+let multiAnswers = {};
+function selectCard(el) {
+  const q = el.dataset.q;
+  document.querySelectorAll(`.quiz-card[data-q="${q}"]`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[q] = el.dataset.v;
+  document.getElementById('next' + q).disabled = false;
+}
+function toggleMultiCard(el) {
+  el.classList.toggle('selected');
+  const q = el.dataset.q;
+  if (!multiAnswers[q]) multiAnswers[q] = new Set();
+  if (el.classList.contains('selected')) {
+    multiAnswers[q].add(el.dataset.v);
+  } else {
+    multiAnswers[q].delete(el.dataset.v);
+  }
+  document.getElementById('next' + q).disabled = multiAnswers[q].size === 0;
+}
+// Text field validation (Q2: school + major required)
+function validateTextStep(q) {
+  const school = document.getElementById('qf-school').value.trim();
+  const major = document.getElementById('qf-major').value.trim();
+  document.getElementById('next' + q).disabled = !(school && major);
+}
+// Yes/No toggle (Q3: LSAT/GRE)
+function selectYesNo(btn, q, val) {
+  btn.parentElement.querySelectorAll('.quiz-yesno-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[q] = val;
+  document.getElementById('next' + q).disabled = false;
+  const scoreField = document.getElementById('score-field');
+  if (val === 'yes') {
+    scoreField.classList.add('visible');
+  } else {
+    scoreField.classList.remove('visible');
+  }
+}
+function goTo(step) {
+  document.querySelectorAll('.quiz-page').forEach(p => { p.classList.remove('active'); p.style.display = 'none'; });
+  document.querySelector('.quiz-widget').classList.remove('seamless');
+  const target = document.getElementById('q' + step);
+  target.style.display = 'block';
+  requestAnimationFrame(() => target.classList.add('active'));
+  for (let i = 1; i <= TOTAL_STEPS; i++) {
+    const bar = document.getElementById('bar' + i);
+    if (bar) bar.classList.toggle('active', i <= step);
+  }
+}
+function showResults() {
+  document.querySelector('.quiz-widget').style.display = 'none';
+  document.getElementById('quiz-form-container').style.display = 'block';
+  document.getElementById('quiz-form-container').style.animation = 'fadeUp 0.5s ease';
+}
+
+// Review expand/collapse
+function toggleReview(btn) {
+  const body = btn.closest('.review-body');
+  const isExpanded = body.classList.toggle('expanded');
+  btn.firstChild.textContent = isExpanded ? 'Read less ' : 'Read more ';
+}
+
+// Quiz form → HubSpot
+function submitQuizForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('quiz-submit-btn');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+
+  const firstName = document.getElementById('qf-first').value;
+  const lastName = document.getElementById('qf-last').value;
+  const email = document.getElementById('qf-email').value;
+  const phone = document.getElementById('qf-phone').value;
+
+  // Map quiz answers to HubSpot-friendly values
+  const timelineMap = { asap: 'As soon as possible', '6mo': 'In the next 6 months', '6-12mo': '6–12 months', '12plus': '12+ months' };
+  const programMap = { m7: 'T14', t15: 'T15', t25: 'T25/International', unsure: 'Help me decide' };
+  const budgetMap = { high: 'High', medium: 'Medium', low: 'Low', free: 'Free resources only' };
+  const consultMap = { now: 'Call now', schedule: 'Schedule a call', nocall: 'No need for a call yet' };
+
+
+  // Map new quiz fields
+  const bgMap = { student_deferred: 'Student - Deferred law school', early_career: 'Steady career path', mid_career: 'A few years in - ready for law school', executive: 'Executive / Senior' };
+  const helpWith = multiAnswers[6] ? [...multiAnswers[6]].join(', ') : '';
+
+  const school = document.getElementById('qf-school')?.value || '';
+  const major = document.getElementById('qf-major')?.value || '';
+  const gpa = document.getElementById('qf-gpa')?.value || '';
+  const testTaken = answers[3] || '';
+  const testScore = document.getElementById('qf-testscore')?.value || '';
+
+  // HubSpot contact payload
+  const hubspotData = {
+    firstname: firstName,
+    lastname: lastName,
+    email: email,
+    phone: phone || '',
+    // New fields
+    professional_background: bgMap[answers[1]] || '',
+    school_name: school,
+    field_of_study: major,
+    gpa: gpa,
+    gmat_gre_taken: testTaken === 'yes' ? 'Yes' : 'Not yet',
+    gmat_gre_score: testScore,
+    // Existing fields (renumbered)
+    mba__when_are_you_applying_: timelineMap[answers[4]] || '',
+    mba__which_mba_programs_do_you_plan_to_apply_to_: programMap[answers[5]] || '',
+    help_with: helpWith,
+    'user__what_s_your_budget_': budgetMap[answers[7]] || '',
+    coaching_interest_source: 'law school Landing Page Quiz',
+  };
+
+  // Log for development. in production, POST to your HubSpot Forms API endpoint
+  console.log('HubSpot Contact Data:', JSON.stringify(hubspotData, null, 2));
+
+  // ── HUBSPOT FORMS API INTEGRATION ──
+  // Replace PORTAL_ID and FORM_ID with your actual HubSpot values
+  const PORTAL_ID = '22467258';
+  const FORM_ID = 'YOUR_FORM_ID'; // Create a HubSpot form and paste its ID here
+
+  const hubspotPayload = {
+    portalId: PORTAL_ID,
+    formGuid: FORM_ID,
+    fields: [
+      { name: 'firstname', value: firstName },
+      { name: 'lastname', value: lastName },
+      { name: 'email', value: email },
+      { name: 'phone', value: phone || '' },
+      { name: 'professional_background', value: bgMap[answers[1]] || '' },
+      { name: 'school_name', value: school },
+      { name: 'field_of_study', value: major },
+      { name: 'gpa', value: gpa },
+      { name: 'gmat_gre_taken', value: testTaken === 'yes' ? 'Yes' : 'Not yet' },
+      { name: 'gmat_gre_score', value: testScore },
+      { name: 'mba__when_are_you_applying_', value: timelineMap[answers[4]] || '' },
+      { name: 'mba__which_mba_programs_do_you_plan_to_apply_to_', value: programMap[answers[5]] || '' },
+      { name: 'help_with', value: helpWith },
+      { name: 'user__what_s_your_budget_', value: budgetMap[answers[7]] || '' },
+    ],
+    context: {
+      pageUri: window.location.href,
+      pageName: 'law school Landing Page Quiz'
+    }
+  };
+
+  // Attempt HubSpot form submission
+  fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_ID}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(hubspotPayload)
+  })
+  .then(res => {
+    // Show success regardless (form ID may not be set yet in prototype)
+    showQuizSuccess(firstName);
+  })
+  .catch(err => {
+    console.log('HubSpot submission note: Set FORM_ID to enable. Data logged to console.', err);
+    showQuizSuccess(firstName);
+  });
+}
+
+function showQuizSuccess(name) {
+  document.getElementById('quiz-form-view').style.display = 'none';
+  document.getElementById('quiz-success-view').style.display = 'block';
+  document.getElementById('quiz-user-name').textContent = name;
+}
+
+// ── SEAMLESS LOGO TICKER ──
+(function initTicker() {
+  const track = document.getElementById('ticker');
+  const origItems = [...track.children];
+  const wrapWidth = track.parentElement.offsetWidth;
+  // Clone sets until the track is at least 2x wider than the viewport
+  let safety = 0;
+  while (track.scrollWidth < wrapWidth * 3 && safety < 10) {
+    origItems.forEach(img => track.appendChild(img.cloneNode(true)));
+    safety++;
+  }
+  // Now duplicate the entire track content once more for the seamless loop
+  const allItems = [...track.children];
+  allItems.forEach(img => track.appendChild(img.cloneNode(true)));
+  // Set speed proportional to content width
+  const halfWidth = track.scrollWidth / 2;
+  const speed = 30; // pixels per second
+  track.style.setProperty('--ticker-duration', (halfWidth / speed) + 's');
+  track.classList.add('animate');
+})();
+
+// Align events grid left padding with section header
+(function() {
+  var eventsGrid = document.getElementById('events-grid-main');
+  var eventsInner = document.querySelector('.events-inner');
+  if (!eventsGrid || !eventsInner) return;
+  function alignEvents() {
+    eventsGrid.style.paddingLeft = Math.round(eventsInner.getBoundingClientRect().left * 0.3) + 'px';
+  }
+  alignEvents();
+  window.addEventListener('resize', alignEvents);
+})();
+
+// ── LIVE EVENTS FETCH ──
+(function loadLiveEvents() {
+  var grid = document.getElementById('events-grid-main');
+  if (!grid) return;
+  var fallbackHTML = grid.innerHTML;
+  var CATEGORY = 'law-school';
+
+  fetch('https://shortfin.joinleland.com/api/v1/event-sessions?time_filter=UPCOMING&start=0&count=40')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var events = (data.eventSessions || []).filter(function(e) {
+        return e.categories && e.categories.some(function(c) { return c.slug === CATEGORY; });
+      }).slice(0, 12);
+      if (events.length < 3) return; // keep fallback if too few
+      grid.innerHTML = events.map(function(evt) {
+        var d = new Date(evt.startAt);
+        var month = d.toLocaleDateString('en-US', { month: 'short' });
+        var day = d.getDate();
+        var dateStr = month + ' ' + day;
+        var coaches = (evt.coaches || []).map(function(c) {
+          var u = c.user || c;
+          var name = (u.firstName || '') + ' ' + ((u.lastName || '').charAt(0)) + '.';
+          var rating = c.averageRating || u.averageRating || c.rating;
+          var reviews = c.totalReviews || u.totalReviews || c.reviewCount;
+          if (rating) name += ' · ★ ' + (Math.round(rating * 100) / 100) + (reviews ? ' (' + reviews + ')' : '');
+          return name;
+        }).join(', ');
+        var link = 'https://www.joinleland.com/event/' + evt.slug;
+        var attendees = evt.totalAttendees || 0;
+        return '<a class="event-card-item" href="' + link + '" target="_blank">' +
+          '<div class="event-date-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg> ' + dateStr + '</div>' +
+          '<h4>' + evt.title + '</h4>' +
+          '<div class="event-coach-row">' +
+            '<span class="event-coach-name">' + coaches + '</span>' +
+            (attendees > 0 ? '<span class="event-registered"><span class="dot"></span> ' + attendees + ' registered</span>' : '') +
+          '</div>' +
+          '<div class="event-register-btn">Register Free</div>' +
+        '</a>';
+      }).join('');
+    })
+    .catch(function() { /* keep fallback HTML */ });
+})();
+
+// Form
+function handleSubmit(e) {
+  e.preventDefault();
+  const card = document.querySelector('.register-card');
+  card.style.transition = 'all 0.3s';
+  card.innerHTML = `
+    <div style="text-align:center;padding:40px 20px;">
+      <div style="margin-bottom:16px;animation:float 3s ease-in-out infinite;display:flex;justify-content:center;"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="24" stroke="#185440" stroke-width="2.5" fill="#e3f6ef"/><path d="M18 28l7 7 13-14" stroke="#185440" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3 style="font-size:1.4rem;font-weight:700;margin-bottom:10px;">You're in!</h3>
+      <p style="color:var(--gray-light);font-size:0.95rem;line-height:1.6;max-width:360px;margin:0 auto;">Check your inbox for your personalized law school plan, coach matches, and event invites. We're excited to help you get into your dream school.</p>
+    </div>
+  `;
+}
+</script>
+
+<script>
+// ── COACHES CAROUSEL ──
+(function() {
+  const track = document.getElementById('coachesTrack');
+  const prevBtn = document.getElementById('coachPrev');
+  const nextBtn = document.getElementById('coachNext');
+  if (!track || !prevBtn || !nextBtn) return;
+  // Align track left padding with .coaches-inner header
+  function alignTrack() {
+    var inner = document.querySelector('.coaches-inner');
+    if (inner) { track.style.paddingLeft = Math.round(inner.getBoundingClientRect().left * 0.3) + 'px'; }
+  }
+  alignTrack();
+  window.addEventListener('resize', alignTrack);
+  const scrollAmt = 640;
+  function updateBtns() {
+    prevBtn.disabled = track.scrollLeft <= 10;
+    nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 10;
+  }
+  prevBtn.addEventListener('click', function() { track.scrollBy({ left: -scrollAmt, behavior: 'smooth' }); });
+  nextBtn.addEventListener('click', function() { track.scrollBy({ left: scrollAmt, behavior: 'smooth' }); });
+  track.addEventListener('scroll', updateBtns);
+  window.addEventListener('resize', updateBtns);
+  updateBtns();
+  // Drag to scroll
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', function(e) { isDown = true; track.style.cursor = 'grabbing'; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
+  track.addEventListener('mouseleave', function() { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mouseup', function() { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mousemove', function(e) { if (!isDown) return; e.preventDefault(); var x = e.pageX - track.offsetLeft; track.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+})();
+</script>
+
+</body>
+</html>
