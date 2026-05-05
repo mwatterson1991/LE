@@ -1,0 +1,64 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Leland//Bootcamp//EN
+BEGIN:VEVENT
+DTSTART:20260421T200000Z
+DTEND:20260421T213000Z
+SUMMARY:L1: Build a Real Product with World-Class Design
+DESCRIPTION:This is the afternoon section of this session. There is an morn
+ ing section earlier in the day if you'd prefer that time instead. The mater
+ ial covered will be identical between both sections.\n\nAll Leland bootcamp
+  sessions are hosted on the Leland platform. You can join the session here:
+  [appropriate link for the the bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260424T200000Z
+DTEND:20260424T213000Z
+SUMMARY:L1: Automate Communication in Your Voice
+DESCRIPTION:This is the afternoon section of this session. There is an morn
+ ing section earlier in the day if you'd prefer that time instead. The mater
+ ial covered will be identical between both sections.\n\nAll Leland bootcamp
+  sessions are hosted on the Leland platform. You can join the session here:
+  [appropriate link for the the bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260428T200000Z
+DTEND:20260428T213000Z
+SUMMARY:L1: Design Presentations That Build Themselves
+DESCRIPTION:This is the afternoon section of this session. There is an morn
+ ing section earlier in the day if you'd prefer that time instead. The mater
+ ial covered will be identical between both sections.\n\nAll Leland bootcamp
+  sessions are hosted on the Leland platform. You can join the session here:
+  [appropriate link for the the bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260501T200000Z
+DTEND:20260501T213000Z
+SUMMARY:L1: Analyze and Visualize Data Without Writing Formulas
+DESCRIPTION:This is the afternoon section of this session. There is an morn
+ ing section earlier in the day if you'd prefer that time instead. The mater
+ ial covered will be identical between both sections.\n\nAll Leland bootcamp
+  sessions are hosted on the Leland platform. You can join the session here:
+  [appropriate link for the the bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260505T200000Z
+DTEND:20260505T213000Z
+SUMMARY:L1: Build Custom Workflows That Run While You Sleep
+DESCRIPTION:This is the afternoon section of this session. There is an morn
+ ing section earlier in the day if you'd prefer that time instead. The mater
+ ial covered will be identical between both sections.\n\nAll Leland bootcamp
+  sessions are hosted on the Leland platform. You can join the session here:
+  [appropriate link for the the bootcamp/cohort on the profile]
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260508T200000Z
+DTEND:20260508T213000Z
+SUMMARY:L1: Launch Your AI System + Demo Day
+DESCRIPTION:This is the afternoon section of this session. There is an morn
+ ing section earlier in the day if you'd prefer that time instead. The mater
+ ial covered will be identical between both sections.\n\nAll Leland bootcamp
+  sessions are hosted on the Leland platform. You can join the session here:
+  [appropriate link for the the bootcamp/cohort on the profile]
+END:VEVENT
+END:VCALENDAR
