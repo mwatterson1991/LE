@@ -229,7 +229,7 @@ export default function SyllabusPage() {
           <h2>Ready to start building?</h2>
           <p className="sy-bottom-cta-sub">
             Pick the level that matches where you are today. Every course runs for 2 weeks
-            with 4 core sessions plus optional Wednesday Build Workshops, and you can retake for a full year.
+            with 4 core sessions plus optional Build Workshops, and you can retake for a full year.
           </p>
           <div className="sy-bundle-grid">
             <div className="sy-bundle-card">

@@ -256,10 +256,10 @@ function IcebergVisualization() {
   // Horizontal progression: levels build left to right with Core/Advanced audience brackets above
   const levels = [
     { num: 1, name: 'Use AI to 10x Your Impact' },
-    { num: 2, name: 'Build Agents That Work for You' },
-    { num: 3, name: 'Create Your Autonomous Agent System' },
-    { num: 4, name: 'Design Multi-Agent Systems' },
-    { num: 5, name: 'Ship AI Systems That Scale' },
+    { num: 2, name: 'Build Complex Agentic Workflows' },
+    { num: 3, name: 'Create Autonomous Agents' },
+    { num: 4, name: 'Build Your Agent Workforce' },
+    { num: 5, name: 'Design Your AI Orchestration Layer' },
   ]
   return (
     <div className="program-progression">
@@ -283,10 +283,10 @@ function WhichLevelDropdown() {
   const [open, setOpen] = useState(false)
   const levels = [
     { num: '1', name: 'Use AI to 10x Your Impact', who: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own." },
-    { num: '2', name: 'Build Agents That Work for You', who: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks." },
-    { num: '3', name: 'Create Autonomous Systems', who: "You've built multiple AI agents, but they don't run autonomously." },
-    { num: '4', name: 'Design Multi-Agent Systems', who: "You have multiple autonomous agents running, but they don't operate as a unified system." },
-    { num: '5', name: 'Ship AI Systems That Scale', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
+    { num: '2', name: 'Build Complex Agentic Workflows', who: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks." },
+    { num: '3', name: 'Create Autonomous Agents', who: "You've built multiple AI agents, but they don't run autonomously." },
+    { num: '4', name: 'Build Your Agent Workforce', who: "You have multiple autonomous agents running, but they don't operate as a unified system." },
+    { num: '5', name: 'Design Your AI Orchestration Layer', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
   ]
 
   return (
@@ -843,17 +843,17 @@ function HomePage() {
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
         { title: 'Build a Real Product with World-Class Design', sub: 'Create a new product in 90 minutes, without writing a line of code, using a design system that you love.', date: 'Tue, May 12', time: '9:30–11:00am or 4:00–5:30pm MT' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, May 13', time: 'Wednesdays', optional: true },
-        { title: 'Analyze Data and Design Presentations That Build Themselves', sub: 'Go from raw data and research questions to polished dashboards and animated slide decks in minutes.', date: 'Fri, May 15', time: '9:30–11:00am or 4:00–5:30pm MT' },
-        { title: 'Automate Your Inbox and Build Your First Custom Workflow', sub: 'Connect your communication tools, teach AI how you write, and set up automations that handle work while you focus on what matters.', date: 'Tue, May 19', time: '9:30–11:00am or 4:00–5:30pm MT' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, May 20', time: 'Wednesdays', optional: true },
-        { title: 'Launch Your Custom AI System + Demo Day', sub: 'Cross the finish line with a live, working AI system and show the cohort what you built.', date: 'Fri, May 22', time: '9:30–11:00am or 4:00–5:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Automate Communication in Your Voice', sub: 'Connect your tools, teach AI how you write, build an email manager that runs on a schedule, and start building a custom automation for your own work.', date: 'Fri, May 15', time: '9:30–11:00am or 4:00–5:30pm MT' },
+        { title: 'Analyze Data and Design Presentations Instantly', sub: 'Go from a raw spreadsheet to clean insights and a polished, animated slide deck, no formulas or design tools required.', date: 'Tue, May 19', time: '9:30–11:00am or 4:00–5:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Launch Your Custom AI System + Demo Day', sub: 'Continue personalizing your AI system and show the cohort what you built.', date: 'Fri, May 22', time: '9:30–11:00am or 4:00–5:30pm MT' },
       ],
       cohorts: [
-        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:30–11:00am MT', afternoon: '4:00–5:30pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'Wed, May 13 · Optional', time: 'Build Workshop' }, { date: 'Fri, May 15', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'Tue, May 19', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'Wed, May 20 · Optional', time: 'Build Workshop' }, { date: 'Fri, May 22', time: '9:30–11:00am or 4:00–5:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)', fillingFast: true },
-        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '2:00–3:30pm MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Wed, May 27 · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Tue, Jun 2', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Wed, Jun 3 · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '9:00–10:30am or 2:00–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f5153ea54105fc41d900fe)' },
-        { month: 'JUN', day: '9', date: 'June 9', label: 'June 9', iso: '2026-06-09', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '2:00–3:30pm MT' }, cohortSessions: [{ date: 'Tue, Jun 9', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Wed, Jun 10 · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 12', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Tue, Jun 16', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Wed, Jun 17 · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 19', time: '9:00–10:30am or 2:00–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f516178a2ab05f3e118af6)' },
-        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '5:00–6:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'Wed, Jun 24 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'Mon, Jun 29', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'Wed, Jul 1 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '9:00–10:30am or 5:00–6:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)' },
+        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:30–11:00am MT', afternoon: '4:00–5:30pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 15', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'Tue, May 19', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 22', time: '9:30–11:00am or 4:00–5:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)', fillingFast: true },
+        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '2:00–3:30pm MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Tue, Jun 2', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '9:00–10:30am or 2:00–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f5153ea54105fc41d900fe)' },
+        { month: 'JUN', day: '9', date: 'June 9', label: 'June 9', iso: '2026-06-09', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '2:00–3:30pm MT' }, cohortSessions: [{ date: 'Tue, Jun 9', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 12', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Tue, Jun 16', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 19', time: '9:00–10:30am or 2:00–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f516178a2ab05f3e118af6)' },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '5:00–6:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'Mon, Jun 29', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '9:00–10:30am or 5:00–6:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)' },
       ],
       levelIndex: 0,
       price: '$999',
@@ -863,22 +863,22 @@ function HomePage() {
     },
     {
       id: 'course-2', num: '02', type: 'BOOTCAMP',
-      title: 'Build Agents That Work for You',
+      title: 'Build Complex Agentic Workflows',
       tagline: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Build Your Automation Roadmap and Ship It Live', sub: 'Figure out exactly where your time is going, prioritize your build plan, and ship your first deployed app with a live URL by the end of the session.', date: 'Tue, May 12', time: '5:00–6:30pm MT' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, May 13', time: 'Wednesdays', optional: true },
-        { title: 'Build Your Automation Advisor and Scope Your First Workflow', sub: 'Give AI the context it needs to advise on your work, then scope and brief the first agentic workflow you’ll build.', date: 'Fri, May 15', time: '11:00am–12:30pm MT' },
-        { title: 'Build a Cloud-Based Agentic Automation', sub: 'Push a critical workflow live: an automation that runs, decides, and publishes without you touching it.', date: 'Tue, May 19', time: '5:00–6:30pm MT' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, May 20', time: 'Wednesdays', optional: true },
-        { title: 'Build an Eval System + Demo Day', sub: 'Build a system that catches its own mistakes, then show the cohort the automation you’ve built.', date: 'Fri, May 22', time: '11:00am–12:30pm MT' },
+        { title: 'Build and Ship Your Automation Roadmap', sub: 'Map where your time goes, build an AI automation roadmap, and deploy it as an interactive dashboard.', date: 'Tue, May 12', time: '5:00–6:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Build a Cloud-Based Agentic Automation', sub: 'Use n8n to design an agentic communication manager workflow that auto-responds to messages for you.', date: 'Fri, May 15', time: '11:00am–12:30pm MT' },
+        { title: 'Build a Custom Automated Workflow and QA System', sub: "Collaborate with AI to create an automation that's tailored to your work, and learn how to QA its performance.", date: 'Tue, May 19', time: '5:00–6:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Build an Eval System + Demo Day', sub: 'Finish building your custom workflow, add a quality layer that catches its own mistakes, and show the cohort what you built.', date: 'Fri, May 22', time: '11:00am–12:30pm MT' },
       ],
       cohorts: [
-        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5:00–6:30pm MT', friday: '11:00am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '5:00–6:30pm MT' }, { date: 'Wed, May 13 · Optional', time: 'Build Workshop' }, { date: 'Fri, May 15', time: '11:00am–12:30pm MT' }, { date: 'Tue, May 19', time: '5:00–6:30pm MT' }, { date: 'Wed, May 20 · Optional', time: 'Build Workshop' }, { date: 'Fri, May 22', time: '11:00am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)', fillingFast: true },
-        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '4:30–6:00pm MT', friday: '11:00am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '4:30–6:00pm MT' }, { date: 'Wed, May 27 · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '11:00am–12:30pm MT' }, { date: 'Tue, Jun 2', time: '4:30–6:00pm MT' }, { date: 'Wed, Jun 3 · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '11:00am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52d9bfbe6f9b34c15a663)' },
-        { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '6:00–7:30pm MT', thursday: '6:00–7:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '6:00–7:30pm MT' }, { date: 'Wed, Jun 10 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '6:00–7:30pm MT' }, { date: 'Mon, Jun 15', time: '6:00–7:30pm MT' }, { date: 'Wed, Jun 17 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '6:00–7:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52df1cf3c823ab47ecd16)' },
-        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '1:00–2:30pm MT', thursday: '1:00–2:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '1:00–2:30pm MT' }, { date: 'Wed, Jun 24 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '1:00–2:30pm MT' }, { date: 'Mon, Jun 29', time: '1:00–2:30pm MT' }, { date: 'Wed, Jul 1 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '1:00–2:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52e60cf3c823ab47ecd1f)' },
+        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5:00–6:30pm MT', friday: '11:00am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 15', time: '11:00am–12:30pm MT' }, { date: 'Tue, May 19', time: '5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 22', time: '11:00am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)', fillingFast: true },
+        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '4:30–6:00pm MT', friday: '11:00am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '4:30–6:00pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '11:00am–12:30pm MT' }, { date: 'Tue, Jun 2', time: '4:30–6:00pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '11:00am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52d9bfbe6f9b34c15a663)' },
+        { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '6:00–7:30pm MT', thursday: '6:00–7:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '6:00–7:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '6:00–7:30pm MT' }, { date: 'Mon, Jun 15', time: '6:00–7:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '6:00–7:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52df1cf3c823ab47ecd16)' },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '1:00–2:30pm MT', thursday: '1:00–2:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '1:00–2:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '1:00–2:30pm MT' }, { date: 'Mon, Jun 29', time: '1:00–2:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '1:00–2:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52e60cf3c823ab47ecd1f)' },
       ],
       levelIndex: 1,
       price: '$999',
@@ -888,21 +888,21 @@ function HomePage() {
     },
     {
       id: 'course-3', num: '03', type: 'LIVE COURSE',
-      title: 'Create Your Autonomous Agent System',
+      title: 'Create Autonomous Agents',
       tagline: "You've built multiple AI agents, but they don't run autonomously.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Build Your Agent Operating System', sub: 'Stand up the foundation your agents will run on, from execution environment to context, tools, and the building blocks for autonomy.', date: 'Tue, May 26', time: '2:30–4:00pm MT' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, May 27', time: 'Wednesdays', optional: true },
-        { title: 'Scope and Build Autonomous Agents', sub: 'Define agent goals and guardrails, then build the autonomous agents that will run inside your system.', date: 'Fri, May 29', time: '9:00–10:30am MT' },
-        { title: 'Deploy, Test, and Connect Your Agents', sub: 'Deploy your agents to a 24/7 environment, connect them to your real tools, and run end-to-end tests on the system.', date: 'Tue, Jun 2', time: '2:30–4:00pm MT' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, Jun 3', time: 'Wednesdays', optional: true },
-        { title: 'Graduate to Full Autonomy + Demo Day', sub: 'Hand your agents the keys: graduate them to full auto-approve, then demo your live autonomous system to the cohort.', date: 'Fri, Jun 5', time: '9:00–10:30am MT' },
+        { title: 'Build Your Agentic Operating System', sub: 'Set up your agent tool and create the foundational context files of your agentic operating system.', date: 'Tue, May 26', time: '2:30–4:00pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Scope and Build Your First Agent', sub: "Scope what agent you'll build first and give it the tools and job description it needs to succeed.", date: 'Fri, May 29', time: '9:00–10:30am MT' },
+        { title: 'Test and Deploy Your Agent', sub: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy.", date: 'Tue, Jun 2', time: '2:30–4:00pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Graduate to Full Autonomy + Demo Day', sub: 'Prepare your agentic OS for full autonomy, document your system, and demo what you built.', date: 'Fri, Jun 5', time: '9:00–10:30am MT' },
       ],
       cohorts: [
-        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '2:30–4:00pm MT', friday: '9:00–10:30am MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '2:30–4:00pm MT' }, { date: 'Wed, May 27 · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '9:00–10:30am MT' }, { date: 'Tue, Jun 2', time: '2:30–4:00pm MT' }, { date: 'Wed, Jun 3 · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '9:00–10:30am MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)', fillingFast: true },
-        { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4:00–5:30pm MT', thursday: '4:00–5:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '4:00–5:30pm MT' }, { date: 'Wed, Jun 10 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '4:00–5:30pm MT' }, { date: 'Mon, Jun 15', time: '4:00–5:30pm MT' }, { date: 'Wed, Jun 17 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '4:00–5:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
-        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '9:00–10:30am MT', thursday: '9:00–10:30am MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '9:00–10:30am MT' }, { date: 'Wed, Jun 24 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '9:00–10:30am MT' }, { date: 'Mon, Jun 29', time: '9:00–10:30am MT' }, { date: 'Wed, Jul 1 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '9:00–10:30am MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69f53132cf3c823ab47ecd3a)' },
+        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '2:30–4:00pm MT', friday: '9:00–10:30am MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '2:30–4:00pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '9:00–10:30am MT' }, { date: 'Tue, Jun 2', time: '2:30–4:00pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '9:00–10:30am MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)', fillingFast: true },
+        { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4:00–5:30pm MT', thursday: '4:00–5:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '4:00–5:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '4:00–5:30pm MT' }, { date: 'Mon, Jun 15', time: '4:00–5:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '4:00–5:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '9:00–10:30am MT', thursday: '9:00–10:30am MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '9:00–10:30am MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '9:00–10:30am MT' }, { date: 'Mon, Jun 29', time: '9:00–10:30am MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '9:00–10:30am MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69f53132cf3c823ab47ecd3a)' },
       ],
       levelIndex: 2,
       price: '$999',
@@ -912,19 +912,19 @@ function HomePage() {
     },
     {
       id: 'course-4', num: '04', type: 'BOOTCAMP',
-      title: 'Design Multi-Agent Systems',
+      title: 'Build Your Agent Workforce',
       tagline: "You have multiple autonomous agents running, but they don't operate as a unified system.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Give an Agent a Goal, Not a Script', sub: 'Design goal-directed agents that plan and execute steps toward an objective autonomously.', date: 'Mon, Jun 22', time: '5:00–6:30pm MT' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, Jun 24', time: 'Wednesdays', optional: true },
-        { title: 'Build an Eval System', sub: 'Define rubrics and score agent outputs to measure and improve performance over time.', date: 'Thu, Jun 25', time: '5:00–6:30pm MT' },
-        { title: 'Build an Orchestration Layer', sub: 'Build an orchestrator that delegates subtasks to specialized agents and assembles results.', date: 'Mon, Jun 29', time: '5:00–6:30pm MT' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, Jul 1', time: 'Wednesdays', optional: true },
-        { title: 'Ship a Goal-Directed Delivery System + Demo Day', sub: 'Deploy an end-to-end autonomous pipeline with evals and human checkpoints, and demo your live system to the cohort.', date: 'Thu, Jul 2', time: '5:00–6:30pm MT' },
+        { title: 'Scope Your Agent Team', sub: "Map your workflows, decide what belongs in each agent's domain, and architect a multi-agent system.", date: 'Mon, Jun 22', time: '5:00–6:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Build Your Orchestrated Pipeline', sub: 'Wire your first real multi-agent system, connecting multiple specialized agents, coordinated by an orchestrator that decomposes tasks and routes work.', date: 'Thu, Jun 25', time: '5:00–6:30pm MT' },
+        { title: 'Wire Your Agents Together + Add Security', sub: 'Shift from task-based to goal-based agent design. Wire agent-to-agent communication, define what each agent can access, and update your team dashboard.', date: 'Mon, Jun 29', time: '5:00–6:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Ship Your Agent Workforce + Demo Day', sub: 'Finalize your agent team, document how it works, define failure modes and fallbacks, and demo what you built.', date: 'Thu, Jul 2', time: '5:00–6:30pm MT' },
       ],
       cohorts: [
-        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '5:00–6:30pm MT', thursday: '5:00–6:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '5:00–6:30pm MT' }, { date: 'Wed, Jun 24 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '5:00–6:30pm MT' }, { date: 'Mon, Jun 29', time: '5:00–6:30pm MT' }, { date: 'Wed, Jul 1 · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '5:00–6:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69bd6f92ca371b83aa557c0c)' },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '5:00–6:30pm MT', thursday: '5:00–6:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '5:00–6:30pm MT' }, { date: 'Mon, Jun 29', time: '5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '5:00–6:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69bd6f92ca371b83aa557c0c)' },
         { month: 'JUL', day: 'TBD', date: 'July 2026', label: 'July 2026', iso: '2026-07-20', scheduleDays: 'Schedule TBD', sessionTimes: null, cohortSessions: [], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
         { month: 'AUG', day: 'TBD', date: 'August 2026', label: 'August 2026', iso: '2026-08-15', scheduleDays: 'Schedule TBD', sessionTimes: null, cohortSessions: [], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69e5259f1ac8f0ca2eba2107)' },
       ],
@@ -936,19 +936,19 @@ function HomePage() {
     },
     {
       id: 'course-5', num: '05', type: 'LIVE COURSE',
-      title: 'Ship AI Systems That Scale',
+      title: 'Design Your AI Orchestration Layer',
       tagline: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Give Your Agents Institutional Memory', sub: 'Build a retrieval system so agents have real organizational context when they act.', date: 'Tue, Jul 14', time: '8am PT / 11am ET' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, Jul 15', time: 'Wednesdays', optional: true },
-        { title: 'Build an Agent That Works Toward a Long-Horizon Goal', sub: 'Design agents that maintain context across days with checkpointing and drift prevention.', date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' },
-        { title: 'Build a System That Self-Corrects', sub: 'Create feedback loops that detect errors, attempt corrections, and escalate when needed.', date: 'Tue, Jul 21', time: '8am PT / 11am ET' },
-        { title: 'Build Workshop (Optional)', sub: 'Optional Wednesday workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'Wed, Jul 22', time: 'Wednesdays', optional: true },
-        { title: 'Build a System That Runs a Business + Demo Day', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input, then demo your live system to the cohort.', date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' },
+        { title: 'Build Your Manager Agent', sub: "Design and build one agent that coordinates your entire agent team, routes work to the right agent, monitors what's running, and escalates edge cases.", date: 'Tue, Jul 14', time: '8am PT / 11am ET' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Make Your Agents Proactive', sub: 'Your agents identify their own sub-goals, take initiative, and adapt their approach based on feedback.', date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' },
+        { title: 'Build a Self-Improving System', sub: 'Your manager agent watches performance, identifies weak agents, and triggers improvements.', date: 'Tue, Jul 21', time: '8am PT / 11am ET' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Graduate to Full Abstraction + Demo Day', sub: "Document your complete agentic OS, define what you're still responsible for, and demo the whole system from manager agent down to individual workers.", date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' },
       ],
       cohorts: [
-        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '8am PT / 11am ET', friday: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Tue, Jul 14', time: '8am PT / 11am ET' }, { date: 'Wed, Jul 15 · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jul 21', time: '8am PT / 11am ET' }, { date: 'Wed, Jul 22 · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)' },
+        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '8am PT / 11am ET', friday: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Tue, Jul 14', time: '8am PT / 11am ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jul 21', time: '8am PT / 11am ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)' },
         { month: 'AUG', day: '11', date: 'August 11', label: 'August 11', iso: '2026-08-11', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, cohortSessions: [], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69b19cc2f61c38f9e9bc9066)' },
         { month: 'SEP', day: 'TBD', date: 'September 2026', label: 'September 2026', iso: '2026-09-15', scheduleDays: 'Schedule TBD', sessionTimes: null, cohortSessions: [], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69e525cefe0055e715a6a025)' },
       ],
@@ -987,7 +987,7 @@ function HomePage() {
     },
     {
       q: 'Do I need coding experience?',
-      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Design Multi-Agent Systems and Ship AI Systems That Scale) go deep enough to challenge experienced builders.',
+      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Build Your Agent Workforce and Design Your AI Orchestration Layer) go deep enough to challenge experienced builders.',
     },
     {
       q: 'Which AI tools do I need for this course?',
@@ -1019,10 +1019,10 @@ function HomePage() {
 
   const trackItems = [
     { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'May 12, 2026', featured: true },
-    { num: '02', tier: 'core', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'May 12, 2026', secondary: true },
-    { num: '03', tier: 'core', name: <>Create Your Autonomous<br/>Agent System</>, tagline: 'Build automations that operate as an autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 26, 2026' },
-    { num: '04', tier: 'advanced', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 22, 2026' },
-    { num: '05', tier: 'advanced', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026' },
+    { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'May 12, 2026', secondary: true },
+    { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build automations that operate as an autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 26, 2026' },
+    { num: '04', tier: 'advanced', name: <>Build Your Agent<br/>Workforce</>, tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 22, 2026' },
+    { num: '05', tier: 'advanced', name: <>Design Your AI<br/>Orchestration Layer</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026' },
   ]
 
   return (
@@ -1456,7 +1456,7 @@ function HomePage() {
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed the</span>
                       <span className="cert-program">AI Builder Program</span>
-                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Agents That Work for You &middot; Create Autonomous Systems &middot; Design Multi-Agent Systems &middot; Ship AI Systems That Scale</span>
+                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Complex Agentic Workflows &middot; Create Autonomous Agents &middot; Build Your Agent Workforce &middot; Design Your AI Orchestration Layer</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
@@ -1531,7 +1531,7 @@ function HomePage() {
                       <span className="cert-name">Your Name Here</span>
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed</span>
-                      <span className="cert-program">Build Agents That Work for You</span>
+                      <span className="cert-program">Build Complex Agentic Workflows</span>
                       <span className="cert-subprogram">Level 02 &middot; AI Builder Program</span>
                     </div>
                     <div className="cert-footer">

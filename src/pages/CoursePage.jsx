@@ -405,7 +405,7 @@ export default function CoursePage({ courseId }) {
               </div>
               <div className="value-stack-item">
                 <span className="value-stack-check">&#10003;</span>
-                <span className="value-stack-label">Optional Wednesday Build Workshops with functional experts, included free for a year</span>
+                <span className="value-stack-label">Optional Build Workshops with functional experts, included free for a year</span>
               </div>
               <div className="value-stack-item">
                 <span className="value-stack-check">&#10003;</span>
@@ -557,7 +557,7 @@ export default function CoursePage({ courseId }) {
                 <img src="/assets/icons/clock.svg" alt="clock" className="when-where-svg-icon" />
               </span>
               <div>
-                <h3>Optional Wednesday Build Workshops</h3>
+                <h3>Optional Build Workshops</h3>
                 <p>Optional live workshops with functional experts across marketing, sales, finance, ops, and more — included free for a year.</p>
               </div>
             </div>
@@ -730,7 +730,7 @@ export default function CoursePage({ courseId }) {
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed the</span>
                       <span className="cert-program">AI Builder Program</span>
-                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Agents That Work for You &middot; Create Autonomous Systems &middot; Design Multi-Agent Systems &middot; Ship AI Systems That Scale</span>
+                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Complex Agentic Workflows &middot; Create Autonomous Agents &middot; Build Your Agent Workforce &middot; Design Your AI Orchestration Layer</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
@@ -797,7 +797,7 @@ export default function CoursePage({ courseId }) {
                       <span className="cert-name">Your Name Here</span>
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed</span>
-                      <span className="cert-program">Build Agents That Work for You</span>
+                      <span className="cert-program">Build Complex Agentic Workflows</span>
                       <span className="cert-subprogram">Level 02 &middot; AI Builder Program</span>
                     </div>
                     <div className="cert-footer">
