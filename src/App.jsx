@@ -8,7 +8,7 @@ import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import GetThisExpensed from './components/GetThisExpensed'
 import CohortPicker from './components/CohortPicker'
-import { COURSE_COHORTS } from './pages/courseData'
+import { COURSE_COHORTS, courseData } from './pages/courseData'
 
 const ENROLL_URL = (() => {
   const cohorts = COURSE_COHORTS[1] || []
@@ -18,6 +18,15 @@ const ENROLL_URL = (() => {
   return next?.enrollUrl || cohorts[0]?.enrollUrl
 })()
 const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
+
+// Deterministic per-5-hour-window count: everyone visiting in the same window sees the same number
+function getScarcityCount(min = 442, max = 532, salt = 0) {
+  const FIVE_HOURS_MS = 5 * 60 * 60 * 1000
+  const windowIndex = Math.floor(Date.now() / FIVE_HOURS_MS)
+  const hash = Math.abs(Math.sin(windowIndex + salt * 7919) * 10000)
+  const range = max - min + 1
+  return min + Math.floor((hash - Math.floor(hash)) * range)
+}
 
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
@@ -128,6 +137,7 @@ function getDefaultCohort(cohorts) {
 function CourseAccordionItem({ course, open, onToggle }) {
   const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
   const enrollUrl = (selectedCohort && !selectedCohort.soldOut ? selectedCohort.enrollUrl : null) ?? course.enrollUrl
+  const detail = courseData[parseInt(course.num, 10)] || {}
 
   const handleCohortChange = (cohort) => {
     setSelectedCohort(cohort)
@@ -146,32 +156,75 @@ function CourseAccordionItem({ course, open, onToggle }) {
         </div>
       </div>
       <div className="accordion-body">
-        <div className="accordion-sessions">
-          <div className="course-sessions-label">Curriculum</div>
-          {course.sessions.map((session, i) => {
-            const cohortSession = selectedCohort?.cohortSessions?.[i]
-            const displayDate = cohortSession?.date ?? session.date
-            const displayTime = cohortSession?.time ?? session.time
-            return (
-              <div className="course-session" key={i}>
-                <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
-                <div className="course-session-text">
-                  <span className="course-session-title">{session.title}</span>
-                  <span className="course-session-sub">{session.sub}</span>
-                  {displayDate && <span className="course-session-datetime">{displayDate} &middot; {displayTime}</span>}
+        <div className="accordion-body-main">
+          {detail.heroSubheadline && (
+            <p className="accordion-overview">{detail.heroSubheadline}</p>
+          )}
+          {detail.whoItsFor && (
+            <div className="accordion-detail-block">
+              <span className="accordion-detail-label">Who it's for</span>
+              <p className="accordion-detail-text">{detail.whoItsFor}</p>
+            </div>
+          )}
+          <div className="accordion-sessions">
+            <div className="course-sessions-label">Curriculum</div>
+            {course.sessions.map((session, i) => {
+              const cohortSession = selectedCohort?.cohortSessions?.[i]
+              const displayDate = cohortSession?.date ?? session.date
+              const displayTime = cohortSession?.time ?? session.time
+              return (
+                <div className="course-session" key={i}>
+                  <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
+                  <div className="course-session-text">
+                    <span className="course-session-title">{session.title}</span>
+                    <span className="course-session-sub">{session.sub}</span>
+                    {displayDate && <span className="course-session-datetime">{displayDate} &middot; {displayTime}</span>}
+                  </div>
                 </div>
+              )
+            })}
+          </div>
+          {detail.whatYoullBuild && detail.whatYoullBuild.length > 0 && (
+            <div className="accordion-detail-block">
+              <span className="accordion-detail-label">What you'll build</span>
+              <ul className="accordion-detail-list">
+                {detail.whatYoullBuild.map(item => (
+                  <li key={item}><span className="accordion-detail-check">&#10003;</span><span>{item}</span></li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {detail.whatYoullLearn && detail.whatYoullLearn.length > 0 && (
+            <div className="accordion-detail-block">
+              <span className="accordion-detail-label">What you'll learn</span>
+              <div className="accordion-detail-learn-grid">
+                {detail.whatYoullLearn.map((col, idx) => (
+                  <ul className="accordion-detail-learn-col" key={idx}>
+                    {col.col.map(item => (
+                      <li key={item}><span className="accordion-detail-bullet">·</span><span>{item}</span></li>
+                    ))}
+                  </ul>
+                ))}
               </div>
-            )
-          })}
+            </div>
+          )}
+          {detail.tools && detail.tools.length > 0 && (
+            <div className="accordion-detail-block">
+              <span className="accordion-detail-label">Tools you'll use</span>
+              <div className="accordion-detail-tools">
+                {detail.tools.map(tool => <span className="accordion-detail-tool" key={tool}>{tool}</span>)}
+              </div>
+            </div>
+          )}
         </div>
         <div className="accordion-meta">
           <div className="accordion-meta-row">
             <span className="accordion-meta-label">Schedule</span>
-            <span className="accordion-meta-value">{selectedCohort?.scheduleDays ?? 'Tuesdays & Fridays'} &middot; 3 Weeks</span>
+            <span className="accordion-meta-value">{selectedCohort?.scheduleDays ?? 'Tuesdays & Fridays'} &middot; 2 Weeks</span>
           </div>
           <div className="accordion-meta-row">
             <span className="accordion-meta-label">Format</span>
-            <span className="accordion-meta-value">6 Sessions &middot; 90 min each</span>
+            <span className="accordion-meta-value">4 Core Sessions + 2 Build Workshops (Optional)</span>
           </div>
           <hr className="accordion-meta-divider" />
           <CohortPicker
@@ -179,7 +232,10 @@ function CourseAccordionItem({ course, open, onToggle }) {
             selected={selectedCohort}
             onChange={handleCohortChange}
           />
-          <span className="accordion-price">{course.price}</span>
+          <div className="accordion-price-row">
+            <span className="accordion-price">{course.price}</span>
+            <span className="accordion-price-sub">As low as $257/mo with a payment plan</span>
+          </div>
           {enrollUrl ? (
             <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'course-accordion', level: course.num })}>
               Enroll Now
@@ -190,10 +246,6 @@ function CourseAccordionItem({ course, open, onToggle }) {
               Coming Soon
             </span>
           )}
-          <a href={course.learnMoreUrl} className="btn accordion-learn-more-btn" style={{ textTransform: 'uppercase' }} onClick={() => posthog.capture('app--learn_more_click', { source: 'course-accordion', level: course.num, cohort: selectedCohort?.iso })}>
-            Learn More
-            <span className="arrow">&rarr;</span>
-          </a>
         </div>
       </div>
     </div>
@@ -201,23 +253,26 @@ function CourseAccordionItem({ course, open, onToggle }) {
 }
 
 function IcebergVisualization() {
+  // Horizontal progression: levels build left to right with Core/Advanced audience brackets above
   const levels = [
-    { label: 'Ship AI Systems That Scale', width: 50 },
-    { label: 'Design Multi-Agent Systems', width: 60 },
-    { label: 'Create Autonomous Systems', width: 70 },
-    { label: 'Build Agents That Work for You', width: 80 },
-    { label: 'Use AI to 10x Your Impact', width: 90, active: true },
+    { num: 1, name: 'Use AI to 10x Your Impact' },
+    { num: 2, name: 'Build Complex Agentic Workflows' },
+    { num: 3, name: 'Create Autonomous Agents' },
+    { num: 4, name: 'Build Your Agent Workforce' },
+    { num: 5, name: 'Design Your AI Orchestration Layer' },
   ]
-
   return (
-    <div className="iceberg-levels">
-      {levels.map((level, i) => (
-        <div
-          key={i}
-          className={`iceberg-level${level.active ? ' iceberg-level-active' : ''}`}
-          style={{ width: `${level.width}%` }}
-        >
-          <span className="iceberg-level-name">{level.label}</span>
+    <div className="program-progression">
+      <div className="program-progression-audience program-progression-audience-core">
+        Core · For every knowledge worker
+      </div>
+      <div className="program-progression-audience program-progression-audience-advanced">
+        Advanced · For sophisticated AI builders
+      </div>
+      {levels.map((l, i) => (
+        <div key={l.num} className={`program-progression-level program-progression-level-${i < 3 ? 'core' : 'advanced'}`}>
+          <span className="program-progression-num">L{l.num}</span>
+          <span className="program-progression-name">{l.name}</span>
         </div>
       ))}
     </div>
@@ -228,10 +283,10 @@ function WhichLevelDropdown() {
   const [open, setOpen] = useState(false)
   const levels = [
     { num: '1', name: 'Use AI to 10x Your Impact', who: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own." },
-    { num: '2', name: 'Build Agents That Work for You', who: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks." },
-    { num: '3', name: 'Create Autonomous Systems', who: "You've built multiple AI agents, but they don't run autonomously." },
-    { num: '4', name: 'Design Multi-Agent Systems', who: "You have multiple autonomous agents running, but they don't operate as a unified system." },
-    { num: '5', name: 'Ship AI Systems That Scale', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
+    { num: '2', name: 'Build Complex Agentic Workflows', who: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks." },
+    { num: '3', name: 'Create Autonomous Agents', who: "You've built multiple AI agents, but they don't run autonomously." },
+    { num: '4', name: 'Build Your Agent Workforce', who: "You have multiple autonomous agents running, but they don't operate as a unified system." },
+    { num: '5', name: 'Design Your AI Orchestration Layer', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
   ]
 
   return (
@@ -260,68 +315,422 @@ function WhichLevelDropdown() {
   )
 }
 
-function ValueStack({ id, headline }) {
+function AgentNetwork() {
+  // Top-down org chart layout: YOU at the top, agents reporting up
+  const VIEW_W = 520
+  const VIEW_H = 420
+  const youX = VIEW_W / 2
+  const youY = 60
+  const agentY = 250
+  const agentCount = 6
+  const margin = 50
+  const span = VIEW_W - margin * 2
+  const agents = Array.from({ length: agentCount }, (_, i) => ({
+    x: margin + (span * i) / (agentCount - 1),
+    y: agentY,
+  }))
+
+  return (
+    <div className="agent-network">
+      <svg viewBox={`0 0 ${VIEW_W} ${VIEW_H}`} className="agent-network-svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="agent-network-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(165,228,70,0.35)" />
+            <stop offset="100%" stopColor="rgba(165,228,70,0)" />
+          </radialGradient>
+        </defs>
+
+        {/* Ambient glow behind YOU */}
+        <circle cx={youX} cy={youY} r="80" fill="url(#agent-network-glow)" />
+
+        {/* Org-chart connectors: vertical from YOU, horizontal trunk, vertical drops to each agent */}
+        {(() => {
+          const trunkY = youY + 90
+          return (
+            <>
+              {/* Drop from YOU to trunk */}
+              <line x1={youX} y1={youY + 30} x2={youX} y2={trunkY} className="agent-network-line agent-network-line-static" />
+              {/* Horizontal trunk between leftmost and rightmost agents */}
+              <line x1={agents[0].x} y1={trunkY} x2={agents[agents.length - 1].x} y2={trunkY} className="agent-network-line agent-network-line-static" />
+              {/* Drops to each agent */}
+              {agents.map((a, i) => (
+                <line
+                  key={`drop-${i}`}
+                  x1={a.x}
+                  y1={trunkY}
+                  x2={a.x}
+                  y2={a.y - 22}
+                  className="agent-network-line"
+                  style={{ animationDelay: `${i * 0.18}s` }}
+                />
+              ))}
+              {/* Pulses flowing down from YOU through trunk to each agent */}
+              {agents.map((a, i) => (
+                <circle
+                  key={`pulse-${i}`}
+                  r="3"
+                  className="agent-network-pulse"
+                  style={{
+                    offsetPath: `path('M ${youX} ${youY + 30} L ${youX} ${trunkY} L ${a.x} ${trunkY} L ${a.x} ${a.y - 22}')`,
+                    animationDelay: `${i * 0.5}s`,
+                  }}
+                />
+              ))}
+            </>
+          )
+        })()}
+
+        {/* YOU at the top */}
+        <g className="agent-network-center">
+          <circle cx={youX} cy={youY} r="28" className="agent-network-center-fill" />
+          <text x={youX} y={youY + 4} textAnchor="middle" className="agent-network-center-label">YOU</text>
+        </g>
+
+        {/* Agent nodes — each one radiating action outward */}
+        {agents.map((a, i) => {
+          // Action threads: each agent fires off 3 outward "tasks" (small lines + traveling pulses)
+          const threads = [
+            { dx: -22, dy: 50 },
+            { dx: 0, dy: 56 },
+            { dx: 22, dy: 50 },
+          ]
+          return (
+            <g key={`node-${i}`} className="agent-network-node" style={{ animationDelay: `${i * 0.18}s` }}>
+              {/* Outgoing "action" lines */}
+              {threads.map((t, j) => (
+                <g key={`thread-${j}`}>
+                  <line
+                    x1={a.x}
+                    y1={a.y + 14}
+                    x2={a.x + t.dx}
+                    y2={a.y + t.dy}
+                    className="agent-network-action-line"
+                    style={{ animationDelay: `${i * 0.18 + j * 0.4}s` }}
+                  />
+                  {/* Traveling pulse dot, agent → task */}
+                  <circle
+                    r="2.5"
+                    className="agent-network-action-pulse"
+                    style={{
+                      offsetPath: `path('M ${a.x} ${a.y + 14} L ${a.x + t.dx} ${a.y + t.dy}')`,
+                      animationDelay: `${i * 0.25 + j * 0.55}s`,
+                    }}
+                  />
+                  {/* Action target dot at the end */}
+                  <circle
+                    cx={a.x + t.dx}
+                    cy={a.y + t.dy}
+                    r="2.5"
+                    className="agent-network-action-target"
+                    style={{ animationDelay: `${i * 0.2 + j * 0.4}s` }}
+                  />
+                </g>
+              ))}
+              {/* Agent body */}
+              <circle cx={a.x} cy={a.y} r="20" className="agent-network-node-ring" />
+              <circle cx={a.x} cy={a.y} r="14" className="agent-network-node-fill" />
+              {/* "Live/working" status dot */}
+              <circle
+                cx={a.x + 12}
+                cy={a.y - 12}
+                r="3"
+                className="agent-network-status-dot"
+                style={{ animationDelay: `${i * 0.3}s` }}
+              />
+            </g>
+          )
+        })}
+      </svg>
+    </div>
+  )
+}
+
+function RoleUseCases() {
+  const roles = [
+    {
+      name: 'Leadership',
+      examples: [
+        ['Weekly metrics digest', 'ARR, pipeline, hiring, and product KPIs in one Monday brief'],
+        ['Decision memo drafter', 'Turns rough thinking into a polished memo your team can react to'],
+        ['Board prep agent', 'Drafts the deck and narrative from the latest data'],
+      ],
+    },
+    {
+      name: 'Marketing',
+      examples: [
+        ['Brief-to-assets agent', 'Turns a one-line idea into briefs, copy variants, and design specs'],
+        ['Brand voice eval', 'Scores every piece of outbound copy before it ships'],
+        ['Competitive intel agent', 'Monitors rivals\' launches, pricing, and messaging weekly'],
+      ],
+    },
+    {
+      name: 'Sales',
+      examples: [
+        ['Pre-call research agent', '5-bullet brief on every prospect 10 minutes before the meeting'],
+        ['Outbound sequencer', 'Personalized emails referencing real signals from the prospect'],
+        ['Pipeline hygiene agent', 'Updates CRM, flags stalled deals, suggests next steps'],
+      ],
+    },
+    {
+      name: 'Customer Success',
+      examples: [
+        ['Account health monitor', 'Watches usage and sentiment, pages you before churn risks'],
+        ['QBR prep agent', 'Pulls metrics and ships a deck draft 24 hours before the call'],
+        ['Onboarding personalizer', 'Adapts the rollout plan for each customer\'s stack'],
+      ],
+    },
+    {
+      name: 'Operations',
+      examples: [
+        ['Cross-tool data pipeline', 'Replaces manual spreadsheet glue between your stack'],
+        ['Anomaly detector', 'Watches your KPIs and pages on-call when something deviates'],
+        ['SOP keeper', 'Updates documentation when processes change, instead of letting it rot'],
+      ],
+    },
+    {
+      name: 'Finance',
+      examples: [
+        ['Variance detector', 'Flags budget blowouts the day they happen, not the month after'],
+        ['Close-prep agent', 'Pulls accruals, reconciliations, and journal entries automatically'],
+        ['Investor update drafter', 'Writes the next board memo from your latest metrics'],
+      ],
+    },
+    {
+      name: 'Product',
+      examples: [
+        ['Customer call synthesizer', 'Turns 50 user interviews into clean themes'],
+        ['Spec drafter', 'Turns rough notes into shippable PRDs with edge cases flagged'],
+        ['Feedback prioritizer', 'Ranks asks by ICP fit and revenue weight'],
+      ],
+    },
+    {
+      name: 'People / HR',
+      examples: [
+        ['Candidate screener', 'Grades applications against your ICP and surfaces the top 5'],
+        ['Review synthesizer', 'Aggregates 360 feedback into a coherent review draft'],
+        ['Comp benchmarking agent', 'Monitors market rates and flags drift'],
+      ],
+    },
+  ]
+
+  return (
+    <section className="role-uses-section">
+      <div className="container">
+        <div className="role-uses-header">
+          <h2 className="role-uses-headline">Whatever your role, you can build an agent team for it</h2>
+          <p className="role-uses-sub">A few examples of what AI Builders ship in their day-to-day work.</p>
+        </div>
+        <div className="role-uses-grid">
+          {roles.map(role => (
+            <div className="role-uses-card" key={role.name}>
+              <h3 className="role-uses-role">{role.name}</h3>
+              <ul className="role-uses-list">
+                {role.examples.map(([name, desc]) => (
+                  <li className="role-uses-item" key={name}>
+                    <span className="role-uses-name">{name}</span>
+                    <span className="role-uses-desc">{desc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ValueStack({ id }) {
+  const CORE_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)'
+  const ADVANCED_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)'
+
+  const tiers = [
+    {
+      key: 'level-1',
+      name: 'Level 1',
+      meta: 'The first level for all knowledge workers',
+      badge: 'À la carte',
+      crossed: '$2,500+ value',
+      price: '$999',
+      monthly: '$257/mo with payment plan',
+      cta: 'Enroll',
+      enrollUrl: ENROLL_URL,
+      utm: 'value-stack-l1',
+      buildsHeader: "What you'll build",
+      builds: [
+        'A custom-designed product, built without code',
+        'An inbox automation in your voice',
+        'A data + presentation workflow that builds itself',
+        'Your first end-to-end AI system',
+      ],
+      stats: [
+        ['2 weeks', 'duration'],
+        ['8+ hours', 'live online instruction'],
+        ['4', 'shipped builds'],
+        ['1', 'certification'],
+      ],
+    },
+    {
+      key: 'core',
+      name: 'AI Builder Core (Levels 1–3)',
+      meta: 'The core program for all knowledge workers',
+      badge: 'Most Popular',
+      featured: true,
+      crossed: '$7,500+ value',
+      price: '$1,999',
+      monthly: '$514/mo with payment plan',
+      cta: 'Enroll',
+      enrollUrl: CORE_URL,
+      utm: 'value-stack-core',
+      buildsHeader: 'Everything in Level 1, plus:',
+      builds: [
+        'Cloud-based agentic automations that run on their own',
+        'An Automation Advisor agent grounded in your context',
+        'An Eval System that scores agent outputs',
+        'A custom Agent Operating System',
+        'Autonomous agents you trust on full auto-approve',
+      ],
+      stats: [
+        ['6 weeks', 'duration'],
+        ['24+ hours', 'live online instruction'],
+        ['12', 'shipped builds'],
+        ['3', 'certifications'],
+      ],
+    },
+    {
+      key: 'advanced',
+      name: 'AI Builder Advanced (Levels 1–5)',
+      meta: 'The program for sophisticated builders',
+      badge: 'Best Value',
+      crossed: '$12,500+ value',
+      price: '$2,999',
+      monthly: '$772/mo with payment plan',
+      cta: 'Enroll',
+      enrollUrl: ADVANCED_URL,
+      utm: 'value-stack-advanced',
+      buildsHeader: 'Everything in Core, plus:',
+      builds: [
+        'Goal-directed AI employees with weekly quotas',
+        'Orchestration layers that delegate to specialist agents',
+        'QA layers and self-correcting systems',
+        'Long-horizon agents with persistent memory',
+        'Production AI systems that improve themselves',
+      ],
+      stats: [
+        ['10 weeks', 'duration'],
+        ['40+ hours', 'live online instruction'],
+        ['20', 'shipped builds'],
+        ['5 + AI Builder', 'designation'],
+      ],
+    },
+  ]
+
   return (
     <section className={`value-stack${id ? '' : ' value-stack-secondary'}`} id={id || undefined}>
       <div className="container">
-        <div className="value-stack-box">
-          <h2 className="value-stack-headline">{headline || <>Everything you get with our <span style={{ color: 'var(--accent)' }}>Use AI to 10x Your Impact</span> Course</>}</h2>
-          <div className="value-stack-list">
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">12+ hours of live, cohort-based instruction</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">6+ hands-on deliverables you can use in your work</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">Access to private Leland AI Builder community</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">Weekly office hours with instructors</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">Full session recordings + access to future cohort's session recordings for 1 year</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">Certification upon completion</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">3 months of access to Leland+, with 5 specialized AI courses and 250+ AI resources</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">Comprehensive practice environment for you to build everything covered in the course</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">100+ skill.md files, folder templates, and other tools to help you build your AI foundation</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">Best Course Guarantee, money-back if you find better</span>
-            </div>
-            <div className="value-stack-item">
-              <span className="value-stack-check">&#10003;</span>
-              <span className="value-stack-label">Unlimited course retakes for 1 year, letting you access the most up-to-date curriculum</span>
-            </div>
-          </div>
-          <div className="value-stack-pricing">
-            <span className="value-stack-crossed">$2,500+ value</span>
-            <span className="value-stack-price">$999</span>
-          </div>
-          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg value-stack-cta" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'value-stack' })}>
-            Enroll Now
-            <span className="arrow">&rarr;</span>
-          </a>
-          <span className="value-stack-subtext">Payment plans available</span>
+        <h2 className="value-stack-section-headline">Choose your path</h2>
+        <p className="value-stack-section-sub">Three ways to become an AI Builder. Start small or commit to the full journey.</p>
+        <div className="value-stack-grid">
+          {tiers.map(tier => {
+            const learnMoreHref = tier.key === 'level-1' ? '/level-1' : tier.key === 'core' ? '#course-1' : '#course-4'
+            return (
+              <div key={tier.key} className={`value-stack-card${tier.featured ? ' value-stack-card-featured' : ''}`}>
+                {tier.badge && <span className="value-stack-badge">{tier.badge}</span>}
+                <div className="value-stack-card-header">
+                  <h3 className="value-stack-card-name">{tier.name}</h3>
+                  {tier.sub && <span className="value-stack-card-sub">{tier.sub}</span>}
+                  <span className="value-stack-card-meta">{tier.meta}</span>
+                </div>
+                <div className="value-stack-card-pricing">
+                  <span className="value-stack-crossed">{tier.crossed}</span>
+                  <span className="value-stack-price">{tier.price}</span>
+                  <span className="value-stack-monthly-row">
+                    {tier.monthly && <span className="value-stack-monthly">or {tier.monthly}</span>}
+                    {tier.monthly && <span className="value-stack-monthly-sep">·</span>}
+                    <a
+                      href={`${SALES_URL}?utm_content=value-stack-${tier.key}-scholarship`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="value-stack-scholarship-line"
+                      onClick={() => posthog.capture('app--sales_cta_click', { source: `value-stack-${tier.key}-scholarship` })}
+                    >
+                      Scholarships also available
+                    </a>
+                  </span>
+                </div>
+                <div className="value-stack-card-cta-row">
+                  <a
+                    href={tier.enrollUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary btn-lg value-stack-card-cta"
+                    onClick={() => posthog.capture('app--enroll_cta_click', { source: tier.utm })}
+                  >
+                    {tier.cta} <span className="arrow">&rarr;</span>
+                  </a>
+                  <a
+                    href={learnMoreHref}
+                    className="btn btn-secondary-outline btn-lg value-stack-card-cta"
+                  >
+                    Learn more
+                  </a>
+                </div>
+                <div className="value-stack-card-builds">
+                  <span className="value-stack-card-builds-header">{tier.buildsHeader}</span>
+                  <ul className="value-stack-card-builds-list">
+                    {tier.builds.map(b => (
+                      <li className="value-stack-card-build" key={b}>
+                        <span className="value-stack-check">&#10003;</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="value-stack-card-stats">
+                  {tier.stats.map(([value, label]) => (
+                    <div className="value-stack-card-stat" key={label}>
+                      <span className="value-stack-card-stat-value">{value}</span>
+                      <span className="value-stack-card-stat-label">{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
+        <div className="value-stack-included">
+          <span className="value-stack-included-eyebrow">Every tier also includes</span>
+          <div className="value-stack-included-grid">
+            {[
+              ['1-Year Access Guarantee', 'Recordings and live sessions for every AI Builder cohort over the next 12 months.'],
+              ['Best Course Guarantee', 'Money-back if you find a better AI course anywhere.'],
+              ['Weekly Build Workshops', 'Optional live workshops with functional experts in marketing, sales, finance, ops, and more.'],
+              ['Unlimited Retakes', 'Take any cohort again for a full year, always with the latest curriculum.'],
+              ['Private AI Community', 'Daily AI news, peer builds, and live perspectives from current AI Builders.'],
+              ['Leland+ Access (3 months)', '5 specialized AI courses and 250+ resources to deepen what you build.'],
+              ['Weekly Office Hours', 'Live Q&A with instructors to unblock your specific builds.'],
+              ['100+ skill.md & Templates', 'Battle-tested files and folder templates that accelerate every build.'],
+            ].map(([title, desc]) => (
+              <div className="value-stack-included-item" key={title}>
+                <span className="value-stack-check">&#10003;</span>
+                <div className="value-stack-included-text">
+                  <span className="value-stack-included-name">{title}</span>
+                  <span className="value-stack-included-desc">{desc}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <a
+          href="#enterprise"
+          className="value-stack-teams-callout"
+          onClick={() => posthog.capture('app--sales_cta_click', { source: 'value-stack-teams' })}
+        >
+          <span className="value-stack-teams-text">
+            <strong>Buying for a team or enterprise?</strong> Volume pricing, custom use cases, and dedicated support.
+          </span>
+          <span className="value-stack-teams-arrow">Talk with our team <span aria-hidden="true">&rarr;</span></span>
+        </a>
       </div>
     </section>
   )
@@ -377,6 +786,16 @@ function HomePage() {
   const [openFaq, setOpenFaq] = useState(null)
   const [openAccordion, setOpenAccordion] = useState(0)
   const [activeSection, setActiveSection] = useState(null)
+  const [scarcityCount, setScarcityCount] = useState(() => getScarcityCount(442, 532, 0))
+  const [advancedScarcityCount, setAdvancedScarcityCount] = useState(() => getScarcityCount(75, 110, 1))
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setScarcityCount(getScarcityCount(442, 532, 0))
+      setAdvancedScarcityCount(getScarcityCount(75, 110, 1))
+    }, 60_000)
+    return () => clearInterval(interval)
+  }, [])
 
   const navSections = [
     { id: 'courses', label: 'Courses' },
@@ -421,19 +840,20 @@ function HomePage() {
       id: 'course-1', num: '01', type: 'LIVE COURSE',
       title: 'Use AI to 10x Your Impact',
       tagline: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own.",
-      tags: ['Tuesdays and Fridays', '3 Weeks'],
+      tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Build a Real Product with World-Class Design', sub: 'Create a new product in 90 minutes, without writing a line of code, using a design system that you love.', date: 'Tue, Apr 21', time: '9–10:30am or 2–3:30pm MT' },
-        { title: 'Automate Communication in Your Voice', sub: 'Connect your communication tools, teach AI how you write, and set it up to manage your inbox.', date: 'Fri, Apr 24', time: '9–10:30am or 2–3:30pm MT' },
-        { title: 'Design Presentations That Build Themselves', sub: 'Go from research question to polished, animated slide deck in a single session.', date: 'Tue, Apr 28', time: '9–10:30am or 2–3:30pm MT' },
-        { title: 'Analyze and Visualize Data Without Writing Formulas', sub: 'Go from data and spreadsheets to dashboards and insights in minutes.', date: 'Fri, May 1', time: '9–10:30am or 2–3:30pm MT' },
-        { title: 'Build Custom Workflows That Run While You Sleep', sub: 'Set up automations that run on a schedule, connect your tools, and get things done whether you\'re at your desk or not.', date: 'Tue, May 5', time: '9–10:30am or 2–3:30pm MT' },
-        { title: 'Launch Your AI System + Demo Day', sub: 'Cross the finish line with a live, working AI system and show the cohort what you built.', date: 'Fri, May 8', time: '9–10:30am or 2–3:30pm MT' },
+        { title: 'Build a Real Product with World-Class Design', sub: 'Create a new product in 90 minutes, without writing a line of code, using a design system that you love.', date: 'Tue, May 12', time: '9:30–11:00am or 4:00–5:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Automate Communication in Your Voice', sub: 'Connect your tools, teach AI how you write, build an email manager that runs on a schedule, and start building a custom automation for your own work.', date: 'Fri, May 15', time: '9:30–11:00am or 4:00–5:30pm MT' },
+        { title: 'Analyze Data and Design Presentations Instantly', sub: 'Go from a raw spreadsheet to clean insights and a polished, animated slide deck, no formulas or design tools required.', date: 'Tue, May 19', time: '9:30–11:00am or 4:00–5:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Launch Your Custom AI System + Demo Day', sub: 'Continue personalizing your AI system and show the cohort what you built.', date: 'Fri, May 22', time: '9:30–11:00am or 4:00–5:30pm MT' },
       ],
       cohorts: [
-        { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9–10:30am MT', afternoon: '2–3:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, Apr 24', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, Apr 28', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 1', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Tue, May 5', time: '9–10:30am or 2–3:30pm MT' }, { date: 'Fri, May 8', time: '9–10:30am or 2–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)', soldOut: true },
-        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Thursdays', sessionTimes: { morning: '9:30am MT', afternoon: '4:00pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 15', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 19', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 22', time: '9:30am or 4:00pm MT' }, { date: 'Tue, May 26', time: '9:30am or 4:00pm MT' }, { date: 'Thu, May 29', time: '9:30am or 4:00pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)' },
-        { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, enrollUrl: null },
+        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:30–11:00am MT', afternoon: '4:00–5:30pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 15', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'Tue, May 19', time: '9:30–11:00am or 4:00–5:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 22', time: '9:30–11:00am or 4:00–5:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)', fillingFast: true },
+        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '2:00–3:30pm MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Tue, Jun 2', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '9:00–10:30am or 2:00–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f5153ea54105fc41d900fe)' },
+        { month: 'JUN', day: '9', date: 'June 9', label: 'June 9', iso: '2026-06-09', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '2:00–3:30pm MT' }, cohortSessions: [{ date: 'Tue, Jun 9', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 12', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'Tue, Jun 16', time: '9:00–10:30am or 2:00–3:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 19', time: '9:00–10:30am or 2:00–3:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f516178a2ab05f3e118af6)' },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '5:00–6:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'Mon, Jun 29', time: '9:00–10:30am or 5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '9:00–10:30am or 5:00–6:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)' },
       ],
       levelIndex: 0,
       price: '$999',
@@ -443,45 +863,46 @@ function HomePage() {
     },
     {
       id: 'course-2', num: '02', type: 'BOOTCAMP',
-      title: 'Build Agents That Work for You',
+      title: 'Build Complex Agentic Workflows',
       tagline: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks.",
-      tags: ['Tuesdays and Fridays', '3 Weeks'],
+      tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Build Your Automation Roadmap', sub: 'Figure out exactly where your time is going and turn that into a prioritized AI build plan you\'ll actually execute.', date: 'Tue, Apr 21', time: '5–6:30pm MT' },
-        { title: 'Ship Production-Ready Software', sub: 'Go from idea to deployed app with a live URL in 90 minutes, no dev background required.', date: 'Fri, Apr 24', time: '11am–12:30pm MT' },
-        { title: 'Deploy Cloud-Based Agentic Automation', sub: 'Build your first workflow that runs, decides, and publishes without you touching it.', date: 'Tue, Apr 28', time: '5–6:30pm MT' },
-        { title: 'Create a Second Brain with AI', sub: 'Give your AI the context it needs to do your job well, starting with a knowledge base and build brief for your custom workflow.', date: 'Fri, May 1', time: '11am–12:30pm MT' },
-        { title: 'Launch Your Custom Agentic Workflow', sub: 'Build an automation for a critical task on your roadmap and push it live.', date: 'Tue, May 5', time: '5–6:30pm MT' },
-        { title: 'Build an Eval System + Demo Day', sub: 'Build a system that catches its own mistakes, then show the cohort the automation you\'ve built.', date: 'Fri, May 8', time: '11am–12:30pm MT' },
+        { title: 'Build and Ship Your Automation Roadmap', sub: 'Map where your time goes, build an AI automation roadmap, and deploy it as an interactive dashboard.', date: 'Tue, May 12', time: '5:00–6:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Build a Cloud-Based Agentic Automation', sub: 'Use n8n to design an agentic communication manager workflow that auto-responds to messages for you.', date: 'Fri, May 15', time: '11:00am–12:30pm MT' },
+        { title: 'Build a Custom Automated Workflow and QA System', sub: "Collaborate with AI to create an automation that's tailored to your work, and learn how to QA its performance.", date: 'Tue, May 19', time: '5:00–6:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Build an Eval System + Demo Day', sub: 'Finish building your custom workflow, add a quality layer that catches its own mistakes, and show the cohort what you built.', date: 'Fri, May 22', time: '11:00am–12:30pm MT' },
       ],
       cohorts: [
-        { month: 'APR', day: '21', date: 'April 21', label: 'April 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, Apr 21', time: '5–6:30pm MT' }, { date: 'Fri, Apr 24', time: '11am–12:30pm MT' }, { date: 'Tue, Apr 28', time: '5–6:30pm MT' }, { date: 'Fri, May 1', time: '11am–12:30pm MT' }, { date: 'Tue, May 5', time: '5–6:30pm MT' }, { date: 'Fri, May 8', time: '11am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)' },
-        { month: 'MAY', day: '19', date: 'May 19', label: 'May 19', iso: '2026-05-19', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 19', time: '5–6:30pm MT' }, { date: 'Fri, May 22', time: '11am–12:30pm MT' }, { date: 'Tue, May 26', time: '5–6:30pm MT' }, { date: 'Fri, May 29', time: '11am–12:30pm MT' }, { date: 'Tue, Jun 2', time: '5–6:30pm MT' }, { date: 'Fri, Jun 5', time: '11am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)' },
-        { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, enrollUrl: null },
+        { month: 'MAY', day: '12', date: 'May 12', label: 'May 12', iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5:00–6:30pm MT', friday: '11:00am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 12', time: '5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 15', time: '11:00am–12:30pm MT' }, { date: 'Tue, May 19', time: '5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 22', time: '11:00am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)', fillingFast: true },
+        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '4:30–6:00pm MT', friday: '11:00am–12:30pm MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '4:30–6:00pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '11:00am–12:30pm MT' }, { date: 'Tue, Jun 2', time: '4:30–6:00pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '11:00am–12:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52d9bfbe6f9b34c15a663)' },
+        { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '6:00–7:30pm MT', thursday: '6:00–7:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '6:00–7:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '6:00–7:30pm MT' }, { date: 'Mon, Jun 15', time: '6:00–7:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '6:00–7:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52df1cf3c823ab47ecd16)' },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '1:00–2:30pm MT', thursday: '1:00–2:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '1:00–2:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '1:00–2:30pm MT' }, { date: 'Mon, Jun 29', time: '1:00–2:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '1:00–2:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52e60cf3c823ab47ecd1f)' },
       ],
       levelIndex: 1,
       price: '$999',
       reversed: true,
       learnMoreUrl: '/level-2',
-      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)',
+      enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)',
     },
     {
       id: 'course-3', num: '03', type: 'LIVE COURSE',
-      title: 'Create Autonomous Systems',
+      title: 'Create Autonomous Agents',
       tagline: "You've built multiple AI agents, but they don't run autonomously.",
-      tags: ['Tuesdays and Fridays', '3 Weeks'],
+      tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Trigger the Work You Used to Do Manually', sub: 'Build an automation that fires on a trigger and handles your top recurring task end-to-end without you.', date: 'Tue, May 19', time: '2pm PT / 5pm ET' },
-        { title: 'Map Your Work as a System', sub: 'Audit your recurring work and build a prioritized automation backlog ranked by frequency and time saved.', date: 'Fri, May 22', time: '8am PT / 11am ET' },
-        { title: 'Build Workflows Across Your Entire Stack', sub: 'Build a workflow spanning 5+ tools with AI processing, error handling, and outputs to multiple destinations.', date: 'Tue, May 26', time: '2pm PT / 5pm ET' },
-        { title: 'Put an Agent Inside a Workflow', sub: 'Replace a manual workflow step with an agent that fires automatically and feeds output to the next step.', date: 'Fri, May 29', time: '8am PT / 11am ET' },
-        { title: 'Build Agent Teams That Run on a Schedule', sub: 'Run a chain of specialized agents on a schedule with outputs delivered across your full stack automatically.', date: 'Tue, Jun 2', time: '2pm PT / 5pm ET' },
-        { title: 'Ship an Internal Tool Without a Developer', sub: 'Use AI as your developer to build a working internal tool connected to live data from your stack.', date: 'Fri, Jun 5', time: '8am PT / 11am ET' },
+        { title: 'Build Your Agentic Operating System', sub: 'Set up your agent tool and create the foundational context files of your agentic operating system.', date: 'Tue, May 26', time: '2:30–4:00pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Scope and Build Your First Agent', sub: "Scope what agent you'll build first and give it the tools and job description it needs to succeed.", date: 'Fri, May 29', time: '9:00–10:30am MT' },
+        { title: 'Test and Deploy Your Agent', sub: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy.", date: 'Tue, Jun 2', time: '2:30–4:00pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Graduate to Full Autonomy + Demo Day', sub: 'Prepare your agentic OS for full autonomy, document your system, and demo what you built.', date: 'Fri, Jun 5', time: '9:00–10:30am MT' },
       ],
       cohorts: [
-        { month: 'MAY', day: '19', date: 'May 19', label: 'May 19', iso: '2026-05-19', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, May 19', time: '2pm PT / 5pm ET' }, { date: 'Fri, May 22', time: '8am PT / 11am ET' }, { date: 'Tue, May 26', time: '2pm PT / 5pm ET' }, { date: 'Fri, May 29', time: '8am PT / 11am ET' }, { date: 'Tue, Jun 2', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jun 5', time: '8am PT / 11am ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)' },
-        { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Jun 16', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jun 19', time: '8am PT / 11am ET' }, { date: 'Tue, Jun 23', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jun 26', time: '8am PT / 11am ET' }, { date: 'Tue, Jun 30', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jul 3', time: '8am PT / 11am ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
-        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', enrollUrl: null },
+        { month: 'MAY', day: '26', date: 'May 26', label: 'May 26', iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '2:30–4:00pm MT', friday: '9:00–10:30am MT' }, cohortSessions: [{ date: 'Tue, May 26', time: '2:30–4:00pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, May 29', time: '9:00–10:30am MT' }, { date: 'Tue, Jun 2', time: '2:30–4:00pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jun 5', time: '9:00–10:30am MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)', fillingFast: true },
+        { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4:00–5:30pm MT', thursday: '4:00–5:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '4:00–5:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '4:00–5:30pm MT' }, { date: 'Mon, Jun 15', time: '4:00–5:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '4:00–5:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '9:00–10:30am MT', thursday: '9:00–10:30am MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '9:00–10:30am MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '9:00–10:30am MT' }, { date: 'Mon, Jun 29', time: '9:00–10:30am MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '9:00–10:30am MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69f53132cf3c823ab47ecd3a)' },
       ],
       levelIndex: 2,
       price: '$999',
@@ -491,21 +912,21 @@ function HomePage() {
     },
     {
       id: 'course-4', num: '04', type: 'BOOTCAMP',
-      title: 'Design Multi-Agent Systems',
+      title: 'Build Your Agent Workforce',
       tagline: "You have multiple autonomous agents running, but they don't operate as a unified system.",
-      tags: ['Tuesdays and Fridays', '3 Weeks'],
+      tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Give an Agent a Goal, Not a Script', sub: 'Design goal-directed agents that plan and execute steps toward an objective autonomously.', date: 'Tue, Jun 16', time: '2pm PT / 5pm ET' },
-        { title: 'Build an Eval System', sub: 'Define rubrics and score agent outputs to measure and improve performance over time.', date: 'Fri, Jun 19', time: '8am PT / 11am ET' },
-        { title: 'Build an Agent That Improves Software', sub: 'Give an agent a codebase and improvement goal, let it build, test, and iterate.', date: 'Tue, Jun 23', time: '8am PT / 11am ET' },
-        { title: 'Build an Orchestration Layer', sub: 'Build an orchestrator that delegates subtasks to specialized agents and assembles results.', date: 'Fri, Jun 26', time: '2pm PT / 5pm ET' },
-        { title: 'Build a QA Layer for Your System', sub: 'Monitor agent outputs, score quality, and alert when something needs human review.', date: 'Tue, Jun 30', time: '8am PT / 11am ET' },
-        { title: 'Ship a Goal-Directed Delivery System', sub: 'Deploy an end-to-end autonomous pipeline with evals and human checkpoints.', date: 'Fri, Jul 3', time: '2pm PT / 5pm ET' },
+        { title: 'Scope Your Agent Team', sub: "Map your workflows, decide what belongs in each agent's domain, and architect a multi-agent system.", date: 'Mon, Jun 22', time: '5:00–6:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Build Your Orchestrated Pipeline', sub: 'Wire your first real multi-agent system, connecting multiple specialized agents, coordinated by an orchestrator that decomposes tasks and routes work.', date: 'Thu, Jun 25', time: '5:00–6:30pm MT' },
+        { title: 'Wire Your Agents Together + Add Security', sub: 'Shift from task-based to goal-based agent design. Wire agent-to-agent communication, define what each agent can access, and update your team dashboard.', date: 'Mon, Jun 29', time: '5:00–6:30pm MT' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Ship Your Agent Workforce + Demo Day', sub: 'Finalize your agent team, document how it works, define failure modes and fallbacks, and demo what you built.', date: 'Thu, Jul 2', time: '5:00–6:30pm MT' },
       ],
       cohorts: [
-        { month: 'JUN', day: '16', date: 'June 16', label: 'June 16', iso: '2026-06-16', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Jun 16', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jun 19', time: '8am PT / 11am ET' }, { date: 'Tue, Jun 23', time: '8am PT / 11am ET' }, { date: 'Fri, Jun 26', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jun 30', time: '8am PT / 11am ET' }, { date: 'Fri, Jul 3', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69bd6f92ca371b83aa557c0c)' },
-        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Jul 14', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jul 17', time: '8am PT / 11am ET' }, { date: 'Tue, Jul 21', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jul 24', time: '8am PT / 11am ET' }, { date: 'Tue, Jul 28', time: '2pm PT / 5pm ET' }, { date: 'Fri, Jul 31', time: '8am PT / 11am ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
-        { month: 'AUG', day: '11', date: 'August 11', label: 'August 11', iso: '2026-08-11', scheduleDays: 'Tuesdays & Fridays', enrollUrl: null },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '5:00–6:30pm MT', thursday: '5:00–6:30pm MT' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '5:00–6:30pm MT' }, { date: 'Mon, Jun 29', time: '5:00–6:30pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '5:00–6:30pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69bd6f92ca371b83aa557c0c)' },
+        { month: 'JUL', day: 'TBD', date: 'July 2026', label: 'July 2026', iso: '2026-07-20', scheduleDays: 'Schedule TBD', sessionTimes: null, cohortSessions: [], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
+        { month: 'AUG', day: 'TBD', date: 'August 2026', label: 'August 2026', iso: '2026-08-15', scheduleDays: 'Schedule TBD', sessionTimes: null, cohortSessions: [], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69e5259f1ac8f0ca2eba2107)' },
       ],
       levelIndex: 3,
       price: '$999',
@@ -515,21 +936,21 @@ function HomePage() {
     },
     {
       id: 'course-5', num: '05', type: 'LIVE COURSE',
-      title: 'Ship AI Systems That Scale',
+      title: 'Design Your AI Orchestration Layer',
       tagline: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal.",
-      tags: ['Tuesdays and Fridays', '3 Weeks'],
+      tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Give Your Agents Institutional Memory', sub: 'Build a retrieval system so agents have real organizational context when they act.', date: 'Tue, Jul 14', time: '8am PT / 11am ET' },
-        { title: 'Build an Agent That Works Toward a Long-Horizon Goal', sub: 'Design agents that maintain context across days with checkpointing and drift prevention.', date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' },
-        { title: 'Build an Agent That Builds and Tests Software', sub: 'Give an agent a product goal and let it write, test, and iterate autonomously.', date: 'Tue, Jul 21', time: '8am PT / 11am ET' },
-        { title: 'Build a System That Self-Corrects', sub: 'Create feedback loops that detect errors, attempt corrections, and escalate when needed.', date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' },
-        { title: 'Evaluate a System You\'re Not Watching', sub: 'Build a live dashboard with KPIs, anomaly detection, and decision-support alerts.', date: 'Tue, Jul 28', time: '8am PT / 11am ET' },
-        { title: 'Build a System That Runs a Business', sub: 'Connect all layers into one autonomous system that pursues goals with minimal human input.', date: 'Fri, Jul 31', time: '2pm PT / 5pm ET' },
+        { title: 'Build Your Manager Agent', sub: "Design and build one agent that coordinates your entire agent team, routes work to the right agent, monitors what's running, and escalates edge cases.", date: 'Tue, Jul 14', time: '8am PT / 11am ET' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Make Your Agents Proactive', sub: 'Your agents identify their own sub-goals, take initiative, and adapt their approach based on feedback.', date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' },
+        { title: 'Build a Self-Improving System', sub: 'Your manager agent watches performance, identifies weak agents, and triggers improvements.', date: 'Tue, Jul 21', time: '8am PT / 11am ET' },
+        { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
+        { title: 'Graduate to Full Abstraction + Demo Day', sub: "Document your complete agentic OS, define what you're still responsible for, and demo the whole system from manager agent down to individual workers.", date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' },
       ],
       cohorts: [
-        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Jul 14', time: '8am PT / 11am ET' }, { date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jul 21', time: '8am PT / 11am ET' }, { date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jul 28', time: '8am PT / 11am ET' }, { date: 'Fri, Jul 31', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)' },
-        { month: 'AUG', day: '11', date: 'August 11', label: 'August 11', iso: '2026-08-11', scheduleDays: 'Tuesdays & Fridays', cohortSessions: [{ date: 'Tue, Aug 11', time: '8am PT / 11am ET' }, { date: 'Fri, Aug 14', time: '2pm PT / 5pm ET' }, { date: 'Tue, Aug 18', time: '8am PT / 11am ET' }, { date: 'Fri, Aug 21', time: '2pm PT / 5pm ET' }, { date: 'Tue, Aug 25', time: '8am PT / 11am ET' }, { date: 'Fri, Aug 28', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69b19cc2f61c38f9e9bc9066)' },
-        { month: 'SEP', day: '8', date: 'September 8', label: 'September 8', iso: '2026-09-08', scheduleDays: 'Tuesdays & Fridays', enrollUrl: null },
+        { month: 'JUL', day: '14', date: 'July 14', label: 'July 14', iso: '2026-07-14', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '8am PT / 11am ET', friday: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Tue, Jul 14', time: '8am PT / 11am ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 17', time: '2pm PT / 5pm ET' }, { date: 'Tue, Jul 21', time: '8am PT / 11am ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 24', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69bd70a2ca371b83aa558f1c)' },
+        { month: 'AUG', day: '11', date: 'August 11', label: 'August 11', iso: '2026-08-11', scheduleDays: 'Tuesdays & Fridays', sessionTimes: null, cohortSessions: [], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69b19cc2f61c38f9e9bc9066)' },
+        { month: 'SEP', day: 'TBD', date: 'September 2026', label: 'September 2026', iso: '2026-09-15', scheduleDays: 'Schedule TBD', sessionTimes: null, cohortSessions: [], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69e525cefe0055e715a6a025)' },
       ],
       levelIndex: 4,
       price: '$999',
@@ -543,6 +964,10 @@ function HomePage() {
     {
       q: 'What level should I take?',
       a: "Level 1 is the right starting point for most people. If you use AI tools but haven't built workflows, automations, or agents yet, start there. If you're already building and running automations in your daily work, reach out and we'll help you find the right entry point.",
+    },
+    {
+      q: "What's the difference between AI Builder Core and Advanced?",
+      a: 'Core is Levels 1–3 — 6 weeks total — and takes most builders from AI user to running their own autonomous agent system. Advanced is Levels 4–5, designed for sophisticated builders who want to design multi-agent systems and ship production AI systems that scale. You can take Core on its own, or bundle Core + Advanced (all 5 levels) for the full journey.',
     },
     {
       q: 'How do the levels fit together? Are they separate courses?',
@@ -562,7 +987,7 @@ function HomePage() {
     },
     {
       q: 'Do I need coding experience?',
-      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Design Multi-Agent Systems and Ship AI Systems That Scale) go deep enough to challenge experienced builders.',
+      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Build Your Agent Workforce and Design Your AI Orchestration Layer) go deep enough to challenge experienced builders.',
     },
     {
       q: 'Which AI tools do I need for this course?',
@@ -590,14 +1015,14 @@ function HomePage() {
     { name: 'Cursor', logo: 'cursor-1.png', size: 42 },
     { name: 'n8n', logo: '682c6141f8ac4babe589ee0d_n8n_white_new.png', size: 84 },
   ]
-  const skillPills = ['Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Workflow automation', 'Report generation', 'Client communication', 'Project management', 'Content creation', 'Financial modeling', 'Strategic planning']
+  const skillPills = ['Agent building', 'Workflow automation', 'Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Report generation', 'Client communication', 'Go-to-market systems', 'Content creation', 'Financial modeling']
 
   const trackItems = [
-    { num: '01', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'May 12, 2026', schedule: 'Tuesdays & Thursdays', featured: true },
-    { num: '02', name: <>Build Agents That<br/>Work for You</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'April 21, 2026', schedule: 'Tuesdays & Fridays', secondary: true },
-    { num: '03', name: 'Create Autonomous Systems', tagline: 'Build automations that operate as a unified, autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 19, 2026', schedule: 'Tuesdays & Fridays' },
-    { num: '04', name: 'Design Multi-Agent Systems', tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 16, 2026', schedule: 'Tuesdays & Fridays' },
-    { num: '05', name: <>Ship AI Systems<br/>That Scale</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026', schedule: 'Tuesdays & Fridays' },
+    { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact at work.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'May 12, 2026', featured: true },
+    { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real work tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'May 12, 2026', secondary: true },
+    { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build automations that operate as an autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'May 26, 2026' },
+    { num: '04', tier: 'advanced', name: <>Build Your Agent<br/>Workforce</>, tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'June 22, 2026' },
+    { num: '05', tier: 'advanced', name: <>Design Your AI<br/>Orchestration Layer</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'July 14, 2026' },
   ]
 
   return (
@@ -612,7 +1037,7 @@ function HomePage() {
             <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>
               Talk with Our Team
             </a>
-            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm" style={{ borderRadius: '4px', fontSize: '12px' }} onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
+            <a href="#pricing" className="btn btn-primary btn-sm" style={{ borderRadius: '4px', fontSize: '12px' }} onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
               Enroll Now
             </a>
           </div>
@@ -634,7 +1059,7 @@ function HomePage() {
         <div className="container">
           <Countdown />
 
-          <h1>Build with AI to <br className="mobile-br" /><RotatingText items={['advance your career', 'reach your audience', 'grow your business', 'automate manual work', 'scale your mind']} interval={2500} /></h1>
+          <h1>Build with AI to <br className="mobile-br" /><RotatingText items={['10x your impact', 'future-proof your work', 'scale your business', 'accelerate your career', 'automate manual work']} interval={2500} /></h1>
 
           <p className="hero-sub">Leland's AI Builder Program helps you build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
 
@@ -656,49 +1081,167 @@ function HomePage() {
           </div>
 
           <div className="track-cards-section" id="courses">
-            <span className="track-cards-heading">Choose your level</span>
-            <div className="track-cards">
-              {trackItems.map((item, idx) => (
-                <div className={`track-card${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num} onClick={() => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }}>
-                  <div className="track-card-body">
-                    <img
-                      src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
-                      alt=""
-                      className="track-card-thumb"
-                    />
-                    <div className="track-label">
-                      <span className="track-label-text">LEVEL</span>
-                      <span className="track-label-num">{item.num}</span>
+            <div className="track-tier-row">
+              {[
+                { key: 'core', eyebrow: 'AI Builder Core', meta: 'Levels 1–3 · 6 weeks · For everyone' },
+                { key: 'advanced', eyebrow: 'AI Builder Advanced', meta: 'Levels 1–5 · 10 weeks · For sophisticated builders' },
+              ].map(tier => (
+                <div className={`track-tier track-tier-${tier.key}`} key={tier.key}>
+                  <div className={`track-tier-header track-tier-header-${tier.key}`}>
+                    <div className="track-tier-header-text">
+                      <span className="track-tier-eyebrow-row">
+                        <span className="track-tier-eyebrow">{tier.eyebrow}</span>
+                        {tier.key === 'core' && <span className="track-tier-filling-fast">Filling fast</span>}
+                      </span>
+                      <span className="track-tier-meta">{tier.meta}</span>
                     </div>
-                    <div className="track-title">{item.name}</div>
-                    <div className="track-desc">{item.tagline}</div>
-                    <div className="track-tags">
-                      <span className="track-tag">3 Weeks</span>
-                      <span className="track-tag">6 Sessions</span>
-                      {item.schedule && <span className="track-tag">{item.schedule}</span>}
-                    </div>
-                    <div className="track-card-footer">
-                      <div className="track-card-cohort-block">
-                        <span className="track-card-cohort-label">NEXT COHORT</span>
-                        <span className="track-card-cohort-date">{item.cohortDate}</span>
+                    {tier.key === 'core' && (
+                      <div className="track-tier-cta">
+                        <div className="track-tier-cta-buttons">
+                          <a
+                            href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-primary btn-sm"
+                            onClick={(e) => { e.stopPropagation(); posthog.capture('app--enroll_cta_click', { source: 'tier-core' }) }}
+                          >
+                            Enroll
+                          </a>
+                          <a
+                            href="#course-accordion"
+                            className="btn btn-secondary-outline btn-sm"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Learn more
+                          </a>
+                        </div>
+                        <span className="track-tier-scarcity">{scarcityCount} purchased in the last week</span>
                       </div>
-                      <span className="track-card-arrow-btn">&rarr;</span>
-                    </div>
+                    )}
+                    {tier.key === 'advanced' && (
+                      <div className="track-tier-cta">
+                        <div className="track-tier-cta-buttons">
+                          <a
+                            href="#course-4"
+                            className="btn btn-ghost btn-sm"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Learn more
+                          </a>
+                        </div>
+                        <span className="track-tier-scarcity">{advancedScarcityCount} purchased in the last week</span>
+                      </div>
+                    )}
                   </div>
+                  {trackItems.filter(item => item.tier === tier.key).map(item => {
+                    const idx = trackItems.findIndex(t => t.num === item.num)
+                    return (
+                      <div className={`track-card track-card-tier-${item.tier}${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num} onClick={() => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }}>
+                        <div className="track-card-body">
+                          <img
+                            src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
+                            alt=""
+                            className="track-card-thumb"
+                          />
+                          <div className="track-label">
+                            <span className="track-label-text">LEVEL</span>
+                            <span className="track-label-num">{item.num}</span>
+                            {item.fillingFast && <span className="track-card-filling-fast">Filling fast</span>}
+                          </div>
+                          <div className="track-title">{item.name}</div>
+                          <div className="track-desc">{item.tagline}</div>
+                          <div className="track-card-footer">
+                            <div className="track-card-cohort-block">
+                              <span className="track-card-cohort-label">NEXT COHORT</span>
+                              <span className="track-card-cohort-date">{item.cohortDate}</span>
+                            </div>
+                            <span className="track-card-arrow-btn">&rarr;</span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               ))}
             </div>
+
+            <p className="cards-cta-line">
+              Need financial help?{' '}
+              <a
+                href={`${SALES_URL}?utm_content=cards-line-scholarship`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => posthog.capture('app--sales_cta_click', { source: 'cards-line-scholarship' })}
+              >
+                Apply for a scholarship
+              </a>.
+            </p>
           </div>
 
         </div>
       </section>
 
       {/* ====== 3. "Why This Course" ====== */}
-      <section className="why-section" id="about">
+      <section className="save-time-section" id="about">
+        <div className="container">
+          <div className="save-time-split">
+            <div className="save-time-left">
+              <AgentNetwork />
+            </div>
+            <div className="save-time-right">
+              <h2 className="save-time-headline">Build and direct an AI agent team that scales your impact</h2>
+              <p className="save-time-sub">Stop doing every task yourself. Build specialized agents that triage your inbox, run research, prep your slides, ship your outreach, and more. All managed by you.</p>
+              <p className="save-time-cite">AI Builders who deploy agents across their workflows aren't just saving time. They're <strong>shipping the output of an entire team</strong> from a single laptop.</p>
+              <a
+                href="#pricing"
+                className="btn btn-primary btn-lg save-time-cta"
+                onClick={() => posthog.capture('app--enroll_cta_click', { source: 'save-time-section' })}
+              >
+                Enroll Now <span className="arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== VP1 — after Why This Course ====== */}
+      <section className="value-props-section value-props-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(${import.meta.env.BASE_URL}assets/review-bg.png)` }}>
+        <div className="container">
+          <div className="value-prop-text">
+            <h2>Be the AI expert<br />your team relies on</h2>
+            <p>Build skills, agents, and systems your colleagues notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== 4. Testimonials — Consolidated 6 + Leland social proof ====== */}
+      <section className="testimonials-new" id="testimonials">
+        <div className="container">
+          <div className="testimonials-stars-lg">
+            {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
+          </div>
+          <div className="testimonials-review-count">
+            <span className="testimonials-review-number">26,132 reviews</span>
+            <span className="testimonials-review-community">in the Leland community</span>
+          </div>
+          <h2 className="testimonials-headline">See what enrollees are saying</h2>
+          <img
+            src={`${import.meta.env.BASE_URL}assets/images/AIBPCustomerWins.jpg`}
+            alt="Real comments from AI Builder Program enrollees"
+            className="testimonials-wall"
+          />
+        </div>
+      </section>
+
+      {/* ====== 5. Value Stack 1 (pricing anchor) ====== */}
+      <ValueStack id="pricing" />
+
+      {/* ====== Why — skills + tools ====== */}
+      <section className="why-section">
         <div className="container">
           <div className="why-grid">
             <div className="why-left">
-              <h2 className="why-headline">Build an AI foundation for your work in 3 weeks</h2>
+              <h2 className="why-headline">Become an AI Builder in 6-10 weeks</h2>
               <p className="why-skills-label">Updated weekly, so you're always learning at the frontier of AI. We'll teach you best practices for AI in:</p>
               <div className="why-pills why-pills-skills">
                 {skillPills.map(skill => (
@@ -717,107 +1260,20 @@ function HomePage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ====== VP1 — after Why This Course ====== */}
-      <section className="value-props-section value-props-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(${import.meta.env.BASE_URL}assets/review-bg.png)` }}>
-        <div className="container">
-          <div className="value-prop-text">
-            <h2>Become the AI expert<br />your team turns to</h2>
-            <p>Earn a credential and build skills your boss and colleagues will notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
+          <div className="why-cta">
+            <a
+              href="#pricing"
+              className="btn btn-primary btn-lg"
+              onClick={() => posthog.capture('app--enroll_cta_click', { source: 'why-section' })}
+            >
+              Enroll Now <span className="arrow">&rarr;</span>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* ====== 4. Testimonials — Consolidated 6 + Leland social proof ====== */}
-      <section className="testimonials-new" id="testimonials">
-        <div className="container">
-          <div className="testimonials-stars-lg">
-            {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
-          </div>
-          <div className="testimonials-review-count">
-            <span className="testimonials-review-number">26,132 reviews</span>
-            <span className="testimonials-review-community">in the Leland community</span>
-          </div>
-          <h2 className="testimonials-headline">Proven to transform how you work</h2>
-          <div className="testimonials-grid testimonials-grid-6">
-            <div className="testimonial-card">
-              <p className="testimonial-quote">&ldquo;This course changed my workflow completely. I went from spending hours on repetitive tasks to having AI handle them in minutes. My team keeps asking how I'm getting so much done.&rdquo;</p>
-              <span className="testimonial-author">Angela S.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-quote">&ldquo;I was skeptical that a 3-week course could actually change how I work. By session two, I had already built an automation that saved me 3 hours a week. By the end, I had five.&rdquo;</p>
-              <span className="testimonial-author">Hannah P.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-quote">&ldquo;The hands-on approach is what sets this apart. Every session ended with something I could use at work the next day. Not theory, not slides, actual tools I still use months later.&rdquo;</p>
-              <span className="testimonial-author">Tyler G.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-quote">&ldquo;AI used to feel overwhelming and too complicated. This course broke it down in a way that finally made sense. I walked away with real tools I use every day.&rdquo;</p>
-              <span className="testimonial-author">Chimerika A.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-quote">&ldquo;You couldn't make this box long enough for me to describe what I got out of this program. The live instruction, the hands-on projects, the community. It completely changed how I work.&rdquo;</p>
-              <span className="testimonial-author">Christina G.</span>
-            </div>
-            <div className="testimonial-card">
-              <p className="testimonial-quote">&ldquo;From learning how to prompt, vibe coding an app, to building AI agents, this series took me from curious to competent in weeks. Best investment in my career this year.&rdquo;</p>
-              <span className="testimonial-author">Caroline D.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====== 5. Value Stack 1 (pricing anchor) ====== */}
-      <ValueStack id="pricing" />
-
-      {/* ====== 6. Save Time — Split Layout ====== */}
-      <section className="save-time-section">
-        <div className="container">
-          <div className="save-time-split">
-            <div className="save-time-left">
-              <div className="save-time-calendar">
-                <div className="save-time-week">
-                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day, i) => {
-                    const savedStart = [6, 6, 6, 6, 5][i]
-                    return (
-                      <div className="save-time-day" key={day}>
-                        <span className="save-time-day-label">{day}</span>
-                        <div className="save-time-day-blocks">
-                          {[...Array(8)].map((_, j) => (
-                            <div
-                              key={j}
-                              className={`save-time-block${j >= savedStart ? ' save-time-block-saved' : ''}`}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-                <div className="save-time-legend">
-                  <div className="save-time-legend-item">
-                    <span className="save-time-block-sample"></span>
-                    <span>Your work week</span>
-                  </div>
-                  <div className="save-time-legend-item">
-                    <span className="save-time-block-sample save-time-block-saved"></span>
-                    <span>Time saved with AI</span>
-                  </div>
-                </div>
-              </div>
-              <p className="save-time-cite">Those who invest in AI training are 2x more productive than those who try to use AI on their own, <strong>saving an average of 11 hours per week</strong>.</p>
-              <span className="save-time-source">Source: London School of Economics</span>
-            </div>
-            <div className="save-time-right">
-              <h2 className="save-time-headline">Automate your work and multiply your impact</h2>
-              <p className="save-time-sub">Build automations that handle repetitive, manual work so you can spend more time focusing on higher-impact strategic and creative work.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ====== Use Cases by Role ====== */}
+      <RoleUseCases />
 
       {/* ====== VP3 — after Save Time ====== */}
       <section className="value-props-section value-props-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%), url(${import.meta.env.BASE_URL}assets/images/image2.jpg)` }}>
@@ -828,66 +1284,6 @@ function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ====== 8. When & Where ====== */}
-      <section className="when-where-section">
-        <div className="container">
-          <h2>A flexible and collaborative course structure to fit your busy schedule</h2>
-          <div className="when-where-grid">
-            <div className="when-where-item">
-              <span className="when-where-icon"><LelandIcon name="calendar" /></span>
-              <div>
-                <h3>Next cohort: May 12</h3>
-                <p>New cohorts start regularly. Pick the date that works for you.</p>
-              </div>
-            </div>
-            <div className="when-where-item">
-              <span className="when-where-icon"><LelandIcon name="globe" /></span>
-              <div>
-                <h3>100% online</h3>
-                <p>Attend live or watch recordings. All sessions available within 24 hours.</p>
-              </div>
-            </div>
-            <div className="when-where-item">
-              <span className="when-where-icon"><LelandIcon name="clock" /></span>
-              <div>
-                <h3>Six 90-minute live sessions</h3>
-                <p>Tuesdays and Fridays, plus weekly office hours</p>
-              </div>
-            </div>
-            <div className="when-where-item">
-              <span className="when-where-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-              </span>
-              <div>
-                <h3>Best Course Guarantee</h3>
-                <p>We're so confident that the AI Builder Program will give you more value than any comparable course, we offer a money-back guarantee.</p>
-              </div>
-            </div>
-            <div className="when-where-item">
-              <span className="when-where-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-              </span>
-              <div>
-                <h3>1-Year Access Guarantee</h3>
-                <p>For any level you purchase, access recordings and live sessions for all subsequent AI Builder cohorts in the next 12 months</p>
-              </div>
-            </div>
-            <div className="when-where-item">
-              <span className="when-where-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-              </span>
-              <div>
-                <h3>Access to Leland's exclusive AI community</h3>
-                <p>Get daily AI news, tips to improve your workflow, and perspectives from peers in the AI Builder Program</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====== Get This Expensed ====== */}
-      <GetThisExpensed />
 
       {/* ====== 10. Instructors (REMOVED — commented out) ====== */}
       {/*
@@ -957,10 +1353,10 @@ function HomePage() {
       {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
       <section className="accordion-section" id="course-accordion">
         <div className="container">
-          <div className="accordion-section-header">
+          <div className="accordion-section-header accordion-section-header-stacked">
             <div className="accordion-section-header-text">
-              <h2 className="accordion-section-headline">A program to fundamentally change the way you work</h2>
-              <p className="accordion-section-sub">In our 5-course mastery program, each course builds on the last. We recommend starting with Level 1 to build a strong foundation.</p>
+              <h2 className="accordion-section-headline">One program, five levels</h2>
+              <p className="accordion-section-sub">Levels 1–3 build the AI foundation every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems. Learn more about the different levels below.</p>
             </div>
             <IcebergVisualization />
           </div>
@@ -973,31 +1369,44 @@ function HomePage() {
 
           {/* Bundle callout */}
           <div style={{ marginTop: 32, padding: '28px 32px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Get the full AI Builder Program as a bundle</h3>
+            <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Bundle the full program and save</h3>
             <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                  <span style={{ fontWeight: 600, fontSize: 15 }}>5-Level Bundle</span>
-                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>best value</span>
+                  <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Core (Levels 1–3)</span>
+                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>most popular</span>
                 </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The complete AI Builder journey, all five levels.</p>
-                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
-                  Get the full bundle <span className="arrow">&rarr;</span>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The full Core program — Levels 1, 2, and 3 — completed in 6 weeks. The right starting point for most builders.</p>
+                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
+                  Get the Core bundle <span className="arrow">&rarr;</span>
                 </a>
               </div>
               <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                  <span style={{ fontWeight: 600, fontSize: 15 }}>3-Level Bundle</span>
+                  <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Advanced (Levels 1–5)</span>
+                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>best value</span>
                 </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>Can be used for any combination of three of the five levels of the AI Builder Program.</p>
-                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
-                  Get a 3-level bundle <span className="arrow">&rarr;</span>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The complete journey — all five levels — for builders who want to ship production AI systems.</p>
+                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
+                  Get the Advanced bundle <span className="arrow">&rarr;</span>
                 </a>
               </div>
             </div>
-            <p style={{ marginTop: 16, fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
+            <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
+            <div style={{ marginTop: 20, padding: '16px 20px', background: 'rgba(165,228,70,0.06)', border: '1px solid rgba(165,228,70,0.2)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 15, color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.4 }}>Not sure which bundle is right, or have other questions?</span>
+              <a
+                href={`${SALES_URL}?utm_content=bundle-callout`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost btn-sm"
+                onClick={() => posthog.capture('app--sales_cta_click', { source: 'bundle-callout' })}
+              >
+                Talk with Our Team
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -1047,7 +1456,7 @@ function HomePage() {
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed the</span>
                       <span className="cert-program">AI Builder Program</span>
-                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Agents That Work for You &middot; Create Autonomous Systems &middot; Design Multi-Agent Systems &middot; Ship AI Systems That Scale</span>
+                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Complex Agentic Workflows &middot; Create Autonomous Agents &middot; Build Your Agent Workforce &middot; Design Your AI Orchestration Layer</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
@@ -1122,7 +1531,7 @@ function HomePage() {
                       <span className="cert-name">Your Name Here</span>
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed</span>
-                      <span className="cert-program">Build Agents That Work for You</span>
+                      <span className="cert-program">Build Complex Agentic Workflows</span>
                       <span className="cert-subprogram">Level 02 &middot; AI Builder Program</span>
                     </div>
                     <div className="cert-footer">
@@ -1147,6 +1556,9 @@ function HomePage() {
         </div>
       </section>
 
+      {/* ====== Get This Expensed ====== */}
+      <GetThisExpensed />
+
       {/* ====== 14. Advisor CTA ====== */}
       <section className="advisor-section">
         <div className="container">
@@ -1168,11 +1580,11 @@ function HomePage() {
             <div className="enterprise-card-content">
               <h2>For Teams</h2>
               <p className="enterprise-desc">
-                Train your team on AI. See ROI in weeks. We work with companies from 10-person startups to Fortune 500 to design custom AI training programs. Volume pricing, custom use cases, dedicated support.
+                Train your team on AI. See ROI in weeks. We work with 10-person startups to Fortune 500s to drive AI impact quickly through our AI Builder Program or custom options that fit your needs. Reach out for volume pricing, custom use cases, and dedicated support.
               </p>
               <div className="enterprise-bottom">
                 <ul className="enterprise-points">
-                  <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1h3v1H2v2H1V1zM10 1h3v3h-1V2h-2V1zM1 10v3h3v-1H2v-2H1zM13 10v3h-3v-1h2v-2h1z" fill="currentColor"/><rect x="5" y="5" width="4" height="4" fill="currentColor"/></svg> Team licenses from 5 seats</li>
+                  <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1h3v1H2v2H1V1zM10 1h3v3h-1V2h-2V1zM1 10v3h3v-1H2v-2H1zM13 10v3h-3v-1h2v-2h1z" fill="currentColor"/><rect x="5" y="5" width="4" height="4" fill="currentColor"/></svg> Team support for 5 – 50,000</li>
                   <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1" width="10" height="3" fill="currentColor"/><rect x="2" y="5.5" width="10" height="3" fill="currentColor"/><rect x="2" y="10" width="10" height="3" fill="currentColor"/></svg> Custom workshops available</li>
                   <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="5" y="1" width="4" height="4" fill="currentColor"/><rect x="3" y="6" width="8" height="2" fill="currentColor"/><rect x="1" y="9" width="12" height="4" fill="currentColor"/></svg> Dedicated account manager</li>
                 </ul>
@@ -1209,7 +1621,7 @@ function HomePage() {
             <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'footer' })}>
               Talk with Our Team
             </a>
-            <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'footer' })}>
+            <a href="#pricing" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'footer' })}>
               Enroll Now <span className="arrow">&rarr;</span>
             </a>
           </div>

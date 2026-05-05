@@ -297,7 +297,7 @@ export default function CoursePage({ courseId }) {
           )}
           <p className="cp-hero-sub">
             {course.heroSubheadline}
-            {course.ableToBlurb && <> After this 6-session course, you'll be able to {course.ableToBlurb}</>}
+            {course.ableToBlurb && <> After this 2-week course, you'll be able to {course.ableToBlurb}</>}
           </p>
 
           <CohortPicker cohorts={cohorts} selected={selectedCohort} onChange={handleCohortChange} />
@@ -370,7 +370,7 @@ export default function CoursePage({ courseId }) {
               <span className="testimonial-author">Angela S.</span>
             </div>
             <div className="testimonial-card">
-              <p className="testimonial-quote">&ldquo;I was skeptical that a 3-week course could actually change how I work. By session two, I had already built an automation that saved me 3 hours a week. By the end, I had five.&rdquo;</p>
+              <p className="testimonial-quote">&ldquo;I was skeptical that a 2-week course could actually change how I work. By session two, I had already built an automation that saved me 3 hours a week. By the end, I had five.&rdquo;</p>
               <span className="testimonial-author">Hannah P.</span>
             </div>
             <div className="testimonial-card">
@@ -401,11 +401,15 @@ export default function CoursePage({ courseId }) {
             <div className="value-stack-list">
               <div className="value-stack-item">
                 <span className="value-stack-check">&#10003;</span>
-                <span className="value-stack-label">12+ hours of live, cohort-based instruction</span>
+                <span className="value-stack-label">4 core 90-minute live sessions over 2 weeks</span>
               </div>
               <div className="value-stack-item">
                 <span className="value-stack-check">&#10003;</span>
-                <span className="value-stack-label">6+ hands-on deliverables you can use in your work</span>
+                <span className="value-stack-label">Optional Build Workshops with functional experts, included free for a year</span>
+              </div>
+              <div className="value-stack-item">
+                <span className="value-stack-check">&#10003;</span>
+                <span className="value-stack-label">Hands-on deliverables you can use in your work the next day</span>
               </div>
               <div className="value-stack-item">
                 <span className="value-stack-check">&#10003;</span>
@@ -417,7 +421,7 @@ export default function CoursePage({ courseId }) {
               </div>
               <div className="value-stack-item">
                 <span className="value-stack-check">&#10003;</span>
-                <span className="value-stack-label">Full session recordings + access to future cohort's session recordings for 1 year</span>
+                <span className="value-stack-label">Full session recordings + access to every future AI Builder cohort for 1 year</span>
               </div>
               <div className="value-stack-item">
                 <span className="value-stack-check">&#10003;</span>
@@ -526,8 +530,8 @@ export default function CoursePage({ courseId }) {
                 <img src="/assets/icons/calendar.svg" alt="calendar" className="when-where-svg-icon" />
               </span>
               <div>
-                <h3>Next cohort: {course.nextCohort}</h3>
-                <p>New cohorts start regularly. Pick the date that works for you.</p>
+                <h3>New cohort every 2 weeks</h3>
+                <p>Next cohort: {course.nextCohort}. Pick the start date that works for you.</p>
               </div>
             </div>
             <div className="when-where-item">
@@ -544,8 +548,17 @@ export default function CoursePage({ courseId }) {
                 <img src="/assets/icons/clock.svg" alt="clock" className="when-where-svg-icon" />
               </span>
               <div>
-                <h3>Six 90-minute live sessions</h3>
-                <p>Tuesdays and Fridays, plus weekly office hours</p>
+                <h3>4 core sessions over 2 weeks</h3>
+                <p>Two 90-minute sessions per week, plus weekly office hours.</p>
+              </div>
+            </div>
+            <div className="when-where-item">
+              <span className="when-where-icon">
+                <img src="/assets/icons/clock.svg" alt="clock" className="when-where-svg-icon" />
+              </span>
+              <div>
+                <h3>Optional Build Workshops</h3>
+                <p>Optional live workshops with functional experts across marketing, sales, finance, ops, and more — included free for a year.</p>
               </div>
             </div>
             <div className="when-where-item">
@@ -583,7 +596,7 @@ export default function CoursePage({ courseId }) {
       <section className="cp-section cp-sessions-section">
         <div className="container">
           <p className="cp-section-label">Session breakdown</p>
-          <h2>6 sessions. Learn by building every time.</h2>
+          <h2>4 core sessions, plus optional Build Workshops. Learn by building every time.</h2>
           <div className="cp-session-grid">
             {course.sessions.map((session, i) => (
               <SessionItem
@@ -717,7 +730,7 @@ export default function CoursePage({ courseId }) {
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed the</span>
                       <span className="cert-program">AI Builder Program</span>
-                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Agents That Work for You &middot; Create Autonomous Systems &middot; Design Multi-Agent Systems &middot; Ship AI Systems That Scale</span>
+                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Complex Agentic Workflows &middot; Create Autonomous Agents &middot; Build Your Agent Workforce &middot; Design Your AI Orchestration Layer</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
@@ -784,7 +797,7 @@ export default function CoursePage({ courseId }) {
                       <span className="cert-name">Your Name Here</span>
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed</span>
-                      <span className="cert-program">Build Agents That Work for You</span>
+                      <span className="cert-program">Build Complex Agentic Workflows</span>
                       <span className="cert-subprogram">Level 02 &middot; AI Builder Program</span>
                     </div>
                     <div className="cert-footer">
