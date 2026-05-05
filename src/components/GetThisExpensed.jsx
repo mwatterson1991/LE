@@ -5,7 +5,7 @@ const EXPENSE_TEMPLATES = {
     subject: 'Sponsorship request — AI training that pays off in faster campaigns',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 3-week live cohort course that teaches professionals to build real AI workflows. Here's how it directly applies to our work:
+I'd like to expense the Leland AI Builder Program, a 2-week live cohort course that teaches professionals to build real AI workflows. Here's how it directly applies to our work:
 
 - I'll build a content brief automation that cuts campaign prep from hours to minutes
 - I'll create a research workflow that pulls competitive intel on demand, without any manual searching
@@ -23,7 +23,7 @@ P.S. A few people from the same team going through this together is one of the m
     subject: 'Sponsorship request — AI training to cut reporting time',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 3-week live course for professionals building real AI workflows. Here's what I'll get out of it that applies directly to our team:
+I'd like to expense the Leland AI Builder Program, a 2-week live course for professionals building real AI workflows. Here's what I'll get out of it that applies directly to our team:
 
 - Automate our recurring reporting so it runs without manual input each cycle
 - Build an AI-assisted analysis workflow that cuts time from data to insight
@@ -41,7 +41,7 @@ P.S. If anyone else on the team would benefit, sending a few people together is 
     subject: 'Sponsorship request — AI training to automate manual ops tasks',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 3-week live course that builds real AI automations for the work you do every day.
+I'd like to expense the Leland AI Builder Program, a 2-week live course that builds real AI automations for the work you do every day.
 
 A significant part of my week is repetitive, manual, and ripe for automation. Here's what I'll build:
 
@@ -61,7 +61,7 @@ P.S. This training is most effective when a small team goes through it together.
     subject: 'Sponsorship request — AI training to speed up hiring and people workflows',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 3-week live cohort that teaches professionals to build real AI workflows. Here's the direct application to my work:
+I'd like to expense the Leland AI Builder Program, a 2-week live cohort that teaches professionals to build real AI workflows. Here's the direct application to my work:
 
 - Build a screening workflow that reduces time-to-shortlist for open roles
 - Create an onboarding automation that sends the right resources to the right people at the right time
@@ -79,7 +79,7 @@ P.S. If we're going to build shared AI practices across the team, it helps to ha
     subject: 'Sponsorship request — AI course to accelerate research and analysis',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 3-week live course that builds real AI skills for knowledge workers. I think the ROI here is direct and fast.
+I'd like to expense the Leland AI Builder Program, a 2-week live course that builds real AI skills for knowledge workers. I think the ROI here is direct and fast.
 
 What I'll build that applies to our work:
 
@@ -99,7 +99,7 @@ P.S. If anyone else on the team does research-heavy work, sending two or three p
     subject: 'Sponsorship request — AI course to accelerate product work',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 3-week live course that builds real AI skills for knowledge workers.
+I'd like to expense the Leland AI Builder Program, a 2-week live course that builds real AI skills for knowledge workers.
 
 Here's what I'll build that applies directly to my role:
 
@@ -116,10 +116,10 @@ Most of my repetitive writing and synthesis work is something AI can handle. Thi
 P.S. Going through this with others on the team is a good way to build shared AI practices. Happy to discuss team pricing.`,
   },
   'Other': {
-    subject: 'Sponsorship request — 3-week AI training, clear ROI',
+    subject: 'Sponsorship request — 2-week AI training, clear ROI',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 3-week live cohort course that teaches professionals to build real AI workflows for their day-to-day work.
+I'd like to expense the Leland AI Builder Program, a 2-week live cohort course that teaches professionals to build real AI workflows for their day-to-day work.
 
 Here's why the investment makes sense:
 

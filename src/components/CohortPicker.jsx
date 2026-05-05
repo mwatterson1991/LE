@@ -59,6 +59,7 @@ export default function CohortPicker({ cohorts, selected, onChange }) {
               {cohort.soldOut ? <span style={{ textDecoration: 'line-through' }}>{cohort.label}</span> : cohort.label}
               {cohort.soldOut && <span className="cohort-picker-soon"> · Sold out</span>}
               {!cohort.soldOut && !cohort.enrollUrl && <span className="cohort-picker-soon"> · Soon</span>}
+              {cohort.fillingFast && !cohort.soldOut && cohort.enrollUrl && <span className="cohort-picker-filling-fast">Filling fast</span>}
             </button>
           )
         })}

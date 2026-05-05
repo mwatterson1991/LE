@@ -25,6 +25,7 @@ export default defineConfig({
         'leland-ai-builders-b2b': resolve(__dirname, 'leland-ai-builders-b2b.html'),
         'leland-ai-builders-b2b-vica': resolve(__dirname, 'leland-ai-builders-b2b-vica.html'),
         'leland-mba-landing-page': resolve(__dirname, 'leland-mba-landing-page.html'),
+        'leland-law-school-landing-page': resolve(__dirname, 'leland-law-school-landing-page.html'),
       }
     }
   }
