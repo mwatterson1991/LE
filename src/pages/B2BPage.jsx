@@ -1,7 +1,7 @@
 import '../b2b.css'
 import React, { useState } from 'react'
 
-const CALENDLY_URL = 'https://calendly.com/d/cyhb-yjg-33f/leland-ai-transformation'
+const CALENDLY_URL = 'https://calendly.com/d/ct7k-c45-dbx/leland-s-ai-builder-program-for-teams'
 const BASE = import.meta.env.BASE_URL
 
 const LOGOS = {
