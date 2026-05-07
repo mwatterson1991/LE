@@ -18,6 +18,7 @@ const ENROLL_URL = (() => {
   return next?.enrollUrl || cohorts[0]?.enrollUrl
 })()
 const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
+const SCHOLARSHIP_URL = 'https://joinleland.typeform.com/to/TEiacu5G?utm_campaign=landing_page_cta&utm_source=website&utm_medium=web'
 
 // Deterministic per-5-hour-window count: everyone visiting in the same window sees the same number
 function getScarcityCount(min = 442, max = 532, salt = 0) {
@@ -648,7 +649,7 @@ function ValueStack({ id }) {
                     {tier.monthly && <span className="value-stack-monthly">or {tier.monthly}</span>}
                     {tier.monthly && <span className="value-stack-monthly-sep">·</span>}
                     <a
-                      href={`${SALES_URL}?utm_content=value-stack-${tier.key}-scholarship`}
+                      href={`${SCHOLARSHIP_URL}&utm_content=value-stack-${tier.key}-scholarship`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="value-stack-scholarship-line"
@@ -1168,7 +1169,7 @@ function HomePage() {
             <p className="cards-cta-line">
               Need financial help?{' '}
               <a
-                href={`${SALES_URL}?utm_content=cards-line-scholarship`}
+                href={`${SCHOLARSHIP_URL}&utm_content=cards-line-scholarship`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => posthog.capture('app--sales_cta_click', { source: 'cards-line-scholarship' })}
