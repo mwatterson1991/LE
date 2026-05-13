@@ -3785,3 +3785,111 @@ footer a:hover {
   .expense-template-body { font-size: 12px; }
 }
 
+/* ===== LP Popup Modal ===== */
+.lp-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: lp-popup-fade-in 0.22s ease-out;
+}
+.lp-popup-overlay-closing {
+  animation: lp-popup-fade-out 0.2s ease-out forwards;
+}
+@keyframes lp-popup-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lp-popup-fade-out {
+  to { opacity: 0; }
+}
+.lp-popup {
+  background: var(--bg);
+  border: 1px solid rgba(165, 228, 70, 0.32);
+  border-radius: 8px;
+  padding: 44px 36px 32px;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(165, 228, 70, 0.08);
+  animation: lp-popup-scale-in 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes lp-popup-scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+.lp-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+.lp-popup-close:hover {
+  color: var(--text-primary);
+}
+.lp-popup-eyebrow {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px;
+}
+.lp-popup-title {
+  font-family: var(--font-body);
+  font-size: 28px;
+  line-height: 1.12;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px;
+  color: var(--text-primary);
+}
+.lp-popup-sub {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0 0 22px;
+}
+.lp-popup-cta {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.lp-popup-fine {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+  margin: 0;
+  text-align: center;
+}
+@media (max-width: 480px) {
+  .lp-popup {
+    padding: 36px 22px 24px;
+  }
+  .lp-popup-title {
+    font-size: 22px;
+  }
+  .lp-popup-sub {
+    font-size: 14px;
+  }
+}
+

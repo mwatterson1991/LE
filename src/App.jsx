@@ -6,6 +6,7 @@ import CardSwap, { Card } from './components/CardSwap'
 import CoursePage from './pages/CoursePage'
 import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
+import LPPopup from './components/LPPopup'
 import GetThisExpensed from './components/GetThisExpensed'
 import CohortPicker from './components/CohortPicker'
 import { COURSE_COHORTS, courseData } from './pages/courseData'
@@ -1649,6 +1650,7 @@ function HomePage() {
         </div>
       </footer>
 
+      <LPPopup />
     </>
   )
 }
