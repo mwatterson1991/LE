@@ -492,6 +492,24 @@ nav .btn {
   box-shadow: 0 0 8px rgba(255, 157, 42, 0.6);
   animation: filling-fast-pulse 1.6s ease-in-out infinite;
 }
+.track-tier-most-popular {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.track-tier-most-popular::before {
+  content: '★';
+  font-size: 11px;
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(165, 228, 70, 0.6));
+}
 .track-tier-core .track-tier-eyebrow {
   color: var(--accent);
 }
@@ -606,6 +624,26 @@ nav .btn {
   text-transform: uppercase;
   color: var(--text-tertiary);
   display: block;
+}
+.track-card-past-sold-out {
+  font-family: var(--font-meta);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  opacity: 0.65;
+  display: block;
+  margin-bottom: 4px;
+}
+.track-card-past-sold-out-date {
+  text-decoration: line-through;
+}
+.track-card-past-sold-out-sep {
+  text-decoration: none;
+}
+.track-card-past-sold-out-tag {
+  text-decoration: none;
+  margin-left: 4px;
 }
 .track-card-filling-fast {
   font-family: var(--font-meta);
@@ -2761,6 +2799,17 @@ nav .btn {
   opacity: 0.7;
   cursor: not-allowed;
   border-style: dashed;
+}
+.cohort-picker-btn-sold {
+  border: none;
+  background: transparent;
+  padding: 8px 0;
+  opacity: 0.5;
+  cursor: default;
+}
+.cohort-picker-btn-sold:hover {
+  border: none;
+  color: var(--text-secondary);
 }
 .cohort-picker-soon {
   font-size: 10px;

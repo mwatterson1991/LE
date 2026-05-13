@@ -51,7 +51,7 @@ export default function CohortPicker({ cohorts, selected, onChange }) {
           return (
             <button
               key={cohort.iso}
-              className={`cohort-picker-btn${selected?.iso === cohort.iso ? ' cohort-picker-btn-active' : ''}${disabled ? ' cohort-picker-btn-disabled' : ''}`}
+              className={`cohort-picker-btn${selected?.iso === cohort.iso ? ' cohort-picker-btn-active' : ''}${disabled ? ' cohort-picker-btn-disabled' : ''}${cohort.soldOut ? ' cohort-picker-btn-sold' : ''}`}
               onClick={() => !disabled && onChange(cohort)}
               disabled={disabled}
               title={cohort.soldOut ? 'Sold out' : disabled ? 'Coming soon' : undefined}
