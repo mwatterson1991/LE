@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import posthog from 'posthog-js'
 
-const RAFFLE_URL = 'https://joinleland.typeform.com/to/Fghze06B'
+const RAFFLE_BASE_URL = 'https://joinleland.typeform.com/to/Fghze06B'
+
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']
+
+function getRaffleUrl() {
+  if (typeof window === 'undefined') return RAFFLE_BASE_URL
+  const current = new URLSearchParams(window.location.search)
+  const raffle = new URLSearchParams(RAFFLE_BASE_URL.includes('?') ? RAFFLE_BASE_URL.split('?')[1] : '')
+  UTM_KEYS.forEach((key) => {
+    const val = current.get(key)
+    if (val) raffle.set(key, val)
+  })
+  const qs = raffle.toString()
+  return qs ? `${RAFFLE_BASE_URL.split('?')[0]}?${qs}` : RAFFLE_BASE_URL
+}
 const SHOWN_KEY = 'lp-popup-shown-session'
 const CONVERTED_KEY = 'lp-popup-converted'
 const FLAG_KEY = 'ai-builder-lp-popup'
@@ -131,7 +145,7 @@ export default function LPPopup() {
           Enter the drawing and join 25,000+ AI Builders getting weekly resources, prompts, and other expert tips.
         </p>
         <a
-          href={RAFFLE_URL}
+          href={getRaffleUrl()}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-primary btn-lg lp-popup-cta"
