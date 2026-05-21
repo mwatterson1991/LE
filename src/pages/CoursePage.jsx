@@ -113,9 +113,6 @@ function SessionItem({ session, num, open, onToggle, sessionDate }) {
             {session.build && (
               <p><strong>Build exercise:</strong> {session.build}</p>
             )}
-            <p className="cp-session-note">
-              Practice environment included: You'll work through every exercise in a shared live business environment built for this course.
-            </p>
           </div>
         </div>
       </div>

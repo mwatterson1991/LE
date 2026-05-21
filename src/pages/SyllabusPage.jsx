@@ -36,9 +36,6 @@ function SessionItem({ session, num, open, onToggle, schedule }) {
         <div className="sy-session-detail-inner">
           <p><strong>Concepts covered:</strong> {session.concepts}</p>
           <p><strong>Hands-on build:</strong> {session.build}</p>
-          <p className="sy-session-practice">
-            Build in the included practice environment with real business data, or apply directly to your own tools.
-          </p>
         </div>
       </div>
     </div>
@@ -116,7 +113,6 @@ function CourseSection({ course, id }) {
 const VALUE_ITEMS = [
   '12+ hours of live, cohort-based instruction per course',
   '6 hands-on deliverables you can use in your work',
-  'Full practice environment with real business data',
   'Session recordings + access for 1 year',
   'Access to the private AI Builder community',
   'Weekly office hours with instructors',

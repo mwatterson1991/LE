@@ -138,6 +138,11 @@ export const courseData = {
         description: 'Create a new product in 90 minutes, without writing a line of code, using a design system that you love.',
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Automate Communication in Your Voice',
         description: 'Connect your tools, teach AI how you write, build an email manager that runs on a schedule, and start building a custom automation for your own work.',
       },
@@ -146,18 +151,13 @@ export const courseData = {
         description: 'Go from a raw spreadsheet to clean insights and a polished, animated slide deck, no formulas or design tools required.',
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Launch Your Custom AI System + Demo Day',
         description: 'Continue personalizing your AI system and show the cohort what you built.',
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
       },
     ],
     faqs: [
@@ -166,7 +166,6 @@ export const courseData = {
       { q: 'What if I already use ChatGPT every day?', a: 'Good starting point. This course will take you well beyond what most daily ChatGPT users know how to do.' },
       { q: 'How long is each session?', a: '90 minutes, live. All sessions are recorded if you can\'t attend.' },
       { q: 'How is the course structured?', a: '4 core sessions over 2 weeks, plus 2 optional Build Workshops with functional experts and weekly office hours. As an enrollee, you also get access to every Build Workshop we run for the next year.' },
-      { q: "What's the Fawnly example?", a: "All sessions include a parallel example using Fawnly, a fictional DTC skincare brand, so you can follow along even without your own work context ready." },
       { q: "Can I take this course if I'm not technical?", a: 'Yes. This course is specifically designed for non-technical knowledge workers.' },
       { q: 'What if I fall behind?', a: "You can retake for a full year. Catch up at your own pace." },
       { q: 'What do I walk away with?', a: 'A working AI system you built yourself: a custom-designed product, an analysis and presentation workflow, an inbox automation, and a daily-use AI workflow tailored to your job.' },
@@ -235,6 +234,11 @@ export const courseData = {
         description: 'Map where your time goes, build an AI automation roadmap, and deploy it as an interactive dashboard.',
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Build a Cloud-Based Agentic Workflow and QA System',
         description: 'Use n8n to design an agentic communication manager workflow that auto-responds to messages for you.',
       },
@@ -243,18 +247,13 @@ export const courseData = {
         description: 'Collaborate with AI to create automations that pull from real data to help you work more effectively.',
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Build Your Second Brain with AI + Demo Day',
         description: 'Give your AI the domain knowledge it needs to run your automation well, and show the cohort what you built.',
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
       },
     ],
     faqs: [
@@ -331,6 +330,11 @@ export const courseData = {
         description: 'Set up your agent tool and create the foundational context files of your agentic operating system.',
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Strengthen Your Agent with Skills, Tools, and Context',
         description: 'Scope what your agent owns, expand context to cover your real work, and connect the tools it needs to do that work.',
       },
@@ -339,18 +343,13 @@ export const courseData = {
         description: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy.",
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Build Sub-Agents + Demo Day',
         description: 'Get better, broader output by training your agent to spin up specialist sub-agents for research and other specific tasks.',
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
       },
     ],
     faqs: [
@@ -425,6 +424,11 @@ export const courseData = {
         description: "Map your workflows, decide what belongs in each agent's domain, and architect a multi-agent system.",
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Build Your Orchestrated Pipeline',
         description: 'Wire your first real multi-agent system, connecting multiple specialized agents, coordinated by an orchestrator that decomposes tasks and routes work.',
       },
@@ -433,18 +437,13 @@ export const courseData = {
         description: 'Shift from task-based to goal-based agent design. Wire agent-to-agent communication, define what each agent can access, and update your team dashboard.',
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Ship Your Agent Workforce + Demo Day',
         description: 'Finalize your agent team, document how it works, define failure modes and fallbacks, and demo what you built.',
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
       },
     ],
     faqs: [
@@ -521,6 +520,11 @@ export const courseData = {
         description: "Design and build one agent that coordinates your entire agent team, routes work to the right agent, monitors what's running, and escalates edge cases.",
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Make Your Agents Proactive',
         description: 'Your agents identify their own sub-goals, take initiative, and adapt their approach based on feedback.',
       },
@@ -529,18 +533,13 @@ export const courseData = {
         description: 'Your manager agent watches performance, identifies weak agents, and triggers improvements.',
       },
       {
+        title: 'Build Workshop (Optional)',
+        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
+        optional: true,
+      },
+      {
         title: 'Graduate to Full Abstraction + Demo Day',
         description: "Document your complete agentic OS, define what you're still responsible for, and demo the whole system from manager agent down to individual workers.",
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
-      },
-      {
-        title: 'Build Workshop (Optional)',
-        description: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.',
-        optional: true,
       },
     ],
     faqs: [
