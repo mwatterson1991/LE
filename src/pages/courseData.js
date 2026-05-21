@@ -10,24 +10,25 @@ export const COURSE_COHORTS = {
   1: [
     { label: 'Apr 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9–10:30am MT', afternoon: '2–3:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)', soldOut: true },
     { label: 'May 12',   iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:30–11:00am MT', afternoon: '4:00–5:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)', soldOut: true },
-    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '2:00–3:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f5153ea54105fc41d900fe)' },
-    { label: 'June 9',   iso: '2026-06-09', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '2:00–3:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f516178a2ab05f3e118af6)' },
-    { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '9:00–10:30am MT', afternoon: '5:00–6:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)' },
+    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2:30pm PT / 5:30pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f5153ea54105fc41d900fe)' },
+    { label: 'June 9',   iso: '2026-06-09', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '1pm PT / 4pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f516178a2ab05f3e118af6)' },
+    { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '4pm PT / 7pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)' },
+    { label: 'June 22 (Copilot Only)',  iso: '2026-06-22-copilot', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '9am PT / 12pm ET', thursday: '9am PT / 12pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a0cf65f27431b42c5131e4b)' },
   ],
   2: [
     { label: 'Apr 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)', soldOut: true },
-    { label: 'May 12',   iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5:00–6:30pm MT', friday: '11:00am–12:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)', soldOut: true },
-    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '4:30–6:00pm MT', friday: '11:00am–12:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52d9bfbe6f9b34c15a663)' },
-    { label: 'June 8',   iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '6:00–7:30pm MT', thursday: '6:00–7:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52df1cf3c823ab47ecd16)' },
-    { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '1:00–2:30pm MT', thursday: '1:00–2:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52e60cf3c823ab47ecd1f)' },
+    { label: 'May 12',   iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '4pm PT / 7pm ET', friday: '10am PT / 1pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)', soldOut: true },
+    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '3:30pm PT / 6:30pm ET', friday: '10am PT / 1pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52d9bfbe6f9b34c15a663)' },
+    { label: 'June 8',   iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '5pm PT / 8pm ET', thursday: '5pm PT / 8pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52df1cf3c823ab47ecd16)' },
+    { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '10am PT / 1pm ET', thursday: '10am PT / 1pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52e60cf3c823ab47ecd1f)' },
   ],
   3: [
-    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '2:30–4:00pm MT', friday: '9:00–10:30am MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)' },
-    { label: 'June 8',   iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4:00–5:30pm MT', thursday: '4:00–5:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
-    { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '9:00–10:30am MT', thursday: '9:00–10:30am MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69f53132cf3c823ab47ecd3a)' },
+    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '1:30pm PT / 4:30pm ET', friday: '8am PT / 11am ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)' },
+    { label: 'June 8',   iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4pm PT / 7pm ET', thursday: '4pm PT / 7pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
+    { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '8am PT / 11am ET', thursday: '8am PT / 11am ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69f53132cf3c823ab47ecd3a)' },
   ],
   4: [
-    { label: 'June 22',   iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '5:00–6:30pm MT', thursday: '5:00–6:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69bd6f92ca371b83aa557c0c)' },
+    { label: 'June 22',   iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4pm PT / 7pm ET', thursday: '4pm PT / 7pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69bd6f92ca371b83aa557c0c)' },
     { label: 'July 2026',  iso: '2026-07-20', scheduleDays: 'Schedule TBD', sessionTimes: null, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
     { label: 'August 2026', iso: '2026-08-15', scheduleDays: 'Schedule TBD', sessionTimes: null, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69e5259f1ac8f0ca2eba2107)' },
   ],
@@ -41,15 +42,15 @@ export const COURSE_COHORTS = {
 // MDT = UTC-6
 export const SESSION_SCHEDULES = {
   1: [
-    { label: 'May 26, 2026', time: '9:00 AM or 2:00 PM MDT', iso: '2026-05-26T15:00:00Z' },
-    { label: 'May 29, 2026', time: '9:00 AM or 2:00 PM MDT', iso: '2026-05-29T15:00:00Z' },
-    { label: 'June 2, 2026', time: '9:00 AM or 2:00 PM MDT', iso: '2026-06-02T15:00:00Z' },
-    { label: 'June 5, 2026', time: '9:00 AM or 2:00 PM MDT', iso: '2026-06-05T15:00:00Z' },
+    { label: 'May 26, 2026', time: '9:00 AM or 3:30 PM MDT', iso: '2026-05-26T15:00:00Z' },
+    { label: 'May 29, 2026', time: '9:00 AM or 3:30 PM MDT', iso: '2026-05-29T15:00:00Z' },
+    { label: 'June 2, 2026', time: '9:00 AM or 3:30 PM MDT', iso: '2026-06-02T15:00:00Z' },
+    { label: 'June 5, 2026', time: '9:00 AM or 3:30 PM MDT', iso: '2026-06-05T15:00:00Z' },
   ],
   2: [
-    { label: 'May 26, 2026', time: '5:00 PM MDT', iso: '2026-05-26T23:00:00Z' },
+    { label: 'May 26, 2026', time: '4:30 PM MDT', iso: '2026-05-26T23:00:00Z' },
     { label: 'May 29, 2026', time: '11:00 AM MDT', iso: '2026-05-29T17:00:00Z' },
-    { label: 'Jun 2, 2026',  time: '5:00 PM MDT', iso: '2026-06-02T23:00:00Z' },
+    { label: 'Jun 2, 2026',  time: '4:30 PM MDT', iso: '2026-06-02T23:00:00Z' },
     { label: 'Jun 5, 2026',  time: '11:00 AM MDT', iso: '2026-06-05T17:00:00Z' },
   ],
   3: [
@@ -234,16 +235,16 @@ export const courseData = {
         description: 'Map where your time goes, build an AI automation roadmap, and deploy it as an interactive dashboard.',
       },
       {
-        title: 'Build a Cloud-Based Agentic Automation',
+        title: 'Build a Cloud-Based Agentic Workflow and QA System',
         description: 'Use n8n to design an agentic communication manager workflow that auto-responds to messages for you.',
       },
       {
-        title: 'Build a Custom Automated Workflow and QA System',
-        description: "Collaborate with AI to create an automation that's tailored to your work, and learn how to QA its performance.",
+        title: 'Build Custom Agentic Automations',
+        description: 'Collaborate with AI to create automations that pull from real data to help you work more effectively.',
       },
       {
-        title: 'Build an Eval System + Demo Day',
-        description: 'Finish building your custom workflow, add a quality layer that catches its own mistakes, and show the cohort what you built.',
+        title: 'Build Your Second Brain with AI + Demo Day',
+        description: 'Give your AI the domain knowledge it needs to run your automation well, and show the cohort what you built.',
       },
       {
         title: 'Build Workshop (Optional)',
@@ -330,16 +331,16 @@ export const courseData = {
         description: 'Set up your agent tool and create the foundational context files of your agentic operating system.',
       },
       {
-        title: 'Scope and Build Your First Agent',
-        description: "Scope what agent you'll build first and give it the tools and job description it needs to succeed.",
+        title: 'Strengthen Your Agent with Skills, Tools, and Context',
+        description: 'Scope what your agent owns, expand context to cover your real work, and connect the tools it needs to do that work.',
       },
       {
         title: 'Test and Deploy Your Agent',
         description: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy.",
       },
       {
-        title: 'Graduate to Full Autonomy + Demo Day',
-        description: 'Prepare your agentic OS for full autonomy, document your system, and demo what you built.',
+        title: 'Build Sub-Agents + Demo Day',
+        description: 'Get better, broader output by training your agent to spin up specialist sub-agents for research and other specific tasks.',
       },
       {
         title: 'Build Workshop (Optional)',
