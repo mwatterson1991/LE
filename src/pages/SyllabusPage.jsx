@@ -34,8 +34,15 @@ function SessionItem({ session, num, open, onToggle, schedule }) {
       </div>
       <div className="sy-session-detail">
         <div className="sy-session-detail-inner">
-          <p><strong>Concepts covered:</strong> {session.concepts}</p>
-          <p><strong>Hands-on build:</strong> {session.build}</p>
+          {session.concepts && (
+            <p><strong>Concepts covered:</strong> {session.concepts}</p>
+          )}
+          {session.build && (
+            <p><strong>Hands-on build:</strong> {session.build}</p>
+          )}
+          {!session.concepts && !session.build && session.description && (
+            <p>{session.description}</p>
+          )}
         </div>
       </div>
     </div>
@@ -50,10 +57,12 @@ function CourseSection({ course, id }) {
   const learnItems = data.whatYoullLearn.flatMap(g => g.col)
   const buildItems = data.whatYoullBuild
 
-  const sessions = data.sessions.map(s => ({
-    ...s,
-    summary: s.build,
-  }))
+  const sessions = data.sessions
+    .filter(s => !s.optional)
+    .map(s => ({
+      ...s,
+      summary: s.build || s.description,
+    }))
 
   return (
     <section className="sy-course" id={`course-${id}`}>
@@ -111,8 +120,8 @@ function CourseSection({ course, id }) {
 }
 
 const VALUE_ITEMS = [
-  '12+ hours of live, cohort-based instruction per course',
-  '6 hands-on deliverables you can use in your work',
+  '6 hours of live, cohort-based core instruction per course, plus optional Build Workshops',
+  '4 hands-on deliverables you can use in your work',
   'Session recordings + access for 1 year',
   'Access to the private AI Builder community',
   'Weekly office hours with instructors',
@@ -152,9 +161,9 @@ export default function SyllabusPage() {
           <div className="sy-hero-label">AI Builder Program</div>
           <h1>The full curriculum, session by session</h1>
           <p className="sy-hero-sub">
-            5 courses. 30 live sessions. Every one hands-on. You'll go from using AI chatbots
-            to building fully autonomous systems that run business functions on their own.
-            Here's exactly what you'll learn and build at every step.
+            5 courses. 20 hands-on core sessions, plus optional Build Workshops at every level.
+            You'll go from using AI chatbots to building fully autonomous systems that run
+            business functions on their own. Here's exactly what you'll learn and build at every step.
           </p>
           <div className="sy-hero-ctas">
             <a
