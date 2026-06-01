@@ -2,3 +2,6 @@ node_modules
 dist
 .DS_Store
 .vercel
+
+# PII-bearing aggregator output
+public/data/responses-raw.csv

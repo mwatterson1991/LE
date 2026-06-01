@@ -10,7 +10,6 @@ export const COURSE_COHORTS = {
   1: [
     { label: 'Apr 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9–10:30am MT', afternoon: '2–3:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69df07c2a8d0db5f281bf997)', soldOut: true },
     { label: 'May 12',   iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '9:30–11:00am MT', afternoon: '4:00–5:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69dff7c6d5d75c51a6c278c2)', soldOut: true },
-    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2:30pm PT / 5:30pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f5153ea54105fc41d900fe)' },
     { label: 'June 9',   iso: '2026-06-09', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '1pm PT / 4pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f516178a2ab05f3e118af6)' },
     { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '4pm PT / 7pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)' },
     { label: 'June 22 (Copilot Only)',  iso: '2026-06-22-copilot', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '9am PT / 12pm ET', thursday: '9am PT / 12pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a0cf65f27431b42c5131e4b)' },
@@ -18,12 +17,10 @@ export const COURSE_COHORTS = {
   2: [
     { label: 'Apr 21', iso: '2026-04-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '5–6:30pm MT', friday: '11am–12:30pm MT' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1ed8141a6783685016ed0)', soldOut: true },
     { label: 'May 12',   iso: '2026-05-12', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '4pm PT / 7pm ET', friday: '10am PT / 1pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69b1975df61c38f9e9bb5550)', soldOut: true },
-    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '3:30pm PT / 6:30pm ET', friday: '10am PT / 1pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52d9bfbe6f9b34c15a663)' },
     { label: 'June 8',   iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '5pm PT / 8pm ET', thursday: '5pm PT / 8pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52df1cf3c823ab47ecd16)' },
     { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '10am PT / 1pm ET', thursday: '10am PT / 1pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52e60cf3c823ab47ecd1f)' },
   ],
   3: [
-    { label: 'May 26',   iso: '2026-05-26', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '1:30pm PT / 4:30pm ET', friday: '8am PT / 11am ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b1ee1b8bd54088517f2b3b)' },
     { label: 'June 8',   iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4pm PT / 7pm ET', thursday: '4pm PT / 7pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)' },
     { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '8am PT / 11am ET', thursday: '8am PT / 11am ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69f53132cf3c823ab47ecd3a)' },
   ],
@@ -82,8 +79,8 @@ export const courseData = {
     id: 1,
     name: 'Use AI to 10x Your Impact',
     badge: 'Level 1 of 5',
-    nextCohort: 'May 26 – Jun 5, 2026',
-    cohortDates: ['May 26', 'June 9', 'June 22'],
+    nextCohort: 'Jun 9 – Jun 19, 2026',
+    cohortDates: ['June 9', 'June 22'],
     heroHeadline: 'Go beyond chatbots and build AI that works like you.',
     heroSubheadline:
       "In 4 core sessions over 2 weeks, you'll go from AI user to AI builder: a research workflow, a data model, a daily automation, and a writing system that sounds like you.",
@@ -186,8 +183,8 @@ export const courseData = {
     id: 2,
     name: 'Build Complex Agentic Workflows',
     badge: 'Level 2 of 5',
-    nextCohort: 'May 26 – Jun 5, 2026',
-    cohortDates: ['May 26', 'June 8', 'June 22'],
+    nextCohort: 'Jun 8 – Jun 18, 2026',
+    cohortDates: ['June 8', 'June 22'],
     heroHeadline: 'Eliminate manual work with a team of specialized agents.',
     heroSubheadline:
       "In 4 core sessions over 2 weeks, you'll build a toolkit of specialized agents and finish with a full pipeline that goes from first message to sale with no manual steps.",
@@ -291,8 +288,8 @@ export const courseData = {
     id: 3,
     name: 'Create Autonomous Agents',
     badge: 'Level 3 of 5',
-    nextCohort: 'May 26 – Jun 5, 2026',
-    cohortDates: ['May 26', 'June 8', 'June 22'],
+    nextCohort: 'Jun 8 – Jun 18, 2026',
+    cohortDates: ['June 8', 'June 22'],
     heroHeadline: 'You\'ve built great agents. Now make them run autonomously.',
     heroSubheadline:
       "In 4 core sessions over 2 weeks, you'll build systems that trigger automatically, run in the background, and operate 24/7, with no manual step between you and the output.",
@@ -598,9 +595,9 @@ export const courseData = {
 }
 
 export const allCourses = [
-  { id: 1, name: 'Use AI to 10x Your Impact', nextCohort: 'May 26 – Jun 5', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
-  { id: 2, name: 'Build Complex Agentic Workflows', nextCohort: 'May 26 – Jun 5', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
-  { id: 3, name: 'Create Autonomous Agents', nextCohort: 'May 26 – Jun 5', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
+  { id: 1, name: 'Use AI to 10x Your Impact', nextCohort: 'Jun 9 – Jun 19', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
+  { id: 2, name: 'Build Complex Agentic Workflows', nextCohort: 'Jun 8 – Jun 18', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
+  { id: 3, name: 'Create Autonomous Agents', nextCohort: 'Jun 8 – Jun 18', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
   { id: 4, name: 'Build Your Agent Workforce', nextCohort: 'Jun 22 – Jul 2', whoShort: "You have multiple autonomous agents running, but they don't operate as a unified system." },
   { id: 5, name: 'Design Your AI Orchestration Layer', nextCohort: 'Jul 14 – Jul 31', whoShort: "You've built and shipped AI systems, but they don't proactively iterate toward a goal." },
 ]

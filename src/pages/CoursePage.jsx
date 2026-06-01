@@ -387,6 +387,9 @@ export default function CoursePage({ courseId }) {
               <span className="testimonial-author">Caroline D.</span>
             </div>
           </div>
+          <div className="testimonials-see-more">
+            <a href="/reviews" className="testimonials-see-more-link">See more reviews →</a>
+          </div>
         </div>
       </section>
 

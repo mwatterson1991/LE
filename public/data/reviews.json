@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-06-01",
+  "rating": 4.5,
+  "review_count": 299,
+  "stats": {
+    "avg_hours_saved_per_week": null,
+    "confidence_lift_points": 0.7,
+    "ai_usage_lift_points": 2.35,
+    "recommend_rate_pct": null,
+    "five_star_rate_pct": 59,
+    "grads_count": 256,
+    "cohorts_count": 7,
+    "five_star_response_count": 299,
+    "nps_response_count": 0,
+    "legacy_share_pct": 25
+  }
+}
