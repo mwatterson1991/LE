@@ -2620,6 +2620,30 @@ nav .btn {
   flex-direction: column;
   gap: 28px;
 }
+/* The expandable block is always visible on desktop; mobile media query hides it. */
+.accordion-expandable {
+  display: contents;
+}
+/* Show-more button is mobile-only; hidden on desktop entirely. */
+.accordion-show-more {
+  display: none;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid rgba(165, 228, 70, 0.5);
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.accordion-show-more:hover {
+  background: var(--accent);
+  color: #000;
+}
 .accordion-overview {
   font-family: var(--font-body);
   font-size: 16px;
@@ -3737,6 +3761,17 @@ footer a:hover {
     grid-template-columns: 1fr;
     gap: 20px;
   }
+  /* On mobile, surface the cohort picker + price + enroll FIRST. */
+  .accordion-body-main { order: 2; }
+  .accordion-meta { order: 1; }
+  /* Hide the heavy curriculum/learn/tools blocks until tapped open. */
+  .accordion-expandable { display: none; }
+  .accordion-expandable.is-open {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .accordion-show-more { display: inline-flex; }
   .accordion-sessions { gap: 6px; }
   .course-session { padding: 12px; gap: 12px; }
   .course-session-num { font-size: 12px; }

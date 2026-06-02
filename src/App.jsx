@@ -172,6 +172,7 @@ function getDefaultCohort(cohorts) {
 
 function CourseAccordionItem({ course, open, onToggle }) {
   const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
+  const [showAllMobile, setShowAllMobile] = useState(false)
   const enrollUrl = (selectedCohort && !selectedCohort.soldOut ? selectedCohort.enrollUrl : null) ?? course.enrollUrl
   const detail = courseData[parseInt(course.num, 10)] || {}
 
@@ -202,56 +203,66 @@ function CourseAccordionItem({ course, open, onToggle }) {
               <p className="accordion-detail-text">{detail.whoItsFor}</p>
             </div>
           )}
-          <div className="accordion-sessions">
-            <div className="course-sessions-label">Curriculum</div>
-            {course.sessions.map((session, i) => {
-              const cohortSession = selectedCohort?.cohortSessions?.[i]
-              const displayDate = cohortSession?.date ?? session.date
-              const displayTime = cohortSession?.time ?? session.time
-              return (
-                <div className="course-session" key={i}>
-                  <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
-                  <div className="course-session-text">
-                    <span className="course-session-title">{session.title}</span>
-                    <span className="course-session-sub">{session.sub}</span>
-                    {displayDate && <span className="course-session-datetime">{displayDate} &middot; {displayTime}</span>}
+          <div className={`accordion-expandable${showAllMobile ? ' is-open' : ''}`}>
+            <div className="accordion-sessions">
+              <div className="course-sessions-label">Curriculum</div>
+              {course.sessions.map((session, i) => {
+                const cohortSession = selectedCohort?.cohortSessions?.[i]
+                const displayDate = cohortSession?.date ?? session.date
+                const displayTime = cohortSession?.time ?? session.time
+                return (
+                  <div className="course-session" key={i}>
+                    <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
+                    <div className="course-session-text">
+                      <span className="course-session-title">{session.title}</span>
+                      <span className="course-session-sub">{session.sub}</span>
+                      {displayDate && <span className="course-session-datetime">{displayDate} &middot; {displayTime}</span>}
+                    </div>
                   </div>
+                )
+              })}
+            </div>
+            {detail.whatYoullBuild && detail.whatYoullBuild.length > 0 && (
+              <div className="accordion-detail-block">
+                <span className="accordion-detail-label">What you'll build</span>
+                <ul className="accordion-detail-list">
+                  {detail.whatYoullBuild.map(item => (
+                    <li key={item}><span className="accordion-detail-check">&#10003;</span><span>{item}</span></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {detail.whatYoullLearn && detail.whatYoullLearn.length > 0 && (
+              <div className="accordion-detail-block">
+                <span className="accordion-detail-label">What you'll learn</span>
+                <div className="accordion-detail-learn-grid">
+                  {detail.whatYoullLearn.map((col, idx) => (
+                    <ul className="accordion-detail-learn-col" key={idx}>
+                      {col.col.map(item => (
+                        <li key={item}><span className="accordion-detail-bullet">·</span><span>{item}</span></li>
+                      ))}
+                    </ul>
+                  ))}
                 </div>
-              )
-            })}
+              </div>
+            )}
+            {detail.tools && detail.tools.length > 0 && (
+              <div className="accordion-detail-block">
+                <span className="accordion-detail-label">Tools you'll use</span>
+                <div className="accordion-detail-tools">
+                  {detail.tools.map(tool => <span className="accordion-detail-tool" key={tool}>{tool}</span>)}
+                </div>
+              </div>
+            )}
           </div>
-          {detail.whatYoullBuild && detail.whatYoullBuild.length > 0 && (
-            <div className="accordion-detail-block">
-              <span className="accordion-detail-label">What you'll build</span>
-              <ul className="accordion-detail-list">
-                {detail.whatYoullBuild.map(item => (
-                  <li key={item}><span className="accordion-detail-check">&#10003;</span><span>{item}</span></li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {detail.whatYoullLearn && detail.whatYoullLearn.length > 0 && (
-            <div className="accordion-detail-block">
-              <span className="accordion-detail-label">What you'll learn</span>
-              <div className="accordion-detail-learn-grid">
-                {detail.whatYoullLearn.map((col, idx) => (
-                  <ul className="accordion-detail-learn-col" key={idx}>
-                    {col.col.map(item => (
-                      <li key={item}><span className="accordion-detail-bullet">·</span><span>{item}</span></li>
-                    ))}
-                  </ul>
-                ))}
-              </div>
-            </div>
-          )}
-          {detail.tools && detail.tools.length > 0 && (
-            <div className="accordion-detail-block">
-              <span className="accordion-detail-label">Tools you'll use</span>
-              <div className="accordion-detail-tools">
-                {detail.tools.map(tool => <span className="accordion-detail-tool" key={tool}>{tool}</span>)}
-              </div>
-            </div>
-          )}
+          <button
+            type="button"
+            className="accordion-show-more"
+            onClick={() => setShowAllMobile(v => !v)}
+            aria-expanded={showAllMobile}
+          >
+            {showAllMobile ? 'Show less' : 'Show full curriculum & details →'}
+          </button>
         </div>
         <div className="accordion-meta">
           <div className="accordion-meta-row">
@@ -1318,6 +1329,67 @@ function HomePage() {
         </div>
       </section>
 
+      {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
+      <section className="accordion-section" id="course-accordion">
+        <div className="container">
+          <div className="accordion-section-header accordion-section-header-stacked">
+            <div className="accordion-section-header-text">
+              <h2 className="accordion-section-headline">One program, five levels</h2>
+              <p className="accordion-section-sub">Levels 1–3 build the AI foundation every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems. Learn more about the different levels below.</p>
+            </div>
+            <IcebergVisualization />
+          </div>
+          <div className="accordion-list" style={{ marginTop: 48 }}>
+            {courses.map((course, i) => (
+              <CourseAccordionItem key={course.id} course={course} open={openAccordion === i} onToggle={() => setOpenAccordion(openAccordion === i ? null : i)} />
+            ))}
+          </div>
+          <WhichLevelDropdown />
+
+          {/* Bundle callout */}
+          <div style={{ marginTop: 32, padding: '28px 32px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10 }}>
+            <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Bundle the full program and save</h3>
+            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+              <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                  <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Core (Levels 1–3)</span>
+                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>most popular</span>
+                </div>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The full Core program — Levels 1, 2, and 3 — completed in 6 weeks. The right starting point for most builders.</p>
+                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
+                  Get the Core bundle <span className="arrow">&rarr;</span>
+                </a>
+              </div>
+              <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                  <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Advanced (Levels 1–5)</span>
+                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>best value</span>
+                </div>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The complete journey — all five levels — for builders who want to ship production AI systems.</p>
+                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
+                  Get the Advanced bundle <span className="arrow">&rarr;</span>
+                </a>
+              </div>
+            </div>
+            <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
+            <div style={{ marginTop: 20, padding: '16px 20px', background: 'rgba(165,228,70,0.06)', border: '1px solid rgba(165,228,70,0.2)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 15, color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.4 }}>Not sure which bundle is right, or have other questions?</span>
+              <a
+                href={`${SALES_URL}?utm_content=bundle-callout`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost btn-sm"
+                onClick={() => posthog.capture('app--sales_cta_click', { source: 'bundle-callout' })}
+              >
+                Talk with Our Team
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ====== Use Cases by Role ====== */}
       <RoleUseCases />
 
@@ -1395,67 +1467,6 @@ function HomePage() {
         </div>
       </section>
       */}
-
-      {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
-      <section className="accordion-section" id="course-accordion">
-        <div className="container">
-          <div className="accordion-section-header accordion-section-header-stacked">
-            <div className="accordion-section-header-text">
-              <h2 className="accordion-section-headline">One program, five levels</h2>
-              <p className="accordion-section-sub">Levels 1–3 build the AI foundation every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems. Learn more about the different levels below.</p>
-            </div>
-            <IcebergVisualization />
-          </div>
-          <div className="accordion-list" style={{ marginTop: 48 }}>
-            {courses.map((course, i) => (
-              <CourseAccordionItem key={course.id} course={course} open={openAccordion === i} onToggle={() => setOpenAccordion(openAccordion === i ? null : i)} />
-            ))}
-          </div>
-          <WhichLevelDropdown />
-
-          {/* Bundle callout */}
-          <div style={{ marginTop: 32, padding: '28px 32px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Bundle the full program and save</h3>
-            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                  <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Core (Levels 1–3)</span>
-                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>most popular</span>
-                </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The full Core program — Levels 1, 2, and 3 — completed in 6 weeks. The right starting point for most builders.</p>
-                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
-                  Get the Core bundle <span className="arrow">&rarr;</span>
-                </a>
-              </div>
-              <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                  <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Advanced (Levels 1–5)</span>
-                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>best value</span>
-                </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The complete journey — all five levels — for builders who want to ship production AI systems.</p>
-                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
-                  Get the Advanced bundle <span className="arrow">&rarr;</span>
-                </a>
-              </div>
-            </div>
-            <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
-            <div style={{ marginTop: 20, padding: '16px 20px', background: 'rgba(165,228,70,0.06)', border: '1px solid rgba(165,228,70,0.2)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 15, color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.4 }}>Not sure which bundle is right, or have other questions?</span>
-              <a
-                href={`${SALES_URL}?utm_content=bundle-callout`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost btn-sm"
-                onClick={() => posthog.capture('app--sales_cta_click', { source: 'bundle-callout' })}
-              >
-                Talk with Our Team
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ====== VP2 — before Certification ====== */}
       <section className="value-props-section value-props-bg" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/value-prop-2.jpg)` }}>
