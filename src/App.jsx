@@ -1468,16 +1468,6 @@ function HomePage() {
       </section>
       */}
 
-      {/* ====== VP2 — before Certification ====== */}
-      <section className="value-props-section value-props-bg" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/value-prop-2.jpg)` }}>
-        <div className="container">
-          <div className="value-prop-text">
-            <h2>Each session, build something you'll use at work the next day</h2>
-            <p>Every session ends with a deliverable you can put to work immediately. From automations to data analysis to personalized skills, you'll save hours every week.</p>
-          </div>
-        </div>
-      </section>
-
       {/* ====== 13. Certification (CardSwap) ====== */}
       <section className="certification" id="certification">
         <div className="container">
@@ -1615,6 +1605,16 @@ function HomePage() {
 
       {/* ====== Get This Expensed ====== */}
       <GetThisExpensed />
+
+      {/* ====== Each-session value prop (moved away from VP3) ====== */}
+      <section className="value-props-section value-props-bg" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/value-prop-2.jpg)` }}>
+        <div className="container">
+          <div className="value-prop-text">
+            <h2>Each session, build something you'll use at work the next day</h2>
+            <p>Every session ends with a deliverable you can put to work immediately. From automations to data analysis to personalized skills, you'll save hours every week.</p>
+          </div>
+        </div>
+      </section>
 
       {/* ====== 14. Advisor CTA ====== */}
       <section className="advisor-section">
