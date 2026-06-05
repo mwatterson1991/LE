@@ -40,6 +40,13 @@ export default function LPPopup() {
   // Trigger setup — runs once on mount
   useEffect(() => {
     if (typeof window === 'undefined') return
+    try {
+      const params = new URLSearchParams(window.location.search)
+      if (params.has('no-popup') || params.has('nopopup')) {
+        try { sessionStorage.setItem(SHOWN_KEY, '1') } catch (_) {}
+        return
+      }
+    } catch (_) {}
     if (localStorage.getItem(CONVERTED_KEY)) return
     if (sessionStorage.getItem(SHOWN_KEY)) return
 

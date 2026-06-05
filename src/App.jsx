@@ -58,7 +58,12 @@ function Countdown() {
   const [started, setStarted] = useState(false)
 
   useEffect(() => {
-    const target = new Date('2026-05-26T15:00:00Z')
+    const now0 = new Date()
+    const l1 = COURSE_COHORTS[1] || []
+    const nextCohort =
+      l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso) && new Date(c.iso + 'T15:00:00Z') >= now0) ||
+      l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso))
+    const target = nextCohort ? new Date(nextCohort.iso + 'T15:00:00Z') : new Date('2026-05-26T15:00:00Z')
     function update() {
       const now = new Date()
       const diff = target - now
