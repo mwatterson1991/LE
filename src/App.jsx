@@ -7,6 +7,7 @@ import CoursePage from './pages/CoursePage'
 import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import ReviewsPage from './pages/ReviewsPage'
+import HomePageRebrand from './pages/HomePageRebrand'
 import LPPopup from './components/LPPopup'
 import GetThisExpensed from './components/GetThisExpensed'
 import CohortPicker from './components/CohortPicker'
@@ -1730,7 +1731,7 @@ function App() {
   if (match) {
     return <CoursePage courseId={parseInt(match[1], 10)} />
   }
-  return <HomePage />
+  return <HomePageRebrand />
 }
 
 export default App

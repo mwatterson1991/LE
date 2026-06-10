@@ -1,0 +1,479 @@
+/* ============================================================
+   AI Builder homepage rebrand — new Leland light brand
+   Loaded only by HomePageRebrand.jsx. EVERY rule is scoped under
+   html.rb-home / body.rb-home so this file is inert on every
+   other page (level-*, /teams, /reviews, /syllabus) even though
+   Vite bundles it into the shared CSS chunk.
+   Brand source: .claude/skills/leland-page-builder/SKILL.md
+   ============================================================ */
+
+/* ---------- Fonts (downloaded only when a .rb-home rule matches) ---------- */
+@font-face {
+  font-family: 'Macan';
+  src: url('/assets/fonts/Macan/Macan-Regular.woff2') format('woff2'),
+       url('/assets/fonts/Macan/Macan-Regular.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Macan';
+  src: url('/assets/fonts/Macan/Macan-Book.woff2') format('woff2'),
+       url('/assets/fonts/Macan/Macan-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Macan';
+  src: url('/assets/fonts/Macan/Macan-Medium.woff2') format('woff2'),
+       url('/assets/fonts/Macan/Macan-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Macan';
+  src: url('/assets/fonts/Macan/Macan-SemiBold.woff2') format('woff2'),
+       url('/assets/fonts/Macan/Macan-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Season';
+  src: url('/assets/fonts/Season/SeasonMix-Medium.woff2') format('woff2'),
+       url('/assets/fonts/Season/SeasonMix-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Token layer: re-themes everything that uses var() ---------- */
+html.rb-home {
+  background: #ffffff;
+}
+body.rb-home {
+  /* brand tokens */
+  --yellow: #FFD667;
+  --yellow-hover: #F7CB53;
+  --gray-dark: #222222;
+  --gray-light: #4C4C4C;
+  --blue: #80ACED;
+  --cream: #F0EBE0;
+  --cream-soft: #f3f1e6;
+  --gray-bg: #f9f9f9;
+  /* legacy token overrides (consumed by index.css rules) */
+  --bg: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f9f9f9;
+  --bg-elevated: #ffffff;
+  --accent: #8a6d1a;            /* text-safe gold for accents on light bg */
+  --accent-hover: #6f5715;
+  --accent-dim: rgba(255, 214, 103, 0.18);
+  --star-gold: #E9B949;
+  --text-primary: #222222;
+  --text-secondary: #4C4C4C;
+  --text-tertiary: #767676;
+  --text-muted: rgba(34, 34, 34, 0.45);
+  --border: rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.2);
+  --font-heading: 'Season', Georgia, serif;
+  --font-body: 'Macan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-meta: 'Macan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: #ffffff;
+  color: var(--gray-dark);
+}
+
+/* Dark bands keep light-on-dark vars locally */
+body.rb-home .rb-dark-band,
+body.rb-home .certification {
+  --accent: #FFD667;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.78);
+  --text-tertiary: rgba(255, 255, 255, 0.55);
+  --border: rgba(255, 255, 255, 0.14);
+}
+
+/* ---------- Type ---------- */
+body.rb-home h1,
+body.rb-home h2,
+body.rb-home h3,
+body.rb-home h4 {
+  font-weight: 500;
+  letter-spacing: 0;
+}
+body.rb-home .hero h1 {
+  font-size: 64px;
+  line-height: 1.08;
+}
+body.rb-home .rotating-text {
+  color: #4A7FCC; /* darker text-safe shade of brand blue #80ACED */
+}
+
+/* ---------- Buttons: always pills, Macan 500 ---------- */
+body.rb-home .btn {
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+body.rb-home .btn-sm { font-size: 14px; }
+body.rb-home .btn-lg { font-size: 16px; padding: 14px 32px; }
+body.rb-home .btn-primary {
+  background: var(--yellow);
+  color: var(--gray-dark);
+}
+body.rb-home .btn-primary:hover { background: var(--yellow-hover); }
+body.rb-home .btn-ghost {
+  background: #ffffff;
+  color: var(--gray-dark);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+body.rb-home .btn-ghost:hover {
+  background: #ffffff;
+  color: var(--gray-dark);
+  border-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+body.rb-home .btn-secondary-outline {
+  background: #ffffff;
+  color: var(--gray-dark);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+body.rb-home .btn-secondary-outline:hover {
+  color: var(--gray-dark);
+  border-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ---------- Nav (header.rb-nav — not styled by index.css `nav`) ---------- */
+body.rb-home .rb-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 16px 24px;
+  transition: box-shadow 0.2s ease;
+}
+body.rb-home .rb-nav-scrolled { box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05); }
+body.rb-home .rb-nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body.rb-home .rb-nav-logo { display: inline-flex; align-items: center; }
+body.rb-home .rb-nav-cta-pair { display: flex; align-items: center; gap: 12px; }
+
+/* ---------- Section rhythm: white / cream / gray + two dark bands ---------- */
+body.rb-home .hero { background: #ffffff; padding-top: 180px; }
+body.rb-home .save-time-section { background: var(--cream); }
+body.rb-home .rb-dark-band { background: var(--gray-dark); }
+body.rb-home .rb-dark-band .value-prop-text h2 { color: #ffffff; }
+body.rb-home .rb-dark-band .value-prop-text p { color: rgba(255, 255, 255, 0.78); }
+body.rb-home .testimonials-new { background: #ffffff; }
+body.rb-home .value-stack { background: #ffffff; }
+body.rb-home .why-section { background: var(--gray-bg); }
+body.rb-home .accordion-section { background: #ffffff; }
+body.rb-home .role-uses-section { background: var(--cream); }
+body.rb-home .rb-band-cream { background: var(--cream-soft); }
+body.rb-home .rb-band-cream .value-prop-text h2 { color: var(--gray-dark); }
+body.rb-home .rb-band-cream .value-prop-text p { color: var(--gray-light); }
+body.rb-home .rb-band-gray { background: #ffffff; }
+body.rb-home .rb-band-gray .value-prop-text h2 { color: var(--gray-dark); }
+body.rb-home .rb-band-gray .value-prop-text p { color: var(--gray-light); }
+body.rb-home .certification { background: var(--gray-dark); border-bottom: none; }
+body.rb-home .expense-section { background: var(--gray-bg); border-top: none; }
+body.rb-home .advisor-section { background: #ffffff; }
+body.rb-home .enterprise { background: #ffffff; }
+body.rb-home .faq { background: var(--gray-bg); }
+body.rb-home .footer-cta { background: var(--cream-soft); padding: 80px 0; }
+body.rb-home footer {
+  background: #ffffff;
+  color: var(--text-tertiary);
+  font-family: var(--font-body);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+body.rb-home footer a { color: var(--gray-light); }
+body.rb-home footer a:hover { color: var(--gray-dark); }
+
+/* ---------- Hero details ---------- */
+body.rb-home .countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--gray-bg);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 999px;
+  padding: 10px 24px;
+}
+body.rb-home .cd-label { font-weight: 600; letter-spacing: 0.05em; }
+body.rb-home .logo-ticker-img { filter: brightness(0); opacity: 0.5; }
+body.rb-home .logo-ticker-img:hover { opacity: 0.75; }
+
+/* Track tiers + cards */
+body.rb-home .track-tier {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+body.rb-home .track-tier-core {
+  border-color: rgba(0, 0, 0, 0.16);
+  background: #ffffff;
+}
+body.rb-home .track-tier-advanced {
+  border-left: 1px dashed rgba(0, 0, 0, 0.16);
+  background: #ffffff;
+}
+body.rb-home .track-tier-header { border-bottom: 1px dashed rgba(0, 0, 0, 0.12); }
+body.rb-home .track-tier-most-popular::before { filter: none; }
+body.rb-home .track-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+body.rb-home .track-card:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); }
+body.rb-home .track-card-featured {
+  background-image: none;
+  background: #fffbee;
+  border: 1px solid rgba(186, 144, 6, 0.35);
+}
+body.rb-home .track-card-secondary { border: 1px solid rgba(0, 0, 0, 0.1); }
+body.rb-home .track-label-num {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+body.rb-home .track-desc { color: var(--gray-light); }
+body.rb-home .track-card-arrow-btn { background: var(--yellow); color: var(--gray-dark); }
+body.rb-home .track-card-thumb { border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 8px; }
+
+/* Filling-fast / scarcity markers: readable orange on light */
+body.rb-home .track-tier-filling-fast,
+body.rb-home .track-card-filling-fast,
+body.rb-home .cohort-picker-filling-fast,
+body.rb-home .value-stack-card-filling-fast { color: #c2410c; }
+body.rb-home .track-tier-filling-fast::before,
+body.rb-home .track-card-filling-fast::before,
+body.rb-home .cohort-picker-filling-fast::before,
+body.rb-home .value-stack-card-filling-fast::before {
+  background: #ea580c;
+  box-shadow: none;
+}
+
+/* ---------- Agent network diagram: lime glow -> calm #222 + blue ---------- */
+body.rb-home .agent-network-line { stroke: rgba(34, 34, 34, 0.3); }
+body.rb-home .agent-network-line-static { stroke: rgba(34, 34, 34, 0.35); }
+body.rb-home .agent-network-status-dot { fill: var(--blue); filter: none; }
+body.rb-home .agent-network-action-line { stroke: rgba(34, 34, 34, 0.22); }
+body.rb-home .agent-network-action-pulse { fill: var(--blue); filter: none; }
+body.rb-home .agent-network-action-target { fill: rgba(128, 172, 237, 0.65); }
+body.rb-home .agent-network-pulse { fill: var(--blue); filter: none; }
+body.rb-home .agent-network-center-fill { fill: var(--gray-dark); filter: none; }
+body.rb-home .agent-network-center-label { fill: #ffffff; }
+body.rb-home .agent-network-node-ring { fill: #ffffff; stroke: rgba(34, 34, 34, 0.3); }
+body.rb-home .agent-network-node-fill { fill: rgba(128, 172, 237, 0.14); stroke: rgba(34, 34, 34, 0.4); }
+body.rb-home .save-time-cite strong { color: var(--gray-dark); }
+
+/* ---------- Testimonials ---------- */
+body.rb-home .reviews-carousel-card { border: 1px solid rgba(0, 0, 0, 0.1); }
+body.rb-home .reviews-carousel-card:hover { border-color: rgba(0, 0, 0, 0.25); }
+body.rb-home .reviews-carousel-stars { color: var(--star-gold); }
+body.rb-home .testimonials-stars-lg { color: var(--star-gold); }
+body.rb-home .testimonials-see-more-btn {
+  background: #ffffff;
+  color: var(--gray-dark);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+}
+body.rb-home .testimonials-see-more-btn:hover {
+  background: var(--gray-bg);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Value stack (pricing) ---------- */
+body.rb-home .value-stack-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+body.rb-home .value-stack-card-featured {
+  background: var(--cream-soft);
+  border-color: rgba(186, 144, 6, 0.4);
+  box-shadow: none;
+}
+body.rb-home .value-stack-badge { background: var(--yellow); color: var(--gray-dark); font-weight: 600; }
+body.rb-home .value-stack-card-featured .value-stack-card-name { color: var(--gray-dark); }
+body.rb-home .value-stack-card-featured .value-stack-price { color: var(--gray-dark); }
+body.rb-home .value-stack-card-header { border-bottom: 1px dashed rgba(0, 0, 0, 0.12); }
+body.rb-home .value-stack-card-builds-header { border-bottom: 1px dashed rgba(0, 0, 0, 0.1); }
+body.rb-home .value-stack-card-stats { border-top: 1px dashed rgba(0, 0, 0, 0.1); }
+body.rb-home .value-stack-teams-callout {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--cream-soft);
+}
+body.rb-home .value-stack-teams-callout:hover {
+  border-color: rgba(0, 0, 0, 0.22);
+  background: #ece7d8;
+}
+
+/* ---------- Why (skills + tools) ---------- */
+body.rb-home .why-right { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; }
+body.rb-home .why-pill-skill {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+  color: var(--gray-light);
+}
+body.rb-home .why-skills-tools { border-top: 1px dashed rgba(0, 0, 0, 0.1); }
+
+/* ---------- Program progression + accordion ---------- */
+body.rb-home .program-progression-audience-core {
+  color: var(--accent);
+  border-color: rgba(186, 144, 6, 0.4);
+  background: var(--accent-dim);
+}
+body.rb-home .program-progression-audience-advanced {
+  color: var(--gray-light);
+  border-color: rgba(0, 0, 0, 0.18);
+  background: #ffffff;
+}
+body.rb-home .program-progression-level {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+}
+body.rb-home .program-progression-level::after { background: #ffffff; }
+body.rb-home .program-progression-level-core {
+  background: #fffbee;
+  border-color: rgba(186, 144, 6, 0.3);
+}
+body.rb-home .accordion-item {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+body.rb-home .accordion-item.open { border-color: rgba(0, 0, 0, 0.3); }
+body.rb-home .accordion-header:hover { background: rgba(0, 0, 0, 0.02); }
+body.rb-home .accordion-show-more {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--gray-dark);
+}
+body.rb-home .accordion-show-more:hover { background: var(--yellow); color: var(--gray-dark); }
+body.rb-home .accordion-meta { background: var(--gray-bg); border-radius: 12px; }
+body.rb-home .accordion-meta-divider { border-top: 1px solid rgba(0, 0, 0, 0.1); }
+body.rb-home .accordion-detail-label { border-bottom: 1px dashed rgba(0, 0, 0, 0.1); }
+body.rb-home .accordion-detail-tool { border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 999px; }
+body.rb-home .course-session { background: var(--cream-soft); border-radius: 8px; }
+body.rb-home .cohort-picker-btn {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--gray-light);
+  border-radius: 999px;
+}
+body.rb-home .cohort-picker-btn:hover:not(:disabled) {
+  border-color: var(--gray-dark);
+  color: var(--gray-dark);
+}
+body.rb-home .which-level-header { background: rgba(0, 0, 0, 0.03); }
+body.rb-home .which-level-toggle { border-radius: 999px; }
+
+/* ---------- Role use cases ---------- */
+body.rb-home .role-uses-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+}
+body.rb-home .role-uses-role { border-bottom: 1px dashed rgba(0, 0, 0, 0.1); }
+
+/* ---------- Certification (dark band; cert art keeps its dark design) ---------- */
+body.rb-home .rb-cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 56px;
+}
+body.rb-home .rb-cert-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  min-height: 380px;
+  display: flex;
+}
+body.rb-home .cert-divider {
+  background: linear-gradient(90deg, transparent, rgba(255, 214, 103, 0.35), transparent);
+}
+body.rb-home .cert-name { color: #ffffff; border-bottom: 1px dotted rgba(255, 255, 255, 0.15); }
+body.rb-home .cert-program { color: #ffffff; }
+body.rb-home .cert-date-value { color: #ffffff; }
+
+/* ---------- Get This Expensed ---------- */
+body.rb-home .expense-card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 16px; }
+body.rb-home .expense-select {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: var(--gray-dark);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+body.rb-home .expense-select option { background: #ffffff; color: var(--gray-dark); }
+body.rb-home .expense-template-box { background: var(--gray-bg); border: 1px solid rgba(0, 0, 0, 0.08); }
+body.rb-home .expense-template-subject,
+body.rb-home .expense-template-body { font-family: var(--font-body); }
+body.rb-home .expense-copy-btn { background: var(--yellow); color: var(--gray-dark); border-radius: 999px; font-weight: 500; }
+
+/* ---------- Advisor / Enterprise / FAQ / Footer CTA ---------- */
+body.rb-home .advisor-card {
+  background: var(--cream-soft);
+  border: none;
+  border-radius: 16px;
+}
+body.rb-home .enterprise-card {
+  background: var(--cream);
+  border-radius: 16px;
+}
+body.rb-home .enterprise-card h2 { color: var(--gray-dark); }
+body.rb-home .enterprise-desc { color: var(--gray-light); }
+body.rb-home .enterprise-points li { color: var(--gray-dark); }
+body.rb-home .faq-item {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+}
+body.rb-home .faq-item:hover { background: #ffffff; border-color: rgba(0, 0, 0, 0.18); }
+body.rb-home .faq-a p { color: var(--gray-light); }
+body.rb-home .footer-cta-sub {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--gray-dark);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: 24px;
+}
+
+/* ---------- LP popup ---------- */
+body.rb-home .lp-popup-overlay { background: rgba(0, 0, 0, 0.4); }
+body.rb-home .lp-popup {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
+}
+body.rb-home .lp-popup-close { color: rgba(0, 0, 0, 0.45); }
+body.rb-home .lp-popup-close:hover { color: var(--gray-dark); }
+
+/* ---------- Mobile (single 768px breakpoint; layout handled by index.css) ---------- */
+@media (max-width: 768px) {
+  body.rb-home .hero h1 { font-size: 40px; }
+  body.rb-home .hero { padding-top: 140px; }
+  body.rb-home .rb-nav { padding: 12px 16px; }
+  body.rb-home .footer-cta-sub { font-size: 24px; }
+  body.rb-home .countdown { gap: 14px; padding: 8px 18px; }
+}
