@@ -1,5 +1,5 @@
 export const ENROLL_URLS = {
-  1: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f516178a2ab05f3e118af6)',
+  1: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)',
   2: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C6a23213b455a49d4abda3c87)',
   3: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C6a23265ae0ed35ab57e282b5)',
   4: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)',
@@ -8,7 +8,6 @@ export const ENROLL_URLS = {
 
 export const COURSE_COHORTS = {
   1: [
-    { label: 'June 9',   iso: '2026-06-09', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '1pm PT / 4pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f516178a2ab05f3e118af6)' },
     { label: 'June 22',  iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '4pm PT / 7pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)' },
     { label: 'June 22 (Copilot Only)',  iso: '2026-06-22-copilot', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '9am PT / 12pm ET', thursday: '9am PT / 12pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a0cf65f27431b42c5131e4b)' },
     { label: 'July 6',   iso: '2026-07-06', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2pm PT / 5pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a20503acfe499ed72d285e9)' },
@@ -39,10 +38,10 @@ export const COURSE_COHORTS = {
 // MDT = UTC-6
 export const SESSION_SCHEDULES = {
   1: [
-    { label: 'Jun 9, 2026',  time: '9:00 AM or 2:00 PM MDT', iso: '2026-06-09T15:00:00Z' },
-    { label: 'Jun 12, 2026', time: '9:00 AM or 2:00 PM MDT', iso: '2026-06-12T15:00:00Z' },
-    { label: 'Jun 16, 2026', time: '9:00 AM or 2:00 PM MDT', iso: '2026-06-16T15:00:00Z' },
-    { label: 'Jun 19, 2026', time: '9:00 AM or 2:00 PM MDT', iso: '2026-06-19T15:00:00Z' },
+    { label: 'Jun 22, 2026', time: '9:00 AM or 5:00 PM MDT', iso: '2026-06-22T15:00:00Z' },
+    { label: 'Jun 25, 2026', time: '9:00 AM or 5:00 PM MDT', iso: '2026-06-25T15:00:00Z' },
+    { label: 'Jun 29, 2026', time: '9:00 AM or 5:00 PM MDT', iso: '2026-06-29T15:00:00Z' },
+    { label: 'Jul 2, 2026',  time: '9:00 AM or 5:00 PM MDT', iso: '2026-07-02T15:00:00Z' },
   ],
   2: [
     { label: 'Jul 6, 2026',  time: '11:00 AM MDT', iso: '2026-07-06T17:00:00Z' },
@@ -75,8 +74,8 @@ export const courseData = {
     id: 1,
     name: 'Use AI to 10x Your Impact',
     badge: 'Level 1 of 5',
-    nextCohort: 'Jun 9 – Jun 19, 2026',
-    cohortDates: ['June 9', 'June 22', 'July 6', 'July 21', 'August 4', 'August 17'],
+    nextCohort: 'Jun 22 – Jul 2, 2026',
+    cohortDates: ['June 22', 'July 6', 'July 21', 'August 4', 'August 17'],
     heroHeadline: 'Go beyond chatbots and build AI that works like you.',
     heroSubheadline:
       "In 4 core sessions over 2 weeks, you'll go from AI user to AI builder: a research workflow, a data model, a daily automation, and a writing system that sounds like you.",
@@ -591,7 +590,7 @@ export const courseData = {
 }
 
 export const allCourses = [
-  { id: 1, name: 'Use AI to 10x Your Impact', nextCohort: 'Jun 9 – Jun 19', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
+  { id: 1, name: 'Use AI to 10x Your Impact', nextCohort: 'Jun 22 – Jul 2', whoShort: "You use AI chatbots to draft and summarize, but haven't built anything that runs on its own." },
   { id: 2, name: 'Build Complex Agentic Workflows', nextCohort: 'Jul 6 – Jul 16', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
   { id: 3, name: 'Create Autonomous Agents', nextCohort: 'Jul 7 – Jul 17', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
   { id: 4, name: 'Build Your Agent Workforce', nextCohort: 'Jul 28 – Aug 7', whoShort: "You have multiple autonomous agents running, but they don't operate as a unified system." },
