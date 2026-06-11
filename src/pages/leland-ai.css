@@ -23,6 +23,15 @@ body.rb-home .rb-nav-scrolled .lai-nav-suffix {
   color: var(--gray-dark);
 }
 
+/* ---------- Nav CTA override ---------- */
+body.rb-home .lai-nav .rb-nav-getstarted {
+  background: var(--yellow);
+  color: var(--gray-dark);
+}
+body.rb-home .lai-nav .rb-nav-getstarted:hover {
+  background: var(--yellow-hover);
+}
+
 /* ---------- Shared typography ---------- */
 .lai-section-title {
   font-family: var(--font-heading);
@@ -67,20 +76,45 @@ body.rb-home .rb-nav-scrolled .lai-nav-suffix {
 
 /* ---------- Hero (extends .hero from home-rebrand.css) ====== */
 body.rb-home .hero.lai-hero {
-  min-height: 700px;
+  height: 80vh;
+  max-height: 900px;
+  position: relative;
+  overflow: hidden;
+}
+.lai-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+body.rb-home .hero.lai-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+body.rb-home .hero.lai-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+  z-index: 1;
+}
+body.rb-home .hero.lai-hero .container {
+  position: relative;
+  z-index: 2;
 }
 body.rb-home .hero.lai-hero h1 {
   font-size: 72px;
 }
 .lai-hero-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(255, 214, 103, 0.15) 0%, transparent 70%);
-  pointer-events: none;
+  display: none;
 }
 .lai-hero-content {
   position: relative;
@@ -90,16 +124,18 @@ body.rb-home .hero.lai-hero h1 {
   align-items: center;
 }
 
-/* ---------- Social Proof ====== */
-.lai-social-proof {
-  background: var(--gray-dark);
-  padding: 0 0 80px;
-}
-.lai-social-proof-inner {
+/* Social proof (inside hero) */
+.lai-hero-social-proof {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 20px;
+  padding: 0 40px 48px;
 }
 .lai-social-proof-label {
   font-family: var(--font-body);
@@ -555,7 +591,8 @@ body.rb-home .hero.lai-hero h1 {
     padding: 0 20px;
   }
   body.rb-home .hero.lai-hero {
-    min-height: 500px;
+    height: 70vh;
+    max-height: 600px;
   }
   body.rb-home .hero.lai-hero h1 {
     font-size: 44px;

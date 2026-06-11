@@ -207,8 +207,6 @@ export default function LelandAIPage() {
                 : <img className="rb-logo-white" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
               }
             </a>
-            <span className="rb-nav-lockup-divider" />
-            <span className="lai-nav-suffix">AI</span>
           </div>
           <div className="rb-nav-actions">
             <a
@@ -226,8 +224,15 @@ export default function LelandAIPage() {
 
       {/* ====== Hero ====== */}
       <section className="hero lai-hero" id="hero">
+        <video
+          className="lai-hero-video"
+          src={`${import.meta.env.BASE_URL}assets/videos/coding-1.mp4`}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
         <div className="container">
-          <div className="lai-hero-glow" />
           <motion.div initial="hidden" animate="visible" variants={fadeUp} className="lai-hero-content">
             <h1>Make your organization AI-native</h1>
             <p className="hero-sub">Bring your people and processes into the AI era.</p>
@@ -242,28 +247,22 @@ export default function LelandAIPage() {
             </a>
           </motion.div>
         </div>
-      </section>
-
-      {/* ====== Social Proof ====== */}
-      <section className="lai-social-proof">
-        <div className="lai-container">
-          <div className="lai-social-proof-inner">
-            <span className="lai-social-proof-label">Trusted by leading organizations</span>
-            <div className="lai-social-proof-logos">
-              {SOCIAL_PROOF.map((item, i) =>
-                item.type === 'logo' ? (
-                  <img
-                    key={i}
-                    src={`${import.meta.env.BASE_URL}assets/logos/${item.name}.svg`}
-                    alt={item.alt}
-                    style={{ height: item.h }}
-                    className="lai-social-proof-logo"
-                  />
-                ) : (
-                  <span key={i} className="lai-social-proof-text">{item.text}</span>
-                )
-              )}
-            </div>
+        <div className="lai-hero-social-proof">
+          <span className="lai-social-proof-label">Trusted by leading organizations</span>
+          <div className="lai-social-proof-logos">
+            {SOCIAL_PROOF.map((item, i) =>
+              item.type === 'logo' ? (
+                <img
+                  key={i}
+                  src={`${import.meta.env.BASE_URL}assets/logos/${item.name}.svg`}
+                  alt={item.alt}
+                  style={{ height: item.h }}
+                  className="lai-social-proof-logo"
+                />
+              ) : (
+                <span key={i} className="lai-social-proof-text">{item.text}</span>
+              )
+            )}
           </div>
         </div>
       </section>
