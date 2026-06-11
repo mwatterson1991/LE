@@ -7,8 +7,6 @@ import LPPopup from '../components/LPPopup'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CohortPicker from '../components/CohortPicker'
 import { COURSE_COHORTS, courseData } from './courseData'
-import { AdminToolsProvider, useAdminTools } from '../components/AdminToolsContext'
-import AdminTools from '../components/AdminTools'
 import './home-rebrand.css'
 
 const ENROLL_URL = (() => {
@@ -1126,15 +1124,10 @@ function WhyRevealSection({ toolPills, skillPills }) {
 }
 
 export default function HomePageRebrand() {
-  return (
-    <AdminToolsProvider>
-      <HomePageRebrandInner />
-    </AdminToolsProvider>
-  )
+  return <HomePageRebrandInner />
 }
 
 function HomePageRebrandInner() {
-  const { variants } = useAdminTools()
   const heroRef = useRef(null)
 
   useEffect(() => {
@@ -1404,8 +1397,6 @@ function HomePageRebrandInner() {
     { num: '05', tier: 'advanced', name: <>Design Your AI<br/>Orchestration Layer</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'September 1, 2026' },
   ]
 
-  const isV2Style = variants.trackCards === 'v2' || variants.trackCards === 'v3'
-
   return (
     <>
       {/* ====== 1. Navigation ====== */}
@@ -1467,189 +1458,31 @@ function HomePageRebrandInner() {
             <span className="hero-review-text">4.9/5 from 143+ reviews</span>
           </div>
 
-          <div className={`track-cards-section${isV2Style ? ' track-cards-v2' : ''}`} id="courses">
-            {isV2Style ? <></> : (<>
-              <div className="logo-ticker logo-ticker-cards">
-                <span className="logo-ticker-label">Taught by experts from places like:</span>
-                <Marquee gradient gradientColor="#222222" gradientWidth={48} speed={35}>
-                  {[...Array(2)].flatMap((_, round) => [
-                    { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
-                    { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
-                    { file: 'Fabletics Logo Vector.svg', alt: 'Fabletics', className: 'logo-ticker-img' },
-                    { file: 'google.svg', alt: 'Google', className: 'logo-ticker-img logo-ticker-lg' },
-                    { file: 'meta.svg', alt: 'Meta', className: 'logo-ticker-img' },
-                    { file: 'intiut.svg', alt: 'Intuit', className: 'logo-ticker-img' },
-                    { file: 'Amazon_logo.svg', alt: 'Amazon', className: 'logo-ticker-img' },
-                  ].map(({ file, alt, className }) => (
-                    <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/logos/${file}`} alt={alt} className={className} />
-                  )))}
-                </Marquee>
-              </div>
-              <div className="track-tier-row">
-                {[
-                  { key: 'core', eyebrow: 'AI Builder Core', meta: 'Levels 1–3 · 6 weeks · For everyone' },
-                  { key: 'advanced', eyebrow: 'AI Builder Advanced', meta: 'Levels 1–5 · 10 weeks · For sophisticated builders' },
-                ].map(tier => (
-                  <div className={`track-tier track-tier-${tier.key}`} key={tier.key}>
-                    <div className={`track-tier-header track-tier-header-${tier.key}`}>
-                      <div className="track-tier-header-text">
-                        <span className="track-tier-eyebrow-row">
-                          <span className="track-tier-eyebrow">{tier.eyebrow}</span>
-                          {tier.key === 'core' && <span className="track-tier-most-popular">Most Popular</span>}
-                        </span>
-                        <span className="track-tier-meta">{tier.meta}</span>
-                      </div>
-                      {tier.key === 'core' && (
-                        <div className="track-tier-cta">
-                          <div className="track-tier-cta-buttons">
-                            <a
-                              href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="btn btn-primary btn-sm"
-                              onClick={(e) => { e.stopPropagation(); posthog.capture('app--enroll_cta_click', { source: 'tier-core' }) }}
-                            >
-                              Enroll
-                            </a>
-                            <a
-                              href="#course-accordion"
-                              className="btn btn-secondary-outline btn-sm"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              Learn more
-                            </a>
-                          </div>
-                          <span className="track-tier-scarcity">{scarcityCount} purchased in the last week</span>
-                        </div>
-                      )}
-                      {tier.key === 'advanced' && (
-                        <div className="track-tier-cta">
-                          <div className="track-tier-cta-buttons">
-                            <a
-                              href="#course-4"
-                              className="btn btn-ghost btn-sm"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              Learn more
-                            </a>
-                          </div>
-                          <span className="track-tier-scarcity">{advancedScarcityCount} purchased in the last week</span>
-                        </div>
-                      )}
-                    </div>
-                    {trackItems.filter(item => item.tier === tier.key).map(item => {
-                      const idx = trackItems.findIndex(t => t.num === item.num)
-                      const cardClick = () => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }
-                      return (
-                        <div className={`track-card track-card-tier-${item.tier}${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num} onClick={cardClick}>
-                          <div className="track-card-body">
-                            <div className="track-label">
-                              <span className="track-label-text">LEVEL</span>
-                              <span className="track-label-num">{item.num}</span>
-                              {item.fillingFast && <span className="track-card-filling-fast">Filling fast</span>}
-                            </div>
-                            <div className="track-title">{item.name}</div>
-                            <div className="track-desc">{item.tagline}</div>
-                            {item.pastSoldOut && item.pastSoldOut.length > 0 && (
-                              <span className="track-card-past-sold-out">
-                                {item.pastSoldOut.map((d, i) => (
-                                  <React.Fragment key={d}>
-                                    {i > 0 && <span className="track-card-past-sold-out-sep"> · </span>}
-                                    <span className="track-card-past-sold-out-date">{d}</span>
-                                  </React.Fragment>
-                                ))}
-                                <span className="track-card-past-sold-out-tag"> Sold out</span>
-                              </span>
-                            )}
-                            <div className="track-card-footer">
-                              <div className="track-card-cohort-block">
-                                <span className="track-card-cohort-label">NEXT COHORT</span>
-                                <span className="track-card-cohort-date">{item.cohortDate}</span>
-                              </div>
-                              <span className="track-card-arrow-btn">&rarr;</span>
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                ))}
-              </div>
-            </>)}
-
-            {!isV2Style && (
-              <p className="cards-cta-line">
-                Need financial help?{' '}
-                <a
-                  href={`${SCHOLARSHIP_URL}&utm_content=cards-line-scholarship`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => posthog.capture('app--sales_cta_click', { source: 'cards-line-scholarship' })}
-                >
-                  Apply for a scholarship
-                </a>.
-              </p>
-            )}
+          <div className="track-cards-section track-cards-v2" id="courses">
           </div>
 
         </div>
       </section>
 
-      {isV2Style && (
-        <div className="track-v2-overlap">
-          <div className="container">
-            <div className="logo-ticker logo-ticker-cards">
-              <span className="logo-ticker-label">Taught by experts from places like:</span>
-              <Marquee gradient gradientColor="#222222" gradientWidth={48} speed={35}>
-                {[...Array(2)].flatMap((_, round) => [
-                  { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
-                  { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
-                  { file: 'Fabletics Logo Vector.svg', alt: 'Fabletics', className: 'logo-ticker-img' },
-                  { file: 'google.svg', alt: 'Google', className: 'logo-ticker-img logo-ticker-lg' },
-                  { file: 'meta.svg', alt: 'Meta', className: 'logo-ticker-img' },
-                  { file: 'intiut.svg', alt: 'Intuit', className: 'logo-ticker-img' },
-                  { file: 'Amazon_logo.svg', alt: 'Amazon', className: 'logo-ticker-img' },
-                ].map(({ file, alt, className }) => (
-                  <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/logos/${file}`} alt={alt} className={className} />
-                )))}
-              </Marquee>
-            </div>
-            {variants.trackCards === 'v2' && (<>
-              <div className="track-v2-grid">
-                {trackItems.map(item => {
-                  const idx = trackItems.findIndex(t => t.num === item.num)
-                  const cardClick = () => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }
-                  // Format "June 22, 2026" → "Jun 22"
-                  const shortDate = (() => {
-                    const d = new Date(item.cohortDate)
-                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                    return `${months[d.getMonth()]} ${d.getDate()}`
-                  })()
-                  return (
-                    <div className="track-card-v2" key={item.num} onClick={cardClick}>
-                      <span className="track-v2-level-tag">Level {item.num}</span>
-                      <div className="track-v2-middle">
-                        <div className="track-v2-title">{item.name}</div>
-                        <div className="track-v2-desc">{item.tagline}</div>
-                      </div>
-                      <div className="track-v2-bottom">
-                        <span className="track-v2-cohort">Next cohort starts {shortDate}</span>
-                        <span className="track-v2-enroll-btn">Enroll</span>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-              <div className="track-v2-bundles">
-                <div className="track-v2-bundle track-v2-bundle-core">
-                  <span className="track-v2-bundle-label">AI Builder Core · <a href="#pricing" className="track-v2-bundle-link">View bundle</a></span>
-                </div>
-                <div className="track-v2-bundle track-v2-bundle-advanced">
-                  <span className="track-v2-bundle-label">AI Builder Advanced · <a href="#pricing" className="track-v2-bundle-link">View bundle</a></span>
-                </div>
-              </div>
-            </>)}
-            {variants.trackCards === 'v3' && (
+      <div className="track-v2-overlap">
+        <div className="container">
+          <div className="logo-ticker logo-ticker-cards">
+            <span className="logo-ticker-label">Taught by experts from places like:</span>
+            <Marquee gradient gradientColor="#222222" gradientWidth={48} speed={35}>
+              {[...Array(2)].flatMap((_, round) => [
+                { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
+                { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
+                { file: 'Fabletics Logo Vector.svg', alt: 'Fabletics', className: 'logo-ticker-img' },
+                { file: 'google.svg', alt: 'Google', className: 'logo-ticker-img logo-ticker-lg' },
+                { file: 'meta.svg', alt: 'Meta', className: 'logo-ticker-img' },
+                { file: 'intiut.svg', alt: 'Intuit', className: 'logo-ticker-img' },
+                { file: 'Amazon_logo.svg', alt: 'Amazon', className: 'logo-ticker-img' },
+              ].map(({ file, alt, className }) => (
+                <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/logos/${file}`} alt={alt} className={className} />
+              )))}
+            </Marquee>
+          </div>
+          {(
               <div className="v3-tiers">
                 {[
                   { key: 'core', eyebrow: 'AI Builder Core', meta: '6 weeks', count: scarcityCount },
@@ -1751,7 +1584,6 @@ function HomePageRebrandInner() {
             </p>
           </div>
         </div>
-      )}
 
       {/* ====== 3. "Why This Course" ====== */}
       <section className="save-time-section" id="about">
@@ -2191,7 +2023,6 @@ function HomePageRebrandInner() {
       </footer>
 
       <LPPopup />
-      <AdminTools />
     </>
   )
 }
