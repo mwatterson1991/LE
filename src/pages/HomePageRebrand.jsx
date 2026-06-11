@@ -1006,6 +1006,7 @@ function WhyRevealSection({ toolPills, skillPills }) {
         />
         <div className="why-reveal-content">
           <div className="why-reveal-left">
+            <h2 className="why-reveal-heading">Become an AI Builder in 6-10 weeks.</h2>
             <div className="why-reveal-tools">
               {toolPills.map(tool => {
                 const style = {}
@@ -1022,7 +1023,6 @@ function WhyRevealSection({ toolPills, skillPills }) {
                 )
               })}
             </div>
-            <h2 className="why-reveal-heading">Become an AI Builder in 6-10 weeks</h2>
           </div>
           <div className="why-reveal-right">
             <p className="why-reveal-desc">Updated weekly, so you're always learning at the frontier of AI. We'll teach you best practices for AI in:</p>
@@ -1305,7 +1305,7 @@ function HomePageRebrandInner() {
     { name: 'Gemini', logo: 'gemini-ai.png' },
     { name: 'Perplexity', logo: 'perlexity.png', size: 72, revealSize: 40 },
     { name: 'Cursor', logo: 'cursor-1.png', size: 42 },
-    { name: 'n8n', logo: 'n8n.png', size: 84 },
+    { name: 'n8n', logo: 'n8n.png', size: 56, revealSize: 24 },
   ]
   const skillPills = ['Agent building', 'Workflow automation', 'Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Report generation', 'Client communication', 'Go-to-market systems', 'Content creation', 'Financial modeling']
 

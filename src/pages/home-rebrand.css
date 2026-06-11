@@ -396,7 +396,7 @@ body.rb-home .cd-cal {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   flex-shrink: 0;
   transform: rotate(-5deg);
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 body.rb-home .cd-cal-month {
   display: block;
@@ -432,7 +432,7 @@ body.rb-home .cd-info-date {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.3;
-  transition: color 0.3s ease-in-out;
+  transition: color 0.15s ease-in-out;
 }
 body.rb-home .cd-arrow {
   font-size: 16px;
@@ -561,7 +561,8 @@ body.rb-home .track-tier-row {
   color: var(--gray-dark);
 }
 .v3-card-level-banner-core {
-  background: #EBD4B5;
+  background: rgba(94, 110, 121, 0.2);
+  color: #4C4C4C;
 }
 .v3-card-level-banner-advanced {
   background: #5E6E79;
@@ -1109,6 +1110,9 @@ body.rb-home .why-pill-skill {
 body.rb-home .why-skills-tools { border-top: 1px dashed rgba(0, 0, 0, 0.1); }
 
 /* ---------- Program progression + accordion ---------- */
+body.rb-home .program-progression {
+  display: none;
+}
 body.rb-home .program-progression-audience-core {
   color: var(--accent);
   border-color: rgba(186, 144, 6, 0.4);
@@ -1318,7 +1322,7 @@ body.rb-home .why-reveal-content {
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: flex-end;
+  align-items: stretch;
   justify-content: space-between;
   gap: 40px;
   height: 100%;
@@ -1328,7 +1332,7 @@ body.rb-home .why-reveal-content {
 body.rb-home .why-reveal-left {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 36px;
 }
 body.rb-home .why-reveal-tools {
@@ -1354,6 +1358,7 @@ body.rb-home .why-reveal-heading {
 body.rb-home .why-reveal-right {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   gap: 16px;
   max-width: 510px;
   flex-shrink: 0;
