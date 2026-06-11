@@ -27,6 +27,7 @@ export default defineConfig({
         'leland-mba-landing-page': resolve(__dirname, 'leland-mba-landing-page.html'),
         'leland-law-school-landing-page': resolve(__dirname, 'leland-law-school-landing-page.html'),
         'reviews': resolve(__dirname, 'reviews.html'),
+        'program': resolve(__dirname, 'program.html'),
       }
     }
   }

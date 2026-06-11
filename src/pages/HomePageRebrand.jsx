@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { TextMorph } from 'torph/react'
 import posthog from 'posthog-js'
+import { motion, AnimatePresence } from 'motion/react'
 import Marquee from 'react-fast-marquee'
 import LPPopup from '../components/LPPopup'
 import GetThisExpensed from '../components/GetThisExpensed'
@@ -36,7 +37,7 @@ const StarIcon = () => (
 )
 
 const StarRow = () => (
-  <div className="star-row" style={{ color: 'var(--accent)' }}>
+  <div className="star-row" style={{ color: 'var(--gray-dark)' }}>
     {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
   </div>
 )
@@ -307,117 +308,145 @@ function CourseAccordionItem({ course, open, onToggle }) {
     <div className={`accordion-item${open ? ' open' : ''}`} id={course.id}>
       <div className="accordion-header" onClick={onToggle}>
         <div className="accordion-header-left">
-          <span className="accordion-level">LEVEL {course.num}</span>
-          <h3 className="accordion-title">{course.title}</h3>
-          <p className="accordion-tagline">{course.tagline.split('.')[0]}.</p>
+          <span className="accordion-level">{String(course.num).padStart(2, '0')}</span>
+          <div className="accordion-header-text">
+            <h3 className="accordion-title">{course.title}</h3>
+            <p className="accordion-tagline">{course.tagline.split('.')[0]}.</p>
+          </div>
         </div>
         <div className="accordion-header-right">
-          <ChevronIcon />
+          <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}>
+            <ChevronIcon />
+          </motion.div>
         </div>
       </div>
-      <div className="accordion-body">
-        <div className="accordion-body-main">
-          {detail.heroSubheadline && (
-            <p className="accordion-overview">{detail.heroSubheadline}</p>
-          )}
-          {detail.whoItsFor && (
-            <div className="accordion-detail-block">
-              <span className="accordion-detail-label">Who it's for</span>
-              <p className="accordion-detail-text">{detail.whoItsFor}</p>
-            </div>
-          )}
-          <div className={`accordion-expandable${showAllMobile ? ' is-open' : ''}`}>
-            <div className="accordion-sessions">
-              <div className="course-sessions-label">Curriculum</div>
-              {course.sessions.map((session, i) => {
-                const cohortSession = selectedCohort?.cohortSessions?.[i]
-                const displayDate = cohortSession?.date ?? session.date
-                const displayTime = cohortSession?.time ?? session.time
-                return (
-                  <div className="course-session" key={i}>
-                    <span className="course-session-num">{String(i + 1).padStart(2, '0')}</span>
-                    <div className="course-session-text">
-                      <span className="course-session-title">{session.title}</span>
-                      <span className="course-session-sub">{session.sub}</span>
-                      {displayDate && <span className="course-session-datetime">{displayDate} &middot; {displayTime}</span>}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-            {detail.whatYoullBuild && detail.whatYoullBuild.length > 0 && (
-              <div className="accordion-detail-block">
-                <span className="accordion-detail-label">What you'll build</span>
-                <ul className="accordion-detail-list">
-                  {detail.whatYoullBuild.map(item => (
-                    <li key={item}><span className="accordion-detail-check">&#10003;</span><span>{item}</span></li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {detail.whatYoullLearn && detail.whatYoullLearn.length > 0 && (
-              <div className="accordion-detail-block">
-                <span className="accordion-detail-label">What you'll learn</span>
-                <div className="accordion-detail-learn-grid">
-                  {detail.whatYoullLearn.map((col, idx) => (
-                    <ul className="accordion-detail-learn-col" key={idx}>
-                      {col.col.map(item => (
-                        <li key={item}><span className="accordion-detail-bullet">·</span><span>{item}</span></li>
-                      ))}
-                    </ul>
-                  ))}
-                </div>
-              </div>
-            )}
-            {detail.tools && detail.tools.length > 0 && (
-              <div className="accordion-detail-block">
-                <span className="accordion-detail-label">Tools you'll use</span>
-                <div className="accordion-detail-tools">
-                  {detail.tools.map(tool => <span className="accordion-detail-tool" key={tool}>{tool}</span>)}
-                </div>
-              </div>
-            )}
-          </div>
-          <button
-            type="button"
-            className="accordion-show-more"
-            onClick={() => setShowAllMobile(v => !v)}
-            aria-expanded={showAllMobile}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="accordion-body"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.04, 0.62, 0.23, 0.98] }}
+            style={{ overflow: 'hidden' }}
           >
-            {showAllMobile ? 'Show less' : 'Show full curriculum & details →'}
-          </button>
-        </div>
-        <div className="accordion-meta">
-          <div className="accordion-meta-row">
-            <span className="accordion-meta-label">Schedule</span>
-            <span className="accordion-meta-value">{selectedCohort?.scheduleDays ?? 'Tuesdays & Fridays'} &middot; 2 Weeks</span>
-          </div>
-          <div className="accordion-meta-row">
-            <span className="accordion-meta-label">Format</span>
-            <span className="accordion-meta-value">4 Core Sessions + 2 Build Workshops (Optional)</span>
-          </div>
-          <hr className="accordion-meta-divider" />
-          <CohortPicker
-            cohorts={course.cohorts}
-            selected={selectedCohort}
-            onChange={handleCohortChange}
-          />
-          <div className="accordion-price-row">
-            <span className="accordion-price">{course.price}</span>
-            <span className="accordion-price-sub">As low as $257/mo with a payment plan</span>
-          </div>
-          {enrollUrl ? (
-            <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'course-accordion', level: course.num })}>
-              Enroll Now
-              <span className="arrow">&rarr;</span>
-            </a>
-          ) : (
-            <span className="btn btn-primary" style={{ opacity: 0.5, cursor: 'default', pointerEvents: 'none' }}>
-              Coming Soon
-            </span>
-          )}
-        </div>
-      </div>
+            <div className="accordion-body">
+              <div className="accordion-body-main">
+                {detail.heroSubheadline && (
+                  <p className="accordion-overview">{detail.heroSubheadline}</p>
+                )}
+                {detail.whoItsFor && (
+                  <div className="accordion-detail-block">
+                    <span className="accordion-detail-label">Who it's for</span>
+                    <p className="accordion-detail-text">{detail.whoItsFor}</p>
+                  </div>
+                )}
+                <div className={`accordion-expandable${showAllMobile ? ' is-open' : ''}`}>
+                  <div className="accordion-sessions">
+                    <div className="course-sessions-label">Curriculum</div>
+                    {(() => {
+                      let lastMonth = null
+                      return course.sessions.map((session, i) => {
+                        const cohortSession = selectedCohort?.cohortSessions?.[i]
+                        const displayDate = cohortSession?.date ?? session.date
+                        const displayTime = cohortSession?.time ?? session.time
+                        // Parse "Mon, Jun 22" → { month: 'JUN', day: '22' }
+                        const dateMatch = displayDate?.match(/\w+,\s*(\w+)\s+(\d+)/)
+                        const calMonth = dateMatch ? dateMatch[1].toUpperCase() : lastMonth
+                        const calDay = dateMatch ? dateMatch[2] : 'TBD'
+                        if (dateMatch) lastMonth = calMonth
+                        return (
+                          <div className="course-session" key={i}>
+                            <div className="course-session-cal">
+                              <span className="course-session-cal-month">{calMonth || '—'}</span>
+                              <span className={`course-session-cal-day${calDay === 'TBD' ? ' course-session-cal-day-tbd' : ''}`}>{calDay}</span>
+                            </div>
+                            <div className="course-session-text">
+                              <span className="course-session-title">{session.title}</span>
+                              <span className="course-session-sub">{session.sub}</span>
+                              {displayDate && <span className="course-session-datetime">{displayDate} &middot; {displayTime}</span>}
+                            </div>
+                          </div>
+                        )
+                      })
+                    })()}
+                  </div>
+                  {detail.whatYoullBuild && detail.whatYoullBuild.length > 0 && (
+                    <div className="accordion-detail-block">
+                      <span className="accordion-detail-label">What you'll build</span>
+                      <ul className="accordion-detail-list">
+                        {detail.whatYoullBuild.map(item => (
+                          <li key={item}><img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="accordion-detail-check" /><span>{item}</span></li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {detail.whatYoullLearn && detail.whatYoullLearn.length > 0 && (
+                    <div className="accordion-detail-block">
+                      <span className="accordion-detail-label">What you'll learn</span>
+                      <div className="accordion-detail-learn-grid">
+                        {detail.whatYoullLearn.map((col, idx) => (
+                          <ul className="accordion-detail-learn-col" key={idx}>
+                            {col.col.map(item => (
+                              <li key={item}><span className="accordion-detail-bullet">·</span><span>{item}</span></li>
+                            ))}
+                          </ul>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {detail.tools && detail.tools.length > 0 && (
+                    <div className="accordion-detail-block">
+                      <span className="accordion-detail-label">Tools you'll use</span>
+                      <div className="accordion-detail-tools">
+                        {detail.tools.map(tool => <span className="accordion-detail-tool" key={tool}>{tool}</span>)}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className="accordion-show-more"
+                  onClick={() => setShowAllMobile(v => !v)}
+                  aria-expanded={showAllMobile}
+                >
+                  {showAllMobile ? 'Show less' : 'Show full curriculum & details →'}
+                </button>
+              </div>
+              <div className="accordion-meta">
+                <div className="accordion-meta-row">
+                  <span className="accordion-meta-label">Schedule</span>
+                  <span className="accordion-meta-value">{selectedCohort?.scheduleDays ?? 'Tuesdays & Fridays'} &middot; 2 Weeks</span>
+                </div>
+                <div className="accordion-meta-row">
+                  <span className="accordion-meta-label">Format</span>
+                  <span className="accordion-meta-value">4 Core Sessions + 2 Build Workshops (Optional)</span>
+                </div>
+                <hr className="accordion-meta-divider" />
+                <CohortPicker
+                  cohorts={course.cohorts}
+                  selected={selectedCohort}
+                  onChange={handleCohortChange}
+                />
+                <div className="accordion-price-row">
+                  <span className="accordion-price">{course.price}</span>
+                  <span className="accordion-price-sub">As low as $257/mo with a payment plan</span>
+                </div>
+                {enrollUrl ? (
+                  <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'course-accordion', level: course.num })}>
+                    Enroll Now
+                    <span className="arrow">&rarr;</span>
+                  </a>
+                ) : (
+                  <span className="btn btn-primary" style={{ opacity: 0.5, cursor: 'default', pointerEvents: 'none' }}>
+                    Coming Soon
+                  </span>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -720,7 +749,8 @@ function ValueStack({ id }) {
       name: 'Level 1',
       meta: 'The first level for all knowledge workers',
       badge: 'À la carte',
-      crossed: '$2,500+ value',
+      badgeWhite: true,
+      crossed: '$2,500 value',
       price: '$999',
       monthly: '$257/mo with payment plan',
       cta: 'Enroll',
@@ -742,11 +772,12 @@ function ValueStack({ id }) {
     },
     {
       key: 'core',
-      name: 'AI Builder Core (Levels 1–3)',
+      name: 'AI Builder Core',
+      sub: 'Levels 1–3',
       meta: 'The core program for all knowledge workers',
       badge: 'Most Popular',
       featured: true,
-      crossed: '$7,500+ value',
+      crossed: '$7,500 value',
       price: '$1,999',
       monthly: '$514/mo with payment plan',
       cta: 'Enroll',
@@ -754,8 +785,8 @@ function ValueStack({ id }) {
       utm: 'value-stack-core',
       buildsHeader: 'Everything in Level 1, plus:',
       builds: [
-        'Cloud-based agentic automations that run on their own',
-        'An Automation Advisor agent grounded in your context',
+        'Cloud-based automations that run on their own',
+        'Automation Advisor agent grounded in your context',
         'An Eval System that scores agent outputs',
         'A custom Agent Operating System',
         'Autonomous agents you trust on full auto-approve',
@@ -769,10 +800,12 @@ function ValueStack({ id }) {
     },
     {
       key: 'advanced',
-      name: 'AI Builder Advanced (Levels 1–5)',
+      name: 'AI Builder Advanced',
+      sub: 'Levels 1–5',
       meta: 'The program for sophisticated builders',
       badge: 'Best Value',
-      crossed: '$12,500+ value',
+      badgeWhite: true,
+      crossed: '$12,500 value',
       price: '$2,999',
       monthly: '$772/mo with payment plan',
       cta: 'Enroll',
@@ -781,7 +814,7 @@ function ValueStack({ id }) {
       buildsHeader: 'Everything in Core, plus:',
       builds: [
         'Goal-directed AI employees with weekly quotas',
-        'Orchestration layers that delegate to specialist agents',
+        'Orchestration layers delegating to sub-agents',
         'QA layers and self-correcting systems',
         'Long-horizon agents with persistent memory',
         'Production AI systems that improve themselves',
@@ -805,11 +838,34 @@ function ValueStack({ id }) {
             const learnMoreHref = tier.key === 'level-1' ? '/level-1' : tier.key === 'core' ? '#course-1' : '#course-4'
             return (
               <div key={tier.key} className={`value-stack-card${tier.featured ? ' value-stack-card-featured' : ''}`}>
-                {tier.badge && <span className="value-stack-badge">{tier.badge}</span>}
+                {tier.badge && <span className={`value-stack-badge${tier.badgeWhite ? ' value-stack-badge-white' : ''}`}>{tier.badge}</span>}
                 <div className="value-stack-card-header">
                   <h3 className="value-stack-card-name">{tier.name}</h3>
-                  {tier.sub && <span className="value-stack-card-sub">{tier.sub}</span>}
                   <span className="value-stack-card-meta">{tier.meta}</span>
+                  {tier.sub && (
+                    <div className="value-stack-card-tags">
+                      <span className="value-stack-card-sub">{tier.sub}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="value-stack-card-stats">
+                  {tier.stats.map(([value, label]) => (
+                    <div className="value-stack-card-stat" key={label}>
+                      <span className="value-stack-card-stat-value">{value}</span>
+                      <span className="value-stack-card-stat-label">{label}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="value-stack-card-builds">
+                  <span className="value-stack-card-builds-header">{tier.buildsHeader}</span>
+                  <ul className="value-stack-card-builds-list">
+                    {tier.builds.map(b => (
+                      <li className="value-stack-card-build" key={b}>
+                        <img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="value-stack-check" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 <div className="value-stack-card-pricing">
                   <span className="value-stack-crossed">{tier.crossed}</span>
@@ -824,7 +880,7 @@ function ValueStack({ id }) {
                       className="value-stack-scholarship-line"
                       onClick={() => posthog.capture('app--sales_cta_click', { source: `value-stack-${tier.key}-scholarship` })}
                     >
-                      Scholarships also available
+                      Scholarships available
                     </a>
                   </span>
                 </div>
@@ -836,33 +892,11 @@ function ValueStack({ id }) {
                     className="btn btn-primary btn-lg value-stack-card-cta"
                     onClick={() => posthog.capture('app--enroll_cta_click', { source: tier.utm })}
                   >
-                    {tier.cta} <span className="arrow">&rarr;</span>
+                    {tier.cta}
                   </a>
-                  <a
-                    href={learnMoreHref}
-                    className="btn btn-secondary-outline btn-lg value-stack-card-cta"
-                  >
+                  <a href={learnMoreHref} className="value-stack-learn-more">
                     Learn more
                   </a>
-                </div>
-                <div className="value-stack-card-builds">
-                  <span className="value-stack-card-builds-header">{tier.buildsHeader}</span>
-                  <ul className="value-stack-card-builds-list">
-                    {tier.builds.map(b => (
-                      <li className="value-stack-card-build" key={b}>
-                        <span className="value-stack-check">&#10003;</span>
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="value-stack-card-stats">
-                  {tier.stats.map(([value, label]) => (
-                    <div className="value-stack-card-stat" key={label}>
-                      <span className="value-stack-card-stat-value">{value}</span>
-                      <span className="value-stack-card-stat-label">{label}</span>
-                    </div>
-                  ))}
                 </div>
               </div>
             )
@@ -873,13 +907,13 @@ function ValueStack({ id }) {
           <div className="value-stack-included-grid">
             {[
               ['1-Year Access Guarantee', 'Recordings and live sessions for every AI Builder cohort over the next 12 months.', 'scheduling.svg'],
-              ['Best Course Guarantee', 'Money-back if you find a better AI course anywhere.', 'reviews.svg'],
-              ['Weekly Build Workshops', 'Optional live workshops with functional experts in marketing, sales, finance, ops, and more.', 'group-sessions.svg'],
-              ['Unlimited Retakes', 'Take any cohort again for a full year, always with the latest curriculum.', 'session-notes.svg'],
-              ['Private AI Community', 'Daily AI news, peer builds, and live perspectives from current AI Builders.', 'message.svg'],
-              ['Leland+ Access (3 months)', '5 specialized AI courses and 250+ resources to deepen what you build.', 'leland-coaching.svg'],
-              ['Weekly Office Hours', 'Live Q&A with instructors to unblock your specific builds.', 'video-calls.svg'],
-              ['100+ skill.md & Templates', 'Battle-tested files and folder templates that accelerate every build.', 'digital-products.svg'],
+              ['Best Course Guarantee', 'Money-back if you find a better AI course anywhere.', 'guarantee.svg'],
+              ['Weekly Build Workshops', 'Optional live workshops with functional experts in marketing, sales, finance, ops, and more.', 'ideation.svg'],
+              ['Unlimited Retakes', 'Take any cohort again for a full year, always with the latest curriculum.', 'retake.svg'],
+              ['Private AI Community', 'Daily AI news, peer builds, and live perspectives from current AI Builders.', 'community.svg'],
+              ['Leland+ Access (3 months)', '5 specialized AI courses and 250+ resources to deepen what you build.', 'digital-products.svg'],
+              ['Weekly Office Hours', 'Live Q&A with instructors to unblock your specific builds.', 'office-hours.svg'],
+              ['100+ skill.md & Templates', 'Battle-tested files and folder templates that accelerate every build.', 'survey.svg'],
             ].map(([title, desc, illustration]) => (
               <div className="value-stack-included-item" key={title}>
                 <img
@@ -898,10 +932,11 @@ function ValueStack({ id }) {
           className="value-stack-teams-callout"
           onClick={() => posthog.capture('app--sales_cta_click', { source: 'value-stack-teams' })}
         >
+          <img src={`${import.meta.env.BASE_URL}assets/icons/modern-building-4.svg`} alt="" className="value-stack-teams-icon" />
           <span className="value-stack-teams-text">
             <strong>Buying for a team or enterprise?</strong> Volume pricing, custom use cases, and dedicated support.
           </span>
-          <span className="value-stack-teams-arrow">Talk with our team <span aria-hidden="true">&rarr;</span></span>
+          <span className="value-stack-teams-arrow" aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </section>
@@ -954,6 +989,58 @@ function ImageRevealSection() {
           <h2 className="img-reveal-heading">Be the AI expert your team relies on.</h2>
           <p className="img-reveal-desc">
             Build skills, agents, and systems your colleagues notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function SkillsRevealSection() {
+  const sectionRef = useRef(null)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const vh = window.innerHeight
+      const start = vh
+      const end = 0
+      const raw = 1 - (rect.top - end) / (start - end)
+      setProgress(Math.min(1, Math.max(0, raw)))
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const eased = progress < 0.5
+    ? 2 * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 2) / 2
+
+  const containerScale = 0.8 + eased * 0.2
+  const imageScale = 1 / containerScale
+
+  const imageUrl = `${import.meta.env.BASE_URL}assets/images/quote-bg.png`
+
+  return (
+    <section className="img-reveal-section" ref={sectionRef}>
+      <div
+        className="img-reveal-container"
+        style={{ transform: `scale(${containerScale})` }}
+      >
+        <img
+          className="img-reveal-bg"
+          src={imageUrl}
+          alt=""
+          style={{ transform: `scale(${imageScale})` }}
+        />
+        <div className="img-reveal-content">
+          <h2 className="img-reveal-heading">Work smarter with reusable skills and workflows</h2>
+          <p className="img-reveal-desc">
+            Advance beyond typing questions into ChatGPT by learning to build workflows, automate tasks, and create reusable skills that make AI work the way you want it to.
           </p>
         </div>
       </div>
@@ -1710,63 +1797,59 @@ function HomePageRebrandInner() {
             ))}
           </div>
           <WhichLevelDropdown />
+        </div>
+      </section>
 
-          {/* Bundle callout */}
-          <div style={{ marginTop: 32, padding: '28px 32px', background: '#f3f1e6', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 16 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 500, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Bundle the full program and save</h3>
-            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                  <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Core (Levels 1–3)</span>
-                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>most popular</span>
-                </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The full Core program — Levels 1, 2, and 3 — completed in 6 weeks. The right starting point for most builders.</p>
-                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
-                  Get the Core bundle <span className="arrow">&rarr;</span>
-                </a>
+      {/* ====== Bundle callout — own section ====== */}
+      <section className="bundle-section">
+        <div className="container">
+          <h2 className="bundle-section-headline">Bundle the full program and save</h2>
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Core (Levels 1–3)</span>
+                <span style={{ color: 'var(--gray-dark)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>most popular</span>
               </div>
-              <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                  <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Advanced (Levels 1–5)</span>
-                  <span style={{ color: 'var(--accent)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>best value</span>
-                </div>
-                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The complete journey — all five levels — for builders who want to ship production AI systems.</p>
-                <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
-                  Get the Advanced bundle <span className="arrow">&rarr;</span>
-                </a>
-              </div>
+              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The full Core program — Levels 1, 2, and 3 — completed in 6 weeks. The right starting point for most builders.</p>
+              <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
+                Get the Core bundle <span className="arrow">&rarr;</span>
+              </a>
             </div>
-            <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
-            <div style={{ marginTop: 20, padding: '16px 20px', background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-              <span style={{ fontSize: 15, color: 'var(--text-primary)', fontWeight: 500, lineHeight: 1.4 }}>Not sure which bundle is right, or have other questions?</span>
-              <a
-                href={`${SALES_URL}?utm_content=bundle-callout`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost btn-sm"
-                onClick={() => posthog.capture('app--sales_cta_click', { source: 'bundle-callout' })}
-              >
-                Talk with Our Team
+            <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Advanced (Levels 1–5)</span>
+                <span style={{ color: 'var(--gray-dark)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>best value</span>
+              </div>
+              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The complete journey — all five levels — for builders who want to ship production AI systems.</p>
+              <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
+                Get the Advanced bundle <span className="arrow">&rarr;</span>
               </a>
             </div>
           </div>
+          <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
+          <a
+            href={`${SALES_URL}?utm_content=bundle-callout`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="value-stack-teams-callout"
+            onClick={() => posthog.capture('app--sales_cta_click', { source: 'bundle-callout' })}
+          >
+            <img src={`${import.meta.env.BASE_URL}assets/icons/modern-building-4.svg`} alt="" className="value-stack-teams-icon" />
+            <span className="value-stack-teams-text">
+              <strong>Not sure which bundle is right, or have other questions?</strong>
+            </span>
+            <span className="value-stack-teams-arrow" aria-hidden="true">&rarr;</span>
+          </a>
         </div>
       </section>
 
       {/* ====== Use Cases by Role ====== */}
       <RoleUseCases />
 
-      {/* ====== VP3 — after Save Time ====== */}
-      <section className="value-props-section rb-band-cream">
-        <div className="container">
-          <div className="value-prop-text">
-            <h2>Work smarter with<br className="mobile-br" /> reusable skills and workflows</h2>
-            <p>Advance beyond typing questions into ChatGPT by learning to build workflows, automate tasks, and create reusable skills that make AI work the way you want it to.</p>
-          </div>
-        </div>
-      </section>
+      {/* ====== VP3 — Work Smarter (img-reveal layout) ====== */}
+      <SkillsRevealSection />
 
       {/* ====== 10. Instructors (REMOVED — commented out) ====== */}
       {/*
@@ -2003,9 +2086,8 @@ function HomePageRebrandInner() {
                   <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1" width="10" height="3" fill="currentColor"/><rect x="2" y="5.5" width="10" height="3" fill="currentColor"/><rect x="2" y="10" width="10" height="3" fill="currentColor"/></svg> Custom workshops available</li>
                   <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="5" y="1" width="4" height="4" fill="currentColor"/><rect x="3" y="6" width="8" height="2" fill="currentColor"/><rect x="1" y="9" width="12" height="4" fill="currentColor"/></svg> Dedicated account manager</li>
                 </ul>
-                <a href="https://calendly.com/d/ct7k-c45-dbx/leland-s-ai-builder-program-for-teams" target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
+                <a href="https://calendly.com/d/ct7k-c45-dbx/leland-s-ai-builder-program-for-teams" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg enterprise-cta">
                   Talk with Our Team
-                  <span className="arrow">&rarr;</span>
                 </a>
               </div>
             </div>
@@ -2028,25 +2110,83 @@ function HomePageRebrandInner() {
         </div>
       </section>
 
-      {/* ====== Footer CTA ====== */}
-      <section className="footer-cta">
-        <div className="container" style={{ textAlign: 'center' }}>
-          <p className="footer-cta-sub">Our next cohort starts June 22</p>
-          <div className="cta-pair">
-            <a href={`${SALES_URL}?utm_content=footer-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'footer' })}>
-              Talk with Our Team
-            </a>
-            <a href="#pricing" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'footer' })}>
-              Enroll Now <span className="arrow">&rarr;</span>
-            </a>
-          </div>
+      {/* ====== Pre-Footer CTA ====== */}
+      <section className="prefooter">
+        <div className="prefooter-inner">
+          <h2 className="prefooter-heading">Take the next step toward your goals</h2>
+          <a href="#pricing" className="prefooter-cta" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'prefooter' })}>Get started</a>
         </div>
       </section>
 
       {/* ====== Footer ====== */}
-      <footer>
-        <div className="container">
-          <p>&copy; 2026 <a href="https://www.joinleland.com">Leland</a>. All rights reserved. &middot; <a href="https://www.notion.so/joinleland/AI-Builder-Program-Guarantee-Terms-32ea84f4c7d28068b213ee17ef868deb" target="_blank" rel="noopener noreferrer">Guarantee Terms</a></p>
+      <footer className="footer">
+        <div className="footer-inner">
+          <div className="footer-left">
+            <img src={`${import.meta.env.BASE_URL}assets/logos/New Leland Logo/Icon/Icon-White.svg`} alt="Leland" className="footer-logo" />
+            <div className="footer-bottom">
+              <div className="footer-social">
+                <a href="https://www.linkedin.com/school/joinleland/" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="LinkedIn">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/joinleland/" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="Instagram">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+              </div>
+              <p className="footer-copyright">Copyright 2026 Leland Inc.<br />All rights reserved.</p>
+            </div>
+          </div>
+
+          <div className="footer-columns">
+            <div className="footer-col">
+              <h4 className="footer-col-heading">Platform</h4>
+              <ul className="footer-col-links">
+                <li><a href="https://www.joinleland.com" className="footer-col-link">Home</a></li>
+                <li><a href="https://www.joinleland.com/events" className="footer-col-link">Free Events</a></li>
+                <li><a href="https://www.joinleland.com/bootcamps" className="footer-col-link">Bootcamps</a></li>
+                <li><a href="https://www.joinleland.com/plus" className="footer-col-link">Leland+</a></li>
+                <li><a href="https://www.joinleland.com/become-an-expert" className="footer-col-link">Become a coach</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4 className="footer-col-heading">Popular</h4>
+              <ul className="footer-col-links">
+                <li><a href="https://www.joinleland.com/category/mba" className="footer-col-link">MBA</a></li>
+                <li><a href="https://www.joinleland.com/ai" className="footer-col-link">AI Productivity</a></li>
+                <li><a href="https://www.joinleland.com/category/management-consulting" className="footer-col-link">Management Consulting</a></li>
+                <li><a href="https://www.joinleland.com/category/gre" className="footer-col-link">GRE</a></li>
+                <li><a href="https://www.joinleland.com/category/private-equity" className="footer-col-link">Private Equity</a></li>
+                <li><a href="https://www.joinleland.com/category/product-management" className="footer-col-link">Product Management</a></li>
+                <li><a href="https://www.joinleland.com/category/career-development" className="footer-col-link">Career Development</a></li>
+                <li><a href="https://www.joinleland.com/category/college" className="footer-col-link">College</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4 className="footer-col-heading">Partnerships</h4>
+              <ul className="footer-col-links">
+                <li><a href="https://www.joinleland.com/partnerships" className="footer-col-link">Partner with Leland</a></li>
+                <li><a href="https://www.joinleland.com/universities" className="footer-col-link">For Universities</a></li>
+                <li><a href="https://www.joinleland.com/ai-transformation" className="footer-col-link">AI Transformation</a></li>
+                <li><a href="https://www.joinleland.com/outplacement" className="footer-col-link">Outplacement</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4 className="footer-col-heading">Company</h4>
+              <ul className="footer-col-links">
+                <li><a href="https://www.joinleland.com/reviews" className="footer-col-link">Reviews</a></li>
+                <li><a href="https://www.joinleland.com/careers" className="footer-col-link">Careers</a></li>
+                <li><a href="https://www.joinleland.com/library" className="footer-col-link">Library</a></li>
+              </ul>
+              <h4 className="footer-col-heading footer-col-heading-sub">Resources</h4>
+              <ul className="footer-col-links">
+                <li><a href="https://www.joinleland.com/support" className="footer-col-link">Support</a></li>
+                <li><a href="https://www.joinleland.com/legal" className="footer-col-link">Legal</a></li>
+                <li><a href="https://www.joinleland.com/privacy" className="footer-col-link">Privacy</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </footer>
 

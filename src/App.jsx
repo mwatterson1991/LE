@@ -8,6 +8,7 @@ import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import ReviewsPage from './pages/ReviewsPage'
 import HomePageRebrand from './pages/HomePageRebrand'
+import LelandAIPage from './pages/LelandAIPage'
 import LPPopup from './components/LPPopup'
 import GetThisExpensed from './components/GetThisExpensed'
 import CohortPicker from './components/CohortPicker'
@@ -1718,6 +1719,9 @@ function App() {
     window.dataLayer.push({ event: 'page_view', page_path: path, page_name: pageName })
   }, [path])
 
+  if (path.startsWith('/program')) {
+    return <HomePageRebrand />
+  }
   if (path.startsWith('/teams')) {
     return <B2BPage />
   }
@@ -1731,7 +1735,7 @@ function App() {
   if (match) {
     return <CoursePage courseId={parseInt(match[1], 10)} />
   }
-  return <HomePageRebrand />
+  return <LelandAIPage />
 }
 
 export default App
