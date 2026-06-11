@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import posthog from 'posthog-js'
+import Marquee from 'react-fast-marquee'
 import { motion, AnimatePresence } from 'motion/react'
 import './home-rebrand.css'
 import './leland-ai.css'
@@ -12,13 +13,13 @@ const fadeUp = {
 }
 
 const SOCIAL_PROOF = [
-  { type: 'logo', name: 'google-white', alt: 'Google', h: 20 },
-  { type: 'text', text: 'JP Morgan Chase' },
-  { type: 'logo', name: 'bain-white', alt: 'Bain', h: 16 },
-  { type: 'text', text: 'QHP Capital' },
-  { type: 'text', text: 'GSV' },
-  { type: 'text', text: 'Partners Group' },
-  { type: 'text', text: 'RunPod' },
+  { type: 'logo', name: 'google', alt: 'Google', h: 32 },
+  { type: 'logo', name: 'JPMorganChase', alt: 'JP Morgan Chase', h: 26 },
+  { type: 'logo', name: 'bain', alt: 'Bain', h: 26 },
+  { type: 'logo', name: 'qhp-capital', alt: 'QHP Capital', h: 38 },
+  { type: 'logo', name: 'gsv-ventures', alt: 'GSV', h: 38 },
+  { type: 'logo', name: 'Partners_Group_Logo_2024', alt: 'Partners Group', h: 34 },
+  { type: 'logo', name: 'runpod', alt: 'RunPod', h: 32 },
 ]
 
 const OFFERINGS = [
@@ -247,22 +248,22 @@ export default function LelandAIPage() {
             </a>
           </motion.div>
         </div>
-        <div className="lai-hero-social-proof">
-          <span className="lai-social-proof-label">Trusted by leading organizations</span>
-          <div className="lai-social-proof-logos">
-            {SOCIAL_PROOF.map((item, i) =>
-              item.type === 'logo' ? (
-                <img
-                  key={i}
-                  src={`${import.meta.env.BASE_URL}assets/logos/${item.name}.svg`}
-                  alt={item.alt}
-                  style={{ height: item.h }}
-                  className="lai-social-proof-logo"
-                />
-              ) : (
-                <span key={i} className="lai-social-proof-text">{item.text}</span>
-              )
-            )}
+        <div className="lai-hero-ticker">
+          <div className="logo-ticker logo-ticker-cards">
+            <span className="logo-ticker-label">Trusted by leading organizations</span>
+            <Marquee gradient gradientColor="#000000" gradientWidth={80} speed={35}>
+              {[...Array(2)].flatMap((_, round) =>
+                SOCIAL_PROOF.map(({ name, alt, h }) => (
+                  <img
+                    key={`${alt}-${round}`}
+                    src={`${import.meta.env.BASE_URL}assets/logos/${name}.svg`}
+                    alt={alt}
+                    style={{ height: h }}
+                    className="logo-ticker-img"
+                  />
+                ))
+              )}
+            </Marquee>
           </div>
         </div>
       </section>
@@ -293,12 +294,22 @@ export default function LelandAIPage() {
 
       {/* ====== Credibility Band ====== */}
       <section className="lai-credibility">
+        <video
+          className="lai-credibility-video"
+          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="lai-credibility-overlay" />
         <div className="lai-container">
           <motion.div className="lai-credibility-inner" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <p className="lai-credibility-quote">
-              Most leaders already know becoming AI-native is a top priority. What stops them isn't willingness — it's structure: how to drive adoption, where to start, what infrastructure is needed, how to do it securely.{' '}
-              <span className="lai-credibility-highlight">We've cleared those blockers for 250+ teams, and we can do it for yours.</span>
-            </p>
+            <h2 className="lai-credibility-headline">Most leaders already know becoming AI-native is a top priority.</h2>
+            <div className="lai-credibility-body">
+              <p>What stops them isn't willingness — it's structure: how to drive adoption, where to start, what infrastructure is needed, how to do it securely.</p>
+              <p>We've cleared those blockers for 250+ teams, and we can do it for yours.</p>
+            </div>
           </motion.div>
         </div>
       </section>

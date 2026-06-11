@@ -8,7 +8,7 @@
 .lai-container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0 24px;
 }
 
 /* ---------- Nav suffix ---------- */
@@ -124,48 +124,23 @@ body.rb-home .hero.lai-hero h1 {
   align-items: center;
 }
 
-/* Social proof (inside hero) */
-.lai-hero-social-proof {
+/* Logo ticker (inside hero, full width) */
+.lai-hero-ticker {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 0 40px 48px;
+  padding-bottom: 36px;
 }
-.lai-social-proof-label {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.4);
+.lai-hero-ticker .logo-ticker {
+  margin-top: 0;
 }
-.lai-social-proof-logos {
-  display: flex;
-  align-items: center;
-  gap: 48px;
-  flex-wrap: wrap;
-  justify-content: center;
+.lai-hero-ticker .logo-ticker-label {
+  text-align: center;
 }
-.lai-social-proof-logo {
-  opacity: 0.5;
-  filter: brightness(0) invert(1);
-  transition: opacity 0.15s;
-}
-.lai-social-proof-logo:hover {
-  opacity: 0.8;
-}
-.lai-social-proof-text {
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 0;
+.lai-hero-ticker .logo-ticker-img {
+  opacity: 0.7;
 }
 
 /* ---------- Offerings ====== */
@@ -234,25 +209,57 @@ body.rb-home .hero.lai-hero h1 {
 
 /* ---------- Credibility Band ====== */
 .lai-credibility {
-  padding: 100px 0;
-  background: var(--gray-dark);
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+}
+.lai-credibility-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.lai-credibility-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+.lai-credibility .lai-container {
+  position: relative;
+  z-index: 2;
 }
 .lai-credibility-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
-.lai-credibility-quote {
-  font-family: var(--font-body);
-  font-size: 22px;
+.lai-credibility-headline {
+  flex: 0 0 66%;
+  max-width: 620px;
+  font-family: var(--font-heading);
+  font-size: 64px;
   font-weight: 400;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.15;
+  color: #ffffff;
   letter-spacing: 0;
 }
-.lai-credibility-highlight {
-  color: var(--yellow);
-  font-weight: 500;
+.lai-credibility-body {
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lai-credibility-body p {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0;
+  margin: 0;
 }
 
 /* ---------- Use Cases ====== */
@@ -629,8 +636,15 @@ body.rb-home .hero.lai-hero h1 {
   .lai-final-cta-title {
     font-size: 36px;
   }
-  .lai-credibility-quote {
-    font-size: 18px;
+  .lai-credibility-inner {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .lai-credibility-headline {
+    font-size: 28px;
+  }
+  .lai-credibility-body p {
+    font-size: 16px;
   }
   .lai-offerings,
   .lai-use-cases,
