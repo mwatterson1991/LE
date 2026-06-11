@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { TextMorph } from 'torph/react'
 import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import LPPopup from '../components/LPPopup'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CohortPicker from '../components/CohortPicker'
 import { COURSE_COHORTS, courseData } from './courseData'
+import { AdminToolsProvider, useAdminTools } from '../components/AdminToolsContext'
+import AdminTools from '../components/AdminTools'
 import './home-rebrand.css'
 
 const ENROLL_URL = (() => {
@@ -51,6 +54,7 @@ const LelandIcon = ({ name }) => (
 function Countdown() {
   const [time, setTime] = useState({ d: '--', h: '--', m: '--', s: '--' })
   const [started, setStarted] = useState(false)
+  const [cohortDate, setCohortDate] = useState(null)
 
   useEffect(() => {
     const now0 = new Date()
@@ -59,6 +63,13 @@ function Countdown() {
       l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso) && new Date(c.iso + 'T15:00:00Z') >= now0) ||
       l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso))
     const target = nextCohort ? new Date(nextCohort.iso + 'T15:00:00Z') : new Date('2026-05-26T15:00:00Z')
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    setCohortDate({
+      month: months[target.getUTCMonth()].toUpperCase(),
+      day: target.getUTCDate(),
+      display: `${fullMonths[target.getUTCMonth()]} ${target.getUTCDate()}`,
+    })
     function update() {
       const now = new Date()
       const diff = target - now
@@ -88,23 +99,47 @@ function Countdown() {
 
   return (
     <div className="countdown">
-      <span className="cd-label">NEXT COHORT &rarr;</span>
+      <a
+        href="#course-accordion"
+        className="cd-link"
+        onClick={(e) => {
+          e.preventDefault()
+          const el = document.querySelector('#course-accordion')
+          if (el) {
+            const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60
+            const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16
+            window.scrollTo({ top, behavior: 'smooth' })
+          }
+        }}
+      >
+        {cohortDate && (
+          <div className="cd-cal">
+            <span className="cd-cal-month">{cohortDate.month}</span>
+            <span className="cd-cal-day">{cohortDate.day}</span>
+          </div>
+        )}
+        <div className="cd-info">
+          <span className="cd-info-title">Next cohort</span>
+          <span className="cd-info-date">Starts {cohortDate?.display}</span>
+        </div>
+        <span className="cd-arrow">&rarr;</span>
+      </a>
       <div className="cd-units">
         <div className="cd-unit">
           <span className="cd-num">{time.d}</span>
-          <span className="cd-lbl">DAYS</span>
+          <span className="cd-lbl">Days</span>
         </div>
         <div className="cd-unit">
           <span className="cd-num">{time.h}</span>
-          <span className="cd-lbl">HRS</span>
+          <span className="cd-lbl">Hrs</span>
         </div>
         <div className="cd-unit">
           <span className="cd-num">{time.m}</span>
-          <span className="cd-lbl">MIN</span>
+          <span className="cd-lbl">Min</span>
         </div>
         <div className="cd-unit">
           <span className="cd-num">{time.s}</span>
-          <span className="cd-lbl">SEC</span>
+          <span className="cd-lbl">Sec</span>
         </div>
       </div>
     </div>
@@ -125,6 +160,94 @@ function FaqItem({ question, answer, index, open, onToggle }) {
         </div>
       </div>
     </div>
+  )
+}
+
+function TBoardStarRow({ count }) {
+  return (
+    <div className="review-card-stars">
+      {[...Array(count)].map((_, i) => (
+        <svg key={i} width="14" height="14" viewBox="0 0 20 20" fill="var(--gray-dark)">
+          <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.27 5.06 16.7 6 11.21l-4-3.9 5.53-.8L10 1.5z" />
+        </svg>
+      ))}
+    </div>
+  )
+}
+
+function ReviewCard({ review }) {
+  return (
+    <div className="tcard tcard-review">
+      <div className="review-card-header">
+        <img src={review.avatar} alt={review.name} className="review-card-avatar" />
+        <div className="review-card-info">
+          <span className="review-card-name">{review.name}</span>
+          <span className="review-card-subtitle">{review.subtitle}</span>
+        </div>
+      </div>
+      <div className="review-card-meta">
+        <TBoardStarRow count={review.stars} />
+      </div>
+      <p className="review-card-text">&ldquo;{review.text}&rdquo;</p>
+    </div>
+  )
+}
+
+function TestimonialsBoard() {
+  const [reviews, setReviews] = useState([])
+
+  useEffect(() => {
+    fetch('/data/featured-reviews.json')
+      .then(r => r.ok ? r.json() : [])
+      .then(d => setReviews(d || []))
+      .catch(() => setReviews([]))
+  }, [])
+
+  if (!reviews.length) return null
+
+  const mapped = reviews.map((r, i) => ({
+    name: r.display_name,
+    subtitle: r.level === 'L2' ? 'Completed Level 2' : 'Completed Level 1',
+    date: '',
+    stars: r.rating,
+    text: r.review,
+    avatar: `${import.meta.env.BASE_URL}assets/profile-photos/pic-${String((i % 15) + 1).padStart(2, '0')}.png`,
+  }))
+
+  // Distribute into 4 columns: cols 0,2 get 5 cards; cols 1,3 get 4 cards
+  const columns = [[], [], [], []]
+  mapped.forEach((review, i) => {
+    columns[i % 4].push(review)
+  })
+
+  return (
+    <section className="testimonials-section" id="testimonials">
+      <div className="section-container">
+        <div className="testimonials-header">
+          <p className="testimonials-label">
+            <span className="testimonials-dot" />
+            Testimonials
+          </p>
+          <h2 className="testimonials-heading">Don&rsquo;t just take our word for it.</h2>
+        </div>
+
+        <div className="tboard-wrap">
+          <div className="tboard">
+            {columns.map((col, i) => (
+              <div className="tboard-col" key={i}>
+                {col.map((review, j) => (
+                  <ReviewCard review={review} key={j} />
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="tboard-fade" />
+          <div className="tboard-cta">
+            <a href="/reviews" className="tboard-show-more">See all reviews</a>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -749,21 +872,23 @@ function ValueStack({ id }) {
           <span className="value-stack-included-eyebrow">Every tier also includes</span>
           <div className="value-stack-included-grid">
             {[
-              ['1-Year Access Guarantee', 'Recordings and live sessions for every AI Builder cohort over the next 12 months.'],
-              ['Best Course Guarantee', 'Money-back if you find a better AI course anywhere.'],
-              ['Weekly Build Workshops', 'Optional live workshops with functional experts in marketing, sales, finance, ops, and more.'],
-              ['Unlimited Retakes', 'Take any cohort again for a full year, always with the latest curriculum.'],
-              ['Private AI Community', 'Daily AI news, peer builds, and live perspectives from current AI Builders.'],
-              ['Leland+ Access (3 months)', '5 specialized AI courses and 250+ resources to deepen what you build.'],
-              ['Weekly Office Hours', 'Live Q&A with instructors to unblock your specific builds.'],
-              ['100+ skill.md & Templates', 'Battle-tested files and folder templates that accelerate every build.'],
-            ].map(([title, desc]) => (
+              ['1-Year Access Guarantee', 'Recordings and live sessions for every AI Builder cohort over the next 12 months.', 'scheduling.svg'],
+              ['Best Course Guarantee', 'Money-back if you find a better AI course anywhere.', 'reviews.svg'],
+              ['Weekly Build Workshops', 'Optional live workshops with functional experts in marketing, sales, finance, ops, and more.', 'group-sessions.svg'],
+              ['Unlimited Retakes', 'Take any cohort again for a full year, always with the latest curriculum.', 'session-notes.svg'],
+              ['Private AI Community', 'Daily AI news, peer builds, and live perspectives from current AI Builders.', 'message.svg'],
+              ['Leland+ Access (3 months)', '5 specialized AI courses and 250+ resources to deepen what you build.', 'leland-coaching.svg'],
+              ['Weekly Office Hours', 'Live Q&A with instructors to unblock your specific builds.', 'video-calls.svg'],
+              ['100+ skill.md & Templates', 'Battle-tested files and folder templates that accelerate every build.', 'digital-products.svg'],
+            ].map(([title, desc, illustration]) => (
               <div className="value-stack-included-item" key={title}>
-                <span className="value-stack-check">&#10003;</span>
-                <div className="value-stack-included-text">
-                  <span className="value-stack-included-name">{title}</span>
-                  <span className="value-stack-included-desc">{desc}</span>
-                </div>
+                <img
+                  src={`${import.meta.env.BASE_URL}assets/product-illustrations/${illustration}`}
+                  alt=""
+                  className="value-stack-included-icon"
+                />
+                <span className="value-stack-included-name">{title}</span>
+                <span className="value-stack-included-desc">{desc}</span>
               </div>
             ))}
           </div>
@@ -784,50 +909,145 @@ function ValueStack({ id }) {
 }
 
 
-function RotatingText({ items, interval = 2500 }) {
-  const [index, setIndex] = useState(0)
-  const [minHeight, setMinHeight] = useState(0)
-  const measureRef = useRef(null)
+function ImageRevealSection() {
+  const sectionRef = useRef(null)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    if (!measureRef.current) return
-    const spans = measureRef.current.querySelectorAll('.rotating-text-measure')
-    let max = 0
-    spans.forEach(s => { max = Math.max(max, s.offsetHeight) })
-    setMinHeight(max)
-  }, [items])
+    const handleScroll = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const vh = window.innerHeight
+      const start = vh
+      const end = 0
+      const raw = 1 - (rect.top - end) / (start - end)
+      setProgress(Math.min(1, Math.max(0, raw)))
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
-  const [phase, setPhase] = useState('idle') // idle | out | in
+  const eased = progress < 0.5
+    ? 2 * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 2) / 2
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setPhase('out')
-      setTimeout(() => {
-        setIndex((prev) => (prev + 1) % items.length)
-        setPhase('in')
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => setPhase('idle'))
-        })
-      }, 400)
-    }, interval)
-    return () => clearInterval(timer)
-  }, [items.length, interval])
+  const containerScale = 0.8 + eased * 0.2
+  const imageScale = 1 / containerScale
+
+  const imageUrl = `${import.meta.env.BASE_URL}assets/images/value-prop-1.jpg`
 
   return (
-    <>
-      <span ref={measureRef} aria-hidden="true" style={{ position: 'absolute', visibility: 'hidden', pointerEvents: 'none', left: 0, right: 0 }}>
-        {items.map((item, i) => (
-          <span key={i} className="rotating-text rotating-text-measure" style={{ display: 'inline-block' }}>{item}</span>
-        ))}
-      </span>
-      <span className={`rotating-text${phase === 'out' ? ' rotating-out' : phase === 'in' ? ' rotating-in' : ''}`} style={{ minHeight: minHeight || undefined }}>
-        {items[index]}
-      </span>
-    </>
+    <section className="img-reveal-section" ref={sectionRef}>
+      <div
+        className="img-reveal-container"
+        style={{ transform: `scale(${containerScale})` }}
+      >
+        <img
+          className="img-reveal-bg"
+          src={imageUrl}
+          alt=""
+          style={{ transform: `scale(${imageScale})` }}
+        />
+        <div className="img-reveal-content">
+          <h2 className="img-reveal-heading">Be the AI expert your team relies on.</h2>
+          <p className="img-reveal-desc">
+            Build skills, agents, and systems your colleagues notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function WhyRevealSection({ toolPills, skillPills }) {
+  const sectionRef = useRef(null)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const vh = window.innerHeight
+      const start = vh
+      const end = 0
+      const raw = 1 - (rect.top - end) / (start - end)
+      setProgress(Math.min(1, Math.max(0, raw)))
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const eased = progress < 0.5
+    ? 2 * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 2) / 2
+
+  const containerScale = 0.8 + eased * 0.2
+  const mediaScale = 1 / containerScale
+  const videoUrl = `${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`
+
+  return (
+    <section className="why-reveal-section" ref={sectionRef}>
+      <div
+        className="why-reveal-container"
+        style={{ transform: `scale(${containerScale})` }}
+      >
+        <video
+          className="why-reveal-bg"
+          src={videoUrl}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{ transform: `scale(${mediaScale})` }}
+        />
+        <div className="why-reveal-content">
+          <div className="why-reveal-left">
+            <div className="why-reveal-tools">
+              {toolPills.map(tool => {
+                const style = {}
+                if (tool.noInvert) style.filter = 'none'
+                if (tool.revealSize) style.height = tool.revealSize
+                return (
+                  <img
+                    key={tool.name}
+                    src={`${import.meta.env.BASE_URL}assets/logos/tools/${tool.logo}`}
+                    alt={tool.name}
+                    className="why-reveal-tool-logo"
+                    style={Object.keys(style).length ? style : undefined}
+                  />
+                )
+              })}
+            </div>
+            <h2 className="why-reveal-heading">Become an AI Builder in 6-10 weeks</h2>
+          </div>
+          <div className="why-reveal-right">
+            <p className="why-reveal-desc">Updated weekly, so you're always learning at the frontier of AI. We'll teach you best practices for AI in:</p>
+            <div className="why-reveal-pills">
+              {skillPills.map(skill => (
+                <span className="why-reveal-pill" key={skill}>{skill}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
 export default function HomePageRebrand() {
+  return (
+    <AdminToolsProvider>
+      <HomePageRebrandInner />
+    </AdminToolsProvider>
+  )
+}
+
+function HomePageRebrandInner() {
+  const { variants } = useAdminTools()
   const heroRef = useRef(null)
 
   useEffect(() => {
@@ -839,11 +1059,21 @@ export default function HomePageRebrand() {
     }
   }, [])
   const [scrolled, setScrolled] = useState(false)
+  const navRef = useRef(null)
   const [openFaq, setOpenFaq] = useState(null)
   const [openAccordion, setOpenAccordion] = useState(0)
   const [activeSection, setActiveSection] = useState(null)
   const [scarcityCount, setScarcityCount] = useState(() => getScarcityCount(442, 532, 0))
   const [advancedScarcityCount, setAdvancedScarcityCount] = useState(() => getScarcityCount(75, 110, 1))
+  const heroPhrases = ['10x your impact', 'future-proof your work', 'scale your business', 'accelerate your career', 'automate manual work']
+  const [heroPhraseIndex, setHeroPhraseIndex] = useState(0)
+  const heroPhrase = heroPhrases[heroPhraseIndex]
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroPhraseIndex(i => (i + 1) % heroPhrases.length)
+    }, 2500)
+    return () => clearInterval(timer)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -860,16 +1090,23 @@ export default function HomePageRebrand() {
   ]
 
   useEffect(() => {
-    const hero = heroRef.current
-    if (!hero) return
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 200)
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const nav = navRef.current
+    if (!nav) return
+    const wrapper = nav.closest('.rb-nav-wrapper')
+    if (!wrapper) return
+    const measure = () => {
+      wrapper.style.setProperty('--nav-height', `${nav.offsetHeight}px`)
     }
+    measure()
+    window.addEventListener('resize', measure, { passive: true })
+    return () => window.removeEventListener('resize', measure)
   }, [])
 
   useEffect(() => {
@@ -1063,10 +1300,10 @@ export default function HomePageRebrand() {
   ]
 
   const toolPills = [
-    { name: 'ChatGPT', logo: 'openai.png', size: 42 },
+    { name: 'ChatGPT', logo: 'new-ChatGPT-icon-white-png-large-size.png', size: 42, noInvert: true },
     { name: 'Claude', logo: 'claude-ai.png' },
     { name: 'Gemini', logo: 'gemini-ai.png' },
-    { name: 'Perplexity', logo: 'perlexity.png', size: 56 },
+    { name: 'Perplexity', logo: 'perlexity.png', size: 72, revealSize: 40 },
     { name: 'Cursor', logo: 'cursor-1.png', size: 42 },
     { name: 'n8n', logo: 'n8n.png', size: 84 },
   ]
@@ -1080,148 +1317,341 @@ export default function HomePageRebrand() {
     { num: '05', tier: 'advanced', name: <>Design Your AI<br/>Orchestration Layer</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'September 1, 2026' },
   ]
 
+  const isV2Style = variants.trackCards === 'v2' || variants.trackCards === 'v3'
+
   return (
     <>
       {/* ====== 1. Navigation ====== */}
-      <header className={`rb-nav${scrolled ? ' rb-nav-scrolled' : ''}`} role="navigation">
-        <div className="rb-nav-inner">
-          <a href="https://www.joinleland.com" className="rb-nav-logo">
-            <img src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" style={{ height: 22, width: 'auto' }} />
-          </a>
-          <div className="rb-nav-cta-pair">
-            <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>
-              Talk with Our Team
+      <div className={`rb-nav-wrapper${scrolled ? ' rb-nav-scrolled' : ''}`}>
+        <nav className="rb-nav" ref={navRef} role="navigation">
+          <div className="rb-nav-lockup">
+            <a href="https://www.joinleland.com" className="rb-nav-logo">
+              {scrolled
+                ? <img className="rb-logo-dark" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
+                : <img className="rb-logo-white" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
+              }
             </a>
-            <a href="#pricing" className="btn btn-primary btn-sm" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
-              Enroll Now
+            <span className="rb-nav-lockup-divider" />
+            <img
+              className="rb-nav-aibp-logo"
+              src={`${import.meta.env.BASE_URL}assets/logos/${scrolled ? 'AIBP-Logo-Blue-Dark' : 'AIBP-Logo-Blue'}.png`}
+              alt="AI Builder Program"
+            />
+          </div>
+          <div className="rb-nav-actions">
+            <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
+            <a href="#pricing" className="rb-nav-getstarted" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
+              Enroll now
             </a>
           </div>
-        </div>
-      </header>
+        </nav>
+      </div>
 
       {/* ====== 2. Hero ====== */}
       <section className="hero" id="hero" ref={heroRef}>
         <div className="container">
           <Countdown />
 
-          <h1>Build with AI to <br className="mobile-br" /><RotatingText items={['10x your impact', 'future-proof your work', 'scale your business', 'accelerate your career', 'automate manual work']} interval={2500} /></h1>
+          <h1 className="hero-stagger hero-stagger-1">Build with AI to <br className="mobile-br" /><TextMorph className="rotating-text">{heroPhrase}</TextMorph></h1>
 
-          <p className="hero-sub">Leland's AI Builder Program helps you build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
+          <p className="hero-sub hero-stagger hero-stagger-2">Leland's AI Builder Program helps you build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
 
-          <div className="logo-ticker" style={{ marginTop: 32, marginBottom: 48 }}>
-            <span className="logo-ticker-label">Taught by experts from places like:</span>
-            <Marquee gradient gradientColor="#FFFFFF" gradientWidth={80} speed={35}>
-              {[...Array(2)].flatMap((_, round) => [
-                { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'Fabletics Logo Vector.svg', alt: 'Fabletics', className: 'logo-ticker-img' },
-                { file: 'google.svg', alt: 'Google', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'meta.svg', alt: 'Meta', className: 'logo-ticker-img' },
-                { file: 'intiut.svg', alt: 'Intuit', className: 'logo-ticker-img' },
-                { file: 'Amazon_logo.svg', alt: 'Amazon', className: 'logo-ticker-img' },
-              ].map(({ file, alt, className }) => (
-                <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/logos/${file}`} alt={alt} className={className} />
-              )))}
-            </Marquee>
+          <div className="hero-ctas hero-stagger hero-stagger-3">
+            <a
+              href="#pricing"
+              className="btn btn-primary btn-lg"
+              onClick={() => posthog.capture('app--enroll_cta_click', { source: 'hero' })}
+            >
+              Enroll now
+            </a>
+            <a href="#course-accordion" className="btn btn-ghost btn-lg hero-cta-ghost">
+              Explore the levels
+            </a>
           </div>
 
-          <div className="track-cards-section" id="courses">
-            <div className="track-tier-row">
-              {[
-                { key: 'core', eyebrow: 'AI Builder Core', meta: 'Levels 1–3 · 6 weeks · For everyone' },
-                { key: 'advanced', eyebrow: 'AI Builder Advanced', meta: 'Levels 1–5 · 10 weeks · For sophisticated builders' },
-              ].map(tier => (
-                <div className={`track-tier track-tier-${tier.key}`} key={tier.key}>
-                  <div className={`track-tier-header track-tier-header-${tier.key}`}>
-                    <div className="track-tier-header-text">
-                      <span className="track-tier-eyebrow-row">
-                        <span className="track-tier-eyebrow">{tier.eyebrow}</span>
-                        {tier.key === 'core' && <span className="track-tier-most-popular">Most Popular</span>}
-                      </span>
-                      <span className="track-tier-meta">{tier.meta}</span>
-                    </div>
-                    {tier.key === 'core' && (
-                      <div className="track-tier-cta">
-                        <div className="track-tier-cta-buttons">
-                          <a
-                            href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-primary btn-sm"
-                            onClick={(e) => { e.stopPropagation(); posthog.capture('app--enroll_cta_click', { source: 'tier-core' }) }}
-                          >
-                            Enroll
-                          </a>
-                          <a
-                            href="#course-accordion"
-                            className="btn btn-secondary-outline btn-sm"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Learn more
-                          </a>
-                        </div>
-                        <span className="track-tier-scarcity">{scarcityCount} purchased in the last week</span>
-                      </div>
-                    )}
-                    {tier.key === 'advanced' && (
-                      <div className="track-tier-cta">
-                        <div className="track-tier-cta-buttons">
-                          <a
-                            href="#course-4"
-                            className="btn btn-ghost btn-sm"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Learn more
-                          </a>
-                        </div>
-                        <span className="track-tier-scarcity">{advancedScarcityCount} purchased in the last week</span>
-                      </div>
-                    )}
-                  </div>
-                  {trackItems.filter(item => item.tier === tier.key).map(item => {
-                    const idx = trackItems.findIndex(t => t.num === item.num)
-                    return (
-                      <div className={`track-card track-card-tier-${item.tier}${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num} onClick={() => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }}>
-                        <div className="track-card-body">
-                          <img
-                            src={`${import.meta.env.BASE_URL}assets/thumbnails/${item.thumb}`}
-                            alt=""
-                            className="track-card-thumb"
-                          />
-                          <div className="track-label">
-                            <span className="track-label-text">LEVEL</span>
-                            <span className="track-label-num">{item.num}</span>
-                            {item.fillingFast && <span className="track-card-filling-fast">Filling fast</span>}
-                          </div>
-                          <div className="track-title">{item.name}</div>
-                          <div className="track-desc">{item.tagline}</div>
-                          {item.pastSoldOut && item.pastSoldOut.length > 0 && (
-                            <span className="track-card-past-sold-out">
-                              {item.pastSoldOut.map((d, i) => (
-                                <React.Fragment key={d}>
-                                  {i > 0 && <span className="track-card-past-sold-out-sep"> · </span>}
-                                  <span className="track-card-past-sold-out-date">{d}</span>
-                                </React.Fragment>
-                              ))}
-                              <span className="track-card-past-sold-out-tag"> Sold out</span>
-                            </span>
-                          )}
-                          <div className="track-card-footer">
-                            <div className="track-card-cohort-block">
-                              <span className="track-card-cohort-label">NEXT COHORT</span>
-                              <span className="track-card-cohort-date">{item.cohortDate}</span>
-                            </div>
-                            <span className="track-card-arrow-btn">&rarr;</span>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
+          <div className="hero-review-row hero-stagger hero-stagger-4">
+            <div className="hero-review-stars">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} viewBox="0 0 20 20" fill="#FFD667" width="18" height="18">
+                  <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.27 5.06 16.7 6 11.21l-4-3.9 5.53-.8L10 1.5z" />
+                </svg>
               ))}
             </div>
+            <span className="hero-review-text">4.9/5 from 143+ reviews</span>
+          </div>
 
-            <p className="cards-cta-line">
+          <div className={`track-cards-section${isV2Style ? ' track-cards-v2' : ''}`} id="courses">
+            {isV2Style ? <></> : (<>
+              <div className="logo-ticker logo-ticker-cards">
+                <span className="logo-ticker-label">Taught by experts from places like:</span>
+                <Marquee gradient gradientColor="#222222" gradientWidth={48} speed={35}>
+                  {[...Array(2)].flatMap((_, round) => [
+                    { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
+                    { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
+                    { file: 'Fabletics Logo Vector.svg', alt: 'Fabletics', className: 'logo-ticker-img' },
+                    { file: 'google.svg', alt: 'Google', className: 'logo-ticker-img logo-ticker-lg' },
+                    { file: 'meta.svg', alt: 'Meta', className: 'logo-ticker-img' },
+                    { file: 'intiut.svg', alt: 'Intuit', className: 'logo-ticker-img' },
+                    { file: 'Amazon_logo.svg', alt: 'Amazon', className: 'logo-ticker-img' },
+                  ].map(({ file, alt, className }) => (
+                    <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/logos/${file}`} alt={alt} className={className} />
+                  )))}
+                </Marquee>
+              </div>
+              <div className="track-tier-row">
+                {[
+                  { key: 'core', eyebrow: 'AI Builder Core', meta: 'Levels 1–3 · 6 weeks · For everyone' },
+                  { key: 'advanced', eyebrow: 'AI Builder Advanced', meta: 'Levels 1–5 · 10 weeks · For sophisticated builders' },
+                ].map(tier => (
+                  <div className={`track-tier track-tier-${tier.key}`} key={tier.key}>
+                    <div className={`track-tier-header track-tier-header-${tier.key}`}>
+                      <div className="track-tier-header-text">
+                        <span className="track-tier-eyebrow-row">
+                          <span className="track-tier-eyebrow">{tier.eyebrow}</span>
+                          {tier.key === 'core' && <span className="track-tier-most-popular">Most Popular</span>}
+                        </span>
+                        <span className="track-tier-meta">{tier.meta}</span>
+                      </div>
+                      {tier.key === 'core' && (
+                        <div className="track-tier-cta">
+                          <div className="track-tier-cta-buttons">
+                            <a
+                              href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="btn btn-primary btn-sm"
+                              onClick={(e) => { e.stopPropagation(); posthog.capture('app--enroll_cta_click', { source: 'tier-core' }) }}
+                            >
+                              Enroll
+                            </a>
+                            <a
+                              href="#course-accordion"
+                              className="btn btn-secondary-outline btn-sm"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Learn more
+                            </a>
+                          </div>
+                          <span className="track-tier-scarcity">{scarcityCount} purchased in the last week</span>
+                        </div>
+                      )}
+                      {tier.key === 'advanced' && (
+                        <div className="track-tier-cta">
+                          <div className="track-tier-cta-buttons">
+                            <a
+                              href="#course-4"
+                              className="btn btn-ghost btn-sm"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Learn more
+                            </a>
+                          </div>
+                          <span className="track-tier-scarcity">{advancedScarcityCount} purchased in the last week</span>
+                        </div>
+                      )}
+                    </div>
+                    {trackItems.filter(item => item.tier === tier.key).map(item => {
+                      const idx = trackItems.findIndex(t => t.num === item.num)
+                      const cardClick = () => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }
+                      return (
+                        <div className={`track-card track-card-tier-${item.tier}${item.featured ? ' track-card-featured' : ''}${item.secondary ? ' track-card-secondary' : ''}`} key={item.num} onClick={cardClick}>
+                          <div className="track-card-body">
+                            <div className="track-label">
+                              <span className="track-label-text">LEVEL</span>
+                              <span className="track-label-num">{item.num}</span>
+                              {item.fillingFast && <span className="track-card-filling-fast">Filling fast</span>}
+                            </div>
+                            <div className="track-title">{item.name}</div>
+                            <div className="track-desc">{item.tagline}</div>
+                            {item.pastSoldOut && item.pastSoldOut.length > 0 && (
+                              <span className="track-card-past-sold-out">
+                                {item.pastSoldOut.map((d, i) => (
+                                  <React.Fragment key={d}>
+                                    {i > 0 && <span className="track-card-past-sold-out-sep"> · </span>}
+                                    <span className="track-card-past-sold-out-date">{d}</span>
+                                  </React.Fragment>
+                                ))}
+                                <span className="track-card-past-sold-out-tag"> Sold out</span>
+                              </span>
+                            )}
+                            <div className="track-card-footer">
+                              <div className="track-card-cohort-block">
+                                <span className="track-card-cohort-label">NEXT COHORT</span>
+                                <span className="track-card-cohort-date">{item.cohortDate}</span>
+                              </div>
+                              <span className="track-card-arrow-btn">&rarr;</span>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                ))}
+              </div>
+            </>)}
+
+            {!isV2Style && (
+              <p className="cards-cta-line">
+                Need financial help?{' '}
+                <a
+                  href={`${SCHOLARSHIP_URL}&utm_content=cards-line-scholarship`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => posthog.capture('app--sales_cta_click', { source: 'cards-line-scholarship' })}
+                >
+                  Apply for a scholarship
+                </a>.
+              </p>
+            )}
+          </div>
+
+        </div>
+      </section>
+
+      {isV2Style && (
+        <div className="track-v2-overlap">
+          <div className="container">
+            <div className="logo-ticker logo-ticker-cards">
+              <span className="logo-ticker-label">Taught by experts from places like:</span>
+              <Marquee gradient gradientColor="#222222" gradientWidth={48} speed={35}>
+                {[...Array(2)].flatMap((_, round) => [
+                  { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
+                  { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
+                  { file: 'Fabletics Logo Vector.svg', alt: 'Fabletics', className: 'logo-ticker-img' },
+                  { file: 'google.svg', alt: 'Google', className: 'logo-ticker-img logo-ticker-lg' },
+                  { file: 'meta.svg', alt: 'Meta', className: 'logo-ticker-img' },
+                  { file: 'intiut.svg', alt: 'Intuit', className: 'logo-ticker-img' },
+                  { file: 'Amazon_logo.svg', alt: 'Amazon', className: 'logo-ticker-img' },
+                ].map(({ file, alt, className }) => (
+                  <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/logos/${file}`} alt={alt} className={className} />
+                )))}
+              </Marquee>
+            </div>
+            {variants.trackCards === 'v2' && (<>
+              <div className="track-v2-grid">
+                {trackItems.map(item => {
+                  const idx = trackItems.findIndex(t => t.num === item.num)
+                  const cardClick = () => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }
+                  // Format "June 22, 2026" → "Jun 22"
+                  const shortDate = (() => {
+                    const d = new Date(item.cohortDate)
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                    return `${months[d.getMonth()]} ${d.getDate()}`
+                  })()
+                  return (
+                    <div className="track-card-v2" key={item.num} onClick={cardClick}>
+                      <span className="track-v2-level-tag">Level {item.num}</span>
+                      <div className="track-v2-middle">
+                        <div className="track-v2-title">{item.name}</div>
+                        <div className="track-v2-desc">{item.tagline}</div>
+                      </div>
+                      <div className="track-v2-bottom">
+                        <span className="track-v2-cohort">Next cohort starts {shortDate}</span>
+                        <span className="track-v2-enroll-btn">Enroll</span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              <div className="track-v2-bundles">
+                <div className="track-v2-bundle track-v2-bundle-core">
+                  <span className="track-v2-bundle-label">AI Builder Core · <a href="#pricing" className="track-v2-bundle-link">View bundle</a></span>
+                </div>
+                <div className="track-v2-bundle track-v2-bundle-advanced">
+                  <span className="track-v2-bundle-label">AI Builder Advanced · <a href="#pricing" className="track-v2-bundle-link">View bundle</a></span>
+                </div>
+              </div>
+            </>)}
+            {variants.trackCards === 'v3' && (
+              <div className="v3-tiers">
+                {[
+                  { key: 'core', eyebrow: 'AI Builder Core', meta: '6 weeks', count: scarcityCount },
+                  { key: 'advanced', eyebrow: 'AI Builder Advanced', meta: '10 weeks', count: advancedScarcityCount },
+                ].map(tier => (
+                  <div className={`v3-tier v3-tier-${tier.key}`} key={tier.key}>
+                    <div className="v3-tier-header">
+                      <div className="v3-tier-header-text">
+                        <span className="v3-tier-eyebrow-row">
+                          <span className="v3-tier-eyebrow">{tier.eyebrow}</span>
+                          {tier.key === 'core' && <span className="v3-tier-popular">Most Popular</span>}
+                        </span>
+                        <span className="v3-tier-meta">{tier.meta} · <span className="v3-tier-purchased">{tier.count} purchased in the last week</span></span>
+                      </div>
+                      <div className="v3-tier-cta">
+                        <a
+                          href={tier.key === 'core' ? '#course-accordion' : '#course-4'}
+                          className="v3-tier-arrow-btn"
+                          onClick={(e) => e.stopPropagation()}
+                          aria-label="Learn more"
+                        >
+                          &darr;
+                        </a>
+                      </div>
+                    </div>
+                    <div className="v3-tier-cards">
+                      {trackItems.filter(item => item.tier === tier.key).map(item => {
+                        const idx = trackItems.findIndex(t => t.num === item.num)
+                        const cardClick = () => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }
+                        return (
+                          <div className={`v3-card v3-card-${tier.key}`} key={item.num} onClick={cardClick}>
+                            <div className={`v3-card-level-banner v3-card-level-banner-${tier.key}`}>Level {parseInt(item.num)}</div>
+                            <div className="v3-card-body">
+                            <div className="v3-card-title">{item.name}</div>
+                            <div className="v3-card-desc">{item.tagline}</div>
+                            {item.pastSoldOut && item.pastSoldOut.length > 0 && (
+                              <span className="v3-card-sold-out">
+                                {item.pastSoldOut.map((d, i) => (
+                                  <React.Fragment key={d}>
+                                    {i > 0 && <span className="v3-card-sold-out-sep"> · </span>}
+                                    <span className="v3-card-sold-out-date">{d}</span>
+                                  </React.Fragment>
+                                ))}
+                                <span className="v3-card-sold-out-tag"> Sold out</span>
+                              </span>
+                            )}
+                            </div>
+                            <div className="v3-card-footer-wrap">
+                            {(() => {
+                              const d = new Date(item.cohortDate)
+                              const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                              const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                              const formatted = `${days[d.getDay()]}, ${shortMonths[d.getMonth()]} ${d.getDate()}`
+                              return (
+                                <a
+                                  href={item.href}
+                                  className="v3-card-footer"
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    e.preventDefault()
+                                    const el = document.querySelector(item.href)
+                                    if (el) {
+                                      const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60
+                                      const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16
+                                      window.scrollTo({ top, behavior: 'smooth' })
+                                    }
+                                  }}
+                                >
+                                  <div className="v3-card-cal">
+                                    <span className="v3-card-cal-month">{shortMonths[d.getMonth()]}</span>
+                                    <span className="v3-card-cal-day">{d.getDate()}</span>
+                                  </div>
+                                  <div className="v3-card-cohort">
+                                    <span className="v3-card-cohort-label">Next cohort starts</span>
+                                    <span className="v3-card-cohort-date">{formatted}</span>
+                                  </div>
+                                </a>
+                              )
+                            })()}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <p className="cards-cta-line cards-cta-line-v2">
               Need financial help?{' '}
               <a
                 href={`${SCHOLARSHIP_URL}&utm_content=cards-line-scholarship`}
@@ -1233,9 +1663,8 @@ export default function HomePageRebrand() {
               </a>.
             </p>
           </div>
-
         </div>
-      </section>
+      )}
 
       {/* ====== 3. "Why This Course" ====== */}
       <section className="save-time-section" id="about">
@@ -1248,84 +1677,22 @@ export default function HomePageRebrand() {
               <h2 className="save-time-headline">Build and direct an AI agent team that scales your impact</h2>
               <p className="save-time-sub">Stop doing every task yourself. Build specialized agents that triage your inbox, run research, prep your slides, ship your outreach, and more. All managed by you.</p>
               <p className="save-time-cite">AI Builders who deploy agents across their workflows aren't just saving time. They're <strong>shipping the output of an entire team</strong> from a single laptop.</p>
-              <a
-                href="#pricing"
-                className="btn btn-primary btn-lg save-time-cta"
-                onClick={() => posthog.capture('app--enroll_cta_click', { source: 'save-time-section' })}
-              >
-                Enroll Now <span className="arrow">&rarr;</span>
-              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ====== VP1 — after Why This Course ====== */}
-      <section className="value-props-section rb-dark-band">
-        <div className="container">
-          <div className="value-prop-text">
-            <h2>Be the AI expert<br />your team relies on</h2>
-            <p>Build skills, agents, and systems your colleagues notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.</p>
-          </div>
-        </div>
-      </section>
+      {/* ====== VP1 — Image Reveal ====== */}
+      <ImageRevealSection />
 
-      {/* ====== 4. Testimonials — Consolidated 6 + Leland social proof ====== */}
-      <section className="testimonials-new" id="testimonials">
-        <div className="container">
-          <div className="testimonials-stars-lg">
-            {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
-          </div>
-          <div className="testimonials-review-count">
-            <span className="testimonials-review-number">29,301 reviews</span>
-            <span className="testimonials-review-community">in the Leland community</span>
-          </div>
-          <h2 className="testimonials-headline">See what builders are saying</h2>
-          <ReviewsCarousel />
-          <div className="testimonials-see-more">
-            <a href="/reviews" className="testimonials-see-more-btn">See more reviews →</a>
-          </div>
-        </div>
-      </section>
+      {/* ====== 4. Testimonials — Masonry board ====== */}
+      <TestimonialsBoard />
 
       {/* ====== 5. Value Stack 1 (pricing anchor) ====== */}
       <ValueStack id="pricing" />
 
       {/* ====== Why — skills + tools ====== */}
-      <section className="why-section">
-        <div className="container">
-          <div className="why-grid">
-            <div className="why-left">
-              <h2 className="why-headline">Become an AI Builder in 6-10 weeks</h2>
-              <p className="why-skills-label">Updated weekly, so you're always learning at the frontier of AI. We'll teach you best practices for AI in:</p>
-              <div className="why-pills why-pills-skills">
-                {skillPills.map(skill => (
-                  <span className="why-pill why-pill-skill" key={skill}>{skill}</span>
-                ))}
-              </div>
-            </div>
-            <div className="why-right">
-              <p className="why-tools-label">Learn how to use all the best tools</p>
-              <div className="why-tools-grid">
-                {toolPills.map(tool => (
-                  <div className="why-tool" key={tool.name}>
-                    {tool.logo && <img src={`${import.meta.env.BASE_URL}assets/logos/tools/${tool.logo}`} alt={tool.name} className="why-tool-logo" style={tool.size ? { width: tool.size, height: tool.size } : undefined} />}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="why-cta">
-            <a
-              href="#pricing"
-              className="btn btn-primary btn-lg"
-              onClick={() => posthog.capture('app--enroll_cta_click', { source: 'why-section' })}
-            >
-              Enroll Now <span className="arrow">&rarr;</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <WhyRevealSection toolPills={toolPills} skillPills={skillPills} />
 
       {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
       <section className="accordion-section" id="course-accordion">
@@ -1346,7 +1713,7 @@ export default function HomePageRebrand() {
 
           {/* Bundle callout */}
           <div style={{ marginTop: 32, padding: '28px 32px', background: '#f3f1e6', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 16 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Bundle the full program and save</h3>
+            <h3 style={{ fontSize: 20, fontWeight: 500, marginBottom: 20, fontFamily: 'var(--font-heading)' }}>Bundle the full program and save</h3>
             <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -1684,6 +2051,7 @@ export default function HomePageRebrand() {
       </footer>
 
       <LPPopup />
+      <AdminTools />
     </>
   )
 }
