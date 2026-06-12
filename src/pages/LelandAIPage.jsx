@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import { motion, AnimatePresence } from 'motion/react'
+import { COURSE_COHORTS } from './courseData'
 import './home-rebrand.css'
 import './leland-ai.css'
 
@@ -22,34 +23,26 @@ const SOCIAL_PROOF = [
   { type: 'logo', name: 'runpod', alt: 'RunPod', h: 32 },
 ]
 
-const OFFERINGS = [
+const PHOTO_CARDS = [
   {
-    kicker: 'TRAIN',
     title: 'Upskill your people',
-    desc: 'Teach your team to build with AI: agents and workflows, not just chatbot prompts.',
-    link: '/program',
-    btnLabel: 'Learn more',
-    btnStyle: 'ghost',
-    internal: true,
-    bg: '#222222',
-    light: true,
-    logo: 'AIBP-Logo-Blue.png',
+    description: 'Teach your team to build with AI: agents and workflows, not just chatbot prompts.',
+    to: '/program',
+    video: 'Animated Gradient - 06.mp4',
+    cohortBadge: true,
+    logo: 'aibp-stacked-light.png',
   },
   {
-    kicker: 'BUILD',
-    title: 'Deploy agentic workflows & infrastructure',
-    desc: 'We scope, build, and run the agentic workflows and AI-native infrastructure inside your business.',
-    link: CTA_URL,
-    btnLabel: 'Get started',
-    bg: '#F3F1E6',
+    title: 'Deploy agentic workflows',
+    description: 'We scope, build, and run the agentic workflows and AI-native infrastructure in your business.',
+    to: '#',
+    img: 'homepage-cards/learn-ai-full-alt4.png',
   },
   {
-    kicker: 'HIRE',
     title: 'Add AI-native talent',
-    desc: 'Bring proven AI-native operators onto your full-time team, sourced and assessed on real builds.',
-    link: CTA_URL,
-    btnLabel: 'Get started',
-    bg: '#EBD4B5',
+    description: 'Proven AI-native operators for your team, sourced and vetted on real builds.',
+    to: '#',
+    img: 'homepage-cards/build-career-full.png',
   },
 ]
 
@@ -165,6 +158,33 @@ function FaqItem({ item, open, onToggle }) {
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  )
+}
+
+function NextCohortBadge() {
+  const now = new Date()
+  const l1 = COURSE_COHORTS[1] || []
+  const next = l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso) && new Date(c.iso + 'T15:00:00Z') >= now)
+    || l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso))
+  if (!next) return null
+  const target = new Date(next.iso + 'T15:00:00Z')
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const month = months[target.getUTCMonth()].toUpperCase()
+  const day = target.getUTCDate()
+  const display = `${fullMonths[target.getUTCMonth()]} ${day}`
+
+  return (
+    <div className="cd-link lai-cohort-badge">
+      <div className="cd-cal">
+        <span className="cd-cal-month">{month}</span>
+        <span className="cd-cal-day">{day}</span>
+      </div>
+      <div className="cd-info">
+        <span className="cd-info-title">Next cohort</span>
+        <span className="cd-info-date">Starts {display}</span>
+      </div>
     </div>
   )
 }
@@ -291,13 +311,9 @@ export default function LelandAIPage() {
 
       {/* ====== Hero ====== */}
       <section className="hero lai-hero" id="hero">
-        <video
-          className="lai-hero-video"
-          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
-          autoPlay
-          loop
-          muted
-          playsInline
+        <div
+          className="lai-hero-bg"
+          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/hero-images/office-placeholder-3.jpg)` }}
         />
         <div className="container">
           <motion.div initial="hidden" animate="visible" variants={fadeUp} className="lai-hero-content">
@@ -321,8 +337,8 @@ export default function LelandAIPage() {
         </div>
         <div className="lai-hero-ticker">
           <div className="logo-ticker logo-ticker-cards">
-            <span className="logo-ticker-label">Trusted by leading organizations</span>
-            <Marquee gradient gradientColor="#000000" gradientWidth={80} speed={35}>
+            <span className="logo-ticker-label">Trusted by teams at</span>
+            <Marquee gradient={false} speed={35}>
               {[...Array(2)].flatMap((_, round) =>
                 SOCIAL_PROOF.map(({ name, alt, h }) => (
                   <img
@@ -340,39 +356,53 @@ export default function LelandAIPage() {
       </section>
 
       {/* ====== Offerings ====== */}
-      <section className="lai-offerings">
+      <section className="lai-photo-cards-section">
         <div className="lai-container">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <h2 className="lai-section-title">An AI-native business needs three things</h2>
-            <p className="lai-section-sub">We deliver all three.</p>
+            <h2 className="lai-section-title">Transform your business with end-to-end AI solutions</h2>
+            <p className="lai-section-sub">Leland uplevels both your workforce and your workflows.</p>
           </motion.div>
-          <div className="lai-offerings-grid">
-            {OFFERINGS.map((o) => (
-              <motion.div
-                key={o.title}
-                className={`lai-offering-card${o.light ? ' lai-offering-card--light' : ''}`}
-                style={{ background: o.bg }}
+          <div className="cards-grid">
+            {PHOTO_CARDS.map((card) => (
+              <motion.a
+                href={card.to}
+                className="photo-card"
+                key={card.title}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
               >
-                {o.logo && (
-                  <img
-                    src={`${import.meta.env.BASE_URL}assets/logos/${o.logo}`}
-                    alt=""
-                    className="lai-offering-logo"
+                {card.video ? (
+                  <video
+                    className="photo-card-bg photo-card-video"
+                    src={`${import.meta.env.BASE_URL}assets/images/${card.video}`}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <div
+                    className="photo-card-bg"
+                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/${card.img})` }}
                   />
                 )}
-                <span className="lai-offering-kicker">{o.kicker}</span>
-                <h3 className="lai-offering-title">{o.title}</h3>
-                <p className="lai-offering-desc">{o.desc}</p>
-                {o.internal ? (
-                  <a href={o.link} className={`lai-offering-btn${o.btnStyle === 'ghost' ? ' lai-offering-btn--ghost' : ''}`}>{o.btnLabel}</a>
-                ) : (
-                  <a href={o.link} target="_blank" rel="noopener noreferrer" className={`lai-offering-btn${o.btnStyle === 'ghost' ? ' lai-offering-btn--ghost' : ''}`}>{o.btnLabel}</a>
-                )}
-              </motion.div>
+                <div className="photo-card-scrim" />
+                {card.cohortBadge && <NextCohortBadge />}
+                <div className="photo-card-content">
+                  {card.logo && (
+                    <img
+                      src={`${import.meta.env.BASE_URL}assets/logos/${card.logo}`}
+                      alt=""
+                      className="photo-card-logo"
+                    />
+                  )}
+                  <h3 className="photo-card-title">{card.title}</h3>
+                  <p className="photo-card-desc">{card.description}</p>
+                  <span className="photo-card-cta">Learn more</span>
+                </div>
+              </motion.a>
             ))}
           </div>
         </div>

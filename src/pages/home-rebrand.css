@@ -125,10 +125,10 @@ body.rb-home .btn {
 body.rb-home .btn-sm { font-size: 14px; }
 body.rb-home .btn-lg { font-size: 16px; padding: 14px 32px; }
 body.rb-home .btn-primary {
-  background: var(--blue, #80ACED);
+  background: var(--yellow, #FFD667);
   color: var(--gray-dark);
 }
-body.rb-home .btn-primary:hover { background: #6d9de0; }
+body.rb-home .btn-primary:hover { background: #f0c85a; }
 body.rb-home .btn-ghost {
   background: #ffffff;
   color: var(--gray-dark);
@@ -222,6 +222,11 @@ body.rb-home .rb-nav-scrolled .rb-nav-lockup-divider {
 body.rb-home .rb-nav-aibp-logo {
   height: 36px;
   width: auto;
+  color: #ffffff;
+  transition: color 0.3s;
+}
+body.rb-home .rb-nav.scrolled .rb-nav-aibp-logo {
+  color: #222222;
 }
 body.rb-home .rb-nav-links { display: none; }
 body.rb-home .rb-nav-actions {
@@ -244,12 +249,12 @@ body.rb-home .rb-nav-getstarted {
   font-weight: 500;
   padding: 10px 20px;
   border-radius: 999px;
-  background: var(--blue, #80ACED);
+  background: var(--yellow, #FFD667);
   color: var(--gray-dark);
   text-decoration: none;
   transition: background 0.2s;
 }
-body.rb-home .rb-nav-getstarted:hover { background: #6d9de0; }
+body.rb-home .rb-nav-getstarted:hover { background: #f0c85a; }
 
 /* Hero staggered entrance animation */
 @keyframes heroFadeUp {
@@ -272,8 +277,33 @@ body.rb-home .rb-nav-getstarted:hover { background: #6d9de0; }
 .hero-stagger-4 { animation-delay: 0.55s; }
 
 /* ---------- Section rhythm: white / cream / gray + two dark bands ---------- */
-body.rb-home .hero { background: #222222; padding: 80px 0; color: #ffffff; min-height: 800px; max-height: 1000px; display: flex; flex-direction: column; }
-body.rb-home .hero > .container { display: flex; flex-direction: column; flex: 1; justify-content: center; align-items: center; text-align: center; }
+body.rb-home .hero { background: #222222; padding: 80px 0; color: #ffffff; min-height: 800px; max-height: 1000px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.rb-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+body.rb-home .hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+body.rb-home .hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5));
+  z-index: 1;
+}
+body.rb-home .hero > .container { display: flex; flex-direction: column; flex: 1; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 2; }
 body.rb-home .hero .track-cards-section { width: 100%; }
 body.rb-home .hero .logo-ticker-cards { width: 100%; }
 body.rb-home .hero h1,

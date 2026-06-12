@@ -1412,7 +1412,7 @@ function HomePageRebrandInner() {
             <span className="rb-nav-lockup-divider" />
             <img
               className="rb-nav-aibp-logo"
-              src={`${import.meta.env.BASE_URL}assets/logos/${scrolled ? 'AIBP-Logo-Blue-Dark' : 'AIBP-Logo-Blue'}.png`}
+              src={`${import.meta.env.BASE_URL}assets/logos/${scrolled ? 'aibp-dark' : 'aibp-light'}.png`}
               alt="AI Builder Program"
             />
           </div>
@@ -1427,6 +1427,14 @@ function HomePageRebrandInner() {
 
       {/* ====== 2. Hero ====== */}
       <section className="hero" id="hero" ref={heroRef}>
+        <video
+          className="rb-hero-video"
+          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
         <div className="container">
           <Countdown />
 
@@ -1468,7 +1476,7 @@ function HomePageRebrandInner() {
         <div className="container">
           <div className="logo-ticker logo-ticker-cards">
             <span className="logo-ticker-label">Taught by experts from places like:</span>
-            <Marquee gradient gradientColor="#222222" gradientWidth={48} speed={35}>
+            <Marquee gradient gradientColor="#000000" gradientWidth={48} speed={35}>
               {[...Array(2)].flatMap((_, round) => [
                 { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
                 { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
