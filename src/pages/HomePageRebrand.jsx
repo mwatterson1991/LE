@@ -1142,9 +1142,20 @@ function HomePageRebrandInner() {
   useEffect(() => {
     document.documentElement.classList.add('rb-home')
     document.body.classList.add('rb-home')
+
+    const ogImg = 'https://ai.joinleland.com/assets/images/OG%20Images/AIBP-OG-Image.png'
+    const ogMeta = document.querySelector('meta[property="og:image"]')
+    const twMeta = document.querySelector('meta[name="twitter:image"]')
+    const prevOg = ogMeta?.getAttribute('content')
+    const prevTw = twMeta?.getAttribute('content')
+    if (ogMeta) ogMeta.setAttribute('content', ogImg)
+    if (twMeta) twMeta.setAttribute('content', ogImg)
+
     return () => {
       document.documentElement.classList.remove('rb-home')
       document.body.classList.remove('rb-home')
+      if (ogMeta) ogMeta.setAttribute('content', prevOg)
+      if (twMeta) twMeta.setAttribute('content', prevTw)
     }
   }, [])
   const [scrolled, setScrolled] = useState(false)
