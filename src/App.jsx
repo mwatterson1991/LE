@@ -8,6 +8,8 @@ import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import ReviewsPage from './pages/ReviewsPage'
 import HomePageRebrand from './pages/HomePageRebrand'
+import PledgePage from './pages/PledgePage'
+import RecruitPage from './pages/RecruitPage'
 import LelandAIPage from './pages/LelandAIPage'
 import LPPopup from './components/LPPopup'
 import GetThisExpensed from './components/GetThisExpensed'
@@ -1730,6 +1732,12 @@ function App() {
   }
   if (path.startsWith('/reviews')) {
     return <ReviewsPage />
+  }
+  if (path.startsWith('/pledge')) {
+    return <PledgePage />
+  }
+  if (path.startsWith('/recruit')) {
+    return <RecruitPage />
   }
   const match = path.match(/\/level-(\d+)/)
   if (match) {

@@ -36,13 +36,13 @@ const PHOTO_CARDS = [
   {
     title: 'Deploy agentic workflows',
     description: 'We scope, build, and run the agentic workflows and AI-native infrastructure in your business.',
-    to: '#',
+    to: 'https://joinleland.typeform.com/to/nXD9kytE',
     img: 'homepage-cards/learn-ai-full-alt4.png',
   },
   {
     title: 'Add AI-native talent',
     description: 'Proven AI-native operators for your team, sourced and vetted on real builds.',
-    to: '#',
+    to: '/recruit',
     img: 'homepage-cards/build-career-full.png',
   },
 ]
@@ -322,9 +322,9 @@ export default function LelandAIPage() {
             </a>
             <div className="lai-nav-links">
               <a href="/program" className="lai-nav-link">Builder Program</a>
-              <span className="lai-nav-link">Services</span>
-              <span className="lai-nav-link">Recruiting</span>
-              <span className="lai-nav-link">Our Pledge</span>
+              <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="lai-nav-link">Services</a>
+              <a href="/recruit" className="lai-nav-link">Recruit</a>
+              <a href="/pledge" className="lai-nav-link">Our Pledge</a>
             </div>
           </div>
           <div className="rb-nav-actions">
@@ -406,6 +406,7 @@ export default function LelandAIPage() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
+                {...(card.to.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
                 {card.video ? (
                   <video
@@ -549,6 +550,7 @@ export default function LelandAIPage() {
                 <span className="lai-pledge-number">82,471</span>
                 <span className="lai-pledge-sub">people trained and counting</span>
               </div>
+              <a href="/pledge" className="lai-pledge-cta">See the pledge &rarr;</a>
             </motion.div>
             <motion.div className="lai-pledge-right" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
               <PledgeChart />
