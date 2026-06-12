@@ -75,7 +75,34 @@ body.rb-home .lai-nav .rb-nav-getstarted:hover {
   max-width: 640px;
 }
 
-/* ---------- Primary CTA button ---------- */
+/* ---------- Hero CTA row ---------- */
+.lai-hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lai-cta-yellow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 36px;
+  background: var(--yellow);
+  color: var(--gray-dark);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 999px;
+  text-decoration: none;
+  letter-spacing: 0;
+  transition: background 0.15s;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.lai-cta-yellow:hover {
+  background: var(--yellow-hover);
+}
+
+/* ---------- Ghost CTA button ---------- */
 .lai-cta-primary {
   display: inline-flex;
   align-items: center;

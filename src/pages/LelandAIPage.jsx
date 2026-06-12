@@ -303,15 +303,20 @@ export default function LelandAIPage() {
           <motion.div initial="hidden" animate="visible" variants={fadeUp} className="lai-hero-content">
             <h1>Make your organization AI-native</h1>
             <p className="hero-sub">Bring your people and processes into the AI era.</p>
-            <a
-              href={CTA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="lai-cta-primary"
-              onClick={() => posthog.capture('lai--cta_click', { source: 'hero' })}
-            >
-              Book an AI strategy call
-            </a>
+            <div className="lai-hero-ctas">
+              <a
+                href={CTA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lai-cta-yellow"
+                onClick={() => posthog.capture('lai--cta_click', { source: 'hero' })}
+              >
+                Book an AI strategy call
+              </a>
+              <a href="/program" className="lai-cta-primary">
+                AI Builder Program
+              </a>
+            </div>
           </motion.div>
         </div>
         <div className="lai-hero-ticker">
