@@ -3,6 +3,7 @@ import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import { motion, AnimatePresence } from 'motion/react'
 import { COURSE_COHORTS } from './courseData'
+import { BorderBeam } from 'border-beam'
 import './home-rebrand.css'
 import './leland-ai.css'
 
@@ -329,9 +330,11 @@ export default function LelandAIPage() {
               >
                 Book an AI strategy call
               </a>
-              <a href="/program" className="lai-cta-primary">
-                AI Builder Program
-              </a>
+              <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
+                <a href="/program" className="lai-cta-primary lai-cta-beam">
+                  AI Builder Program
+                </a>
+              </BorderBeam>
             </div>
           </motion.div>
         </div>
