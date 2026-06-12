@@ -690,31 +690,59 @@ video.photo-card-video {
 
 /* ---------- Pledge ====== */
 .lai-pledge {
-  padding: 100px 0;
-  background: var(--cream-soft);
+  padding: 96px 48px;
+  background: var(--gray-dark, #222222);
+  overflow: hidden;
 }
-.lai-pledge-inner {
-  text-align: center;
-  max-width: 720px;
+.lai-pledge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1080px;
   margin: 0 auto;
+}
+.lai-pledge-left {
+  text-align: left;
 }
 .lai-pledge-label {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--gray-extra-light);
-  display: block;
-  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+  color: var(--yellow, #FFD667);
+  display: inline-block;
+  margin-bottom: 18px;
 }
 .lai-pledge-title {
   font-family: var(--font-heading);
-  font-size: 48px;
+  font-size: 38px;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.2;
   letter-spacing: 0;
-  color: var(--gray-dark);
+  color: var(--white, #FFFFFF);
+  text-wrap: balance;
+}
+.lai-pledge-stat {
+  margin-top: 28px;
+}
+.lai-pledge-number {
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 500;
+  color: var(--yellow, #FFD667);
+  line-height: 1;
+}
+.lai-pledge-sub {
+  display: block;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 6px;
+}
+.lai-pledge-svg {
+  width: 100%;
+  display: block;
 }
 
 /* ---------- FAQ ====== */
@@ -723,8 +751,7 @@ video.photo-card-video {
   background: var(--white);
 }
 .lai-faq-list {
-  max-width: 800px;
-  margin: 48px auto 0;
+  margin-top: 48px;
 }
 .lai-faq-item {
   border-bottom: 1px solid var(--border);
@@ -845,9 +872,10 @@ video.photo-card-video {
     flex-direction: column;
     align-items: flex-start;
   }
-  .lai-pledge-title {
-    font-size: 36px;
-  }
+  .lai-pledge { padding: 64px 20px; }
+  .lai-pledge-grid { grid-template-columns: 1fr; gap: 40px; }
+  .lai-pledge-title { font-size: 28px; }
+  .lai-pledge-number { font-size: 40px; }
   .lai-final-cta-title {
     font-size: 36px;
   }

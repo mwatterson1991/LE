@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import { motion, AnimatePresence } from 'motion/react'
@@ -233,12 +233,54 @@ function ImageRevealSection() {
   )
 }
 
+function PledgeChart() {
+  const W = 460, H = 240
+  const pad = { t: 26, r: 16, b: 40, l: 24 }
+  const gW = W - pad.l - pad.r, gH = H - pad.t - pad.b
+  const k = 5, N = 120
+
+  const { line, area, earlyLine, earlyArea } = useMemo(() => {
+    const pts = []
+    for (let i = 0; i <= N; i++) {
+      const t = i / N
+      const x = pad.l + t * gW
+      const y = pad.t + gH - gH * (Math.exp(k * t) - 1) / (Math.exp(k) - 1)
+      pts.push([x, y])
+    }
+    const toPath = arr => arr.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('')
+    const baseline = pad.t + gH
+    const line = toPath(pts)
+    const area = line + 'L' + (pad.l + gW).toFixed(1) + ',' + baseline + 'L' + pad.l + ',' + baseline + 'Z'
+    const early = pts.filter(p => p[0] <= pad.l + gW * 0.1)
+    const earlyLine = toPath(early)
+    const last = early[early.length - 1]
+    const earlyArea = earlyLine + 'L' + last[0].toFixed(1) + ',' + baseline + 'L' + pad.l + ',' + baseline + 'Z'
+    return { line, area, earlyLine, earlyArea }
+  }, [])
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} fill="none" xmlns="http://www.w3.org/2000/svg" className="lai-pledge-svg" aria-label="Exponential growth toward 100 million people trained">
+      <line x1="24" y1="200" x2="444" y2="200" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+      <line x1="24" y1="152" x2="444" y2="152" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+      <line x1="24" y1="104" x2="444" y2="104" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+      <line x1="24" y1="56" x2="444" y2="56" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+      <line x1="24" y1="26" x2="444" y2="26" stroke="rgba(255,214,103,0.3)" strokeWidth="1" strokeDasharray="4 6" />
+      <text x="440" y="20" textAnchor="end" fill="rgba(255,214,103,0.7)" fontSize="11" fontFamily="Macan, sans-serif" fontWeight="500">100M people</text>
+      <path d={area} fill="rgba(255,255,255,0.05)" />
+      <path d={earlyArea} fill="rgba(255,214,103,0.16)" />
+      <path d={line} stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeLinecap="round" />
+      <path d={earlyLine} stroke="#FFD667" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 export default function LelandAIPage() {
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
   const navRef = useRef(null)
 
   useEffect(() => {
+    document.title = 'Leland for Organizations'
     document.documentElement.classList.add('rb-home')
     document.body.classList.add('rb-home')
     return () => {
@@ -499,10 +541,19 @@ export default function LelandAIPage() {
       {/* ====== Mission Pledge ====== */}
       <section className="lai-pledge">
         <div className="lai-container">
-          <motion.div className="lai-pledge-inner" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <span className="lai-pledge-label">The 100M Pledge</span>
-            <h2 className="lai-pledge-title">We're on a mission to train 100 million people to build with AI.</h2>
-          </motion.div>
+          <div className="lai-pledge-grid">
+            <motion.div className="lai-pledge-left" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+              <span className="lai-pledge-label">The 100M Pledge</span>
+              <h2 className="lai-pledge-title">We&rsquo;re on a mission to train 100 million people to build with AI.</h2>
+              <div className="lai-pledge-stat">
+                <span className="lai-pledge-number">82,471</span>
+                <span className="lai-pledge-sub">people trained and counting</span>
+              </div>
+            </motion.div>
+            <motion.div className="lai-pledge-right" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+              <PledgeChart />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -518,30 +569,13 @@ export default function LelandAIPage() {
         </div>
       </section>
 
-      {/* ====== Final CTA ====== */}
-      <section className="lai-final-cta" id="cta">
-        <div className="lai-final-cta-glow" />
-        <div className="lai-container">
-          <motion.div className="lai-final-cta-inner" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <h2 className="lai-final-cta-title">Ready to make your business AI-native?</h2>
-            <p className="lai-final-cta-desc">Book a free strategy call and get a custom AI roadmap for your team.</p>
-            <a
-              href={CTA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="lai-cta-primary"
-              onClick={() => posthog.capture('lai--cta_click', { source: 'final-cta' })}
-            >
-              Book an AI strategy call
-            </a>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ====== Pre-Footer CTA ====== */}
-      <section className="prefooter">
+      <section className="prefooter" id="cta">
         <div className="prefooter-inner">
-          <h2 className="prefooter-heading">Take the next step toward your goals</h2>
+          <div className="prefooter-text">
+            <h2 className="prefooter-heading">Ready to make your business AI-native?</h2>
+            <p className="prefooter-desc">Book a free strategy call and get a custom AI roadmap for your team.</p>
+          </div>
           <a
             href={CTA_URL}
             target="_blank"
@@ -549,7 +583,7 @@ export default function LelandAIPage() {
             className="prefooter-cta"
             onClick={() => posthog.capture('lai--cta_click', { source: 'prefooter' })}
           >
-            Book a strategy call
+            Book an AI strategy call
           </a>
         </div>
       </section>

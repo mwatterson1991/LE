@@ -1831,6 +1831,13 @@ body.rb-home .prefooter-heading {
   color: var(--white);
   max-width: 560px;
 }
+body.rb-home .prefooter-desc {
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 12px;
+  max-width: 560px;
+}
 body.rb-home .prefooter-cta {
   flex-shrink: 0;
   display: inline-flex;
@@ -1847,6 +1854,59 @@ body.rb-home .prefooter-cta {
 }
 body.rb-home .prefooter-cta:hover {
   opacity: 0.85;
+}
+
+/* ---------- /program Pre-Footer Video CTA ---------- */
+body.rb-home .rb-prefooter-video {
+  position: relative;
+  height: 50vh;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #222222;
+}
+body.rb-home .rb-prefooter-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+body.rb-home .rb-prefooter-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(34, 34, 34, 0) 0%, #222222 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+body.rb-home .rb-prefooter-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 0 24px;
+}
+body.rb-home .rb-prefooter-logo {
+  height: 40px;
+  width: auto;
+}
+body.rb-home .rb-prefooter-heading {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--white, #FFFFFF);
+  max-width: 640px;
+  margin-bottom: 8px;
 }
 
 /* ---------- Footer ---------- */
@@ -1954,6 +2014,8 @@ body.rb-home .footer-col-link:hover {
   body.rb-home .prefooter { padding: 56px 20px 0; }
   body.rb-home .prefooter-inner { flex-direction: column; align-items: flex-start; gap: 32px; padding-bottom: 56px; }
   body.rb-home .prefooter-heading { font-size: 36px; }
+  body.rb-home .rb-prefooter-heading { font-size: 32px; }
+  body.rb-home .rb-prefooter-video { min-height: 320px; }
   body.rb-home .footer { padding: 48px 20px 32px; }
   body.rb-home .footer-inner { flex-direction: column; gap: 40px; }
   body.rb-home .footer-left { gap: 24px; }

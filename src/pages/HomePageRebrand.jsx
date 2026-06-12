@@ -16,6 +16,16 @@ const ENROLL_URL = (() => {
     || cohorts.find(c => c.enrollUrl && !c.soldOut)
   return next?.enrollUrl || cohorts[0]?.enrollUrl
 })()
+
+const NEXT_COHORT_DISPLAY = (() => {
+  const l1 = COURSE_COHORTS[1] || []
+  const now = new Date()
+  const next = l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso) && new Date(c.iso + 'T15:00:00Z') >= now)
+    || l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso))
+  const target = next ? new Date(next.iso + 'T15:00:00Z') : new Date('2026-06-22T15:00:00Z')
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+  return `${months[target.getUTCMonth()]} ${target.getUTCDate()}`
+})()
 const SALES_URL = 'https://joinleland.typeform.com/to/Gp54Gdd4'
 const SCHOLARSHIP_URL = 'https://joinleland.typeform.com/to/TEiacu5G?utm_campaign=landing_page_cta&utm_source=website&utm_medium=web'
 
@@ -1950,10 +1960,30 @@ function HomePageRebrandInner() {
       </section>
 
       {/* ====== Pre-Footer CTA ====== */}
-      <section className="prefooter">
-        <div className="prefooter-inner">
-          <h2 className="prefooter-heading">Take the next step toward your goals</h2>
-          <a href="#pricing" className="prefooter-cta" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'prefooter' })}>Get started</a>
+      <section className="rb-prefooter-video">
+        <video
+          className="rb-prefooter-bg"
+          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="rb-prefooter-fade" />
+        <div className="rb-prefooter-content">
+          <img
+            className="rb-prefooter-logo"
+            src={`${import.meta.env.BASE_URL}assets/logos/aibp-light.png`}
+            alt="AI Builder Program"
+          />
+          <h2 className="rb-prefooter-heading">Next cohort starting {NEXT_COHORT_DISPLAY}</h2>
+          <a
+            href="#pricing"
+            className="btn btn-primary btn-lg"
+            onClick={() => posthog.capture('app--enroll_cta_click', { source: 'prefooter' })}
+          >
+            Enroll now
+          </a>
         </div>
       </section>
 
