@@ -132,8 +132,8 @@ body.rb-home .lai-nav .rb-nav-getstarted:hover {
 .lai-cta-beam {
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(30, 30, 30, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
 }
 .lai-cta-beam:hover {
   border-color: rgba(255, 255, 255, 0.3);
@@ -197,13 +197,16 @@ body.rb-home .hero.lai-hero h1 {
   left: 0;
   right: 0;
   z-index: 2;
-  padding-bottom: 16px;
+  padding-bottom: 4px;
 }
 .lai-hero-ticker .logo-ticker {
   margin-top: 0;
 }
 .lai-hero-ticker .logo-ticker-label {
   text-align: center;
+}
+.lai-hero-ticker .logo-ticker-cards {
+  margin-bottom: 12px;
 }
 .lai-hero-ticker .logo-ticker-img {
   opacity: 0.7;
