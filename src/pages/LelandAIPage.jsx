@@ -215,25 +215,14 @@ function ImageRevealSection() {
     : 1 - Math.pow(-2 * progress + 2, 2) / 2
 
   const containerScale = 0.8 + eased * 0.2
-  const videoScale = 1 / containerScale
 
   return (
     <section className="img-reveal-section" ref={sectionRef}>
       <div
         className="img-reveal-container"
-        style={{ transform: `scale(${containerScale})` }}
+        style={{ transform: `scale(${containerScale})`, background: '#5E6E79' }}
       >
-        <video
-          className="img-reveal-bg"
-          src={`${import.meta.env.BASE_URL}assets/videos/coding-1.mp4`}
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{ transform: `scale(${videoScale})` }}
-        />
-        <div className="img-reveal-overlay" />
-        <div className="img-reveal-content">
+        <div className="img-reveal-content lai-reveal-content">
           <h2 className="img-reveal-heading">Most leaders already know becoming AI-native is a top priority.</h2>
           <p className="img-reveal-desc">
             What stops them isn't willingness — it's structure: how to drive adoption, where to start, what infrastructure is needed, how to do it securely. We've cleared those blockers for 250+ teams, and we can do it for yours.

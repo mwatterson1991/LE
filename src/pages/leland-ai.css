@@ -879,3 +879,10 @@ video.photo-card-video {
     padding: 28px 24px;
   }
 }
+
+/* ---------- Image-reveal section override (heading top, desc bottom) ---------- */
+body.rb-home .lai-reveal-content {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}

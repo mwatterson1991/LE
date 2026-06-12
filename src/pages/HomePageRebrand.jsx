@@ -178,7 +178,6 @@ function ReviewCard({ review }) {
   return (
     <div className="tcard tcard-review">
       <div className="review-card-header">
-        <img src={review.avatar} alt={review.name} className="review-card-avatar" />
         <div className="review-card-info">
           <span className="review-card-name">{review.name}</span>
           <span className="review-card-subtitle">{review.subtitle}</span>
@@ -1463,7 +1462,7 @@ function HomePageRebrandInner() {
                 </svg>
               ))}
             </div>
-            <span className="hero-review-text">4.9/5 from 143+ reviews</span>
+            <span className="hero-review-text">4.7/5 from 352 reviews</span>
           </div>
 
           <div className="track-cards-section track-cards-v2" id="courses">
