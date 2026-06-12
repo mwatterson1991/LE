@@ -28,22 +28,28 @@ const OFFERINGS = [
     title: 'Upskill your people',
     desc: 'Teach your team to build with AI: agents and workflows, not just chatbot prompts.',
     link: '/program',
-    linkLabel: 'Learn more →',
+    btnLabel: 'Learn more',
+    btnStyle: 'ghost',
     internal: true,
+    bg: '#222222',
+    light: true,
+    logo: 'AIBP-Logo-Blue.png',
   },
   {
     kicker: 'BUILD',
     title: 'Deploy agentic workflows & infrastructure',
     desc: 'We scope, build, and run the agentic workflows and AI-native infrastructure inside your business.',
     link: CTA_URL,
-    linkLabel: 'Learn more →',
+    btnLabel: 'Get started',
+    bg: '#F3F1E6',
   },
   {
     kicker: 'HIRE',
     title: 'Add AI-native talent',
     desc: 'Bring proven AI-native operators onto your full-time team, sourced and assessed on real builds.',
     link: CTA_URL,
-    linkLabel: 'Learn more →',
+    btnLabel: 'Get started',
+    bg: '#EBD4B5',
   },
 ]
 
@@ -163,6 +169,60 @@ function FaqItem({ item, open, onToggle }) {
   )
 }
 
+function ImageRevealSection() {
+  const sectionRef = useRef(null)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const vh = window.innerHeight
+      const start = vh
+      const end = 0
+      const raw = 1 - (rect.top - end) / (start - end)
+      setProgress(Math.min(1, Math.max(0, raw)))
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const eased = progress < 0.5
+    ? 2 * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 2) / 2
+
+  const containerScale = 0.8 + eased * 0.2
+  const videoScale = 1 / containerScale
+
+  return (
+    <section className="img-reveal-section" ref={sectionRef}>
+      <div
+        className="img-reveal-container"
+        style={{ transform: `scale(${containerScale})` }}
+      >
+        <video
+          className="img-reveal-bg"
+          src={`${import.meta.env.BASE_URL}assets/videos/coding-1.mp4`}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{ transform: `scale(${videoScale})` }}
+        />
+        <div className="img-reveal-overlay" />
+        <div className="img-reveal-content">
+          <h2 className="img-reveal-heading">Most leaders already know becoming AI-native is a top priority.</h2>
+          <p className="img-reveal-desc">
+            What stops them isn't willingness — it's structure: how to drive adoption, where to start, what infrastructure is needed, how to do it securely. We've cleared those blockers for 250+ teams, and we can do it for yours.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function LelandAIPage() {
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
@@ -208,6 +268,12 @@ export default function LelandAIPage() {
                 : <img className="rb-logo-white" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
               }
             </a>
+            <div className="lai-nav-links">
+              <a href="/program" className="lai-nav-link">Builder Program</a>
+              <span className="lai-nav-link">Services</span>
+              <span className="lai-nav-link">Recruiting</span>
+              <span className="lai-nav-link">Our Pledge</span>
+            </div>
           </div>
           <div className="rb-nav-actions">
             <a
@@ -227,7 +293,7 @@ export default function LelandAIPage() {
       <section className="hero lai-hero" id="hero">
         <video
           className="lai-hero-video"
-          src={`${import.meta.env.BASE_URL}assets/videos/coding-1.mp4`}
+          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
           autoPlay
           loop
           muted
@@ -277,14 +343,29 @@ export default function LelandAIPage() {
           </motion.div>
           <div className="lai-offerings-grid">
             {OFFERINGS.map((o) => (
-              <motion.div key={o.title} className="lai-offering-card" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+              <motion.div
+                key={o.title}
+                className={`lai-offering-card${o.light ? ' lai-offering-card--light' : ''}`}
+                style={{ background: o.bg }}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+              >
+                {o.logo && (
+                  <img
+                    src={`${import.meta.env.BASE_URL}assets/logos/${o.logo}`}
+                    alt=""
+                    className="lai-offering-logo"
+                  />
+                )}
                 <span className="lai-offering-kicker">{o.kicker}</span>
                 <h3 className="lai-offering-title">{o.title}</h3>
                 <p className="lai-offering-desc">{o.desc}</p>
                 {o.internal ? (
-                  <a href={o.link} className="lai-offering-link">{o.linkLabel}</a>
+                  <a href={o.link} className={`lai-offering-btn${o.btnStyle === 'ghost' ? ' lai-offering-btn--ghost' : ''}`}>{o.btnLabel}</a>
                 ) : (
-                  <a href={o.link} target="_blank" rel="noopener noreferrer" className="lai-offering-link">{o.linkLabel}</a>
+                  <a href={o.link} target="_blank" rel="noopener noreferrer" className={`lai-offering-btn${o.btnStyle === 'ghost' ? ' lai-offering-btn--ghost' : ''}`}>{o.btnLabel}</a>
                 )}
               </motion.div>
             ))}
@@ -292,27 +373,8 @@ export default function LelandAIPage() {
         </div>
       </section>
 
-      {/* ====== Credibility Band ====== */}
-      <section className="lai-credibility">
-        <video
-          className="lai-credibility-video"
-          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-        <div className="lai-credibility-overlay" />
-        <div className="lai-container">
-          <motion.div className="lai-credibility-inner" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <h2 className="lai-credibility-headline">Most leaders already know becoming AI-native is a top priority.</h2>
-            <div className="lai-credibility-body">
-              <p>What stops them isn't willingness — it's structure: how to drive adoption, where to start, what infrastructure is needed, how to do it securely.</p>
-              <p>We've cleared those blockers for 250+ teams, and we can do it for yours.</p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* ====== Image Reveal ====== */}
+      <ImageRevealSection />
 
       {/* ====== Use Cases ====== */}
       <section className="lai-use-cases">

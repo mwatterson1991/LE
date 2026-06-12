@@ -23,6 +23,29 @@ body.rb-home .rb-nav-scrolled .lai-nav-suffix {
   color: var(--gray-dark);
 }
 
+/* ---------- Nav links ---------- */
+.lai-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-left: 24px;
+}
+.lai-nav-link {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.lai-nav-link:hover {
+  opacity: 0.7;
+}
+body.rb-home .rb-nav-scrolled .lai-nav-link {
+  color: var(--gray-dark);
+}
+
 /* ---------- Nav CTA override ---------- */
 body.rb-home .lai-nav .rb-nav-getstarted {
   background: var(--yellow);
@@ -58,20 +81,21 @@ body.rb-home .lai-nav .rb-nav-getstarted:hover {
   align-items: center;
   justify-content: center;
   padding: 16px 36px;
-  background: var(--yellow);
-  color: var(--gray-dark);
+  background: transparent;
+  color: #ffffff;
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
   border-radius: 999px;
   text-decoration: none;
   letter-spacing: 0;
-  transition: background 0.15s;
+  transition: background 0.15s, border-color 0.15s;
   cursor: pointer;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .lai-cta-primary:hover {
-  background: var(--yellow-hover);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* ---------- Hero (extends .hero from home-rebrand.css) ====== */
@@ -131,7 +155,7 @@ body.rb-home .hero.lai-hero h1 {
   left: 0;
   right: 0;
   z-index: 2;
-  padding-bottom: 36px;
+  padding-bottom: 16px;
 }
 .lai-hero-ticker .logo-ticker {
   margin-top: 0;
@@ -155,18 +179,17 @@ body.rb-home .hero.lai-hero h1 {
   margin-top: 48px;
 }
 .lai-offering-card {
-  background: var(--white);
-  border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 36px 32px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: box-shadow 0.2s, transform 0.2s;
 }
-.lai-offering-card:hover {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+.lai-offering-logo {
+  height: 36px;
+  width: auto;
+  align-self: flex-start;
+  margin-bottom: 4px;
 }
 .lai-offering-kicker {
   font-family: var(--font-body);
@@ -193,18 +216,45 @@ body.rb-home .hero.lai-hero h1 {
   letter-spacing: 0;
   flex: 1;
 }
-.lai-offering-link {
+/* Light variant (white text) */
+.lai-offering-card--light .lai-offering-kicker,
+.lai-offering-card--light .lai-offering-title,
+.lai-offering-card--light .lai-offering-desc {
+  color: #ffffff;
+}
+.lai-offering-card--light .lai-offering-kicker {
+  color: rgba(255, 255, 255, 0.6);
+}
+/* Card button */
+.lai-offering-btn {
+  display: block;
+  width: 100%;
+  padding: 18px 24px;
+  margin-top: 16px;
+  background: var(--gray-dark);
+  color: #ffffff;
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
-  color: var(--gray-dark);
+  text-align: center;
   text-decoration: none;
+  border-radius: 999px;
   letter-spacing: 0;
-  margin-top: 8px;
+  border: 1px solid transparent;
   transition: opacity 0.15s;
 }
-.lai-offering-link:hover {
-  opacity: 0.6;
+.lai-offering-btn:hover {
+  opacity: 0.85;
+}
+.lai-offering-btn--ghost {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.lai-offering-btn--ghost:hover {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* ---------- Credibility Band ====== */
