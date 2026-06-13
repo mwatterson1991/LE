@@ -1025,8 +1025,8 @@ video.photo-card-video {
 
   /* Hero mobile fixes */
   .lai-hero-ctas {
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .lai-cta-yellow,
   .lai-cta-primary {
