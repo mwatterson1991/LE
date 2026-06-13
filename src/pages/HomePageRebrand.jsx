@@ -186,10 +186,49 @@ function TBoardStarRow({ count }) {
   )
 }
 
+const PROGRAM_COLLAPSED_HEIGHT = 280
+
 function ReviewCard({ review }) {
+  const [expanded, setExpanded] = useState(false)
+  const [clamped, setClamped] = useState(false)
+  const [naturalH, setNaturalH] = useState(null)
+  const wrapRef = useRef(null)
+  const innerRef = useRef(null)
+  const text = review.text || ''
+
+  useEffect(() => {
+    const el = innerRef.current
+    if (!el) return
+    const h = el.scrollHeight
+    setNaturalH(h)
+    setClamped(h > PROGRAM_COLLAPSED_HEIGHT + 1)
+  }, [text])
+
+  const handleClick = () => {
+    if (!clamped || expanded) return
+    const wrap = wrapRef.current
+    if (wrap && naturalH) {
+      wrap.style.maxHeight = naturalH + 'px'
+    }
+    setExpanded(true)
+  }
+
   return (
-    <div className="tcard tcard-review">
+    <div
+      className={'tcard tcard-review' + (clamped && !expanded ? ' rv-clamped' : '')}
+      onClick={handleClick}
+      style={clamped && !expanded ? { cursor: 'pointer' } : undefined}
+    >
       <div className="review-card-header">
+        {review.photo_url && (
+          <img
+            className="review-card-avatar"
+            src={review.photo_url}
+            alt=""
+            loading="lazy"
+            onError={e => { const s = e.currentTarget; if (s.src.includes('.jpg')) { s.src = s.src.replace('.jpg', '.png') } else { s.style.display = 'none' } }}
+          />
+        )}
         <div className="review-card-info">
           <span className="review-card-name">{review.name}</span>
           <span className="review-card-subtitle">{review.subtitle}</span>
@@ -198,7 +237,17 @@ function ReviewCard({ review }) {
       <div className="review-card-meta">
         <TBoardStarRow count={review.stars} />
       </div>
-      <p className="review-card-text">&ldquo;{review.text}&rdquo;</p>
+      <div
+        ref={wrapRef}
+        className={'rv-text-wrap' + (!expanded && clamped ? ' rv-text-collapsed' : '')}
+        style={!expanded && clamped ? { maxHeight: PROGRAM_COLLAPSED_HEIGHT + 'px' } : expanded && naturalH ? { maxHeight: naturalH + 'px' } : undefined}
+        onTransitionEnd={() => {
+          if (expanded && wrapRef.current) wrapRef.current.style.maxHeight = 'none'
+        }}
+      >
+        <p ref={innerRef} className="review-card-text">&ldquo;{text}&rdquo;</p>
+      </div>
+      {clamped && !expanded && <div className="rv-text-fade" />}
     </div>
   )
 }
@@ -221,7 +270,7 @@ function TestimonialsBoard() {
     date: '',
     stars: r.rating,
     text: r.review,
-    avatar: `${import.meta.env.BASE_URL}assets/profile-photos/pic-${String((i % 15) + 1).padStart(2, '0')}.png`,
+    photo_url: r.photo_url || null,
   }))
 
   // Distribute into 4 columns: cols 0,2 get 5 cards; cols 1,3 get 4 cards

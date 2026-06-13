@@ -31,7 +31,7 @@ function StarRow() {
   )
 }
 
-const COLLAPSED_HEIGHT = 140  // ~6 lines at 15px/1.55
+const COLLAPSED_HEIGHT = 280  // ~12 lines at 15px/1.55
 
 function ReviewCard({ review }) {
   const [expanded, setExpanded] = useState(false)
@@ -65,16 +65,16 @@ function ReviewCard({ review }) {
       style={clamped && !expanded ? { cursor: 'pointer' } : undefined}
     >
       <div className="review-card-header">
+        {review.photo_url && (
+          <img
+            className="review-card-avatar"
+            src={review.photo_url}
+            alt=""
+            loading="lazy"
+            onError={e => { const s = e.currentTarget; if (s.src.includes('.jpg')) { s.src = s.src.replace('.jpg', '.png') } else { s.style.display = 'none' } }}
+          />
+        )}
         <div className="review-card-info">
-          {review.photo_url && (
-            <img
-              className="review-card-avatar"
-              src={review.photo_url}
-              alt=""
-              loading="lazy"
-              onError={e => { const s = e.currentTarget; if (s.src.includes('.jpg')) { s.src = s.src.replace('.jpg', '.png') } else { s.style.display = 'none' } }}
-            />
-          )}
           <span className="review-card-name">{review.display_name || 'Anonymous'}</span>
           {review.level && (
             <span className="review-card-subtitle">
