@@ -230,7 +230,7 @@
     "submitted_at": "2026-05-22T18:28:00Z"
   },
   {
-    "display_name": "Zach B.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L2",
     "legacy": false,
@@ -240,15 +240,14 @@
     "submitted_at": "2026-05-22T18:27:31Z"
   },
   {
-    "display_name": "Caroline L.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L1",
     "legacy": false,
     "cohort": "L1-may12-26",
     "rating": 5.0,
     "review": "I built a CRM and the n8n workflow sessions was extremely helpful",
-    "submitted_at": "2026-05-22T18:26:24Z",
-    "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocIulNuUXtonFqlRdnMOlZv-P45yElgh4fyuEIem7FD6yVn_zywT4w=s96-c"
+    "submitted_at": "2026-05-22T18:26:24Z"
   },
   {
     "display_name": "Sue R.",
@@ -566,7 +565,7 @@
     "submitted_at": "2026-05-12T05:02:38Z"
   },
   {
-    "display_name": "Valentin K.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L1",
     "legacy": false,
@@ -576,15 +575,14 @@
     "submitted_at": "2026-05-12T03:51:53Z"
   },
   {
-    "display_name": "Randy D.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L2",
     "legacy": false,
     "cohort": "L2-apr21-26",
     "rating": 4.0,
     "review": "Building on Level 1, Level 2 helps you to remove the training wheels of using given prompts and going from using Claude Code (or comparable) for iterative prompts back and forth to building systems that do the thinking and use your logic to answer it's own questions---building intelligent systems. This isn't marginal acceleration gains, they are transformative. I appreciate how this level moved us to develop our own prompts, test, ask, and refine. Definitely moves to the next level!",
-    "submitted_at": "2026-05-12T03:10:52Z",
-    "photo_url": "https://user-assets.joinleland.com/profile-photos/68224eb7b4e7731349c34e09.jpg?fit=crop&crop=faces&h=320&w=320"
+    "submitted_at": "2026-05-12T03:10:52Z"
   },
   {
     "display_name": "Cody D.",
@@ -702,15 +700,14 @@
     "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocKzHYFnIWvAQ1Orgx6z3IyrJW8ZG6bTkXMhO-wRgWsSVrpbKTnc=s96-c"
   },
   {
-    "display_name": "Ming G.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L2",
     "legacy": false,
     "cohort": "L2-apr21-26",
     "rating": 5.0,
     "review": "I built out a few workflows that made my work much easier!",
-    "submitted_at": "2026-05-09T23:22:03Z",
-    "photo_url": "https://user-assets.joinleland.com/profile-photos/68f29fa473eb1cdf90ea0068.jpg?fit=crop&crop=faces&h=320&w=320"
+    "submitted_at": "2026-05-09T23:22:03Z"
   },
   {
     "display_name": "Omoniyi F.",
@@ -766,15 +763,14 @@
     "photo_url": "https://user-assets.joinleland.com/profile-photos/69e79665d5d620e9408fa5c5.jpg?fit=crop&crop=faces&h=320&w=320"
   },
   {
-    "display_name": "Connor M.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L1",
     "legacy": false,
     "cohort": "L1-apr21-26",
     "rating": 5.0,
     "review": "Six sessions in, I have a working AI system built specifically around how Lifetime HOA operates. I built a brand design skill that styles every output automatically, an email manager that drafts replies in my voice, a 20-article knowledge base that keeps Claude current on my team and communities, and a Friday Pain Points Digest that reads thousands of emails across four mailboxes each week, classifies them, and lands a ranked summary of what's breaking before I start my weekend. I'm saving around 15 hours a week. My team can execute without coming to me for everything.",
-    "submitted_at": "2026-05-08T21:28:11Z",
-    "photo_url": "https://user-assets.joinleland.com/profile-photos/69e79665d5d620e9408fa5c5.jpg?fit=crop&crop=faces&h=320&w=320"
+    "submitted_at": "2026-05-08T21:28:11Z"
   },
   {
     "display_name": "Ryan M.",
@@ -787,7 +783,7 @@
     "submitted_at": "2026-05-08T21:23:49Z"
   },
   {
-    "display_name": "Nick H.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L1",
     "legacy": false,
@@ -952,7 +948,7 @@
     "photo_url": "https://user-assets.joinleland.com/profile-photos/69d03fead99fb88da4958c3e.jpg?fit=crop&crop=faces&h=320&w=320"
   },
   {
-    "display_name": "Chris D.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L2",
     "legacy": false,
@@ -1369,7 +1365,7 @@
     "submitted_at": "2026-04-16T03:35:00Z"
   },
   {
-    "display_name": "Hrehan G.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L1",
     "legacy": true,
@@ -1593,8 +1589,7 @@
     "cohort": "L1-LEGACY-mar--26",
     "rating": 2.0,
     "review": "NanoBanana Google Ai Studio\n\nWhat was mentioned before",
-    "submitted_at": "2026-04-01T00:11:31Z",
-    "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocLnktTxjevVCIBdSLasnSoORfMyScW9HbDr_EWBSmNPLF-9qyON=s96-c"
+    "submitted_at": "2026-04-01T00:11:31Z"
   },
   {
     "display_name": "Kareena R.",
@@ -1689,15 +1684,14 @@
     "submitted_at": "2025-12-27T16:15:01Z"
   },
   {
-    "display_name": "Its g.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L1",
     "legacy": true,
     "cohort": "L1-LEGACY-unknown",
     "rating": 4.0,
     "review": "Its given me an ability develop my ideas through AI tools and concepts\n\nall the concepts and tools provided along with support on the office hours",
-    "submitted_at": "2025-12-26T13:46:25Z",
-    "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocIjLiRAxzZyvhvHQ62iTJeBddyx6ihd-LXyMm8qxp39BDjwxGHe=s96-c"
+    "submitted_at": "2025-12-26T13:46:25Z"
   },
   {
     "display_name": "Angela S.",
@@ -1763,15 +1757,14 @@
     "submitted_at": "2025-12-23T03:15:41Z"
   },
   {
-    "display_name": "Muhammad M.",
+    "display_name": "Anonymous",
     "consent_label": null,
     "level": "L1",
     "legacy": true,
     "cohort": "L1-LEGACY-unknown",
     "rating": 4.0,
     "review": "The program has provided me with productive AI concepts and tools to develop my ideas into an automated product\n\nthe tools and the examples from the overall training",
-    "submitted_at": "2025-12-23T02:54:49Z",
-    "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocIjLiRAxzZyvhvHQ62iTJeBddyx6ihd-LXyMm8qxp39BDjwxGHe=s96-c"
+    "submitted_at": "2025-12-23T02:54:49Z"
   },
   {
     "display_name": "Josh B.",
