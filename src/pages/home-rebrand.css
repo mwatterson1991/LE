@@ -161,11 +161,22 @@ body.rb-home .rb-nav-wrapper {
   right: 0;
   z-index: 100;
   margin-bottom: calc(-1 * var(--nav-height, 52px));
-  background: var(--gray-dark, #222222);
+  background: transparent;
   box-shadow: none;
   transition: box-shadow 0.2s, background 0.2s 0.15s;
 }
-body.rb-home .rb-nav-wrapper.rb-nav-light {
+body.rb-home .rb-nav-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gray-dark, #222222);
+  z-index: 1;
+}
+body.rb-home .rb-nav-wrapper.rb-nav-scrolled::before,
+body.rb-home .rb-nav-wrapper.rb-nav-light::before {
   background: var(--white, #FFFFFF);
 }
 body.rb-home .rb-nav-wrapper.rb-nav-scrolled {
