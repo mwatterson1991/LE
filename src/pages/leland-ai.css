@@ -46,6 +46,14 @@ body.rb-home .rb-nav-scrolled .lai-nav-link {
   color: var(--gray-dark);
 }
 
+/* ---------- Nav light mode (white hero backgrounds) ---------- */
+.rb-nav-light .lai-nav-link {
+  color: var(--gray-dark);
+}
+.rb-nav-light .lai-nav-link:hover {
+  opacity: 0.7;
+}
+
 /* ---------- Nav CTA override ---------- */
 body.rb-home .lai-nav .rb-nav-getstarted {
   background: var(--blue, #80ACED);

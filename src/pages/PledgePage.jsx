@@ -108,14 +108,11 @@ export default function PledgePage() {
   return (
     <>
       {/* ===== NAV ===== */}
-      <div className={`rb-nav-wrapper${scrolled ? ' rb-nav-scrolled' : ''}`}>
+      <div className={`rb-nav-wrapper rb-nav-light${scrolled ? ' rb-nav-scrolled' : ''}`}>
         <nav className="rb-nav lai-nav" ref={navRef} role="navigation">
           <div className="rb-nav-lockup">
             <a href="https://www.joinleland.com" className="rb-nav-logo">
-              {scrolled
-                ? <img className="rb-logo-dark" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
-                : <img className="rb-logo-white" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
-              }
+              <img className="rb-logo-dark" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
             </a>
             <div className="lai-nav-links">
               <a href="/program" className="lai-nav-link">Builder Program</a>
