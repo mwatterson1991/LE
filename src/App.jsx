@@ -155,6 +155,15 @@ function ReviewsCarousel() {
             </div>
             <p className="reviews-carousel-quote">&ldquo;{r.review}&rdquo;</p>
             <div className="reviews-carousel-meta">
+              {r.photo_url && (
+                <img
+                  className="reviews-carousel-avatar"
+                  src={r.photo_url}
+                  alt=""
+                  loading="lazy"
+                  onError={e => { const s = e.currentTarget; if (s.src.includes('.jpg')) { s.src = s.src.replace('.jpg', '.png') } else { s.style.display = 'none' } }}
+                />
+              )}
               <span className="reviews-carousel-name">{r.display_name}</span>
               <span className="reviews-carousel-dot">·</span>
               <span className="reviews-carousel-level">{r.level === 'L2' ? 'Level 2' : 'Level 1'}</span>

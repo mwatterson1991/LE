@@ -35,6 +35,15 @@ function ReviewCard({ review }) {
         </button>
       )}
       <div className="rv-card-meta">
+        {review.photo_url && (
+          <img
+            className="rv-card-avatar"
+            src={review.photo_url}
+            alt=""
+            loading="lazy"
+            onError={e => { const s = e.currentTarget; if (s.src.includes('.jpg')) { s.src = s.src.replace('.jpg', '.png') } else { s.style.display = 'none' } }}
+          />
+        )}
         <span className="rv-card-name">{review.display_name || 'Anonymous'}</span>
         {review.level && (
           <>
