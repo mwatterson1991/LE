@@ -926,9 +926,36 @@ video.photo-card-video {
   text-decoration: none;
   margin-top: 24px;
 }
+.lai-mobile-menu-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 16px;
+}
+.lai-mobile-menu-logo {
+  height: 22px;
+  width: auto;
+}
+.lai-mobile-menu-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+.lai-mobile-menu-label {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.35);
+  letter-spacing: 0;
+}
 .lai-mobile-menu-close {
   position: absolute;
-  top: 20px;
+  top: 16px;
   right: 20px;
   width: 40px;
   height: 40px;

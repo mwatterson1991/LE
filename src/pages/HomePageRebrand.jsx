@@ -1194,13 +1194,17 @@ function HomePageRebrandInner() {
   ]
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 200)
-      if (menuOpen) setMenuOpen(false)
-    }
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 200)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onScroll = () => setMenuOpen(false)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [menuOpen])
 
   useEffect(() => {
@@ -1468,6 +1472,11 @@ function HomePageRebrandInner() {
 
       {/* Mobile menu overlay */}
       <div className="lai-mobile-menu">
+        <div className="lai-mobile-menu-header">
+          <img className="lai-mobile-menu-logo" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
+          <span className="lai-mobile-menu-divider" />
+          <span className="lai-mobile-menu-label">For Teams</span>
+        </div>
         <button className="lai-mobile-menu-close" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
         <div className="lai-mobile-menu-links">
           <a href="/" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Leland for Organizations</a>

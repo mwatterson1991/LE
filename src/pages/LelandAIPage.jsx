@@ -356,6 +356,11 @@ export default function LelandAIPage() {
 
       {/* Mobile menu overlay */}
       <div className="lai-mobile-menu">
+        <div className="lai-mobile-menu-header">
+          <img className="lai-mobile-menu-logo" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
+          <span className="lai-mobile-menu-divider" />
+          <span className="lai-mobile-menu-label">For Teams</span>
+        </div>
         <button className="lai-mobile-menu-close" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
         <div className="lai-mobile-menu-links">
           <a href="/program" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Builder Program</a>
