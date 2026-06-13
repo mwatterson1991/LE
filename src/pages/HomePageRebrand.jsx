@@ -1201,6 +1201,17 @@ function HomePageRebrandInner() {
   }, [])
 
   useEffect(() => {
+    let meta = document.querySelector('meta[name="theme-color"]')
+    if (!meta) {
+      meta = document.createElement('meta')
+      meta.name = 'theme-color'
+      document.head.appendChild(meta)
+    }
+    meta.content = scrolled ? '#ffffff' : '#000000'
+    return () => { if (meta.parentNode) meta.content = '#ffffff' }
+  }, [scrolled])
+
+  useEffect(() => {
     if (!menuOpen) return
     const onScroll = () => setMenuOpen(false)
     window.addEventListener('scroll', onScroll, { passive: true })
