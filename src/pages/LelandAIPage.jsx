@@ -291,8 +291,10 @@ export default function LelandAIPage() {
   }, [])
 
   useEffect(() => {
+    const wrapper = navRef.current?.closest('.rb-nav-wrapper')
     const onScroll = () => {
       setScrolled(window.scrollY > 40)
+      if (wrapper) wrapper.classList.toggle('rb-nav-cta-visible', window.scrollY > 300)
       if (menuOpen) setMenuOpen(false)
     }
     window.addEventListener('scroll', onScroll, { passive: true })

@@ -1194,7 +1194,11 @@ function HomePageRebrandInner() {
   ]
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 200)
+    const wrapper = navRef.current?.closest('.rb-nav-wrapper')
+    const onScroll = () => {
+      setScrolled(window.scrollY > 200)
+      if (wrapper) wrapper.classList.toggle('rb-nav-cta-visible', window.scrollY > 500)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)

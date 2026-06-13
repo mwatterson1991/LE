@@ -987,6 +987,19 @@ video.photo-card-video {
     padding: 8px 16px;
     font-size: 14px;
   }
+  /* Hide nav CTA by default, reveal on scroll */
+  body.rb-home .rb-nav-actions {
+    opacity: 0;
+    transform: translateX(16px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  body.rb-home .rb-nav-cta-visible .rb-nav-actions,
+  body.rb-home .rb-nav-light .rb-nav-actions {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
   .lai-nav-hamburger {
     display: flex;
     flex-direction: column;
@@ -999,7 +1012,7 @@ video.photo-card-video {
     border: none;
     cursor: pointer;
     padding: 0;
-    margin-left: 16px;
+    margin-left: 12px;
   }
   .lai-nav-hamburger span {
     display: block;
