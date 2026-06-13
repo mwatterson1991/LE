@@ -4035,6 +4035,7 @@ body.rb-home .rv-masonry .tcard:hover {
   pointer-events: none;
   transition: opacity 0.25s ease;
 }
+.review-card-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 .rv-clamped {
   position: relative;
 }
@@ -4132,6 +4133,7 @@ body.rb-home .rv-masonry .tcard:hover {
   font-size: 13px;
   color: #666;
 }
+.reviews-carousel-avatar { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 .reviews-carousel-name { font-weight: 600; color: #1a1a1a; }
 .reviews-carousel-dot { color: #ccc; }
 .reviews-carousel-level { color: #555; }
