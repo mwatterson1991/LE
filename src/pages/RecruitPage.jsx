@@ -45,6 +45,7 @@ export default function RecruitPage() {
   const [networkCount, setNetworkCount] = useState(getNetworkCount)
   const [openFaq, setOpenFaq] = useState(0)
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef(null)
 
   useEffect(() => {
@@ -58,10 +59,18 @@ export default function RecruitPage() {
   }, [])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40)
+      if (menuOpen) setMenuOpen(false)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [menuOpen])
+
+  useEffect(() => {
+    document.body.classList.toggle('rb-nav-menu-open', menuOpen)
+    return () => document.body.classList.remove('rb-nav-menu-open')
+  }, [menuOpen])
 
   useEffect(() => {
     const nav = navRef.current
@@ -97,9 +106,27 @@ export default function RecruitPage() {
             </div>
           </div>
           <div className="rb-nav-actions">
-            <a href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=nav`} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted">Post a Role</a>
+            <a href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=nav`} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted">
+              <span className="nav-cta-full">Post a Role</span>
+              <span className="nav-cta-short">Post a Role</span>
+            </a>
           </div>
+          <button className="lai-nav-hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+            <span /><span /><span />
+          </button>
         </nav>
+      </div>
+
+      {/* Mobile menu overlay */}
+      <div className="lai-mobile-menu">
+        <button className="lai-mobile-menu-close" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
+        <div className="lai-mobile-menu-links">
+          <a href="/program" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Builder Program</a>
+          <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Services</a>
+          <a href="/recruit" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Recruit</a>
+          <a href="/pledge" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Our Pledge</a>
+        </div>
+        <a href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=mobile_menu`} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-cta" onClick={() => setMenuOpen(false)}>Post a Role</a>
       </div>
 
       <main>
