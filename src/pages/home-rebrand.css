@@ -112,6 +112,7 @@ body.rb-home .hero h1 {
 body.rb-home .rotating-text {
   color: #ffffff;
 }
+.hero-morph-mobile { display: none; }
 
 /* ---------- Buttons: always pills, Macan 500 ---------- */
 body.rb-home .btn {
@@ -2006,11 +2007,17 @@ body.rb-home .footer-col-link:hover {
   body.rb-home .testimonials-heading { font-size: 32px; }
   body.rb-home .testimonials-section { padding-left: 20px; padding-right: 20px; }
   body.rb-home .tboard { grid-template-columns: 1fr; }
-  body.rb-home .hero h1 { font-size: 40px; }
+  body.rb-home .hero h1 { font-size: 46px; }
+  body.rb-home .hero .hero-sub { font-size: 17px; }
+  .hero-morph-desktop { display: none !important; }
+  .hero-morph-mobile { display: inline; }
   body.rb-home .hero { padding: 60px 0; }
   body.rb-home .hero-ctas { flex-wrap: wrap; }
   body.rb-home nav.rb-nav { padding: 12px 16px; }
   body.rb-home .rb-nav-links { display: none !important; }
+  body.rb-home .rb-nav-lockup-divider { display: none; }
+  body.rb-home .rb-nav-aibp-logo { display: none; }
+  body.rb-home .rb-nav-signin { display: none; }
   body.rb-home .prefooter { padding: 56px 20px 0; }
   body.rb-home .prefooter-inner { flex-direction: column; align-items: flex-start; gap: 32px; padding-bottom: 56px; }
   body.rb-home .prefooter-heading { font-size: 36px; }

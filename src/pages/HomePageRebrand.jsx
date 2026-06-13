@@ -7,7 +7,9 @@ import LPPopup from '../components/LPPopup'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CohortPicker from '../components/CohortPicker'
 import { COURSE_COHORTS, courseData } from './courseData'
+import { BorderBeam } from 'border-beam'
 import './home-rebrand.css'
+import './leland-ai.css'
 
 const ENROLL_URL = (() => {
   const cohorts = COURSE_COHORTS[1] || []
@@ -1159,6 +1161,7 @@ function HomePageRebrandInner() {
     }
   }, [])
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef(null)
   const [openFaq, setOpenFaq] = useState(null)
   const [openAccordion, setOpenAccordion] = useState(0)
@@ -1190,11 +1193,19 @@ function HomePageRebrandInner() {
   ]
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 200)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 200)
+      if (menuOpen) setMenuOpen(false)
+    }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [menuOpen])
+
+  useEffect(() => {
+    document.body.classList.toggle('rb-nav-menu-open', menuOpen)
+    return () => document.body.classList.remove('rb-nav-menu-open')
+  }, [menuOpen])
 
   useEffect(() => {
     const nav = navRef.current
@@ -1442,7 +1453,23 @@ function HomePageRebrandInner() {
               Enroll now
             </a>
           </div>
+          <button className="lai-nav-hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+            <span /><span /><span />
+          </button>
         </nav>
+      </div>
+
+      {/* Mobile menu overlay */}
+      <div className="lai-mobile-menu">
+        <button className="lai-mobile-menu-close" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
+        <div className="lai-mobile-menu-links">
+          <a href="/" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Leland for Organizations</a>
+          <a href="/program" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Builder Program</a>
+          <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Services</a>
+          <a href="/recruit" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Recruit</a>
+          <a href="/pledge" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Our Pledge</a>
+        </div>
+        <a href="#pricing" className="lai-mobile-menu-cta" onClick={() => setMenuOpen(false)}>Enroll now</a>
       </div>
 
       {/* ====== 2. Hero ====== */}
@@ -1458,7 +1485,7 @@ function HomePageRebrandInner() {
         <div className="container">
           <Countdown />
 
-          <h1 className="hero-stagger hero-stagger-1">Build with AI to <br className="mobile-br" /><TextMorph className="rotating-text">{heroPhrase}</TextMorph></h1>
+          <h1 className="hero-stagger hero-stagger-1">Build with AI to <br className="mobile-br" /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">10x your impact</span></h1>
 
           <p className="hero-sub hero-stagger hero-stagger-2">Leland's AI Builder Program helps you build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
 
@@ -1470,9 +1497,11 @@ function HomePageRebrandInner() {
             >
               Enroll now
             </a>
-            <a href="#course-accordion" className="btn btn-ghost btn-lg hero-cta-ghost">
-              Explore the levels
-            </a>
+            <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
+              <a href="#course-accordion" className="lai-cta-primary lai-cta-beam">
+                Explore the levels
+              </a>
+            </BorderBeam>
           </div>
 
           <div className="hero-review-row hero-stagger hero-stagger-4">
