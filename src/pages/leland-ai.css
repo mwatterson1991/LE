@@ -869,7 +869,7 @@ video.photo-card-video {
 .lai-nav-hamburger {
   display: none;
 }
-.rb-nav-getstarted .nav-cta-short {
+.nav-cta-short {
   display: none;
 }
 
@@ -981,8 +981,8 @@ video.photo-card-video {
 @media (max-width: 768px) {
   /* Hamburger nav */
   .lai-nav-links { display: none; }
-  .rb-nav-getstarted .nav-cta-full { display: none; }
-  .rb-nav-getstarted .nav-cta-short { display: inline; }
+  .nav-cta-full { display: none; }
+  .nav-cta-short { display: inline; }
   body.rb-home .rb-nav-getstarted {
     padding: 8px 16px;
     font-size: 14px;
