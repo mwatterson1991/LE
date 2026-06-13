@@ -2011,7 +2011,7 @@ body.rb-home .footer-col-link:hover {
   body.rb-home .hero .hero-sub { font-size: 17px; }
   .hero-morph-desktop { display: none !important; }
   .hero-morph-mobile { display: inline; }
-  body.rb-home .hero { padding: 60px 0; }
+  body.rb-home .hero { padding: 60px 0; min-height: 100vh; max-height: none; }
   body.rb-home .hero-ctas { flex-wrap: wrap; }
   body.rb-home nav.rb-nav { padding: 12px 16px; }
   body.rb-home .rb-nav-links { display: none !important; }
@@ -2030,8 +2030,25 @@ body.rb-home .footer-col-link:hover {
   body.rb-home .footer-col { flex: none; width: calc(50% - 16px); }
   body.rb-home .countdown { gap: 10px; }
   body.rb-home .cd-arrow { display: none; }
+  body.rb-home .cd-units { display: none; }
   body.rb-home .cd-info-title { font-size: 14px; }
   body.rb-home .cd-info-date { font-size: 12px; }
+
+  /* Logo ticker — edge to edge */
+  body.rb-home .track-v2-overlap .logo-ticker-cards {
+    margin-left: -20px;
+    margin-right: -20px;
+    width: calc(100% + 40px);
+  }
+
+  /* V3 tier cards — stack on mobile */
+  .v3-tiers { flex-direction: column; }
+  .v3-tier-cards { flex-direction: column; }
+  .v3-tier-eyebrow { font-size: 24px; }
+  .v3-tier-meta { font-size: 13px; }
+  .v3-card-title { font-size: 17px; }
+  .v3-card-footer-wrap { padding: 16px 10px 10px; }
+  body.rb-home .track-v2-overlap { margin-top: -100px; }
   body.rb-home .img-reveal-section { padding: 0 20px; }
   body.rb-home .img-reveal-container { height: 60vh; min-height: 360px; }
   body.rb-home .img-reveal-content { flex-direction: column; align-items: flex-start; gap: 20px; }

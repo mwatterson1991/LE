@@ -1162,6 +1162,7 @@ function HomePageRebrandInner() {
   }, [])
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 768)
   const navRef = useRef(null)
   const [openFaq, setOpenFaq] = useState(null)
   const [openAccordion, setOpenAccordion] = useState(0)
@@ -1206,6 +1207,12 @@ function HomePageRebrandInner() {
     document.body.classList.toggle('rb-nav-menu-open', menuOpen)
     return () => document.body.classList.remove('rb-nav-menu-open')
   }, [menuOpen])
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', onResize, { passive: true })
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   useEffect(() => {
     const nav = navRef.current
@@ -1487,7 +1494,7 @@ function HomePageRebrandInner() {
 
           <h1 className="hero-stagger hero-stagger-1">Build with AI to <br className="mobile-br" /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">10x your impact</span></h1>
 
-          <p className="hero-sub hero-stagger hero-stagger-2">Leland's AI Builder Program helps you build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
+          <p className="hero-sub hero-stagger hero-stagger-2">Build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
 
           <div className="hero-ctas hero-stagger hero-stagger-3">
             <a
@@ -1525,7 +1532,7 @@ function HomePageRebrandInner() {
         <div className="container">
           <div className="logo-ticker logo-ticker-cards">
             <span className="logo-ticker-label">Taught by experts from places like:</span>
-            <Marquee gradient gradientColor="#000000" gradientWidth={48} speed={35}>
+            <Marquee gradient={!isMobile} gradientColor="#000000" gradientWidth={48} speed={35}>
               {[...Array(2)].flatMap((_, round) => [
                 { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
                 { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
