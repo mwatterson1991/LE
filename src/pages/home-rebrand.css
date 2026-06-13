@@ -55,6 +55,7 @@ html.rb-home {
 }
 body.rb-home {
   /* brand tokens */
+  overflow-x: clip;
   --yellow: #FFD667;
   --yellow-hover: #F7CB53;
   --white: #FFFFFF;
@@ -160,9 +161,12 @@ body.rb-home .rb-nav-wrapper {
   right: 0;
   z-index: 100;
   margin-bottom: calc(-1 * var(--nav-height, 52px));
-  background: transparent;
+  background: var(--gray-dark, #222222);
   box-shadow: none;
   transition: box-shadow 0.2s, background 0.2s 0.15s;
+}
+body.rb-home .rb-nav-wrapper.rb-nav-light {
+  background: var(--white, #FFFFFF);
 }
 body.rb-home .rb-nav-wrapper.rb-nav-scrolled {
   background: var(--white, #FFFFFF);
