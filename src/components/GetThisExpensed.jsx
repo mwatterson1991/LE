@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 
 const EXPENSE_TEMPLATES = {
   'Marketing': {
-    subject: 'Sponsorship request — AI training that pays off in faster campaigns',
+    subject: 'Could we expense this? AI training that speeds up our campaigns',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 2-week live cohort course that teaches professionals to build real AI workflows. Here's how it directly applies to our work:
+I'd like to expense the Leland AI Builder Program, a 2-week live cohort program that teaches professionals to build real AI workflows. Here's how it directly applies to our work:
 
 - I'll build a content brief automation that cuts campaign prep from hours to minutes
 - I'll create a research workflow that pulls competitive intel on demand, without any manual searching
 - I'll set up a reusable AI system tuned to our brand voice so every output sounds like us, not a generic chatbot
 
-The course costs $999. Full details: ai.joinleland.com
+The program costs $999. Full details: leland.ai/program
 
 Every session ends with a working deliverable. By week three, I'll have tools that directly reduce the time I spend on repetitive tasks, and I can redirect that time toward higher-leverage work.
 
@@ -20,28 +20,28 @@ Every session ends with a working deliverable. By week three, I'll have tools th
 P.S. A few people from the same team going through this together is one of the most efficient ways to build shared AI practices. Leland offers team pricing. Happy to discuss if there's interest.`,
   },
   'Finance & Accounting': {
-    subject: 'Sponsorship request — AI training to cut reporting time',
+    subject: 'Could we expense this? AI training to cut our reporting time',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 2-week live course for professionals building real AI workflows. Here's what I'll get out of it that applies directly to our team:
+I'd like to expense the Leland AI Builder Program, a 2-week live program for professionals building real AI workflows. Here's what I'll get out of it that applies directly to our team:
 
 - Automate our recurring reporting so it runs without manual input each cycle
 - Build an AI-assisted analysis workflow that cuts time from data to insight
 - Set up a system that turns unstructured data into clean summaries without reformatting everything by hand
 
-Cost is $999. Details: ai.joinleland.com
+Cost is $999. Details: leland.ai/program
 
-I do a lot of this work manually right now. This course builds the tools to do it automatically, not just once, but on a recurring basis. The time savings should pay for the course within the first month.
+I do a lot of this work manually right now. This program builds the tools to do it automatically, not just once, but on a recurring basis. The time savings should pay for the program within the first month.
 
 [Your Name]
 
 P.S. If anyone else on the team would benefit, sending a few people together is the most efficient way to build shared AI workflows. Leland offers team pricing.`,
   },
   'Operations & Supply Chain': {
-    subject: 'Sponsorship request — AI training to automate manual ops tasks',
+    subject: 'Could we expense this? AI training to automate manual ops work',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 2-week live course that builds real AI automations for the work you do every day.
+I'd like to expense the Leland AI Builder Program, a 2-week live program that builds real AI automations for the work you do every day.
 
 A significant part of my week is repetitive, manual, and ripe for automation. Here's what I'll build:
 
@@ -49,7 +49,7 @@ A significant part of my week is repetitive, manual, and ripe for automation. He
 - An AI system to process unstructured inputs (emails, notes, vendor comms) into structured outputs
 - Automated documentation that keeps our processes current without extra overhead
 
-Cost is $999. Full details: ai.joinleland.com
+Cost is $999. Full details: leland.ai/program
 
 Every session ends with a working deliverable. By week three, I'll have tools running in the background that free up hours each week for higher-priority work.
 
@@ -58,7 +58,7 @@ Every session ends with a working deliverable. By week three, I'll have tools ru
 P.S. This training is most effective when a small team goes through it together. You end up building shared workflows. Happy to talk through whether it makes sense to send a few people.`,
   },
   'HR & People': {
-    subject: 'Sponsorship request — AI training to speed up hiring and people workflows',
+    subject: 'Could we expense this? AI training to speed up hiring and people workflows',
     body: `Hey [Manager],
 
 I'd like to expense the Leland AI Builder Program, a 2-week live cohort that teaches professionals to build real AI workflows. Here's the direct application to my work:
@@ -67,19 +67,19 @@ I'd like to expense the Leland AI Builder Program, a 2-week live cohort that tea
 - Create an onboarding automation that sends the right resources to the right people at the right time
 - Set up a template system for documentation, policies, and comms that cuts drafting time dramatically
 
-Cost is $999. Full details: ai.joinleland.com
+Cost is $999. Full details: leland.ai/program
 
-Right now I do most of these tasks manually. This course builds tools that handle the recurring parts automatically, so I can focus on the work that requires a human.
+Right now I do most of these tasks manually. This program builds tools that handle the recurring parts automatically, so I can focus on the work that requires a human.
 
 [Your Name]
 
 P.S. If we're going to build shared AI practices across the team, it helps to have People leading that conversation. Happy to debrief with the group after.`,
   },
   'Strategy & Corporate Development': {
-    subject: 'Sponsorship request — AI course to accelerate research and analysis',
+    subject: 'Could we expense this? AI training to accelerate research and analysis',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 2-week live course that builds real AI skills for knowledge workers. I think the ROI here is direct and fast.
+I'd like to expense the Leland AI Builder Program, a 2-week live program that builds real AI skills for knowledge workers. I think the ROI here is direct and fast.
 
 What I'll build that applies to our work:
 
@@ -87,7 +87,7 @@ What I'll build that applies to our work:
 - A competitive intelligence system that monitors and summarizes relevant signals on demand
 - An AI-assisted drafting workflow for presentations and analysis that cuts production time significantly
 
-Cost is $999. Full details: ai.joinleland.com
+Cost is $999. Full details: leland.ai/program
 
 The analysts and operators who move fastest in the next two years will be the ones who build these tools early. This gets me there in three weeks, with working deliverables by session six.
 
@@ -96,10 +96,10 @@ The analysts and operators who move fastest in the next two years will be the on
 P.S. If anyone else on the team does research-heavy work, sending two or three people together is the most effective way to build shared workflows. Leland offers team pricing.`,
   },
   'Product & Project Management': {
-    subject: 'Sponsorship request — AI course to accelerate product work',
+    subject: 'Could we expense this? AI training to accelerate product work',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 2-week live course that builds real AI skills for knowledge workers.
+I'd like to expense the Leland AI Builder Program, a 2-week live program that builds real AI skills for knowledge workers.
 
 Here's what I'll build that applies directly to my role:
 
@@ -107,19 +107,19 @@ Here's what I'll build that applies directly to my role:
 - A spec-writing system that gets first drafts out faster and in a consistent format
 - An AI assistant tuned to how I write, so status updates, stakeholder comms, and documentation take a fraction of the time
 
-Cost is $999. Full details: ai.joinleland.com
+Cost is $999. Full details: leland.ai/program
 
-Most of my repetitive writing and synthesis work is something AI can handle. This course builds those workflows so they run reliably, not just when I experiment with prompts.
+Most of my repetitive writing and synthesis work is something AI can handle. This program builds those workflows so they run reliably, not just when I experiment with prompts.
 
 [Your Name]
 
 P.S. Going through this with others on the team is a good way to build shared AI practices. Happy to discuss team pricing.`,
   },
   'Other': {
-    subject: 'Sponsorship request — 2-week AI training, clear ROI',
+    subject: 'Could we expense this? A 2-week AI program with clear ROI',
     body: `Hey [Manager],
 
-I'd like to expense the Leland AI Builder Program, a 2-week live cohort course that teaches professionals to build real AI workflows for their day-to-day work.
+I'd like to expense the Leland AI Builder Program, a 2-week live cohort program that teaches professionals to build real AI workflows for their day-to-day work.
 
 Here's why the investment makes sense:
 
@@ -127,9 +127,9 @@ Here's why the investment makes sense:
 - I'll build workflows that reduce manual work across research, drafting, and data handling
 - I'll have a working toolkit of AI systems by week three that I use immediately at work
 
-Cost is $999. Full details: ai.joinleland.com
+Cost is $999. Full details: leland.ai/program
 
-Professionals using AI effectively save an average of 7.5 hours per week. This course gets me there in three weeks with live sessions, a small cohort, and real deliverables each session.
+Professionals using AI effectively save an average of 7.5 hours per week. This program gets me there in three weeks with live sessions, a small cohort, and real deliverables each session.
 
 [Your Name]
 
@@ -158,10 +158,17 @@ export default function GetThisExpensed() {
     <section className="expense-section">
       <div className="container">
         <div className="expense-card">
-          <p className="expense-label">For Professionals</p>
-          <h2 className="expense-heading">Get This Expensed</h2>
-          <p className="expense-subhead">Most companies cover professional development. Here's what to say.</p>
-          <p className="expense-framing">Your manager cares about one thing: will this help the team save time or do better work? Frame your request around that and approval becomes easy.</p>
+          <span className="expense-rail" aria-hidden="true"></span>
+          <p className="expense-eyebrow">
+            <svg className="expense-gem" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M6 5h12l3 5l-8.5 9.5a.7 .7 0 0 1 -1 0l-8.5 -9.5z" />
+              <path d="M10 12l-2 -2.7l.7 -1.3" />
+            </svg>
+            Pro tip
+          </p>
+          <h2 className="expense-heading">Ask your company to expense this.</h2>
+          <p className="expense-subhead">Most companies cover professional development — even without a formal training budget. Pick your function and we'll help you craft the message.</p>
+          <div className="expense-divider" aria-hidden="true"></div>
 
           <select
             className="expense-select"
@@ -189,7 +196,22 @@ export default function GetThisExpensed() {
                   className={`expense-copy-btn${copied ? ' copied' : ''}`}
                   onClick={handleCopy}
                 >
-                  {copied ? 'Copied \u2713' : 'Copy to Clipboard'}
+                  {copied ? (
+                    <>
+                      <svg className="expense-copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      Copied
+                    </>
+                  ) : (
+                    <>
+                      <svg className="expense-copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                      </svg>
+                      Copy to Clipboard
+                    </>
+                  )}
                 </button>
               </div>
             </div>

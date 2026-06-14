@@ -1141,7 +1141,7 @@ nav .btn {
 .value-stack-section-sub {
   font-size: 16px;
   color: var(--text-secondary);
-  margin-bottom: 40px;
+  margin-bottom: 48px;
   text-align: center;
 }
 .value-stack-grid {
@@ -1421,7 +1421,7 @@ nav .btn {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  margin-top: 32px;
+  margin-top: 40px;
   padding: 18px 24px;
   border: 1px solid rgba(165,228,70,0.25);
   border-radius: 8px;
@@ -3372,12 +3372,44 @@ footer a:hover {
   border-top: 1px solid rgba(255,255,255,0.07);
 }
 .expense-card {
+  position: relative;
+  overflow: hidden;
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 12px;
   background: rgba(255,255,255,0.03);
   padding: 48px 40px;
   max-width: 760px;
   margin: 0 auto;
+}
+.expense-rail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--blue, #80ACED);
+}
+.expense-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-meta);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue, #80ACED);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.expense-gem {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.expense-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.10);
+  margin: 22px 0;
 }
 .expense-label {
   font-family: var(--font-meta);
@@ -3451,6 +3483,10 @@ footer a:hover {
   justify-content: flex-end;
 }
 .expense-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background: var(--accent);
   color: #000;
   border: none;
@@ -3461,6 +3497,9 @@ footer a:hover {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
+}
+.expense-copy-icon {
+  flex-shrink: 0;
 }
 .expense-copy-btn:hover { background: var(--accent-hover); }
 .expense-copy-btn.copied { background: rgba(165,228,70,0.25); color: var(--accent); }
@@ -3880,12 +3919,23 @@ footer a:hover {
   color: var(--text-primary);
 }
 .lp-popup-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-meta);
   font-size: 11px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 14px;
+  font-weight: 600;
+  color: #1B3A6B;
+  background: rgba(128, 172, 237, 0.18);
+  padding: 6px 13px;
+  border-radius: 999px;
+  margin: 0 0 16px;
+}
+.lp-popup-highlight {
+  background: linear-gradient(transparent 58%, rgba(255, 214, 103, 0.75) 58%);
+  padding: 0 3px;
 }
 .lp-popup-title {
   font-family: var(--font-body);
@@ -4036,6 +4086,73 @@ body.rb-home .rv-masonry .tcard:hover {
   transition: opacity 0.25s ease;
 }
 .review-card-avatar { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.review-card-avatar-initial { display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 600; font-size: 13px; line-height: 1; text-transform: uppercase; }
+.review-card-hl { font-weight: 600; }
+.rv-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: rv-modal-fade 0.15s ease-out;
+}
+.rv-modal {
+  position: relative;
+  background: #fff;
+  color: var(--gray-dark, #222);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 36px 36px 40px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  animation: rv-modal-pop 0.18s ease-out;
+}
+.rv-modal .review-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.rv-modal .review-card-info { display: flex; flex-direction: column; gap: 3px; }
+.rv-modal .review-card-name { font-size: 18px; font-weight: 600; color: var(--gray-dark, #222); line-height: 1.2; }
+.rv-modal .review-card-subtitle { font-size: 14px; color: #4C4C4C; line-height: 1.2; }
+.rv-modal .review-card-avatar { width: 52px; height: 52px; }
+.rv-modal .review-card-avatar-initial { font-size: 20px; }
+.rv-modal .review-card-meta { margin-bottom: 18px; }
+.rv-modal .review-card-stars svg { width: 18px; height: 18px; }
+.rv-modal-text {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--gray-dark, #222);
+  margin: 0;
+}
+.rv-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--gray-dark, #222);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.rv-modal-close:hover { background: rgba(0, 0, 0, 0.1); }
+@keyframes rv-modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rv-modal-pop { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (max-width: 600px) {
+  .rv-modal-overlay { padding: 16px; }
+  .rv-modal {
+    max-height: 80vh;
+    padding: 28px 22px 30px;
+  }
+  .rv-modal-text { font-size: 17px; }
+}
 .rv-clamped {
   position: relative;
 }

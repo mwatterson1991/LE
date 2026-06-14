@@ -37,16 +37,16 @@ const PHOTO_CARDS = [
     logo: 'aibp-stacked-light.png',
   },
   {
-    title: 'Deploy agentic workflows',
-    description: 'We scope, build, and run the agentic workflows and AI-native infrastructure in your business.',
+    title: 'Deploy custom AI workflows',
+    description: 'Leland scopes, builds, and deploys AI systems and workflows tailored to your business needs.',
     to: '/services',
-    img: 'homepage-cards/learn-ai-full-alt4.png',
+    img: 'homepage-cards/deploy-agentic-workflows.png',
   },
   {
-    title: 'Add AI-native talent',
+    title: 'Recruit AI-native talent',
     description: 'Proven AI-native operators for your team, sourced and vetted on real builds.',
     to: '/recruit',
-    img: 'homepage-cards/build-career-full.png',
+    img: 'homepage-cards/ai-native-talent.png',
   },
 ]
 
@@ -227,7 +227,7 @@ export default function LelandAIPage() {
         <div className="container">
           <motion.div initial="hidden" animate="visible" variants={fadeUp} className="lai-hero-content">
             <h1>Make your organization AI-native</h1>
-            <p className="hero-sub">Bring your people and processes into the AI era.</p>
+            <p className="hero-sub">Bring your team and processes into the modern AI era.</p>
             <div className="lai-hero-ctas">
               <a
                 href={CTA_URL}
