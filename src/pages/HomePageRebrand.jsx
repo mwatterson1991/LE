@@ -6,6 +6,7 @@ import Marquee from 'react-fast-marquee'
 import LPPopup from '../components/LPPopup'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CohortPicker from '../components/CohortPicker'
+import ReviewCard, { orderReviews } from '../components/ReviewCard'
 import { COURSE_COHORTS, courseData } from './courseData'
 import { BorderBeam } from 'border-beam'
 import './home-rebrand.css'
@@ -111,11 +112,11 @@ function Countdown() {
   return (
     <div className="countdown">
       <a
-        href="#course-accordion"
+        href="#level-accordion"
         className="cd-link"
         onClick={(e) => {
           e.preventDefault()
-          const el = document.querySelector('#course-accordion')
+          const el = document.querySelector('#level-accordion')
           if (el) {
             const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60
             const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16
@@ -174,84 +175,6 @@ function FaqItem({ question, answer, index, open, onToggle }) {
   )
 }
 
-function TBoardStarRow({ count }) {
-  return (
-    <div className="review-card-stars">
-      {[...Array(count)].map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 20 20" fill="var(--gray-dark)">
-          <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.27 5.06 16.7 6 11.21l-4-3.9 5.53-.8L10 1.5z" />
-        </svg>
-      ))}
-    </div>
-  )
-}
-
-const PROGRAM_COLLAPSED_HEIGHT = 280
-
-function ReviewCard({ review }) {
-  const [expanded, setExpanded] = useState(false)
-  const [clamped, setClamped] = useState(false)
-  const [naturalH, setNaturalH] = useState(null)
-  const wrapRef = useRef(null)
-  const innerRef = useRef(null)
-  const text = review.text || ''
-
-  useEffect(() => {
-    const el = innerRef.current
-    if (!el) return
-    const h = el.scrollHeight
-    setNaturalH(h)
-    setClamped(h > PROGRAM_COLLAPSED_HEIGHT + 1)
-  }, [text])
-
-  const handleClick = () => {
-    if (!clamped || expanded) return
-    const wrap = wrapRef.current
-    if (wrap && naturalH) {
-      wrap.style.maxHeight = naturalH + 'px'
-    }
-    setExpanded(true)
-  }
-
-  return (
-    <div
-      className={'tcard tcard-review' + (clamped && !expanded ? ' rv-clamped' : '')}
-      onClick={handleClick}
-      style={clamped && !expanded ? { cursor: 'pointer' } : undefined}
-    >
-      <div className="review-card-header">
-        {review.photo_url && (
-          <img
-            className="review-card-avatar"
-            src={review.photo_url}
-            alt=""
-            loading="lazy"
-            onError={e => { const s = e.currentTarget; if (s.src.includes('.jpg')) { s.src = s.src.replace('.jpg', '.png') } else { s.style.display = 'none' } }}
-          />
-        )}
-        <div className="review-card-info">
-          <span className="review-card-name">{review.name}</span>
-          <span className="review-card-subtitle">{review.subtitle}</span>
-        </div>
-      </div>
-      <div className="review-card-meta">
-        <TBoardStarRow count={review.stars} />
-      </div>
-      <div
-        ref={wrapRef}
-        className={'rv-text-wrap' + (!expanded && clamped ? ' rv-text-collapsed' : '')}
-        style={!expanded && clamped ? { maxHeight: PROGRAM_COLLAPSED_HEIGHT + 'px' } : expanded && naturalH ? { maxHeight: naturalH + 'px' } : undefined}
-        onTransitionEnd={() => {
-          if (expanded && wrapRef.current) wrapRef.current.style.maxHeight = 'none'
-        }}
-      >
-        <p ref={innerRef} className="review-card-text">&ldquo;{text}&rdquo;</p>
-      </div>
-      {clamped && !expanded && <div className="rv-text-fade" />}
-    </div>
-  )
-}
-
 function TestimonialsBoard() {
   const [reviews, setReviews] = useState([])
 
@@ -273,9 +196,12 @@ function TestimonialsBoard() {
     photo_url: r.photo_url || null,
   }))
 
+  // Keep anonymous reviews out of the first 8, then sprinkle them in among the rest
+  const ordered = orderReviews(mapped)
+
   // Distribute into 4 columns: cols 0,2 get 5 cards; cols 1,3 get 4 cards
   const columns = [[], [], [], []]
-  mapped.forEach((review, i) => {
+  ordered.forEach((review, i) => {
     columns[i % 4].push(review)
   })
 
@@ -285,9 +211,9 @@ function TestimonialsBoard() {
         <div className="testimonials-header">
           <p className="testimonials-label">
             <span className="testimonials-dot" />
-            Testimonials
+            Verified Reviews
           </p>
-          <h2 className="testimonials-heading">Don&rsquo;t just take our word for it.</h2>
+          <h2 className="testimonials-heading">Here&rsquo;s what people are saying.</h2>
         </div>
 
         <div className="tboard-wrap">
@@ -702,10 +628,38 @@ function AgentNetwork() {
   )
 }
 
+const AGENT_ICONS = {
+  'Weekly metrics digest': 'analytics.svg',
+  'Decision memo drafter': 'session-notes.svg',
+  'Board prep agent': 'digital-products.svg',
+  'Brief-to-assets agent': 'ideation.svg',
+  'Brand voice eval': 'reviews.svg',
+  'Competitive intel agent': 'analytics.svg',
+  'Pre-call research agent': 'profile-page.svg',
+  'Outbound sequencer': 'message.svg',
+  'Pipeline hygiene agent': 'goal-tracking.svg',
+  'Account health monitor': 'analytics.svg',
+  'QBR prep agent': 'session-notes.svg',
+  'Onboarding personalizer': 'scheduling.svg',
+  'Cross-tool data pipeline': 'asset.svg',
+  'Anomaly detector': 'goal-tracking.svg',
+  'SOP keeper': 'session-notes.svg',
+  'Variance detector': 'analytics.svg',
+  'Close-prep agent': 'payments.svg',
+  'Investor update drafter': 'digital-products.svg',
+  'Customer call synthesizer': 'video-calls.svg',
+  'Spec drafter': 'session-notes.svg',
+  'Feedback prioritizer': 'survey.svg',
+  'Candidate screener': 'client-acquisition.svg',
+  'Review synthesizer': 'reviews.svg',
+  'Comp benchmarking agent': 'payments.svg',
+}
+
 function RoleUseCases() {
+  const [activeRole, setActiveRole] = useState(0)
   const roles = [
     {
-      name: 'Leadership',
+      name: 'Executives',
       examples: [
         ['Weekly metrics digest', 'ARR, pipeline, hiring, and product KPIs in one Monday brief'],
         ['Decision memo drafter', 'Turns rough thinking into a polished memo your team can react to'],
@@ -774,30 +728,48 @@ function RoleUseCases() {
     <section className="role-uses-section">
       <div className="container">
         <div className="role-uses-header">
-          <h2 className="role-uses-headline">Whatever your role, you can build an agent team for it</h2>
-          <p className="role-uses-sub">A few examples of what AI Builders ship in their day-to-day work.</p>
+          <h2 className="role-uses-headline">Get hours back, whatever your role is.</h2>
+          <p className="role-uses-sub">Learn to build AI systems tuned to your specific workflows. Select your role below for examples of what AI Builders are doing to transform their day-to-day.</p>
         </div>
-        <div className="role-uses-grid">
-          {roles.map(role => (
-            <div className="role-uses-card" key={role.name}>
-              <h3 className="role-uses-role">{role.name}</h3>
-              <ul className="role-uses-list">
-                {role.examples.map(([name, desc]) => (
-                  <li className="role-uses-item" key={name}>
-                    <span className="role-uses-name">{name}</span>
-                    <span className="role-uses-desc">{desc}</span>
-                  </li>
-                ))}
-              </ul>
+        <div className="role-tabs" role="tablist">
+          {roles.map((role, i) => (
+            <button
+              key={role.name}
+              className={'role-tab' + (i === activeRole ? ' role-tab-active' : '')}
+              onClick={() => setActiveRole(i)}
+              role="tab"
+              aria-selected={i === activeRole}
+            >
+              {role.name}
+            </button>
+          ))}
+        </div>
+        <div className="role-agents" key={activeRole}>
+          {roles[activeRole].examples.map(([name, desc], j) => (
+            <div className="role-agent-card" key={name} style={{ animationDelay: `${j * 0.07}s` }}>
+              <div className="role-agent-illo">
+                <img src={`${import.meta.env.BASE_URL}assets/product-illustrations/${AGENT_ICONS[name] || 'asset.svg'}`} alt="" loading="lazy" />
+              </div>
+              <div className="role-agent-name">{name}</div>
+              <div className="role-agent-desc">{desc}</div>
             </div>
           ))}
+          <div className="role-agent-card role-agent-more">
+            <div className="role-agent-illo" aria-hidden="true">+</div>
+            <div className="role-agent-name">…and whatever you dream up</div>
+            <div className="role-agent-desc">You'll have the skills to build for any workflow that eats your time.</div>
+          </div>
+        </div>
+        <div className="role-uses-capper">
+          <p className="role-uses-capper-text">Each session, you'll build something you can use at work the next day.</p>
+          <p className="role-uses-capper-sub">You'll get the structure and expert support to build for your actual work, not generic exercises.</p>
         </div>
       </div>
     </section>
   )
 }
 
-function ValueStack({ id }) {
+function ValueStack({ id, showIncludes = true, showAdvisor = false, headline = 'Choose your path', sub = 'Three ways to become an AI Builder. Start small or commit to the full journey.' }) {
   const CORE_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)'
   const ADVANCED_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)'
 
@@ -805,13 +777,14 @@ function ValueStack({ id }) {
     {
       key: 'level-1',
       name: 'Level 1',
-      meta: 'The first level for all knowledge workers',
+      sub: 'Level 1',
+      meta: 'Best for anyone just starting out',
       badge: 'À la carte',
       badgeWhite: true,
       crossed: '$2,500 value',
       price: '$999',
       monthly: '$257/mo with payment plan',
-      cta: 'Enroll',
+      cta: 'Start with Level 1',
       enrollUrl: ENROLL_URL,
       utm: 'value-stack-l1',
       buildsHeader: "What you'll build",
@@ -824,21 +797,19 @@ function ValueStack({ id }) {
       stats: [
         ['2 weeks', 'duration'],
         ['8+ hours', 'live online instruction'],
-        ['4', 'shipped builds'],
-        ['1', 'certification'],
       ],
     },
     {
       key: 'core',
       name: 'AI Builder Core',
       sub: 'Levels 1–3',
-      meta: 'The core program for all knowledge workers',
+      meta: 'The essential program for all knowledge workers',
       badge: 'Most Popular',
       featured: true,
       crossed: '$7,500 value',
       price: '$1,999',
       monthly: '$514/mo with payment plan',
-      cta: 'Enroll',
+      cta: 'Enroll now',
       enrollUrl: CORE_URL,
       utm: 'value-stack-core',
       buildsHeader: 'Everything in Level 1, plus:',
@@ -852,21 +823,19 @@ function ValueStack({ id }) {
       stats: [
         ['6 weeks', 'duration'],
         ['24+ hours', 'live online instruction'],
-        ['12', 'shipped builds'],
-        ['3', 'certifications'],
       ],
     },
     {
       key: 'advanced',
       name: 'AI Builder Advanced',
       sub: 'Levels 1–5',
-      meta: 'The program for sophisticated builders',
+      meta: 'For sophisticated builders who want to go all-in',
       badge: 'Best Value',
       badgeWhite: true,
       crossed: '$12,500 value',
       price: '$2,999',
       monthly: '$772/mo with payment plan',
-      cta: 'Enroll',
+      cta: 'Get all 5 levels',
       enrollUrl: ADVANCED_URL,
       utm: 'value-stack-advanced',
       buildsHeader: 'Everything in Core, plus:',
@@ -880,8 +849,6 @@ function ValueStack({ id }) {
       stats: [
         ['10 weeks', 'duration'],
         ['40+ hours', 'live online instruction'],
-        ['20', 'shipped builds'],
-        ['5 + AI Builder', 'designation'],
       ],
     },
   ]
@@ -889,11 +856,11 @@ function ValueStack({ id }) {
   return (
     <section className={`value-stack${id ? '' : ' value-stack-secondary'}`} id={id || undefined}>
       <div className="container">
-        <h2 className="value-stack-section-headline">Choose your path</h2>
-        <p className="value-stack-section-sub">Three ways to become an AI Builder. Start small or commit to the full journey.</p>
+        <h2 className="value-stack-section-headline">{headline}</h2>
+        <p className="value-stack-section-sub">{sub}</p>
         <div className="value-stack-grid">
           {tiers.map(tier => {
-            const learnMoreHref = tier.key === 'level-1' ? '/level-1' : tier.key === 'core' ? '#course-1' : '#course-4'
+            const learnMoreHref = tier.key === 'level-1' ? '#level-1' : tier.key === 'core' ? '#level-1' : '#level-4'
             return (
               <div key={tier.key} className={`value-stack-card${tier.featured ? ' value-stack-card-featured' : ''}`}>
                 {tier.badge && <span className={`value-stack-badge${tier.badgeWhite ? ' value-stack-badge-white' : ''}`}>{tier.badge}</span>}
@@ -953,22 +920,44 @@ function ValueStack({ id }) {
                     {tier.cta}
                   </a>
                   <a href={learnMoreHref} className="value-stack-learn-more">
-                    Learn more
+                    See details
                   </a>
                 </div>
               </div>
             )
           })}
         </div>
+        <a
+          href="#enterprise"
+          className="value-stack-teams-callout"
+          onClick={() => posthog.capture('app--sales_cta_click', { source: 'value-stack-teams' })}
+        >
+          <img src={`${import.meta.env.BASE_URL}assets/icons/modern-building-4.svg`} alt="" className="value-stack-teams-icon" />
+          <span className="value-stack-teams-text">
+            <strong>Buying for a team or enterprise?</strong> Volume pricing, custom use cases, and dedicated support.
+          </span>
+          <span className="value-stack-teams-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        {showAdvisor && (
+        <div className="advisor-card value-stack-advisor">
+          <h2>Still not sure which path is right?</h2>
+          <p>Book a free call with an advisor to find your fit.</p>
+          <a href={`${SALES_URL}?utm_content=advisor-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'advisor' })}>
+            Schedule a call
+            <span className="arrow">&rarr;</span>
+          </a>
+        </div>
+        )}
+        {showIncludes && (
         <div className="value-stack-included">
-          <span className="value-stack-included-eyebrow">Every tier also includes</span>
+          <span className="value-stack-included-eyebrow">Each tier includes&hellip;</span>
           <div className="value-stack-included-grid">
             {[
               ['1-Year Access Guarantee', 'Recordings and live sessions for every AI Builder cohort over the next 12 months.', 'scheduling.svg'],
-              ['Best Course Guarantee', 'Money-back if you find a better AI course anywhere.', 'guarantee.svg'],
+              ['Best Program Guarantee', 'Money-back if you find a better AI program anywhere.', 'guarantee.svg'],
               ['Weekly Build Workshops', 'Optional live workshops with functional experts in marketing, sales, finance, ops, and more.', 'ideation.svg'],
               ['Unlimited Retakes', 'Take any cohort again for a full year, always with the latest curriculum.', 'retake.svg'],
-              ['Private AI Community', 'Daily AI news, peer builds, and live perspectives from current AI Builders.', 'community.svg'],
+              ['Builder Community', 'Join other professionals leveling up their work — trade ideas, get unstuck, and keep each other motivated.', 'community.svg'],
               ['Leland+ Access (3 months)', '5 specialized AI courses and 250+ resources to deepen what you build.', 'digital-products.svg'],
               ['Weekly Office Hours', 'Live Q&A with instructors to unblock your specific builds.', 'office-hours.svg'],
               ['100+ skill.md & Templates', 'Battle-tested files and folder templates that accelerate every build.', 'survey.svg'],
@@ -985,17 +974,7 @@ function ValueStack({ id }) {
             ))}
           </div>
         </div>
-        <a
-          href="#enterprise"
-          className="value-stack-teams-callout"
-          onClick={() => posthog.capture('app--sales_cta_click', { source: 'value-stack-teams' })}
-        >
-          <img src={`${import.meta.env.BASE_URL}assets/icons/modern-building-4.svg`} alt="" className="value-stack-teams-icon" />
-          <span className="value-stack-teams-text">
-            <strong>Buying for a team or enterprise?</strong> Volume pricing, custom use cases, and dedicated support.
-          </span>
-          <span className="value-stack-teams-arrow" aria-hidden="true">&rarr;</span>
-        </a>
+        )}
       </div>
     </section>
   )
@@ -1043,8 +1022,9 @@ function ImageRevealSection() {
           alt=""
           style={{ transform: `scale(${imageScale})` }}
         />
+        <div className="img-reveal-overlay" aria-hidden="true"></div>
         <div className="img-reveal-content">
-          <h2 className="img-reveal-heading">Be the AI expert your team relies on.</h2>
+          <h2 className="img-reveal-heading">Become the AI expert your team relies on.</h2>
           <p className="img-reveal-desc">
             Build skills, agents, and systems your colleagues notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.
           </p>
@@ -1095,6 +1075,7 @@ function SkillsRevealSection() {
           alt=""
           style={{ transform: `scale(${imageScale})` }}
         />
+        <div className="img-reveal-overlay" aria-hidden="true"></div>
         <div className="img-reveal-content">
           <h2 className="img-reveal-heading">Work smarter with reusable skills and workflows</h2>
           <p className="img-reveal-desc">
@@ -1209,6 +1190,43 @@ function HomePageRebrandInner() {
       if (twMeta) twMeta.setAttribute('content', prevTw)
     }
   }, [])
+
+  // Scroll to the #hash section on load (e.g. arriving at /program#pricing from /reviews).
+  // The target is React-rendered, so the browser's native hash jump misses it — we re-align
+  // for ~1s as the long page settles, offsetting for the sticky nav, and bail on user scroll.
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (!id) return
+    let stop = false
+    let count = 0
+    let timer
+    const navHeight = () => {
+      const nav = document.querySelector('.rb-nav-wrapper')
+      return nav ? nav.offsetHeight : 64
+    }
+    const settle = () => {
+      if (stop) return
+      const el = document.getElementById(id)
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - navHeight() - 12
+        window.scrollTo(0, Math.max(0, top))
+      }
+      count += 1
+      if (count < 8) timer = setTimeout(settle, 120)
+    }
+    const detach = () => {
+      window.removeEventListener('wheel', onUser)
+      window.removeEventListener('touchmove', onUser)
+      window.removeEventListener('keydown', onUser)
+    }
+    const onUser = () => { stop = true; clearTimeout(timer); detach() }
+    window.addEventListener('wheel', onUser, { passive: true })
+    window.addEventListener('touchmove', onUser, { passive: true })
+    window.addEventListener('keydown', onUser)
+    timer = setTimeout(settle, 60)
+    return () => { stop = true; clearTimeout(timer); detach() }
+  }, [])
+
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 768)
@@ -1316,7 +1334,7 @@ function HomePageRebrandInner() {
 
   const courses = [
     {
-      id: 'course-1', num: '01', type: 'LIVE COURSE',
+      id: 'level-1', num: '01', type: 'LIVE COURSE',
       title: 'Use AI to 10x Your Impact',
       tagline: "You use AI chatbots to draft, summarize, and ask questions, but you haven't built anything that runs on its own.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
@@ -1343,7 +1361,7 @@ function HomePageRebrandInner() {
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)',
     },
     {
-      id: 'course-2', num: '02', type: 'BOOTCAMP',
+      id: 'level-2', num: '02', type: 'BOOTCAMP',
       title: 'Build Complex Agentic Workflows',
       tagline: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
@@ -1369,7 +1387,7 @@ function HomePageRebrandInner() {
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C6a23213b455a49d4abda3c87)',
     },
     {
-      id: 'course-3', num: '03', type: 'LIVE COURSE',
+      id: 'level-3', num: '03', type: 'LIVE COURSE',
       title: 'Create Autonomous Agents',
       tagline: "You've built multiple AI agents, but they don't run autonomously.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
@@ -1393,7 +1411,7 @@ function HomePageRebrandInner() {
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C6a23265ae0ed35ab57e282b5)',
     },
     {
-      id: 'course-4', num: '04', type: 'BOOTCAMP',
+      id: 'level-4', num: '04', type: 'BOOTCAMP',
       title: 'Build Your Agent Workforce',
       tagline: "You have multiple autonomous agents running, but they don't operate as a unified system.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
@@ -1415,7 +1433,7 @@ function HomePageRebrandInner() {
       enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)',
     },
     {
-      id: 'course-5', num: '05', type: 'LIVE COURSE',
+      id: 'level-5', num: '05', type: 'LIVE COURSE',
       title: 'Design Your AI Orchestration Layer',
       tagline: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
@@ -1496,11 +1514,11 @@ function HomePageRebrandInner() {
   const skillPills = ['Agent building', 'Workflow automation', 'Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Report generation', 'Client communication', 'Go-to-market systems', 'Content creation', 'Financial modeling']
 
   const trackItems = [
-    { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact.", href: '#course-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'June 22, 2026', fillingFast: true, featured: true },
-    { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real tasks end-to-end.', href: '#course-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'July 6, 2026', pastSoldOut: ['June 8'], secondary: true },
-    { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build AI automations that operate as an autonomous system.', href: '#course-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'July 7, 2026', pastSoldOut: ['June 8'] },
-    { num: '04', tier: 'advanced', name: <>Build Your Agent<br/>Workforce</>, tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#course-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'July 28, 2026' },
-    { num: '05', tier: 'advanced', name: <>Design Your AI<br/>Orchestration Layer</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#course-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'September 1, 2026' },
+    { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact.", href: '#level-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'June 22, 2026', fillingFast: true, featured: true },
+    { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real tasks end-to-end.', href: '#level-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'July 6, 2026', pastSoldOut: ['June 8'], secondary: true },
+    { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build AI automations that operate as an autonomous system.', href: '#level-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'July 7, 2026', pastSoldOut: ['June 8'] },
+    { num: '04', tier: 'advanced', name: <>Build Your Agent<br/>Workforce</>, tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#level-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'July 28, 2026' },
+    { num: '05', tier: 'advanced', name: <>Design Your AI<br/>Orchestration Layer</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#level-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'September 1, 2026' },
   ]
 
   return (
@@ -1578,7 +1596,7 @@ function HomePageRebrandInner() {
               Enroll now
             </a>
             <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
-              <a href="#course-accordion" className="lai-cta-primary lai-cta-beam">
+              <a href="#pricing" className="lai-cta-primary lai-cta-beam">
                 Explore the levels
               </a>
             </BorderBeam>
@@ -1632,11 +1650,15 @@ function HomePageRebrandInner() {
                           <span className="v3-tier-eyebrow">{tier.eyebrow}</span>
                           {tier.key === 'core' && <span className="v3-tier-popular">Most Popular</span>}
                         </span>
-                        <span className="v3-tier-meta">{tier.meta} · <span className="v3-tier-purchased">{tier.count} purchased in the last week</span></span>
+                        <span className="v3-tier-meta">
+                          <span className="v3-tier-duration">{tier.meta}</span>
+                          <span className="v3-tier-dot" aria-hidden="true">·</span>
+                          <span className="v3-tier-purchased"><strong>{tier.count}</strong> enrolled in the last week</span>
+                        </span>
                       </div>
                       <div className="v3-tier-cta">
                         <a
-                          href={tier.key === 'core' ? '#course-accordion' : '#course-4'}
+                          href={tier.key === 'core' ? '#level-accordion' : '#level-4'}
                           className="v3-tier-arrow-btn"
                           onClick={(e) => e.stopPropagation()}
                           aria-label="Learn more"
@@ -1733,6 +1755,7 @@ function HomePageRebrandInner() {
               <h2 className="save-time-headline">Build and direct an AI agent team that scales your impact</h2>
               <p className="save-time-sub">Stop doing every task yourself. Build specialized agents that triage your inbox, run research, prep your slides, ship your outreach, and more. All managed by you.</p>
               <p className="save-time-cite">AI Builders who deploy agents across their workflows aren't just saving time. They're <strong>shipping the output of an entire team</strong> from a single laptop.</p>
+              <a href="#pricing" className="btn btn-primary save-time-explore-cta">Explore the levels</a>
             </div>
           </div>
         </div>
@@ -1751,12 +1774,12 @@ function HomePageRebrandInner() {
       <WhyRevealSection toolPills={toolPills} skillPills={skillPills} />
 
       {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
-      <section className="accordion-section" id="course-accordion">
+      <section className="accordion-section" id="level-accordion">
         <div className="container">
           <div className="accordion-section-header accordion-section-header-stacked">
             <div className="accordion-section-header-text">
-              <h2 className="accordion-section-headline">One program, five levels</h2>
-              <p className="accordion-section-sub">Levels 1–3 build the AI foundation every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems. Learn more about the different levels below.</p>
+              <h2 className="accordion-section-headline">One program. Five levels.</h2>
+              <p className="accordion-section-sub">Levels 1–3 build the AI foundation every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems.</p>
             </div>
             <IcebergVisualization />
           </div>
@@ -1769,53 +1792,11 @@ function HomePageRebrandInner() {
         </div>
       </section>
 
-      {/* ====== Bundle callout — own section ====== */}
-      <section className="bundle-section">
-        <div className="container">
-          <h2 className="bundle-section-headline">Bundle the full program and save</h2>
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Core (Levels 1–3)</span>
-                <span style={{ color: 'var(--gray-dark)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>most popular</span>
-              </div>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The full Core program — Levels 1, 2, and 3 — completed in 6 weeks. The right starting point for most builders.</p>
-              <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
-                Get the Core bundle <span className="arrow">&rarr;</span>
-              </a>
-            </div>
-            <div style={{ flex: '1 1 240px', display: 'flex', flexDirection: 'column', gap: 12, padding: '20px 24px', background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 12 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222222" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                <span style={{ fontWeight: 600, fontSize: 15 }}>AI Builder Advanced (Levels 1–5)</span>
-                <span style={{ color: 'var(--gray-dark)', fontSize: 11, fontFamily: 'var(--font-meta)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>best value</span>
-              </div>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>The complete journey — all five levels — for builders who want to ship production AI systems.</p>
-              <a href="https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 'auto' }}>
-                Get the Advanced bundle <span className="arrow">&rarr;</span>
-              </a>
-            </div>
-          </div>
-          <p style={{ marginTop: 16, fontSize: 12, color: 'var(--text-tertiary)', lineHeight: 1.5 }}>After you buy a bundle, we'll send you a form to select the cohort dates and times you want to enroll in.</p>
-          <a
-            href={`${SALES_URL}?utm_content=bundle-callout`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="value-stack-teams-callout"
-            onClick={() => posthog.capture('app--sales_cta_click', { source: 'bundle-callout' })}
-          >
-            <img src={`${import.meta.env.BASE_URL}assets/icons/modern-building-4.svg`} alt="" className="value-stack-teams-icon" />
-            <span className="value-stack-teams-text">
-              <strong>Not sure which bundle is right, or have other questions?</strong>
-            </span>
-            <span className="value-stack-teams-arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </section>
-
       {/* ====== Use Cases by Role ====== */}
       <RoleUseCases />
+
+      {/* ====== Repeat: Choose your path (final CTA) ====== */}
+      <ValueStack showIncludes={false} showAdvisor headline="Take the first step" sub="Pick the path that fits where you are today — you can always adjust levels later if needed." />
 
       {/* ====== VP3 — Work Smarter (img-reveal layout) ====== */}
       <SkillsRevealSection />
@@ -2015,30 +1996,6 @@ function HomePageRebrandInner() {
 
       {/* ====== Get This Expensed ====== */}
       <GetThisExpensed />
-
-      {/* ====== Each-session value prop (moved away from VP3) ====== */}
-      <section className="value-props-section rb-band-gray">
-        <div className="container">
-          <div className="value-prop-text">
-            <h2>Each session, build something you'll use at work the next day</h2>
-            <p>Every session ends with a deliverable you can put to work immediately. From automations to data analysis to personalized skills, you'll save hours every week.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ====== 14. Advisor CTA ====== */}
-      <section className="advisor-section">
-        <div className="container">
-          <div className="advisor-card">
-            <h2>Not sure which course is right for you?</h2>
-            <p>Book a free call with an advisor to find the right fit.</p>
-            <a href={`${SALES_URL}?utm_content=advisor-cta`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'advisor' })}>
-              Schedule a Call
-              <span className="arrow">&rarr;</span>
-            </a>
-          </div>
-        </div>
-      </section>
 
       {/* ====== 15. Enterprise / For Teams ====== */}
       <section className="enterprise" id="enterprise">
