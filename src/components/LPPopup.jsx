@@ -144,9 +144,14 @@ export default function LPPopup() {
         >
           ×
         </button>
-        <p className="lp-popup-eyebrow">Join 25,000+ AI Builders</p>
+        <p className="lp-popup-eyebrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M15 5v2M15 11v2M15 17v2M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V7a2 2 0 0 1 2-2z" />
+          </svg>
+          Join 25,000+ AI Builders
+        </p>
         <h2 id="lp-popup-title" className="lp-popup-title">
-          Win a free seat in the<br />AI Builder Program
+          Win a <span className="lp-popup-highlight">free seat</span> in the<br />AI Builder Program
         </h2>
         <p className="lp-popup-sub">
           Enter the drawing and join 25,000+ AI Builders getting weekly resources, prompts, and other expert tips.
