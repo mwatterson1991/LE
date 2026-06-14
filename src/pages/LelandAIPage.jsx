@@ -331,7 +331,7 @@ export default function LelandAIPage() {
             <span className="lai-feature-label">AI Builder Program</span>
             <h2 className="lai-feature-title">Become an AI builder in 6 to 10 weeks</h2>
             <p className="lai-feature-desc">A live, cohort-based program that turns you and your team into AI builders. New tools, agents, and workflows every week, taught by people who ship with AI every day.</p>
-            <a href="/program" className="lai-cta-primary">Learn more about the AI Builder Program</a>
+            <a href="/program" className="lai-feature-cta">Learn more</a>
           </motion.div>
           <motion.div className="lai-feature-visual" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <div className="lai-tools-card">
@@ -339,7 +339,7 @@ export default function LelandAIPage() {
               <div className="lai-tools-card-overlay">
                 <span className="lai-tools-card-label">Tools you'll master &middot; updated weekly</span>
                 <div className="lai-tools-row">
-                  {['claude-ai', 'cursor', 'n8n', 'gemini', 'anthropic', 'google'].map((t) => (
+                  {['claude-ai', 'cursor-1', 'n8n', 'gemini-ai', 'anthropic', 'google'].map((t) => (
                     <span className="lai-tool-chip" key={t}>
                       <img src={`${import.meta.env.BASE_URL}assets/logos/tools/${t}.png`} alt={t} />
                     </span>
@@ -378,7 +378,7 @@ export default function LelandAIPage() {
             <span className="lai-feature-label">AI Services</span>
             <h2 className="lai-feature-title">Let Leland build and deploy AI inside your organization</h2>
             <p className="lai-feature-desc">We&rsquo;re your velocity bridge to an AI-native operation. Leland scopes, builds, and runs the agentic workflows for you, so you get there faster without rebuilding your team.</p>
-            <a href="/services" className="lai-cta-primary">Explore AI Services</a>
+            <a href="/services" className="lai-feature-cta">Learn more</a>
           </motion.div>
           <motion.div className="lai-feature-visual" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <AgentDiagram />
@@ -393,7 +393,7 @@ export default function LelandAIPage() {
             <span className="lai-feature-label">Recruit</span>
             <h2 className="lai-feature-title">Add AI-native talent to your team</h2>
             <p className="lai-feature-desc">Leland has trained thousands of AI-native operators and builders. When you&rsquo;re ready to hire, we match you with people who already ship with AI from day one.</p>
-            <a href="/recruit" className="lai-cta-primary">Hire AI-native talent</a>
+            <a href="/recruit" className="lai-feature-cta">Learn more</a>
           </motion.div>
           <motion.div className="lai-feature-visual" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <div className="lai-roles-card">

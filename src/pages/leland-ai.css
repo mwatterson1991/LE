@@ -353,13 +353,35 @@ body.rb-home .lai-feature-title {
   width: 46px;
   height: 46px;
   border-radius: 12px;
-  background: #fff;
+  background: rgba(20, 20, 20, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
 }
 .lai-tool-chip img { width: 26px; height: 26px; object-fit: contain; }
+
+/* Soft secondary CTA on white feature sections */
+.lai-feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: #222222;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+.lai-feature-cta::after {
+  content: "\2192";
+  transition: transform 0.15s ease;
+}
+.lai-feature-cta:hover { color: #3F6FB8; }
+.lai-feature-cta:hover::after { transform: translateX(4px); }
 
 /* Agent diagram (Services) */
 .lai-agent-diagram { width: 100%; height: auto; display: block; }
