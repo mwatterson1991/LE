@@ -49,24 +49,6 @@ const FUNCTION_SOLUTIONS = [
   },
 ]
 
-const TESTIMONIALS = [
-  {
-    quote: 'Leland built and deployed an agent team that automated the work of our analysts, freeing them up for higher-value work.',
-    name: 'Partner',
-    role: 'Private equity firm',
-  },
-  {
-    quote: "I'm saving around 15 hours a week. My team can execute without coming to me for everything.",
-    name: 'VP of Operations',
-    role: 'Commercial manufacturer',
-  },
-  {
-    quote: 'My team will go from spending 40 hours to 40 minutes on these reports.',
-    name: 'Controller',
-    role: 'Growth-stage startup',
-  },
-]
-
 const STEPS = [
   { num: '01', title: 'Book a strategy call', desc: 'Tell us about your team and goals. We’ll discuss where AI actually fits.' },
   { num: '02', title: 'Get your AI roadmap', desc: 'We assess your people, workflows, and tools, and give you a clear plan.' },
@@ -96,21 +78,6 @@ const FAQ_ITEMS = [
     a: 'Pricing depends on the scope: training cohorts, custom builds, and hiring all have different models. Book a strategy call and we’ll walk through options that fit your budget and goals.',
   },
 ]
-
-function Stars() {
-  return (
-    <div className="lai-stars" aria-label="5 out of 5 stars">
-      {[0, 1, 2, 3, 4].map((i) => (
-        <svg key={i} viewBox="0 0 20 20" width="16" height="16" aria-hidden="true">
-          <path
-            fill="currentColor"
-            d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.5L10 14.1l-4.94 2.6.94-5.5-4-3.9 5.53-.8z"
-          />
-        </svg>
-      ))}
-    </div>
-  )
-}
 
 export default function ServicesPage() {
   const [showFunctions, setShowFunctions] = useState(false)
@@ -233,27 +200,6 @@ export default function ServicesPage() {
                 Book a strategy call →
               </a>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====== Testimonials ====== */}
-      <section className="lai-testimonials">
-        <div className="lai-container">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <h2 className="lai-section-title">What our clients say</h2>
-          </motion.div>
-          <div className="lai-testimonials-grid">
-            {TESTIMONIALS.map((t, i) => (
-              <motion.div key={i} className="lai-testimonial-card" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-                <Stars />
-                <p className="lai-testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
-                <div className="lai-testimonial-author">
-                  <span className="lai-testimonial-name">{t.name}</span>
-                  <span className="lai-testimonial-role">{t.role}</span>
-                </div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

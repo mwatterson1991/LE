@@ -173,6 +173,16 @@ export default function PledgePage() {
             <h2 className="plg-section-title">We exist to unlock <em>human</em> potential.</h2>
             <p className="plg-section-sub">The world has already changed. AI is not coming, it&rsquo;s here. We refuse to let real people be left behind.</p>
 
+            <div className="plg-video">
+              <iframe
+                src="https://www.youtube.com/embed/-bUFycZGWQg"
+                title="Leland launch video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+
             <div className="plg-manifesto-grid">
               <div>
                 <p>AI is rewriting the economy in real time. Entire industries are being restructured. Job descriptions that existed six months ago are disappearing. New ones are being invented every week.</p>
