@@ -1,0 +1,26 @@
+/* /program-only styles. Owned solely by HomePageRebrand.jsx.
+   Do not move these into the shared home-rebrand.css / leland-ai.css. */
+
+/* "For Teams" link in the nav lockup, next to the Builder Program logo */
+body.rb-home .prog-nav-forteams {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 16px;
+  color: var(--white, #FFFFFF);
+  text-decoration: none;
+  white-space: nowrap;
+}
+body.rb-home .prog-nav-forteams:hover {
+  opacity: 0.8;
+}
+body.rb-home .rb-nav-scrolled .prog-nav-forteams {
+  color: var(--gray-dark, #222222);
+}
+
+/* On narrow screens the lockup divider / aibp logo hide; keep "For Teams"
+   visible but tightened up so it still reads next to the logo. */
+@media (max-width: 768px) {
+  body.rb-home .prog-nav-forteams {
+    font-size: 14px;
+  }
+}

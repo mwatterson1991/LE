@@ -11,6 +11,7 @@ import { COURSE_COHORTS, courseData } from './courseData'
 import { BorderBeam } from 'border-beam'
 import './home-rebrand.css'
 import './leland-ai.css'
+import './program.css'
 
 const ENROLL_URL = (() => {
   const cohorts = COURSE_COHORTS[1] || []
@@ -124,12 +125,6 @@ function Countdown() {
           }
         }}
       >
-        {cohortDate && (
-          <div className="cd-cal">
-            <span className="cd-cal-month">{cohortDate.month}</span>
-            <span className="cd-cal-day">{cohortDate.day}</span>
-          </div>
-        )}
         <div className="cd-info">
           <span className="cd-info-title">Next cohort</span>
           <span className="cd-info-date">Starts {cohortDate?.display}</span>
@@ -1541,6 +1536,13 @@ function HomePageRebrandInner() {
             />
           </div>
           <div className="rb-nav-actions">
+            <a
+              href="/program-for-teams"
+              className="prog-nav-forteams"
+              onClick={() => posthog.capture('app--for_teams_click', { source: 'nav' })}
+            >
+              For teams
+            </a>
             <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
             <a href="#pricing" className="rb-nav-getstarted" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
               Enroll now
@@ -1563,6 +1565,7 @@ function HomePageRebrandInner() {
         <div className="lai-mobile-menu-links">
           <a href="/" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Leland for Organizations</a>
           <a href="/program" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Builder Program</a>
+          <a href="/program-for-teams" className="lai-mobile-menu-link" onClick={() => { setMenuOpen(false); posthog.capture('app--for_teams_click', { source: 'mobile-menu' }) }}>For teams</a>
           <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Services</a>
           <a href="/recruit" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Recruit</a>
           <a href="/pledge" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Our Pledge</a>
@@ -1610,7 +1613,7 @@ function HomePageRebrandInner() {
                 </svg>
               ))}
             </div>
-            <span className="hero-review-text">4.7/5 from 352 reviews</span>
+            <span className="hero-review-text">4.8/5 from 352 reviews</span>
           </div>
 
           <div className="track-cards-section track-cards-v2" id="courses">
