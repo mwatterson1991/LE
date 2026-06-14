@@ -1,0 +1,5 @@
+/* ===== /services page · svc- prefix =====
+   Services-only styles live here so this session never has to append to the
+   shared leland-ai.css (imported by every page). Use the `svc-` prefix for all
+   NEW Services components. Do not redefine `lai-`, `rb-`, `rcr-`, or `plg-`
+   classes in this file. See SESSION-COORDINATION.md. */

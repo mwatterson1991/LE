@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import Faq from '../components/Faq'
 import './home-rebrand.css'
 import './leland-ai.css'
+import './services.css'
 
 const CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
 
