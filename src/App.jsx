@@ -11,6 +11,7 @@ import HomePageRebrand from './pages/HomePageRebrand'
 import PledgePage from './pages/PledgePage'
 import RecruitPage from './pages/RecruitPage'
 import LelandAIPage from './pages/LelandAIPage'
+import ServicesPage from './pages/ServicesPage'
 import LPPopup from './components/LPPopup'
 import GetThisExpensed from './components/GetThisExpensed'
 import CohortPicker from './components/CohortPicker'
@@ -1721,6 +1722,7 @@ function App() {
     const pageNames = {
       '/teams': 'Teams',
       '/syllabus': 'Syllabus',
+      '/services': 'Services',
     }
     const levelMatch = path.match(/\/level-(\d+)/)
     const pageName = levelMatch
@@ -1747,6 +1749,9 @@ function App() {
   }
   if (path.startsWith('/recruit')) {
     return <RecruitPage />
+  }
+  if (path.startsWith('/services')) {
+    return <ServicesPage />
   }
   const match = path.match(/\/level-(\d+)/)
   if (match) {

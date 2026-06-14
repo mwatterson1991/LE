@@ -1,53 +1,38 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
+import Nav from '../components/Nav'
+import Footer from '../components/Footer'
+import Faq from '../components/Faq'
 import './home-rebrand.css'
 import './leland-ai.css'
 import './recruit.css'
 
-const LELAND_ICON_WHITE = (
-  <svg width="828" height="837" viewBox="0 0 828 837" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M416.453 623C525.88 623 624.257 667.51 692.244 738.336L602.778 827.49C590.719 839.506 571.181 838.906 557.874 828.289C520.213 798.241 470.696 780 416.453 780C362.171 780 312.622 798.266 274.95 828.351C261.624 838.995 242.04 839.587 229.98 827.528L140.724 738.271C208.709 667.484 307.059 623 416.453 623Z" fill="white"/>
-    <path d="M221.116 448.049C282.094 427.309 347.87 416 416.453 416C572.955 416 714.84 474.876 818.452 570.369C830.536 581.506 830.363 600.376 818.736 611.99L729.44 701.183C651.686 621.758 540.243 572 416.453 572C292.889 572 181.628 621.575 103.893 700.746C90.5937 687.385 35.5412 631.9 8.71961 604.874C-0.163122 595.923 -2.50178 582.393 2.82555 570.964L258.185 23.1016C264.753 9.00953 278.892 0.000102792 294.44 0H429.953L221.116 448.049Z" fill="white"/>
-    <path d="M600.871 0C622.813 0 637.332 22.7856 628.062 42.6738L472.944 375.472C454.013 373.838 434.837 373 415.453 373C379.199 373 343.671 375.922 309.122 381.527L486.953 0H600.871Z" fill="white"/>
-  </svg>
-)
-
 const TYPEFORM_BASE = 'https://joinleland.typeform.com/to/e8vrfV80'
 
-const START_COUNT = 1324
-const START_TIME = Date.UTC(2026, 4, 13, 16, 0, 0) // May 13, 2026 4pm UTC
-const MS_PER_HOUR = 3600000
-
-function getNetworkCount() {
-  const hoursElapsed = Math.floor((Date.now() - START_TIME) / MS_PER_HOUR)
-  if (hoursElapsed <= 0) return START_COUNT
-  let total = START_COUNT
-  for (let i = 0; i < hoursElapsed; i++) {
-    const seed = ((i + 1) * 2654435761) >>> 0
-    total += (seed % 3) + 1
-  }
-  return total
-}
-
 const FAQ_DATA = [
-  { q: 'When do I actually pay?', a: 'You pay the placement fee when a candidate from our shortlist accepts your offer and signs an employment agreement. Net 30 from start date. Nothing is due upfront, and nothing is due if you don\u2019t hire anyone.' },
-  { q: 'What counts as a \u201chire\u201d?', a: 'Any candidate we introduced to you who accepts a full-time, part-time, or intern role at your company within 12 months of the introduction. If they end up in a different role than the one you posted, it still counts.' },
-  { q: 'How fast will I see candidates?', a: 'Most roles get a shortlist of 3 to 5 candidates within 3 business days. Niche or very senior roles may take a week or two. We\u2019ll set expectations within 24 hours of you posting the role.' },
-  { q: 'What if I hire two people from the same shortlist?', a: 'You pay the placement fee per hire. Two hires from one shortlist means two placement fees. We\u2019ll send as many qualified candidates as we have for the role at no extra cost.' },
+  { q: 'How does it work?', a: 'Set up a call with our team. We learn who you need and what success looks like, figure out who would be the right fit from our network, and introduce you to candidates who match. You only pay if you hire one.' },
+  { q: 'When do I actually pay?', a: 'You pay the placement fee when a candidate we introduced accepts your offer and signs an employment agreement. Net 30 from start date. Nothing is due upfront, and nothing is due if you don\u2019t hire anyone.' },
+  { q: 'What counts as a \u201chire\u201d?', a: 'Any candidate we introduced to you who accepts a full-time, part-time, or intern role at your company within 12 months of the introduction. If they end up in a different role than the one you came to us for, it still counts.' },
   { q: 'What roles work best?', a: 'Roles where AI fluency is a real lever: ops, growth, marketing, finance, product, design, and engineering. Anywhere \u201cdoing more with less\u201d is the goal. We work across senior IC and manager levels.' },
-  { q: 'Are these candidates exclusive to Leland?', a: 'No. Candidates can apply elsewhere on their own. But the introduction, vetting, and references through us are exclusive. You only pay the placement fee if you hire someone we introduced you to.' },
   { q: 'Do you handle visas or international hires?', a: 'Yes, but we flag visa or location constraints upfront so you don\u2019t waste time. Most candidates are US-based and remote-friendly. We can source globally for fully remote roles.' },
   { q: 'What if the hire doesn\u2019t work out?', a: 'We\u2019ll work with you to find a replacement candidate from our network. Talk to us if it happens. We\u2019re invested in long-term relationships, not one-off placements.' },
-  { q: 'Do you support equity-only or no-base-salary roles?', a: 'We focus on roles with market-rate base compensation. If you have an unusual structure, post the role and we\u2019ll let you know whether we can find a fit.' },
-  { q: 'Can I see candidate profiles before paying anything?', a: 'Yes. You see full bios, build portfolios, and references before you ever interview, and nothing is due unless you hire someone.' },
+]
+
+const BREADTH = [
+  {
+    label: 'Industries',
+    items: ['SaaS & tech', 'Financial services', 'Healthcare', 'Manufacturing', 'Professional services', 'E-commerce & retail', 'Media & marketing', 'Nonprofits'],
+  },
+  {
+    label: 'Experience levels',
+    items: ['Interns', 'Early career', 'Senior ICs', 'Managers', 'Directors', 'Fractional & advisory'],
+  },
+  {
+    label: 'Roles',
+    items: ['Operations', 'Growth & marketing', 'Sales & RevOps', 'Finance & accounting', 'Product', 'Design', 'Engineering', 'Data & analytics', 'Customer success'],
+  },
 ]
 
 export default function RecruitPage() {
-  const [networkCount, setNetworkCount] = useState(getNetworkCount)
-  const [openFaq, setOpenFaq] = useState(0)
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const navRef = useRef(null)
-
   useEffect(() => {
     document.title = 'Hire AI-Native Talent | Leland'
     document.documentElement.classList.add('rb-home')
@@ -58,97 +43,19 @@ export default function RecruitPage() {
     }
   }, [])
 
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 40)
-      if (menuOpen) setMenuOpen(false)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [menuOpen])
-
-  useEffect(() => {
-    document.body.classList.toggle('rb-nav-menu-open', menuOpen)
-    return () => document.body.classList.remove('rb-nav-menu-open')
-  }, [menuOpen])
-
-  useEffect(() => {
-    const nav = navRef.current
-    if (!nav) return
-    const wrapper = nav.closest('.rb-nav-wrapper')
-    if (!wrapper) return
-    const measure = () => { wrapper.style.setProperty('--nav-height', `${nav.offsetHeight}px`) }
-    measure()
-    window.addEventListener('resize', measure, { passive: true })
-    return () => window.removeEventListener('resize', measure)
-  }, [])
-
-  // Re-render network counter every 60s
-  useEffect(() => {
-    const interval = setInterval(() => setNetworkCount(getNetworkCount()), 60000)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <>
-      {/* ===== NAV ===== */}
-      <div className={`rb-nav-wrapper rb-nav-light${scrolled ? ' rb-nav-scrolled' : ''}`}>
-        <nav className="rb-nav lai-nav" ref={navRef} role="navigation">
-          <div className="rb-nav-lockup">
-            <a href="https://www.joinleland.com" className="rb-nav-logo">
-              <img className="rb-logo-dark" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
-            </a>
-            <div className="lai-nav-links">
-              <a href="/program" className="lai-nav-link">Builder Program</a>
-              <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="lai-nav-link">Services</a>
-              <a href="/recruit" className="lai-nav-link">Recruit</a>
-              <a href="/pledge" className="lai-nav-link">Our Pledge</a>
-            </div>
-          </div>
-          <div className="rb-nav-actions">
-            <a href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=nav`} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted">
-              <span className="nav-cta-full">Post a Role</span>
-              <span className="nav-cta-short">Post a Role</span>
-            </a>
-          </div>
-          <button className="lai-nav-hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
-            <span /><span /><span />
-          </button>
-        </nav>
-      </div>
-
-      {/* Mobile menu overlay */}
-      <div className="lai-mobile-menu">
-        <div className="lai-mobile-menu-header">
-          <img className="lai-mobile-menu-logo" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
-          <span className="lai-mobile-menu-divider" />
-          <span className="lai-mobile-menu-label">For Teams</span>
-        </div>
-        <button className="lai-mobile-menu-close" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
-        <div className="lai-mobile-menu-links">
-          <a href="/program" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Builder Program</a>
-          <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Services</a>
-          <a href="/recruit" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Recruit</a>
-          <a href="/pledge" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Our Pledge</a>
-        </div>
-        <a href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=mobile_menu`} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-cta" onClick={() => setMenuOpen(false)}>Post a Role</a>
-      </div>
+      <Nav variant="light" />
 
       <main>
         {/* ===== HERO ===== */}
         <section className="rcr-hero">
           <div className="rcr-hero-inner">
-            <span className="rcr-hero-eyebrow">Hire AI-Native Talent</span>
             <h1>Hire AI-native builders <span className="rcr-accent">and watch your company transform.</span></h1>
-            <p className="rcr-lead">There&rsquo;s a network of thousands of AI-native operators we&rsquo;ve trained and vetted. The only way to hire one is to post a role.</p>
+            <p className="rcr-lead">There&rsquo;s a network of thousands of AI-native operators we&rsquo;ve trained and vetted. Tell us who you need and we&rsquo;ll introduce you to the ones who fit.</p>
             <div className="rcr-hero-cta">
-              <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=hero`} target="_blank" rel="noopener noreferrer">Just get started</a>
+              <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=hero`} target="_blank" rel="noopener noreferrer">Get started</a>
               <a className="rcr-btn rcr-btn-secondary" href="#how">How it works</a>
-            </div>
-            <div className="rcr-counter" aria-label="Live network counter">
-              <span className="rcr-dot" aria-hidden="true" />
-              <span className="rcr-num">{networkCount.toLocaleString('en-US')}</span>
-              <span className="rcr-label"><b>AI-native operators</b> in Leland&rsquo;s network</span>
             </div>
           </div>
         </section>
@@ -158,13 +65,13 @@ export default function RecruitPage() {
           <div className="rcr-section-container">
             <span className="rcr-eyebrow">How it works</span>
             <h2 className="rcr-section-title">Three steps. No risk until they&rsquo;re hired.</h2>
-            <p className="rcr-section-sub">Post a role, get a shortlist, only pay if someone accepts.</p>
+            <p className="rcr-section-sub">Set up a call, get a shortlist, only pay if someone accepts.</p>
             <div className="rcr-steps">
               <div className="rcr-step">
                 <div className="rcr-step-num">Step 01</div>
-                <h3>Post your role</h3>
-                <p>Tell us what you&rsquo;re hiring for, what success looks like, and what AI workflows you want the hire to bring. Takes about 3 minutes.</p>
-                <span className="rcr-pill">3 min form</span>
+                <h3>Tell us who you need</h3>
+                <p>Set up a quick call. Tell us what you&rsquo;re hiring for, what success looks like, and what AI workflows you want the hire to bring.</p>
+                <span className="rcr-pill">Quick intro call</span>
               </div>
               <div className="rcr-step">
                 <div className="rcr-step-num">Step 02</div>
@@ -175,7 +82,7 @@ export default function RecruitPage() {
               <div className="rcr-step">
                 <div className="rcr-step-num">Step 03</div>
                 <h3>Pay only when you hire</h3>
-                <p>Interview, decide, and extend an offer on your timeline. Pay $10,000 per full-time hire or $5,000 per intern. Nothing if you don&rsquo;t hire.</p>
+                <p>Interview, decide, and extend an offer on your timeline. Pay 10% of first-year salary per full-time hire, or $5,000 per intern. Nothing if you don&rsquo;t hire.</p>
                 <span className="rcr-pill">$0 due upfront</span>
               </div>
             </div>
@@ -188,7 +95,7 @@ export default function RecruitPage() {
             <div className="rcr-stats">
               <div className="rcr-stat"><div className="rcr-stat-num">1,500+</div><div className="rcr-stat-label">AI-native operators &amp; engineers</div></div>
               <div className="rcr-stat"><div className="rcr-stat-num">12+</div><div className="rcr-stat-label">Avg agents &amp; automations per candidate</div></div>
-              <div className="rcr-stat"><div className="rcr-stat-num">3 days</div><div className="rcr-stat-label">From posted role to first intros</div></div>
+              <div className="rcr-stat"><div className="rcr-stat-num">3 days</div><div className="rcr-stat-label">From first call to first intros</div></div>
               <div className="rcr-stat"><div className="rcr-stat-num">$0</div><div className="rcr-stat-label">Due unless you actually hire</div></div>
             </div>
           </div>
@@ -227,65 +134,12 @@ export default function RecruitPage() {
           </div>
         </section>
 
-        {/* ===== WHO YOU'LL MEET ===== */}
-        <section className="rcr-section rcr-talent">
-          <div className="rcr-section-container">
-            <span className="rcr-eyebrow">Who you&rsquo;ll meet</span>
-            <h2 className="rcr-section-title">A sample of who&rsquo;s in the pool right now.</h2>
-            <p className="rcr-section-sub">Anonymized profiles. We send full bios, portfolios, and references once we understand the role.</p>
-            <div className="rcr-candidates">
-              <div className="rcr-cc">
-                <div className="rcr-cc-id">Candidate #142 <span className="rcr-cc-tag">Full-time</span></div>
-                <h3 className="rcr-cc-role">Operations Builder</h3>
-                <div className="rcr-cc-loc">SF &middot; Remote-friendly &middot; Open now</div>
-                <div className="rcr-cc-builds"><b>14 shipped builds.</b> Saved last team ~12 hrs/week with a 6-step automation. Ran AI ops at a Series A SaaS company.</div>
-                <div className="rcr-cc-tools"><span>Claude</span><span>n8n</span><span>Cursor</span><span>Airtable</span><span>Notion</span></div>
-              </div>
-              <div className="rcr-cc">
-                <div className="rcr-cc-id">Candidate #098 <span className="rcr-cc-tag">Full-time</span></div>
-                <h3 className="rcr-cc-role">GTM Engineer</h3>
-                <div className="rcr-cc-loc">NYC &middot; Hybrid &middot; Available in 4 weeks</div>
-                <div className="rcr-cc-builds">Shipped a <b>lead-scoring agent</b> that 3x&rsquo;d reply rate. Built outbound automations for 3 startups. Background in SDR + growth eng.</div>
-                <div className="rcr-cc-tools"><span>Claude</span><span>Cursor</span><span>Apollo</span><span>Clay</span><span>HubSpot</span></div>
-              </div>
-              <div className="rcr-cc">
-                <div className="rcr-cc-id">Candidate #211 <span className="rcr-cc-tag">Full-time</span></div>
-                <h3 className="rcr-cc-role">AI-Native Engineer</h3>
-                <div className="rcr-cc-loc">Austin &middot; Remote &middot; Open now</div>
-                <div className="rcr-cc-builds">Shipped <b>2 production agents</b> at last role. Codes 80% in Cursor + Claude Code. 5 years full-stack, last 18 months AI-focused.</div>
-                <div className="rcr-cc-tools"><span>Claude Code</span><span>Cursor</span><span>TypeScript</span><span>Python</span><span>LangGraph</span></div>
-              </div>
-              <div className="rcr-cc">
-                <div className="rcr-cc-id">Candidate #176 <span className="rcr-cc-tag">Full-time</span></div>
-                <h3 className="rcr-cc-role">Marketing Builder</h3>
-                <div className="rcr-cc-loc">Remote &middot; Open now</div>
-                <div className="rcr-cc-builds">Automated <b>full content pipeline</b> (research, draft, publish). Built a brand-voice agent used across 4 channels. Last role: B2B SaaS senior marketer.</div>
-                <div className="rcr-cc-tools"><span>Claude</span><span>Perplexity</span><span>n8n</span><span>Notion</span><span>Figma</span></div>
-              </div>
-              <div className="rcr-cc">
-                <div className="rcr-cc-id">Candidate #233 <span className="rcr-cc-tag rcr-intern">Intern</span></div>
-                <h3 className="rcr-cc-role">Operations Intern</h3>
-                <div className="rcr-cc-loc">Remote &middot; Summer + Fall</div>
-                <div className="rcr-cc-builds">Completed <b>AIBP Levels 1 to 3</b> in 12 weeks. Shipped 8 builds during the program. Strong portfolio of automations.</div>
-                <div className="rcr-cc-tools"><span>Claude</span><span>n8n</span><span>ChatGPT</span><span>Airtable</span></div>
-              </div>
-              <div className="rcr-cc">
-                <div className="rcr-cc-id">Candidate #189 <span className="rcr-cc-tag rcr-intern">Intern</span></div>
-                <h3 className="rcr-cc-role">Engineering Intern</h3>
-                <div className="rcr-cc-loc">Boston &middot; Hybrid &middot; Summer</div>
-                <div className="rcr-cc-builds">CS junior. <b>AIBP Level 1 to 4 graduate.</b> Built a multi-agent research system as capstone. Ships daily in Claude Code + Cursor.</div>
-                <div className="rcr-cc-tools"><span>Claude Code</span><span>Cursor</span><span>Python</span><span>TypeScript</span></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ===== PRICING ===== */}
         <section className="rcr-section rcr-pricing-section" id="pricing">
           <div className="rcr-section-container">
             <span className="rcr-eyebrow">Pricing</span>
             <h2 className="rcr-section-title">Simple, success-based pricing.</h2>
-            <p className="rcr-section-sub">No retainers. No sourcing fees. No monthly minimums. You pay one flat fee when a candidate accepts your offer.</p>
+            <p className="rcr-section-sub">No retainers. No sourcing fees. No monthly minimums. You pay one fee when a candidate accepts your offer.</p>
             <div className="rcr-pricing">
               <div className="rcr-pcard">
                 <div className="rcr-pname">Intern</div>
@@ -299,22 +153,22 @@ export default function RecruitPage() {
                   <li>Summer, fall, and part-time availability</li>
                   <li>We handle scheduling and intros</li>
                 </ul>
-                <a className="rcr-btn rcr-btn-secondary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=pricing&role=intern`} target="_blank" rel="noopener noreferrer">Post an intern role</a>
+                <a className="rcr-btn rcr-btn-secondary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=pricing&role=intern`} target="_blank" rel="noopener noreferrer">Get started</a>
               </div>
               <div className="rcr-pcard rcr-featured">
                 <span className="rcr-ptag">Most common</span>
                 <div className="rcr-pname">Full-time</div>
-                <div className="rcr-pamount">$10,000</div>
-                <div className="rcr-pper">per full-time hire</div>
+                <div className="rcr-pamount">10%</div>
+                <div className="rcr-pper">of first-year salary, per hire</div>
                 <div className="rcr-pwhen">Due only on hire</div>
                 <ul>
                   <li>3 to 5 vetted AI-native operators or engineers</li>
                   <li>Each candidate ships builds, not just prompts</li>
                   <li>Full portfolios, bios, and references</li>
                   <li>Engineering, ops, GTM, design, product, finance</li>
-                  <li>Dedicated talent partner from post to hire</li>
+                  <li>Dedicated talent partner from first call to hire</li>
                 </ul>
-                <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=pricing&role=ft`} target="_blank" rel="noopener noreferrer">Post a full-time role</a>
+                <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=pricing&role=ft`} target="_blank" rel="noopener noreferrer">Get started</a>
               </div>
             </div>
             <div className="rcr-pnote"><b>$0 due upfront.</b> Pay only when a candidate accepts your offer.</div>
@@ -373,33 +227,23 @@ export default function RecruitPage() {
           </div>
         </section>
 
-        {/* ===== TESTIMONIALS ===== */}
-        <section className="rcr-section rcr-testi">
+        {/* ===== BREADTH ===== */}
+        <section className="rcr-section rcr-breadth">
           <div className="rcr-section-container">
-            <span className="rcr-eyebrow">What hiring managers say</span>
-            <h2 className="rcr-section-title">The hire pays for itself in weeks.</h2>
-            <div className="rcr-testi-grid">
-              <div className="rcr-tcard">
-                <p className="rcr-tquote">&ldquo;We hired an ops builder from the Leland network. By week three, she had automated three of our highest-volume processes. We&rsquo;re hiring a second one next quarter.&rdquo;</p>
-                <div className="rcr-twho">
-                  <div className="rcr-tavatar">JM</div>
-                  <div><div className="rcr-tname">Jenna M.</div><div className="rcr-trole">COO, Series B SaaS</div></div>
+            <span className="rcr-eyebrow">A network, not a niche</span>
+            <h2 className="rcr-section-title">Hire AI-native talent across industries, experience levels, and roles.</h2>
+            <p className="rcr-section-sub">A preview of who&rsquo;s in the network. If you don&rsquo;t see exactly what you&rsquo;re looking for, reach out anyway, chances are we have it.</p>
+            <div className="rcr-breadth-grid">
+              {BREADTH.map((col) => (
+                <div className="rcr-breadth-col" key={col.label}>
+                  <div className="rcr-breadth-label">{col.label}</div>
+                  <div className="rcr-breadth-chips">
+                    {col.items.map((item) => (
+                      <span className="rcr-breadth-chip" key={item}>{item}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="rcr-tcard">
-                <p className="rcr-tquote">&ldquo;Our last two engineering hires from the regular pipeline took 6 months to onboard. The AI-native engineer Leland sent us shipped a production agent in week one.&rdquo;</p>
-                <div className="rcr-twho">
-                  <div className="rcr-tavatar">DR</div>
-                  <div><div className="rcr-tname">David R.</div><div className="rcr-trole">CTO, Series A Fintech</div></div>
-                </div>
-              </div>
-              <div className="rcr-tcard">
-                <p className="rcr-tquote">&ldquo;Pay-on-hire was the only way I&rsquo;d take a chance on a new sourcing channel. Got a great GTM engineer for less than half what we usually pay recruiters.&rdquo;</p>
-                <div className="rcr-twho">
-                  <div className="rcr-tavatar">SK</div>
-                  <div><div className="rcr-tname">Sarah K.</div><div className="rcr-trole">Head of Growth, Bootstrapped</div></div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -409,47 +253,24 @@ export default function RecruitPage() {
           <div className="rcr-section-container">
             <span className="rcr-eyebrow">FAQ</span>
             <h2 className="rcr-section-title">Common questions from hiring managers.</h2>
-            <div className="rcr-faq-list">
-              {FAQ_DATA.map((item, i) => (
-                <div key={i} className={`rcr-faq-item${openFaq === i ? ' rcr-faq-open' : ''}`}>
-                  <div className="rcr-faq-summary" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
-                    {item.q}
-                    <span className="rcr-faq-plus">+</span>
-                  </div>
-                  <div className="rcr-faq-body">{item.a}</div>
-                </div>
-              ))}
-            </div>
+            <Faq items={FAQ_DATA} />
           </div>
         </section>
 
         {/* ===== FINAL CTA ===== */}
         <section className="rcr-section rcr-final">
           <div className="rcr-final-inner">
-            <h2>Post your role. <span className="rcr-accent">Pay nothing until you hire.</span></h2>
-            <p>Three minutes to post. Three business days to a shortlist. Zero dollars due unless a candidate accepts your offer.</p>
+            <h2>Start your hiring process. <span className="rcr-accent">Pay nothing until you hire.</span></h2>
+            <p>One quick call to start. Three business days to a shortlist. Zero dollars due unless a candidate accepts your offer.</p>
             <div className="rcr-final-cta-row">
-              <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=final_cta`} target="_blank" rel="noopener noreferrer">Just get started</a>
+              <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=final_cta`} target="_blank" rel="noopener noreferrer">Get started</a>
               <a className="rcr-btn rcr-btn-secondary" href="#how">How it works</a>
             </div>
           </div>
         </section>
       </main>
 
-      {/* ===== FOOTER ===== */}
-      <footer className="rcr-footer">
-        <div className="rcr-footer-inner">
-          <div className="rcr-footer-mark" aria-label="Leland">
-            {LELAND_ICON_WHITE}
-          </div>
-          <div className="rcr-footer-links">
-            <a href="https://intercom.help/leland-help-center/en/" target="_blank" rel="noopener noreferrer">Contact Us</a>
-            <a href="https://www.joinleland.com/legal/terms" target="_blank" rel="noopener noreferrer">Terms</a>
-            <a href="https://www.joinleland.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy</a>
-          </div>
-          <div className="rcr-footer-copy">&copy; 2026 Leland</div>
-        </div>
-      </footer>
+      <Footer />
     </>
   )
 }

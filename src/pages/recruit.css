@@ -64,24 +64,26 @@
 
 /* ===== HERO ===== */
 .rcr-hero {
-  padding: 128px 48px 88px;
+  padding: 104px 48px 96px;
   text-align: center;
   background: var(--white);
 }
-@media (max-width: 768px) { .rcr-hero { padding: 96px 20px 56px; } }
+@media (max-width: 768px) { .rcr-hero { padding: 88px 20px 64px; } }
 .rcr-hero-inner { max-width: 920px; margin: 0 auto; }
 .rcr-hero-eyebrow {
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--gray-light);
+  color: #3F6FB8;
   margin-bottom: 28px;
   display: inline-block;
   padding: 8px 16px;
-  background: #f3f1e6;
+  background: rgba(128, 172, 237, 0.16);
+  border: 1px solid rgba(128, 172, 237, 0.42);
   border-radius: 999px;
 }
+.rcr-hero h1 .rcr-accent { color: var(--blue); }
 .rcr-hero h1 {
   font-family: var(--font-heading);
   font-weight: 500;
@@ -345,6 +347,40 @@
 .rcr-tavatar { width: 40px; height: 40px; border-radius: 50%; background: var(--yellow); color: var(--gray-dark); font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .rcr-tname { font-size: 14px; font-weight: 600; color: var(--gray-dark); }
 .rcr-trole { font-size: 13px; color: var(--gray-light); margin-top: 2px; }
+
+/* ===== BREADTH ===== */
+.rcr-breadth { background: var(--white); }
+.rcr-breadth-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media (max-width: 860px) { .rcr-breadth-grid { grid-template-columns: 1fr; gap: 16px; } }
+.rcr-breadth-col {
+  background: #f3f1e6;
+  border-radius: 16px;
+  padding: 28px;
+}
+.rcr-breadth-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-light);
+  margin-bottom: 18px;
+}
+.rcr-breadth-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.rcr-breadth-chip {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-dark);
+  background: var(--white);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 8px 14px;
+  border-radius: 999px;
+}
 
 /* ===== FAQ ===== */
 .rcr-faq { background: #f9f9f9; }

@@ -150,8 +150,8 @@ body.rb-home .lai-nav .rb-nav-getstarted:hover {
 
 /* ---------- Hero (extends .hero from home-rebrand.css) ====== */
 body.rb-home .hero.lai-hero {
-  height: 80vh;
-  max-height: 900px;
+  height: 90vh;
+  max-height: 1000px;
   background: #222222;
   position: relative;
   overflow: hidden;
@@ -160,7 +160,7 @@ body.rb-home .hero.lai-hero {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: center 32%;
   z-index: 0;
 }
 body.rb-home .hero.lai-hero::before {
@@ -218,6 +218,185 @@ body.rb-home .hero.lai-hero h1 {
 }
 .lai-hero-ticker .logo-ticker-img {
   opacity: 0.7;
+}
+
+/* Light nav (inner pages) sits in normal flow instead of overlaying the hero,
+   so heroes get predictable, consistent spacing below the nav. */
+body.rb-home .rb-nav-wrapper.rb-nav-light {
+  margin-bottom: 0;
+}
+
+/* ---------- Plain / branded hero (inner pages: no photo, more blue) ---------- */
+body.rb-home .hero.lai-hero.lai-hero-plain {
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  overflow: visible;
+  background: var(--white);
+  padding: 104px 0 100px;
+}
+body.rb-home .hero.lai-hero.lai-hero-plain::before,
+body.rb-home .hero.lai-hero.lai-hero-plain::after {
+  display: none;
+}
+body.rb-home .hero.lai-hero.lai-hero-plain h1 {
+  color: var(--gray-dark);
+}
+body.rb-home .hero.lai-hero-plain .hero-sub {
+  color: var(--gray-light);
+}
+.lai-hero-plain .lai-hero-content {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+}
+/* Eyebrow pill (blue) — shared by inner-page heroes */
+.lai-hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #3F6FB8;
+  background: rgba(128, 172, 237, 0.16);
+  border: 1px solid rgba(128, 172, 237, 0.42);
+  border-radius: 999px;
+  padding: 7px 16px;
+  margin-bottom: 22px;
+}
+@media (max-width: 768px) {
+  body.rb-home .hero.lai-hero.lai-hero-plain {
+    padding: 88px 0 64px;
+  }
+}
+
+/* ---------- Home feature sections (Program / Services / Recruit) ---------- */
+body.rb-home .lai-feature {
+  padding: 96px 0;
+  background: var(--white);
+}
+body.rb-home .lai-feature-inner {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+}
+body.rb-home .lai-feature-reverse .lai-feature-inner {
+  flex-direction: row-reverse;
+}
+body.rb-home .lai-feature-text { flex: 1 1 0; min-width: 0; }
+body.rb-home .lai-feature-visual { flex: 1 1 0; min-width: 0; }
+.lai-feature-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #3F6FB8;
+  margin-bottom: 14px;
+}
+body.rb-home .lai-feature-title {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--gray-dark);
+  margin: 0 0 16px;
+}
+.lai-feature-desc {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--gray-light);
+  margin: 0 0 28px;
+  max-width: 48ch;
+}
+
+/* Tools card (AI Builder Program) */
+.lai-tools-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 16 / 11;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+.lai-tools-card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lai-tools-card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 28px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 55%);
+}
+.lai-tools-card-label {
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lai-tools-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.lai-tool-chip {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+.lai-tool-chip img { width: 26px; height: 26px; object-fit: contain; }
+
+/* Agent diagram (Services) */
+.lai-agent-diagram { width: 100%; height: auto; display: block; }
+.lai-agent-line { stroke: rgba(128, 172, 237, 0.5); stroke-width: 1.5; }
+.lai-agent-node { fill: #fff; stroke: rgba(128, 172, 237, 0.65); stroke-width: 1.5; }
+.lai-agent-node-label { font-family: var(--font-body); font-size: 11px; font-weight: 600; fill: var(--gray-dark); }
+.lai-agent-center { fill: var(--blue); }
+.lai-agent-center-label { font-family: var(--font-body); font-size: 13px; font-weight: 600; fill: #fff; }
+
+/* Roles card (Recruit) */
+.lai-roles-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-content: center;
+  justify-content: center;
+  padding: 44px 36px;
+  border-radius: 20px;
+  background: linear-gradient(168deg, #E4ECFA 0%, #F2F6FC 60%, #FFFFFF 100%);
+  min-height: 280px;
+}
+.lai-role-chip {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gray-dark);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  body.rb-home .lai-feature { padding: 56px 0; }
+  body.rb-home .lai-feature-inner,
+  body.rb-home .lai-feature-reverse .lai-feature-inner { flex-direction: column; gap: 36px; }
+  body.rb-home .lai-feature-title { font-size: 32px; }
 }
 
 /* ---------- Offerings ====== */
@@ -488,46 +667,93 @@ video.photo-card-video {
   background: var(--white);
 }
 
-/* Universal agents band */
-.lai-universal-band {
+/* Use-cases eyebrow */
+.lai-use-cases-eyebrow {
+  display: block;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue, #80ACED);
+  margin-bottom: 16px;
+}
+
+/* Universal agents — 3x2 card grid */
+.lai-agents-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .lai-agents-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .lai-agents-grid { grid-template-columns: 1fr; } }
+.lai-agent-card {
   background: var(--gray-dark);
   border-radius: 16px;
-  padding: 40px;
-  margin-top: 48px;
-  margin-bottom: 32px;
-}
-.lai-universal-band-title {
-  font-family: var(--font-heading);
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--white);
-  letter-spacing: 0;
-  margin-bottom: 28px;
-}
-.lai-universal-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-.lai-universal-item {
+  padding: 28px 26px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
-.lai-universal-item-name {
+.lai-agent-card-title {
   font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 600;
   color: var(--white);
   letter-spacing: 0;
 }
-.lai-universal-item-desc {
+.lai-agent-card-desc {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.55);
-  line-height: 1.5;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
   letter-spacing: 0;
+}
+
+/* "See more by function" caret tile */
+.lai-agent-more {
+  background: var(--cream-soft, #f3f1e6);
+  border: 1px dashed rgba(34, 34, 34, 0.28);
+  border-radius: 16px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: flex-start;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s, border-color 0.2s;
+  font-family: var(--font-body);
+}
+.lai-agent-more:hover {
+  background: #ece6d7;
+  border-color: rgba(34, 34, 34, 0.45);
+}
+.lai-agent-more.is-open {
+  border-style: solid;
+  border-color: var(--blue, #80ACED);
+  background: rgba(128, 172, 237, 0.12);
+}
+.lai-agent-more-label {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gray-dark);
+  letter-spacing: 0;
+}
+.lai-agent-more-sub {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray-light);
+  letter-spacing: 0;
+}
+.lai-agent-more-caret {
+  font-size: 12px;
+  color: var(--blue, #80ACED);
+  margin-top: 2px;
 }
 
 /* Function cards */
@@ -535,7 +761,7 @@ video.photo-card-video {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-bottom: 48px;
+  margin-top: 20px;
 }
 .lai-function-card {
   background: #f9f9f9;
@@ -563,53 +789,83 @@ video.photo-card-video {
   letter-spacing: 0;
 }
 
-/* Callout */
-.lai-use-cases-callout {
-  background: var(--cream-soft);
-  border-radius: 12px;
-  padding: 32px 36px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
+/* ---------- Two paths ====== */
+.lai-paths {
+  padding: 100px 0;
+  background: var(--cream-soft, #f3f1e6);
 }
-.lai-use-cases-callout p {
+.lai-paths-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 760px) { .lai-paths-grid { grid-template-columns: 1fr; } }
+.lai-path-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.lai-path-card-dark {
+  background: var(--gray-dark);
+}
+.lai-path-tag {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--gray-light);
+  background: var(--cream-soft, #f3f1e6);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+.lai-path-card-dark .lai-path-tag {
+  color: var(--gray-dark);
+  background: var(--yellow, #FFD667);
+}
+.lai-path-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--gray-dark);
+  margin-top: 4px;
+}
+.lai-path-card-dark .lai-path-title { color: var(--white); }
+.lai-path-desc {
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
-  color: var(--gray-dark);
+  color: var(--gray-light);
   letter-spacing: 0;
-  max-width: 520px;
+  flex: 1;
 }
-.lai-use-cases-callout p strong {
-  font-weight: 600;
-}
-.lai-use-cases-callout-links {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
-.lai-use-cases-callout .lai-cta-primary {
-  background: var(--blue, #80ACED);
-  color: var(--gray-dark);
-  border: none;
-}
-.lai-use-cases-callout .lai-cta-primary:hover {
-  background: #6d9de0;
-}
-.lai-link-secondary {
+.lai-path-card-dark .lai-path-desc { color: rgba(255, 255, 255, 0.7); }
+.lai-path-link {
   font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   color: var(--gray-dark);
   text-decoration: none;
   letter-spacing: 0;
+  margin-top: 8px;
   transition: opacity 0.15s;
 }
-.lai-link-secondary:hover {
-  opacity: 0.6;
+.lai-path-link:hover { opacity: 0.65; }
+.lai-path-link-yellow { color: var(--yellow, #FFD667); }
+
+/* ---------- Star rating ====== */
+.lai-stars {
+  display: inline-flex;
+  gap: 3px;
+  color: var(--yellow, #FFD667);
 }
 
 /* ---------- Testimonials ====== */
@@ -629,8 +885,11 @@ video.photo-card-video {
   padding: 36px 32px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 24px;
+  align-items: flex-start;
+  gap: 18px;
+}
+.lai-testimonial-card .lai-testimonial-author {
+  margin-top: auto;
 }
 .lai-testimonial-quote {
   font-family: var(--font-body);
@@ -1081,13 +1340,11 @@ video.photo-card-video {
   .lai-steps-grid {
     grid-template-columns: 1fr;
   }
-  .lai-use-cases-callout {
-    flex-direction: column;
-    align-items: flex-start;
+  .lai-paths-grid {
+    grid-template-columns: 1fr;
   }
-  .lai-use-cases-callout-links {
-    flex-direction: column;
-    align-items: flex-start;
+  .lai-path-card {
+    padding: 32px 26px;
   }
   .lai-pledge { padding: 64px 20px; }
   .lai-pledge-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1120,8 +1377,8 @@ video.photo-card-video {
   .lai-final-cta {
     padding: 80px 0;
   }
-  .lai-universal-band {
-    padding: 28px 24px;
+  .lai-paths {
+    padding: 64px 0;
   }
 }
 
@@ -1129,5 +1386,9 @@ video.photo-card-video {
 body.rb-home .lai-reveal-content {
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 22px;
+}
+body.rb-home .img-reveal-cta {
+  margin-top: 6px;
 }
