@@ -6,6 +6,29 @@ Paste this whole file (or its path) into each session so everyone follows the sa
 
 ---
 
+## 0. ⚠️ READ FIRST — the sessions share ONE working directory
+
+As of now, the parallel sessions appear to be running in the **same folder** (`/Users/johnkoelliker/Developer/ai-mastery`), not separate clones. That means there is **no file isolation**: every session sees every other session's uncommitted edits on disk, and a careless commit can sweep up everyone's half-finished work.
+
+**Hard rules while we share a directory:**
+
+- **NEVER run `git add -A`, `git add .`, or `git commit -a`.** Stage your files by explicit path only:
+  `git add src/pages/ServicesPage.jsx src/pages/services.css`
+- **NEVER run `git checkout -- <file>`, `git stash`, `git reset --hard`, or `git restore` on a file you don't own** — it will throw away another session's in-progress work.
+- Before committing, run `git status` and confirm you are staging **only your page's files**. If you see another page's file modified, leave it alone.
+- Avoid `git pull --rebase` while others have uncommitted changes (it will refuse, or churn their work). Coordinate a moment when trees are clean, or just push your explicitly-staged commit (fast-forward) and let others rebase.
+
+**Better fix (recommended): give each session its own git worktree** so the files are physically separate:
+```bash
+# from the repo, one per session:
+git worktree add ../ai-mastery-services services-work
+git worktree add ../ai-mastery-pledge   pledge-work
+git worktree add ../ai-mastery-recruit  recruit-work
+```
+Each session works in its own folder + branch, then opens a PR (or fast-forward merges) into `main`. This removes the shared-tree risk entirely. If you adopt this, the rest of this doc still applies for the genuinely shared files.
+
+---
+
 ## 1. Who owns what (one session per page)
 
 | Page | Route | Page file (yours alone) | Page-only CSS (yours alone) |
