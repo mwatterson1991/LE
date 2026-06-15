@@ -1296,7 +1296,7 @@ function TeamsProgramPageInner() {
   const [activeSection, setActiveSection] = useState(null)
   const [scarcityCount, setScarcityCount] = useState(() => getScarcityCount(442, 532, 0))
   const [advancedScarcityCount, setAdvancedScarcityCount] = useState(() => getScarcityCount(75, 110, 1))
-  const heroPhrases = ['multiply your team’s output', 'ship like a team of 10', 'automate the work that drains people', 'scale every employee’s impact', 'future-proof your org']
+  const heroPhrases = ['build real systems', 'ship work, not slides', 'stop falling behind engineering', 'turn AI from tools into capability', 'compound across the whole org']
   const [heroPhraseIndex, setHeroPhraseIndex] = useState(0)
   const heroPhrase = heroPhrases[heroPhraseIndex]
   useEffect(() => {
@@ -1601,11 +1601,9 @@ function TeamsProgramPageInner() {
           playsInline
         />
         <div className="container">
-          <Countdown />
+          <h1 className="hero-stagger hero-stagger-1">Your team, trained to <br className="mobile-br" /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">build real systems</span></h1>
 
-          <h1 className="hero-stagger hero-stagger-1">Your team, building with AI to <br className="mobile-br" /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">multiply output</span></h1>
-
-          <p className="hero-sub hero-stagger hero-stagger-2">The proven program that turns your team from AI users into AI builders. Live cohorts, real outcomes, and a path that scales from 5 seats to your full org.</p>
+          <p className="hero-sub hero-stagger hero-stagger-2">Most companies have engineering progressing on AI while everyone else falls behind. AI Builder is the live, cohort-based program that closes the gap, with a clean rollout your security team will sign off on.</p>
 
           <div className="hero-ctas hero-stagger hero-stagger-3">
             <a
@@ -1618,21 +1616,14 @@ function TeamsProgramPageInner() {
               Talk to our team
             </a>
             <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
-              <a href="#level-accordion" className="lai-cta-primary lai-cta-beam">
-                Explore the program
+              <a href="#how-it-works" className="lai-cta-primary lai-cta-beam">
+                See how it works
               </a>
             </BorderBeam>
           </div>
 
           <div className="hero-review-row hero-stagger hero-stagger-4">
-            <div className="hero-review-stars">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} viewBox="0 0 20 20" fill="#FFD667" width="18" height="18">
-                  <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.27 5.06 16.7 6 11.21l-4-3.9 5.53-.8L10 1.5z" />
-                </svg>
-              ))}
-            </div>
-            <span className="hero-review-text">4.7/5 from 352 reviews</span>
+            <span className="hero-review-text" style={{ opacity: 0.85 }}>Cohorts start every 2 weeks · 5 to 50,000 seats · Trusted by AppFolio, Datavant, Miro, Verizon, and more</span>
           </div>
 
           <div className="track-cards-section track-cards-v2" id="courses">
@@ -1860,8 +1851,56 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== 4. Testimonials — Masonry board ====== */}
-      <TestimonialsBoard />
+      {/* ====== 4. Customer Proof — logo wall + named outcomes ====== */}
+      <section className="b2b-section" id="customers">
+        <div className="container">
+          <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› Trusted by Teams At</span>
+            <h2 className="b2b-section-headline">Teams from startups to the Fortune 500 build with Leland.</h2>
+            <p className="b2b-section-sub">Marketing, ops, sales, finance, CS, and product teams have shipped real AI systems through the program.</p>
+          </div>
+          <div className="customer-proof-wall">
+            <div className="customer-proof-logos" aria-label="Customer logos">
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/appfolio.png`} alt="AppFolio" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/datavant.png`} alt="Datavant" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/degreed.png`} alt="Degreed" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/miro.png`} alt="Miro" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/verizon.png`} alt="Verizon" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/clozd.png`} alt="Clozd" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/mckinsey.png`} alt="McKinsey" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/mcdonalds.png`} alt="McDonald's" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/american-express.png`} alt="American Express" />
+              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/google.png`} alt="Google" />
+            </div>
+          </div>
+          <div className="customer-wins">
+            <div className="customer-win-card">
+              <span className="customer-win-tag">Marketing</span>
+              <p className="customer-win-quote">Our VP of Marketing built a system through the program that automated work we'd previously scoped as a 2-year full-time hire. The whole team now thinks differently about what's possible.</p>
+              <div className="customer-win-meta">
+                <span className="customer-win-who">Leadership · High-growth health tech</span>
+                <span className="customer-win-co">Whole-team enablement, Levels 1–3</span>
+              </div>
+            </div>
+            <div className="customer-win-card">
+              <span className="customer-win-tag">Sales / GTM</span>
+              <p className="customer-win-quote">Sales pipeline generation is now a multi-agent system, not a person. Reps spend their time on conversations, agents handle research, prep, and CRM hygiene end-to-end.</p>
+              <div className="customer-win-meta">
+                <span className="customer-win-who">Revenue org · Enterprise software</span>
+                <span className="customer-win-co">Champions track, Levels 1–4</span>
+              </div>
+            </div>
+            <div className="customer-win-card">
+              <span className="customer-win-tag">Operations</span>
+              <p className="customer-win-quote">We thought we needed a full-time AI lead. Instead the program surfaced 4 internal champions across ops, finance, and CS who are now driving every initiative.</p>
+              <div className="customer-win-meta">
+                <span className="customer-win-who">COO · Mid-market services</span>
+                <span className="customer-win-co">Functional cohort, Levels 1–3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ====== B2B-C. Market Signal (BCG + CHRO) ====== */}
       <section className="b2b-section b2b-section-dark" id="market-signal">
@@ -1889,6 +1928,43 @@ function TeamsProgramPageInner() {
                 <div className="market-card-metric"><b>#1</b>Workforce priority</div>
                 <div className="market-card-metric"><b>Organizational</b>The real bottleneck</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== B2B-E. How it works for your team (engagement flow) ====== */}
+      <section className="b2b-section" id="how-it-works">
+        <div className="container">
+          <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› How It Works</span>
+            <h2 className="b2b-section-headline">A clean rollout your leadership can sign off on.</h2>
+            <p className="b2b-section-sub">From the first call to leadership reporting, we run the program so your team doesn't have to.</p>
+          </div>
+          <div className="engagement-flow">
+            <div className="engagement-step">
+              <span className="engagement-step-num">01 · Discovery</span>
+              <h3 className="engagement-step-title">Map your team and goals</h3>
+              <p className="engagement-step-desc">30-minute working session with your AM. We understand your team's current AI maturity, the workflows that matter most, and any security or compliance constraints.</p>
+              <span className="engagement-step-meta">Day 0 · 30 min</span>
+            </div>
+            <div className="engagement-step">
+              <span className="engagement-step-num">02 · Placement</span>
+              <h3 className="engagement-step-title">Place each person at the right level</h3>
+              <p className="engagement-step-desc">Quick capability assessment per team member. Most non-technical employees start at Level 1. Power users jump to Level 2 or 3. Specialists can take Levels 4–5.</p>
+              <span className="engagement-step-meta">Week 1 · async</span>
+            </div>
+            <div className="engagement-step">
+              <span className="engagement-step-num">03 · Cohorts</span>
+              <h3 className="engagement-step-title">Run live cohorts, ship real work</h3>
+              <p className="engagement-step-desc">4 core 90-minute sessions plus optional build workshops per level. Every session ends with a deliverable applied to real work. Cohorts every 2 weeks, members can switch as schedules change.</p>
+              <span className="engagement-step-meta">Weeks 1–10 · live + recorded</span>
+            </div>
+            <div className="engagement-step">
+              <span className="engagement-step-num">04 · Reporting</span>
+              <h3 className="engagement-step-title">Measure and report impact</h3>
+              <p className="engagement-step-desc">Admin dashboard tracks enrollment, completion, and shipped builds. Your AM generates outcome reports for leadership review. 1 year of access continues after the cohort wraps.</p>
+              <span className="engagement-step-meta">Ongoing · monthly</span>
             </div>
           </div>
         </div>
@@ -1954,6 +2030,61 @@ function TeamsProgramPageInner() {
               <h3 className="alt-card-title">Live cohort building</h3>
               <p className="alt-card-desc">Live sessions, cohort accountability, hands-on building. Participants leave every session with something working and applied to real work.</p>
               <div className="alt-card-stat">Result: <b>85% completion · Shipped systems</b></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== B2B-F. Security &amp; Compliance ====== */}
+      <section className="b2b-section" id="security">
+        <div className="container">
+          <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› Security &amp; Compliance</span>
+            <h2 className="b2b-section-headline">Your security team will sign off.</h2>
+            <p className="b2b-section-sub">Built for enterprise constraints from day one. The curriculum is tool-agnostic, so your team builds inside whatever AI tools your security team has already approved.</p>
+          </div>
+          <div className="security-grid">
+            <ul className="security-points">
+              <li className="security-point">
+                <span className="security-point-icon" aria-hidden="true">⚙</span>
+                <div className="security-point-text">
+                  <span className="security-point-title">Works inside your approved stack</span>
+                  <span className="security-point-desc">Claude, ChatGPT Enterprise, Copilot, Gemini, n8n, on-prem — your team uses whatever your security team has already cleared. No new vendor approval needed.</span>
+                </div>
+              </li>
+              <li className="security-point">
+                <span className="security-point-icon" aria-hidden="true">🛡</span>
+                <div className="security-point-text">
+                  <span className="security-point-title">No live data connection required</span>
+                  <span className="security-point-desc">A core skill we teach is building effective AI workflows without exposing live company data. Real outcomes inside whatever constraints your IT policy sets.</span>
+                </div>
+              </li>
+              <li className="security-point">
+                <span className="security-point-icon" aria-hidden="true">＋</span>
+                <div className="security-point-text">
+                  <span className="security-point-title">HIPAA-aware engagements supported</span>
+                  <span className="security-point-desc">For regulated industries, we offer a security consultation and scope the engagement around your constraints. We've run cohorts inside health, financial services, and government-adjacent orgs.</span>
+                </div>
+              </li>
+              <li className="security-point">
+                <span className="security-point-icon" aria-hidden="true">⤳</span>
+                <div className="security-point-text">
+                  <span className="security-point-title">Dedicated security review available</span>
+                  <span className="security-point-desc">For larger implementations, your AM coordinates a working session with your security team to walk through data flow, tool usage, and any compliance requirements.</span>
+                </div>
+              </li>
+            </ul>
+            <div className="security-card">
+              <p className="security-card-eyebrow">› Reality check</p>
+              <h3 className="security-card-title">"Our security team is conservative."</h3>
+              <p className="security-card-body">We hear this from almost every buyer, and we've never had it stop a rollout. The curriculum is built so your team produces real, shipped builds even with the strictest IT policy, then your champions widen the policy from inside over time, evidence in hand.</p>
+              <div className="security-card-tags">
+                <span className="security-card-tag">Tool-agnostic</span>
+                <span className="security-card-tag">No data export</span>
+                <span className="security-card-tag">HIPAA-aware</span>
+                <span className="security-card-tag">SOC 2-ready stack</span>
+                <span className="security-card-tag">Dedicated review</span>
+              </div>
             </div>
           </div>
         </div>
@@ -2031,9 +2162,9 @@ function TeamsProgramPageInner() {
       <section className="certification" id="certification">
         <div className="container">
           <div className="cert-intro">
-            <h2>Walk away certified.</h2>
+            <h2>Credential your team.</h2>
             <p className="cert-desc">
-              Every course in the series culminates in a verified certificate of completion from Leland. Finish all five and earn the full AI Builder designation — a signal to employers, clients, and colleagues that you operate at the highest level of AI proficiency.
+              Every level your team completes culminates in a verified Leland certificate. Use them to credential your internal AI champions, signal capability to clients, and build a documented AI-fluent workforce your leadership can point to.
             </p>
           </div>
 
