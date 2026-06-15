@@ -7,13 +7,7 @@ import posthog from 'posthog-js'
 // Links open in a new tab so the page you came from (e.g. leland.ai home) stays
 // open and is easy to return to.
 const NAV_LINKS = [
-  {
-    label: 'Builder Program',
-    children: [
-      { label: 'For individuals', href: '/program' },
-      { label: 'For teams', href: '/program-for-teams' },
-    ],
-  },
+  { label: 'Builder Program', href: '/program' },
   { label: 'Services', href: '/services' },
   { label: 'Recruit', href: '/recruit' },
   { label: '100M Pledge', href: '/pledge' },

@@ -34,8 +34,7 @@ const PHOTO_CARDS = [
     video: 'Animated Gradient - 06.mp4',
     logo: 'aibp-stacked-light.png',
     ctas: [
-      { label: 'For individuals', to: '/program', primary: true },
-      { label: 'For teams', to: '/program-for-teams' },
+      { label: 'Learn more', to: '/program', primary: true },
     ],
   },
   {
@@ -349,8 +348,7 @@ export default function LelandAIPage() {
             <h2 className="lai-feature-title">Transform your team into AI builders in 6 to 10 weeks</h2>
             <p className="lai-feature-desc">A live, cohort-based program that turns you and your team into AI builders. New tools, agents, and workflows every week, taught by people who ship with AI every day.</p>
             <div className="lai-feature-ctas">
-              <a href="/program" className="lai-feature-btn lai-feature-btn-primary">For individuals</a>
-              <a href="/program-for-teams" className="lai-feature-btn lai-feature-btn-secondary">For teams</a>
+              <a href="/program" className="lai-feature-btn lai-feature-btn-primary">Learn more</a>
             </div>
           </motion.div>
           <motion.div className="lai-feature-visual" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
