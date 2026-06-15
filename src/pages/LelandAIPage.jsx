@@ -33,7 +33,6 @@ const PHOTO_CARDS = [
     description: 'Teach your team to build with AI: agents and workflows, not just chatbot prompts.',
     to: '/program',
     video: 'Animated Gradient - 06.mp4',
-    cohortBadge: true,
     logo: 'aibp-stacked-light.png',
     ctas: [
       { label: 'For individuals', to: '/program', primary: true },
