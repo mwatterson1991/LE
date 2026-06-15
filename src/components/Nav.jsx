@@ -80,8 +80,8 @@ export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
           <div className="rb-nav-lockup">
             <a href="https://www.joinleland.com" className="rb-nav-logo">
               {showDarkLogo
-                ? <img className="rb-logo-dark" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
-                : <img className="rb-logo-white" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />}
+                ? <img className="rb-logo-dark" src={`${import.meta.env.BASE_URL}assets/logos/New Leland Logo/Full Logo/Logo-Black.svg`} alt="Leland" />
+                : <img className="rb-logo-white" src={`${import.meta.env.BASE_URL}assets/logos/New Leland Logo/Full Logo/Logo-White.svg`} alt="Leland" />}
             </a>
             <div className="lai-nav-links">
               {NAV_LINKS.map((l) => (
@@ -104,7 +104,7 @@ export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
       {/* ===== Mobile menu overlay ===== */}
       <div className="lai-mobile-menu">
         <div className="lai-mobile-menu-header">
-          <img className="lai-mobile-menu-logo" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
+          <img className="lai-mobile-menu-logo" src={`${import.meta.env.BASE_URL}assets/logos/New Leland Logo/Full Logo/Logo-Black.svg`} alt="Leland" />
           {mobileLabel && (
             <>
               <span className="lai-mobile-menu-divider" />
