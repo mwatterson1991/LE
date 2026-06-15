@@ -270,43 +270,36 @@
   .gap-card, .market-card { padding: 24px; }
 }
 
-/* ===== CUSTOMER PROOF (logo wall + named outcomes) ===== */
-.customer-proof-wall {
-  max-width: 1100px;
-  margin: 0 auto 56px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 36px 0;
+/* ===== HERO SPACING (teams variant) =====
+ * The shared rebrand hero uses ~80px top padding which feels tight against
+ * the sticky nav. Bump it on the teams page so there's clear breathing room. */
+body.rb-home .hero-teams {
+  padding-top: 160px;
+  padding-bottom: 96px;
+  min-height: 0;
+  max-height: none;
 }
-.customer-proof-wall-label {
-  text-align: center;
-  font-family: var(--font-meta, var(--font-body));
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin: 0 0 24px;
+@media (max-width: 768px) {
+  body.rb-home .hero-teams { padding-top: 120px; padding-bottom: 64px; }
 }
-.customer-proof-logos {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 32px 40px;
-  align-items: center;
-  justify-items: center;
-}
-@media (max-width: 860px) { .customer-proof-logos { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 480px) { .customer-proof-logos { grid-template-columns: repeat(2, 1fr); } }
-.customer-proof-logo {
-  height: 32px;
-  width: auto;
-  max-width: 140px;
-  object-fit: contain;
-  opacity: 0.7;
-  filter: grayscale(1);
-  transition: opacity 0.15s, filter 0.15s;
-}
-.customer-proof-logo:hover { opacity: 1; filter: grayscale(0); }
 
+/* Customer-logo ticker under the hero — uniform white silhouettes for cohesion */
+.logo-ticker-teams { padding-top: 8px; padding-bottom: 8px; }
+.logo-ticker-customer {
+  height: 38px !important;
+  width: auto !important;
+  max-width: 200px;
+  object-fit: contain;
+  opacity: 0.78;
+  /* Force every logo (mix of dark-on-light and light-on-dark) to render as a
+   * uniform white silhouette so the ticker reads as one cohesive row. */
+  filter: brightness(0) invert(1);
+  transition: opacity 0.15s;
+  margin: 0 8px;
+}
+.logo-ticker-customer:hover { opacity: 1; }
+
+/* ===== CUSTOMER WINS (named team-level outcomes — logos moved to hero ticker) ===== */
 .customer-wins {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

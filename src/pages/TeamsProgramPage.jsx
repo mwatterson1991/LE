@@ -1665,7 +1665,7 @@ function TeamsProgramPageInner() {
       <Nav variant="transparent" mobileLabel="For Teams" />
 
       {/* ====== 2. Hero ====== */}
-      <section className="hero" id="hero" ref={heroRef}>
+      <section className="hero hero-teams" id="hero" ref={heroRef}>
         <video
           className="rb-hero-video"
           src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
@@ -1708,19 +1708,22 @@ function TeamsProgramPageInner() {
 
       <div className="track-v2-overlap">
         <div className="container">
-          <div className="logo-ticker logo-ticker-cards">
-            <span className="logo-ticker-label">Taught by experts from places like:</span>
+          <div className="logo-ticker logo-ticker-cards logo-ticker-teams">
+            <span className="logo-ticker-label">Join teams from companies like:</span>
             <Marquee gradient={!isMobile} gradientColor="#000000" gradientWidth={48} speed={35}>
               {[...Array(2)].flatMap((_, round) => [
-                { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'Fabletics Logo Vector.svg', alt: 'Fabletics', className: 'logo-ticker-img' },
-                { file: 'google.svg', alt: 'Google', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'meta.svg', alt: 'Meta', className: 'logo-ticker-img' },
-                { file: 'intiut.svg', alt: 'Intuit', className: 'logo-ticker-img' },
-                { file: 'Amazon_logo.svg', alt: 'Amazon', className: 'logo-ticker-img' },
-              ].map(({ file, alt, className }) => (
-                <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/logos/${file}`} alt={alt} className={className} />
+                { file: 'appfolio.png', alt: 'AppFolio' },
+                { file: 'datavant.png', alt: 'Datavant' },
+                { file: 'degreed.png', alt: 'Degreed' },
+                { file: 'miro.png', alt: 'Miro' },
+                { file: 'verizon.png', alt: 'Verizon' },
+                { file: 'clozd.png', alt: 'Clozd' },
+                { file: 'mckinsey.png', alt: 'McKinsey' },
+                { file: 'mcdonalds.png', alt: "McDonald's" },
+                { file: 'american-express.png', alt: 'American Express' },
+                { file: 'google.png', alt: 'Google' },
+              ].map(({ file, alt }) => (
+                <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/customer-logos/${file}`} alt={alt} className="logo-ticker-img logo-ticker-customer" />
               )))}
             </Marquee>
           </div>
@@ -1911,27 +1914,13 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== 4. Customer Proof — logo wall + named outcomes ====== */}
+      {/* ====== 4. Customer Wins — named team-level outcomes (logo wall lives in hero) ====== */}
       <section className="b2b-section" id="customers">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› Trusted by Teams At</span>
-            <h2 className="b2b-section-headline">Teams from startups to the Fortune 500 build with Leland.</h2>
-            <p className="b2b-section-sub">Marketing, ops, sales, finance, CS, and product teams have shipped real AI systems through the program.</p>
-          </div>
-          <div className="customer-proof-wall">
-            <div className="customer-proof-logos" aria-label="Customer logos">
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/appfolio.png`} alt="AppFolio" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/datavant.png`} alt="Datavant" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/degreed.png`} alt="Degreed" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/miro.png`} alt="Miro" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/verizon.png`} alt="Verizon" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/clozd.png`} alt="Clozd" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/mckinsey.png`} alt="McKinsey" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/mcdonalds.png`} alt="McDonald's" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/american-express.png`} alt="American Express" />
-              <img className="customer-proof-logo" src={`${import.meta.env.BASE_URL}assets/customer-logos/google.png`} alt="Google" />
-            </div>
+            <span className="b2b-eyebrow">› Team Outcomes</span>
+            <h2 className="b2b-section-headline">What teams ship after the program.</h2>
+            <p className="b2b-section-sub">Marketing, GTM, ops, finance, and CS teams have shipped real AI systems through AI Builder. A few of the outcomes leaders report back.</p>
           </div>
           <div className="customer-wins">
             <div className="customer-win-card">
