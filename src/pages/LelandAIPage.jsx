@@ -24,6 +24,14 @@ const SOCIAL_PROOF = [
   { type: 'logo', name: 'gsv-ventures', alt: 'GSV', h: 38 },
   { type: 'logo', name: 'Partners_Group_Logo_2024', alt: 'Partners Group', h: 34 },
   { type: 'logo', name: 'runpod', alt: 'RunPod', h: 32 },
+  { type: 'logo', name: 'shopify', alt: 'Shopify', h: 34, dir: 'logos' },
+  { type: 'logo', name: 'peterson_ventures', alt: 'Peterson Ventures', h: 16, dir: 'logos' },
+  { type: 'logo', name: 'mcdonalds', alt: "McDonald's", h: 32, dir: 'logos' },
+  { type: 'logo', name: 'gitlab-logo-400-rgb', alt: 'GitLab', h: 48, dir: 'logos' },
+  { type: 'logo', name: 'datavant', alt: 'Datavant', h: 26, dir: 'logos' },
+  { type: 'logo', name: 'clozd', alt: 'Clozd', h: 26, dir: 'logos' },
+  { type: 'logo', name: 'american_express', alt: 'American Express', h: 15, dir: 'logos' },
+  { type: 'logo', name: 'adobe', alt: 'Adobe', h: 26, dir: 'logos' },
 ]
 
 const PHOTO_CARDS = [
@@ -235,10 +243,10 @@ export default function LelandAIPage() {
             <span className="logo-ticker-label">Trusted by teams at</span>
             <Marquee gradient={false} speed={35}>
               {[...Array(2)].flatMap((_, round) =>
-                SOCIAL_PROOF.map(({ name, alt, h }) => (
+                SOCIAL_PROOF.map(({ name, alt, h, dir }) => (
                   <img
                     key={`${alt}-${round}`}
-                    src={`${import.meta.env.BASE_URL}assets/logos/${name}.svg`}
+                    src={`${import.meta.env.BASE_URL}${dir || 'assets/logos'}/${name}.svg`}
                     alt={alt}
                     style={{ height: h }}
                     className="logo-ticker-img"
