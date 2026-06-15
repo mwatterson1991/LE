@@ -1764,7 +1764,42 @@ function TeamsProgramPageInner() {
           </div>
         </div>
 
-      {/* ====== 3. "Why This Course" ====== */}
+      {/* ====== B2B-A. The Opportunity (compare card) ====== */}
+      <section className="b2b-section" id="opportunity">
+        <div className="container">
+          <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› The Opportunity</span>
+            <h2 className="b2b-section-headline">Using AI helps. Building with it changes what your team ships.</h2>
+            <p className="b2b-section-sub">Most teams have ChatGPT, Claude, and Copilot. The ones pulling ahead built on top of them, shipping agents and automations that handle real work end-to-end. AI Builder is the coordinated path to get your whole team there.</p>
+          </div>
+          <div className="gap-compare">
+            <div className="gap-card gap-card-user">
+              <div className="gap-card-label">Status: AI Users</div>
+              <h3 className="gap-card-title">Where most teams are today</h3>
+              <p className="gap-card-sub">Using AI, but not yet building with it</p>
+              <ul>
+                <li><span className="gap-icon">×</span><span>AI used as a faster Google: drafts, summaries, emails</span></li>
+                <li><span className="gap-icon">×</span><span>Sporadic adoption, no shared playbooks, no compounding learning</span></li>
+                <li><span className="gap-icon">×</span><span>"AI training" that's a 1-hour webinar nobody applies</span></li>
+                <li><span className="gap-icon">×</span><span>Leadership talks AI in board decks; ICs feel zero change</span></li>
+              </ul>
+            </div>
+            <div className="gap-card gap-card-builder">
+              <div className="gap-card-label">Status: AI Builders</div>
+              <h3 className="gap-card-title">Where Leland-trained teams operate</h3>
+              <p className="gap-card-sub">Where your team can be in 6–10 weeks</p>
+              <ul>
+                <li><span className="gap-icon">✓</span><span>Agents and automations that handle real work end-to-end</span></li>
+                <li><span className="gap-icon">✓</span><span>Reusable skills, workflows, and evals shared across the team</span></li>
+                <li><span className="gap-icon">✓</span><span>3–4 internal AI champions emerge from every engagement</span></li>
+                <li><span className="gap-icon">✓</span><span>Every session ends with a deliverable used at work the next day</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== 3. "Why This Course" (AgentNetwork) ====== */}
       <section className="save-time-section" id="about">
         <div className="container">
           <div className="save-time-split">
@@ -1781,11 +1816,83 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== VP1 — Image Reveal ====== */}
-      <ImageRevealSection />
+      {/* ====== B2B-B. Results — outcomes leaders take to the board ====== */}
+      <section className="b2b-section" id="results">
+        <div className="container">
+          <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› Results</span>
+            <h2 className="b2b-section-headline">Outcomes leaders take to the board.</h2>
+            <p className="b2b-section-sub">Real metrics from teams across startups to the Fortune 500. Not aspirational, observed.</p>
+          </div>
+          <div className="b2b-stats">
+            <div>
+              <p className="b2b-stat-lbl">› 01 Completion</p>
+              <div className="b2b-stat-num b2b-stat-num-accent">85%</div>
+              <div className="b2b-stat-desc">Completion rate vs. 5–15% for self-paced courses</div>
+            </div>
+            <div>
+              <p className="b2b-stat-lbl">› 02 Productivity</p>
+              <div className="b2b-stat-num">2x</div>
+              <div className="b2b-stat-desc">Output gain vs. self-taught teams (London School of Economics)</div>
+            </div>
+            <div>
+              <p className="b2b-stat-lbl">› 03 Output</p>
+              <div className="b2b-stat-num b2b-stat-num-accent">Team-Scale</div>
+              <div className="b2b-stat-desc">Each builder ships work that used to take an entire team</div>
+            </div>
+            <div>
+              <p className="b2b-stat-lbl">› 04 Platform Rating</p>
+              <div className="b2b-stat-num">4.99★</div>
+              <div className="b2b-stat-desc">Across 27,635 reviews on Leland</div>
+            </div>
+            <div>
+              <p className="b2b-stat-lbl">› 05 Time to Ship</p>
+              <div className="b2b-stat-num b2b-stat-num-accent">2 wk</div>
+              <div className="b2b-stat-desc">From kickoff to first shipped tool</div>
+            </div>
+            <div>
+              <p className="b2b-stat-lbl">› 06 Builds Shipped</p>
+              <div className="b2b-stat-num">20+</div>
+              <div className="b2b-stat-desc">Real tools and agents shipped per builder across the program</div>
+            </div>
+          </div>
+          <p className="b2b-stat-source">› Productivity stat: London School of Economics · AI maturity data: McKinsey State of AI 2025</p>
+        </div>
+      </section>
 
       {/* ====== 4. Testimonials — Masonry board ====== */}
       <TestimonialsBoard />
+
+      {/* ====== B2B-C. Market Signal (BCG + CHRO) ====== */}
+      <section className="b2b-section b2b-section-dark" id="market-signal">
+        <div className="container">
+          <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› The Market Signal</span>
+            <h2 className="b2b-section-headline">A small group of companies are pulling ahead. Their competitors are starting to feel it.</h2>
+          </div>
+          <div className="market-signal">
+            <div className="market-card">
+              <p className="market-card-src">› BCG, 2025</p>
+              <div className="market-card-big">5%</div>
+              <p className="market-card-body">of companies qualify as true AI leaders. Those leaders are operating at a completely different level.</p>
+              <div className="market-card-metrics">
+                <div className="market-card-metric"><b>1.7x</b>Revenue growth</div>
+                <div className="market-card-metric"><b>3.6x</b>Three-year TSR</div>
+                <div className="market-card-metric"><b>1.6x</b>EBIT margin</div>
+              </div>
+            </div>
+            <div className="market-card">
+              <p className="market-card-src">› CHRO Association, 2026</p>
+              <div className="market-card-big">91%</div>
+              <p className="market-card-body">of CHROs ranked AI and digitization as their #1 priority. The biggest barriers to AI adoption are organizational, not technological.</p>
+              <div className="market-card-metrics">
+                <div className="market-card-metric"><b>#1</b>Workforce priority</div>
+                <div className="market-card-metric"><b>Organizational</b>The real bottleneck</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ====== 5. Team Pricing (pricing anchor) ====== */}
       <TeamPricingSection id="pricing" />
@@ -1815,11 +1922,45 @@ function TeamsProgramPageInner() {
       {/* ====== Use Cases by Role ====== */}
       <RoleUseCases />
 
-      {/* ====== Repeat: Team Pricing (final CTA) ====== */}
-      <TeamPricingSection headline="Ready to build an AI-first team?" sub="One conversation, a tailored plan, and a roadmap your leadership can act on — even if you don’t move forward with us." />
+      {/* ====== B2B-D. Alternatives ====== */}
+      <section className="b2b-section" id="alternatives">
+        <div className="container">
+          <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› The Alternatives</span>
+            <h2 className="b2b-section-headline">Why the usual approaches fall short.</h2>
+            <p className="b2b-section-sub">Most teams have tried one of these. Most teams are still where they started.</p>
+          </div>
+          <div className="alt-grid">
+            <div className="alt-card">
+              <div className="alt-card-num">01 · Hire an AI lead</div>
+              <h3 className="alt-card-title">One hire to "own AI"</h3>
+              <p className="alt-card-desc">Concentrates the capability in one person. Slow to hire, slow to compound, and the rest of the team stays behind. A useful complement later, not the right first move.</p>
+              <div className="alt-card-stat">Result: <b>One node, not a team</b></div>
+            </div>
+            <div className="alt-card">
+              <div className="alt-card-num">02 · In-house L&amp;D</div>
+              <h3 className="alt-card-title">Build it internally</h3>
+              <p className="alt-card-desc">L&amp;D builds AI training content from scratch. Takes months. Impossible to keep current in a field that changes weekly.</p>
+              <div className="alt-card-stat">Result: <b>Outdated on arrival</b></div>
+            </div>
+            <div className="alt-card">
+              <div className="alt-card-num">03 · Self-paced courses</div>
+              <h3 className="alt-card-title">Udemy, Coursera, vendor certs</h3>
+              <p className="alt-card-desc">Videos and quizzes at their own pace. Builds awareness, not capability. Graduates still use AI as a search engine.</p>
+              <div className="alt-card-stat">Result: <b>5–15% completion</b></div>
+            </div>
+            <div className="alt-card alt-card-leland">
+              <div className="alt-card-num">04 · Leland</div>
+              <h3 className="alt-card-title">Live cohort building</h3>
+              <p className="alt-card-desc">Live sessions, cohort accountability, hands-on building. Participants leave every session with something working and applied to real work.</p>
+              <div className="alt-card-stat">Result: <b>85% completion · Shipped systems</b></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* ====== VP3 — Work Smarter (img-reveal layout) ====== */}
-      <SkillsRevealSection />
+      {/* ====== Repeat: Team Pricing (final CTA) ====== */}
+      <TeamPricingSection headline="Ready to build an AI-first team?" sub="One conversation, a tailored plan, and a roadmap your leadership can act on, even if you don’t move forward with us." />
 
       {/* ====== 10. Instructors (REMOVED — commented out) ====== */}
       {/*
