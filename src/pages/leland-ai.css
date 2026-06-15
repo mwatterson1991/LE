@@ -1117,7 +1117,7 @@ video.photo-card-video {
 /* ---------- Pledge ====== */
 .lai-pledge {
   padding: 96px 48px;
-  background: linear-gradient(158deg, #1c2c4a 0%, #243a63 100%);
+  background: linear-gradient(158deg, #B85A2B 0%, #9F4A21 100%);
   overflow: hidden;
 }
 .lai-pledge-grid {
@@ -1137,7 +1137,7 @@ video.photo-card-video {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--yellow, #FFD667);
+  color: rgba(255, 255, 255, 0.72);
   display: inline-block;
   margin-bottom: 18px;
 }
@@ -1157,7 +1157,7 @@ video.photo-card-video {
   font-family: var(--font-heading);
   font-size: 52px;
   font-weight: 500;
-  color: var(--yellow, #FFD667);
+  color: var(--cream, #F0EBE0);
   line-height: 1;
 }
 .lai-pledge-sub {
@@ -1209,26 +1209,26 @@ video.photo-card-video {
 }
 .lai-pchart-line {
   fill: none;
-  stroke: var(--blue, #80ACED);
+  stroke: var(--cream, #F0EBE0);
   stroke-width: 3;
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 2px 7px rgba(128, 172, 237, 0.55));
+  filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.22));
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation: lai-pchart-draw 1.8s cubic-bezier(.4, .8, .3, 1) 0.15s forwards;
 }
 @keyframes lai-pchart-draw { to { stroke-dashoffset: 0; } }
 .lai-pchart-dot {
-  fill: var(--blue, #80ACED);
-  stroke: #ffffff;
+  fill: var(--cream, #F0EBE0);
+  stroke: #9F4A21;
   stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 1px 6px rgba(128, 172, 237, 0.7));
+  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.28));
 }
 .lai-pchart-halo {
-  fill: var(--blue, #80ACED);
+  fill: var(--cream, #F0EBE0);
   transform-box: fill-box;
   transform-origin: center;
   animation: lai-pchart-ping 2.6s ease-out infinite;

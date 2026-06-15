@@ -68,7 +68,7 @@
 .plg-counter-card {
   max-width: 920px;
   margin: 0 auto;
-  background: linear-gradient(158deg, #1c2c4a 0%, #243a63 100%);
+  background: linear-gradient(158deg, #B85A2B 0%, #9F4A21 100%);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 24px;
   padding: 48px 48px 40px;
@@ -112,9 +112,9 @@
 .plg-counter-live::before {
   content: "";
   width: 8px; height: 8px;
-  background: var(--blue, #80ACED);
+  background: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 0 8px rgba(128, 172, 237, 0.9);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
   animation: plg-pulse 1.6s ease-in-out infinite;
 }
 
@@ -162,12 +162,12 @@
 }
 .plg-chart-line {
   fill: none;
-  stroke: var(--blue, #80ACED);
+  stroke: var(--cream, #F0EBE0);
   stroke-width: 3;
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 2px 7px rgba(128, 172, 237, 0.5));
+  filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.22));
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation: plg-draw 1.8s cubic-bezier(.4, .8, .3, 1) 0.15s forwards;
@@ -175,15 +175,15 @@
 @keyframes plg-draw { to { stroke-dashoffset: 0; } }
 
 .plg-chart-dot {
-  fill: var(--blue, #80ACED);
-  stroke: var(--white, #fff);
+  fill: var(--cream, #F0EBE0);
+  stroke: #9F4A21;
   stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 1px 6px rgba(128, 172, 237, 0.65));
+  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.28));
 }
 /* Soft "live" ping radiating from the latest point. */
 .plg-chart-halo {
-  fill: var(--blue, #80ACED);
+  fill: var(--cream, #F0EBE0);
   transform-box: fill-box;
   transform-origin: center;
   animation: plg-ping 2.6s ease-out infinite;

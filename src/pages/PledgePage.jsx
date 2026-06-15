@@ -66,8 +66,8 @@ function PledgeChart({ series }) {
       <svg className="plg-chart" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="People learning AI on Leland over time">
         <defs>
           <linearGradient id="plgArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--blue, #80ACED)" stopOpacity="0.42" />
-            <stop offset="100%" stopColor="var(--blue, #80ACED)" stopOpacity="0.02" />
+            <stop offset="0%" stopColor="var(--cream, #F0EBE0)" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="var(--cream, #F0EBE0)" stopOpacity="0.03" />
           </linearGradient>
         </defs>
         {gridVals.map((v, i) => (

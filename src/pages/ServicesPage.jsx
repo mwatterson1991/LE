@@ -291,8 +291,8 @@ export default function ServicesPage() {
       <section className="svc-together">
         <div className="lai-container">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="svc-section-head">
-            <h2 className="lai-section-title">We build it. Your team runs it.</h2>
-            <p className="lai-section-sub">This isn’t either/or. We deploy the agents, workflows, and infrastructure so you move faster now, then train your people to manage and extend it all. That’s how the impact compounds.</p>
+            <h2 className="lai-section-title">A velocity bridge to impact.</h2>
+            <p className="lai-section-sub">We deploy agents, workflows, and infrastructure so you move faster now, then train your people to manage and extend it all.</p>
           </motion.div>
           <div className="svc-together-flow">
             <motion.div className="svc-together-card svc-together-card--primary" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>

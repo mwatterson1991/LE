@@ -158,8 +158,8 @@ function PledgeChart() {
       <svg className="lai-pchart" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="People learning AI on Leland, growing every month">
         <defs>
           <linearGradient id="laiPledgeArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--blue, #80ACED)" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="var(--blue, #80ACED)" stopOpacity="0.03" />
+            <stop offset="0%" stopColor="var(--cream, #F0EBE0)" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="var(--cream, #F0EBE0)" stopOpacity="0.03" />
           </linearGradient>
         </defs>
         {gridVals.map((v, i) => (
