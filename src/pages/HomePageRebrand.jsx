@@ -2007,7 +2007,7 @@ function HomePageRebrandInner() {
                   <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1" width="10" height="3" fill="currentColor"/><rect x="2" y="5.5" width="10" height="3" fill="currentColor"/><rect x="2" y="10" width="10" height="3" fill="currentColor"/></svg> Custom workshops available</li>
                   <li><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="5" y="1" width="4" height="4" fill="currentColor"/><rect x="3" y="6" width="8" height="2" fill="currentColor"/><rect x="1" y="9" width="12" height="4" fill="currentColor"/></svg> Dedicated account manager</li>
                 </ul>
-                <a href="https://calendly.com/d/ct7k-c45-dbx/leland-s-ai-builder-program-for-teams" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg enterprise-cta">
+                <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg enterprise-cta">
                   Talk with Our Team
                 </a>
               </div>
