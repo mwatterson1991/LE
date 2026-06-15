@@ -83,7 +83,7 @@ export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
           <div className="rb-nav-actions">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={onCtaClick}>
               <span className="nav-cta-full">Talk to our team</span>
-              <span className="nav-cta-short">Talk to us</span>
+              <span className="nav-cta-short">Book a call</span>
             </a>
           </div>
           <button className="lai-nav-hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>

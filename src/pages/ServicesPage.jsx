@@ -150,7 +150,7 @@ export default function ServicesPage() {
                 onClick={() => posthog.capture('services--cta_click', { source: 'hero' })}
               >
                 <span className="nav-cta-full">Talk to our team</span>
-                <span className="nav-cta-short">Talk to us</span>
+                <span className="nav-cta-short">Book a call</span>
               </a>
             </div>
           </motion.div>

@@ -250,7 +250,7 @@ export default function LelandAIPage() {
                 onClick={() => posthog.capture('lai--cta_click', { source: 'hero' })}
               >
                 <span className="nav-cta-full">Talk to our team</span>
-                <span className="nav-cta-short">Talk to us</span>
+                <span className="nav-cta-short">Book a call</span>
               </a>
               <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
                 <a href="/program" className="lai-cta-primary lai-cta-beam">
