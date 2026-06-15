@@ -610,40 +610,39 @@ body.rb-home section.b2b-section#problem,
 body.rb-home section.b2b-section#how-it-works { background: #ffffff; }
 body.rb-home .role-uses-section { background: #ffffff; }
 
-/* AgentNetwork dark band — inverts colors so the visualization pops */
+/* AgentNetwork in light-blue band — was a stronger treatment than the white
+ * default on /program. Tinted blue surface, blue accent on the agent SVG,
+ * dark text for readability. */
 body.rb-home .save-time-section {
-  background: #0a0a0a;
-  color: #ffffff;
+  background: #e7eef9;
+  color: var(--text-primary);
   padding: 96px 0;
 }
-body.rb-home .save-time-section .save-time-headline {
-  color: #ffffff;
-}
-body.rb-home .save-time-section .save-time-sub {
-  color: rgba(255, 255, 255, 0.78);
-}
-body.rb-home .save-time-section .save-time-cite {
-  color: rgba(255, 255, 255, 0.88);
-}
-body.rb-home .save-time-section .save-time-cite strong {
-  color: var(--accent, #FFD667);
-}
-body.rb-home .save-time-section .agent-network-center-fill { fill: var(--accent, #FFD667); }
-body.rb-home .save-time-section .agent-network-center-label { fill: #0a0a0a; }
+body.rb-home .save-time-section .save-time-headline { color: var(--text-primary); }
+body.rb-home .save-time-section .save-time-sub { color: var(--text-secondary); }
+body.rb-home .save-time-section .save-time-cite { color: var(--text-primary); }
+body.rb-home .save-time-section .save-time-cite strong { color: #2f5fb0; }
+
+/* Agent network: blue tint everywhere on the soft blue band */
+body.rb-home .save-time-section .agent-network-center-fill { fill: var(--blue, #80ACED); }
+body.rb-home .save-time-section .agent-network-center-label { fill: #ffffff; }
 body.rb-home .save-time-section .agent-network-line,
-body.rb-home .save-time-section .agent-network-action-line { stroke: rgba(255, 214, 103, 0.45); }
-body.rb-home .save-time-section .agent-network-line-static { stroke: rgba(255, 214, 103, 0.55); }
+body.rb-home .save-time-section .agent-network-action-line { stroke: rgba(47, 95, 176, 0.45); }
+body.rb-home .save-time-section .agent-network-line-static { stroke: rgba(47, 95, 176, 0.55); }
 body.rb-home .save-time-section .agent-network-pulse,
 body.rb-home .save-time-section .agent-network-action-pulse,
-body.rb-home .save-time-section .agent-network-status-dot { fill: var(--accent, #FFD667); }
-body.rb-home .save-time-section .agent-network-action-target { fill: rgba(255, 214, 103, 0.7); }
+body.rb-home .save-time-section .agent-network-status-dot {
+  fill: var(--blue, #80ACED);
+  filter: drop-shadow(0 0 5px rgba(128, 172, 237, 0.55));
+}
+body.rb-home .save-time-section .agent-network-action-target { fill: rgba(128, 172, 237, 0.7); }
 body.rb-home .save-time-section .agent-network-node-fill {
-  fill: rgba(255, 214, 103, 0.10);
-  stroke: rgba(255, 214, 103, 0.7);
+  fill: rgba(128, 172, 237, 0.16);
+  stroke: rgba(47, 95, 176, 0.6);
 }
 body.rb-home .save-time-section .agent-network-node-ring {
-  stroke: rgba(255, 214, 103, 0.5);
-  fill: rgba(0, 0, 0, 0.4);
+  stroke: rgba(47, 95, 176, 0.45);
+  fill: rgba(255, 255, 255, 0.65);
 }
 
 /* On cream sections, the white cards (.gap-card, .problem-card, .customer-win-card,
