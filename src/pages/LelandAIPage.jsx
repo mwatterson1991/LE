@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import { motion } from 'motion/react'
-import { COURSE_COHORTS } from './courseData'
 import { PLEDGE_TOTAL, PLEDGE_SERIES } from '../pledgeData'
 import { BorderBeam } from 'border-beam'
 import Nav from '../components/Nav'
@@ -52,33 +51,6 @@ const PHOTO_CARDS = [
     img: 'homepage-cards/ai-native-talent.png',
   },
 ]
-
-function NextCohortBadge() {
-  const now = new Date()
-  const l1 = COURSE_COHORTS[1] || []
-  const next = l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso) && new Date(c.iso + 'T15:00:00Z') >= now)
-    || l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso))
-  if (!next) return null
-  const target = new Date(next.iso + 'T15:00:00Z')
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  const month = months[target.getUTCMonth()].toUpperCase()
-  const day = target.getUTCDate()
-  const display = `${fullMonths[target.getUTCMonth()]} ${day}`
-
-  return (
-    <div className="cd-link lai-cohort-badge">
-      <div className="cd-cal">
-        <span className="cd-cal-month">{month}</span>
-        <span className="cd-cal-day">{day}</span>
-      </div>
-      <div className="cd-info">
-        <span className="cd-info-title">Next cohort</span>
-        <span className="cd-info-date">Starts {display}</span>
-      </div>
-    </div>
-  )
-}
 
 function ImageRevealSection() {
   const sectionRef = useRef(null)
@@ -239,7 +211,7 @@ export default function LelandAIPage() {
         <div className="container">
           <motion.div initial="hidden" animate="visible" variants={fadeUp} className="lai-hero-content">
             <h1>Make your organization AI-native</h1>
-            <p className="hero-sub">Bring your team and processes into the modern AI era.</p>
+            <p className="hero-sub">Train your people, deploy AI systems, and hire the talent to run them.</p>
             <div className="lai-hero-ctas">
               <a
                 href={CTA_URL}
@@ -306,7 +278,6 @@ export default function LelandAIPage() {
                     />
                   )}
                   <div className="photo-card-scrim" />
-                  {card.cohortBadge && <NextCohortBadge />}
                   <div className="photo-card-content">
                     {card.logo && (
                       <img
