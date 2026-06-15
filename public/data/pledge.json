@@ -1,5 +1,5 @@
 {
-  "total": 239494,
+  "total": 240684,
   "last30": 43882,
   "series": [
     {
@@ -72,9 +72,9 @@
     },
     {
       "month": "Jun 2026",
-      "value": 239494
+      "value": 240684
     }
   ],
-  "generatedAt": "2026-06-14T23:37:42.802Z",
+  "generatedAt": "2026-06-15T09:06:04.924Z",
   "source": "ledger"
 }
