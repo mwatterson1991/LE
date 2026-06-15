@@ -225,7 +225,7 @@ export default function PledgePage() {
               <div className="plg-manifesto-copy">
                 <p>AI is rewriting the economy in real time. Entire industries are being restructured. Job descriptions that existed six months ago are disappearing. New ones are being invented every week.</p>
                 <p className="plg-dim">People feel it. They feel behind. They feel anxious. They know they need to act, but they don&rsquo;t know where to go.</p>
-                <p className="plg-dim">In an AI world, intelligence is abundant. What&rsquo;s scarce is trust. What&rsquo;s scarce is community. What&rsquo;s scarce is the kind of human connection that actually changes outcomes. <a href="https://www.joinleland.com/home-for-ambition">Leland</a> is built around that reality.</p>
+                <p className="plg-dim">In an AI world, intelligence is abundant. What&rsquo;s scarce is trust. What&rsquo;s scarce is community. What&rsquo;s scarce is the kind of human connection that actually changes outcomes. <a href="https://www.joinleland.com">Leland</a> is built around that reality.</p>
                 <p className="plg-dim">So we&rsquo;re making a commitment. One hundred million people, learning AI on Leland.</p>
               </div>
               <div className="plg-manifesto-right">
