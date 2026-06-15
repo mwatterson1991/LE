@@ -2285,9 +2285,10 @@ body.rb-home .footer-col-link:hover {
   .v3-card-footer-wrap { padding: 16px 10px 10px; }
   body.rb-home .track-v2-overlap { margin-top: -100px; }
   body.rb-home .img-reveal-section { padding: 0 20px; }
-  body.rb-home .img-reveal-container { height: 60vh; min-height: 360px; }
-  body.rb-home .img-reveal-content { flex-direction: column; align-items: flex-start; gap: 20px; }
-  body.rb-home .img-reveal-heading { font-size: 36px; }
+  /* Let the box grow to fit its content on mobile instead of clipping it */
+  body.rb-home .img-reveal-container { height: auto; min-height: 0; }
+  body.rb-home .img-reveal-content { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 18px; height: auto; padding: 32px 24px; }
+  body.rb-home .img-reveal-heading { font-size: 34px; }
   body.rb-home .img-reveal-desc { font-size: 16px; }
   body.rb-home .why-reveal-section { padding: 0 20px; }
   body.rb-home .why-reveal-container { height: auto; min-height: 500px; }
