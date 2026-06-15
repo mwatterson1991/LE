@@ -1768,34 +1768,6 @@ function TeamsProgramPageInner() {
       </section>
 
 
-      {/* ====== Stat Strip Band — buyer-scannable numbers under the hero ====== */}
-      <section className="stat-strip-band" aria-label="Program at a glance">
-        <div className="container">
-          <div className="stat-strip">
-            <div className="stat-strip-cell">
-              <span className="stat-strip-num">85%</span>
-              <span className="stat-strip-lbl">Completion rate</span>
-            </div>
-            <div className="stat-strip-cell">
-              <span className="stat-strip-num">2 wk</span>
-              <span className="stat-strip-lbl">Time to first build</span>
-            </div>
-            <div className="stat-strip-cell">
-              <span className="stat-strip-num">20+</span>
-              <span className="stat-strip-lbl">Builds per builder</span>
-            </div>
-            <div className="stat-strip-cell">
-              <span className="stat-strip-num">4.99★</span>
-              <span className="stat-strip-lbl">Across 27,635 reviews</span>
-            </div>
-            <div className="stat-strip-cell">
-              <span className="stat-strip-num">5 – 50k</span>
-              <span className="stat-strip-lbl">Seat range</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="b2b-section" id="shift">
         <div className="container">
           <div className="b2b-section-head">
@@ -1864,7 +1836,7 @@ function TeamsProgramPageInner() {
           <div className="b2b-section-head">
             <span className="b2b-eyebrow">› Team Outcomes</span>
             <h2 className="b2b-section-headline">What teams ship after the program.</h2>
-            <p className="b2b-section-sub">85% completion. 2-week time to first shipped tool. 20+ builds per builder across the program.</p>
+            <p className="b2b-section-sub">Real systems shipped by real teams during the program. A few of the outcomes leaders have reported back.</p>
           </div>
           <div className="customer-wins">
             <div className="customer-win-card">
