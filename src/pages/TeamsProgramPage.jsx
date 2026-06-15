@@ -1767,131 +1767,6 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      <div className="track-v2-overlap">
-        <div className="container">
-          <div className="logo-ticker logo-ticker-cards logo-ticker-teams">
-            <span className="logo-ticker-label">Join teams from companies like:</span>
-            <Marquee gradient={!isMobile} gradientColor="#000000" gradientWidth={48} speed={35}>
-              {[...Array(2)].flatMap((_, round) => [
-                { file: 'appfolio.png', alt: 'AppFolio' },
-                { file: 'datavant.png', alt: 'Datavant' },
-                { file: 'degreed.png', alt: 'Degreed' },
-                { file: 'miro.png', alt: 'Miro' },
-                { file: 'verizon.png', alt: 'Verizon' },
-                { file: 'clozd.png', alt: 'Clozd' },
-                { file: 'mckinsey.png', alt: 'McKinsey' },
-                { file: 'mcdonalds.png', alt: "McDonald's" },
-                { file: 'american-express.png', alt: 'American Express' },
-                { file: 'google.png', alt: 'Google' },
-              ].map(({ file, alt }) => (
-                <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/customer-logos/${file}`} alt={alt} className="logo-ticker-img logo-ticker-customer" />
-              )))}
-            </Marquee>
-          </div>
-          {(false &&
-              <div className="v3-tiers">
-                {[
-                  { key: 'core', eyebrow: 'AI Builder Core', meta: '6 weeks · For every knowledge worker', sub: 'Levels 1–3' },
-                  { key: 'advanced', eyebrow: 'AI Builder Advanced', meta: '10 weeks · For sophisticated builders', sub: 'Levels 1–5' },
-                ].map(tier => (
-                  <div className={`v3-tier v3-tier-${tier.key}`} key={tier.key}>
-                    <div className="v3-tier-header">
-                      <div className="v3-tier-header-text">
-                        <span className="v3-tier-eyebrow-row">
-                          <span className="v3-tier-eyebrow">{tier.eyebrow}</span>
-                          {tier.key === 'core' && <span className="v3-tier-popular">Most Popular</span>}
-                        </span>
-                        <span className="v3-tier-meta">
-                          <span className="v3-tier-duration">{tier.meta}</span>
-                        </span>
-                      </div>
-                      <div className="v3-tier-cta">
-                        <a
-                          href={tier.key === 'core' ? '#level-accordion' : '#level-4'}
-                          className="v3-tier-arrow-btn"
-                          onClick={(e) => e.stopPropagation()}
-                          aria-label="Learn more"
-                        >
-                          &darr;
-                        </a>
-                      </div>
-                    </div>
-                    <div className="v3-tier-cards">
-                      {trackItems.filter(item => item.tier === tier.key).map(item => {
-                        const idx = trackItems.findIndex(t => t.num === item.num)
-                        const cardClick = () => { setOpenAccordion(idx); setTimeout(() => { const el = document.querySelector(item.href); if (el) { const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60; const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16; window.scrollTo({ top, behavior: 'smooth' }); } }, 100); }
-                        return (
-                          <div className={`v3-card v3-card-${tier.key}`} key={item.num} onClick={cardClick}>
-                            <div className={`v3-card-level-banner v3-card-level-banner-${tier.key}`}>Level {parseInt(item.num)}</div>
-                            <div className="v3-card-body">
-                            <div className="v3-card-title">{item.name}</div>
-                            <div className="v3-card-desc">{item.tagline}</div>
-                            {item.pastSoldOut && item.pastSoldOut.length > 0 && (
-                              <span className="v3-card-sold-out">
-                                {item.pastSoldOut.map((d, i) => (
-                                  <React.Fragment key={d}>
-                                    {i > 0 && <span className="v3-card-sold-out-sep"> · </span>}
-                                    <span className="v3-card-sold-out-date">{d}</span>
-                                  </React.Fragment>
-                                ))}
-                                <span className="v3-card-sold-out-tag"> Sold out</span>
-                              </span>
-                            )}
-                            </div>
-                            <div className="v3-card-footer-wrap">
-                            {(() => {
-                              const d = new Date(item.cohortDate)
-                              const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-                              const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                              const formatted = `${days[d.getDay()]}, ${shortMonths[d.getMonth()]} ${d.getDate()}`
-                              return (
-                                <a
-                                  href={item.href}
-                                  className="v3-card-footer"
-                                  onClick={(e) => {
-                                    e.stopPropagation()
-                                    e.preventDefault()
-                                    const el = document.querySelector(item.href)
-                                    if (el) {
-                                      const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60
-                                      const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16
-                                      window.scrollTo({ top, behavior: 'smooth' })
-                                    }
-                                  }}
-                                >
-                                  <div className="v3-card-cal">
-                                    <span className="v3-card-cal-month">{shortMonths[d.getMonth()]}</span>
-                                    <span className="v3-card-cal-day">{d.getDate()}</span>
-                                  </div>
-                                  <div className="v3-card-cohort">
-                                    <span className="v3-card-cohort-label">Next cohort starts</span>
-                                    <span className="v3-card-cohort-date">{formatted}</span>
-                                  </div>
-                                </a>
-                              )
-                            })()}
-                            </div>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-            <p className="cards-cta-line cards-cta-line-v2">
-              Buying for a team of 5 or more?{' '}
-              <a
-                href={CALENDLY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => posthog.capture('app--sales_cta_click', { source: 'cards-line-teams' })}
-              >
-                Get volume pricing and a custom plan
-              </a>.
-            </p>
-          </div>
-        </div>
 
       {/* ====== Stat Strip Band — buyer-scannable numbers under the hero ====== */}
       <section className="stat-strip-band" aria-label="Program at a glance">
@@ -1921,17 +1796,10 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== Chapter 01 — The Shift ====== */}
-      <div className="chapter-divider" role="separator" aria-label="Chapter 01">
-        <span className="chapter-divider-num">Chapter 01</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-title">The Shift</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-num">›</span>
-      </div>
       <section className="b2b-section" id="shift">
         <div className="container">
           <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› The Shift</span>
             <h2 className="b2b-section-headline">AI is changing how work gets done across every function.</h2>
           </div>
           <div className="shift-callout">
@@ -1965,17 +1833,10 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== Chapter 02 — The Problem ====== */}
-      <div className="chapter-divider" role="separator" aria-label="Chapter 02">
-        <span className="chapter-divider-num">Chapter 02</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-title">The Problem</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-num">›</span>
-      </div>
       <section className="b2b-section" id="problem">
         <div className="container">
           <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› The Problem</span>
             <h2 className="b2b-section-headline">Most teams know AI is important. Driving impactful adoption is slower than they want.</h2>
           </div>
           <div className="problem-grid">
@@ -1998,17 +1859,10 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== Chapter 03 — Team Outcomes ====== */}
-      <div className="chapter-divider" role="separator" aria-label="Chapter 03">
-        <span className="chapter-divider-num">Chapter 03</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-title">Team Outcomes</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-num">›</span>
-      </div>
       <section className="b2b-section" id="customers">
         <div className="container">
           <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› Team Outcomes</span>
             <h2 className="b2b-section-headline">What teams ship after the program.</h2>
             <p className="b2b-section-sub">85% completion. 2-week time to first shipped tool. 20+ builds per builder across the program.</p>
           </div>
@@ -2041,17 +1895,10 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== Chapter 04 — How It Works ====== */}
-      <div className="chapter-divider" role="separator" aria-label="Chapter 04">
-        <span className="chapter-divider-num">Chapter 04</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-title">How It Works</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-num">›</span>
-      </div>
       <section className="b2b-section" id="how-it-works">
         <div className="container">
           <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› How It Works</span>
             <h2 className="b2b-section-headline">A clean rollout your leadership can sign off on.</h2>
           </div>
           <div className="engagement-flow">
@@ -2099,15 +1946,7 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== Chapter 05 — The Solution ====== */}
-      <div className="chapter-divider" role="separator" aria-label="Chapter 05">
-        <span className="chapter-divider-num">Chapter 05</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-title">The Solution</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-num">›</span>
-      </div>
-      <TeamPricingSection id="pricing" eyebrow="" />
+      <TeamPricingSection id="pricing" eyebrow="› The Solution" />
 
 
       {/* ====== Use Cases by Role ====== */}
@@ -2115,17 +1954,10 @@ function TeamsProgramPageInner() {
 
       {/* Problem section moved up above Customer Wins */}
 
-      {/* ====== Chapter 06 — Security & Compliance ====== */}
-      <div className="chapter-divider" role="separator" aria-label="Chapter 06">
-        <span className="chapter-divider-num">Chapter 06</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-title">Security &amp; Compliance</span>
-        <span className="chapter-divider-line" />
-        <span className="chapter-divider-num">›</span>
-      </div>
       <section className="b2b-section" id="security">
         <div className="container">
           <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› Security &amp; Compliance</span>
             <h2 className="b2b-section-headline">Your security team will sign off.</h2>
           </div>
           <div className="security-grid">

@@ -526,9 +526,19 @@ body.rb-home .hero-teams .hero-review-row { justify-content: flex-start; }
 
 /* ===== FEATURED PULL-QUOTE — a visual standout between sections ===== */
 .feature-quote-section {
-  padding: 80px 0;
-  background: var(--text-primary);
+  padding: 96px 0;
+  background: #0e0e0e;
   color: #ffffff;
+  position: relative;
+}
+.feature-quote-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(60% 70% at 80% 30%, rgba(255, 214, 103, 0.10) 0%, transparent 70%),
+    radial-gradient(50% 60% at 0% 100%, rgba(255, 214, 103, 0.06) 0%, transparent 70%);
+  pointer-events: none;
 }
 .feature-quote {
   max-width: 1000px;
@@ -538,38 +548,41 @@ body.rb-home .hero-teams .hero-review-row { justify-content: flex-start; }
   grid-template-columns: 90px 1fr;
   gap: 28px;
   align-items: start;
+  position: relative;
+  z-index: 1;
 }
-@media (max-width: 720px) { .feature-quote { grid-template-columns: 1fr; gap: 16px; } }
+@media (max-width: 720px) { .feature-quote { grid-template-columns: 1fr; gap: 16px; padding: 0 20px; } }
 .feature-quote-mark {
   font-family: var(--font-heading, Georgia, serif);
-  font-size: 96px;
-  line-height: 0.8;
+  font-size: 120px;
+  line-height: 0.7;
   color: var(--accent, #FFD667);
 }
 .feature-quote-body {
-  font-size: clamp(1.4rem, 2.4vw, 2rem);
-  font-weight: 400;
-  line-height: 1.3;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.35;
   letter-spacing: -0.01em;
   color: #ffffff;
   margin: 0;
 }
-.feature-quote-body strong { color: var(--accent, #FFD667); font-weight: 500; }
+.feature-quote-body strong { color: var(--accent, #FFD667); font-weight: 600; }
 .feature-quote-meta {
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.20);
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 8px 16px;
+  gap: 10px 16px;
 }
 .feature-quote-who {
   font-family: var(--font-meta, var(--font-body));
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 500;
 }
 .feature-quote-tag {
   font-family: var(--font-meta, var(--font-body));
@@ -581,6 +594,66 @@ body.rb-home .hero-teams .hero-review-row { justify-content: flex-start; }
   border: 1px solid var(--accent, #FFD667);
   border-radius: 999px;
 }
+
+/* ===== ALTERNATING SECTION BACKGROUNDS — break up the wall of white =====
+ *  Even sections take a subtle cream/off-white, odd sections stay white.
+ *  The AgentNetwork section (save-time-section) gets the dark band treatment
+ *  so it reads as a hero-moment inside the page flow. */
+body.rb-home .hero-teams + section.stat-strip-band { background: #ffffff; }
+body.rb-home section.b2b-section#shift,
+body.rb-home section.b2b-section#customers,
+body.rb-home section.b2b-section#security,
+body.rb-home section.b2b-section#pricing,
+body.rb-home .team-solution#pricing,
+body.rb-home .b2b-section.b2b-section-cream { background: #faf7f0; }
+body.rb-home section.b2b-section#problem,
+body.rb-home section.b2b-section#how-it-works { background: #ffffff; }
+body.rb-home .role-uses-section { background: #ffffff; }
+
+/* AgentNetwork dark band — inverts colors so the visualization pops */
+body.rb-home .save-time-section {
+  background: #0a0a0a;
+  color: #ffffff;
+  padding: 96px 0;
+}
+body.rb-home .save-time-section .save-time-headline {
+  color: #ffffff;
+}
+body.rb-home .save-time-section .save-time-sub {
+  color: rgba(255, 255, 255, 0.78);
+}
+body.rb-home .save-time-section .save-time-cite {
+  color: rgba(255, 255, 255, 0.88);
+}
+body.rb-home .save-time-section .save-time-cite strong {
+  color: var(--accent, #FFD667);
+}
+body.rb-home .save-time-section .agent-network-center-fill { fill: var(--accent, #FFD667); }
+body.rb-home .save-time-section .agent-network-center-label { fill: #0a0a0a; }
+body.rb-home .save-time-section .agent-network-line,
+body.rb-home .save-time-section .agent-network-action-line { stroke: rgba(255, 214, 103, 0.45); }
+body.rb-home .save-time-section .agent-network-line-static { stroke: rgba(255, 214, 103, 0.55); }
+body.rb-home .save-time-section .agent-network-pulse,
+body.rb-home .save-time-section .agent-network-action-pulse,
+body.rb-home .save-time-section .agent-network-status-dot { fill: var(--accent, #FFD667); }
+body.rb-home .save-time-section .agent-network-action-target { fill: rgba(255, 214, 103, 0.7); }
+body.rb-home .save-time-section .agent-network-node-fill {
+  fill: rgba(255, 214, 103, 0.10);
+  stroke: rgba(255, 214, 103, 0.7);
+}
+body.rb-home .save-time-section .agent-network-node-ring {
+  stroke: rgba(255, 214, 103, 0.5);
+  fill: rgba(0, 0, 0, 0.4);
+}
+
+/* On cream sections, the white cards (.gap-card, .problem-card, .customer-win-card,
+ * .engagement-step, .team-solution-card, .security-card, .engagement-details)
+ * keep white bg so they pop against the cream backdrop. The .b2b-stats child cells
+ * also stay white. */
+body.rb-home .b2b-section[style] { /* no-op to bump specificity */ }
+
+/* Chapter-divider rules left in CSS are now unused; harmless but remove to be tidy */
+.chapter-divider { display: none; }
 
 /* Customer-logo ticker under the hero — uniform white silhouettes for cohesion */
 .logo-ticker-teams { padding-top: 8px; padding-bottom: 8px; }
