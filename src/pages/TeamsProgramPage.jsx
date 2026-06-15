@@ -877,23 +877,51 @@ function TeamPricingSection({ id, variant = 'solution', headline = 'Bring AI Bui
             </div>
           ))}
         </div>
-        <div className="team-solution-cta">
-          <div className="team-solution-cta-text">
-            <span className="team-solution-cta-eyebrow">› Pricing</span>
-            <h3 className="team-solution-cta-title">Volume pricing on consult. Scales from 5 seats to 50,000.</h3>
-            <p className="team-solution-cta-sub">Tailored to your team size, function mix, and security requirements. Most engagements include component 1 plus 2-3 of the others.</p>
+        <div className="engagement-details">
+          <div className="engagement-details-head">
+            <h3 className="engagement-details-title">Engagement details</h3>
+            <span className="engagement-details-eyebrow">› At a glance</span>
           </div>
-          <div className="team-solution-cta-actions">
-            <a
-              href={CALENDLY}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary btn-lg"
-              onClick={() => posthog.capture('app--sales_cta_click', { source: `team-pricing-${id || 'secondary'}` })}
-            >
-              Talk to our team
-            </a>
-            <a href="/program" className="team-solution-cta-secondary">Buying for yourself? See the individual program &rarr;</a>
+          <div className="engagement-details-rows">
+            <div className="engagement-details-row">
+              <span className="engagement-details-key">Per-seat (Levels 1–3)</span>
+              <span className="engagement-details-val">From $2,000 / seat</span>
+            </div>
+            <div className="engagement-details-row">
+              <span className="engagement-details-key">Volume discounts</span>
+              <span className="engagement-details-val">Tiered at 25 / 100 / 500+ seats</span>
+            </div>
+            <div className="engagement-details-row">
+              <span className="engagement-details-key">Minimum engagement</span>
+              <span className="engagement-details-val">5 seats</span>
+            </div>
+            <div className="engagement-details-row">
+              <span className="engagement-details-key">Custom workshops</span>
+              <span className="engagement-details-val">Unlocked at 25+ seats</span>
+            </div>
+            <div className="engagement-details-row">
+              <span className="engagement-details-key">Standard kickoff</span>
+              <span className="engagement-details-val">Within 7 days of consult</span>
+            </div>
+            <div className="engagement-details-row">
+              <span className="engagement-details-key">Cohort access</span>
+              <span className="engagement-details-val">1 year of retakes included</span>
+            </div>
+          </div>
+          <div className="engagement-details-foot">
+            <p className="engagement-details-foot-text">Portfolio, partnership, and education discounts available. We size each engagement to your seat count, function mix, and security requirements.</p>
+            <div className="team-solution-cta-actions">
+              <a
+                href={CALENDLY}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-lg"
+                onClick={() => posthog.capture('app--sales_cta_click', { source: `team-pricing-${id || 'secondary'}` })}
+              >
+                Talk to our team
+              </a>
+              <a href="/program" className="team-solution-cta-secondary">Buying for yourself? See /program &rarr;</a>
+            </div>
           </div>
         </div>
       </div>
@@ -1675,29 +1703,62 @@ function TeamsProgramPageInner() {
           playsInline
         />
         <div className="container">
-          <h1 className="hero-stagger hero-stagger-1">Your team, trained to <br className="mobile-br" /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">build real systems</span></h1>
+          <div className="hero-teams-grid">
+            <div className="hero-teams-left">
+              <h1 className="hero-stagger hero-stagger-1">Your team, trained to <br className="mobile-br" /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">build real systems</span></h1>
 
-          <p className="hero-sub hero-stagger hero-stagger-2">Most companies have engineering progressing on AI while everyone else falls behind. AI Builder is the live, cohort-based program that closes the gap, with a clean rollout your security team will sign off on.</p>
+              <p className="hero-sub hero-stagger hero-stagger-2">Engineering is racing ahead on AI. Everyone else is falling behind. AI Builder is the cohort program that closes the gap, with a clean rollout your security team will sign off on.</p>
 
-          <div className="hero-ctas hero-stagger hero-stagger-3">
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary btn-lg"
-              onClick={() => posthog.capture('app--sales_cta_click', { source: 'hero', page: 'program-for-teams' })}
-            >
-              Talk to our team
-            </a>
-            <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
-              <a href="#how-it-works" className="lai-cta-primary lai-cta-beam">
-                See how it works
-              </a>
-            </BorderBeam>
-          </div>
+              <div className="hero-ctas hero-stagger hero-stagger-3">
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary btn-lg"
+                  onClick={() => posthog.capture('app--sales_cta_click', { source: 'hero', page: 'program-for-teams' })}
+                >
+                  Talk to our team
+                </a>
+                <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
+                  <a href="#how-it-works" className="lai-cta-primary lai-cta-beam">
+                    See how it works
+                  </a>
+                </BorderBeam>
+              </div>
+            </div>
 
-          <div className="hero-review-row hero-stagger hero-stagger-4">
-            <span className="hero-review-text" style={{ opacity: 0.85 }}>Cohorts start every 2 weeks · 5 to 50,000 seats · Trusted by AppFolio, Datavant, Miro, Verizon, and more</span>
+            <aside className="hero-brief hero-stagger hero-stagger-4" aria-label="Program Brief">
+              <p className="hero-brief-label" />
+              <div className="hero-brief-rows">
+                <div className="hero-brief-row">
+                  <span className="hero-brief-key">Cohort cadence</span>
+                  <span className="hero-brief-val">Every <span className="accent">2 weeks</span></span>
+                </div>
+                <div className="hero-brief-row">
+                  <span className="hero-brief-key">Seat range</span>
+                  <span className="hero-brief-val">5 – 50,000</span>
+                </div>
+                <div className="hero-brief-row">
+                  <span className="hero-brief-key">Time to first build</span>
+                  <span className="hero-brief-val">Week <span className="accent">1</span></span>
+                </div>
+                <div className="hero-brief-row">
+                  <span className="hero-brief-key">Levels available</span>
+                  <span className="hero-brief-val">1 – 5 + custom</span>
+                </div>
+                <div className="hero-brief-row">
+                  <span className="hero-brief-key">Kickoff timeline</span>
+                  <span className="hero-brief-val">≤ 7 days post-call</span>
+                </div>
+                <div className="hero-brief-row">
+                  <span className="hero-brief-key">Security review</span>
+                  <span className="hero-brief-val">Included, 100+ seats</span>
+                </div>
+              </div>
+              <div className="hero-brief-foot">
+                <b>› Builders from:</b> AppFolio · Datavant · Miro · Verizon · McKinsey · McDonald's
+              </div>
+            </aside>
           </div>
 
           <div className="track-cards-section track-cards-v2" id="courses">
@@ -1832,11 +1893,45 @@ function TeamsProgramPageInner() {
           </div>
         </div>
 
-      {/* ====== B2B-A. The Shift (deck slide 2) ====== */}
+      {/* ====== Stat Strip Band — buyer-scannable numbers under the hero ====== */}
+      <section className="stat-strip-band" aria-label="Program at a glance">
+        <div className="container">
+          <div className="stat-strip">
+            <div className="stat-strip-cell">
+              <span className="stat-strip-num">85%</span>
+              <span className="stat-strip-lbl">Completion rate</span>
+            </div>
+            <div className="stat-strip-cell">
+              <span className="stat-strip-num">2 wk</span>
+              <span className="stat-strip-lbl">Time to first build</span>
+            </div>
+            <div className="stat-strip-cell">
+              <span className="stat-strip-num">20+</span>
+              <span className="stat-strip-lbl">Builds per builder</span>
+            </div>
+            <div className="stat-strip-cell">
+              <span className="stat-strip-num">4.99★</span>
+              <span className="stat-strip-lbl">Across 27,635 reviews</span>
+            </div>
+            <div className="stat-strip-cell">
+              <span className="stat-strip-num">5 – 50k</span>
+              <span className="stat-strip-lbl">Seat range</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== Chapter 01 — The Shift ====== */}
+      <div className="chapter-divider" role="separator" aria-label="Chapter 01">
+        <span className="chapter-divider-num">Chapter 01</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-title">The Shift</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-num">›</span>
+      </div>
       <section className="b2b-section" id="shift">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› 01 / The Shift</span>
             <h2 className="b2b-section-headline">AI is changing how work gets done across every function.</h2>
           </div>
           <div className="shift-callout">
@@ -1870,11 +1965,17 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== B2B-D. The Problem (deck slide 3, moved up) ====== */}
+      {/* ====== Chapter 02 — The Problem ====== */}
+      <div className="chapter-divider" role="separator" aria-label="Chapter 02">
+        <span className="chapter-divider-num">Chapter 02</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-title">The Problem</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-num">›</span>
+      </div>
       <section className="b2b-section" id="problem">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› 02 / The Problem</span>
             <h2 className="b2b-section-headline">Most teams know AI is important. Driving impactful adoption is slower than they want.</h2>
           </div>
           <div className="problem-grid">
@@ -1897,11 +1998,17 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== 4. Customer Wins — named team-level outcomes (logo wall lives in hero) ====== */}
+      {/* ====== Chapter 03 — Team Outcomes ====== */}
+      <div className="chapter-divider" role="separator" aria-label="Chapter 03">
+        <span className="chapter-divider-num">Chapter 03</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-title">Team Outcomes</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-num">›</span>
+      </div>
       <section className="b2b-section" id="customers">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› Team Outcomes</span>
             <h2 className="b2b-section-headline">What teams ship after the program.</h2>
             <p className="b2b-section-sub">85% completion. 2-week time to first shipped tool. 20+ builds per builder across the program.</p>
           </div>
@@ -1934,11 +2041,17 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== B2B-E. How it works for your team (engagement flow) ====== */}
+      {/* ====== Chapter 04 — How It Works ====== */}
+      <div className="chapter-divider" role="separator" aria-label="Chapter 04">
+        <span className="chapter-divider-num">Chapter 04</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-title">How It Works</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-num">›</span>
+      </div>
       <section className="b2b-section" id="how-it-works">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› How It Works</span>
             <h2 className="b2b-section-headline">A clean rollout your leadership can sign off on.</h2>
           </div>
           <div className="engagement-flow">
@@ -1970,8 +2083,31 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== 5. Team Pricing (pricing anchor) ====== */}
-      <TeamPricingSection id="pricing" />
+      {/* ====== Featured Pull-Quote — visual standout between How It Works and Solution ====== */}
+      <section className="feature-quote-section" aria-label="Featured outcome">
+        <div className="feature-quote">
+          <div className="feature-quote-mark" aria-hidden="true">"</div>
+          <div>
+            <blockquote className="feature-quote-body">
+              Our VP of Marketing built a system through the program that <strong>automated work we'd previously scoped as a 2-year full-time hire.</strong> The whole team now thinks differently about what's possible.
+            </blockquote>
+            <div className="feature-quote-meta">
+              <span className="feature-quote-who">Leadership · High-growth health tech</span>
+              <span className="feature-quote-tag">Levels 1–3 · Whole-team enablement</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== Chapter 05 — The Solution ====== */}
+      <div className="chapter-divider" role="separator" aria-label="Chapter 05">
+        <span className="chapter-divider-num">Chapter 05</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-title">The Solution</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-num">›</span>
+      </div>
+      <TeamPricingSection id="pricing" eyebrow="" />
 
 
       {/* ====== Use Cases by Role ====== */}
@@ -1979,11 +2115,17 @@ function TeamsProgramPageInner() {
 
       {/* Problem section moved up above Customer Wins */}
 
-      {/* ====== B2B-F. Security &amp; Compliance ====== */}
+      {/* ====== Chapter 06 — Security & Compliance ====== */}
+      <div className="chapter-divider" role="separator" aria-label="Chapter 06">
+        <span className="chapter-divider-num">Chapter 06</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-title">Security &amp; Compliance</span>
+        <span className="chapter-divider-line" />
+        <span className="chapter-divider-num">›</span>
+      </div>
       <section className="b2b-section" id="security">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› Security &amp; Compliance</span>
             <h2 className="b2b-section-headline">Your security team will sign off.</h2>
           </div>
           <div className="security-grid">
