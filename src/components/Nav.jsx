@@ -7,7 +7,13 @@ import posthog from 'posthog-js'
 // Links open in a new tab so the page you came from (e.g. leland.ai home) stays
 // open and is easy to return to.
 const NAV_LINKS = [
-  { label: 'Builder Program', href: '/program' },
+  {
+    label: 'Builder Program',
+    children: [
+      { label: 'For individuals', href: '/program' },
+      { label: 'For teams', href: '/program-for-teams' },
+    ],
+  },
   { label: 'Services', href: '/services' },
   { label: 'Recruit', href: '/recruit' },
   { label: '100M Pledge', href: '/pledge' },
@@ -85,7 +91,21 @@ export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
             </a>
             <div className="lai-nav-links">
               {NAV_LINKS.map((l) => (
-                <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="lai-nav-link">{l.label}</a>
+                l.children ? (
+                  <div className="lai-nav-dropdown" key={l.label}>
+                    <button type="button" className="lai-nav-link lai-nav-dropdown-trigger" aria-haspopup="true">
+                      {l.label}
+                      <svg className="lai-nav-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    </button>
+                    <div className="lai-nav-dropdown-menu">
+                      {l.children.map((c) => (
+                        <a key={c.href} href={c.href} target="_blank" rel="noopener noreferrer" className="lai-nav-dropdown-link">{c.label}</a>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="lai-nav-link">{l.label}</a>
+                )
               ))}
             </div>
           </div>
@@ -115,7 +135,16 @@ export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
         <button className="lai-mobile-menu-close" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
         <div className="lai-mobile-menu-links">
           {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>{l.label}</a>
+            l.children ? (
+              <div className="lai-mobile-menu-group" key={l.label}>
+                <span className="lai-mobile-menu-grouplabel">{l.label}</span>
+                {l.children.map((c) => (
+                  <a key={c.href} href={c.href} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-sublink" onClick={() => setMenuOpen(false)}>{c.label}</a>
+                ))}
+              </div>
+            ) : (
+              <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>{l.label}</a>
+            )
           ))}
         </div>
         <a
