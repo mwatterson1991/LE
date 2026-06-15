@@ -150,8 +150,8 @@ body.rb-home .lai-nav .rb-nav-getstarted:hover {
 
 /* ---------- Hero (extends .hero from home-rebrand.css) ====== */
 body.rb-home .hero.lai-hero {
-  height: 90vh;
-  max-height: 1000px;
+  height: 100vh;
+  max-height: 1100px;
   background: #222222;
   position: relative;
   overflow: hidden;
@@ -187,6 +187,13 @@ body.rb-home .hero.lai-hero .container {
 body.rb-home .hero.lai-hero h1 {
   font-size: 72px;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+/* Nudge home hero content slightly below center. The transparent nav overlays the
+   top of the hero, so perfectly-centered text reads a touch high. Scoped to the
+   photo hero only (subpage .lai-hero-plain heroes are unaffected); the logo ticker
+   sits in a separate absolute element, so it doesn't move. */
+body.rb-home .hero.lai-hero:not(.lai-hero-plain) .container {
+  transform: translateY(60px);
 }
 .lai-hero-glow {
   display: none;
@@ -382,6 +389,39 @@ body.rb-home .lai-feature-title {
 }
 .lai-feature-cta:hover { color: #3F6FB8; }
 .lai-feature-cta:hover::after { transform: translateX(4px); }
+
+/* Audience-split CTAs (Builder Program feature: For myself / For my team) */
+.lai-feature-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.lai-feature-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.lai-feature-btn-primary {
+  background: var(--blue, #80ACED);
+  color: #222222;
+  border: 1px solid transparent;
+}
+.lai-feature-btn-primary:hover { background: #6d9de0; }
+.lai-feature-btn-secondary {
+  background: transparent;
+  color: #222222;
+  border: 1px solid rgba(34, 34, 34, 0.22);
+}
+.lai-feature-btn-secondary:hover { border-color: rgba(34, 34, 34, 0.5); }
 
 /* Agent diagram (Services) */
 .lai-agent-diagram { width: 100%; height: auto; display: block; }
@@ -615,6 +655,43 @@ video.photo-card-video {
 .photo-card-cta:hover {
   border-color: rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.06);
+}
+/* Split CTAs on a photo card (For myself / For my team) */
+.photo-card-ctas {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.photo-card-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 999px;
+  text-decoration: none;
+  letter-spacing: 0;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.photo-card-btn-primary {
+  background: var(--blue, #80ACED);
+  color: #222222;
+  border: 1px solid transparent;
+}
+.photo-card-btn-primary:hover { background: #6d9de0; }
+.photo-card-btn-secondary {
+  background: rgba(20, 20, 20, 0.55);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.photo-card-btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
 }
 /* Photo card badge & logo */
 .photo-card .lai-cohort-badge {

@@ -1922,6 +1922,14 @@ body.rb-home .img-reveal-heading {
   margin: 0;
   color: #ffffff;
 }
+body.rb-home .img-reveal-source {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin: -12px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+}
 body.rb-home .img-reveal-desc {
   font-size: 20px;
   line-height: 1.6;

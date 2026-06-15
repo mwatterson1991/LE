@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { label: '100M Pledge', href: '/pledge' },
 ]
 
-// The nav CTA is always "Book an AI strategy call" on every page.
+// The nav CTA is always "Talk to our team" on every page.
 const CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
 
 /**
@@ -80,8 +80,8 @@ export default function Nav({ variant = 'transparent', mobileLabel = 'For Teams'
           </div>
           <div className="rb-nav-actions">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={onCtaClick}>
-              <span className="nav-cta-full">Book an AI strategy call</span>
-              <span className="nav-cta-short">Book a call</span>
+              <span className="nav-cta-full">Talk to our team</span>
+              <span className="nav-cta-short">Talk to us</span>
             </a>
           </div>
           <button className="lai-nav-hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
@@ -110,7 +110,7 @@ export default function Nav({ variant = 'transparent', mobileLabel = 'For Teams'
           className="lai-mobile-menu-cta"
           onClick={() => { onCtaClick(); setMenuOpen(false) }}
         >
-          Book an AI strategy call
+          Talk to our team
         </a>
       </div>
     </>

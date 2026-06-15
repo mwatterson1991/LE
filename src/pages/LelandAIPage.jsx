@@ -35,6 +35,10 @@ const PHOTO_CARDS = [
     video: 'Animated Gradient - 06.mp4',
     cohortBadge: true,
     logo: 'aibp-stacked-light.png',
+    ctas: [
+      { label: 'For individuals', to: '/program', primary: true },
+      { label: 'For teams', to: '/program-for-teams' },
+    ],
   },
   {
     title: 'Deploy custom AI workflows',
@@ -110,9 +114,10 @@ function ImageRevealSection() {
         style={{ transform: `scale(${containerScale})`, background: '#5E6E79' }}
       >
         <div className="img-reveal-content lai-reveal-content">
-          <h2 className="img-reveal-heading">Most leaders know that becoming AI-native is a massive opportunity.</h2>
+          <h2 className="img-reveal-heading">75% of executives rank AI as a top-three strategic priority.</h2>
+          <p className="img-reveal-source">Source: BCG AI Radar, 2025 (survey of 1,803 executives)</p>
           <p className="img-reveal-desc">
-            What stops them isn't willingness. It's structure: how to drive adoption, where to start, what infrastructure is needed, how to do it securely. We've cleared those blockers for 250+ teams, and we can do it for yours.
+            What stops most teams isn't willingness, it's structure: where to start, how to drive adoption, what infrastructure you need, and how to do it securely. We've cleared those blockers for 250+ teams, and we can do it for yours.
           </p>
           <a
             href={CTA_URL}
@@ -121,7 +126,7 @@ function ImageRevealSection() {
             className="lai-cta-yellow img-reveal-cta"
             onClick={() => posthog.capture('lai--cta_click', { source: 'image-reveal' })}
           >
-            Book an AI strategy call
+            Talk to our team
           </a>
         </div>
       </div>
@@ -236,8 +241,8 @@ export default function LelandAIPage() {
                 className="lai-cta-yellow"
                 onClick={() => posthog.capture('lai--cta_click', { source: 'hero' })}
               >
-                <span className="nav-cta-full">Book an AI strategy call</span>
-                <span className="nav-cta-short">Book a call</span>
+                <span className="nav-cta-full">Talk to our team</span>
+                <span className="nav-cta-short">Talk to us</span>
               </a>
               <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
                 <a href="/program" className="lai-cta-primary lai-cta-beam">
@@ -275,48 +280,82 @@ export default function LelandAIPage() {
             <p className="lai-section-sub">Leland uplevels both your workforce and your workflows.</p>
           </motion.div>
           <div className="cards-grid">
-            {PHOTO_CARDS.map((card) => (
-              <motion.a
-                href={card.to}
-                className="photo-card"
-                key={card.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                {...(card.to.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                {card.video ? (
-                  <video
-                    className="photo-card-bg photo-card-video"
-                    src={`${import.meta.env.BASE_URL}assets/images/${card.video}`}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                  />
-                ) : (
-                  <div
-                    className="photo-card-bg"
-                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/${card.img})` }}
-                  />
-                )}
-                <div className="photo-card-scrim" />
-                {card.cohortBadge && <NextCohortBadge />}
-                <div className="photo-card-content">
-                  {card.logo && (
-                    <img
-                      src={`${import.meta.env.BASE_URL}assets/logos/${card.logo}`}
-                      alt=""
-                      className="photo-card-logo"
+            {PHOTO_CARDS.map((card) => {
+              const inner = (
+                <>
+                  {card.video ? (
+                    <video
+                      className="photo-card-bg photo-card-video"
+                      src={`${import.meta.env.BASE_URL}assets/images/${card.video}`}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  ) : (
+                    <div
+                      className="photo-card-bg"
+                      style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/${card.img})` }}
                     />
                   )}
-                  <h3 className="photo-card-title">{card.title}</h3>
-                  <p className="photo-card-desc">{card.description}</p>
-                  <span className="photo-card-cta">Learn more</span>
-                </div>
-              </motion.a>
-            ))}
+                  <div className="photo-card-scrim" />
+                  {card.cohortBadge && <NextCohortBadge />}
+                  <div className="photo-card-content">
+                    {card.logo && (
+                      <img
+                        src={`${import.meta.env.BASE_URL}assets/logos/${card.logo}`}
+                        alt=""
+                        className="photo-card-logo"
+                      />
+                    )}
+                    <h3 className="photo-card-title">{card.title}</h3>
+                    <p className="photo-card-desc">{card.description}</p>
+                    {card.ctas ? (
+                      <div className="photo-card-ctas">
+                        {card.ctas.map((c) => (
+                          <a
+                            key={c.label}
+                            href={c.to}
+                            className={`photo-card-btn ${c.primary ? 'photo-card-btn-primary' : 'photo-card-btn-secondary'}`}
+                            {...(c.to.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          >
+                            {c.label}
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="photo-card-cta">Learn more</span>
+                    )}
+                  </div>
+                </>
+              )
+
+              return card.ctas ? (
+                <motion.div
+                  className="photo-card"
+                  key={card.title}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                >
+                  {inner}
+                </motion.div>
+              ) : (
+                <motion.a
+                  href={card.to}
+                  className="photo-card"
+                  key={card.title}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  {...(card.to.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {inner}
+                </motion.a>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -329,9 +368,12 @@ export default function LelandAIPage() {
         <div className="lai-container lai-feature-inner">
           <motion.div className="lai-feature-text" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <span className="lai-feature-label">AI Builder Program</span>
-            <h2 className="lai-feature-title">Become an AI builder in 6 to 10 weeks</h2>
+            <h2 className="lai-feature-title">Transform your team into AI builders in 6 to 10 weeks</h2>
             <p className="lai-feature-desc">A live, cohort-based program that turns you and your team into AI builders. New tools, agents, and workflows every week, taught by people who ship with AI every day.</p>
-            <a href="/program" className="lai-feature-cta">Learn more</a>
+            <div className="lai-feature-ctas">
+              <a href="/program" className="lai-feature-btn lai-feature-btn-primary">For individuals</a>
+              <a href="/program-for-teams" className="lai-feature-btn lai-feature-btn-secondary">For teams</a>
+            </div>
           </motion.div>
           <motion.div className="lai-feature-visual" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <div className="lai-tools-card">
@@ -347,6 +389,21 @@ export default function LelandAIPage() {
                 </div>
               </div>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ====== Feature: Deploy agentic workflows ====== */}
+      <section className="lai-feature lai-feature-reverse">
+        <div className="lai-container lai-feature-inner">
+          <motion.div className="lai-feature-text" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+            <span className="lai-feature-label">AI Services</span>
+            <h2 className="lai-feature-title">Let Leland build and deploy AI inside your organization</h2>
+            <p className="lai-feature-desc">We&rsquo;re your velocity bridge to an AI-native operation. Leland scopes, builds, and runs the agentic workflows for you, so you get there faster without rebuilding your team.</p>
+            <a href="/services" className="lai-feature-cta">Learn more</a>
+          </motion.div>
+          <motion.div className="lai-feature-visual" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+            <AgentDiagram />
           </motion.div>
         </div>
       </section>
@@ -368,21 +425,6 @@ export default function LelandAIPage() {
               <PledgeChart />
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* ====== Feature: Deploy agentic workflows ====== */}
-      <section className="lai-feature lai-feature-reverse">
-        <div className="lai-container lai-feature-inner">
-          <motion.div className="lai-feature-text" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <span className="lai-feature-label">AI Services</span>
-            <h2 className="lai-feature-title">Let Leland build and deploy AI inside your organization</h2>
-            <p className="lai-feature-desc">We&rsquo;re your velocity bridge to an AI-native operation. Leland scopes, builds, and runs the agentic workflows for you, so you get there faster without rebuilding your team.</p>
-            <a href="/services" className="lai-feature-cta">Learn more</a>
-          </motion.div>
-          <motion.div className="lai-feature-visual" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <AgentDiagram />
-          </motion.div>
         </div>
       </section>
 
@@ -419,7 +461,7 @@ export default function LelandAIPage() {
             className="prefooter-cta"
             onClick={() => posthog.capture('lai--cta_click', { source: 'prefooter' })}
           >
-            Book an AI strategy call
+            Talk to our team
           </a>
         </div>
       </section>
