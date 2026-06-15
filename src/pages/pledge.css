@@ -68,11 +68,12 @@
 .plg-counter-card {
   max-width: 920px;
   margin: 0 auto;
-  background: var(--cream);
+  background: linear-gradient(158deg, #1c2c4a 0%, #243a63 100%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 24px;
   padding: 48px 48px 40px;
   text-align: left;
-  box-shadow: 0 18px 48px -28px rgba(34,34,34,0.35);
+  box-shadow: 0 30px 70px -34px rgba(20, 32, 56, 0.75);
 }
 @media (max-width: 768px) {
   .plg-counter-card { padding: 32px 24px 28px; border-radius: 20px; }
@@ -92,14 +93,14 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--gray-dark);
+  color: rgba(255, 255, 255, 0.72);
 }
 .plg-counter-live {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--white);
-  color: var(--gray-dark);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
   border-radius: 999px;
   padding: 6px 14px;
   font-family: var(--font-body);
@@ -111,8 +112,9 @@
 .plg-counter-live::before {
   content: "";
   width: 8px; height: 8px;
-  background: var(--gray-dark);
+  background: var(--blue, #80ACED);
   border-radius: 50%;
+  box-shadow: 0 0 8px rgba(128, 172, 237, 0.9);
   animation: plg-pulse 1.6s ease-in-out infinite;
 }
 
@@ -126,10 +128,10 @@
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 400;
-  color: var(--gray-light);
+  color: rgba(255, 255, 255, 0.72);
 }
 .plg-counter-today b {
-  color: var(--gray-dark);
+  color: #fff;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
@@ -147,7 +149,7 @@
 }
 @media (max-width: 768px) { .plg-chart { height: 200px; } }
 .plg-chart-grid {
-  stroke: rgba(34, 34, 34, 0.1);
+  stroke: rgba(255, 255, 255, 0.12);
   stroke-width: 1;
   stroke-dasharray: 3 4;
   vector-effect: non-scaling-stroke;
@@ -156,21 +158,45 @@
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 500;
-  fill: var(--gray-light);
+  fill: rgba(255, 255, 255, 0.5);
 }
 .plg-chart-line {
   fill: none;
-  stroke: var(--gray-dark);
-  stroke-width: 2.5;
+  stroke: var(--blue, #80ACED);
+  stroke-width: 3;
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 2px 7px rgba(128, 172, 237, 0.5));
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: plg-draw 1.8s cubic-bezier(.4, .8, .3, 1) 0.15s forwards;
 }
+@keyframes plg-draw { to { stroke-dashoffset: 0; } }
+
 .plg-chart-dot {
-  fill: var(--yellow, #FFD667);
-  stroke: var(--gray-dark);
-  stroke-width: 2;
+  fill: var(--blue, #80ACED);
+  stroke: var(--white, #fff);
+  stroke-width: 2.5;
   vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 1px 6px rgba(128, 172, 237, 0.65));
+}
+/* Soft "live" ping radiating from the latest point. */
+.plg-chart-halo {
+  fill: var(--blue, #80ACED);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: plg-ping 2.6s ease-out infinite;
+}
+@keyframes plg-ping {
+  0% { transform: scale(0.6); opacity: 0.5; }
+  70% { opacity: 0; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plg-chart-line { animation: none; stroke-dashoffset: 0; }
+  .plg-chart-halo { animation: none; opacity: 0; }
 }
 .plg-chart-xlabels {
   position: relative;
@@ -183,7 +209,7 @@
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 500;
-  color: var(--gray-light);
+  color: rgba(255, 255, 255, 0.6);
   white-space: nowrap;
 }
 .plg-chart-xlabels span:first-child { transform: translateX(0); }
@@ -208,7 +234,7 @@
   font-weight: 500;
   font-size: 128px;
   line-height: 0.95;
-  color: var(--gray-dark);
+  color: var(--cream, #F0EBE0);
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
 }
@@ -386,6 +412,27 @@
   text-align: left;
 }
 @media (max-width: 768px) { .plg-manifesto-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+/* Right column holds the launch video; John's quote spans full width below. */
+.plg-manifesto-right { display: flex; flex-direction: column; gap: 24px; }
+.plg-manifesto-right .plg-video { max-width: none; margin: 0; }
+.plg-quote-wide { grid-column: 1 / -1; padding: 44px 48px; margin-top: 8px; }
+.plg-quote-wide blockquote { font-size: 22px; max-width: 64ch; }
+.plg-quote-card blockquote p { margin: 0 0 16px; }
+.plg-quote-card blockquote p:last-child { margin-bottom: 0; }
+.plg-quote-card blockquote em { font-style: italic; background: none; }
+@media (max-width: 768px) {
+  .plg-quote-wide { padding: 28px 24px; }
+  .plg-quote-wide blockquote { font-size: 19px; }
+}
+
+.plg-manifesto-copy a {
+  color: #3F6FB8;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.plg-manifesto-copy a:hover { color: #2F568F; }
 .plg-manifesto-grid p {
   font-family: var(--font-body);
   font-size: 18px;
@@ -440,6 +487,11 @@
   font-weight: 600;
   font-size: 14px;
   flex-shrink: 0;
+}
+.plg-quote-avatar-img {
+  object-fit: cover;
+  background: none;
+  display: block;
 }
 .plg-quote-byline-text {
   font-family: var(--font-body);

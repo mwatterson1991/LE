@@ -3,3 +3,531 @@
    shared leland-ai.css (imported by every page). Use the `svc-` prefix for all
    NEW Services components. Do not redefine `lai-`, `rb-`, `rcr-`, or `plg-`
    classes in this file. See SESSION-COORDINATION.md. */
+
+/* ---------- Shared section head ---------- */
+.svc-section-head {
+  max-width: 720px;
+}
+
+/* ---------- Shared dark CTA button ---------- */
+.svc-cta-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 36px;
+  background: var(--gray-dark, #222222);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 999px;
+  text-decoration: none;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  transition: opacity 0.15s;
+  cursor: pointer;
+}
+.svc-cta-dark:hover {
+  opacity: 0.85;
+}
+
+/* ============================================================
+   How it works — connected process timeline
+   ============================================================ */
+.svc-process {
+  background: var(--cream-soft, #f3f1e6);
+  padding: 100px 0;
+}
+.svc-process-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #3F6FB8;
+  margin-bottom: 14px;
+}
+.svc-process-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.svc-process-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding-top: 8px;
+}
+/* Continuous connector line running through the badge centers */
+.svc-process-step::before {
+  content: '';
+  position: absolute;
+  top: 36px; /* 8px padding + badge radius (28) */
+  left: -12px; /* bridge half the 24px gap */
+  right: -12px;
+  height: 2px;
+  background: rgba(34, 34, 34, 0.14);
+  z-index: 0;
+}
+.svc-process-step:first-child::before { left: 28px; }
+.svc-process-step:last-child::before { right: 28px; }
+.svc-process-badge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--blue, #80ACED);
+  color: var(--gray-dark, #222222);
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 500;
+  box-shadow: 0 6px 18px rgba(128, 172, 237, 0.4);
+}
+.svc-process-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: 0;
+  color: var(--gray-dark, #222222);
+  margin: 0;
+}
+.svc-process-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--gray-light, #4C4C4C);
+  letter-spacing: 0;
+  margin: 0;
+}
+.svc-process-cta {
+  text-align: center;
+  margin-top: 56px;
+}
+
+/* ============================================================
+   Pedigree bar — "the engineers have built at the best"
+   ============================================================ */
+.svc-pedigree {
+  background: var(--white, #ffffff);
+  padding: 8px 0 52px;
+}
+.svc-pedigree-label {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-extra-light, #8a8a8a);
+  margin: 0 0 28px;
+}
+.svc-pedigree-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+}
+.svc-pedigree-logo {
+  height: 26px;
+  width: auto;
+  max-width: 132px;
+  object-fit: contain;
+  opacity: 0.5;
+  /* Source logos are mixed (some are white-on-transparent variants). brightness(0)
+     flattens any of them to a uniform monochrome silhouette that reads on white. */
+  filter: brightness(0);
+  transition: opacity 0.2s ease;
+}
+.svc-pedigree-logo:hover {
+  opacity: 0.78;
+}
+
+/* ============================================================
+   Why AI deployment stalls — three gaps
+   ============================================================ */
+.svc-stalls {
+  background: var(--cream-soft, #f3f1e6);
+  padding: 100px 0;
+}
+.svc-stalls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+/* Keep the stalls headline on a single line on wide screens (wraps below) */
+@media (min-width: 1100px) {
+  .svc-stalls .lai-section-title {
+    white-space: nowrap;
+  }
+}
+.svc-stall-card {
+  position: relative;
+  background: var(--white, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 32px 28px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.svc-stall-card--highlight {
+  background: var(--gray-dark, #222222);
+  border-color: var(--gray-dark, #222222);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+}
+.svc-stall-num {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--gray-extra-light, #9a9a9a);
+}
+.svc-stall-card--highlight .svc-stall-num {
+  color: var(--blue, #80ACED);
+}
+.svc-stall-tag {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: var(--gray-dark, #222222);
+  margin: 0;
+}
+.svc-stall-card--highlight .svc-stall-tag {
+  color: #ffffff;
+}
+.svc-stall-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--gray-light, #4C4C4C);
+  letter-spacing: 0;
+  margin: 0;
+}
+.svc-stall-card--highlight .svc-stall-desc {
+  color: rgba(255, 255, 255, 0.72);
+}
+.svc-stall-badge {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gray-dark, #222222);
+  background: var(--yellow, #FFD667);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+/* ============================================================
+   What it is — solution turn (dark statement band)
+   ============================================================ */
+.svc-what {
+  position: relative;
+  overflow: hidden;
+  background: var(--gray-dark, #222222);
+  padding: 132px 0;
+}
+.svc-what-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
+  z-index: 0;
+}
+/* Dark scrim so white copy stays legible over any backdrop. Heavier on the left
+   where the (left-aligned) text sits, lighter on the right to show the visual. */
+.svc-what-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.55) 52%, rgba(0, 0, 0, 0.32) 100%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+}
+.svc-what-container {
+  position: relative;
+  z-index: 2;
+}
+.svc-what-inner {
+  max-width: 860px;
+}
+.svc-what-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue, #80ACED);
+  margin-bottom: 18px;
+}
+.svc-what-title {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: #ffffff;
+  margin: 0 0 20px;
+}
+.svc-what-desc {
+  font-family: var(--font-body);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  letter-spacing: 0;
+  margin: 0;
+  max-width: 760px;
+}
+
+/* ============================================================
+   Why Leland — three differentiators
+   ============================================================ */
+.svc-why {
+  background: var(--cream-soft, #f3f1e6);
+  padding: 100px 0;
+}
+.svc-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.svc-why-card {
+  background: var(--white, #ffffff);
+  border-radius: 16px;
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 3px solid var(--blue, #80ACED);
+}
+.svc-why-card-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--gray-dark, #222222);
+  margin: 0;
+}
+.svc-why-card-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--gray-light, #4C4C4C);
+  letter-spacing: 0;
+  margin: 0;
+}
+
+/* ============================================================
+   Build + Train work together (we build it, your team runs it)
+   ============================================================ */
+.svc-together {
+  background: var(--white, #ffffff);
+  padding: 100px 0;
+}
+.svc-together-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  margin-top: 48px;
+}
+.svc-together-card {
+  background: var(--white, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.svc-together-card--primary {
+  background: var(--gray-dark, #222222);
+  border-color: var(--gray-dark, #222222);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+}
+.svc-together-step {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--gray-light, #4C4C4C);
+  background: var(--cream-soft, #f3f1e6);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+.svc-together-card--primary .svc-together-step {
+  color: var(--gray-dark, #222222);
+  background: var(--yellow, #FFD667);
+}
+.svc-together-title {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: 0;
+  color: var(--gray-dark, #222222);
+  margin: 4px 0 0;
+}
+.svc-together-card--primary .svc-together-title {
+  color: #ffffff;
+}
+.svc-together-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--gray-light, #4C4C4C);
+  letter-spacing: 0;
+  margin: 0;
+  flex: 1;
+}
+.svc-together-card--primary .svc-together-desc {
+  color: rgba(255, 255, 255, 0.7);
+}
+.svc-together-link {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray-dark, #222222);
+  text-decoration: none;
+  letter-spacing: 0;
+  margin-top: 8px;
+  transition: opacity 0.15s;
+}
+.svc-together-link:hover {
+  opacity: 0.65;
+}
+.svc-together-card--primary .svc-together-link {
+  color: var(--yellow, #FFD667);
+}
+/* Connector — makes the two cards read as one sequence, not a choice */
+.svc-together-connector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+}
+.svc-together-connector::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: rgba(34, 34, 34, 0.14);
+  z-index: 0;
+}
+.svc-together-then {
+  position: relative;
+  z-index: 1;
+  background: var(--white, #ffffff);
+  border: 1px solid rgba(34, 34, 34, 0.14);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray-light, #4C4C4C);
+}
+
+/* ============================================================
+   Hero — kill the inherited text-shadow on the plain (white) hero.
+   The shared .lai-hero h1 carries a dark text-shadow meant for the
+   photo hero; on this white hero it muddies the dark headline.
+   Scoped to .svc-hero so other pages are untouched.
+   ============================================================ */
+body.rb-home .hero.lai-hero.svc-hero h1 {
+  text-shadow: none;
+}
+/* Blue highlighter stripe behind "AI systems" (matches the /pledge treatment) */
+.svc-hero h1 .svc-hl {
+  background: linear-gradient(180deg, transparent 62%, var(--blue, #80ACED) 62%);
+  padding: 0 6px;
+}
+
+/* ============================================================
+   Mobile
+   ============================================================ */
+@media (max-width: 900px) {
+  .svc-stalls-grid,
+  .svc-why-grid {
+    grid-template-columns: 1fr;
+  }
+  .svc-process-track {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  /* Stack vertically: drop the horizontal connector */
+  .svc-process-step::before { display: none; }
+  /* Stack the build→train flow; turn the connector line vertical */
+  .svc-together-flow {
+    grid-template-columns: 1fr;
+  }
+  .svc-together-connector {
+    padding: 16px 0;
+  }
+  .svc-together-connector::before {
+    left: 50%;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 768px) {
+  .svc-stalls,
+  .svc-why,
+  .svc-together,
+  .svc-process {
+    padding: 64px 0;
+  }
+  .svc-what {
+    padding: 64px 0;
+  }
+  .svc-pedigree {
+    padding: 4px 0 40px;
+  }
+  .svc-pedigree-logos {
+    gap: 32px;
+  }
+  .svc-pedigree-logo {
+    height: 22px;
+  }
+  .svc-what-title {
+    font-size: 34px;
+  }
+  .svc-what-desc {
+    font-size: 18px;
+  }
+}

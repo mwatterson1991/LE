@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import './home-rebrand.css'
@@ -6,7 +6,27 @@ import './leland-ai.css'
 import './pledge.css'
 import { PLEDGE_TOTAL, PLEDGE_TODAY, PLEDGE_SERIES } from '../pledgeData'
 
-const COUNTER_TARGET = PLEDGE_TOTAL
+// Baked-in fallback. Shown until /data/pledge.json loads, and kept as-is if that
+// fetch fails or returns bad data, so the page never renders zeros or an empty
+// chart. The JSON is refreshed daily by .github/workflows/pledge-sync.yml.
+const DEFAULT_PLEDGE = {
+  total: PLEDGE_TOTAL,
+  last30: PLEDGE_TODAY,
+  series: PLEDGE_SERIES,
+}
+
+const PLEDGE_DATA_URL = '/data/pledge.json'
+
+// Failsafe: only let live data override the fallback when it's fully valid.
+function isValidPledge(d) {
+  if (!d || typeof d !== 'object') return false
+  if (!Number.isFinite(d.total) || d.total <= 0) return false
+  if (!Number.isFinite(d.last30) || d.last30 < 0) return false
+  if (!Array.isArray(d.series) || d.series.length < 2) return false
+  return d.series.every(
+    (p) => p && typeof p.month === 'string' && Number.isFinite(p.value) && p.value > 0
+  )
+}
 
 // Real reviews pulled from AI Builder Program graduates (public/data/featured-reviews.json).
 const REVIEWS = [
@@ -41,7 +61,7 @@ function fmt(n) {
   return String(n)
 }
 
-function PledgeChart() {
+function PledgeChart({ series }) {
   const W = 840
   const H = 300
   const padL = 6
@@ -51,7 +71,7 @@ function PledgeChart() {
   const innerW = W - padL - padR
   const innerH = H - padT - padB
 
-  const data = PLEDGE_SERIES
+  const data = series
   const maxV = data[data.length - 1].value
   const n = data.length
 
@@ -71,11 +91,11 @@ function PledgeChart() {
 
   return (
     <div className="plg-chart-wrap">
-      <svg className="plg-chart" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="Cumulative people learning AI on Leland, growing every month">
+      <svg className="plg-chart" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="People learning AI on Leland over time">
         <defs>
           <linearGradient id="plgArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--yellow, #FFD667)" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="var(--yellow, #FFD667)" stopOpacity="0.02" />
+            <stop offset="0%" stopColor="var(--blue, #80ACED)" stopOpacity="0.42" />
+            <stop offset="100%" stopColor="var(--blue, #80ACED)" stopOpacity="0.02" />
           </linearGradient>
         </defs>
         {gridVals.map((v, i) => (
@@ -85,8 +105,9 @@ function PledgeChart() {
           </g>
         ))}
         <path d={areaPath} fill="url(#plgArea)" />
-        <path d={linePath} className="plg-chart-line" />
-        <circle cx={x(n - 1)} cy={y(maxV)} r="6" className="plg-chart-dot" />
+        <path d={linePath} className="plg-chart-line" pathLength="1" />
+        <circle cx={x(n - 1)} cy={y(maxV)} r="6" className="plg-chart-halo" />
+        <circle cx={x(n - 1)} cy={y(maxV)} r="5" className="plg-chart-dot" />
       </svg>
       <div className="plg-chart-xlabels">
         {labelIdx.map((i) => (
@@ -99,6 +120,10 @@ function PledgeChart() {
 
 export default function PledgePage() {
   const counterRef = useRef(null)
+  const hasAnimatedRef = useRef(false)
+  const displayRef = useRef(0)
+  const animatingRef = useRef(false)
+  const [pledge, setPledge] = useState(DEFAULT_PLEDGE)
 
   useEffect(() => {
     document.title = 'The 100 Million Pledge | Leland'
@@ -110,26 +135,79 @@ export default function PledgePage() {
     }
   }, [])
 
-  // Animated count-up on load
+  // Pull live numbers from the daily Databricks sync. Override the fallback only
+  // when the payload is valid, so a bad/empty response never wipes the chart.
+  useEffect(() => {
+    let cancelled = false
+    fetch(PLEDGE_DATA_URL, { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+      .then((d) => {
+        if (cancelled || !isValidPledge(d)) return
+        setPledge({ total: d.total, last30: d.last30, series: d.series })
+      })
+      .catch(() => {
+        /* keep the baked-in fallback */
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  // Animated count-up. From 0 on first load, then from the current value to the
+  // new target whenever live data updates the total.
   useEffect(() => {
     const el = counterRef.current
     if (!el) return
 
+    const target = pledge.total
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) {
-      el.textContent = COUNTER_TARGET.toLocaleString()
+      displayRef.current = target
+      el.textContent = target.toLocaleString()
+      hasAnimatedRef.current = true
       return
     }
 
+    const from = hasAnimatedRef.current ? displayRef.current : 0
+    hasAnimatedRef.current = true
+    animatingRef.current = true
+
     const start = performance.now()
     const duration = 2000
+    let raf
     function tick(now) {
       const p = Math.min((now - start) / duration, 1)
       const eased = 1 - Math.pow(1 - p, 3)
-      el.textContent = Math.round(COUNTER_TARGET * eased).toLocaleString()
-      if (p < 1) requestAnimationFrame(tick)
+      const v = Math.round(from + (target - from) * eased)
+      displayRef.current = v
+      el.textContent = v.toLocaleString()
+      if (p < 1) raf = requestAnimationFrame(tick)
+      else animatingRef.current = false
     }
-    requestAnimationFrame(tick)
+    raf = requestAnimationFrame(tick)
+    return () => {
+      cancelAnimationFrame(raf)
+      animatingRef.current = false
+    }
+  }, [pledge.total])
+
+  // Live ticker: while the user is on the page, nudge the count up every 2s so
+  // it feels alive. Pauses while the tab is hidden or the count-up is running,
+  // and never reduces the number. Ephemeral and client-side; a reload re-reads
+  // the real total from /data/pledge.json.
+  useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) return
+
+    const id = setInterval(() => {
+      if (document.hidden || animatingRef.current) return
+      const el = counterRef.current
+      if (!el) return
+      displayRef.current += 1 + Math.floor(Math.random() * 3) // +1 to +3 every 2s
+      el.textContent = displayRef.current.toLocaleString()
+    }, 2000)
+
+    return () => clearInterval(id)
   }, [])
 
   return (
@@ -142,7 +220,7 @@ export default function PledgePage() {
           <div className="plg-section-container">
 
             <h1>
-              Leland is committed to helping <em>100 million</em> people learn AI.
+              Leland will help <em>100 million</em> people learn AI.
             </h1>
 
             <p className="plg-hero-sub">
@@ -152,16 +230,14 @@ export default function PledgePage() {
             <div className="plg-counter-card">
               <div className="plg-counter-head">
                 <div className="plg-counter-head-label">People learning AI on Leland</div>
-                <div className="plg-counter-live">Updated monthly</div>
+                <div className="plg-counter-live">Updated daily</div>
               </div>
               <div className="plg-counter-row">
-                <div className="plg-counter-value" ref={counterRef}>{COUNTER_TARGET.toLocaleString()}</div>
-                <div className="plg-counter-today"><b>+{PLEDGE_TODAY.toLocaleString()}</b> today</div>
+                <div className="plg-counter-value" ref={counterRef}>{pledge.total.toLocaleString()}</div>
+                <div className="plg-counter-today"><b>+{pledge.last30.toLocaleString()}</b> in the last 30 days</div>
               </div>
 
-              <PledgeChart />
-
-              <div className="plg-counter-caption">Cumulative people learning AI on Leland, growing every month.</div>
+              <PledgeChart series={pledge.series} />
             </div>
           </div>
         </section>
@@ -173,27 +249,32 @@ export default function PledgePage() {
             <h2 className="plg-section-title">We exist to unlock <em>human</em> potential.</h2>
             <p className="plg-section-sub">The world has already changed. AI is not coming, it&rsquo;s here. We refuse to let real people be left behind.</p>
 
-            <div className="plg-video">
-              <iframe
-                src="https://www.youtube.com/embed/-bUFycZGWQg"
-                title="Leland launch video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
-
             <div className="plg-manifesto-grid">
-              <div>
+              <div className="plg-manifesto-copy">
                 <p>AI is rewriting the economy in real time. Entire industries are being restructured. Job descriptions that existed six months ago are disappearing. New ones are being invented every week.</p>
                 <p className="plg-dim">People feel it. They feel behind. They feel anxious. They know they need to act, but they don&rsquo;t know where to go.</p>
-                <p className="plg-dim">In an AI world, intelligence is abundant. What&rsquo;s scarce is trust. What&rsquo;s scarce is community. What&rsquo;s scarce is the kind of human connection that actually changes outcomes. Leland is built around that reality.</p>
+                <p className="plg-dim">In an AI world, intelligence is abundant. What&rsquo;s scarce is trust. What&rsquo;s scarce is community. What&rsquo;s scarce is the kind of human connection that actually changes outcomes. <a href="https://www.joinleland.com/home-for-ambition">Leland</a> is built around that reality.</p>
                 <p className="plg-dim">So we&rsquo;re making a commitment. One hundred million people, learning AI on Leland.</p>
               </div>
-              <div className="plg-quote-card">
-                <blockquote>&ldquo;The world has already changed. AI is not coming, it&rsquo;s here. We refuse to let real people be left behind in the process.&rdquo;</blockquote>
+              <div className="plg-manifesto-right">
+                <div className="plg-video">
+                  <iframe
+                    src="https://www.youtube.com/embed/-bUFycZGWQg"
+                    title="Leland launch video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+              <div className="plg-quote-card plg-quote-wide">
+                <blockquote>
+                  <p>We are in the most urgent and important technological transformation of our lifetime. Experts estimate that in the next 4 years, over <strong>1 billion people</strong> are going to need to be upskilled.</p>
+                  <p>Since our founding in 2021, we&rsquo;ve helped millions of people navigate their careers across hundreds of career paths and 100+ countries around the world.</p>
+                  <p>We built Leland to unlock human potential. <em>Human potential.</em> And in a world of AI, that mission is more important than ever.</p>
+                </blockquote>
                 <div className="plg-quote-byline">
-                  <div className="plg-quote-avatar">JK</div>
+                  <img className="plg-quote-avatar plg-quote-avatar-img" src="/assets/john-koelliker.jpg" alt="John Koelliker" width="40" height="40" />
                   <div className="plg-quote-byline-text">
                     <b>John Koelliker</b>
                     Founder &amp; CEO, Leland
@@ -208,7 +289,7 @@ export default function PledgePage() {
         <section className="plg-section plg-bg-white" id="ways">
           <div className="plg-section-container">
             <div className="plg-section-eyebrow">How to get involved</div>
-            <h2 className="plg-section-title">Four ways to learn AI with Leland.</h2>
+            <h2 className="plg-section-title">Several ways to learn AI on Leland.</h2>
             <p className="plg-section-sub">Leland has the largest collection of AI events, courses, and coaches in the world. Start free, go deep, or get 1:1 guidance. Whatever gets you building.</p>
 
             <div className="plg-ways">

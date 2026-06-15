@@ -1,0 +1,80 @@
+{
+  "total": 239494,
+  "last30": 43882,
+  "series": [
+    {
+      "month": "Jan 2025",
+      "value": 4333
+    },
+    {
+      "month": "Feb 2025",
+      "value": 4777
+    },
+    {
+      "month": "Mar 2025",
+      "value": 8363
+    },
+    {
+      "month": "Apr 2025",
+      "value": 10804
+    },
+    {
+      "month": "May 2025",
+      "value": 14901
+    },
+    {
+      "month": "Jun 2025",
+      "value": 17555
+    },
+    {
+      "month": "Jul 2025",
+      "value": 19600
+    },
+    {
+      "month": "Aug 2025",
+      "value": 21886
+    },
+    {
+      "month": "Sep 2025",
+      "value": 23073
+    },
+    {
+      "month": "Oct 2025",
+      "value": 26668
+    },
+    {
+      "month": "Nov 2025",
+      "value": 33960
+    },
+    {
+      "month": "Dec 2025",
+      "value": 39012
+    },
+    {
+      "month": "Jan 2026",
+      "value": 46094
+    },
+    {
+      "month": "Feb 2026",
+      "value": 84836
+    },
+    {
+      "month": "Mar 2026",
+      "value": 112461
+    },
+    {
+      "month": "Apr 2026",
+      "value": 169831
+    },
+    {
+      "month": "May 2026",
+      "value": 196064
+    },
+    {
+      "month": "Jun 2026",
+      "value": 239494
+    }
+  ],
+  "generatedAt": "2026-06-14T23:37:42.802Z",
+  "source": "ledger"
+}
