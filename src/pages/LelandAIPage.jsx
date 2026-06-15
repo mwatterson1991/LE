@@ -122,7 +122,7 @@ function ImageRevealSection() {
             href={CTA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="lai-cta-yellow img-reveal-cta"
+            className="img-reveal-cta"
             onClick={() => posthog.capture('lai--cta_click', { source: 'image-reveal' })}
           >
             Talk to our team
