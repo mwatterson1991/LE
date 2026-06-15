@@ -266,7 +266,6 @@ body.rb-home .hero.lai-hero .container {
 }
 body.rb-home .hero.lai-hero h1 {
   font-size: 72px;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
 }
 /* Nudge home hero content slightly below center. The transparent nav overlays the
    top of the hero, so perfectly-centered text reads a touch high. Scoped to the
