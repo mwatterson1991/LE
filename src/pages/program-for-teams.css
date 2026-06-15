@@ -506,3 +506,150 @@
   color: var(--text-secondary);
 }
 
+/* ===== THE SHIFT — industry framing with PwC stat ===== */
+.shift-callout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 40px 44px;
+}
+@media (max-width: 760px) {
+  .shift-callout { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; text-align: left; }
+}
+.shift-stat {
+  font-family: var(--font-heading, Georgia, serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: var(--text-primary);
+  font-size: clamp(80px, 12vw, 140px);
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+.shift-stat .post { color: var(--text-primary); font-size: 0.7em; }
+.shift-stat .floor { color: var(--accent, #FFD667); font-size: 0.5em; margin-bottom: 8px; }
+.shift-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.shift-eyebrow {
+  font-family: var(--font-meta, var(--font-body));
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.shift-text p {
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.shift-kicker { color: var(--text-primary) !important; font-weight: 500; }
+.shift-source {
+  margin-top: 6px;
+  font-family: var(--font-meta, var(--font-body));
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+
+/* ===== THE PROBLEM — 3 reasons adoption stalls ===== */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) { .problem-grid { grid-template-columns: 1fr; } }
+.problem-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 30px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.problem-card-num {
+  font-family: var(--font-meta, var(--font-body));
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.problem-card-title {
+  font-size: 1.1rem;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.problem-card-body {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+.problem-closer {
+  margin: 40px auto 0;
+  max-width: 800px;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+.problem-closer b { color: var(--text-primary); }
+
+/* ===== 5 PILLARS — why this works ===== */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (max-width: 1000px) { .pillars-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .pillars-grid { grid-template-columns: 1fr; } }
+.pillar-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+}
+.pillar-card-label {
+  font-family: var(--font-meta, var(--font-body));
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent, #FFD667);
+}
+.pillar-card-title {
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin: 4px 0 4px;
+}
+.pillar-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+

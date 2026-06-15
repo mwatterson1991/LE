@@ -723,8 +723,8 @@ function RoleUseCases() {
     <section className="role-uses-section">
       <div className="container">
         <div className="role-uses-header">
-          <h2 className="role-uses-headline">Whatever the role, build an AI agent team for it.</h2>
-          <p className="role-uses-sub">Every function gets specialized AI builds tuned to their workflows. Pick a role below for examples of what Leland-trained builders ship in their day-to-day.</p>
+          <h2 className="role-uses-headline">Built for the teams that drive your business.</h2>
+          <p className="role-uses-sub">Engineering already has AI. The teams that haven't been served yet are the ones that drive your numbers. Pick a function below for examples of what Leland-trained builders ship in their day-to-day.</p>
         </div>
         <div className="role-tabs" role="tablist">
           {roles.map((role, i) => (
@@ -1755,36 +1755,22 @@ function TeamsProgramPageInner() {
           </div>
         </div>
 
-      {/* ====== B2B-A. The Opportunity (compare card) ====== */}
-      <section className="b2b-section" id="opportunity">
+      {/* ====== B2B-A. The Shift (deck slide 2) ====== */}
+      <section className="b2b-section" id="shift">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› The Opportunity</span>
-            <h2 className="b2b-section-headline">Using AI helps. Building with it changes what your team ships.</h2>
-            <p className="b2b-section-sub">Most teams have ChatGPT, Claude, and Copilot. The ones pulling ahead built on top of them, shipping agents and automations that handle real work end-to-end. AI Builder is the coordinated path to get your whole team there.</p>
+            <span className="b2b-eyebrow">› 01 / The Shift</span>
+            <h2 className="b2b-section-headline">AI is changing how work gets done across every function.</h2>
           </div>
-          <div className="gap-compare">
-            <div className="gap-card gap-card-user">
-              <div className="gap-card-label">Status: AI Users</div>
-              <h3 className="gap-card-title">Where most teams are today</h3>
-              <p className="gap-card-sub">Using AI, but not yet building with it</p>
-              <ul>
-                <li><span className="gap-icon">×</span><span>AI used as a faster Google: drafts, summaries, emails</span></li>
-                <li><span className="gap-icon">×</span><span>Sporadic adoption, no shared playbooks, no compounding learning</span></li>
-                <li><span className="gap-icon">×</span><span>"AI training" that's a 1-hour webinar nobody applies</span></li>
-                <li><span className="gap-icon">×</span><span>Leadership talks AI in board decks; ICs feel zero change</span></li>
-              </ul>
+          <div className="shift-callout">
+            <div className="shift-stat">
+              <span className="num">4</span><span className="post">×</span><span className="floor">+</span>
             </div>
-            <div className="gap-card gap-card-builder">
-              <div className="gap-card-label">Status: AI Builders</div>
-              <h3 className="gap-card-title">Where Leland-trained teams operate</h3>
-              <p className="gap-card-sub">Where your team can be in 6–10 weeks</p>
-              <ul>
-                <li><span className="gap-icon">✓</span><span>Agents and automations that handle real work end-to-end</span></li>
-                <li><span className="gap-icon">✓</span><span>Reusable skills, workflows, and evals shared across the team</span></li>
-                <li><span className="gap-icon">✓</span><span>3–4 internal AI champions emerge from every engagement</span></li>
-                <li><span className="gap-icon">✓</span><span>Every session ends with a deliverable used at work the next day</span></li>
-              </ul>
+            <div className="shift-text">
+              <div className="shift-eyebrow">› Productivity growth in AI-exposed industries</div>
+              <p>Engineering went first. Now every other function is seeing the same gains.</p>
+              <p className="shift-kicker">Employees building with agents are pulling far ahead.</p>
+              <div className="shift-source">PwC AI Jobs Barometer · 2025 (industry-level floor)</div>
             </div>
           </div>
         </div>
@@ -1998,38 +1984,66 @@ function TeamsProgramPageInner() {
       {/* ====== Use Cases by Role ====== */}
       <RoleUseCases />
 
-      {/* ====== B2B-D. Alternatives ====== */}
-      <section className="b2b-section" id="alternatives">
+      {/* ====== B2B-D. The Problem (deck slide 3) ====== */}
+      <section className="b2b-section" id="problem">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› The Alternatives</span>
-            <h2 className="b2b-section-headline">Why the usual approaches fall short.</h2>
-            <p className="b2b-section-sub">Most teams have tried one of these. Most teams are still where they started.</p>
+            <span className="b2b-eyebrow">› 02 / The Problem</span>
+            <h2 className="b2b-section-headline">Most teams know AI is important. Driving impactful adoption is slower than they want.</h2>
           </div>
-          <div className="alt-grid">
-            <div className="alt-card">
-              <div className="alt-card-num">01 · Hire an AI lead</div>
-              <h3 className="alt-card-title">One hire to "own AI"</h3>
-              <p className="alt-card-desc">Concentrates the capability in one person. Slow to hire, slow to compound, and the rest of the team stays behind. A useful complement later, not the right first move.</p>
-              <div className="alt-card-stat">Result: <b>One node, not a team</b></div>
+          <div className="problem-grid">
+            <div className="problem-card">
+              <span className="problem-card-num">› Reason 01</span>
+              <h3 className="problem-card-title">The field moves faster than employees can keep up</h3>
+              <p className="problem-card-body">New models monthly. New capabilities weekly. Employees already have full-time jobs. Without protected time and structure, the gap widens by default.</p>
             </div>
-            <div className="alt-card">
-              <div className="alt-card-num">02 · In-house L&amp;D</div>
-              <h3 className="alt-card-title">Build it internally</h3>
-              <p className="alt-card-desc">L&amp;D builds AI training content from scratch. Takes months. Impossible to keep current in a field that changes weekly.</p>
-              <div className="alt-card-stat">Result: <b>Outdated on arrival</b></div>
+            <div className="problem-card">
+              <span className="problem-card-num">› Reason 02</span>
+              <h3 className="problem-card-title">Adoption requires behavior change, and that's hard</h3>
+              <p className="problem-card-body">Using AI well isn't learning a new tool. It's changing how people work. New habits, new defaults, new mental models. The slowest gain to make, the easiest one to give up on.</p>
             </div>
-            <div className="alt-card">
-              <div className="alt-card-num">03 · Self-paced courses</div>
-              <h3 className="alt-card-title">Udemy, Coursera, vendor certs</h3>
-              <p className="alt-card-desc">Videos and quizzes at their own pace. Builds awareness, not capability. Graduates still use AI as a search engine.</p>
-              <div className="alt-card-stat">Result: <b>5–15% completion</b></div>
+            <div className="problem-card">
+              <span className="problem-card-num">› Reason 03</span>
+              <h3 className="problem-card-title">Most training is too theoretical to translate</h3>
+              <p className="problem-card-body">Slides on what AI can do. Webinars on prompt engineering. People come out aware. They don't come out able to ship the work it was supposed to make easier.</p>
             </div>
-            <div className="alt-card alt-card-leland">
-              <div className="alt-card-num">04 · Leland</div>
-              <h3 className="alt-card-title">Live cohort building</h3>
-              <p className="alt-card-desc">Live sessions, cohort accountability, hands-on building. Participants leave every session with something working and applied to real work.</p>
-              <div className="alt-card-stat">Result: <b>85% completion · Shipped systems</b></div>
+          </div>
+          <div className="problem-closer">Teams that build AI capabilities now are creating a <b>durable operating advantage.</b> The window to be one of them is open and closing fast.</div>
+        </div>
+      </section>
+
+      {/* ====== B2B-G. Why This Works (deck slide 4, 5 pillars) ====== */}
+      <section className="b2b-section" id="why-it-works">
+        <div className="container">
+          <div className="b2b-section-head">
+            <span className="b2b-eyebrow">› 03 / Why It Works</span>
+            <h2 className="b2b-section-headline">Five things make adoption stick. We built around each.</h2>
+          </div>
+          <div className="pillars-grid">
+            <div className="pillar-card">
+              <span className="pillar-card-label">› 01 · Hands-on</span>
+              <h3 className="pillar-card-title">Built, not lectured</h3>
+              <p className="pillar-card-desc">Every session ends with a working artifact. Your team learns by shipping, not by watching.</p>
+            </div>
+            <div className="pillar-card">
+              <span className="pillar-card-label">› 02 · Accountability</span>
+              <h3 className="pillar-card-title">Showing up matters</h3>
+              <p className="pillar-card-desc">Shipping matters more. Live cohorts create the structure async courses never do.</p>
+            </div>
+            <div className="pillar-card">
+              <span className="pillar-card-label">› 03 · Measured</span>
+              <h3 className="pillar-card-title">Outcomes that defend themselves</h3>
+              <p className="pillar-card-desc">Agents shipped. Workflows automated. Numbers leadership trusts when reporting up.</p>
+            </div>
+            <div className="pillar-card">
+              <span className="pillar-card-label">› 04 · Cohort-based</span>
+              <h3 className="pillar-card-title">Stronger together</h3>
+              <p className="pillar-card-desc">Teams build and ship as one. Culture shifts with the cohort and compounds after.</p>
+            </div>
+            <div className="pillar-card">
+              <span className="pillar-card-label">› 05 · Applied</span>
+              <h3 className="pillar-card-title">Built for their job</h3>
+              <p className="pillar-card-desc">Sales builds for sales. Ops builds for ops. Every artifact is grounded in their real workflows.</p>
             </div>
           </div>
         </div>
@@ -2320,7 +2334,8 @@ function TeamsProgramPageInner() {
             src={`${import.meta.env.BASE_URL}assets/logos/aibp-light.png`}
             alt="AI Builder Program"
           />
-          <h2 className="rb-prefooter-heading">Your team’s next move on AI</h2>
+          <h2 className="rb-prefooter-heading">Build your team into AI Builders.</h2>
+          <p className="rb-prefooter-sub" style={{ maxWidth: 720, margin: '12px auto 24px', textAlign: 'center', color: 'rgba(255,255,255,0.78)', fontSize: '1.05rem', lineHeight: 1.5 }}>Six weeks of cohort-based building. Custom systems shipped in your team's actual workflows. Adoption that compounds long after the program ends.</p>
           <a
             href={CALENDLY_URL}
             target="_blank"
