@@ -21,9 +21,11 @@ const CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
  *
  * @param {'transparent'|'light'} variant  transparent = overlays a dark hero
  *   (white logo that swaps to dark on scroll); light = solid pages (dark logo).
- * @param {string} mobileLabel  label shown in the mobile menu header.
+ * @param {string} mobileLabel  optional label shown next to the logo in the
+ *   mobile menu header. Omit on standard pages so the menu mirrors the desktop
+ *   nav (logo + links + CTA).
  */
-export default function Nav({ variant = 'transparent', mobileLabel = 'For Teams' }) {
+export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef(null)
@@ -94,8 +96,12 @@ export default function Nav({ variant = 'transparent', mobileLabel = 'For Teams'
       <div className="lai-mobile-menu">
         <div className="lai-mobile-menu-header">
           <img className="lai-mobile-menu-logo" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
-          <span className="lai-mobile-menu-divider" />
-          <span className="lai-mobile-menu-label">{mobileLabel}</span>
+          {mobileLabel && (
+            <>
+              <span className="lai-mobile-menu-divider" />
+              <span className="lai-mobile-menu-label">{mobileLabel}</span>
+            </>
+          )}
         </div>
         <button className="lai-mobile-menu-close" aria-label="Close menu" onClick={() => setMenuOpen(false)} />
         <div className="lai-mobile-menu-links">

@@ -28,34 +28,6 @@ function isValidPledge(d) {
   )
 }
 
-// Real reviews pulled from AI Builder Program graduates (public/data/featured-reviews.json).
-const REVIEWS = [
-  {
-    body: 'This course was incredible. Instructors and TAs were super hands on. Walked away with real skills to help me grow a side business and optimize my day to day work.',
-    name: 'Andrew S.',
-    meta: 'AI Builder Program graduate',
-    initials: 'AS',
-  },
-  {
-    body: 'I went from knowing briefly about what an agent was to building completed automated workflows. This program completely transformed the way I see AI, from a buzzword to something that genuinely enhances my work.',
-    name: 'Maclean L.',
-    meta: 'AI Builder Program graduate',
-    initials: 'ML',
-  },
-  {
-    body: 'During this class I built four additional websites outside of my portfolio along with multiple workflows. It was extremely helpful in becoming an AI power user within my team and company.',
-    name: 'Caroline L.',
-    meta: 'AI Builder Program graduate',
-    initials: 'CL',
-  },
-  {
-    body: "I've used this course to create many skill workflows that I use every day. It's saved me so much time.",
-    name: 'Cody B.',
-    meta: 'AI Builder Program graduate',
-    initials: 'CB',
-  },
-]
-
 function fmt(n) {
   if (n >= 1000) return Math.round(n / 1000) + 'k'
   return String(n)
@@ -321,30 +293,6 @@ export default function PledgePage() {
                 <div className="plg-way-meta">Leland+ &middot; Monthly</div>
                 <a href="https://www.joinleland.com" className="plg-way-cta">Join Leland+</a>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== SOCIAL PROOF ===== */}
-        <section className="plg-section plg-bg-cream" id="proof">
-          <div className="plg-section-container">
-            <div className="plg-section-eyebrow">What people are saying</div>
-            <h2 className="plg-section-title">Real people, <em>real progress</em>.</h2>
-            <p className="plg-section-sub">Pulled straight from AI Builder Program graduates.</p>
-
-            <div className="plg-proof">
-              {REVIEWS.map((r) => (
-                <div className="plg-quote-card plg-bordered" key={r.name}>
-                  <div className="plg-quote-body">&ldquo;{r.body}&rdquo;</div>
-                  <div className="plg-quote-byline">
-                    <div className="plg-quote-avatar">{r.initials}</div>
-                    <div className="plg-quote-byline-text"><b>{r.name}</b>{r.meta}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="plg-proof-more">
-              <a href="/reviews" className="plg-way-cta">See more reviews</a>
             </div>
           </div>
         </section>

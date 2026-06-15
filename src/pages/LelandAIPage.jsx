@@ -3,7 +3,7 @@ import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import { motion } from 'motion/react'
 import { COURSE_COHORTS } from './courseData'
-import { PLEDGE_TOTAL } from '../pledgeData'
+import { PLEDGE_TOTAL, PLEDGE_SERIES } from '../pledgeData'
 import { BorderBeam } from 'border-beam'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
@@ -135,43 +135,51 @@ function ImageRevealSection() {
 }
 
 function PledgeChart() {
-  const W = 460, H = 240
-  const pad = { t: 26, r: 16, b: 40, l: 24 }
-  const gW = W - pad.l - pad.r, gH = H - pad.t - pad.b
-  const k = 5, N = 120
+  const W = 480, H = 250
+  const padL = 6, padR = 6, padT = 16, padB = 26
+  const innerW = W - padL - padR, innerH = H - padT - padB
+  const data = PLEDGE_SERIES
+  const maxV = data[data.length - 1].value
+  const n = data.length
+  const x = (i) => padL + (i / (n - 1)) * innerW
+  const y = (v) => padT + innerH * (1 - v / maxV)
 
-  const { line, area, earlyLine, earlyArea } = useMemo(() => {
-    const pts = []
-    for (let i = 0; i <= N; i++) {
-      const t = i / N
-      const x = pad.l + t * gW
-      const y = pad.t + gH - gH * (Math.exp(k * t) - 1) / (Math.exp(k) - 1)
-      pts.push([x, y])
-    }
-    const toPath = arr => arr.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('')
-    const baseline = pad.t + gH
-    const line = toPath(pts)
-    const area = line + 'L' + (pad.l + gW).toFixed(1) + ',' + baseline + 'L' + pad.l + ',' + baseline + 'Z'
-    const early = pts.filter(p => p[0] <= pad.l + gW * 0.1)
-    const earlyLine = toPath(early)
-    const last = early[early.length - 1]
-    const earlyArea = earlyLine + 'L' + last[0].toFixed(1) + ',' + baseline + 'L' + pad.l + ',' + baseline + 'Z'
-    return { line, area, earlyLine, earlyArea }
-  }, [])
+  const linePts = data.map((d, i) => `${x(i).toFixed(1)},${y(d.value).toFixed(1)}`)
+  const linePath = 'M' + linePts.join(' L')
+  const areaPath = linePath +
+    ` L${x(n - 1).toFixed(1)},${(padT + innerH).toFixed(1)}` +
+    ` L${x(0).toFixed(1)},${(padT + innerH).toFixed(1)} Z`
+
+  const fmtK = (v) => (v >= 1000 ? Math.round(v / 1000) + 'k' : String(v))
+  const gridVals = [0.25, 0.5, 0.75, 1].map((p) => p * maxV)
+  const labelIdx = [0, Math.round((n - 1) * 0.33), Math.round((n - 1) * 0.66), n - 1]
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} fill="none" xmlns="http://www.w3.org/2000/svg" className="lai-pledge-svg" aria-label="Exponential growth toward 100 million people trained">
-      <line x1="24" y1="200" x2="444" y2="200" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
-      <line x1="24" y1="152" x2="444" y2="152" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-      <line x1="24" y1="104" x2="444" y2="104" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-      <line x1="24" y1="56" x2="444" y2="56" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-      <line x1="24" y1="26" x2="444" y2="26" stroke="rgba(255,214,103,0.3)" strokeWidth="1" strokeDasharray="4 6" />
-      <text x="440" y="20" textAnchor="end" fill="rgba(255,214,103,0.7)" fontSize="11" fontFamily="Macan, sans-serif" fontWeight="500">100M people</text>
-      <path d={area} fill="rgba(255,255,255,0.05)" />
-      <path d={earlyArea} fill="rgba(255,214,103,0.16)" />
-      <path d={line} stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeLinecap="round" />
-      <path d={earlyLine} stroke="#FFD667" strokeWidth="2.5" strokeLinecap="round" />
-    </svg>
+    <div className="lai-pchart-wrap">
+      <svg className="lai-pchart" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" role="img" aria-label="People learning AI on Leland, growing every month">
+        <defs>
+          <linearGradient id="laiPledgeArea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--blue, #80ACED)" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="var(--blue, #80ACED)" stopOpacity="0.03" />
+          </linearGradient>
+        </defs>
+        {gridVals.map((v, i) => (
+          <g key={i}>
+            <line x1={padL} y1={y(v)} x2={W - padR} y2={y(v)} className="lai-pchart-grid" />
+            <text x={padL + 2} y={y(v) - 6} className="lai-pchart-ylabel">{fmtK(v)}</text>
+          </g>
+        ))}
+        <path d={areaPath} fill="url(#laiPledgeArea)" />
+        <path d={linePath} className="lai-pchart-line" pathLength="1" />
+        <circle cx={x(n - 1)} cy={y(maxV)} r="6" className="lai-pchart-halo" />
+        <circle cx={x(n - 1)} cy={y(maxV)} r="5" className="lai-pchart-dot" />
+      </svg>
+      <div className="lai-pchart-xlabels">
+        {labelIdx.map((i) => (
+          <span key={i} style={{ left: `${(x(i) / W) * 100}%` }}>{data[i].month}</span>
+        ))}
+      </div>
+    </div>
   )
 }
 

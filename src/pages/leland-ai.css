@@ -292,6 +292,10 @@ body.rb-home .lai-feature-inner {
 body.rb-home .lai-feature-reverse .lai-feature-inner {
   flex-direction: row-reverse;
 }
+/* Distinguish the AI Services block (reverse) from the white Builder Program block */
+body.rb-home .lai-feature.lai-feature-reverse {
+  background: var(--cream-soft, #f3f1e6);
+}
 body.rb-home .lai-feature-text { flex: 1 1 0; min-width: 0; }
 body.rb-home .lai-feature-visual { flex: 1 1 0; min-width: 0; }
 .lai-feature-label {
@@ -1108,7 +1112,7 @@ video.photo-card-video {
 /* ---------- Pledge ====== */
 .lai-pledge {
   padding: 96px 48px;
-  background: var(--gray-dark, #222222);
+  background: linear-gradient(158deg, #1c2c4a 0%, #243a63 100%);
   overflow: hidden;
 }
 .lai-pledge-grid {
@@ -1175,9 +1179,79 @@ video.photo-card-video {
   border-color: rgba(255, 255, 255, 0.45);
   background: rgba(255, 255, 255, 0.06);
 }
-.lai-pledge-svg {
+/* Pledge growth chart (mirrors the /pledge page treatment) */
+.lai-pchart-wrap {
+  position: relative;
   width: 100%;
+}
+.lai-pchart {
   display: block;
+  width: 100%;
+  height: 230px;
+  overflow: visible;
+}
+.lai-pchart-grid {
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  vector-effect: non-scaling-stroke;
+}
+.lai-pchart-ylabel {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  fill: rgba(255, 255, 255, 0.5);
+}
+.lai-pchart-line {
+  fill: none;
+  stroke: var(--blue, #80ACED);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 2px 7px rgba(128, 172, 237, 0.55));
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: lai-pchart-draw 1.8s cubic-bezier(.4, .8, .3, 1) 0.15s forwards;
+}
+@keyframes lai-pchart-draw { to { stroke-dashoffset: 0; } }
+.lai-pchart-dot {
+  fill: var(--blue, #80ACED);
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 1px 6px rgba(128, 172, 237, 0.7));
+}
+.lai-pchart-halo {
+  fill: var(--blue, #80ACED);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lai-pchart-ping 2.6s ease-out infinite;
+}
+@keyframes lai-pchart-ping {
+  0% { transform: scale(0.6); opacity: 0.5; }
+  70% { opacity: 0; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+.lai-pchart-xlabels {
+  position: relative;
+  height: 16px;
+  margin-top: 4px;
+}
+.lai-pchart-xlabels span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+}
+.lai-pchart-xlabels span:first-child { transform: translateX(0); }
+.lai-pchart-xlabels span:last-child { transform: translateX(-100%); }
+@media (prefers-reduced-motion: reduce) {
+  .lai-pchart-line { animation: none; stroke-dashoffset: 0; }
+  .lai-pchart-halo { animation: none; opacity: 0; }
 }
 
 /* ---------- FAQ ====== */
@@ -1293,6 +1367,11 @@ video.photo-card-video {
   visibility: visible;
   pointer-events: auto;
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0s;
+}
+/* Lock background scroll while the mobile menu is open so a stray scroll can't
+   dismiss it and the page behind stays put. */
+body.rb-nav-menu-open {
+  overflow: hidden;
 }
 .lai-mobile-menu-links {
   display: flex;
@@ -1506,12 +1585,17 @@ video.photo-card-video {
     font-size: 16px;
   }
   .lai-offerings,
+  .lai-photo-cards-section,
   .lai-use-cases,
   .lai-testimonials,
   .lai-how-it-works,
   .lai-pledge,
   .lai-faq {
     padding: 64px 0;
+  }
+  /* Stack the split CTAs full-width so labels don't wrap inside narrow cards */
+  .photo-card-ctas {
+    flex-direction: column;
   }
   .lai-credibility {
     padding: 64px 0;
