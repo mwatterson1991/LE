@@ -36,11 +36,20 @@ export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
     const onScroll = () => {
       setScrolled(window.scrollY > 40)
       if (wrapper) wrapper.classList.toggle('rb-nav-cta-visible', window.scrollY > 300)
-      if (menuOpen) setMenuOpen(false)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Close the mobile menu if the user scrolls while it's open. The listener is
+  // only registered when the menu is open and is never invoked on mount, so
+  // opening the menu can't immediately close itself.
+  useEffect(() => {
+    if (!menuOpen) return
+    const close = () => setMenuOpen(false)
+    window.addEventListener('scroll', close, { passive: true })
+    return () => window.removeEventListener('scroll', close)
   }, [menuOpen])
 
   useEffect(() => {
