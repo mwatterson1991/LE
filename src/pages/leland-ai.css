@@ -1641,8 +1641,10 @@ body.rb-nav-menu-open {
     font-size: 15px;
   }
   body.rb-home .hero.lai-hero {
-    height: auto;
-    min-height: 85vh;
+    height: 95vh;
+  }
+  body.rb-home .hero.lai-hero:not(.lai-hero-plain) .container {
+    transform: translateY(0);
   }
   .hero-sub {
     font-size: 17px;
