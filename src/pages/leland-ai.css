@@ -438,16 +438,21 @@ body.rb-home .lai-feature-title {
 /* Roles card (Recruit) */
 .lai-roles-card {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-content: center;
-  justify-content: center;
-  padding: 44px 36px;
+  align-items: center;
+  padding: 0;
   border-radius: 20px;
   background: linear-gradient(168deg, #E4ECFA 0%, #F2F6FC 60%, #FFFFFF 100%);
-  min-height: 280px;
+  min-height: 200px;
+  overflow: hidden;
 }
+/* Single scrolling row of roles */
+.lai-roles-card .rfm-marquee-container { width: 100%; }
 .lai-role-chip {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  margin: 0 6px;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: 999px;

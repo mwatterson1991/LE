@@ -447,9 +447,11 @@ export default function LelandAIPage() {
           </motion.div>
           <motion.div className="lai-feature-visual" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <div className="lai-roles-card">
-              {['Operations Builder', 'GTM Engineer', 'AI-Native Engineer', 'Marketing Builder', 'Finance Builder', 'Product Builder', 'Data & Analytics', 'Customer Support'].map((r) => (
-                <span className="lai-role-chip" key={r}>{r}</span>
-              ))}
+              <Marquee gradient={false} speed={28} pauseOnHover>
+                {['Operations Builder', 'GTM Engineer', 'AI-Native Engineer', 'Marketing Builder', 'Finance Builder', 'Product Builder', 'Data & Analytics', 'Customer Support'].map((r) => (
+                  <span className="lai-role-chip" key={r}>{r}</span>
+                ))}
+              </Marquee>
             </div>
           </motion.div>
         </div>
