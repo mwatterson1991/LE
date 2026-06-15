@@ -225,7 +225,7 @@ export default function PledgePage() {
               <div className="plg-manifesto-copy">
                 <p>AI is rewriting the economy in real time. Entire industries are being restructured. Job descriptions that existed six months ago are disappearing. New ones are being invented every week.</p>
                 <p className="plg-dim">People feel it. They feel behind. They feel anxious. They know they need to act, but they don&rsquo;t know where to go.</p>
-                <p className="plg-dim">In an AI world, intelligence is abundant. What&rsquo;s scarce is trust. What&rsquo;s scarce is community. What&rsquo;s scarce is the kind of human connection that actually changes outcomes. <a href="https://www.joinleland.com">Leland</a> is built around that reality.</p>
+                <p className="plg-dim">In an AI world, intelligence is abundant. What&rsquo;s scarce is trust. What&rsquo;s scarce is community. What&rsquo;s scarce is the kind of human connection that actually changes outcomes. <a href="https://www.joinleland.com" target="_blank" rel="noopener noreferrer">Leland</a> is built around that reality.</p>
                 <p className="plg-dim">So we&rsquo;re making a commitment. One hundred million people, learning AI on Leland.</p>
               </div>
               <div className="plg-manifesto-right">
@@ -270,28 +270,28 @@ export default function PledgePage() {
                 <div className="plg-way-title">Get involved at an AI event</div>
                 <div className="plg-way-desc">Live builds, expert panels, and workshops every week. Free to attend. Bring a laptop, leave with something shipped.</div>
                 <div className="plg-way-meta">Next event &middot; 3 days</div>
-                <a href="https://www.joinleland.com/career/ai-automation-and-agents/events" className="plg-way-cta">See upcoming events</a>
+                <a href="https://www.joinleland.com/career/build-with-ai/events" target="_blank" rel="noopener noreferrer" className="plg-way-cta">See upcoming events</a>
               </div>
               <div className="plg-way">
                 <span className="plg-way-tag">02 &middot; Cohort</span>
                 <div className="plg-way-title">Join the AI Builder Program</div>
                 <div className="plg-way-desc">Our flagship program. Ship real AI products start to finish. Join the alumni community building together long after.</div>
                 <div className="plg-way-meta">Next cohort &middot; Opens soon</div>
-                <a href="https://ai.joinleland.com" className="plg-way-cta">Apply to AI Builder</a>
+                <a href="https://ai.joinleland.com" target="_blank" rel="noopener noreferrer" className="plg-way-cta">Apply to AI Builder</a>
               </div>
               <div className="plg-way">
                 <span className="plg-way-tag">03 &middot; 1:1</span>
                 <div className="plg-way-title">Book an AI coach</div>
                 <div className="plg-way-desc">Work directly with a coach who&rsquo;s built in production. Prompt engineering, agent design, team enablement, career pivots.</div>
                 <div className="plg-way-meta">Book &middot; From $149</div>
-                <a href="https://www.joinleland.com/search/career/ai-automation-and-agents" className="plg-way-cta">Browse AI coaches</a>
+                <a href="https://www.joinleland.com/search/career/build-with-ai" target="_blank" rel="noopener noreferrer" className="plg-way-cta">Browse AI coaches</a>
               </div>
               <div className="plg-way">
                 <span className="plg-way-tag">04 &middot; Membership</span>
                 <div className="plg-way-title">Access AI content on Leland+</div>
                 <div className="plg-way-desc">Self-serve AI content, live discussions, playbooks, and AI-powered career tools. The lowest-friction way in.</div>
                 <div className="plg-way-meta">Leland+ &middot; Monthly</div>
-                <a href="https://www.joinleland.com" className="plg-way-cta">Join Leland+</a>
+                <a href="https://www.joinleland.com/plus" target="_blank" rel="noopener noreferrer" className="plg-way-cta">Join Leland+</a>
               </div>
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function PledgePage() {
             <h2>This is just <em>the beginning</em>.</h2>
             <p>One hundred million people learning AI on Leland. It starts with you.</p>
             <div className="plg-final-ctas">
-              <a href="https://ai.joinleland.com" className="btn btn-primary">Get started learning</a>
+              <a href="https://ai.joinleland.com" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Get started learning</a>
             </div>
           </div>
         </section>
