@@ -764,62 +764,136 @@ function RoleUseCases() {
   )
 }
 
-function TeamPricingSection({ id, headline = 'Bring AI Builder to your team', sub = 'Volume pricing, dedicated support, and a path that scales from 5 seats to your full org.' }) {
+function TeamPricingSection({ id, variant = 'solution', headline = 'Bring AI Builder to your team.', sub = 'More than training. An end-to-end engagement to make your team AI-fluent and keep them there.', eyebrow = '› 04 / The Solution' }) {
   const CALENDLY = 'https://calendly.com/d/ct7k-c45-dbx/leland-s-ai-builder-program-for-teams'
-  return (
-    <section className={`value-stack${id ? '' : ' value-stack-secondary'}`} id={id || undefined}>
-      <div className="container">
-        <h2 className="value-stack-section-headline">{headline}</h2>
-        <p className="value-stack-section-sub">{sub}</p>
-        <div className="value-stack-grid value-stack-grid-teams">
-          <div className="value-stack-card value-stack-card-featured">
-            <span className="value-stack-badge">For Teams</span>
-            <div className="value-stack-card-header">
-              <h3 className="value-stack-card-name">Team Plan</h3>
-              <span className="value-stack-card-meta">For organizations from 5 seats to Fortune 500</span>
+
+  const pillars = [
+    {
+      num: '01',
+      icon: 'group-sessions.svg',
+      title: 'The AI Builder Program',
+      desc: 'The core engagement. Five-level curriculum, live cohorts, hands-on building from week one.',
+      bullets: [
+        'AI Builder (Levels 1–3) for every knowledge worker',
+        'AI Architect (Levels 4–5) for technical champions',
+        '4 core 90-min sessions + optional build workshops per level',
+        'All sessions recorded; team members can switch cohorts',
+      ],
+    },
+    {
+      num: '02',
+      icon: 'ideation.svg',
+      title: 'Custom Build Workshops',
+      desc: 'Functional experts running tailored sessions for your team’s actual workflows, embedded inside your cohort schedule.',
+      bullets: [
+        'Sales, marketing, finance, ops, recruiting, CS tracks',
+        'Sessions built around the systems your team actually uses',
+        'Pre-built skill files and templates your team adapts',
+        'Available for engagements of 25+ seats',
+      ],
+    },
+    {
+      num: '03',
+      icon: 'scheduling.svg',
+      title: 'Implementation & Program Management',
+      desc: 'We run the program so your team doesn’t have to. From kickoff to leadership reporting.',
+      bullets: [
+        'Dedicated account manager from day one',
+        'Admin dashboard for enrollment, progress, shipped builds',
+        'Capability assessment and level placement per team member',
+        'Outcome reporting your leadership can act on',
+      ],
+    },
+    {
+      num: '04',
+      icon: 'retake.svg',
+      title: 'Ongoing Partnership',
+      desc: 'The capability compounds long after the first cohort wraps. Your team keeps building.',
+      bullets: [
+        '1 year of access to every subsequent cohort',
+        'Unlimited retakes with the latest curriculum',
+        'Builder community across all enrolled orgs',
+        'Curriculum refreshed continuously as AI evolves',
+      ],
+    },
+  ]
+
+  if (variant === 'cta') {
+    return (
+      <section className="team-solution" id={id || undefined}>
+        <div className="container">
+          <div className="b2b-section-head" style={{ marginBottom: 32 }}>
+            <h2 className="b2b-section-headline">{headline}</h2>
+            <p className="b2b-section-sub">{sub}</p>
+          </div>
+          <div className="team-solution-cta">
+            <div className="team-solution-cta-text">
+              <span className="team-solution-cta-eyebrow">› One conversation</span>
+              <h3 className="team-solution-cta-title">A roadmap your leadership can act on.</h3>
+              <p className="team-solution-cta-sub">Even if you don’t move forward with us, you’ll walk away with a tailored plan and clear next steps.</p>
             </div>
-            <div className="value-stack-card-stats">
-              <div className="value-stack-card-stat">
-                <span className="value-stack-card-stat-value">5 – 50,000</span>
-                <span className="value-stack-card-stat-label">team size</span>
-              </div>
-              <div className="value-stack-card-stat">
-                <span className="value-stack-card-stat-value">Every 2 wks</span>
-                <span className="value-stack-card-stat-label">new cohorts start</span>
-              </div>
-            </div>
-            <div className="value-stack-card-builds">
-              <span className="value-stack-card-builds-header">Built for buyers, designed for every team</span>
-              <ul className="value-stack-card-builds-list">
-                {[
-                  'Volume pricing, with discounts that scale with seat count',
-                  'Dedicated account manager and admin dashboard for enrollment and progress',
-                  'Place every team member at the right level (1–5), with flexibility to switch cohorts',
-                  'Security and compliance consultation available (HIPAA-aware engagements supported)',
-                  'Custom build workshops mapped to your team’s actual workflows',
-                  'Tool-agnostic curriculum: Claude, ChatGPT, Copilot, Gemini, n8n, and more',
-                ].map(item => (
-                  <li className="value-stack-card-build" key={item}>
-                    <img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="value-stack-check" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="value-stack-card-cta-row">
+            <div className="team-solution-cta-actions">
               <a
                 href={CALENDLY}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-primary btn-lg value-stack-card-cta"
+                className="btn btn-primary btn-lg"
                 onClick={() => posthog.capture('app--sales_cta_click', { source: `team-pricing-${id || 'secondary'}` })}
               >
                 Talk to our team
               </a>
-              <a href="/program" className="value-stack-learn-more">
-                Buying for yourself? See the individual program &rarr;
-              </a>
+              <a href="/program" className="team-solution-cta-secondary">Buying for yourself? See the individual program &rarr;</a>
             </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  return (
+    <section className="team-solution" id={id || undefined}>
+      <div className="container">
+        <div className="b2b-section-head">
+          {eyebrow && <span className="b2b-eyebrow">{eyebrow}</span>}
+          <h2 className="b2b-section-headline">{headline}</h2>
+          <p className="b2b-section-sub">{sub}</p>
+        </div>
+        <div className="team-solution-grid">
+          {pillars.map(p => (
+            <div className="team-solution-card" key={p.num}>
+              <div className="team-solution-card-head">
+                <div className="team-solution-card-icon">
+                  <img src={`${import.meta.env.BASE_URL}assets/product-illustrations/${p.icon}`} alt="" />
+                </div>
+                <div className="team-solution-card-meta">
+                  <span className="team-solution-card-num">{p.num} · Component</span>
+                  <h3 className="team-solution-card-title">{p.title}</h3>
+                </div>
+              </div>
+              <p className="team-solution-card-desc">{p.desc}</p>
+              <ul className="team-solution-card-list">
+                {p.bullets.map(b => <li key={b}>{b}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div className="team-solution-cta">
+          <div className="team-solution-cta-text">
+            <span className="team-solution-cta-eyebrow">› Pricing</span>
+            <h3 className="team-solution-cta-title">Volume pricing on consult. Scales from 5 seats to 50,000.</h3>
+            <p className="team-solution-cta-sub">Tailored to your team size, function mix, and security requirements. Most engagements include component 1 plus 2-3 of the others.</p>
+          </div>
+          <div className="team-solution-cta-actions">
+            <a
+              href={CALENDLY}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-lg"
+              onClick={() => posthog.capture('app--sales_cta_click', { source: `team-pricing-${id || 'secondary'}` })}
+            >
+              Talk to our team
+            </a>
+            <a href="/program" className="team-solution-cta-secondary">Buying for yourself? See the individual program &rarr;</a>
           </div>
         </div>
       </div>
@@ -2104,8 +2178,8 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== Repeat: Team Pricing (final CTA) ====== */}
-      <TeamPricingSection headline="Ready to build an AI-first team?" sub="One conversation, a tailored plan, and a roadmap your leadership can act on, even if you don’t move forward with us." />
+      {/* ====== Repeat: Team CTA (final reprise — no pillars, just CTA) ====== */}
+      <TeamPricingSection variant="cta" headline="Ready to build an AI-first team?" sub="One conversation, a tailored plan, and a roadmap your leadership can act on, even if you don’t move forward with us." />
 
       {/* ====== 10. Instructors (REMOVED — commented out) ====== */}
       {/*
