@@ -14,7 +14,6 @@ const FAQ_DATA = [
   { q: 'What counts as a \u201chire\u201d?', a: 'Any candidate we introduced to you who accepts a full-time, part-time, or intern role at your company within 12 months of the introduction. If they end up in a different role than the one you came to us for, it still counts.' },
   { q: 'What roles work best?', a: 'Roles where AI fluency is a real lever: ops, growth, marketing, finance, product, design, and engineering. Anywhere \u201cdoing more with less\u201d is the goal. We work across senior IC and manager levels.' },
   { q: 'Do you handle visas or international hires?', a: 'Yes, but we flag visa or location constraints upfront so you don\u2019t waste time. Most candidates are US-based and remote-friendly. We can source globally for fully remote roles.' },
-  { q: 'What if the hire doesn\u2019t work out?', a: 'We\u2019ll work with you to find a replacement candidate from our network. Talk to us if it happens. We\u2019re invested in long-term relationships, not one-off placements.' },
 ]
 
 const BREADTH = [
@@ -51,11 +50,25 @@ export default function RecruitPage() {
         {/* ===== HERO ===== */}
         <section className="rcr-hero">
           <div className="rcr-hero-inner">
-            <h1>Hire AI-native builders <span className="rcr-accent">and watch your company transform.</span></h1>
+            <h1>Hire AI-native builders and <span className="rcr-accent">watch your company transform.</span></h1>
             <p className="rcr-lead">There&rsquo;s a network of thousands of AI-native operators we&rsquo;ve trained and vetted. Tell us who you need and we&rsquo;ll introduce you to the ones who fit.</p>
             <div className="rcr-hero-cta">
               <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=hero`} target="_blank" rel="noopener noreferrer">Get started</a>
               <a className="rcr-btn rcr-btn-secondary" href="#how">How it works</a>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== STAT BAND (image) ===== */}
+        <section className="rcr-statband-section">
+          <div
+            className="rcr-statband"
+            style={{ backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.2) 100%), url(${import.meta.env.BASE_URL}assets/images/HireTalent.png)` }}
+          >
+            <div className="rcr-statband-inner">
+              <h2><span className="rcr-statband-num">91%</span> of organizations say hiring people with AI skills is a priority in 2026.</h2>
+              <span className="rcr-statband-source">Infragistics 2026 IT Talent Survey</span>
+              <p className="rcr-statband-sub">Leland has built a network of thousands of AI-powered operators, from interns to experienced leaders. Let us help you build your AI-native team.</p>
             </div>
           </div>
         </section>
@@ -70,13 +83,13 @@ export default function RecruitPage() {
               <div className="rcr-step">
                 <div className="rcr-step-num">Step 01</div>
                 <h3>Tell us who you need</h3>
-                <p>Set up a quick call. Tell us what you&rsquo;re hiring for, what success looks like, and what AI workflows you want the hire to bring.</p>
+                <p>Set up a quick call so we can learn more about the role, experience level, and background you are looking for.</p>
                 <span className="rcr-pill">Quick intro call</span>
               </div>
               <div className="rcr-step">
                 <div className="rcr-step-num">Step 02</div>
-                <h3>We shortlist</h3>
-                <p>We match you with 3 to 5 AI-native candidates from the Leland network. Full bios, portfolios of real builds, and intros within days.</p>
+                <h3>We bring you candidates</h3>
+                <p>We match you with high-quality AI-native candidates that fit what you are looking for.</p>
                 <span className="rcr-pill">3 business days</span>
               </div>
               <div className="rcr-step">
@@ -85,18 +98,6 @@ export default function RecruitPage() {
                 <p>Interview, decide, and extend an offer on your timeline. Pay 10% of first-year salary per full-time hire, or $5,000 per intern. Nothing if you don&rsquo;t hire.</p>
                 <span className="rcr-pill">$0 due upfront</span>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== STATS ===== */}
-        <section className="rcr-section rcr-stats-section">
-          <div className="rcr-section-container">
-            <div className="rcr-stats">
-              <div className="rcr-stat"><div className="rcr-stat-num">1,500+</div><div className="rcr-stat-label">AI-native operators &amp; engineers</div></div>
-              <div className="rcr-stat"><div className="rcr-stat-num">12+</div><div className="rcr-stat-label">Avg agents &amp; automations per candidate</div></div>
-              <div className="rcr-stat"><div className="rcr-stat-num">3 days</div><div className="rcr-stat-label">From first call to first intros</div></div>
-              <div className="rcr-stat"><div className="rcr-stat-num">$0</div><div className="rcr-stat-label">Due unless you actually hire</div></div>
             </div>
           </div>
         </section>
@@ -124,54 +125,13 @@ export default function RecruitPage() {
                 <h3>The new edge</h3>
                 <p className="rcr-vsub">Has rebuilt their work around AI from the ground up</p>
                 <ul>
-                  <li><span className="rcr-vicon">&check;</span><span>Ships agents and automations that handle real work end-to-end</span></li>
-                  <li><span className="rcr-vicon">&check;</span><span>Lives in Cursor, Claude Code, n8n, and a custom stack</span></li>
-                  <li><span className="rcr-vicon">&check;</span><span>Treats AI as a force multiplier on what one person can do</span></li>
-                  <li><span className="rcr-vicon">&check;</span><span>One AI-native hire can do the work of a small team</span></li>
+                  <li><span className="rcr-vicon">{'✓'}</span><span>Ships agents and automations that handle real work end-to-end</span></li>
+                  <li><span className="rcr-vicon">{'✓'}</span><span>Lives in Cursor, Claude Code, n8n, and a custom stack</span></li>
+                  <li><span className="rcr-vicon">{'✓'}</span><span>Treats AI as a force multiplier on what one person can do</span></li>
+                  <li><span className="rcr-vicon">{'✓'}</span><span>One AI-native hire can do the work of a small team</span></li>
                 </ul>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* ===== PRICING ===== */}
-        <section className="rcr-section rcr-pricing-section" id="pricing">
-          <div className="rcr-section-container">
-            <span className="rcr-eyebrow">Pricing</span>
-            <h2 className="rcr-section-title">Simple, success-based pricing.</h2>
-            <p className="rcr-section-sub">No retainers. No sourcing fees. No monthly minimums. You pay one fee when a candidate accepts your offer.</p>
-            <div className="rcr-pricing">
-              <div className="rcr-pcard">
-                <div className="rcr-pname">Intern</div>
-                <div className="rcr-pamount">$5,000</div>
-                <div className="rcr-pper">per intern hired</div>
-                <div className="rcr-pwhen">Due only on hire</div>
-                <ul>
-                  <li>3 to 5 vetted intern candidates per role</li>
-                  <li>AI Builder Program graduates with shipped builds</li>
-                  <li>Portfolio of real automations on day one</li>
-                  <li>Summer, fall, and part-time availability</li>
-                  <li>We handle scheduling and intros</li>
-                </ul>
-                <a className="rcr-btn rcr-btn-secondary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=pricing&role=intern`} target="_blank" rel="noopener noreferrer">Get started</a>
-              </div>
-              <div className="rcr-pcard rcr-featured">
-                <span className="rcr-ptag">Most common</span>
-                <div className="rcr-pname">Full-time</div>
-                <div className="rcr-pamount">10%</div>
-                <div className="rcr-pper">of first-year salary, per hire</div>
-                <div className="rcr-pwhen">Due only on hire</div>
-                <ul>
-                  <li>3 to 5 vetted AI-native operators or engineers</li>
-                  <li>Each candidate ships builds, not just prompts</li>
-                  <li>Full portfolios, bios, and references</li>
-                  <li>Engineering, ops, GTM, design, product, finance</li>
-                  <li>Dedicated talent partner from first call to hire</li>
-                </ul>
-                <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=pricing&role=ft`} target="_blank" rel="noopener noreferrer">Get started</a>
-              </div>
-            </div>
-            <div className="rcr-pnote"><b>$0 due upfront.</b> Pay only when a candidate accepts your offer.</div>
           </div>
         </section>
 
@@ -227,12 +187,17 @@ export default function RecruitPage() {
           </div>
         </section>
 
-        {/* ===== BREADTH ===== */}
+        {/* ===== WHY LELAND / BREADTH ===== */}
         <section className="rcr-section rcr-breadth">
           <div className="rcr-section-container">
-            <span className="rcr-eyebrow">A network, not a niche</span>
-            <h2 className="rcr-section-title">Hire AI-native talent across industries, experience levels, and roles.</h2>
-            <p className="rcr-section-sub">A preview of who&rsquo;s in the network. If you don&rsquo;t see exactly what you&rsquo;re looking for, reach out anyway, chances are we have it.</p>
+            <span className="rcr-eyebrow">Why Leland</span>
+            <h2 className="rcr-section-title">Hire from a community of 8 million people learning AI.</h2>
+            <p className="rcr-section-sub">Leland is where people come to get AI-native. We&rsquo;ve trained and vetted thousands of operators and engineers from that community, across every industry, experience level, and role.</p>
+            <div className="rcr-breadth-stats">
+              <div className="rcr-bstat"><div className="rcr-bstat-num">8M+</div><div className="rcr-bstat-label">people learning AI on Leland</div></div>
+              <div className="rcr-bstat"><div className="rcr-bstat-num">Vetted</div><div className="rcr-bstat-label">on real builds, not resumes</div></div>
+              <div className="rcr-bstat"><div className="rcr-bstat-num">Every function</div><div className="rcr-bstat-label">ops, GTM, finance, product, design, engineering</div></div>
+            </div>
             <div className="rcr-breadth-grid">
               {BREADTH.map((col) => (
                 <div className="rcr-breadth-col" key={col.label}>
@@ -245,6 +210,47 @@ export default function RecruitPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ===== PRICING ===== */}
+        <section className="rcr-section rcr-pricing-section" id="pricing">
+          <div className="rcr-section-container">
+            <span className="rcr-eyebrow">Pricing</span>
+            <h2 className="rcr-section-title">Simple, success-based pricing.</h2>
+            <p className="rcr-section-sub">No retainers. No sourcing fees. No monthly minimums. You pay one fee when a candidate accepts your offer.</p>
+            <div className="rcr-pricing">
+              <div className="rcr-pcard">
+                <div className="rcr-pname">Intern</div>
+                <div className="rcr-pamount">$5,000</div>
+                <div className="rcr-pper">per intern hired</div>
+                <div className="rcr-pwhen">Due only on hire</div>
+                <ul>
+                  <li>3 to 5 vetted intern candidates per role</li>
+                  <li>AI Builder Program graduates with shipped builds</li>
+                  <li>Portfolio of real automations on day one</li>
+                  <li>Summer, fall, and part-time availability</li>
+                  <li>We handle scheduling and intros</li>
+                </ul>
+                <a className="rcr-btn rcr-btn-secondary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=pricing&role=intern`} target="_blank" rel="noopener noreferrer">Get started</a>
+              </div>
+              <div className="rcr-pcard rcr-featured">
+                <span className="rcr-ptag">Most common</span>
+                <div className="rcr-pname">Full-time</div>
+                <div className="rcr-pamount">10%</div>
+                <div className="rcr-pper">of first-year salary, per hire</div>
+                <div className="rcr-pwhen">Due only on hire</div>
+                <ul>
+                  <li>3 to 5 vetted AI-native operators or engineers</li>
+                  <li>Each candidate ships builds, not just prompts</li>
+                  <li>Full portfolios, bios, and references</li>
+                  <li>Engineering, ops, GTM, design, product, finance</li>
+                  <li>Dedicated talent partner from first call to hire</li>
+                </ul>
+                <a className="rcr-btn rcr-btn-primary" href={`${TYPEFORM_BASE}?utm_source=hire_lp&utm_medium=pricing&role=ft`} target="_blank" rel="noopener noreferrer">Get started</a>
+              </div>
+            </div>
+            <div className="rcr-pnote"><b>$0 due upfront.</b> Pay only when a candidate accepts your offer.</div>
           </div>
         </section>
 
