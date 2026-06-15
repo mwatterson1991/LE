@@ -764,7 +764,7 @@ function RoleUseCases() {
   )
 }
 
-function TeamPricingSection({ id, variant = 'solution', headline = 'Bring AI Builder to your team.', sub = 'More than training. An end-to-end engagement to make your team AI-fluent and keep them there.', eyebrow = '› 04 / The Solution' }) {
+function TeamPricingSection({ id, variant = 'solution', headline = 'Bring AI Builder to your team.', sub = 'More than training. An end-to-end engagement to make your team AI-fluent and keep them there.', eyebrow = '› 03 / The Solution' }) {
   const CALENDLY = 'https://calendly.com/d/ct7k-c45-dbx/leland-s-ai-builder-program-for-teams'
 
   const pillars = [
@@ -1862,55 +1862,38 @@ function TeamsProgramPageInner() {
             </div>
             <div className="save-time-right">
               <h2 className="save-time-headline">Every employee, directing their own AI agent team</h2>
-              <p className="save-time-sub">After AI Builder, your people don’t do every task themselves. They build specialized agents that triage inboxes, run research, prep decks, ship outreach, and more, all directed by them.</p>
-              <p className="save-time-cite">One Leland-trained VP Marketing built a system that <strong>automated the work of a 2-year full-time role</strong>. Your team can ship the output of teams 5x their size from a single laptop.</p>
+              <p className="save-time-sub">Your people stop doing every task themselves. They build specialized agents that triage inboxes, run research, prep decks, ship outreach, and more.</p>
+              <p className="save-time-cite">One VP Marketing built a system that <strong>automated the work of a 2-year full-time role.</strong></p>
               <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary save-time-explore-cta" onClick={() => posthog.capture('app--sales_cta_click', { source: 'save-time' })}>Talk to our team</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ====== B2B-B. Results — outcomes leaders take to the board ====== */}
-      <section className="b2b-section" id="results">
+      {/* ====== B2B-D. The Problem (deck slide 3, moved up) ====== */}
+      <section className="b2b-section" id="problem">
         <div className="container">
           <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› Results</span>
-            <h2 className="b2b-section-headline">Outcomes leaders take to the board.</h2>
-            <p className="b2b-section-sub">Real metrics from teams across startups to the Fortune 500. Not aspirational, observed.</p>
+            <span className="b2b-eyebrow">› 02 / The Problem</span>
+            <h2 className="b2b-section-headline">Most teams know AI is important. Driving impactful adoption is slower than they want.</h2>
           </div>
-          <div className="b2b-stats">
-            <div>
-              <p className="b2b-stat-lbl">› 01 Completion</p>
-              <div className="b2b-stat-num b2b-stat-num-accent">85%</div>
-              <div className="b2b-stat-desc">Completion rate vs. 5–15% for self-paced courses</div>
+          <div className="problem-grid">
+            <div className="problem-card">
+              <span className="problem-card-num">› Reason 01</span>
+              <h3 className="problem-card-title">The field moves faster than employees can keep up</h3>
+              <p className="problem-card-body">New models monthly. New capabilities weekly. Without protected time and structure, the gap widens by default.</p>
             </div>
-            <div>
-              <p className="b2b-stat-lbl">› 02 Productivity</p>
-              <div className="b2b-stat-num">2x</div>
-              <div className="b2b-stat-desc">Output gain vs. self-taught teams (London School of Economics)</div>
+            <div className="problem-card">
+              <span className="problem-card-num">› Reason 02</span>
+              <h3 className="problem-card-title">Adoption requires behavior change</h3>
+              <p className="problem-card-body">Using AI well isn't learning a new tool. It's changing how people work, new habits, new defaults, new mental models.</p>
             </div>
-            <div>
-              <p className="b2b-stat-lbl">› 03 Output</p>
-              <div className="b2b-stat-num b2b-stat-num-accent">Team-Scale</div>
-              <div className="b2b-stat-desc">Each builder ships work that used to take an entire team</div>
-            </div>
-            <div>
-              <p className="b2b-stat-lbl">› 04 Platform Rating</p>
-              <div className="b2b-stat-num">4.99★</div>
-              <div className="b2b-stat-desc">Across 27,635 reviews on Leland</div>
-            </div>
-            <div>
-              <p className="b2b-stat-lbl">› 05 Time to Ship</p>
-              <div className="b2b-stat-num b2b-stat-num-accent">2 wk</div>
-              <div className="b2b-stat-desc">From kickoff to first shipped tool</div>
-            </div>
-            <div>
-              <p className="b2b-stat-lbl">› 06 Builds Shipped</p>
-              <div className="b2b-stat-num">20+</div>
-              <div className="b2b-stat-desc">Real tools and agents shipped per builder across the program</div>
+            <div className="problem-card">
+              <span className="problem-card-num">› Reason 03</span>
+              <h3 className="problem-card-title">Most training is too theoretical to translate</h3>
+              <p className="problem-card-body">Slides on what AI can do. Webinars on prompt engineering. People come out aware, not able to ship.</p>
             </div>
           </div>
-          <p className="b2b-stat-source">› Productivity stat: London School of Economics · AI maturity data: McKinsey State of AI 2025</p>
         </div>
       </section>
 
@@ -1920,7 +1903,7 @@ function TeamsProgramPageInner() {
           <div className="b2b-section-head">
             <span className="b2b-eyebrow">› Team Outcomes</span>
             <h2 className="b2b-section-headline">What teams ship after the program.</h2>
-            <p className="b2b-section-sub">Marketing, GTM, ops, finance, and CS teams have shipped real AI systems through AI Builder. A few of the outcomes leaders report back.</p>
+            <p className="b2b-section-sub">85% completion. 2-week time to first shipped tool. 20+ builds per builder across the program.</p>
           </div>
           <div className="customer-wins">
             <div className="customer-win-card">
@@ -1951,69 +1934,37 @@ function TeamsProgramPageInner() {
         </div>
       </section>
 
-      {/* ====== B2B-C. Market Signal (BCG + CHRO) ====== */}
-      <section className="b2b-section b2b-section-dark" id="market-signal">
-        <div className="container">
-          <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› The Market Signal</span>
-            <h2 className="b2b-section-headline">A small group of companies are pulling ahead. Their competitors are starting to feel it.</h2>
-          </div>
-          <div className="market-signal">
-            <div className="market-card">
-              <p className="market-card-src">› BCG, 2025</p>
-              <div className="market-card-big">5%</div>
-              <p className="market-card-body">of companies qualify as true AI leaders. Those leaders are operating at a completely different level.</p>
-              <div className="market-card-metrics">
-                <div className="market-card-metric"><b>1.7x</b>Revenue growth</div>
-                <div className="market-card-metric"><b>3.6x</b>Three-year TSR</div>
-                <div className="market-card-metric"><b>1.6x</b>EBIT margin</div>
-              </div>
-            </div>
-            <div className="market-card">
-              <p className="market-card-src">› CHRO Association, 2026</p>
-              <div className="market-card-big">91%</div>
-              <p className="market-card-body">of CHROs ranked AI and digitization as their #1 priority. The biggest barriers to AI adoption are organizational, not technological.</p>
-              <div className="market-card-metrics">
-                <div className="market-card-metric"><b>#1</b>Workforce priority</div>
-                <div className="market-card-metric"><b>Organizational</b>The real bottleneck</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ====== B2B-E. How it works for your team (engagement flow) ====== */}
       <section className="b2b-section" id="how-it-works">
         <div className="container">
           <div className="b2b-section-head">
             <span className="b2b-eyebrow">› How It Works</span>
             <h2 className="b2b-section-headline">A clean rollout your leadership can sign off on.</h2>
-            <p className="b2b-section-sub">From the first call to leadership reporting, we run the program so your team doesn't have to.</p>
           </div>
           <div className="engagement-flow">
             <div className="engagement-step">
               <span className="engagement-step-num">01 · Discovery</span>
               <h3 className="engagement-step-title">Map your team and goals</h3>
-              <p className="engagement-step-desc">30-minute working session with your AM. We understand your team's current AI maturity, the workflows that matter most, and any security or compliance constraints.</p>
-              <span className="engagement-step-meta">Day 0 · 30 min</span>
+              <p className="engagement-step-desc">30-min working session with your AM. Team maturity, priority workflows, security constraints.</p>
+              <span className="engagement-step-meta">Day 0</span>
             </div>
             <div className="engagement-step">
               <span className="engagement-step-num">02 · Placement</span>
               <h3 className="engagement-step-title">Place each person at the right level</h3>
-              <p className="engagement-step-desc">Quick capability assessment per team member. Most non-technical employees start at Level 1. Power users jump to Level 2 or 3. Specialists can take Levels 4–5.</p>
-              <span className="engagement-step-meta">Week 1 · async</span>
+              <p className="engagement-step-desc">Quick capability assessment. Most start at Level 1; power users at 2 or 3; specialists at 4–5.</p>
+              <span className="engagement-step-meta">Week 1</span>
             </div>
             <div className="engagement-step">
               <span className="engagement-step-num">03 · Cohorts</span>
               <h3 className="engagement-step-title">Run live cohorts, ship real work</h3>
-              <p className="engagement-step-desc">4 core 90-minute sessions plus optional build workshops per level. Every session ends with a deliverable applied to real work. Cohorts every 2 weeks, members can switch as schedules change.</p>
-              <span className="engagement-step-meta">Weeks 1–10 · live + recorded</span>
+              <p className="engagement-step-desc">4 core 90-min sessions + optional build workshops per level. Cohorts every 2 weeks; members can switch.</p>
+              <span className="engagement-step-meta">Weeks 1–10</span>
             </div>
             <div className="engagement-step">
               <span className="engagement-step-num">04 · Reporting</span>
               <h3 className="engagement-step-title">Measure and report impact</h3>
-              <p className="engagement-step-desc">Admin dashboard tracks enrollment, completion, and shipped builds. Your AM generates outcome reports for leadership review. 1 year of access continues after the cohort wraps.</p>
-              <span className="engagement-step-meta">Ongoing · monthly</span>
+              <p className="engagement-step-desc">Admin dashboard tracks enrollment, completion, shipped builds. Outcome reports for leadership.</p>
+              <span className="engagement-step-meta">Ongoing</span>
             </div>
           </div>
         </div>
@@ -2022,95 +1973,11 @@ function TeamsProgramPageInner() {
       {/* ====== 5. Team Pricing (pricing anchor) ====== */}
       <TeamPricingSection id="pricing" />
 
-      {/* ====== Why — skills + tools ====== */}
-      <WhyRevealSection toolPills={toolPills} skillPills={skillPills} />
-
-      {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
-      <section className="accordion-section" id="level-accordion">
-        <div className="container">
-          <div className="accordion-section-header accordion-section-header-stacked">
-            <div className="accordion-section-header-text">
-              <h2 className="accordion-section-headline">One program. Five levels. Place every employee at the right one.</h2>
-              <p className="accordion-section-sub">Levels 1–3 build the AI foundation every knowledge worker needs. Levels 4–5 go deeper, for the AI champions on your team ready to ship production systems. We help you place each team member at the right entry point.</p>
-            </div>
-            <IcebergVisualization />
-          </div>
-          <div className="accordion-list" style={{ marginTop: 48 }}>
-            {courses.map((course, i) => (
-              <CourseAccordionItem key={course.id} course={course} open={openAccordion === i} onToggle={() => setOpenAccordion(openAccordion === i ? null : i)} />
-            ))}
-          </div>
-          <WhichLevelDropdown />
-        </div>
-      </section>
 
       {/* ====== Use Cases by Role ====== */}
       <RoleUseCases />
 
-      {/* ====== B2B-D. The Problem (deck slide 3) ====== */}
-      <section className="b2b-section" id="problem">
-        <div className="container">
-          <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› 02 / The Problem</span>
-            <h2 className="b2b-section-headline">Most teams know AI is important. Driving impactful adoption is slower than they want.</h2>
-          </div>
-          <div className="problem-grid">
-            <div className="problem-card">
-              <span className="problem-card-num">› Reason 01</span>
-              <h3 className="problem-card-title">The field moves faster than employees can keep up</h3>
-              <p className="problem-card-body">New models monthly. New capabilities weekly. Employees already have full-time jobs. Without protected time and structure, the gap widens by default.</p>
-            </div>
-            <div className="problem-card">
-              <span className="problem-card-num">› Reason 02</span>
-              <h3 className="problem-card-title">Adoption requires behavior change, and that's hard</h3>
-              <p className="problem-card-body">Using AI well isn't learning a new tool. It's changing how people work. New habits, new defaults, new mental models. The slowest gain to make, the easiest one to give up on.</p>
-            </div>
-            <div className="problem-card">
-              <span className="problem-card-num">› Reason 03</span>
-              <h3 className="problem-card-title">Most training is too theoretical to translate</h3>
-              <p className="problem-card-body">Slides on what AI can do. Webinars on prompt engineering. People come out aware. They don't come out able to ship the work it was supposed to make easier.</p>
-            </div>
-          </div>
-          <div className="problem-closer">Teams that build AI capabilities now are creating a <b>durable operating advantage.</b> The window to be one of them is open and closing fast.</div>
-        </div>
-      </section>
-
-      {/* ====== B2B-G. Why This Works (deck slide 4, 5 pillars) ====== */}
-      <section className="b2b-section" id="why-it-works">
-        <div className="container">
-          <div className="b2b-section-head">
-            <span className="b2b-eyebrow">› 03 / Why It Works</span>
-            <h2 className="b2b-section-headline">Five things make adoption stick. We built around each.</h2>
-          </div>
-          <div className="pillars-grid">
-            <div className="pillar-card">
-              <span className="pillar-card-label">› 01 · Hands-on</span>
-              <h3 className="pillar-card-title">Built, not lectured</h3>
-              <p className="pillar-card-desc">Every session ends with a working artifact. Your team learns by shipping, not by watching.</p>
-            </div>
-            <div className="pillar-card">
-              <span className="pillar-card-label">› 02 · Accountability</span>
-              <h3 className="pillar-card-title">Showing up matters</h3>
-              <p className="pillar-card-desc">Shipping matters more. Live cohorts create the structure async courses never do.</p>
-            </div>
-            <div className="pillar-card">
-              <span className="pillar-card-label">› 03 · Measured</span>
-              <h3 className="pillar-card-title">Outcomes that defend themselves</h3>
-              <p className="pillar-card-desc">Agents shipped. Workflows automated. Numbers leadership trusts when reporting up.</p>
-            </div>
-            <div className="pillar-card">
-              <span className="pillar-card-label">› 04 · Cohort-based</span>
-              <h3 className="pillar-card-title">Stronger together</h3>
-              <p className="pillar-card-desc">Teams build and ship as one. Culture shifts with the cohort and compounds after.</p>
-            </div>
-            <div className="pillar-card">
-              <span className="pillar-card-label">› 05 · Applied</span>
-              <h3 className="pillar-card-title">Built for their job</h3>
-              <p className="pillar-card-desc">Sales builds for sales. Ops builds for ops. Every artifact is grounded in their real workflows.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Problem section moved up above Customer Wins */}
 
       {/* ====== B2B-F. Security &amp; Compliance ====== */}
       <section className="b2b-section" id="security">
@@ -2118,7 +1985,6 @@ function TeamsProgramPageInner() {
           <div className="b2b-section-head">
             <span className="b2b-eyebrow">› Security &amp; Compliance</span>
             <h2 className="b2b-section-headline">Your security team will sign off.</h2>
-            <p className="b2b-section-sub">Built for enterprise constraints from day one. The curriculum is tool-agnostic, so your team builds inside whatever AI tools your security team has already approved.</p>
           </div>
           <div className="security-grid">
             <ul className="security-points">
@@ -2126,49 +1992,46 @@ function TeamsProgramPageInner() {
                 <span className="security-point-icon" aria-hidden="true">⚙</span>
                 <div className="security-point-text">
                   <span className="security-point-title">Works inside your approved stack</span>
-                  <span className="security-point-desc">Claude, ChatGPT Enterprise, Copilot, Gemini, n8n, on-prem — your team uses whatever your security team has already cleared. No new vendor approval needed.</span>
+                  <span className="security-point-desc">Claude, ChatGPT Enterprise, Copilot, Gemini, n8n, on-prem. No new vendor approval needed.</span>
                 </div>
               </li>
               <li className="security-point">
                 <span className="security-point-icon" aria-hidden="true">🛡</span>
                 <div className="security-point-text">
                   <span className="security-point-title">No live data connection required</span>
-                  <span className="security-point-desc">A core skill we teach is building effective AI workflows without exposing live company data. Real outcomes inside whatever constraints your IT policy sets.</span>
+                  <span className="security-point-desc">We teach effective AI workflows that don't expose live company data, real outcomes inside any IT policy.</span>
                 </div>
               </li>
               <li className="security-point">
                 <span className="security-point-icon" aria-hidden="true">＋</span>
                 <div className="security-point-text">
                   <span className="security-point-title">HIPAA-aware engagements supported</span>
-                  <span className="security-point-desc">For regulated industries, we offer a security consultation and scope the engagement around your constraints. We've run cohorts inside health, financial services, and government-adjacent orgs.</span>
+                  <span className="security-point-desc">Security consultation and scoping for health, financial services, and regulated industries.</span>
                 </div>
               </li>
               <li className="security-point">
                 <span className="security-point-icon" aria-hidden="true">⤳</span>
                 <div className="security-point-text">
                   <span className="security-point-title">Dedicated security review available</span>
-                  <span className="security-point-desc">For larger implementations, your AM coordinates a working session with your security team to walk through data flow, tool usage, and any compliance requirements.</span>
+                  <span className="security-point-desc">For larger rollouts, your AM coordinates a working session with your security team.</span>
                 </div>
               </li>
             </ul>
             <div className="security-card">
               <p className="security-card-eyebrow">› Reality check</p>
               <h3 className="security-card-title">"Our security team is conservative."</h3>
-              <p className="security-card-body">We hear this from almost every buyer, and we've never had it stop a rollout. The curriculum is built so your team produces real, shipped builds even with the strictest IT policy, then your champions widen the policy from inside over time, evidence in hand.</p>
+              <p className="security-card-body">We hear this from almost every buyer, and we've never had it stop a rollout. Your team ships real builds inside the strictest IT policy. Champions widen the policy from inside, evidence in hand.</p>
               <div className="security-card-tags">
                 <span className="security-card-tag">Tool-agnostic</span>
                 <span className="security-card-tag">No data export</span>
                 <span className="security-card-tag">HIPAA-aware</span>
-                <span className="security-card-tag">SOC 2-ready stack</span>
-                <span className="security-card-tag">Dedicated review</span>
+                <span className="security-card-tag">SOC 2-ready</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ====== Repeat: Team CTA (final reprise — no pillars, just CTA) ====== */}
-      <TeamPricingSection variant="cta" headline="Ready to build an AI-first team?" sub="One conversation, a tailored plan, and a roadmap your leadership can act on, even if you don’t move forward with us." />
 
       {/* ====== 10. Instructors (REMOVED — commented out) ====== */}
       {/*
@@ -2234,136 +2097,6 @@ function TeamsProgramPageInner() {
         </div>
       </section>
       */}
-
-      {/* ====== 13. Certification (CardSwap) ====== */}
-      <section className="certification" id="certification">
-        <div className="container">
-          <div className="cert-intro">
-            <h2>Credential your team.</h2>
-            <p className="cert-desc">
-              Every level your team completes culminates in a verified Leland certificate. Use them to credential your internal AI champions, signal capability to clients, and build a documented AI-fluent workforce your leadership can point to.
-            </p>
-          </div>
-
-          <div className="rb-cert-grid">
-            <div className="rb-cert-card">
-                <div className="cert-card-inner">
-                  <img
-                    src={`${import.meta.env.BASE_URL}assets/seal.png`}
-                    alt="Leland Verified Seal"
-                    className="cert-seal"
-                  />
-                  <div className="cert-inner">
-                    <div className="cert-header">
-                      <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="cert-logo" />
-                      <span className="cert-header-label">Certificate of Completion</span>
-                    </div>
-                    <div className="cert-body">
-                      <span className="cert-awarded">This certifies that</span>
-                      <span className="cert-name">Your Name Here</span>
-                      <span className="cert-divider"></span>
-                      <span className="cert-achievement">has successfully completed the</span>
-                      <span className="cert-program">AI Builder Program</span>
-                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Complex Agentic Workflows &middot; Create Autonomous Agents &middot; Build Your Agent Workforce &middot; Design Your AI Orchestration Layer</span>
-                    </div>
-                    <div className="cert-footer">
-                      <div className="cert-sig">
-                        <span className="cert-sig-line"></span>
-                        <span className="cert-sig-label">Program Director</span>
-                      </div>
-                      <div className="cert-meta">
-                        <span className="cert-date-label">ISSUED</span>
-                        <span className="cert-date-value">2026</span>
-                      </div>
-                      <div className="cert-sig">
-                        <span className="cert-sig-line"></span>
-                        <span className="cert-sig-label">Leland Verification</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-            <div className="rb-cert-card">
-                <div className="cert-card-inner">
-                  <img
-                    src={`${import.meta.env.BASE_URL}assets/seal.png`}
-                    alt="Leland Verified Seal"
-                    className="cert-seal"
-                  />
-                  <div className="cert-inner">
-                    <div className="cert-header">
-                      <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="cert-logo" />
-                      <span className="cert-header-label">Certificate of Completion</span>
-                    </div>
-                    <div className="cert-body">
-                      <span className="cert-awarded">This certifies that</span>
-                      <span className="cert-name">Your Name Here</span>
-                      <span className="cert-divider"></span>
-                      <span className="cert-achievement">has successfully completed</span>
-                      <span className="cert-program">Use AI to 10x Your Impact</span>
-                      <span className="cert-subprogram">Level 01 &middot; AI Builder Program</span>
-                    </div>
-                    <div className="cert-footer">
-                      <div className="cert-sig">
-                        <span className="cert-sig-line"></span>
-                        <span className="cert-sig-label">Program Director</span>
-                      </div>
-                      <div className="cert-meta">
-                        <span className="cert-date-label">ISSUED</span>
-                        <span className="cert-date-value">2026</span>
-                      </div>
-                      <div className="cert-sig">
-                        <span className="cert-sig-line"></span>
-                        <span className="cert-sig-label">Leland Verification</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-            <div className="rb-cert-card">
-                <div className="cert-card-inner">
-                  <img
-                    src={`${import.meta.env.BASE_URL}assets/seal.png`}
-                    alt="Leland Verified Seal"
-                    className="cert-seal"
-                  />
-                  <div className="cert-inner">
-                    <div className="cert-header">
-                      <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" className="cert-logo" />
-                      <span className="cert-header-label">Certificate of Completion</span>
-                    </div>
-                    <div className="cert-body">
-                      <span className="cert-awarded">This certifies that</span>
-                      <span className="cert-name">Your Name Here</span>
-                      <span className="cert-divider"></span>
-                      <span className="cert-achievement">has successfully completed</span>
-                      <span className="cert-program">Build Complex Agentic Workflows</span>
-                      <span className="cert-subprogram">Level 02 &middot; AI Builder Program</span>
-                    </div>
-                    <div className="cert-footer">
-                      <div className="cert-sig">
-                        <span className="cert-sig-line"></span>
-                        <span className="cert-sig-label">Program Director</span>
-                      </div>
-                      <div className="cert-meta">
-                        <span className="cert-date-label">ISSUED</span>
-                        <span className="cert-date-value">2026</span>
-                      </div>
-                      <div className="cert-sig">
-                        <span className="cert-sig-line"></span>
-                        <span className="cert-sig-label">Leland Verification</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* GetThisExpensed and Enterprise sections removed — whole page is the team / enterprise page */}
 
       {/* ====== 16. FAQ ====== */}
       <section className="faq" id="faq">
