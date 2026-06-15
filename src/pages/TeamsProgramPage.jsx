@@ -2123,14 +2123,14 @@ function TeamsProgramPageInner() {
             <div className="footer-col">
               <h4 className="footer-col-heading">Popular</h4>
               <ul className="footer-col-links">
-                <li><a href="https://www.joinleland.com/category/mba" className="footer-col-link">MBA</a></li>
-                <li><a href="https://www.joinleland.com/ai" className="footer-col-link">AI Productivity</a></li>
-                <li><a href="https://www.joinleland.com/category/management-consulting" className="footer-col-link">Management Consulting</a></li>
-                <li><a href="https://www.joinleland.com/category/gre" className="footer-col-link">GRE</a></li>
-                <li><a href="https://www.joinleland.com/category/private-equity" className="footer-col-link">Private Equity</a></li>
-                <li><a href="https://www.joinleland.com/category/product-management" className="footer-col-link">Product Management</a></li>
-                <li><a href="https://www.joinleland.com/category/career-development" className="footer-col-link">Career Development</a></li>
-                <li><a href="https://www.joinleland.com/category/college" className="footer-col-link">College</a></li>
+                <li><a href="https://www.joinleland.com/search/school/mba" className="footer-col-link">MBA</a></li>
+                <li><a href="https://www.joinleland.com/search/career/build-with-ai" className="footer-col-link">AI Productivity</a></li>
+                <li><a href="https://www.joinleland.com/search/career/management-consulting" className="footer-col-link">Management Consulting</a></li>
+                <li><a href="https://www.joinleland.com/search/test/gre" className="footer-col-link">GRE</a></li>
+                <li><a href="https://www.joinleland.com/search/career/private-equity" className="footer-col-link">Private Equity</a></li>
+                <li><a href="https://www.joinleland.com/search/career/product-management" className="footer-col-link">Product Management</a></li>
+                <li><a href="https://www.joinleland.com/search/career/career-development" className="footer-col-link">Career Development</a></li>
+                <li><a href="https://www.joinleland.com/search/school/college" className="footer-col-link">College</a></li>
               </ul>
             </div>
 
