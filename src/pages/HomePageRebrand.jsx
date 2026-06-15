@@ -1170,7 +1170,7 @@ function HomePageRebrandInner() {
     document.documentElement.classList.add('rb-home')
     document.body.classList.add('rb-home')
 
-    const ogImg = 'https://ai.joinleland.com/assets/OG-Image.png?v=2'
+    const ogImg = 'https://leland.ai/assets/OG-Image.png?v=2'
     const ogMeta = document.querySelector('meta[property="og:image"]')
     const twMeta = document.querySelector('meta[name="twitter:image"]')
     const prevOg = ogMeta?.getAttribute('content')
