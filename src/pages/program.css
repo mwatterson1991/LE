@@ -24,3 +24,9 @@ body.rb-home .rb-nav-scrolled .prog-nav-forteams {
     font-size: 14px;
   }
 }
+
+/* Bottom "For Teams" enterprise callout photo. Overrides only the image from
+   the shared .enterprise-card rule; keeps its center/cover framing + overlay. */
+body.rb-home .enterprise-card {
+  background-image: url('/assets/images/for-teams-callout.png');
+}

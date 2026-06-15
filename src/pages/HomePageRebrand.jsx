@@ -2007,7 +2007,7 @@ function HomePageRebrandInner() {
             <div className="enterprise-card-content">
               <h2>For Teams</h2>
               <p className="enterprise-desc">
-                Train your team on AI. See ROI in weeks. We work with 10-person startups to Fortune 500s to drive AI impact quickly through our AI Builder Program or custom options that fit your needs. Reach out for volume pricing, custom use cases, and dedicated support.
+                We work with 10-person startups to Fortune 500s to drive AI impact quickly. Explore B2B solutions, custom options, volume pricing, and dedicated support.
               </p>
               <div className="enterprise-bottom">
                 <ul className="enterprise-points">
