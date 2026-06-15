@@ -51,8 +51,8 @@ export default function Footer() {
               <li><a href="/services" className="footer-col-link">AI Services</a></li>
               <li><a href="/recruit" className="footer-col-link">Recruit AI Talent</a></li>
               <li><a href="/pledge" className="footer-col-link">100M Pledge</a></li>
-              <li><a href="https://www.joinleland.com/ai-transformation" className="footer-col-link">AI Transformation</a></li>
-              <li><a href="https://www.joinleland.com/universities" className="footer-col-link">For Universities</a></li>
+              <li><a href="https://www.leland.ai/services" className="footer-col-link">AI Transformation</a></li>
+              <li><a href="https://partner.joinleland.com/universities" className="footer-col-link">For Universities</a></li>
             </ul>
           </div>
           <div className="footer-col">

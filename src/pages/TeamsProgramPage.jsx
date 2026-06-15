@@ -2137,10 +2137,10 @@ function TeamsProgramPageInner() {
             <div className="footer-col">
               <h4 className="footer-col-heading">Partnerships</h4>
               <ul className="footer-col-links">
-                <li><a href="https://www.joinleland.com/partnerships" className="footer-col-link">Partner with Leland</a></li>
-                <li><a href="https://www.joinleland.com/universities" className="footer-col-link">For Universities</a></li>
-                <li><a href="https://www.joinleland.com/ai-transformation" className="footer-col-link">AI Transformation</a></li>
-                <li><a href="https://www.joinleland.com/outplacement" className="footer-col-link">Outplacement</a></li>
+                <li><a href="https://www.leland.ai" className="footer-col-link">Partner with Leland</a></li>
+                <li><a href="https://partner.joinleland.com/universities" className="footer-col-link">For Universities</a></li>
+                <li><a href="https://www.leland.ai/services" className="footer-col-link">AI Transformation</a></li>
+                <li><a href="https://partner.joinleland.com/outplacement" className="footer-col-link">Outplacement</a></li>
               </ul>
             </div>
 
