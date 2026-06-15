@@ -547,7 +547,12 @@ body.rb-home .lai-feature-title {
 @media (max-width: 768px) {
   body.rb-home .lai-feature { padding: 56px 0; }
   body.rb-home .lai-feature-inner,
-  body.rb-home .lai-feature-reverse .lai-feature-inner { flex-direction: column; gap: 36px; }
+  body.rb-home .lai-feature-reverse .lai-feature-inner { flex-direction: column; align-items: stretch; gap: 36px; }
+  /* In the column layout, items must stretch to full width — otherwise the marquee's
+     wide intrinsic content sizes the visual past the viewport and breaks horizontal scroll */
+  body.rb-home .lai-feature-visual,
+  body.rb-home .lai-feature-text { width: 100%; }
+  .lai-roles-card { width: 100%; }
   body.rb-home .lai-feature-title { font-size: 32px; }
 }
 
