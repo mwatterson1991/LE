@@ -1510,8 +1510,8 @@ function HomePageRebrandInner() {
 
   const trackItems = [
     { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact.", href: '#level-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'June 22, 2026', fillingFast: true, featured: true },
-    { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real tasks end-to-end.', href: '#level-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'July 6, 2026', pastSoldOut: ['June 8'], secondary: true },
-    { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build AI automations that operate as an autonomous system.', href: '#level-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'July 7, 2026', pastSoldOut: ['June 8'] },
+    { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real tasks end-to-end.', href: '#level-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'July 6, 2026', secondary: true },
+    { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build AI automations that operate as an autonomous system.', href: '#level-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'July 7, 2026' },
     { num: '04', tier: 'advanced', name: <>Build Your Agent<br/>Workforce</>, tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#level-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'July 28, 2026' },
     { num: '05', tier: 'advanced', name: <>Design Your AI<br/>Orchestration Layer</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#level-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'September 1, 2026' },
   ]
@@ -1605,7 +1605,7 @@ function HomePageRebrandInner() {
                 </svg>
               ))}
             </div>
-            <span className="hero-review-text">4.8/5 from 352 reviews</span>
+            <span className="hero-review-text">4.7/5 from 357 reviews</span>
           </div>
 
           <div className="track-cards-section track-cards-v2" id="courses">
