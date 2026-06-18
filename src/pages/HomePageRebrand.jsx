@@ -1779,7 +1779,7 @@ function HomePageRebrandInner() {
             <div className="save-time-right">
               <h2 className="save-time-headline">Build and direct an AI agent team that scales your impact</h2>
               <p className="save-time-sub">Stop doing every task yourself. Build specialized agents that triage your inbox, run research, prep your slides, ship your outreach, and more. All managed by you.</p>
-              <a href="#pricing" className="btn btn-primary save-time-explore-cta">Explore the levels</a>
+              <a href="https://joinleland.typeform.com/to/DQgiikom?utm_source=xxxxx&utm_medium=xxxxx&utm_campaign=xxxxx#first_name=xxxxx&last_name=xxxxx&email=xxxxx&phone_number=xxxxx" target="_blank" rel="noopener noreferrer" className="btn btn-primary save-time-explore-cta">Talk to our team</a>
             </div>
           </div>
         </div>
