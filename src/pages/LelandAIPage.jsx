@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import { motion } from 'motion/react'
-import { PLEDGE_TOTAL, PLEDGE_SERIES } from '../pledgeData'
+import { usePledgeData } from '../pledgeData'
 import { BorderBeam } from 'border-beam'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
@@ -112,11 +112,11 @@ function ImageRevealSection() {
   )
 }
 
-function PledgeChart() {
+function PledgeChart({ series }) {
   const W = 480, H = 250
   const padL = 6, padR = 6, padT = 16, padB = 26
   const innerW = W - padL - padR, innerH = H - padT - padB
-  const data = PLEDGE_SERIES
+  const data = series
   const maxV = data[data.length - 1].value
   const n = data.length
   const x = (i) => padL + (i / (n - 1)) * innerW
@@ -195,6 +195,8 @@ function AgentDiagram() {
 }
 
 export default function LelandAIPage() {
+  const { total, series } = usePledgeData()
+
   useEffect(() => {
     document.title = 'Leland for Organizations'
     document.documentElement.classList.add('rb-home')
@@ -400,13 +402,13 @@ export default function LelandAIPage() {
               <span className="lai-pledge-label">The 100M Pledge</span>
               <h2 className="lai-pledge-title">We&rsquo;re on a mission to train 100 million people to build with AI.</h2>
               <div className="lai-pledge-stat">
-                <span className="lai-pledge-number">{PLEDGE_TOTAL.toLocaleString('en-US')}</span>
+                <span className="lai-pledge-number">{total.toLocaleString('en-US')}</span>
                 <span className="lai-pledge-sub">people trained and counting</span>
               </div>
               <a href="/pledge" className="lai-pledge-cta">See the pledge &rarr;</a>
             </motion.div>
             <motion.div className="lai-pledge-right" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-              <PledgeChart />
+              <PledgeChart series={series} />
             </motion.div>
           </div>
         </div>

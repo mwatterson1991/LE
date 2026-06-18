@@ -1,32 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import './home-rebrand.css'
 import './leland-ai.css'
 import './pledge.css'
-import { PLEDGE_TOTAL, PLEDGE_TODAY, PLEDGE_SERIES } from '../pledgeData'
-
-// Baked-in fallback. Shown until /data/pledge.json loads, and kept as-is if that
-// fetch fails or returns bad data, so the page never renders zeros or an empty
-// chart. The JSON is refreshed daily by .github/workflows/pledge-sync.yml.
-const DEFAULT_PLEDGE = {
-  total: PLEDGE_TOTAL,
-  last30: PLEDGE_TODAY,
-  series: PLEDGE_SERIES,
-}
-
-const PLEDGE_DATA_URL = '/data/pledge.json'
-
-// Failsafe: only let live data override the fallback when it's fully valid.
-function isValidPledge(d) {
-  if (!d || typeof d !== 'object') return false
-  if (!Number.isFinite(d.total) || d.total <= 0) return false
-  if (!Number.isFinite(d.last30) || d.last30 < 0) return false
-  if (!Array.isArray(d.series) || d.series.length < 2) return false
-  return d.series.every(
-    (p) => p && typeof p.month === 'string' && Number.isFinite(p.value) && p.value > 0
-  )
-}
+import { usePledgeData } from '../pledgeData'
 
 function fmt(n) {
   if (n >= 1000) return Math.round(n / 1000) + 'k'
@@ -95,7 +73,7 @@ export default function PledgePage() {
   const hasAnimatedRef = useRef(false)
   const displayRef = useRef(0)
   const animatingRef = useRef(false)
-  const [pledge, setPledge] = useState(DEFAULT_PLEDGE)
+  const pledge = usePledgeData()
 
   useEffect(() => {
     document.title = 'The 100 Million Pledge | Leland'
@@ -104,24 +82,6 @@ export default function PledgePage() {
     return () => {
       document.documentElement.classList.remove('rb-home')
       document.body.classList.remove('rb-home')
-    }
-  }, [])
-
-  // Pull live numbers from the daily Databricks sync. Override the fallback only
-  // when the payload is valid, so a bad/empty response never wipes the chart.
-  useEffect(() => {
-    let cancelled = false
-    fetch(PLEDGE_DATA_URL, { cache: 'no-store' })
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-      .then((d) => {
-        if (cancelled || !isValidPledge(d)) return
-        setPledge({ total: d.total, last30: d.last30, series: d.series })
-      })
-      .catch(() => {
-        /* keep the baked-in fallback */
-      })
-    return () => {
-      cancelled = true
     }
   }, [])
 
@@ -166,7 +126,7 @@ export default function PledgePage() {
   // Live ticker: while the user is on the page, nudge the count up every 2s so
   // it feels alive. Pauses while the tab is hidden or the count-up is running,
   // and never reduces the number. Ephemeral and client-side; a reload re-reads
-  // the real total from /data/pledge.json.
+  // the real total from the live reach feed.
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduceMotion) return
@@ -202,11 +162,13 @@ export default function PledgePage() {
             <div className="plg-counter-card">
               <div className="plg-counter-head">
                 <div className="plg-counter-head-label">People learning AI on Leland</div>
-                <div className="plg-counter-live">Updated daily</div>
+                <div className="plg-counter-live">Updated hourly</div>
               </div>
               <div className="plg-counter-row">
                 <div className="plg-counter-value" ref={counterRef}>{pledge.total.toLocaleString()}</div>
-                <div className="plg-counter-today"><b>+{pledge.last30.toLocaleString()}</b> in the last 30 days</div>
+                {pledge.last30 != null && (
+                  <div className="plg-counter-today"><b>+{pledge.last30.toLocaleString()}</b> in the last 30 days</div>
+                )}
               </div>
 
               <PledgeChart series={pledge.series} />
