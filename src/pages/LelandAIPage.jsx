@@ -217,7 +217,7 @@ export default function LelandAIPage() {
         />
         <div className="container">
           <motion.div initial="hidden" animate="visible" variants={fadeUp} className="lai-hero-content">
-            <h1>Make your organization AI-native</h1>
+            <h1>Make your organization<br /> AI-native</h1>
             <p className="hero-sub">Train your people, deploy AI systems, and hire the talent to run them.</p>
             <div className="lai-hero-ctas">
               <a
@@ -263,7 +263,7 @@ export default function LelandAIPage() {
         <div className="lai-container">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <h2 className="lai-section-title">Transform your business with end-to-end AI solutions</h2>
-            <p className="lai-section-sub">Leland uplevels both your workforce and your workflows.</p>
+            <p className="lai-section-sub">Upgrade your workforce and your workflows</p>
           </motion.div>
           <div className="cards-grid">
             {PHOTO_CARDS.map((card) => {

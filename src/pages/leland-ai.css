@@ -137,7 +137,7 @@ body.rb-home .rb-nav-scrolled .lai-nav-link {
 /* ---------- Nav CTA override ---------- */
 body.rb-home .lai-nav .rb-nav-getstarted {
   background: var(--blue, #80ACED);
-  color: var(--gray-dark);
+  color: #111111;
 }
 body.rb-home .lai-nav .rb-nav-getstarted:hover {
   background: #6d9de0;
@@ -178,7 +178,7 @@ body.rb-home .lai-nav .rb-nav-getstarted:hover {
   justify-content: center;
   padding: 16px 36px;
   background: var(--blue, #80ACED);
-  color: var(--gray-dark);
+  color: #111111;
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
@@ -263,6 +263,7 @@ body.rb-home .hero.lai-hero::after {
 body.rb-home .hero.lai-hero .container {
   position: relative;
   z-index: 2;
+  padding-bottom: 80px;
 }
 body.rb-home .hero.lai-hero h1 {
   font-size: 72px;
@@ -272,7 +273,7 @@ body.rb-home .hero.lai-hero h1 {
    photo hero only (subpage .lai-hero-plain heroes are unaffected); the logo ticker
    sits in a separate absolute element, so it doesn't move. */
 body.rb-home .hero.lai-hero:not(.lai-hero-plain) .container {
-  transform: translateY(60px);
+  transform: translateY(20px);
 }
 .lai-hero-glow {
   display: none;
@@ -495,7 +496,7 @@ body.rb-home .lai-feature-title {
 }
 .lai-feature-btn-primary {
   background: var(--blue, #80ACED);
-  color: #222222;
+  color: #111111;
   border: 1px solid transparent;
 }
 .lai-feature-btn-primary:hover { background: #6d9de0; }
@@ -771,7 +772,8 @@ video.photo-card-video {
 }
 .photo-card-btn-primary {
   background: var(--blue, #80ACED);
-  color: #222222;
+  color: #111111;
+  font-weight: 500;
   border: 1px solid transparent;
 }
 .photo-card-btn-primary:hover { background: #6d9de0; }
@@ -1512,7 +1514,7 @@ body.rb-nav-menu-open {
   width: 100%;
   padding: 16px 24px;
   background: var(--blue, #80ACED);
-  color: var(--gray-dark);
+  color: #111111;
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
