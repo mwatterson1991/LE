@@ -614,7 +614,7 @@ body.rb-home .role-uses-section { background: #ffffff; }
  * default on /program. Tinted blue surface, blue accent on the agent SVG,
  * dark text for readability. */
 body.rb-home .save-time-section {
-  background: #e7eef9;
+  background: #ffffff;
   color: var(--text-primary);
   padding: 96px 0;
 }

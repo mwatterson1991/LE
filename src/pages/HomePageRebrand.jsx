@@ -976,6 +976,34 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, headline = '
 }
 
 
+function VideoEmbed() {
+  useEffect(() => {
+    const playerScript = document.createElement('script')
+    playerScript.src = 'https://fast.wistia.com/player.js'
+    playerScript.async = true
+
+    const embedScript = document.createElement('script')
+    embedScript.src = 'https://fast.wistia.com/embed/6pv9oxdp3r.js'
+    embedScript.async = true
+    embedScript.type = 'module'
+
+    document.head.appendChild(playerScript)
+    document.head.appendChild(embedScript)
+
+    return () => {
+      document.head.removeChild(playerScript)
+      document.head.removeChild(embedScript)
+    }
+  }, [])
+
+  return (
+    <div className="video-embed">
+      <wistia-player media-id="6pv9oxdp3r" aspect="1.7777777777777777"></wistia-player>
+    </div>
+  )
+}
+
+
 function ImageRevealSection() {
   const sectionRef = useRef(null)
   const [progress, setProgress] = useState(0)
@@ -1536,7 +1564,7 @@ function HomePageRebrandInner() {
             />
           </div>
           <div className="rb-nav-actions">
-            <a href={`${SALES_URL}?utm_content=nav-cta`} target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
+            <a href="https://joinleland.typeform.com/to/DQgiikom?utm_source=xxxxx&utm_medium=xxxxx&utm_campaign=xxxxx#first_name=xxxxx&last_name=xxxxx&email=xxxxx&phone_number=xxxxx" target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
             <a href="#pricing" className="rb-nav-getstarted" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
               Enroll now
             </a>
@@ -1584,11 +1612,13 @@ function HomePageRebrandInner() {
 
           <div className="hero-ctas hero-stagger hero-stagger-3">
             <a
-              href="#pricing"
+              href="https://joinleland.typeform.com/to/DQgiikom?utm_source=xxxxx&utm_medium=xxxxx&utm_campaign=xxxxx#first_name=xxxxx&last_name=xxxxx&email=xxxxx&phone_number=xxxxx"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-primary btn-lg"
               onClick={() => posthog.capture('app--enroll_cta_click', { source: 'hero' })}
             >
-              Enroll now
+              Talk to our team
             </a>
             <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
               <a href="#pricing" className="lai-cta-primary lai-cta-beam">
@@ -1744,12 +1774,11 @@ function HomePageRebrandInner() {
         <div className="container">
           <div className="save-time-split">
             <div className="save-time-left">
-              <AgentNetwork />
+              <VideoEmbed />
             </div>
             <div className="save-time-right">
               <h2 className="save-time-headline">Build and direct an AI agent team that scales your impact</h2>
               <p className="save-time-sub">Stop doing every task yourself. Build specialized agents that triage your inbox, run research, prep your slides, ship your outreach, and more. All managed by you.</p>
-              <p className="save-time-cite">AI Builders who deploy agents across their workflows aren't just saving time. They're <strong>shipping the output of an entire team</strong> from a single laptop.</p>
               <a href="#pricing" className="btn btn-primary save-time-explore-cta">Explore the levels</a>
             </div>
           </div>
