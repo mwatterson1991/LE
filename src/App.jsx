@@ -8,6 +8,7 @@ import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import ReviewsPage from './pages/ReviewsPage'
 import HomePageRebrand from './pages/HomePageRebrand'
+import SiliconSlopesAiBuilderPage from './pages/SiliconSlopesAiBuilderPage'
 import TeamsProgramPage from './pages/TeamsProgramPage'
 import PledgePage from './pages/PledgePage'
 import RecruitPage from './pages/RecruitPage'
@@ -1733,6 +1734,9 @@ function App() {
     window.dataLayer.push({ event: 'page_view', page_path: path, page_name: pageName })
   }, [path])
 
+  if (path.startsWith('/siliconslopes')) {
+    return <SiliconSlopesAiBuilderPage />
+  }
   if (path.startsWith('/program-for-teams')) {
     return <TeamsProgramPage />
   }

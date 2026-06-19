@@ -29,6 +29,7 @@ export default defineConfig({
         'reviews': resolve(__dirname, 'reviews.html'),
         'program': resolve(__dirname, 'program.html'),
         'program-for-teams': resolve(__dirname, 'program-for-teams.html'),
+        'siliconslopes': resolve(__dirname, 'siliconslopes.html'),
         'pledge': resolve(__dirname, 'pledge.html'),
         'recruit': resolve(__dirname, 'recruit.html'),
         'services': resolve(__dirname, 'services.html'),
