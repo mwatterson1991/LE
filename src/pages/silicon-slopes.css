@@ -37,7 +37,7 @@
 .ss-nav-x, .ss-nav-partner { color: #ffffff; }
 
 /* Silicon Slopes badge in the nav lockup (white PNG; invert to ink when nav goes white on scroll) */
-.ss-nav-logo { height: 36px; width: auto; display: block; }
+.ss-nav-logo { height: 44px; width: auto; display: block; }
 .rb-nav-scrolled .ss-nav-logo { filter: brightness(0); }
 
 @media (max-width: 900px) {
@@ -100,4 +100,43 @@
 }
 @media (max-width: 860px) {
   .ss-intro-grid { grid-template-columns: 1fr; gap: 36px; }
+}
+
+/* ===== Level 1 overview (covered / perks / when) ===== */
+.ss-overview { background: #F3F1E6; padding: clamp(72px, 9vw, 120px) 0; }
+.ss-overview-head { max-width: 760px; margin-bottom: 56px; }
+.ss-overview-eyebrow {
+  font-family: var(--font-body); font-weight: 600; font-size: 13px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-secondary);
+}
+.ss-overview-title {
+  font-family: var(--font-heading); font-weight: 500;
+  font-size: clamp(32px, 4vw, 56px); line-height: 1.05; letter-spacing: -0.015em;
+  color: var(--text-primary); margin: 14px 0 16px;
+}
+.ss-overview-sub {
+  font-family: var(--font-body); font-size: clamp(17px, 1.4vw, 20px);
+  color: var(--text-secondary); line-height: 1.5;
+}
+.ss-overview-h3 { font-family: var(--font-heading); font-weight: 500; font-size: 24px; color: var(--text-primary); margin-bottom: 24px; }
+.ss-overview-cols { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; align-items: start; margin-bottom: 64px; }
+
+.ss-session-list { list-style: none; margin: 0; padding: 0; }
+.ss-session { display: flex; gap: 20px; align-items: flex-start; padding: 22px 0; border-top: 1px solid rgba(0,0,0,0.08); }
+.ss-session:first-child { border-top: 0; padding-top: 0; }
+.ss-session-num { font-family: var(--font-heading); font-size: 22px; color: var(--text-tertiary); flex: 0 0 auto; width: 30px; }
+.ss-session-title { display: block; font-family: var(--font-heading); font-weight: 500; font-size: 20px; color: var(--text-primary); margin-bottom: 5px; }
+.ss-session-desc { display: block; font-family: var(--font-body); font-size: 16px; color: var(--text-secondary); line-height: 1.5; }
+.ss-session-note { font-family: var(--font-body); font-size: 15px; color: var(--text-tertiary); margin-top: 18px; }
+
+.ss-when { background: var(--gray-dark); color: #fff; border-radius: 20px; padding: 36px; }
+.ss-when-eyebrow { display: block; font-family: var(--font-body); font-weight: 600; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 14px; }
+.ss-when-row { display: flex; align-items: baseline; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.ss-when-row:last-of-type { border-bottom: 0; }
+.ss-when-row strong { font-family: var(--font-heading); font-weight: 500; font-size: 22px; min-width: 92px; }
+.ss-when-row span { font-family: var(--font-body); font-size: 15px; color: rgba(255,255,255,0.75); }
+.ss-when-cta { margin-top: 24px; width: 100%; justify-content: center; }
+
+@media (max-width: 880px) {
+  .ss-overview-cols { grid-template-columns: 1fr; gap: 36px; }
 }

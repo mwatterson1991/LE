@@ -952,10 +952,10 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, headline = '
           <span className="value-stack-included-eyebrow">Each tier includes&hellip;</span>
           <div className="value-stack-included-grid">
             {[
-              ['1-Year Access Guarantee', 'Recordings and live sessions for every AI Builder cohort over the next 12 months.', 'scheduling.svg'],
+              ['1-Year Access Guarantee', 'A full year of recordings and live sessions to revisit any time.', 'scheduling.svg'],
               ['Best Program Guarantee', 'Money-back if you find a better AI program anywhere.', 'guarantee.svg'],
               ['Weekly Build Workshops', 'Optional live workshops with functional experts in marketing, sales, finance, ops, and more.', 'ideation.svg'],
-              ['Unlimited Retakes', 'Take any cohort again for a full year, always with the latest curriculum.', 'retake.svg'],
+              ['Unlimited Retakes', 'Retake the program any time for a full year, always with the latest curriculum.', 'retake.svg'],
               ['Builder Community', 'Join other professionals leveling up their work — trade ideas, get unstuck, and keep each other motivated.', 'community.svg'],
               ['Leland+ Access (3 months)', '5 specialized AI courses and 250+ resources to deepen what you build.', 'digital-products.svg'],
               ['Weekly Office Hours', 'Live Q&A with instructors to unblock your specific builds.', 'office-hours.svg'],
@@ -979,6 +979,76 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, headline = '
   )
 }
 
+
+function Level1Overview() {
+  const sessions = [
+    ['Build a Real Product with World-Class Design', 'Create a working product in 90 minutes, without writing a line of code, using a design system you love.'],
+    ['Automate Communication in Your Voice', 'Connect your tools, teach AI how you write, and build an email manager that runs on a schedule.'],
+    ['Analyze Data and Design Presentations Instantly', 'Go from a raw spreadsheet to clean insights and a polished, animated slide deck. No formulas required.'],
+    ['Launch Your Custom AI System + Demo Day', 'Keep personalizing your AI system, then show the cohort what you built.'],
+  ]
+  const perks = [
+    ['1-Year Access Guarantee', 'A full year of recordings and live sessions to revisit any time.', 'scheduling.svg'],
+    ['Best Program Guarantee', 'Money-back if you find a better AI program anywhere.', 'guarantee.svg'],
+    ['Weekly Build Workshops', 'Optional live workshops with functional experts in marketing, sales, finance, ops, and more.', 'ideation.svg'],
+    ['Unlimited Retakes', 'Retake the program any time for a full year, always with the latest curriculum.', 'retake.svg'],
+    ['Builder Community', 'Trade ideas, get unstuck, and stay motivated alongside other Utah builders.', 'community.svg'],
+    ['Leland+ Access (3 months)', '5 specialized AI courses and 250+ resources to deepen what you build.', 'digital-products.svg'],
+    ['Weekly Office Hours', 'Live Q&A with instructors to unblock your specific builds.', 'office-hours.svg'],
+    ['100+ skill.md & Templates', 'Battle-tested files and folder templates that accelerate every build.', 'survey.svg'],
+  ]
+  return (
+    <section className="ss-overview" id="overview">
+      <div className="container">
+        <div className="ss-overview-head">
+          <span className="ss-overview-eyebrow">The AI Builder Program</span>
+          <h2 className="ss-overview-title">Here's everything you get.</h2>
+          <p className="ss-overview-sub">Four live sessions over two weeks. What you'll cover, what every seat includes, and when it runs.</p>
+        </div>
+
+        <div className="ss-overview-cols">
+          <div className="ss-curriculum">
+            <h3 className="ss-overview-h3">What you'll cover</h3>
+            <ol className="ss-session-list">
+              {sessions.map(([t, d], i) => (
+                <li className="ss-session" key={t}>
+                  <span className="ss-session-num">{String(i + 1).padStart(2, '0')}</span>
+                  <div>
+                    <span className="ss-session-title">{t}</span>
+                    <span className="ss-session-desc">{d}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="ss-session-note">+ Optional Build Workshops with functional experts</p>
+          </div>
+
+          <aside className="ss-when">
+            <span className="ss-when-eyebrow">When it's happening</span>
+            <div className="ss-when-row"><strong>4</strong><span>live 90-minute sessions</span></div>
+            <div className="ss-when-row"><strong>2 weeks</strong><span>start to finish</span></div>
+            <div className="ss-when-row"><strong>In person</strong><span>at Silicon Slopes HQ</span></div>
+            <div className="ss-when-row"><strong>July 2026</strong><span>first cohort</span></div>
+            <a href={SS_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg ss-when-cta" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'overview', page: 'silicon-slopes' })}>Get started</a>
+          </aside>
+        </div>
+
+        <div className="ss-perks">
+          <h3 className="ss-overview-h3">Every seat includes</h3>
+          <div className="value-stack-included-grid">
+            {perks.map(([title, desc, illustration]) => (
+              <div className="value-stack-included-item" key={title}>
+                <img src={`${import.meta.env.BASE_URL}assets/product-illustrations/${illustration}`} alt="" className="value-stack-included-icon" />
+                <span className="value-stack-included-name">{title}</span>
+                <span className="value-stack-included-desc">{desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function ImageRevealSection() {
   const sectionRef = useRef(null)
@@ -1513,7 +1583,7 @@ function HomePageRebrandInner() {
               }
             </a>
             <span className="ss-nav-x">×</span>
-            <span className="ss-nav-partner">Silicon Slopes</span>
+            <img className="ss-nav-logo" src={`${import.meta.env.BASE_URL}assets/logos/silicon-slopes-white.png`} alt="Silicon Slopes" />
           </div>
           <div className="rb-nav-actions">
             <a href="#certification" className="rb-nav-signin">Certification</a>
@@ -1642,6 +1712,9 @@ function HomePageRebrandInner() {
 
       {/* ====== 4. Testimonials — Masonry board ====== */}
       <TestimonialsBoard />
+
+      {/* ====== Level 1 overview: covered / perks / when ====== */}
+      <Level1Overview />
 
       {/* ====== Why — skills + tools ====== */}
       <WhyRevealSection toolPills={toolPills} skillPills={skillPills} />
