@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { TextMorph } from 'torph/react'
 import posthog from 'posthog-js'
 import { motion, AnimatePresence } from 'motion/react'
 import Marquee from 'react-fast-marquee'
@@ -493,6 +492,33 @@ function WhichLevelDropdown() {
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+function VideoEmbed() {
+  useEffect(() => {
+    const playerScript = document.createElement('script')
+    playerScript.src = 'https://fast.wistia.com/player.js'
+    playerScript.async = true
+
+    const embedScript = document.createElement('script')
+    embedScript.src = 'https://fast.wistia.com/embed/6pv9oxdp3r.js'
+    embedScript.async = true
+    embedScript.type = 'module'
+
+    document.head.appendChild(playerScript)
+    document.head.appendChild(embedScript)
+
+    return () => {
+      document.head.removeChild(playerScript)
+      document.head.removeChild(embedScript)
+    }
+  }, [])
+
+  return (
+    <div className="video-embed">
+      <wistia-player media-id="6pv9oxdp3r" aspect="1.7777777777777777"></wistia-player>
     </div>
   )
 }
@@ -1305,16 +1331,6 @@ function HomePageRebrandInner() {
   const [activeSection, setActiveSection] = useState(null)
   const [scarcityCount, setScarcityCount] = useState(() => getScarcityCount(442, 532, 0))
   const [advancedScarcityCount, setAdvancedScarcityCount] = useState(() => getScarcityCount(75, 110, 1))
-  const heroPhrases = ['10x your impact', 'future-proof your work', 'scale your business', 'drive revenue', 'automate manual work']
-  const [heroPhraseIndex, setHeroPhraseIndex] = useState(0)
-  const heroPhrase = heroPhrases[heroPhraseIndex]
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setHeroPhraseIndex(i => (i + 1) % heroPhrases.length)
-    }, 2500)
-    return () => clearInterval(timer)
-  }, [])
-
   useEffect(() => {
     const interval = setInterval(() => {
       setScarcityCount(getScarcityCount(442, 532, 0))
@@ -1528,11 +1544,15 @@ function HomePageRebrandInner() {
   const faqs = [
     {
       q: 'How do I get the Silicon Slopes discount?',
-      a: "Submit the form at the top of the page and we'll email your exclusive Silicon Slopes member discount code, along with how to enroll.",
+      a: "Submit the form at the top of the page and we'll email your exclusive Silicon Slopes member discount code (70% off through July 1), along with how to enroll.",
     },
     {
       q: 'Do I need coding experience?',
       a: "No. The program is designed for knowledge workers, not engineers. You'll learn technical concepts, but everything is taught in a way that prioritizes practical application over code.",
+    },
+    {
+      q: 'When does it start?',
+      a: 'The first cohort kicks off July 14th, with live sessions on Tuesdays and Fridays at 1pm for two weeks. All sessions are recorded.',
     },
     {
       q: "What's the time commitment, and where is it?",
@@ -1586,7 +1606,7 @@ function HomePageRebrandInner() {
             <img className="ss-nav-logo" src={`${import.meta.env.BASE_URL}assets/logos/silicon-slopes-white.png`} alt="Silicon Slopes" />
           </div>
           <div className="rb-nav-actions">
-            <a href="#certification" className="rb-nav-signin">Certification</a>
+            <a href="https://joinleland.typeform.com/to/DQgiikom" target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--talk_to_team_click', { source: 'nav', page: 'silicon-slopes' })}>Talk to our team</a>
             <a href={SS_FORM_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav', page: 'silicon-slopes' })}>
               Claim discount
             </a>
@@ -1626,9 +1646,10 @@ function HomePageRebrandInner() {
           playsInline
         />
         <div className="container">
-          <h1 className="hero-stagger hero-stagger-1">Build with AI to <br className="mobile-br" /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">10x your impact</span></h1>
+          <div className="ss-hero-pill hero-stagger hero-stagger-1"><strong>70% off</strong> · ends July 1</div>
+          <h1 className="hero-stagger hero-stagger-1">The AI Builder Program, exclusively for Silicon Slopes</h1>
 
-          <p className="hero-sub hero-stagger hero-stagger-2">Silicon Slopes has partnered with Leland to offer a discounted live AI Builder Program for members of the Silicon Slopes community.</p>
+          <p className="hero-sub hero-stagger hero-stagger-2">Leland is partnering with Silicon Slopes to offer an exclusive, IRL cohort of the AI Builder Program. For the next week only, Silicon Slopes members get 70% off.</p>
 
           <div className="hero-ctas hero-stagger hero-stagger-3">
             <a
@@ -1681,8 +1702,8 @@ function HomePageRebrandInner() {
         <div className="container ss-intro-grid">
           <div>
             <span className="ss-intro-eyebrow">Built for builders</span>
-            <h2 className="ss-intro-headline">Made for the Startup School community.</h2>
-            <p className="ss-intro-lead">If you're building a company in Utah and want to build teams of AI agents working for you, this is where you start.</p>
+            <h2 className="ss-intro-headline">Learn AI alongside the Silicon Slopes community</h2>
+            <p className="ss-intro-lead">Build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
           </div>
           <div className="ss-intro-photo">
             <img src={`${import.meta.env.BASE_URL}assets/images/salt-lake-city.jpg`} alt="Salt Lake City, Utah" />
@@ -1695,13 +1716,12 @@ function HomePageRebrandInner() {
         <div className="container">
           <div className="save-time-split">
             <div className="save-time-left">
-              <AgentNetwork />
+              <VideoEmbed />
             </div>
             <div className="save-time-right">
               <h2 className="save-time-headline">Build and direct an AI agent team that scales your impact</h2>
               <p className="save-time-sub">Stop doing every task yourself. Build specialized agents that triage your inbox, run research, prep your slides, ship your outreach, and more. All managed by you.</p>
-              <p className="save-time-cite">AI Builders who deploy agents across their workflows aren't just saving time. They're <strong>shipping the output of an entire team</strong> from a single laptop.</p>
-              <a href={SS_FORM_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary save-time-explore-cta">Get started</a>
+              <a href="https://joinleland.typeform.com/to/DQgiikom" target="_blank" rel="noopener noreferrer" className="btn btn-primary save-time-explore-cta" onClick={() => posthog.capture('app--talk_to_team_click', { source: 'why-this-course', page: 'silicon-slopes' })}>Talk to our team</a>
             </div>
           </div>
         </div>

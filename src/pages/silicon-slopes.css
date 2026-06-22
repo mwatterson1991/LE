@@ -6,8 +6,11 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--yellow);
-  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.38);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 14px;
@@ -15,6 +18,10 @@
   padding: 9px 18px;
   border-radius: 999px;
   margin-bottom: 22px;
+}
+.ss-hero-pill strong {
+  color: var(--yellow);
+  font-weight: 700;
 }
 
 /* Nav co-brand lockup */
