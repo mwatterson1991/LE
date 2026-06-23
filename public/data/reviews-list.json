@@ -1,12 +1,309 @@
 [
   {
+    "display_name": "Jessey Y.",
+    "consent_label": null,
+    "level": "L2",
+    "legacy": false,
+    "cohort": "L2-may12-26-v7",
+    "rating": 5.0,
+    "review": "The most valuable thing I built was the second brain. Second Brain was something that I've been considering for a while, but didn't know how to start.",
+    "submitted_at": "2026-06-22T16:34:59Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Janira G.",
+    "consent_label": null,
+    "level": "L2",
+    "legacy": false,
+    "cohort": "L2-may12-26-v7",
+    "rating": 5.0,
+    "review": "I built a complete Level 2 automation system: a knowledge wiki, two Claude Code routines connected to live APIs, an email‑manager workflow with QA, and a fully updated automation dashboard. The most valuable part was learning how to design agentic routines that read context, call APIs, and deliver useful briefs automatically. Now I can build custom automations that save time every day and scale with my work.",
+    "submitted_at": "2026-06-21T23:50:37Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Alonzo D.",
+    "consent_label": null,
+    "level": "L2",
+    "legacy": false,
+    "cohort": "L2-may12-26-v7",
+    "rating": 5.0,
+    "review": "The program delivered exactly what it promised, not theory, but actual functioning builds. I left Level 2 with a 7 AM email triage agent running daily, a client-scoping tool that turns a problem description into a pitch brief in minutes, and two packaged design system skills I deploy on any UI project. The most valuable thing wasn't any single build. It was the compounding: every tool I built made the next one faster. By the final session, I wasn't re-explaining who I am or what I need. Claude already knew, because I'd built the context that made it possible.",
+    "submitted_at": "2026-06-19T16:52:31Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Tonya C.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I really enjoyed the course! The instructor and TAs were very clear and helpful. The biggest unlock was learning so many real-world use cases from quick ones like refining my email to building daily workflows that automate repetitive tasks.  Every session ended with a real deliverable I could actually use at work",
+    "submitted_at": "2026-06-19T16:29:45Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Samara G.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I built my first career portfolio where I was able to showcase all the important work I have done and also made it really easy to share with others! The most valuable takeaway from this builder program was being given the foundation to be curious and find other ways where AI can be leveraged, whether that's building agents, creating skills, and building workflows.",
+    "submitted_at": "2026-06-19T16:24:51Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Anonymous",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "This cohort was an amazing opportunity to learn how to use AI as a product manager building AI-enabled solutions.",
+    "submitted_at": "2026-06-19T16:23:59Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Travis B.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "Level one gave me the skills to automate my work and reduce manual tasks so that I can be more efficient and spend more time focused on my team and building the business.",
+    "submitted_at": "2026-06-19T16:20:30Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Anonymous",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "Learning how to build skills and create skills to copy my voice allowed me to save time AND MENTAL ENERGY immediately.",
+    "submitted_at": "2026-06-19T16:18:04Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Anonymous",
+    "consent_label": null,
+    "level": "L2",
+    "legacy": false,
+    "cohort": "L2-may12-26-v7",
+    "rating": 5.0,
+    "review": "I've spent 16 years producing research. Papers, policy briefs, regulatory analyses. And I can remember half of what I wrote. Before Leland, all that knowledge sat in folders I never opened. I knew AI could help, but I had no idea how to build anything real with it. So I built a Telegram bot connected to my personal knowledge wiki on GitHub. It runs on Claude Sonnet and n8n. Every paper, project, and finding I've documented is one message away. If you work in a knowledge-heavy field and you're not building your own tools yet, go to ai.joinleland.com. That's where I started.",
+    "submitted_at": "2026-06-19T13:43:57Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Alexander M.",
+    "consent_label": null,
+    "level": "L2",
+    "legacy": false,
+    "cohort": "L2-apr21-26",
+    "rating": 5.0,
+    "review": "Understanding how to use the tools at our fingertips is crucial for working in this era of tech.",
+    "submitted_at": "2026-06-16T22:53:18Z",
+    "photo_url": "https://user-assets.joinleland.com/profile-photos/69f3c1e32d982475aaa4524a.png?fit=crop&crop=faces&h=320&w=320"
+  },
+  {
+    "display_name": "Anonymous",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "Like Level 1, Level 2 was great and took me to a new level pushing my knowledge and skills.",
+    "submitted_at": "2026-06-07T19:00:12Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Melissa A.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I came into this program already using AI casually, but I left with an AI-built system around my actual business. I built five custom skills: an email manager trained on my voice, a pre-session coaching brief generator, an automated post-session follow-up workflow, a workshop slide builder, and a brand design system tied to my visual identity. These are tailor made automations I can run in my business every week.The most valuable thing wasn't any single tool, it was learning how to think about what to automate and how to build something that actually sounds like me. The post-session client notes workflow alone cuts my time in half for that particular activity. The session prep tool helps me prepare 2x faster.For anyone running a service business who thinks AI is too technical: it's not. This program is built for that.",
+    "submitted_at": "2026-06-06T02:22:16Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Marialani V.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "Going into Level 1, I knew AI was powerful — I just didn't know how to make it mine. By the end of the program, I had built things I can actually use every day.I built a custom design system skill that applies my entire visual brand to any website or document with one command. I built a portfolio site from scratch in a single afternoon. I built an email manager that drafts replies in my actual voice, trained on 40 of my own sent emails. I ran a full data analysis on college ROI across 200+ schools, produced a polished Excel workbook and PDF report, and designed a 6-slide presentation with a clear narrative and real data.What made this program different is that everything I built is still working for me. These aren't demos. They're tools I use.",
+    "submitted_at": "2026-06-05T23:46:33Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Andy T.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I came in with strong opinions about AI and left with a system. The most valuable thing wasn't any single session. It was the accumulation. By the end I had a custom skills library with seven reusable tools (including a skill trained on my exact writing voice, a CX audience framework, and a data storytelling workflow), a scheduled morning email task that triages my inbox in my voice, and a complete portfolio site built from scratch in one session. What surprised me was how fast you could build something real, iterate on it, and immediately start seeing where else it could go. Each session opened up more possibilities than it closed. The program's structure of \"build a real thing every session\" is what makes it work.",
+    "submitted_at": "2026-06-05T23:19:29Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Matthew S.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "The AI Builder 1 course was a fantastic way to hit the building blocks of \"actually\" using AI. Not just chatting, but building things that make you better at your job and more efficiency",
+    "submitted_at": "2026-06-05T22:45:58Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Sophia L.",
+    "consent_label": null,
+    "level": "L2",
+    "legacy": false,
+    "cohort": "L2-may12-26-v7",
+    "rating": 5.0,
+    "review": "Every lesson in the course was valuable and able to be implemented right away. Took these tasks from seeming highly daunting to \"easy\" very quickly",
+    "submitted_at": "2026-06-05T19:25:08Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Jesse W.",
+    "consent_label": null,
+    "level": "L2",
+    "legacy": false,
+    "cohort": "L2-may12-26-v7",
+    "rating": 5.0,
+    "review": "Diving into the n8n workflows was super cool, and integrating it with a dashboard. The internal processes and skills we created were also incredibly useful.",
+    "submitted_at": "2026-06-05T18:52:45Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Julianne S.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I found that using the claude chrome extension and really understanding how it works was so helpful! Also building the slide deck in Claude design was a game changer! The most valuable thing I learned was how to create skills, save tokens, and efficiently preserve context. I saved a lot of back and forth after the skills I learned in this course.",
+    "submitted_at": "2026-06-05T16:31:27Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Samuel K.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I’ve always wanted to use AI for automation, and this program gave me a massive wealth of knowledge to finally do it.\n\nTo start, I built a WhatsApp bot that automatically responds to my messages. But the real game-changer was tackling a tedious, recurring task at work that used to take me five hours every single day. By the end of the program, I built an automated Google Sheets filler that uses Claude in Chrome to research information, populate my spreadsheets, and automatically email a report to my teammates.\n\nThis program completely transformed how I work. I highly encourage everyone to join!",
+    "submitted_at": "2026-06-05T16:30:55Z",
+    "photo_url": "https://user-assets.joinleland.com/profile-photos/69a9a9a2c2913ef2ddeaa904.jpg?fit=crop&crop=faces&h=320&w=320"
+  },
+  {
+    "display_name": "Anonymous",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I found this course really beneficial! I loved that we were able to build during each section and always left with new ideas of what to build next.",
+    "submitted_at": "2026-06-05T16:28:37Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Jaime S.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "Hi, I'm Jaime. I'm between jobs right now, so I built my way through it.\nAcross four sessions, I made four things I actually use. A voice guide that strips the robotic tells out of my writing. An email skill that triages my inbox and drafts replies the way I'd actually write them. A design system and a slide builder for my regulatory work. And the one I lean on most is a job search that runs itself every Friday at 3 pm. It pulls senior finance roles in Bogotá off Indeed, screens each one, and files it in Notion. Three hours back every week!",
+    "submitted_at": "2026-06-05T16:28:03Z",
+    "photo_url": "https://user-assets.joinleland.com/profile-photos/6765e93f924c062b06f3bdbf.jpg?fit=crop&crop=faces&h=320&w=320"
+  },
+  {
+    "display_name": "Anonymous",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I used this to build out a Claude setup that actually fits how I work and ways to support my organization. Key successes from the program were custom instructions, a brand design system, and a set of skills tied to my real workflows, like sponsor research, event recaps, content repurposing, and pipeline reporting.",
+    "submitted_at": "2026-06-05T16:26:53Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Mike O.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "The most valuable thing I received during the Level 1 program is the confidence to try solving anything with AI. When a problem arises, my first thought now is how I can use Claude to help solve that.",
+    "submitted_at": "2026-06-05T16:23:25Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Dawson W.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I was able to create some skills and autimations that I implemented directly into my work.",
+    "submitted_at": "2026-06-05T16:22:15Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Anonymous",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I came into this session a bit hesitant about AI and feeling like it would take too long to build something that would actually help. I'm so impressed by how quickly I was able to implement things that have a real effect on my work.",
+    "submitted_at": "2026-06-05T16:22:14Z",
+    "photo_url": null
+  },
+  {
+    "display_name": "Corinna H.",
+    "consent_label": null,
+    "level": "L2",
+    "legacy": false,
+    "cohort": "L2-may12-26-v7",
+    "rating": 5.0,
+    "review": "Before AIBP, I was using AI heavily, but everything was isolated. Even automations still needed babysitting. No continuity between sessions. The constant sense that things were falling through the cracks.\n\nWhat I built in the program changed that. I have a personal dashboard tracking all my active projects, and a knowledge wiki — so every AI session I open already knows my business. No more repeating myself. \n\nI got real hours back. And I'm not overwhelmed by my own operations anymore.",
+    "submitted_at": "2026-06-05T00:31:54Z",
+    "photo_url": "https://user-assets.joinleland.com/profile-photos/68812202ce31dc951adee6de.png?fit=crop&crop=faces&h=320&w=320"
+  },
+  {
+    "display_name": "Helen H.",
+    "consent_label": null,
+    "level": "L1",
+    "legacy": false,
+    "cohort": "L1-may12-26",
+    "rating": 5.0,
+    "review": "I've built more than I expected or even realized as I was going through the two week program.  And even though there were structured guidelines, I feel that what I created was very personalized.  I created skills, scheduled tasks connected to other apps, a simple website, a personal voice and design guide, each of which actually works.  And, the approach to the data analysis had an interestingly unique build approach, too.  All of this isn't once and done, I keep going back and realizing how I can apply these things in different ways.  The session guides are super helpful to refer back to and to build on, but now I see that I don't need to rely on sticking to specific prewritten prompts to do this. Like with any course, you get out of it what you put in to it.  With this course you get a lot out of it once you adjust how you think about building.  Definitely worthwhile!",
+    "submitted_at": "2026-06-02T03:21:22Z",
+    "photo_url": "https://user-assets.joinleland.com/profile-photos/69d93991ce00bea15094e4d5.jpg?fit=crop&crop=faces&h=320&w=320"
+  },
+  {
     "display_name": "Tanner J.",
     "consent_label": null,
     "level": "L1",
     "legacy": false,
     "cohort": "L1-may12-26",
     "rating": 5.0,
-    "review": "**I came in knowing how to use AI, but I left with a system.** Over four sessions I built 9 real projects: a design system skill, a portfolio, a voice guide, a daily email triage that runs on a schedule, a spreadsheet analysis workflow, a data presentation, and the infrastructure layer that ties it all together \u2014 a persistent context file, an organized folder system, and a library of 17 custom skills. The most valuable part wasn't any single build. It was setting the foundation for future building and learning to think in systems: what gets automated, what gets a reusable skill, what needs to run on a schedule. That shift changed how I start every session.",
+    "review": "**I came in knowing how to use AI, but I left with a system.** Over four sessions I built 9 real projects: a design system skill, a portfolio, a voice guide, a daily email triage that runs on a schedule, a spreadsheet analysis workflow, a data presentation, and the infrastructure layer that ties it all together — a persistent context file, an organized folder system, and a library of 17 custom skills. The most valuable part wasn't any single build. It was setting the foundation for future building and learning to think in systems: what gets automated, what gets a reusable skill, what needs to run on a schedule. That shift changed how I start every session.",
     "submitted_at": "2026-06-01T17:44:42Z",
     "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocLZay_muXEI9OuJulsTrDEjkhOYZgd7c68z7CZ57JdEZbOlIg=s96-c"
   },
@@ -307,7 +604,7 @@
     "legacy": false,
     "cohort": "L1-unknown",
     "rating": 5.0,
-    "review": "Before this program, I was using AI to answer questions and speed up one-off tasks \u2014 useful, but not changing how I worked. **Now I'm building things that run without me.** I built a custom design system skill that enforces visual consistency across every project, an email manager that triages my inbox and drafts replies in my voice before I open it, and a voice guide that captures how I actually write so AI output doesn't sound generic. The data analysis session was a turning point \u2014 I went from spending hours in spreadsheets to getting insights, charts, and a shareable slide deck in a single session. The scheduled workflows session changed how I think about AI entirely: not as a tool I go find, but as something running in the background doing work I used to do manually. I came in knowing how to use AI. I'm leaving knowing how to build with it.",
+    "review": "Before this program, I was using AI to answer questions and speed up one-off tasks — useful, but not changing how I worked. **Now I'm building things that run without me.** I built a custom design system skill that enforces visual consistency across every project, an email manager that triages my inbox and drafts replies in my voice before I open it, and a voice guide that captures how I actually write so AI output doesn't sound generic. The data analysis session was a turning point — I went from spending hours in spreadsheets to getting insights, charts, and a shareable slide deck in a single session. The scheduled workflows session changed how I think about AI entirely: not as a tool I go find, but as something running in the background doing work I used to do manually. I came in knowing how to use AI. I'm leaving knowing how to build with it.",
     "submitted_at": "2026-05-22T17:00:03Z"
   },
   {
@@ -347,7 +644,7 @@
     "legacy": false,
     "cohort": "L1-may12-26",
     "rating": 4.0,
-    "review": "Leland made AI feel practical and approachable, and I\u2019m leaving with real workflows and skills I can use right away.",
+    "review": "Leland made AI feel practical and approachable, and I’m leaving with real workflows and skills I can use right away.",
     "submitted_at": "2026-05-22T16:55:42Z"
   },
   {
@@ -357,7 +654,7 @@
     "legacy": false,
     "cohort": "L1-unknown",
     "rating": 5.0,
-    "review": "Before the program, I was using AI regularly, but mostly as a productivity assistant. Now I am building real systems that reflect how I work and can actually take on repeatable parts of my day.\n\nThe most valuable part of Level 1 was learning how to turn AI from a chat tool into an operating layer. I built a portfolio website, a reusable design system skill, a personal voice guide, an email manager scheduled task, a data analysis workflow, and a skills library for repeatable business-development work.\n\nThe most powerful builds for me were the sales-focused skills and workflows tied directly to my role at ASU+GSV: sponsor-angle generation, outreach sequence drafting, pipeline review, proposal positioning, and meeting prep. Those are practical systems I can use to improve prospect research, sharpen sponsor narratives, move faster in HubSpot, and support new partnership revenue.\n\nI also applied the same system-building approach to one of my personal hobbies, fantasy sports. I built a fantasy football operations system with a knowledge base, custom skills, automation rules, structured schemas, and reusable planning workflows. That project helped me understand how AI can preserve context, apply judgment, and generate structured outputs from complex source material.\n\nLevel 1 helped me move from \u201cI can use AI\u201d to **\u201cI can build AI systems that compound.\u201d**",
+    "review": "Before the program, I was using AI regularly, but mostly as a productivity assistant. Now I am building real systems that reflect how I work and can actually take on repeatable parts of my day.\n\nThe most valuable part of Level 1 was learning how to turn AI from a chat tool into an operating layer. I built a portfolio website, a reusable design system skill, a personal voice guide, an email manager scheduled task, a data analysis workflow, and a skills library for repeatable business-development work.\n\nThe most powerful builds for me were the sales-focused skills and workflows tied directly to my role at ASU+GSV: sponsor-angle generation, outreach sequence drafting, pipeline review, proposal positioning, and meeting prep. Those are practical systems I can use to improve prospect research, sharpen sponsor narratives, move faster in HubSpot, and support new partnership revenue.\n\nI also applied the same system-building approach to one of my personal hobbies, fantasy sports. I built a fantasy football operations system with a knowledge base, custom skills, automation rules, structured schemas, and reusable planning workflows. That project helped me understand how AI can preserve context, apply judgment, and generate structured outputs from complex source material.\n\nLevel 1 helped me move from “I can use AI” to **“I can build AI systems that compound.”**",
     "submitted_at": "2026-05-22T16:55:10Z"
   },
   {
@@ -397,7 +694,7 @@
     "legacy": false,
     "cohort": "L1-unknown",
     "rating": 5.0,
-    "review": "Level 1 was very informative, and I gained the foundational knowledge needed to build workflows and use AI in my day-to-day work. The portfolio has been very fun to build out and has allowed me to showcase my new skills. I\u2019m very excited for Level 2. Great course!!",
+    "review": "Level 1 was very informative, and I gained the foundational knowledge needed to build workflows and use AI in my day-to-day work. The portfolio has been very fun to build out and has allowed me to showcase my new skills. I’m very excited for Level 2. Great course!!",
     "submitted_at": "2026-05-22T16:53:14Z"
   },
   {
@@ -449,7 +746,7 @@
     "legacy": false,
     "cohort": "L1-apr21-26",
     "rating": 5.0,
-    "review": "Six sessions. Actual inventory: a Foodora-inspired design system skill, a single-file HTML portfolio, a humanize-writing skill with three channel-specific voice guides, a GTM research workflow that turned 6 months of outbound data into a structured presentation deck, a college ROI data analysis across 200 universities with visualizations, a 6-skill brand content system for my GTM team, and a /learn audit skill that reads my whole setup after each session and outputs a prioritized improvement table. The humanize-writing skill is the one that stuck. It runs in the background on every piece of content I produce now. **That's the build that actually changed my default output quality** \u2014 not just for the duration of the course.",
+    "review": "Six sessions. Actual inventory: a Foodora-inspired design system skill, a single-file HTML portfolio, a humanize-writing skill with three channel-specific voice guides, a GTM research workflow that turned 6 months of outbound data into a structured presentation deck, a college ROI data analysis across 200 universities with visualizations, a 6-skill brand content system for my GTM team, and a /learn audit skill that reads my whole setup after each session and outputs a prioritized improvement table. The humanize-writing skill is the one that stuck. It runs in the background on every piece of content I produce now. **That's the build that actually changed my default output quality** — not just for the duration of the course.",
     "submitted_at": "2026-05-15T12:52:16Z",
     "photo_url": "https://user-assets.joinleland.com/profile-photos/69ef4c23964b5d5b45372747.jpg?fit=crop&crop=faces&h=320&w=320"
   },
@@ -470,7 +767,7 @@
     "legacy": false,
     "cohort": "L1-apr21-26",
     "rating": 5.0,
-    "review": "Loved this course! A great intro to AI Building. **I now feel like I\u2019m an AI builder, and not just an AI user.** Great foundation for anyone wanting to get better at AI! I also love that I now have a portfolio (built with AI) of all of the different AI projects I\u2019ve built, both in and out of this class.",
+    "review": "Loved this course! A great intro to AI Building. **I now feel like I’m an AI builder, and not just an AI user.** Great foundation for anyone wanting to get better at AI! I also love that I now have a portfolio (built with AI) of all of the different AI projects I’ve built, both in and out of this class.",
     "submitted_at": "2026-05-12T23:39:21Z"
   },
   {
@@ -540,7 +837,7 @@
     "legacy": false,
     "cohort": "L1-apr21-26",
     "rating": 5.0,
-    "review": "I joined Leland\u2019s AI Builder Program looking to better understand how to use AI more strategically across my work, and it ended up being valuable far beyond that. The program helped me think more clearly about how AI can support not only my role professionally, but also the systems, workflows, and automations behind my consulting business and side projects.\n\nThe instructors and Leland team were incredibly helpful throughout the experience. They were approachable, easy to communicate with, and did a great job making complex topics feel practical and actionable. I left with a much stronger understanding of how to integrate AI into my day-to-day work in a way that actually saves time and creates impact. Thanks, Leland team!",
+    "review": "I joined Leland’s AI Builder Program looking to better understand how to use AI more strategically across my work, and it ended up being valuable far beyond that. The program helped me think more clearly about how AI can support not only my role professionally, but also the systems, workflows, and automations behind my consulting business and side projects.\n\nThe instructors and Leland team were incredibly helpful throughout the experience. They were approachable, easy to communicate with, and did a great job making complex topics feel practical and actionable. I left with a much stronger understanding of how to integrate AI into my day-to-day work in a way that actually saves time and creates impact. Thanks, Leland team!",
     "submitted_at": "2026-05-12T06:00:37Z"
   },
   {
@@ -716,7 +1013,7 @@
     "legacy": false,
     "cohort": "L1-unknown",
     "rating": 5.0,
-    "review": "Before this program I was using AI as a chatbot \u2014 drafting things faster, summarizing documents. **After 6 sprints I've shipped real, deployed systems.** I built a cloud email manager in n8n that runs daily, categorizes emails with Claude Haiku, drafts replies in my voice with Claude Sonnet, and Slack DMs me a summary \u2014 no laptop needed. I vibe-coded a live Kanban dashboard backed by Notion, deployed to Vercel. I built a knowledge wiki as a second brain for my custom agentic workflow, then launched that workflow with full trigger, routing, branches, and a human checkpoint. Finally I built an eval system with exact-match accuracy scoring and an LLM-as-a-judge rubric. The biggest shift: I now think in systems, not tasks.",
+    "review": "Before this program I was using AI as a chatbot — drafting things faster, summarizing documents. **After 6 sprints I've shipped real, deployed systems.** I built a cloud email manager in n8n that runs daily, categorizes emails with Claude Haiku, drafts replies in my voice with Claude Sonnet, and Slack DMs me a summary — no laptop needed. I vibe-coded a live Kanban dashboard backed by Notion, deployed to Vercel. I built a knowledge wiki as a second brain for my custom agentic workflow, then launched that workflow with full trigger, routing, branches, and a human checkpoint. Finally I built an eval system with exact-match accuracy scoring and an LLM-as-a-judge rubric. The biggest shift: I now think in systems, not tasks.",
     "submitted_at": "2026-05-09T03:39:59Z"
   },
   {
@@ -747,7 +1044,7 @@
     "legacy": false,
     "cohort": "L1-apr21-26",
     "rating": 4.0,
-    "review": "I came in already using AI every day and very confident in it. By session three I was building real workflows solving real problems at my organization that save me time. The program gave me a perspective to use first principles: how to think in systems, how to apply design thinking to AI, how to treat it as a real collaborator instead of a search bar. It taught me how to set my AI up to be as effective as possible \u2014 and that framing genuinely changed how I work. I will be Signing up for Level 2.",
+    "review": "I came in already using AI every day and very confident in it. By session three I was building real workflows solving real problems at my organization that save me time. The program gave me a perspective to use first principles: how to think in systems, how to apply design thinking to AI, how to treat it as a real collaborator instead of a search bar. It taught me how to set my AI up to be as effective as possible — and that framing genuinely changed how I work. I will be Signing up for Level 2.",
     "submitted_at": "2026-05-08T21:31:51Z",
     "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocID6IQWvIs2XKNSNCHVJmEt1g7vlE4rCkHeoTZKlDlYjbf9BA=s96-c"
   },
@@ -779,7 +1076,7 @@
     "legacy": false,
     "cohort": "L1-apr21-26",
     "rating": 5.0,
-    "review": "I came in knowing AI could do more but not knowing how to build it into my actual workflow. Six sessions later, I have a working email manager that triages my inbox and drafts replies in my voice, brand design system skills I can deploy across any of our portfolio companies, a college ROI data analysis tool with visualizations, and a full competitive research brief for a new business \u2014 all built during the program. The biggest unlock wasn't any single tool. It was learning to think like a builder: start with a real problem, build the thing that solves it, and make that thing reusable. **Every session gave me something I applied the next morning.** That's rare.",
+    "review": "I came in knowing AI could do more but not knowing how to build it into my actual workflow. Six sessions later, I have a working email manager that triages my inbox and drafts replies in my voice, brand design system skills I can deploy across any of our portfolio companies, a college ROI data analysis tool with visualizations, and a full competitive research brief for a new business — all built during the program. The biggest unlock wasn't any single tool. It was learning to think like a builder: start with a real problem, build the thing that solves it, and make that thing reusable. **Every session gave me something I applied the next morning.** That's rare.",
     "submitted_at": "2026-05-08T21:23:49Z"
   },
   {
@@ -871,7 +1168,7 @@
     "legacy": false,
     "cohort": "L1-apr21-26",
     "rating": 5.0,
-    "review": "I think the one thing holding people back from using Ai is that they don't know what's possible. **This class blew my mind** in terms of understanding what I can do \u2014 right now in my daily life \u2014 and make things easier with Ai. I learned the building blocks to create and no longer feel lost. I have a baseline of where to start and understand where I can go. Endlessly recommend this course.",
+    "review": "I think the one thing holding people back from using Ai is that they don't know what's possible. **This class blew my mind** in terms of understanding what I can do — right now in my daily life — and make things easier with Ai. I learned the building blocks to create and no longer feel lost. I have a baseline of where to start and understand where I can go. Endlessly recommend this course.",
     "submitted_at": "2026-05-08T21:13:06Z"
   },
   {
@@ -1247,18 +1544,18 @@
     "legacy": false,
     "cohort": "L1-unknown",
     "rating": 5.0,
-    "review": "Six months ago, I was just stepping into AI and I felt behind the curve. I was using it for quick answers and small efficiencies. Thanks to Leland and this awesome AI bootcamp, I\u2019m now building workflows and systems that actually amplify how I work.\n\n**I came in looking to get better at using AI. I left understanding how to build with it.** Each session stacked toward something practical. Not prompts or tips \u2014 systems. It changed how I use AI. I\u2019m not just using it to assist with tasks. I\u2019m designing systems that handle the work end-to-end\u2014researching, synthesizing, writing, and delivering outputs in a way that\u2019s consistent and repeatable. \n\nI would not have accelerated on my AI journey like this without Leland. Leland's AI Bootcamp was game-changing! Leland did a fantastic job building a program that is hands-on, practical, and immediately applicable. Kristen Hansen led it with clarity and insight while Caleb Haymore made sure we had support along the way. If you\u2019ve dabbled in AI, want to take your skills to the next level or feel overwhelmed or behind, this 3-week course (part of a 6-level curriculum) is an incredible learning accelerator to help you close that gap quickly.",
+    "review": "Six months ago, I was just stepping into AI and I felt behind the curve. I was using it for quick answers and small efficiencies. Thanks to Leland and this awesome AI bootcamp, I’m now building workflows and systems that actually amplify how I work.\n\n**I came in looking to get better at using AI. I left understanding how to build with it.** Each session stacked toward something practical. Not prompts or tips — systems. It changed how I use AI. I’m not just using it to assist with tasks. I’m designing systems that handle the work end-to-end—researching, synthesizing, writing, and delivering outputs in a way that’s consistent and repeatable. \n\nI would not have accelerated on my AI journey like this without Leland. Leland's AI Bootcamp was game-changing! Leland did a fantastic job building a program that is hands-on, practical, and immediately applicable. Kristen Hansen led it with clarity and insight while Caleb Haymore made sure we had support along the way. If you’ve dabbled in AI, want to take your skills to the next level or feel overwhelmed or behind, this 3-week course (part of a 6-level curriculum) is an incredible learning accelerator to help you close that gap quickly.",
     "submitted_at": "2026-04-21T05:07:55Z",
     "photo_url": "https://user-assets.joinleland.com/profile-photos/68224eb7b4e7731349c34e09.jpg?fit=crop&crop=faces&h=320&w=320"
   },
   {
-    "display_name": "J\u00f6rn B.",
+    "display_name": "Jörn B.",
     "consent_label": "Yes, you can include my first name",
     "level": "L1",
     "legacy": false,
     "cohort": "L1-unknown",
     "rating": 5.0,
-    "review": "\u201cBefore this course, I thought I was using AI reasonably well; I realize now I was only scratching the surface [\u2026] After only five sessions, I had built an **automation that saves me one hour of preparation before each coaching day**: it checks my calendar, retrieves the relevant notes and documents for each client, and presents everything as a ready-to-use briefing document. For any coach who is curious about what AI can actually do in practice, this program is the place to find out.\u201d in Coach Newsletter April 2026",
+    "review": "“Before this course, I thought I was using AI reasonably well; I realize now I was only scratching the surface […] After only five sessions, I had built an **automation that saves me one hour of preparation before each coaching day**: it checks my calendar, retrieves the relevant notes and documents for each client, and presents everything as a ready-to-use briefing document. For any coach who is curious about what AI can actually do in practice, this program is the place to find out.” in Coach Newsletter April 2026",
     "submitted_at": "2026-04-18T13:31:26Z",
     "photo_url": "https://user-assets.joinleland.com/profile-photos/69849fa632862f0405b22a14.jpg?fit=crop&crop=faces&h=320&w=320"
   },
@@ -1310,7 +1607,7 @@
     "legacy": false,
     "cohort": "L1-unknown",
     "rating": 5.0,
-    "review": "I highly recommend Leland\u2019s AI Builder Program. I attended Level 1 and **this course was genuinely eye-opening.** It helped me see, in a very practical way, how tools like Claude Cowork can function as a basic AI agent and dramatically scale traditional consulting-style workflows, both in speed and quality. Rather than just talking about AI in theory, the program gave me a much clearer understanding of how AI can be applied to real work in a concrete, useful, and immediately actionable way. The trainer was also excellent, very well prepared, engaging, and clearly experienced in teaching this material in a way that is approachable without losing depth. The sessions kept my attention, and the instruction made a fast-moving topic feel accessible and exciting.",
+    "review": "I highly recommend Leland’s AI Builder Program. I attended Level 1 and **this course was genuinely eye-opening.** It helped me see, in a very practical way, how tools like Claude Cowork can function as a basic AI agent and dramatically scale traditional consulting-style workflows, both in speed and quality. Rather than just talking about AI in theory, the program gave me a much clearer understanding of how AI can be applied to real work in a concrete, useful, and immediately actionable way. The trainer was also excellent, very well prepared, engaging, and clearly experienced in teaching this material in a way that is approachable without losing depth. The sessions kept my attention, and the instruction made a fast-moving topic feel accessible and exciting.",
     "submitted_at": "2026-04-16T18:14:16Z",
     "photo_url": "https://user-assets.joinleland.com/profile-photos/68f29fa473eb1cdf90ea0068.jpg?fit=crop&crop=faces&h=320&w=320"
   },
@@ -1506,7 +1803,7 @@
     "legacy": true,
     "cohort": "L1-LEGACY-mar--26",
     "rating": 5.0,
-    "review": "My knowledge of the vast array of AI tools was taken to the next level. Before this bootcamp I hadn\u2019t tried out a lot of the tools I was introduced to, and the ones that were really new like setting up an agent to do workflows pushed me to the limit and I hope to continue to explore this on my own in the coming months\n\nThe most helpful part was being encouraged to document each tool and project or learning that occurred to be able to show mastery to someone in a portfolio",
+    "review": "My knowledge of the vast array of AI tools was taken to the next level. Before this bootcamp I hadn’t tried out a lot of the tools I was introduced to, and the ones that were really new like setting up an agent to do workflows pushed me to the limit and I hope to continue to explore this on my own in the coming months\n\nThe most helpful part was being encouraged to document each tool and project or learning that occurred to be able to show mastery to someone in a portfolio",
     "submitted_at": "2026-04-03T02:18:02Z",
     "photo_url": "https://user-assets.joinleland.com/profile-photos/69b0ef366f6f4147268eb401.jpg?fit=crop&crop=faces&h=320&w=320"
   },
@@ -1940,7 +2237,7 @@
     "legacy": true,
     "cohort": "L1-LEGACY-unknown",
     "rating": 5.0,
-    "review": "AI used to feel overwhelming and too complicated. I didn\u2019t know much about AI beyond ChatGPT! Now I have an arsenal of tools to use in my day to day. I\u2019ve even shown family and friends what I\u2019ve been able to do (app creation, infographics, workflows, image generation, etc) This Bootcamp has helped become more confident as I further my knowledge and skills in AI\n\nThe live demos were really helpful, especially for app creation",
+    "review": "AI used to feel overwhelming and too complicated. I didn’t know much about AI beyond ChatGPT! Now I have an arsenal of tools to use in my day to day. I’ve even shown family and friends what I’ve been able to do (app creation, infographics, workflows, image generation, etc) This Bootcamp has helped become more confident as I further my knowledge and skills in AI\n\nThe live demos were really helpful, especially for app creation",
     "submitted_at": "2025-12-22T16:34:48Z"
   },
   {
@@ -2032,7 +2329,7 @@
     "legacy": true,
     "cohort": "L1-LEGACY-unknown",
     "rating": 4.0,
-    "review": "Thanks for making our cohort possible! The bootcamp helped me feel much more comfortable actually using AI, not just talking about it. I now think more clearly about data, patterns, and automation when solving real trading and finance problems. Overall, it made me more confident, curious, and effective in my day-to-day work. Appreciate all the Leland team did to host us!\n\nThe most helpful part was the hands-on, practical focus\u2014actually building and testing AI tools instead of just learning theory. It made the concepts click and showed how AI can be applied directly to real problems. I also found the structured guidance and feedback especially valuable for building confidence quickly.",
+    "review": "Thanks for making our cohort possible! The bootcamp helped me feel much more comfortable actually using AI, not just talking about it. I now think more clearly about data, patterns, and automation when solving real trading and finance problems. Overall, it made me more confident, curious, and effective in my day-to-day work. Appreciate all the Leland team did to host us!\n\nThe most helpful part was the hands-on, practical focus—actually building and testing AI tools instead of just learning theory. It made the concepts click and showed how AI can be applied directly to real problems. I also found the structured guidance and feedback especially valuable for building confidence quickly.",
     "submitted_at": "2025-12-21T12:13:39Z"
   },
   {
@@ -2052,7 +2349,7 @@
     "legacy": true,
     "cohort": "L1-LEGACY-unknown",
     "rating": 5.0,
-    "review": "As a result of the AI Mastery Bootcamp with instructor Solomon, my skills have significantly improved, particularly in prompt engineering and AI workflow design. I learned how to break complex problems into structured prompts, build content and automation workflows using tools such as n8n, and critically evaluate AI outputs for accuracy and reliability, skills I did not have before the bootcamp.\n\nSolomon\u2019s teaching style is exceptional, combining technical depth with a clear, human centered approach that makes complex AI concepts practical and easy to apply. I am eager to join any future bootcamp or session with him to continue developing my AI skills.\n\nThe most helpful part of the AI Mastery Bootcamp was learning practical prompt engineering and how to build structured AI workflows. The hands on guidance on breaking complex problems into clear instructions, designing reliable prompts, and applying automation concepts using tools like n8n made AI immediately usable in real world tasks. The clear, human centered teaching approach helped transform AI from a basic tool into a practical, productivity driven skillset.",
+    "review": "As a result of the AI Mastery Bootcamp with instructor Solomon, my skills have significantly improved, particularly in prompt engineering and AI workflow design. I learned how to break complex problems into structured prompts, build content and automation workflows using tools such as n8n, and critically evaluate AI outputs for accuracy and reliability, skills I did not have before the bootcamp.\n\nSolomon’s teaching style is exceptional, combining technical depth with a clear, human centered approach that makes complex AI concepts practical and easy to apply. I am eager to join any future bootcamp or session with him to continue developing my AI skills.\n\nThe most helpful part of the AI Mastery Bootcamp was learning practical prompt engineering and how to build structured AI workflows. The hands on guidance on breaking complex problems into clear instructions, designing reliable prompts, and applying automation concepts using tools like n8n made AI immediately usable in real world tasks. The clear, human centered teaching approach helped transform AI from a basic tool into a practical, productivity driven skillset.",
     "submitted_at": "2025-12-20T14:17:34Z"
   },
   {

@@ -19,15 +19,25 @@ export function orderReviews(list) {
   const isAnon = r => !r.name || String(r.name).trim().toLowerCase() === 'anonymous'
   const named = list.filter(r => !isAnon(r))
   const anon = list.filter(isAnon)
+  if (!anon.length || !named.length) return [...named, ...anon]
+  // Lead with the strongest named reviews, then mix the remaining named +
+  // all anonymous in a stable pseudo-random order. The previous 1:1
+  // named/anonymous interleave aligned every anonymous card to the same
+  // column parity, stacking them together in the masonry. A hash-based
+  // shuffle scatters them naturally across all columns (and is deterministic,
+  // so the order is stable across page loads).
   const front = named.slice(0, 8)
-  const restNamed = named.slice(8)
-  const tail = []
-  let ni = 0, ai = 0
-  while (ni < restNamed.length || ai < anon.length) {
-    if (ni < restNamed.length) tail.push(restNamed[ni++])
-    if (ai < anon.length) tail.push(anon[ai++])
+  const rest = [...named.slice(8), ...anon]
+  const hash = (s) => {
+    let h = 2166136261
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) }
+    return h >>> 0
   }
-  return [...front, ...tail]
+  const ordered = rest
+    .map((r, i) => ({ r, k: hash((r.text || r.name || '') + '|' + i) }))
+    .sort((a, b) => a.k - b.k)
+    .map(x => x.r)
+  return [...front, ...ordered]
 }
 
 export function ReviewStars({ count = 5 }) {

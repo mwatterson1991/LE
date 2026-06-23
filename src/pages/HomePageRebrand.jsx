@@ -1635,7 +1635,7 @@ function HomePageRebrandInner() {
                 </svg>
               ))}
             </div>
-            <span className="hero-review-text">4.7/5 from 357 reviews</span>
+            <span className="hero-review-text">4.8/5 from 379 reviews</span>
           </div>
 
           <div className="track-cards-section track-cards-v2" id="courses">
