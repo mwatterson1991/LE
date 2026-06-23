@@ -40,7 +40,7 @@ export const PLEDGE_SERIES = [
 // Until it's published, last30 is null and the pledge page hides its "last 30
 // days" line; the line reappears automatically once the feed includes the field.
 const PLEDGE_DATA_URL =
-  'https://leland-prod-postgres-sync.s3.us-west-2.amazonaws.com/ai-reach/latest.json'
+  'https://public-shareable-files.s3.us-west-2.amazonaws.com/ai-reach/latest.json'
 
 const DEFAULT_PLEDGE = {
   total: PLEDGE_TOTAL,
