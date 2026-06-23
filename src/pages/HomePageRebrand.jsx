@@ -264,6 +264,57 @@ function ReviewsCarousel() {
   )
 }
 
+const ORG_LOGOS = [
+  { name: 'Salesforce', file: 'org-logos/salesforce.svg' },
+  { name: 'Adobe', file: 'org-logos/adobe.svg' },
+  { name: 'Cisco', file: 'org-logos/cisco.svg' },
+  { name: 'Nike', file: 'org-logos/nike.svg' },
+  { name: 'LinkedIn', file: 'org-logos/linkedin.svg' },
+  { name: 'Figma', file: 'org-logos/figma.svg' },
+  { name: 'Morgan Stanley', file: 'org-logos/morgan-stanley.svg' },
+  { name: "McDonald's", file: 'org-logos/mcdonalds.svg' },
+  { name: 'GitLab', file: 'org-logos/gitlab.svg' },
+  { name: 'Walmart', file: 'org-logos/walmart.png' },
+  { name: 'Cummins', file: 'org-logos/cummins.svg' },
+  { name: 'Ulta Beauty', file: 'org-logos/ulta-beauty.svg' },
+  { name: 'Rondo Energy', file: 'org-logos/rondo-energy.png' },
+  { name: 'JCPenney', file: 'org-logos/jcpenney.svg' },
+  { name: 'GSV', file: 'org-logos/gsv.png' },
+  { name: 'The RealReal', file: 'org-logos/the-realreal.svg' },
+  { name: 'Etsy', file: 'org-logos/etsy.svg' },
+  { name: 'Miro', file: 'org-logos/miro.svg' },
+  { name: 'Just Eat Takeaway', file: 'org-logos/just-eat-takeaway.svg' },
+  { name: 'Beamery', file: 'org-logos/beamery.png' },
+  { name: 'Ethisphere', file: 'org-logos/ethisphere.png' },
+  { name: 'Degreed', file: 'org-logos/degreed.png' },
+  { name: 'Angel Studios', file: 'org-logos/angel-studios.png' },
+  { name: 'Stepful', file: 'org-logos/stepful.png' },
+  { name: 'Rula', file: 'org-logos/rula.png' },
+]
+
+function OrgLogosBand() {
+  return (
+    <section className="org-logos-section" id="org-logos" data-theme="light">
+      <div className="container">
+        <h2 className="org-logos-headline">We&rsquo;ve trained people from hundreds of top organizations to build with AI</h2>
+      </div>
+      <div className="org-logos-marquee">
+        <Marquee gradient gradientColor="#FFFFFF" gradientWidth={40} speed={60} pauseOnHover>
+          {ORG_LOGOS.map((l) => (
+            <span key={l.name} className="org-logo-cell">
+              <img
+                src={`${import.meta.env.BASE_URL}assets/${l.file}`}
+                alt={l.name}
+                className="org-logo-img"
+              />
+            </span>
+          ))}
+        </Marquee>
+      </div>
+    </section>
+  )
+}
+
 function getDefaultCohort(cohorts) {
   const now = new Date()
   return (
@@ -1370,7 +1421,7 @@ function HomePageRebrandInner() {
         { title: 'Launch Your Custom AI System + Demo Day', sub: 'Continue personalizing your AI system and show the cohort what you built.', date: 'Thu, Jul 2', time: '8am or 4pm PT (11am or 7pm ET)' },
       ],
       cohorts: [
-        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '4pm PT / 7pm ET' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'Mon, Jun 29', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '8am or 4pm PT (11am or 7pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)', fillingFast: true },
+        { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '4pm PT / 7pm ET' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'Mon, Jun 29', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '8am or 4pm PT (11am or 7pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)', soldOut: true },
         { month: 'JUL', day: '7', date: 'July 7 (Copilot Only Track)', label: 'July 7 (Copilot Only)', iso: '2026-07-07-copilot', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '9am PT / 12pm ET', friday: '9am PT / 12pm ET' }, cohortSessions: [{ date: 'Tue, Jul 7', time: '9am PT / 12pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 10', time: '9am PT / 12pm ET' }, { date: 'Tue, Jul 14', time: '9am PT / 12pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 17', time: '9am PT / 12pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a0cf65f27431b42c5131e4b)' },
         { month: 'JUL', day: '6', date: 'July 6', label: 'July 6', iso: '2026-07-06', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Mon, Jul 6', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 9', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'Mon, Jul 13', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 16', time: '8am or 2pm PT (11am or 5pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a20503acfe499ed72d285e9)' },
         { month: 'JUL', day: '21', date: 'July 21', label: 'July 21', iso: '2026-07-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '3pm PT / 6pm ET' }, cohortSessions: [{ date: 'Tue, Jul 21', time: '8am or 3pm PT (11am or 6pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 24', time: '8am or 3pm PT (11am or 6pm ET)' }, { date: 'Tue, Jul 28', time: '8am or 3pm PT (11am or 6pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 31', time: '8am or 3pm PT (11am or 6pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a231ba2455a49d4abda3c39)' },
@@ -1537,7 +1588,7 @@ function HomePageRebrandInner() {
   const skillPills = ['Agent building', 'Workflow automation', 'Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Report generation', 'Client communication', 'Go-to-market systems', 'Content creation', 'Financial modeling']
 
   const trackItems = [
-    { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact.", href: '#level-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'June 22, 2026', fillingFast: true, featured: true },
+    { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact.", href: '#level-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'July 6, 2026', fillingFast: true, featured: true },
     { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real tasks end-to-end.', href: '#level-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'July 6, 2026', secondary: true },
     { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build AI automations that operate as an autonomous system.', href: '#level-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'July 7, 2026' },
     { num: '04', tier: 'advanced', name: <>Build Your Agent<br/>Workforce</>, tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#level-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'July 28, 2026' },
@@ -1646,22 +1697,6 @@ function HomePageRebrandInner() {
 
       <div className="track-v2-overlap">
         <div className="container">
-          <div className="logo-ticker logo-ticker-cards">
-            <span className="logo-ticker-label">Taught by experts from places like:</span>
-            <Marquee gradient={!isMobile} gradientColor="#000000" gradientWidth={48} speed={35}>
-              {[...Array(2)].flatMap((_, round) => [
-                { file: 'OpenAI Logo 1.svg', alt: 'OpenAI', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'Spotify Logo 2024.svg', alt: 'Spotify', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'Fabletics Logo Vector.svg', alt: 'Fabletics', className: 'logo-ticker-img' },
-                { file: 'google.svg', alt: 'Google', className: 'logo-ticker-img logo-ticker-lg' },
-                { file: 'meta.svg', alt: 'Meta', className: 'logo-ticker-img' },
-                { file: 'intiut.svg', alt: 'Intuit', className: 'logo-ticker-img' },
-                { file: 'Amazon_logo.svg', alt: 'Amazon', className: 'logo-ticker-img' },
-              ].map(({ file, alt, className }) => (
-                <img key={`${alt}-${round}`} src={`${import.meta.env.BASE_URL}assets/logos/${file}`} alt={alt} className={className} />
-              )))}
-            </Marquee>
-          </div>
           {(
               <div className="v3-tiers">
                 {[
@@ -1784,6 +1819,9 @@ function HomePageRebrandInner() {
           </div>
         </div>
       </section>
+
+      {/* ====== Org logos — trained at top organizations ====== */}
+      <OrgLogosBand />
 
       {/* ====== VP1 — Image Reveal ====== */}
       <ImageRevealSection />
