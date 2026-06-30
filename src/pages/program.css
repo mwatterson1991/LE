@@ -30,3 +30,59 @@ body.rb-home .rb-nav-scrolled .prog-nav-forteams {
 body.rb-home .enterprise-card {
   background-image: url('/assets/images/for-teams-callout.png');
 }
+
+/* ===== /program/v2 hero split layout ===== */
+
+/* Reduce hero vertical padding */
+body.rb-home .hero:has(.hero-split-v2) {
+  padding: 72px 0;
+  min-height: 0;
+}
+
+/* Slightly smaller h1 for the split layout */
+body.rb-home .hero:has(.hero-split-v2) h1 {
+  font-size: 52px;
+}
+
+.hero-split-v2 {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: 100%;
+  text-align: left;
+}
+.hero-split-left {
+  flex: 1.1;
+  min-width: 0;
+}
+.hero-split-right {
+  flex: 1;
+  min-width: 0;
+}
+.hero-split-right .video-embed {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Left-align the countdown — needs body.rb-home to beat base specificity */
+body.rb-home .hero:has(.hero-split-v2) .countdown {
+  justify-content: flex-start;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-split-v2 {
+    flex-direction: column-reverse;
+    gap: 32px;
+  }
+  .hero-split-right {
+    width: 100%;
+  }
+  /* Re-show countdown timer digits on mobile for v2 hero */
+  body.rb-home .hero:has(.hero-split-v2) .cd-units {
+    display: flex;
+  }
+  body.rb-home .hero:has(.hero-split-v2) .cd-arrow {
+    display: inline;
+  }
+}

@@ -10,6 +10,7 @@ import ReviewsPage from './pages/ReviewsPage'
 import HomePageRebrand from './pages/HomePageRebrand'
 import SiliconSlopesAiBuilderPage from './pages/SiliconSlopesAiBuilderPage'
 import TeamsProgramPage from './pages/TeamsProgramPage'
+import ProgramV2Page from './pages/ProgramV2Page'
 import PledgePage from './pages/PledgePage'
 import RecruitPage from './pages/RecruitPage'
 import LelandAIPage from './pages/LelandAIPage'
@@ -1739,6 +1740,9 @@ function App() {
   }
   if (path.startsWith('/program-for-teams')) {
     return <TeamsProgramPage />
+  }
+  if (path.startsWith('/program/v2')) {
+    return <ProgramV2Page />
   }
   if (path.startsWith('/program')) {
     return <HomePageRebrand />
