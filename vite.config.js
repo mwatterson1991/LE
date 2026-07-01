@@ -28,6 +28,7 @@ export default defineConfig({
         'leland-law-school-landing-page': resolve(__dirname, 'leland-law-school-landing-page.html'),
         'reviews': resolve(__dirname, 'reviews.html'),
         'program': resolve(__dirname, 'program.html'),
+        'program-v2': resolve(__dirname, 'program-v2.html'),
         'program-for-teams': resolve(__dirname, 'program-for-teams.html'),
         'siliconslopes': resolve(__dirname, 'siliconslopes.html'),
         'pledge': resolve(__dirname, 'pledge.html'),
