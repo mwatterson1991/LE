@@ -42,6 +42,31 @@
       src="https://www.facebook.com/tr?id=1389688331424669&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
+    <!-- PostHog split test: /program -> /program/v2 -->
+    <script>
+    (function () {
+      // Only run on /program (not /program/v2 or other pages)
+      if (location.pathname.replace(/\/$/, '') !== '/program') return;
+
+      function maybeRedirect() {
+        if (window.posthog.getFeatureFlag('lai-program-page-split') === 'test') {
+          location.replace('/program/v2' + location.search + location.hash);
+        }
+      }
+
+      var tries = 0;
+      var timer = setInterval(function () {
+        tries++;
+        if (window.posthog && window.posthog.getFeatureFlag) {
+          clearInterval(timer);
+          window.posthog.onFeatureFlags(maybeRedirect);
+        } else if (tries > 100) {
+          clearInterval(timer); // give up after ~5s, user stays on control
+        }
+      }, 50);
+    })();
+    </script>
+    <!-- End PostHog split test -->
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
