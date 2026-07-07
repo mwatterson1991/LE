@@ -1,0 +1,31 @@
+.star-rating {
+  position: relative;
+  display: inline-flex;
+  line-height: 0;
+}
+
+.star-rating-row {
+  display: flex;
+  gap: var(--star-gap, 2px);
+}
+
+/* Gold layer, clipped to the fill fraction. The inner row keeps its full
+   five-star width (max-content) so overflow: hidden reveals exactly
+   var(--star-fill) of it, aligned pixel-for-pixel with the empty row below. */
+.star-rating-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--star-fill, 0%);
+  overflow: hidden;
+}
+
+.star-rating-fill .star-rating-row {
+  width: max-content;
+}
+
+.star-rating-star {
+  display: block;
+  flex: none;
+}

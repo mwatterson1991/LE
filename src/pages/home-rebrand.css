@@ -351,10 +351,6 @@ body.rb-home .hero-review-row {
   gap: 10px;
   margin-bottom: 0;
 }
-body.rb-home .hero-review-stars {
-  display: flex;
-  gap: 2px;
-}
 body.rb-home .hero-review-text {
   font-size: 15px;
   color: rgba(255, 255, 255, 0.7);
