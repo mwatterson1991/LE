@@ -6,6 +6,8 @@ import LPPopup from '../components/LPPopup'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CohortPicker from '../components/CohortPicker'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
+import StarRating from '../components/StarRating'
+import { useRatingsData } from '../ratingsData'
 import { COURSE_COHORTS, courseData } from './courseData'
 import { BorderBeam } from 'border-beam'
 import './home-rebrand.css'
@@ -1265,6 +1267,7 @@ export default function SiliconSlopesAiBuilderPage() {
 
 function HomePageRebrandInner() {
   const heroRef = useRef(null)
+  const { avg: ratingAvg, count: ratingCount } = useRatingsData()
 
   useEffect(() => {
     document.documentElement.classList.add('rb-home')
@@ -1664,14 +1667,9 @@ function HomePageRebrandInner() {
           </div>
 
           <div className="hero-review-row hero-stagger hero-stagger-4">
-            <div className="hero-review-stars">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} viewBox="0 0 20 20" fill="#FFD667" width="18" height="18">
-                  <path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.27 5.06 16.7 6 11.21l-4-3.9 5.53-.8L10 1.5z" />
-                </svg>
-              ))}
-            </div>
-            <span className="hero-review-text">4.8/5 from 352 reviews</span>
+            <StarRating value={ratingAvg} />
+
+            <span className="hero-review-text">{ratingAvg.toFixed(1)}/5 from {ratingCount} reviews</span>
           </div>
         </div>
       </section>
