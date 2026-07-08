@@ -1633,6 +1633,7 @@ function HomePageRebrandInner() {
             />
           </div>
           <div className="rb-nav-actions">
+            <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--foundations_cta_click', { source: 'nav' })}>Free foundations course</a>
             <a href="https://joinleland.typeform.com/to/DQgiikom?utm_source=xxxxx&utm_medium=xxxxx&utm_campaign=xxxxx#first_name=xxxxx&last_name=xxxxx&email=xxxxx&phone_number=xxxxx" target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
             <a href="#pricing" className="rb-nav-getstarted" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
               Enroll now
@@ -1658,6 +1659,7 @@ function HomePageRebrandInner() {
           <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Services</a>
           <a href="/recruit" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Recruit</a>
           <a href="/pledge" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Our Pledge</a>
+          <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Free Foundations Course</a>
         </div>
         <a href="#pricing" className="lai-mobile-menu-cta" onClick={() => setMenuOpen(false)}>Enroll now</a>
       </div>
