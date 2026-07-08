@@ -326,6 +326,79 @@ function getDefaultCohort(cohorts) {
   )
 }
 
+function FoundationsAccordionItem({ open, onToggle }) {
+  return (
+    <div className={`accordion-item${open ? ' open' : ''}`} id="foundations">
+      <div className="accordion-header" onClick={onToggle}>
+        <div className="accordion-header-left">
+          <span className="accordion-level">00</span>
+          <div className="accordion-header-text">
+            <h3 className="accordion-title" style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+              AI Builder Foundations
+              <span className="foundations-callout-badge">Free</span>
+            </h3>
+            <p className="accordion-tagline">Learn the basics of building with AI.</p>
+          </div>
+        </div>
+        <div className="accordion-header-right">
+          <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}>
+            <ChevronIcon />
+          </motion.div>
+        </div>
+      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="accordion-body"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.04, 0.62, 0.23, 0.98] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="accordion-body">
+              <div className="accordion-body-main">
+                <p className="accordion-overview">A free, hands-on introduction to using AI as a real tool in your work and life. Fully async and self-paced, so you can start today and move at your own speed. The starting line before Level 1.</p>
+                <div className="accordion-detail-block">
+                  <span className="accordion-detail-label">Who it's for</span>
+                  <p className="accordion-detail-text">Anyone new to AI, or anyone who wants a stronger base before enrolling in Level 1. Zero coding required.</p>
+                </div>
+                <div className="accordion-detail-block">
+                  <span className="accordion-detail-label">What you'll get</span>
+                  <ul className="accordion-detail-list">
+                    <li><img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="accordion-detail-check" /><span>Four core modules covering the fundamentals of building with AI</span></li>
+                    <li><img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="accordion-detail-check" /><span>Hands-on builds that give you real experience with AI tools</span></li>
+                    <li><img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="accordion-detail-check" /><span>Optional advanced tracks on security, honesty, and cost</span></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="accordion-meta">
+                <div className="accordion-meta-row">
+                  <span className="accordion-meta-label">Format</span>
+                  <span className="accordion-meta-value">Fully Async &middot; Self-Paced</span>
+                </div>
+                <div className="accordion-meta-row">
+                  <span className="accordion-meta-label">Schedule</span>
+                  <span className="accordion-meta-value">Start Anytime</span>
+                </div>
+                <hr className="accordion-meta-divider" />
+                <div className="accordion-price-row">
+                  <span className="accordion-price">Free</span>
+                  <span className="accordion-price-sub">The free starting line of the AI Builder Program</span>
+                </div>
+                <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--foundations_cta_click', { source: 'course-accordion' })}>
+                  Start Free
+                  <span className="arrow">&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 function CourseAccordionItem({ course, open, onToggle }) {
   const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
   const [showAllMobile, setShowAllMobile] = useState(false)
@@ -1861,6 +1934,7 @@ function HomePageRebrandInner() {
             <IcebergVisualization />
           </div>
           <div className="accordion-list" style={{ marginTop: 48 }}>
+            <FoundationsAccordionItem open={openAccordion === 'foundations'} onToggle={() => setOpenAccordion(openAccordion === 'foundations' ? null : 'foundations')} />
             {courses.map((course, i) => (
               <CourseAccordionItem key={course.id} course={course} open={openAccordion === i} onToggle={() => setOpenAccordion(openAccordion === i ? null : i)} />
             ))}
