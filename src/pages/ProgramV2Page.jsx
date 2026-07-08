@@ -358,10 +358,10 @@ function FoundationsAccordionItem({ open, onToggle }) {
           >
             <div className="accordion-body">
               <div className="accordion-body-main">
-                <p className="accordion-overview">A free, hands-on introduction to using AI as a real tool in your work and life. Fully async and self-paced, so you can start today and move at your own speed. The starting line before Level 1.</p>
+                <p className="accordion-overview">A free, hands-on introduction to using AI as a real tool in your work and life. Fully async and self-paced, so you can start today and move at your own speed.</p>
                 <div className="accordion-detail-block">
                   <span className="accordion-detail-label">Who it's for</span>
-                  <p className="accordion-detail-text">Anyone new to AI, or anyone who wants a stronger base before enrolling in Level 1. Zero coding required.</p>
+                  <p className="accordion-detail-text">Designed for anyone new to AI, or anyone who wants a stronger knowledge of the fundamentals before enrolling in Level 1. No coding experience or paid AI subscription required.</p>
                 </div>
                 <div className="accordion-detail-block">
                   <span className="accordion-detail-label">What you'll get</span>
@@ -989,7 +989,7 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, showHeader =
           >
             <span className="foundations-callout-badge">Free</span>
             <span className="foundations-callout-text">
-              <strong>New to AI? Start with AI Builder Foundations, free.</strong> A fully async intro course you can take before Level 1. Learn the basics of building with AI through hands-on projects, at your own pace, zero coding required.
+              <strong>New to AI? Start with AI Builder Foundations, free.</strong> A fully async intro course you can take before Level 1. Learn the basics of building with AI through hands-on projects, at your own pace. No coding experience or paid AI subscription required.
             </span>
             <span className="foundations-callout-arrow" aria-hidden="true">Start free &rarr;</span>
           </a>
@@ -1767,7 +1767,7 @@ function ProgramV2PageInner() {
                 </a>
                 <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
                   <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="lai-cta-primary lai-cta-beam" onClick={() => posthog.capture('app--foundations_cta_click', { source: 'hero' })}>
-                    Start Level 0 free
+                    Get AI foundations course free
                   </a>
                 </BorderBeam>
               </div>
