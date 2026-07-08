@@ -1765,8 +1765,8 @@ function HomePageRebrandInner() {
               Talk to our team
             </a>
             <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
-              <a href="#pricing" className="lai-cta-primary lai-cta-beam">
-                Explore the levels
+              <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="lai-cta-primary lai-cta-beam" onClick={() => posthog.capture('app--foundations_cta_click', { source: 'hero' })}>
+                Start Level 0 free
               </a>
             </BorderBeam>
           </div>
