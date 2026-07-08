@@ -906,6 +906,21 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, headline = '
       <div className="container">
         <h2 className="value-stack-section-headline">{headline}</h2>
         <p className="value-stack-section-sub">{sub}</p>
+        {id === 'pricing' && (
+          <a
+            href="https://www.lelandcourses.com/ai-builder/foundations/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="foundations-callout"
+            onClick={() => posthog.capture('app--foundations_cta_click', { source: 'value-stack-foundations' })}
+          >
+            <span className="foundations-callout-badge">Free</span>
+            <span className="foundations-callout-text">
+              <strong>New to AI? Start with AI Builder Foundations, free.</strong> A fully async intro course you can take before Level 1. Learn the basics of building with AI through hands-on projects, at your own pace, zero coding required.
+            </span>
+            <span className="foundations-callout-arrow" aria-hidden="true">Start free &rarr;</span>
+          </a>
+        )}
         <div className="value-stack-grid">
           {tiers.map(tier => {
             const learnMoreHref = tier.key === 'level-1' ? '#level-1' : tier.key === 'core' ? '#level-1' : '#level-4'
