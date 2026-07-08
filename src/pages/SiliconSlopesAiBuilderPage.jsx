@@ -1547,7 +1547,7 @@ function HomePageRebrandInner() {
   const faqs = [
     {
       q: 'How do I get the Silicon Slopes discount?',
-      a: "Submit the form at the top of the page and we'll email your exclusive Silicon Slopes member discount code (70% off through July 1), along with how to enroll.",
+      a: "Submit the form at the top of the page and we'll email your exclusive Silicon Slopes member discount code (60% off through July 13), along with how to enroll.",
     },
     {
       q: 'Do I need coding experience?',
@@ -1649,10 +1649,10 @@ function HomePageRebrandInner() {
           playsInline
         />
         <div className="container">
-          <div className="ss-hero-pill hero-stagger hero-stagger-1"><strong>70% off</strong> · ends July 1</div>
+          <div className="ss-hero-pill hero-stagger hero-stagger-1"><strong>60% off</strong> · ends July 13</div>
           <h1 className="hero-stagger hero-stagger-1">The AI Builder Program, exclusively for Silicon Slopes</h1>
 
-          <p className="hero-sub hero-stagger hero-stagger-2">Leland is partnering with Silicon Slopes to offer an exclusive, IRL cohort of the AI Builder Program. For the next week only, Silicon Slopes members get 70% off.</p>
+          <p className="hero-sub hero-stagger hero-stagger-2">Leland is partnering with Silicon Slopes to offer an exclusive, IRL cohort of the AI Builder Program. For the next week only, Silicon Slopes members get 60% off.</p>
 
           <div className="hero-ctas hero-stagger hero-stagger-3">
             <a
