@@ -1928,8 +1928,8 @@ function HomePageRebrandInner() {
         <div className="container">
           <div className="accordion-section-header accordion-section-header-stacked">
             <div className="accordion-section-header-text">
-              <h2 className="accordion-section-headline">One program. Five levels.</h2>
-              <p className="accordion-section-sub">Levels 1–3 build the AI foundation every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems.</p>
+              <h2 className="accordion-section-headline">An overview of the program</h2>
+              <p className="accordion-section-sub">The foundations course makes sure you know the basics. Levels 1–3 help you build the AI systems every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems.</p>
             </div>
             <IcebergVisualization />
           </div>
