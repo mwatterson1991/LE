@@ -326,6 +326,79 @@ function getDefaultCohort(cohorts) {
   )
 }
 
+function FoundationsAccordionItem({ open, onToggle }) {
+  return (
+    <div className={`accordion-item${open ? ' open' : ''}`} id="foundations">
+      <div className="accordion-header" onClick={onToggle}>
+        <div className="accordion-header-left">
+          <span className="accordion-level">00</span>
+          <div className="accordion-header-text">
+            <h3 className="accordion-title" style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+              AI Builder Foundations
+              <span className="foundations-callout-badge">Free</span>
+            </h3>
+            <p className="accordion-tagline">Learn the basics of building with AI.</p>
+          </div>
+        </div>
+        <div className="accordion-header-right">
+          <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}>
+            <ChevronIcon />
+          </motion.div>
+        </div>
+      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="accordion-body"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.04, 0.62, 0.23, 0.98] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="accordion-body">
+              <div className="accordion-body-main">
+                <p className="accordion-overview">A free, hands-on introduction to using AI as a real tool in your work and life. Fully async and self-paced, so you can start today and move at your own speed.</p>
+                <div className="accordion-detail-block">
+                  <span className="accordion-detail-label">Who it's for</span>
+                  <p className="accordion-detail-text">Designed for anyone new to AI, or anyone who wants a stronger knowledge of the fundamentals before enrolling in Level 1. No coding experience or paid AI subscription required.</p>
+                </div>
+                <div className="accordion-detail-block">
+                  <span className="accordion-detail-label">What you'll get</span>
+                  <ul className="accordion-detail-list">
+                    <li><img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="accordion-detail-check" /><span>Four core modules covering the fundamentals of building with AI</span></li>
+                    <li><img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="accordion-detail-check" /><span>Hands-on builds that give you real experience with AI tools</span></li>
+                    <li><img src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" className="accordion-detail-check" /><span>Optional advanced tracks on security, honesty, and cost</span></li>
+                  </ul>
+                </div>
+              </div>
+              <div className="accordion-meta">
+                <div className="accordion-meta-row">
+                  <span className="accordion-meta-label">Format</span>
+                  <span className="accordion-meta-value">Fully Async &middot; Self-Paced</span>
+                </div>
+                <div className="accordion-meta-row">
+                  <span className="accordion-meta-label">Schedule</span>
+                  <span className="accordion-meta-value">Start Anytime</span>
+                </div>
+                <hr className="accordion-meta-divider" />
+                <div className="accordion-price-row">
+                  <span className="accordion-price">Free</span>
+                  <span className="accordion-price-sub">The free starting line of the AI Builder Program</span>
+                </div>
+                <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--foundations_cta_click', { source: 'course-accordion' })}>
+                  Start Free
+                  <span className="arrow">&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 function CourseAccordionItem({ course, open, onToggle }) {
   const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
   const [showAllMobile, setShowAllMobile] = useState(false)
@@ -906,6 +979,21 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, showHeader =
       <div className="container">
         {showHeader && <h2 className="value-stack-section-headline">{headline}</h2>}
         {showHeader && <p className="value-stack-section-sub">{sub}</p>}
+        {id === 'pricing' && (
+          <a
+            href="https://www.lelandcourses.com/ai-builder/foundations/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="foundations-callout"
+            onClick={() => posthog.capture('app--foundations_cta_click', { source: 'value-stack-foundations' })}
+          >
+            <span className="foundations-callout-badge">Free</span>
+            <span className="foundations-callout-text">
+              <strong>New to AI? Start with AI Builder Foundations, free.</strong> A fully async intro course you can take before Level 1. Learn the basics of building with AI through hands-on projects, at your own pace. No coding experience or paid AI subscription required.
+            </span>
+            <span className="foundations-callout-arrow" aria-hidden="true">Start free &rarr;</span>
+          </a>
+        )}
         <div className="value-stack-grid">
           {tiers.map(tier => {
             const learnMoreHref = tier.key === 'level-1' ? '#level-1' : tier.key === 'core' ? '#level-1' : '#level-4'
@@ -1425,11 +1513,11 @@ function ProgramV2PageInner() {
       ],
       cohorts: [
         { month: 'JUN', day: '22', date: 'June 22', label: 'June 22', iso: '2026-06-22', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '4pm PT / 7pm ET' }, cohortSessions: [{ date: 'Mon, Jun 22', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 25', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'Mon, Jun 29', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 2', time: '8am or 4pm PT (11am or 7pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C69f517038a2ab05f3e118b05)', soldOut: true },
-        { month: 'JUL', day: '7', date: 'July 7 (Copilot Only Track)', label: 'July 7 (Copilot Only)', iso: '2026-07-07-copilot', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '9am PT / 12pm ET', friday: '9am PT / 12pm ET' }, cohortSessions: [{ date: 'Tue, Jul 7', time: '9am PT / 12pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 10', time: '9am PT / 12pm ET' }, { date: 'Tue, Jul 14', time: '9am PT / 12pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 17', time: '9am PT / 12pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a0cf65f27431b42c5131e4b)' },
-        { month: 'JUL', day: '6', date: 'July 6', label: 'July 6', iso: '2026-07-06', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Mon, Jul 6', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 9', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'Mon, Jul 13', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 16', time: '8am or 2pm PT (11am or 5pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a20503acfe499ed72d285e9)' },
+        { month: 'JUL', day: '14', date: 'July 14 (Utah In-Person Option)', label: 'July 14 (Utah In-Person)', iso: '2026-07-14-utah', scheduleDays: 'Tuesdays & Fridays · In person in Utah', sessionTimes: { tuesday: '12pm PT / 1pm MT', friday: '12pm PT / 1pm MT' }, cohortSessions: [{ date: 'Tue, Jul 14', time: '12pm PT / 1pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 17', time: '12pm PT / 1pm MT' }, { date: 'Tue, Jul 21', time: '12pm PT / 1pm MT' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 24', time: '12pm PT / 1pm MT' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a4e7860642598c0e564e73e)' },
         { month: 'JUL', day: '21', date: 'July 21', label: 'July 21', iso: '2026-07-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '3pm PT / 6pm ET' }, cohortSessions: [{ date: 'Tue, Jul 21', time: '8am or 3pm PT (11am or 6pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 24', time: '8am or 3pm PT (11am or 6pm ET)' }, { date: 'Tue, Jul 28', time: '8am or 3pm PT (11am or 6pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 31', time: '8am or 3pm PT (11am or 6pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a231ba2455a49d4abda3c39)' },
         { month: 'AUG', day: '4', date: 'August 4', label: 'August 4', iso: '2026-08-04', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Tue, Aug 4', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Aug 7', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'Tue, Aug 11', time: '8am or 2pm PT (11am or 5pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Aug 14', time: '8am or 2pm PT (11am or 5pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a231e65e0ed35ab57e2820e)' },
         { month: 'AUG', day: '17', date: 'August 17', label: 'August 17', iso: '2026-08-17', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '4pm PT / 7pm ET' }, cohortSessions: [{ date: 'Mon, Aug 17', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Aug 20', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'Mon, Aug 24', time: '8am or 4pm PT (11am or 7pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Aug 27', time: '8am or 4pm PT (11am or 7pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a231fa5e0ed35ab57e28232)' },
+        { month: 'SEP', day: '1', date: 'September 1', label: 'September 1', iso: '2026-09-01', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '12pm PT / 3pm ET' }, cohortSessions: [{ date: 'Tue, Sep 1', time: '8am or 12pm PT (11am or 3pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Sep 4', time: '8am or 12pm PT (11am or 3pm ET)' }, { date: 'Tue, Sep 8', time: '8am or 12pm PT (11am or 3pm ET)' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Sep 11', time: '8am or 12pm PT (11am or 3pm ET)' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a4fd3ad5c417da5103a1abd)' },
       ],
       levelIndex: 0,
       price: '$999',
@@ -1452,7 +1540,6 @@ function ProgramV2PageInner() {
       ],
       cohorts: [
         { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '5pm PT / 8pm ET', thursday: '5pm PT / 8pm ET' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '5pm PT / 8pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '5pm PT / 8pm ET' }, { date: 'Mon, Jun 15', time: '5pm PT / 8pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '5pm PT / 8pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52df1cf3c823ab47ecd16)', soldOut: true },
-        { month: 'JUL', day: '6', date: 'July 6', label: 'July 6', iso: '2026-07-06', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '10am PT / 1pm ET', thursday: '10am PT / 1pm ET' }, cohortSessions: [{ date: 'Mon, Jul 6', time: '10am PT / 1pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 9', time: '10am PT / 1pm ET' }, { date: 'Mon, Jul 13', time: '10am PT / 1pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 16', time: '10am PT / 1pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C6a23213b455a49d4abda3c87)', fillingFast: true },
         { month: 'JUL', day: '21', date: 'July 21', label: 'July 21', iso: '2026-07-21', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '10am PT / 1pm ET', friday: '10am PT / 1pm ET' }, cohortSessions: [{ date: 'Tue, Jul 21', time: '10am PT / 1pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 24', time: '10am PT / 1pm ET' }, { date: 'Tue, Jul 28', time: '10am PT / 1pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 31', time: '10am PT / 1pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C6a232210455a49d4abda3c91)' },
         { month: 'AUG', day: '4', date: 'August 4', label: 'August 4', iso: '2026-08-04', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '12pm PT / 3pm ET', friday: '12pm PT / 3pm ET' }, cohortSessions: [{ date: 'Tue, Aug 4', time: '12pm PT / 3pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Aug 7', time: '12pm PT / 3pm ET' }, { date: 'Tue, Aug 11', time: '12pm PT / 3pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Aug 14', time: '12pm PT / 3pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C6a23232e455a49d4abda3c9d)' },
         { month: 'AUG', day: '17', date: 'August 17', label: 'August 17', iso: '2026-08-17', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '2pm PT / 5pm ET', thursday: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Mon, Aug 17', time: '2pm PT / 5pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Aug 20', time: '2pm PT / 5pm ET' }, { date: 'Mon, Aug 24', time: '2pm PT / 5pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Aug 27', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C6a2324f5e0ed35ab57e28294)' },
@@ -1478,7 +1565,6 @@ function ProgramV2PageInner() {
       ],
       cohorts: [
         { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4pm PT / 7pm ET', thursday: '4pm PT / 7pm ET' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '4pm PT / 7pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '4pm PT / 7pm ET' }, { date: 'Mon, Jun 15', time: '4pm PT / 7pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '4pm PT / 7pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)', soldOut: true },
-        { month: 'JUL', day: '7', date: 'July 7', label: 'July 7', iso: '2026-07-07', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '8am PT / 11am ET', friday: '8am PT / 11am ET' }, cohortSessions: [{ date: 'Tue, Jul 7', time: '8am PT / 11am ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 10', time: '8am PT / 11am ET' }, { date: 'Tue, Jul 14', time: '8am PT / 11am ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 17', time: '8am PT / 11am ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C6a23265ae0ed35ab57e282b5)', fillingFast: true },
         { month: 'AUG', day: '3', date: 'August 3', label: 'August 3', iso: '2026-08-03', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '12pm PT / 3pm ET', thursday: '12pm PT / 3pm ET' }, cohortSessions: [{ date: 'Mon, Aug 3', time: '12pm PT / 3pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Aug 6', time: '12pm PT / 3pm ET' }, { date: 'Mon, Aug 10', time: '12pm PT / 3pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Aug 13', time: '12pm PT / 3pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C6a2326fd455a49d4abda3d0c)' },
       ],
       levelIndex: 2,
@@ -1501,7 +1587,7 @@ function ProgramV2PageInner() {
         { title: 'Ship Your Agent Workforce + Demo Day', sub: 'Finalize your agent team, document how it works, define failure modes and fallbacks, and demo what you built.', date: 'Fri, Aug 7', time: '2pm PT / 5pm ET' },
       ],
       cohorts: [
-        { month: 'JUL', day: '28', date: 'July 28', label: 'July 28', iso: '2026-07-28', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { tuesday: '2pm PT / 5pm ET', friday: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Tue, Jul 28', time: '2pm PT / 5pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Jul 31', time: '2pm PT / 5pm ET' }, { date: 'Tue, Aug 4', time: '2pm PT / 5pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Fri, Aug 7', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
+        { month: 'JUL', day: '27', date: 'July 27', label: 'July 27', iso: '2026-07-27', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '2pm PT / 5pm ET', thursday: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Mon, Jul 27', time: '2pm PT / 5pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 30', time: '2pm PT / 5pm ET' }, { date: 'Mon, Aug 3', time: '2pm PT / 5pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Aug 6', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
       ],
       levelIndex: 3,
       price: '$999',
@@ -1591,10 +1677,10 @@ function ProgramV2PageInner() {
   const skillPills = ['Agent building', 'Workflow automation', 'Data analysis', 'Email and communication', 'Slide design', 'Vibe coding', 'Research and synthesis', 'Report generation', 'Client communication', 'Go-to-market systems', 'Content creation', 'Financial modeling']
 
   const trackItems = [
-    { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact.", href: '#level-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'July 6, 2026', fillingFast: true, featured: true },
-    { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real tasks end-to-end.', href: '#level-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'July 6, 2026', secondary: true },
-    { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build AI automations that operate as an autonomous system.', href: '#level-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'July 7, 2026' },
-    { num: '04', tier: 'advanced', name: <>Build Your Agent<br/>Workforce</>, tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#level-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'July 28, 2026' },
+    { num: '01', tier: 'core', name: <>Use AI to 10x<br/>Your Impact</>, tagline: "Create AI tools and artifacts that amplify your impact.", href: '#level-1', learnMoreUrl: '/level-1', thumb: 'thumbnail-level1.png', cohortDate: 'July 21, 2026', fillingFast: true, featured: true },
+    { num: '02', tier: 'core', name: <>Build Complex<br/>Agentic Workflows</>, tagline: 'Ship autonomous agents that handle real tasks end-to-end.', href: '#level-2', learnMoreUrl: '/level-2', thumb: 'thumbnail-level2.png', cohortDate: 'July 21, 2026', secondary: true },
+    { num: '03', tier: 'core', name: <>Create Autonomous<br/>Agents</>, tagline: 'Build AI automations that operate as an autonomous system.', href: '#level-3', learnMoreUrl: '/level-3', thumb: 'thumbnail-level3.png', cohortDate: 'August 3, 2026' },
+    { num: '04', tier: 'advanced', name: <>Build Your Agent<br/>Workforce</>, tagline: 'Orchestrate multiple agents that communicate and collaborate.', href: '#level-4', learnMoreUrl: '/level-4', thumb: 'thumbnail-level4.png', cohortDate: 'July 27, 2026' },
     { num: '05', tier: 'advanced', name: <>Design Your AI<br/>Orchestration Layer</>, tagline: 'Build production AI systems that proactively iterate toward goals.', href: '#level-5', learnMoreUrl: '/level-5', thumb: 'thumbnail-level5.png', cohortDate: 'September 1, 2026' },
   ]
 
@@ -1618,6 +1704,7 @@ function ProgramV2PageInner() {
             />
           </div>
           <div className="rb-nav-actions">
+            <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--foundations_cta_click', { source: 'nav' })}>Free foundations course</a>
             <a href="https://joinleland.typeform.com/to/DQgiikom?utm_source=xxxxx&utm_medium=xxxxx&utm_campaign=xxxxx#first_name=xxxxx&last_name=xxxxx&email=xxxxx&phone_number=xxxxx" target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
             <a href="#pricing" className="rb-nav-getstarted" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'nav' })}>
               Enroll now
@@ -1643,6 +1730,7 @@ function ProgramV2PageInner() {
           <a href="https://joinleland.typeform.com/to/nXD9kytE" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Services</a>
           <a href="/recruit" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Recruit</a>
           <a href="/pledge" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Our Pledge</a>
+          <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Free Foundations Course</a>
         </div>
         <a href="#pricing" className="lai-mobile-menu-cta" onClick={() => setMenuOpen(false)}>Enroll now</a>
       </div>
@@ -1675,6 +1763,11 @@ function ProgramV2PageInner() {
                 >
                   Talk to our team
                 </a>
+                <BorderBeam size="sm" colorVariant="colorful" theme="dark" strength={1} borderRadius={999}>
+                  <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="lai-cta-primary lai-cta-beam" onClick={() => posthog.capture('app--foundations_cta_click', { source: 'hero' })}>
+                    Get AI foundations course free
+                  </a>
+                </BorderBeam>
               </div>
 
               <div className="hero-review-row hero-stagger hero-stagger-4" style={{ justifyContent: 'flex-start' }}>
@@ -1830,12 +1923,13 @@ function ProgramV2PageInner() {
         <div className="container">
           <div className="accordion-section-header accordion-section-header-stacked">
             <div className="accordion-section-header-text">
-              <h2 className="accordion-section-headline">One program. Five levels.</h2>
-              <p className="accordion-section-sub">Levels 1–3 build the AI foundation every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems.</p>
+              <h2 className="accordion-section-headline">An overview of the program</h2>
+              <p className="accordion-section-sub">The foundations course makes sure you know the basics. Levels 1–3 help you build the AI systems every knowledge worker needs. Levels 4–5 go deeper, for sophisticated builders ready to ship production systems.</p>
             </div>
             <IcebergVisualization />
           </div>
           <div className="accordion-list" style={{ marginTop: 48 }}>
+            <FoundationsAccordionItem open={openAccordion === 'foundations'} onToggle={() => setOpenAccordion(openAccordion === 'foundations' ? null : 'foundations')} />
             {courses.map((course, i) => (
               <CourseAccordionItem key={course.id} course={course} open={openAccordion === i} onToggle={() => setOpenAccordion(openAccordion === i ? null : i)} />
             ))}

@@ -14,11 +14,11 @@ const LOGOS = {
 const WAVING_IMG = `${BASE}assets/images/woman-video-call-waving.jpg`
 
 const courseCards = [
-  { num: '01', name: 'Use AI to 10x Your Impact',         tagline: 'Create AI tools and automations that amplify your impact at work.',        thumb: 'thumbnail-level1.png', url: '/level-1', cohort: 'June 9, 2026' },
-  { num: '02', name: 'Build Complex Agentic Workflows',    tagline: 'Ship autonomous agents that handle real tasks end-to-end.',            thumb: 'thumbnail-level2.png', url: '/level-2', cohort: 'June 8, 2026' },
-  { num: '03', name: 'Create Autonomous Agents', tagline: 'Build automations that operate as a unified, autonomous system.',           thumb: 'thumbnail-level3.png', url: '/level-3', cohort: 'June 8, 2026'   },
-  { num: '04', name: 'Build Your Agent Workforce',        tagline: 'Orchestrate multiple agents that communicate and collaborate.',             thumb: 'thumbnail-level4.png', url: '/level-4', cohort: 'June 16, 2026'  },
-  { num: '05', name: 'Design Your AI Orchestration Layer',        tagline: 'Build production AI systems that proactively iterate toward goals.',        thumb: 'thumbnail-level5.png', url: '/level-5', cohort: 'July 14, 2026'  },
+  { num: '01', name: 'Use AI to 10x Your Impact',         tagline: 'Create AI tools and automations that amplify your impact at work.',        thumb: 'thumbnail-level1.png', url: '/level-1', cohort: 'July 21, 2026' },
+  { num: '02', name: 'Build Complex Agentic Workflows',    tagline: 'Ship autonomous agents that handle real tasks end-to-end.',            thumb: 'thumbnail-level2.png', url: '/level-2', cohort: 'July 21, 2026' },
+  { num: '03', name: 'Create Autonomous Agents', tagline: 'Build automations that operate as a unified, autonomous system.',           thumb: 'thumbnail-level3.png', url: '/level-3', cohort: 'August 3, 2026'   },
+  { num: '04', name: 'Build Your Agent Workforce',        tagline: 'Orchestrate multiple agents that communicate and collaborate.',             thumb: 'thumbnail-level4.png', url: '/level-4', cohort: 'July 27, 2026'  },
+  { num: '05', name: 'Design Your AI Orchestration Layer',        tagline: 'Build production AI systems that proactively iterate toward goals.',        thumb: 'thumbnail-level5.png', url: '/level-5', cohort: 'September 1, 2026'  },
 ]
 
 const ChevronIcon = () => (

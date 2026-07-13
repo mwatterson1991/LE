@@ -1302,6 +1302,69 @@ body.rb-home .value-stack-teams-arrow {
   margin-left: auto;
 }
 
+/* ---------- Value stack — free Foundations callout bar ---------- */
+body.rb-home .foundations-callout {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 auto 36px;
+  padding: 16px 24px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: left;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+body.rb-home .foundations-callout:hover {
+  border-color: rgba(0, 0, 0, 0.22);
+  box-shadow: 0 3px 12px rgba(34, 34, 34, 0.08);
+}
+body.rb-home .foundations-callout-badge {
+  flex-shrink: 0;
+  font-family: var(--font-meta);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--yellow);
+  color: var(--gray-dark);
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+body.rb-home .foundations-callout-text {
+  font-family: var(--font-meta);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-light);
+}
+body.rb-home .foundations-callout-text strong {
+  color: var(--gray-dark);
+  font-weight: 600;
+  margin-right: 6px;
+}
+body.rb-home .foundations-callout-arrow {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: var(--font-meta);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray-dark);
+  white-space: nowrap;
+}
+@media (max-width: 720px) {
+  body.rb-home .foundations-callout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  body.rb-home .foundations-callout-arrow {
+    margin-left: 0;
+  }
+}
+
 /* ---------- Value stack — included feature cards ---------- */
 body.rb-home .value-stack-included-grid {
   display: grid;
