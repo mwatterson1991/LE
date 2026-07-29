@@ -563,7 +563,7 @@ function IcebergVisualization() {
     { num: 2, name: 'Build Complex Agentic Workflows' },
     { num: 3, name: 'Create Autonomous Agents' },
     { num: 4, name: 'Build Your Agent Workforce' },
-    { num: 5, name: 'Design Your AI Orchestration Layer' },
+    { num: 5, name: 'Build Your AI Orchestration Layer' },
   ]
   return (
     <div className="program-progression">
@@ -590,7 +590,7 @@ function WhichLevelDropdown() {
     { num: '2', name: 'Build Complex Agentic Workflows', who: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks." },
     { num: '3', name: 'Create Autonomous Agents', who: "You've built multiple AI agents, but they don't run autonomously." },
     { num: '4', name: 'Build Your Agent Workforce', who: "You have multiple autonomous agents running, but they don't operate as a unified system." },
-    { num: '5', name: 'Design Your AI Orchestration Layer', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
+    { num: '5', name: 'Build Your AI Orchestration Layer', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
   ]
 
   return (
@@ -1558,10 +1558,10 @@ function HomePageRebrandInner() {
       sessions: [
         { title: 'Build Your Agentic Operating System', sub: 'Set up your agent tool and create the foundational context files of your agentic operating system.', date: 'Tue, Jul 7', time: '8am PT / 11am ET' },
         { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
-        { title: 'Strengthen Your Agent with Skills, Tools, and Context', sub: 'Scope what your agent owns, expand context to cover your real work, and connect the tools it needs to do that work.', date: 'Fri, Jul 10', time: '8am PT / 11am ET' },
-        { title: 'Test and Deploy Your Agent', sub: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy.", date: 'Tue, Jul 14', time: '8am PT / 11am ET' },
+        { title: 'Build Your First Subagents', sub: 'Get better, broader output by training your agent to spin up specialist subagents for research and other specific tasks.', date: 'Fri, Jul 10', time: '8am PT / 11am ET' },
+        { title: 'Strengthen Your Agents with Skills, Tools, and Context', sub: 'Scope what your agent owns, expand context to cover your real work, and connect the tools it needs to do that work.', date: 'Tue, Jul 14', time: '8am PT / 11am ET' },
         { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
-        { title: 'Build Sub-Agents + Demo Day', sub: 'Get better, broader output by training your agent to spin up specialist sub-agents for research and other specific tasks.', date: 'Fri, Jul 17', time: '8am PT / 11am ET' },
+        { title: 'Build an Eval System + Demo Day', sub: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy, then demo what you built.", date: 'Fri, Jul 17', time: '8am PT / 11am ET' },
       ],
       cohorts: [
         { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4pm PT / 7pm ET', thursday: '4pm PT / 7pm ET' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '4pm PT / 7pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '4pm PT / 7pm ET' }, { date: 'Mon, Jun 15', time: '4pm PT / 7pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '4pm PT / 7pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)', soldOut: true },
@@ -1579,12 +1579,12 @@ function HomePageRebrandInner() {
       tagline: "You have multiple autonomous agents running, but they don't operate as a unified system.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
-        { title: 'Scope Your Agent Team', sub: "Map your workflows, decide what belongs in each agent's domain, and architect a multi-agent system.", date: 'Tue, Jul 28', time: '2pm PT / 5pm ET' },
+        { title: 'Scope Your AI Employee', sub: "Map your workflows, decide what belongs in each agent's domain, and architect a multi-agent system.", date: 'Tue, Jul 28', time: '2pm PT / 5pm ET' },
         { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
         { title: 'Build Your Orchestrated Pipeline', sub: 'Wire your first real multi-agent system, connecting multiple specialized agents, coordinated by an orchestrator that decomposes tasks and routes work.', date: 'Fri, Jul 31', time: '2pm PT / 5pm ET' },
-        { title: 'Wire Your Agents Together + Add Security', sub: 'Shift from task-based to goal-based agent design. Wire agent-to-agent communication, define what each agent can access, and update your team dashboard.', date: 'Tue, Aug 4', time: '2pm PT / 5pm ET' },
+        { title: 'Host and Deploy Your Agent', sub: 'Set up your messaging gateway and host your agent system in the cloud so it runs without your laptop open.', date: 'Tue, Aug 4', time: '2pm PT / 5pm ET' },
         { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
-        { title: 'Ship Your Agent Workforce + Demo Day', sub: 'Finalize your agent team, document how it works, define failure modes and fallbacks, and demo what you built.', date: 'Fri, Aug 7', time: '2pm PT / 5pm ET' },
+        { title: 'Configure Recursive Improvement Loops + Demo Day', sub: 'Use persistence and memory to get your system to improve itself over time, then demo what you built.', date: 'Fri, Aug 7', time: '2pm PT / 5pm ET' },
       ],
       cohorts: [
         { month: 'JUL', day: '27', date: 'July 27', label: 'July 27', iso: '2026-07-27', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '2pm PT / 5pm ET', thursday: '2pm PT / 5pm ET' }, cohortSessions: [{ date: 'Mon, Jul 27', time: '2pm PT / 5pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jul 30', time: '2pm PT / 5pm ET' }, { date: 'Mon, Aug 3', time: '2pm PT / 5pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Aug 6', time: '2pm PT / 5pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69b19c18d919910f303c9e76)' },
@@ -1597,7 +1597,7 @@ function HomePageRebrandInner() {
     },
     {
       id: 'level-5', num: '05', type: 'LIVE COURSE',
-      title: 'Design Your AI Orchestration Layer',
+      title: 'Build Your AI Orchestration Layer',
       tagline: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
@@ -1646,7 +1646,7 @@ function HomePageRebrandInner() {
     },
     {
       q: 'Do I need coding experience?',
-      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Build Your Agent Workforce and Design Your AI Orchestration Layer) go deep enough to challenge experienced builders.',
+      a: 'No. The series is designed for knowledge workers, not engineers. You will learn technical concepts, but everything is taught in a way that prioritizes practical application over code. That said, if you do have a technical background, the later courses (Build Your Agent Workforce and Build Your AI Orchestration Layer) go deep enough to challenge experienced builders.',
     },
     {
       q: 'Which AI tools do I need for this course?',
@@ -2044,7 +2044,7 @@ function HomePageRebrandInner() {
                       <span className="cert-divider"></span>
                       <span className="cert-achievement">has successfully completed the</span>
                       <span className="cert-program">AI Builder Program</span>
-                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Complex Agentic Workflows &middot; Create Autonomous Agents &middot; Build Your Agent Workforce &middot; Design Your AI Orchestration Layer</span>
+                      <span className="cert-subprogram">Use AI to 10x Your Impact &middot; Build Complex Agentic Workflows &middot; Create Autonomous Agents &middot; Build Your Agent Workforce &middot; Build Your AI Orchestration Layer</span>
                     </div>
                     <div className="cert-footer">
                       <div className="cert-sig">
