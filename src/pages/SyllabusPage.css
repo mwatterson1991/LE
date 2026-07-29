@@ -12,10 +12,10 @@
   width: calc(100% - 48px);
   max-width: 1280px;
   z-index: 100;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(0,0,0,0.08);
   border-radius: 8px;
   padding: 20px;
 }
@@ -49,7 +49,7 @@
   height: 70%;
   z-index: 0;
   background: url('/assets/images/hero-2.png') center top / cover no-repeat;
-  opacity: 0.14;
+  opacity: 0.07;
   pointer-events: none;
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
@@ -91,7 +91,7 @@
 
 .sy-overview {
   padding: 80px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 .sy-overview-label {
   font-family: var(--font-meta);
@@ -119,7 +119,8 @@
   gap: 12px;
 }
 .sy-overview-card {
-  background: rgba(255,255,255,0.03);
+  background: var(--gray-bg, #f9f9f9);
+  border-radius: 12px;
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
@@ -129,7 +130,7 @@
   text-decoration: none;
 }
 .sy-overview-card:hover {
-  background: rgba(255,255,255,0.06);
+  background: var(--cream-soft, #f3f1e6);
 }
 .sy-overview-num {
   font-family: var(--font-meta);
@@ -155,7 +156,7 @@
 
 .sy-course {
   padding: 80px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 .sy-course-header {
   margin-bottom: 48px;
@@ -229,15 +230,15 @@
   margin-bottom: 16px;
 }
 .sy-session {
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(0,0,0,0.08);
   cursor: pointer;
   transition: background 0.15s;
 }
 .sy-session:last-child {
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 .sy-session:hover {
-  background: rgba(255,255,255,0.02);
+  background: rgba(0,0,0,0.02);
 }
 .sy-session-header {
   display: flex;
@@ -319,10 +320,7 @@
   gap: 16px;
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-.sy-course-cta-row .btn {
-  border-radius: 0;
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 .sy-course-cohort-info {
   font-family: var(--font-meta);
@@ -335,7 +333,7 @@
 
 .sy-value {
   padding: 80px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 .sy-value-label {
   font-family: var(--font-meta);
@@ -378,7 +376,7 @@
 
 .sy-bottom-cta {
   padding: 80px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(0,0,0,0.08);
   text-align: center;
 }
 .sy-bottom-cta h2 {
@@ -389,9 +387,6 @@
   font-size: 17px;
   color: var(--text-secondary);
   margin-bottom: 32px;
-}
-.sy-bottom-cta .btn {
-  border-radius: 0;
 }
 .sy-bundle-grid {
   display: flex;
@@ -406,9 +401,9 @@
   flex-direction: column;
   gap: 12px;
   padding: 24px 28px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
+  background: var(--gray-bg, #f9f9f9);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
   text-align: left;
 }
 .sy-bundle-card-header {
@@ -456,7 +451,7 @@
 
 .sy-footer {
   padding: 40px 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 .sy-footer .container {
   display: flex;

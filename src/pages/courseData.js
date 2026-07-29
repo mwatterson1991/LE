@@ -238,16 +238,16 @@ export const courseData = {
         optional: true,
       },
       {
-        title: 'Build a Cloud-Based Agentic Automation and QA System',
+        title: 'Build a Cloud-Based Agentic Workflow and QA System',
         description: 'Use n8n to design an agentic communication manager workflow that auto-responds to messages for you.',
         concepts: 'Workflow nodes (triggers, fetches, AI categorizers), wiring agent nodes with JSON, agents vs. prompts, MCPs and API keys, classification evals, LLM-as-judge, evals vs. rubrics, the improvement loop.',
         build: 'An n8n email manager workflow running in the cloud plus an eval system that scores its drafts before they reach you.',
       },
       {
-        title: 'Build a Custom Agentic Automation',
-        description: 'Collaborate with AI to create automations that pull from real data to help you work more effectively.',
-        concepts: 'Claude Code routines vs. n8n, context engineering for specialized agents, the agentic workflow architecture (Trigger → Triage → Branch → Output), defining and scoping an automation MVP.',
-        build: 'A calendar-triggered meeting follow-up bot built in two harnesses (Claude Code routine + n8n), and a custom automation MVP scoped to your own work.',
+        title: 'Build Your Second Brain with AI',
+        description: 'Give your AI the domain knowledge it needs to run your automations well.',
+        concepts: 'Picking what your AI needs to know (in-context vs. wiki vs. connected tools vs. RAG), domain-specific knowledge wikis, using PRDs and specs to brief AI on automations.',
+        build: 'A 5+ article knowledge wiki integrated into your email workflow.',
       },
       {
         title: 'Build Workshop (Optional)',
@@ -255,10 +255,10 @@ export const courseData = {
         optional: true,
       },
       {
-        title: 'Build Your Second Brain with AI + Demo Day',
-        description: 'Give your AI the domain knowledge it needs to run your automation well, and show the cohort what you built.',
-        concepts: 'Picking what your AI needs to know (in-context vs. wiki vs. connected tools vs. RAG), domain-specific knowledge wikis, using PRDs and specs to brief AI on automations.',
-        build: 'A 5+ article knowledge wiki integrated into your email workflow, plus a Demo Day presentation across all four builds.',
+        title: 'Build Custom Agentic Automations + Demo Day',
+        description: 'Collaborate with AI to create custom automations that pull from real data, then show the cohort what you built.',
+        concepts: 'Claude Code routines vs. n8n, context engineering for specialized agents, the agentic workflow architecture (Trigger → Triage → Branch → Output), defining and scoping an automation MVP.',
+        build: 'A calendar-triggered meeting follow-up bot built in two harnesses (Claude Code routine + n8n), a custom automation MVP scoped to your own work, plus a Demo Day presentation across all four builds.',
       },
     ],
     faqs: [
@@ -342,16 +342,16 @@ export const courseData = {
         optional: true,
       },
       {
-        title: 'Strengthen Your Agent with Skills, Tools, and Context',
+        title: 'Build Your First Subagents',
+        description: 'Get better, broader output by training your agent to spin up specialist subagents for research and other specific tasks.',
+        concepts: 'Reading agent traces end-to-end (like reading stack traces), when to add a subagent vs. a skill, per-subagent permissions, failure modes, prompt injection across agent boundaries.',
+        build: 'A research subagent and a role-specific subagent handing work back to your Chief of Staff.',
+      },
+      {
+        title: 'Strengthen Your Agents with Skills, Tools, and Context',
         description: 'Scope what your agent owns, expand context to cover your real work, and connect the tools it needs to do that work.',
         concepts: 'Thin harness, fat skills; agent scope as a job description (3–5 jobs, not a task list); file-based memory; the resolver pattern; three ways to connect tools (native OAuth, MCP, Composio).',
         build: 'A scoped Chief of Staff agent with a CHARTER.md, 6–8 context files, 2–3 connected work tools, and a RESOLVER.md with routing rules.',
-      },
-      {
-        title: 'Test and Deploy Your Agent',
-        description: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy.",
-        concepts: 'The trust gradient (read-only → write-with-approval → autonomous), trigger types (scheduled / webhook / event-driven), approval gates, three ways to grade agent outputs (deterministic, LLM-as-judge, human), token cost monitoring.',
-        build: 'Your agent deployed to the cloud, a scheduled daily brief running to a real channel, one tool flipped to write-with-approval, and a 3–5 dimension eval rubric scoring real outputs.',
       },
       {
         title: 'Build Workshop (Optional)',
@@ -359,10 +359,10 @@ export const courseData = {
         optional: true,
       },
       {
-        title: 'Build Sub-Agents + Demo Day',
-        description: 'Get better, broader output by training your agent to spin up specialist sub-agents for research and other specific tasks.',
-        concepts: 'Reading agent traces end-to-end (like reading stack traces), when to add a sub-agent vs. a skill, per-sub-agent permissions, failure modes, prompt injection across agent boundaries.',
-        build: 'A research sub-agent and a role-specific sub-agent handing work back to your Chief of Staff, plus a 3-minute Demo Day walkthrough of one end-to-end moment.',
+        title: 'Build an Eval System + Demo Day',
+        description: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy, then demo what you built.",
+        concepts: 'The trust gradient (read-only → write-with-approval → autonomous), trigger types (scheduled / webhook / event-driven), approval gates, three ways to grade agent outputs (deterministic, LLM-as-judge, human), token cost monitoring.',
+        build: 'Your agent deployed to the cloud, a 3–5 dimension eval rubric scoring real outputs, one tool flipped to write-with-approval, plus a 3-minute Demo Day walkthrough of one end-to-end moment.',
       },
     ],
     faqs: [
@@ -433,7 +433,7 @@ export const courseData = {
     ],
     sessions: [
       {
-        title: 'Scope Your Agent Team',
+        title: 'Scope Your AI Employee',
         description: "Map your workflows, decide what belongs in each agent's domain, and architect a multi-agent system.",
         concepts: 'When multi-agent wins vs. a single agent, the 6 orchestration patterns, domain mapping, interface specs between agents.',
         build: 'An agent team architecture document (domain map + orchestration pattern + interface spec) and an orchestrator scaffolded in Claude Code.',
@@ -450,10 +450,10 @@ export const courseData = {
         build: 'An orchestrated pipeline (orchestrator + 2–3 specialized subagents) with parallel execution and a first observability view of the multi-agent system.',
       },
       {
-        title: 'Wire Your Agents Together + Add Security',
-        description: 'Shift from task-based to goal-based agent design. Wire agent-to-agent communication, define what each agent can access, and update your team dashboard.',
-        concepts: 'Task framing vs. goal framing, agent-to-agent (A2A) communication, least-privilege access, secrets management, audit trails.',
-        build: 'A2A communication wired between agents, an access control layer (least-privilege + secrets + audit trails), and an updated multi-agent observability dashboard.',
+        title: 'Host and Deploy Your Agent',
+        description: 'Set up your messaging gateway and host your agent system in the cloud so it runs without your laptop open.',
+        concepts: 'Hosting options for agent systems, messaging gateways, cloud deployment, least-privilege access, secrets management, audit trails.',
+        build: 'Your orchestrated pipeline deployed to the cloud with a live messaging gateway and an access control layer (least-privilege + secrets + audit trails).',
       },
       {
         title: 'Build Workshop (Optional)',
@@ -461,10 +461,10 @@ export const courseData = {
         optional: true,
       },
       {
-        title: 'Ship Your Agent Workforce + Demo Day',
-        description: 'Finalize your agent team, document how it works, define failure modes and fallbacks, and demo what you built.',
-        concepts: 'Goal drift, context loss, unbounded spawning, fallback design, runbook authoring for a multi-agent system.',
-        build: 'A documented agent team with failure fallbacks and a complete runbook, demoed live running autonomously.',
+        title: 'Configure Recursive Improvement Loops + Demo Day',
+        description: 'Use persistence and memory to get your system to improve itself over time, then demo what you built.',
+        concepts: 'Persistence and memory across runs, self-improvement loops, goal drift, context loss, unbounded spawning, fallback design, runbook authoring for a multi-agent system.',
+        build: 'An agent team with memory and a recursive improvement loop, documented with failure fallbacks and a complete runbook, demoed live running autonomously.',
       },
     ],
     faqs: [
@@ -478,12 +478,12 @@ export const courseData = {
       { q: "Is this course right for me if I'm not building software?", a: "Yes. The eval, orchestration, and QA sessions apply directly to marketing pipelines, research systems, and content operations, not just software." },
     ],
     nextCourse: 5,
-    nextCourseName: 'Design Your AI Orchestration Layer',
+    nextCourseName: 'Build Your AI Orchestration Layer',
   },
 
   5: {
     id: 5,
-    name: 'Design Your AI Orchestration Layer',
+    name: 'Build Your AI Orchestration Layer',
     badge: 'Level 5 of 5',
     nextCohort: 'Sep 1 – Sep 11, 2026',
     cohortDates: ['September 1'],
@@ -591,5 +591,5 @@ export const allCourses = [
   { id: 2, name: 'Build Complex Agentic Workflows', nextCohort: 'Jul 21 – Jul 31', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
   { id: 3, name: 'Create Autonomous Agents', nextCohort: 'Aug 3 – Aug 13', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
   { id: 4, name: 'Build Your Agent Workforce', nextCohort: 'Jul 27 – Aug 6', whoShort: "You have multiple autonomous agents running, but they don't operate as a unified system." },
-  { id: 5, name: 'Design Your AI Orchestration Layer', nextCohort: 'Sep 1 – Sep 11', whoShort: "You've built and shipped AI systems, but they don't proactively iterate toward a goal." },
+  { id: 5, name: 'Build Your AI Orchestration Layer', nextCohort: 'Sep 1 – Sep 11', whoShort: "You've built and shipped AI systems, but they don't proactively iterate toward a goal." },
 ]
