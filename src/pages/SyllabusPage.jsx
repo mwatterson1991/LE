@@ -155,14 +155,23 @@ export default function SyllabusPage() {
       <nav className={`sy-nav${scrolled ? ' nav-scrolled' : ''}`}>
         <div className="container">
           <a href="/" className="logo">
-            <img src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
+            <img className="sy-logo-light" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
+            <img className="sy-logo-dark" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
           </a>
+          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary sy-nav-cta">Enroll now</a>
         </div>
       </nav>
 
       {/* ── Hero ── */}
-      <section className="sy-hero">
-        <div className="sy-hero-image-bg" />
+      <section className="sy-hero rb-dark-band">
+        <video
+          className="rb-hero-video"
+          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
         <div className="container">
           <div className="sy-hero-label">AI Builder Program</div>
           <h1>The full curriculum, session by session</h1>
@@ -182,7 +191,7 @@ export default function SyllabusPage() {
             </a>
             <a
               href="#course-1"
-              className="btn btn-ghost btn-lg"
+              className="btn btn-ghost btn-lg hero-cta-ghost"
             >
               Jump to curriculum
             </a>
@@ -233,7 +242,7 @@ export default function SyllabusPage() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="sy-bottom-cta">
+      <section className="sy-bottom-cta rb-dark-band">
         <div className="container">
           <h2>Ready to start building?</h2>
           <p className="sy-bottom-cta-sub">
@@ -282,10 +291,10 @@ export default function SyllabusPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="sy-footer">
+      <footer className="sy-footer rb-dark-band">
         <div className="container">
           <a href="/" className="sy-footer-logo">
-            <img src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
+            <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
           </a>
           <span className="sy-footer-copy">&copy; {new Date().getFullYear()} Leland</span>
         </div>
