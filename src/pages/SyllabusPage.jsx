@@ -106,7 +106,6 @@ function CourseSection({ course, id }) {
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary"
-            style={{ textTransform: 'uppercase' }}
           >
             Enroll in Level {id} <span className="arrow">&rarr;</span>
           </a>
@@ -137,10 +136,17 @@ export default function SyllabusPage() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
+    // Reuse the light-brand token layer from the homepage rebrand (home-rebrand.css)
+    document.documentElement.classList.add('rb-home')
+    document.body.classList.add('rb-home')
     const handleScroll = () => setScrolled(window.scrollY > 50)
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.documentElement.classList.remove('rb-home')
+      document.body.classList.remove('rb-home')
+    }
   }, [])
 
   return (
@@ -149,14 +155,23 @@ export default function SyllabusPage() {
       <nav className={`sy-nav${scrolled ? ' nav-scrolled' : ''}`}>
         <div className="container">
           <a href="/" className="logo">
-            <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
+            <img className="sy-logo-light" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
+            <img className="sy-logo-dark" src={`${import.meta.env.BASE_URL}assets/logo-dark.svg`} alt="Leland" />
           </a>
+          <a href={ENROLL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary sy-nav-cta">Enroll now</a>
         </div>
       </nav>
 
       {/* ── Hero ── */}
-      <section className="sy-hero">
-        <div className="sy-hero-image-bg" />
+      <section className="sy-hero rb-dark-band">
+        <video
+          className="rb-hero-video"
+          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
         <div className="container">
           <div className="sy-hero-label">AI Builder Program</div>
           <h1>The full curriculum, session by session</h1>
@@ -171,14 +186,12 @@ export default function SyllabusPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-lg"
-              style={{ textTransform: 'uppercase' }}
             >
-              Enroll Now <span className="arrow">&rarr;</span>
+              Enroll now <span className="arrow">&rarr;</span>
             </a>
             <a
               href="#course-1"
-              className="btn btn-secondary btn-lg"
-              style={{ textTransform: 'uppercase' }}
+              className="btn btn-ghost btn-lg hero-cta-ghost"
             >
               Jump to curriculum
             </a>
@@ -229,7 +242,7 @@ export default function SyllabusPage() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="sy-bottom-cta">
+      <section className="sy-bottom-cta rb-dark-band">
         <div className="container">
           <h2>Ready to start building?</h2>
           <p className="sy-bottom-cta-sub">
@@ -249,7 +262,6 @@ export default function SyllabusPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
-                style={{ textTransform: 'uppercase' }}
               >
                 Get the Core bundle <span className="arrow">&rarr;</span>
               </a>
@@ -266,7 +278,6 @@ export default function SyllabusPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
-                style={{ textTransform: 'uppercase' }}
               >
                 Get the Advanced bundle <span className="arrow">&rarr;</span>
               </a>
@@ -280,7 +291,7 @@ export default function SyllabusPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="sy-footer">
+      <footer className="sy-footer rb-dark-band">
         <div className="container">
           <a href="/" className="sy-footer-logo">
             <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
