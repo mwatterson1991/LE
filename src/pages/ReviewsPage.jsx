@@ -74,7 +74,12 @@ export default function ReviewsPage() {
     <div className="rv-page">
       <header className="rv-hero">
         <div className="container">
-          <a href="/program#pricing" className="rv-back">← Back to AI Builder Program</a>
+          <div className="rv-hero-links">
+            <a href="/program#pricing" className="rv-back">← Back to AI Builder Program</a>
+            <a href="https://www.lelandcourses.com/program/results/" target="_blank" rel="noopener noreferrer" className="btn btn-primary rv-results-cta">
+              See our results <span className="arrow">→</span>
+            </a>
+          </div>
           <h1 className="rv-title">
             What AI Builder grads are saying
           </h1>
@@ -100,7 +105,10 @@ export default function ReviewsPage() {
       <footer className="rv-footer">
         <div className="container">
           <p className="rv-footer-line">Want to join them?</p>
-          <a href="/program#pricing" className="rv-footer-btn">Enroll in the next cohort →</a>
+          <div className="rv-footer-cta-row">
+            <a href="/program#pricing" className="rv-footer-btn">Enroll in the next cohort →</a>
+            <a href="https://www.lelandcourses.com/program/results/" target="_blank" rel="noopener noreferrer" className="rv-footer-btn rv-footer-btn-secondary">See our results</a>
+          </div>
         </div>
       </footer>
     </div>
