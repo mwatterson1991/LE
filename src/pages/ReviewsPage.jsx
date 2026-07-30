@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useMemo, useCallback } from 'react'
 import '../index.css'
 import './home-rebrand.css'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
@@ -25,7 +25,7 @@ export default function ReviewsPage() {
   const [feed, setFeed] = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.title = 'AI Builder Reviews | Leland'
     document.documentElement.classList.add('rb-home')
     document.body.classList.add('rb-home')

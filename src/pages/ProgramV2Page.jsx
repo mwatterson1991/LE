@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { TextMorph } from 'torph/react'
 import posthog from 'posthog-js'
 import { motion, AnimatePresence } from 'motion/react'
@@ -7,6 +7,7 @@ import LPPopup from '../components/LPPopup'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CohortPicker from '../components/CohortPicker'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
+import ResultsCTASection from '../components/ResultsCTASection'
 import StarRating from '../components/StarRating'
 import { useRatingsData } from '../ratingsData'
 import { COURSE_COHORTS, courseData } from './courseData'
@@ -1336,7 +1337,7 @@ function ProgramV2PageInner() {
   const heroRef = useRef(null)
   const { avg: ratingAvg, count: ratingCount } = useRatingsData()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.add('rb-home')
     document.body.classList.add('rb-home')
 
@@ -1914,6 +1915,9 @@ function ProgramV2PageInner() {
 
       {/* ====== 4. Testimonials — Masonry board ====== */}
       <TestimonialsBoard />
+
+      {/* ====== 4b. Results CTA — link out to the program results page ====== */}
+      <ResultsCTASection />
 
       {/* ====== Why — skills + tools ====== */}
       <WhyRevealSection toolPills={toolPills} skillPills={skillPills} />
