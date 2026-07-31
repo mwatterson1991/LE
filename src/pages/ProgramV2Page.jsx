@@ -1461,7 +1461,18 @@ function ProgramV2PageInner() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  useEffect(() => {
+  // useLayoutEffect: .rb-nav-wrapper's `margin-bottom: calc(-1 * var(--nav-height, 52px))`
+  // pulls the hero up under the sticky nav. Measured post-paint, the 52px fallback
+  // was used for the first frame — but the nav is really 70px (62px under 768px),
+  // so the whole page rendered 18px low and then snapped up.
+  //
+  // Measuring this early is only safe because every image in this page's nav has
+  // a definite CSS height (.rb-nav-aibp-logo below, .rb-nav-logo in home-rebrand.css),
+  // so offsetHeight is already correct before the logos load. Do NOT lift this into
+  // the shared Nav or the other rb-home pages without fixing that first: there the
+  // logos are unsized pre-load, an early measure reads 104px/140px instead of 70/72,
+  // and nothing re-measures afterwards, so the wrong value sticks.
+  useLayoutEffect(() => {
     const nav = navRef.current
     if (!nav) return
     const wrapper = nav.closest('.rb-nav-wrapper')

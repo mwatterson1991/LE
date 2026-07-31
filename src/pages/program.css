@@ -82,6 +82,15 @@ body.rb-home .hero:has(.hero-split-v2) h1 {
   .rb-nav-aibp-logo { display: none; }
 }
 
+/* Give the hero container a definite width. `body.rb-home .hero` is a column
+   flexbox and `.container` has `margin: 0 auto` — auto cross-axis margins
+   suppress the default stretch, so the container was sized to fit-content.
+   Its width therefore tracked the hero's max-content, which jumps the moment
+   <wistia-player> upgrades (~2s) — resizing the whole hero, and with it the
+   flex:1 video box (405x228 -> 548x308). width:100% makes the split widths
+   depend only on the viewport, so the video box is final on first paint. */
+body.rb-home .hero:has(.hero-split-v2) > .container { width: 100%; }
+
 /* Left-align the countdown — needs body.rb-home to beat base specificity */
 body.rb-home .hero:has(.hero-split-v2) .countdown {
   justify-content: flex-start;
