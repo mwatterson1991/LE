@@ -63,6 +63,24 @@ body.rb-home .hero:has(.hero-split-v2) h1 {
   border-radius: 12px;
   overflow: hidden;
 }
+/* Pin the Wistia player to its real 16:9 box. Without this the flex column
+   stretches the player, and Wistia's poster layer tiles to fill the extra
+   height — the "doubled thumbnail" glitch on first load. */
+.hero-split-right .video-embed wistia-player {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+/* Size the AI Builder Program nav logo unscoped. The sizing rule in
+   home-rebrand.css is scoped to body.rb-home, a class added by JS after
+   first paint — so the 1936px-wide PNG flashed at natural size on load. */
+.rb-nav-aibp-logo {
+  height: 36px;
+  width: auto;
+}
+@media (max-width: 768px) {
+  .rb-nav-aibp-logo { display: none; }
+}
 
 /* Left-align the countdown — needs body.rb-home to beat base specificity */
 body.rb-home .hero:has(.hero-split-v2) .countdown {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { TextMorph } from 'torph/react'
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
+import RotatingText from '../components/RotatingText'
 import posthog from 'posthog-js'
 import { motion, AnimatePresence } from 'motion/react'
 import Marquee from 'react-fast-marquee'
@@ -1336,7 +1336,11 @@ function ProgramV2PageInner() {
   const heroRef = useRef(null)
   const { avg: ratingAvg, count: ratingCount } = useRatingsData()
 
-  useEffect(() => {
+  // useLayoutEffect (not useEffect) so the rb-home class is on <body> before
+  // the browser paints — otherwise every body.rb-home-scoped style (nav layout,
+  // logo sizing, hero theme) is missing for the first frame and the page
+  // flashes unstyled: oversized logos, compact layout, etc.
+  useLayoutEffect(() => {
     document.documentElement.classList.add('rb-home')
     document.body.classList.add('rb-home')
 
@@ -1402,14 +1406,6 @@ function ProgramV2PageInner() {
   const [scarcityCount, setScarcityCount] = useState(() => getScarcityCount(442, 532, 0))
   const [advancedScarcityCount, setAdvancedScarcityCount] = useState(() => getScarcityCount(75, 110, 1))
   const heroPhrases = ['10x your impact', 'future-proof your work', 'scale your business', 'accelerate your career', 'automate manual work']
-  const [heroPhraseIndex, setHeroPhraseIndex] = useState(0)
-  const heroPhrase = heroPhrases[heroPhraseIndex]
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setHeroPhraseIndex(i => (i + 1) % heroPhrases.length)
-    }, 2500)
-    return () => clearInterval(timer)
-  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -1751,7 +1747,7 @@ function ProgramV2PageInner() {
           <Countdown />
           <div className="hero-split-v2">
             <div className="hero-split-left">
-              <h1 className="hero-stagger hero-stagger-1" style={{ textAlign: 'left' }}>Build with AI to<br /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">10x your impact</span></h1>
+              <h1 className="hero-stagger hero-stagger-1" style={{ textAlign: 'left' }}>Build with AI to<br /><span className="hero-morph-desktop"><RotatingText items={heroPhrases} interval={2500} /></span><span className="hero-morph-mobile">10x your impact</span></h1>
 
               <p className="hero-sub hero-stagger hero-stagger-2" style={{ textAlign: 'left' }}>Build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
 
@@ -2238,7 +2234,7 @@ function ProgramV2PageInner() {
                 <li><a href="https://www.joinleland.com/events" className="footer-col-link">Free Events</a></li>
                 <li><a href="https://www.joinleland.com/bootcamps" className="footer-col-link">Bootcamps</a></li>
                 <li><a href="https://www.joinleland.com/plus" className="footer-col-link">Leland+</a></li>
-                <li><a href="https://www.joinleland.com/become-an-expert" className="footer-col-link">Become a coach</a></li>
+                <li><a href="https://www.joinleland.com/become-a-coach" className="footer-col-link">Become a coach</a></li>
               </ul>
             </div>
 
@@ -2276,8 +2272,8 @@ function ProgramV2PageInner() {
               <h4 className="footer-col-heading footer-col-heading-sub">Resources</h4>
               <ul className="footer-col-links">
                 <li><a href="https://www.joinleland.com/support" className="footer-col-link">Support</a></li>
-                <li><a href="https://www.joinleland.com/legal" className="footer-col-link">Legal</a></li>
-                <li><a href="https://www.joinleland.com/privacy" className="footer-col-link">Privacy</a></li>
+                <li><a href="https://www.joinleland.com/legal/terms" className="footer-col-link">Legal</a></li>
+                <li><a href="https://www.joinleland.com/legal/privacy-policy" className="footer-col-link">Privacy</a></li>
               </ul>
             </div>
           </div>
