@@ -1737,6 +1737,9 @@ function App() {
   if (path.startsWith('/siliconslopes')) {
     return <SiliconSlopesAiBuilderPage />
   }
+  if (path.startsWith('/scaling')) {
+    return <HomePageRebrand partnerLogo="scaling-com.png" partnerLogoAlt="Scaling.com" />
+  }
   if (path.startsWith('/program-for-teams')) {
     return <TeamsProgramPage />
   }

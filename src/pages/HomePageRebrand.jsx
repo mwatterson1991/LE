@@ -1328,11 +1328,11 @@ function WhyRevealSection({ toolPills, skillPills }) {
   )
 }
 
-export default function HomePageRebrand() {
-  return <HomePageRebrandInner />
+export default function HomePageRebrand({ partnerLogo = null, partnerLogoAlt = '' } = {}) {
+  return <HomePageRebrandInner partnerLogo={partnerLogo} partnerLogoAlt={partnerLogoAlt} />
 }
 
-function HomePageRebrandInner() {
+function HomePageRebrandInner({ partnerLogo = null, partnerLogoAlt = '' } = {}) {
   const heroRef = useRef(null)
   const { avg: ratingAvg, count: ratingCount } = useRatingsData()
 
@@ -1698,12 +1698,26 @@ function HomePageRebrandInner() {
                 : <img className="rb-logo-white" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
               }
             </a>
-            <span className="rb-nav-lockup-divider" />
-            <img
-              className="rb-nav-aibp-logo"
-              src={`${import.meta.env.BASE_URL}assets/logos/${scrolled ? 'aibp-dark' : 'aibp-light'}.png`}
-              alt="AI Builder Program"
-            />
+            {!partnerLogo && (
+              <>
+                <span className="rb-nav-lockup-divider" />
+                <img
+                  className="rb-nav-aibp-logo"
+                  src={`${import.meta.env.BASE_URL}assets/logos/${scrolled ? 'aibp-dark' : 'aibp-light'}.png`}
+                  alt="AI Builder Program"
+                />
+              </>
+            )}
+            {partnerLogo && (
+              <>
+                <span className="rb-nav-partner-x">&times;</span>
+                <img
+                  className="rb-nav-partner-logo"
+                  src={`${import.meta.env.BASE_URL}assets/logos/${partnerLogo}`}
+                  alt={partnerLogoAlt}
+                />
+              </>
+            )}
           </div>
           <div className="rb-nav-actions">
             <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--foundations_cta_click', { source: 'nav' })}>Free foundations course</a>
