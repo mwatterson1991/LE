@@ -14,6 +14,17 @@ function formatCohortDate(cohort) {
   return extra ? `${base} ${extra}` : base
 }
 
+// Cohorts that have already started must never render. Special-track cohorts use a
+// non-date suffix (e.g. '2026-07-14-utah'), so compare on the leading YYYY-MM-DD only.
+// Anything unparseable is kept rather than silently dropped.
+function hasNotStarted(cohort) {
+  const start = new Date(`${cohort.iso?.slice(0, 10)}T12:00:00`)
+  if (isNaN(start)) return true
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return start >= today
+}
+
 function SessionTimesLabel({ sessionTimes, scheduleDays }) {
   if (!sessionTimes) return null
   if (sessionTimes.morning) {
@@ -66,12 +77,13 @@ function SessionTimesLabel({ sessionTimes, scheduleDays }) {
 }
 
 export default function CohortPicker({ cohorts, selected, onChange }) {
-  if (!cohorts || cohorts.length <= 1) return null
+  const upcoming = (cohorts || []).filter(hasNotStarted)
+  if (upcoming.length <= 1) return null
   return (
     <div className="cohort-picker">
       <span className="cohort-picker-label">Cohort starting</span>
       <div className="cohort-picker-options">
-        {cohorts.map((cohort) => {
+        {upcoming.map((cohort) => {
           const disabled = !cohort.enrollUrl || cohort.soldOut
           const isActive = selected?.iso === cohort.iso
           const displayDate = formatCohortDate(cohort)
