@@ -58,6 +58,7 @@ is green against the current repo, or it is grandfathered.
 
 ```
 CLAUDE.md                          about 30 lines, always loaded
+scripts/checks/lib.mjs             shared root, file walk, and error format
 scripts/checks/registry.mjs        pages, vite inputs, internal links
 scripts/checks/assets.mjs          asset refs exist, size budget on changed files
 scripts/checks/stale-cohorts.mjs   time-driven staleness report
@@ -89,15 +90,20 @@ object, so the real input map is available without text parsing.
 2. Every input entry points at a file that exists.
 3. Every internal `href="/x"` in `src/` and root HTML resolves to a page.
 
-**Allowlist.** `src/App.jsx` routes some URLs from `window.location.pathname`,
-including `/program/v2`, `/siliconslopes`, `/scaling`, and
-`/program-for-teams`. These have no matching root file name, so the check keeps
-a small explicit allowlist. An unmatched link fails and names both fixes: add
-the page, or add the route to the allowlist.
+4. Every target in `public/_redirects` resolves to a real page.
+
+**Clean URL resolution.** `public/_redirects` already exists and holds
+`/program/v2 /program-v2 200`. That file is how a clean URL reaches a
+differently named build output, so the check reads it as the source of truth. No
+hand-maintained allowlist is needed. A link resolves when it matches
+`index.html`, matches `<name>.html`, or follows a redirect rule to something
+that does. An unmatched link fails and names both fixes: create the page, or add
+a redirect rule.
 
 **Exit code.** 0 when clean, 1 on any failure.
 
-**Current state.** Passes. All 25 root HTML files are registered today.
+**Current state.** Passes. 24 root HTML files and 24 Vite inputs, with no
+drift.
 
 ## Component: `assets.mjs`
 
