@@ -133,7 +133,7 @@ test('registry accepts a link that resolves through _redirects', () => {
 
 - [ ] **Step 2: Run the test to verify it fails**
 
-Run: `node --test scripts/checks/`
+Run: `node --test scripts/checks/checks.test.mjs`
 Expected: FAIL. Every test errors, because `scripts/checks/registry.mjs` does not exist. The `spawnSync` result has a non-zero status and stderr contains `Cannot find module`.
 
 - [ ] **Step 3: Write the shared library**
@@ -300,7 +300,7 @@ tmp-check-fixture
 
 - [ ] **Step 6: Run the tests to verify they pass**
 
-Run: `node --test scripts/checks/`
+Run: `node --test scripts/checks/checks.test.mjs`
 Expected: PASS, 4 tests.
 
 Then run: `npm run check`
@@ -377,7 +377,7 @@ The encoded test is the one that matters. Three references in this repo contain 
 
 - [ ] **Step 2: Run the tests to verify they fail**
 
-Run: `node --test scripts/checks/`
+Run: `node --test scripts/checks/checks.test.mjs`
 Expected: FAIL on the three new tests with `Cannot find module` for `assets.mjs`. The four Task 1 tests still pass.
 
 - [ ] **Step 3: Write the implementation**
@@ -464,7 +464,7 @@ In `package.json`, replace the `check` script with:
 
 - [ ] **Step 5: Run the tests to verify they pass**
 
-Run: `node --test scripts/checks/`
+Run: `node --test scripts/checks/checks.test.mjs`
 Expected: PASS, 7 tests.
 
 Run: `npm run check`
@@ -528,7 +528,7 @@ A `CHECK_TODAY` far in the future makes every cohort in the repo stale, so the t
 
 - [ ] **Step 2: Run the test to verify it fails**
 
-Run: `node --test scripts/checks/`
+Run: `node --test scripts/checks/checks.test.mjs`
 Expected: FAIL with `Cannot find module` for `stale-cohorts.mjs`. The 7 earlier tests still pass.
 
 - [ ] **Step 3: Write the implementation**
@@ -621,7 +621,7 @@ process.exit(passed.length || unknown.length ? 1 : 0)
 
 - [ ] **Step 4: Run the test to verify it passes**
 
-Run: `node --test scripts/checks/`
+Run: `node --test scripts/checks/checks.test.mjs`
 Expected: PASS, 8 tests.
 
 - [ ] **Step 5: Run the report against today and record the number**
@@ -654,7 +654,7 @@ so no pull request is open when a date goes stale. Task 4 runs this weekly."
 - Create: `.github/workflows/cohort-watch.yml`
 
 **Interfaces:**
-- Consumes: `npm run check` from Tasks 1 and 2, `node --test scripts/checks/`, `npm run build`, and `scripts/checks/stale-cohorts.mjs` from Task 3 with its exit code contract.
+- Consumes: `npm run check` from Tasks 1 and 2, `node --test scripts/checks/checks.test.mjs`, `npm run build`, and `scripts/checks/stale-cohorts.mjs` from Task 3 with its exit code contract.
 - Produces: a status check named `checks` for branch protection.
 
 Note: this repo removed its GitHub Actions in commit `cf3efd6`. Cloudflare builds from `main` on its own, so neither workflow deploys anything. `pr-checks.yml` is a gate and `cohort-watch.yml` is a reporter.
@@ -687,7 +687,7 @@ jobs:
         env:
           CHECK_BASE: origin/${{ github.base_ref }}
       - name: Check the checks
-        run: node --test scripts/checks/
+        run: node --test scripts/checks/checks.test.mjs
       - name: Production build
         run: npm run build
 ```
@@ -1352,7 +1352,7 @@ current macOS, so the skill uses JPEG and PNG. Verified numbers: a 12 MB
 ## Done means
 
 - [ ] `npm run check` exits 0 on a clean tree.
-- [ ] `node --test scripts/checks/` passes 8 tests.
+- [ ] `node --test scripts/checks/checks.test.mjs` passes 8 tests.
 - [ ] `npm run build` passes.
 - [ ] A deliberately unregistered page makes `npm run check` exit 1 with a message naming the fix.
 - [ ] A hook blocks a write to `dist/`.
