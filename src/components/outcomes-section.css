@@ -1,0 +1,183 @@
+/* ============================================================
+   Outcomes accordion — replaces the level-by-level syllabus
+   ============================================================ */
+
+body.rb-home .uo-outcomes {
+  background: #f2ebdd;
+  padding: 96px 0;
+}
+body.rb-home .uo-outcomes-header {
+  max-width: 760px;
+  margin: 0 0 36px;
+}
+body.rb-home .uo-outcomes-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #b85a2b;
+  margin-bottom: 14px;
+}
+body.rb-home .uo-outcomes-eyebrow::after {
+  content: "";
+  width: 120px;
+  height: 1px;
+  background: #d8c9ae;
+}
+body.rb-home .uo-outcomes-headline {
+  font-size: clamp(30px, 3.8vw, 46px);
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+  margin: 0 0 14px;
+}
+body.rb-home .uo-outcomes-sub {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: #55514b;
+  margin: 0;
+}
+
+body.rb-home .uo-outcomes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+body.rb-home .uo-out {
+  background: #faf8f4;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+body.rb-home .uo-out.open {
+  background: #ffffff;
+  box-shadow: 0 8px 32px rgba(20, 20, 20, 0.08);
+}
+
+body.rb-home .uo-out-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: none;
+  border: 0;
+  padding: 22px 26px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+body.rb-home .uo-out-icon {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  background: #f2ebdd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body.rb-home .uo-out.open .uo-out-icon { background: rgba(245, 200, 75, 0.25); }
+body.rb-home .uo-out-icon img { width: 32px; height: 32px; }
+
+body.rb-home .uo-out-heads {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+body.rb-home .uo-out-title {
+  font-family: 'Season', Georgia, serif;
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: #1a1a1a;
+}
+
+/* the + / x toggle */
+body.rb-home .uo-out-plus {
+  position: relative;
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+body.rb-home .uo-out-plus::before,
+body.rb-home .uo-out-plus::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: #b85a2b;
+  border-radius: 2px;
+  transition: transform 0.28s ease;
+}
+body.rb-home .uo-out-plus::before {
+  width: 18px; height: 2px;
+  transform: translate(-50%, -50%);
+}
+body.rb-home .uo-out-plus::after {
+  width: 2px; height: 18px;
+  transform: translate(-50%, -50%);
+}
+body.rb-home .uo-out.open .uo-out-plus::before { transform: translate(-50%, -50%) rotate(45deg); }
+/* the vertical bar has to become horizontal first, otherwise both bars land on the
+   same diagonal and the X renders as a single slash */
+body.rb-home .uo-out.open .uo-out-plus::after {
+  width: 18px;
+  height: 2px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+body.rb-home .uo-out-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.34s ease;
+}
+body.rb-home .uo-out.open .uo-out-body { grid-template-rows: 1fr; }
+body.rb-home .uo-out-body-inner { overflow: hidden; }
+
+body.rb-home .uo-out-grid {
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  gap: 40px;
+  /* Top-aligned: centring pushed the copy down the height of the visual, leaving
+     an odd gap under the heading when a row opened. */
+  align-items: start;
+  padding: 0 26px 30px 102px;
+}
+body.rb-home .uo-out-copy p {
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: #55514b;
+  margin: 0 0 12px;
+  max-width: 460px;
+}
+body.rb-home .uo-out-copy p:first-child {
+  font-size: 17px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+body.rb-home .uo-out-copy p:last-child { margin-bottom: 0; }
+body.rb-home .uo-out-visual { width: 100%; }
+
+@media (max-width: 1080px) {
+  body.rb-home .uo-out-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 26px 26px 102px;
+  }
+  body.rb-home .uo-out-visual { max-width: 460px; }
+}
+@media (max-width: 700px) {
+  body.rb-home .uo-outcomes { padding: 64px 0; }
+  body.rb-home .uo-out-head { gap: 16px; padding: 18px 18px; }
+  body.rb-home .uo-out-icon { width: 44px; height: 44px; border-radius: 10px; }
+  body.rb-home .uo-out-icon img { width: 26px; height: 26px; }
+  body.rb-home .uo-out-title { font-size: 18px; }
+  body.rb-home .uo-out-grid { padding: 0 18px 22px; }
+  body.rb-home .uo-out-copy p { font-size: 15px; }
+}

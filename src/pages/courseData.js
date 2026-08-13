@@ -13,6 +13,10 @@ export const COURSE_COHORTS = {
     { label: 'August 4', iso: '2026-08-04', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2pm PT / 5pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a231e65e0ed35ab57e2820e)' },
     { label: 'August 17', iso: '2026-08-17', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '4pm PT / 7pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a231fa5e0ed35ab57e28232)' },
     { label: 'September 1',  iso: '2026-09-01', scheduleDays: 'Tuesdays & Fridays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '12pm PT / 3pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a4fd3ad5c417da5103a1abd)' },
+    { label: 'September 14', iso: '2026-09-14', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2pm PT / 5pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a51144504bd393e57d03958)' },
+    { label: 'October 5', iso: '2026-10-05', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '12pm PT / 3pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a511527100f60fd68b8fb51)' },
+    { label: 'October 19', iso: '2026-10-19', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '2pm PT / 5pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a51165104bd393e57d0397c)' },
+    { label: 'November 2', iso: '2026-11-02', scheduleDays: 'Mondays & Thursdays', sessionTimes: { morning: '8am PT / 11am ET', afternoon: '12pm PT / 3pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a69077397de3ed8feceec1f)' },
   ],
   2: [
     { label: 'June 8',   iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '5pm PT / 8pm ET', thursday: '5pm PT / 8pm ET' }, enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C69f52df1cf3c823ab47ecd16)', soldOut: true },
@@ -88,7 +92,7 @@ export const courseData = {
     tools: ['OpenAI', 'Claude', 'Gemini', 'Perplexity', 'Cursor', 'n8n'],
     topics: ['Data analysis', 'Planning', 'Organization', 'Email and communication', 'Slide design', 'Vibe coding'],
     whatYoullBuild: [
-      'A CLAUDE.md context file that makes every AI output feel like you wrote it',
+      'An AI context file that makes every AI output feel like you wrote it',
       'A slide deck built from raw notes in under a minute',
       'A market research workflow you run on any topic',
       'A data workflow that turns a spreadsheet into a shareable report',
@@ -104,8 +108,8 @@ export const courseData = {
         col: [
           'Iterative and chain prompting',
           'Context windows and how to manage them',
-          'claude.md: your persistent AI context file',
-          'Claude Skills: what they are and how to create one',
+          'AI context files: giving your AI persistent memory of how you work',
+          'AI skills: what they are and how to create one',
         ],
       },
       {
@@ -231,7 +235,7 @@ export const courseData = {
       {
         title: 'Build and Ship Your Automation Roadmap',
         description: 'Map where your time goes, build an AI automation roadmap, and deploy it as an interactive dashboard.',
-        concepts: 'CLAUDE.md and the .claude folder, time audits, tool connectors in Claude Code, the AI Builder Loop, vibe coding as a development approach, auto-loading design skills.',
+        concepts: 'AI context files and your project config folder, time audits, tool connectors, the AI Builder Loop, vibe coding as a development approach, auto-loading design skills.',
         build: 'An AI automation roadmap and an interactive AI automation dashboard you deploy to builders.leland.ai.',
       },
       {

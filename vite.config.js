@@ -29,6 +29,8 @@ export default defineConfig({
         'reviews': resolve(__dirname, 'reviews.html'),
         'program': resolve(__dirname, 'program.html'),
         'program-v2': resolve(__dirname, 'program-v2.html'),
+        'program-single-price': resolve(__dirname, 'program-single-price.html'),
+        'program-unified': resolve(__dirname, 'program-unified.html'),
         'program-for-teams': resolve(__dirname, 'program-for-teams.html'),
         'siliconslopes': resolve(__dirname, 'siliconslopes.html'),
         'scaling': resolve(__dirname, 'scaling.html'),

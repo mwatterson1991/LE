@@ -3,6 +3,21 @@ import '../index.css'
 import './home-rebrand.css'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
 
+// Where "back" goes. The reviews page is reachable from more than one landing
+// page, so it reads ?from= instead of assuming /program. Only known internal
+// paths are honoured, so a crafted ?from= can't bounce anyone off-site, and an
+// absent or unrecognised value keeps the original /program behaviour.
+const RETURN_PATHS = {
+  program: '/program',
+  'program-single-price': '/program-single-price',
+}
+
+function returnPath() {
+  if (typeof window === 'undefined') return '/program'
+  const from = new URLSearchParams(window.location.search).get('from')
+  return RETURN_PATHS[from] || '/program'
+}
+
 function useColumnCount() {
   const getCount = useCallback(() => {
     const w = window.innerWidth
@@ -47,6 +62,7 @@ export default function ReviewsPage() {
   }, [])
 
   const colCount = useColumnCount()
+  const backTo = useMemo(() => returnPath(), [])
 
   // Combined: featured first, then unique 5-star feed (dedup by quote signature),
   // normalized to the shared ReviewCard shape and ordered the same way as /program
@@ -74,7 +90,7 @@ export default function ReviewsPage() {
     <div className="rv-page">
       <header className="rv-hero">
         <div className="container">
-          <a href="/program#pricing" className="rv-back">← Back to AI Builder Program</a>
+          <a href={backTo} className="rv-back">← Back to AI Builder Program</a>
           <h1 className="rv-title">
             What AI Builder grads are saying
           </h1>
@@ -100,7 +116,7 @@ export default function ReviewsPage() {
       <footer className="rv-footer">
         <div className="container">
           <p className="rv-footer-line">Want to join them?</p>
-          <a href="/program#pricing" className="rv-footer-btn">Enroll in the next cohort →</a>
+          <a href={backTo} className="rv-footer-btn">Enroll in the next cohort →</a>
         </div>
       </footer>
     </div>

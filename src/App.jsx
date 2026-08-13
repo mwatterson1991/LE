@@ -11,6 +11,8 @@ import HomePageRebrand from './pages/HomePageRebrand'
 import SiliconSlopesAiBuilderPage from './pages/SiliconSlopesAiBuilderPage'
 import TeamsProgramPage from './pages/TeamsProgramPage'
 import ProgramV2Page from './pages/ProgramV2Page'
+import UnifiedOfferPage from './pages/UnifiedOfferPage'
+import ProgramSinglePricePage from './pages/ProgramSinglePricePage'
 import PledgePage from './pages/PledgePage'
 import RecruitPage from './pages/RecruitPage'
 import LelandAIPage from './pages/LelandAIPage'
@@ -1746,8 +1748,18 @@ function App() {
   if (path.startsWith('/program/v2')) {
     return <ProgramV2Page />
   }
+  // The team-focused variant of the single offer. Kept on an explicit path so it
+  // stays reachable without taking over the homepage.
+  if (path.startsWith('/program-unified')) {
+    return <UnifiedOfferPage />
+  }
+  // The single $1,499 offer. /program-single-price is the original preview path,
+  // kept as an alias so existing links and bookmarks keep working.
+  if (path.startsWith('/program-single-price')) {
+    return <ProgramSinglePricePage />
+  }
   if (path.startsWith('/program')) {
-    return <HomePageRebrand />
+    return <ProgramSinglePricePage />
   }
   if (path.startsWith('/teams')) {
     return <B2BPage />
