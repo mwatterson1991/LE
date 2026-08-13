@@ -111,23 +111,36 @@ Add the path to the `pageNames` map in `src/App.jsx`:
 Without it the page reports as `Home` in the data layer, and its traffic is
 invisible in reporting.
 
-## 6. Nav and Footer links, when the page is permanent
+## 6. Nav and Footer links — ask first, do not add by default
 
-Two files carry internal links, and a permanent page belongs in both.
+Both lists are **curated**, not registries of every page. Do not add a new page to
+either one without asking.
 
-`src/components/Footer.jsx` holds its internal links in the For Organizations
-column, at `src/components/Footer.jsx:48`.
+`src/components/Nav.jsx` holds a `NAV_LINKS` array at lines 9 to 14 with exactly
+four entries: `/program`, `/services`, `/recruit`, and `/pledge`. Seven routed
+pages are deliberately absent, including permanent ones such as `/reviews`,
+`/teams`, `/syllabus`, and `/program-for-teams`. Being permanent does not earn a
+nav slot; primary navigation is a product decision, so ask the user whether they
+want the page there.
 
-`src/components/Nav.jsx` holds a `NAV_LINKS` array at lines 9 to 14, with
-`/program`, `/services`, `/recruit`, and `/pledge`. It renders on every page. Add
-an entry for a permanent page:
+That component is also not the site-wide header. Only five page components import
+it: `LelandAIPage`, `PledgePage`, `RecruitPage`, `ServicesPage`, and
+`TeamsProgramPage`. The rest carry their own header markup — `HomePageRebrand`
+uses `header.rb-nav`, for example. So editing `NAV_LINKS` changes those five pages
+and no others.
+
+`src/components/Footer.jsx` holds internal links in the For Organizations column
+at `src/components/Footer.jsx:48`, and is imported by four page components. It is
+curated the same way.
+
+If the user does want the page in the nav, add an entry:
 
 ```jsx
 { label: 'Your Page', href: '/your-page' },
 ```
 
-Skip both for a campaign or partner page that should not be discoverable. That is
-why `NAV_LINKS` holds only four entries while the site serves 24 pages.
+Skip both lists entirely for a campaign or partner page that should not be
+discoverable.
 
 ## Verify before you finish
 
