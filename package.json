@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "node scripts/checks/registry.mjs"
+    "check": "node scripts/checks/registry.mjs && node scripts/checks/assets.mjs"
   },
   "dependencies": {
     "border-beam": "^1.2.0",

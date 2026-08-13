@@ -82,3 +82,28 @@ test('registry accepts a link that resolves through _redirects', () => {
   const result = run('registry.mjs', root)
   assert.equal(result.status, 0, result.stdout + result.stderr)
 })
+
+test('assets passes against the real repo', () => {
+  const result = run('assets.mjs', REPO)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assets fails on a reference to a file that does not exist', () => {
+  const root = makeFixture('missing-asset', {
+    'index.html': '<img src="/assets/nope.png">',
+    'public/_redirects': '',
+  })
+  const result = run('assets.mjs', root)
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /nope\.png/)
+})
+
+test('assets accepts a URL-encoded reference whose file exists', () => {
+  const root = makeFixture('encoded-asset', {
+    'index.html': '<img src="/logos/My%20Logo.svg">',
+    'public/logos/My Logo.svg': '<svg/>',
+    'public/_redirects': '',
+  })
+  const result = run('assets.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
