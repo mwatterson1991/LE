@@ -131,3 +131,14 @@ test('assetBudget returns null for unknown extension', () => {
   const entry = assetBudget('public/data.txt')
   assert.equal(entry, null)
 })
+
+test('stale-cohorts flags a passed cohort that still sells', () => {
+  const result = spawnSync('node', [path.join(REPO, 'scripts/checks/stale-cohorts.mjs')], {
+    cwd: REPO,
+    encoding: 'utf8',
+    env: { ...process.env, CHECK_ROOT: REPO, CHECK_TODAY: '2099-01-01' },
+  })
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /## Report A/)
+  assert.match(result.stdout, /Level 1/)
+})
