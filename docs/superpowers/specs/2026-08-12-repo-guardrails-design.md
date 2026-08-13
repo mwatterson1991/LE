@@ -1,7 +1,11 @@
 # Repo guardrails for non-engineer contributors
 
 Date: 2026-08-12
-Status: approved, ready for implementation planning
+Status: **implemented and superseded by the code.** Read this for intent, not for
+instructions. Several decisions here were overridden during review — most notably
+this spec asks `add-an-image` to convert to WebP with `sips`, which `sips` cannot
+do. Where this document and the code disagree, the code is correct. See the git
+history of `scripts/checks/` for what changed and why.
 
 ## Problem
 
@@ -225,4 +229,3 @@ everything.
 - **TypeScript migration.** Out of scope.
 - **Unit tests on page components.** The checks above are the tests that
   matter on a marketing site.
-```

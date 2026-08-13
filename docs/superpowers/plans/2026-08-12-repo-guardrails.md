@@ -1,5 +1,14 @@
 # Repo Guardrails Implementation Plan
 
+> **Status: executed. Do not follow the code blocks below.** They record what was
+> planned, not what shipped. Review found real defects in several of them, and the
+> committed code is the corrected version. Known differences: `registry.mjs` now
+> wraps its dynamic import in `try`/`catch` and validates redirect targets that are
+> external, splat, or `.html`-suffixed; `assets.mjs` unions the committed diff with
+> working-tree and untracked files, so it sees an uncommitted asset; the
+> `add-a-page` steps also cover creating the page component and importing it. Read
+> `scripts/checks/` and the git history for the truth.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Give non-engineer contributors automated guardrails — a `CLAUDE.md`, three check scripts, a required pull request gate, a weekly staleness cron, two hooks, and three skills — so engineering does not review every change.

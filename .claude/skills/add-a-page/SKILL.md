@@ -111,13 +111,23 @@ Add the path to the `pageNames` map in `src/App.jsx`:
 Without it the page reports as `Home` in the data layer, and its traffic is
 invisible in reporting.
 
-## 6. Footer links, when the page is permanent
+## 6. Nav and Footer links, when the page is permanent
 
-`src/components/Footer.jsx` holds the internal links, in the For Organizations
-column at `src/components/Footer.jsx:48`. `Nav.jsx` has no internal links, so
-it needs no change.
+Two files carry internal links, and a permanent page belongs in both.
 
-Skip this for a campaign or partner page that should not be discoverable.
+`src/components/Footer.jsx` holds its internal links in the For Organizations
+column, at `src/components/Footer.jsx:48`.
+
+`src/components/Nav.jsx` holds a `NAV_LINKS` array at lines 9 to 14, with
+`/program`, `/services`, `/recruit`, and `/pledge`. It renders on every page. Add
+an entry for a permanent page:
+
+```jsx
+{ label: 'Your Page', href: '/your-page' },
+```
+
+Skip both for a campaign or partner page that should not be discoverable. That is
+why `NAV_LINKS` holds only four entries while the site serves 24 pages.
 
 ## Verify before you finish
 

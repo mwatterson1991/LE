@@ -5,7 +5,7 @@ import { ROOT, sourceFiles, reporter, assetBudget } from './lib.mjs'
 
 const { fail, finish } = reporter('assets')
 const BASE = process.env.CHECK_BASE ?? 'origin/main'
-const ASSET = /\.(png|jpe?g|svg|webp|gif|avif|mp4|webm|mov|woff2?|pdf|ico|ics)$/i
+const ASSET = /\.(png|jpe?g|svg|webp|gif|avif|mp4|webm|mov|woff2?|otf|ttf|pdf|ico|ics)$/i
 
 function kb(bytes) {
   return `${Math.round(bytes / 1024)} KB`

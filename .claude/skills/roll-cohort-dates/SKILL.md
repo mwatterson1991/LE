@@ -46,28 +46,41 @@ Edit `src/pages/courseData.js`:
 
 ## 4. Sweep the copies
 
-Search for the old date in every form it takes:
+Search for the old date in every form it takes. **A search for the full month
+name alone is not enough.** Measured for August 4 in this repo: `Aug 4` matches 20
+lines, `August 4` matches 16, and **10 lines carry only the abbreviated form** — so
+searching for `August 4` alone leaves 10 stale copies behind and reports success.
 
 ```bash
-grep -rn "August 4" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
+grep -rnE "(August|Aug) 4" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
 grep -rn "2026-08-04" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
 ```
 
-Search the written month name and the ISO form separately. Commit `8048846`
-had to sweep five landing page files by hand, and commit `6e7fc2b` found
-`App.jsx` and `HomePageRebrand.jsx` as two separate discoveries. Assume there
-is one more file than you have found.
+The first command uses `-rnE` and an alternation so it catches both spellings at
+once. The second catches the ISO form. Substitute your own month and day.
+
+Session lists use the abbreviated form with a weekday, as in
+`date: 'Tue, Aug 4'`, and some copy adds the year, as in `August 4, 2026`. The
+alternation above covers all of them, because it matches the month and day
+wherever they appear.
+
+Commit `8048846` had to sweep five landing page files by hand, and commit
+`6e7fc2b` found `App.jsx` and `HomePageRebrand.jsx` as two separate discoveries.
+Assume there is one more file than you have found.
 
 ## 5. Verify
 
-First, confirm the old date is gone from every page file:
+First, confirm the old date is gone from every page file. Re-run the **same two
+searches from Step 4**, including the `(August|Aug)` alternation:
 
 ```bash
-grep -rn "August 4" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
+grep -rnE "(August|Aug) 4" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
 grep -rn "2026-08-04" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
 ```
 
-No page file may still contain the old date. Both greps must print zero results.
+No page file may still contain the old date. Both commands must print zero
+results. A search that drops the abbreviated form will print zero while stale
+copies remain, so this check is only as good as the pattern above.
 
 Then confirm the staleness report is clean:
 

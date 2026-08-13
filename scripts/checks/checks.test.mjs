@@ -200,3 +200,51 @@ test('stale-cohorts flags a passed cohort that still sells', () => {
   assert.match(result.stdout, /## Report A/)
   assert.match(result.stdout, /Level 1/)
 })
+
+test('registry catches a dead link written with an explicit .html extension', () => {
+  const root = makeFixture('deadlink-html', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<a href="/does-not-exist.html">dead</a>',
+    'good.html': '<html></html>',
+    'public/_redirects': '',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /does-not-exist/)
+})
+
+test('registry still accepts a live link written with an explicit .html extension', () => {
+  const root = makeFixture('livelink-html', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<a href="/good.html">live</a>',
+    'good.html': '<html></html>',
+    'public/_redirects': '',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assets catches a missing .otf font reference', () => {
+  const root = makeFixture('missing-font', {
+    'index.html': '<style>@font-face{src:url("/assets/fonts/Nope-Regular.otf")}</style>',
+    'public/_redirects': '',
+  })
+  const result = run('assets.mjs', root)
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /Nope-Regular\.otf/)
+})
+
+test('assetBudget gives a font its own budget rather than skipping it', () => {
+  const entry = assetBudget('public/assets/fonts/Heavy-Regular.otf')
+  assert.equal(entry.kind, 'other')
+  assert.equal(entry.limit, 2 * 1024 * 1024)
+  assert.doesNotMatch(entry.fix('public/assets/fonts/Heavy-Regular.otf'), /sips/)
+})
+
+test('assetBudget does not re-encode a non-JPEG raster as JPEG', () => {
+  const png = assetBudget('public/logos/mark.png').fix('public/logos/mark.png')
+  assert.doesNotMatch(png, /format jpeg/)
+  assert.match(png, /sips -Z 1600 "public\/logos\/mark\.png"/)
+  const jpg = assetBudget('public/images/photo.jpg').fix('public/images/photo.jpg')
+  assert.match(jpg, /format jpeg/)
+})

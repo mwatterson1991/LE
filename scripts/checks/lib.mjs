@@ -46,9 +46,16 @@ const BUDGETS = [
     kind: 'raster',
     match: /\.(png|jpe?g|webp|gif|avif)$/i,
     limit: 400 * 1024,
-    fix: rel =>
-      `Fix: sips -Z 1600 -s format jpeg -s formatOptions 72 "${rel}" --out "/tmp/sips-resize-${rel.replace(/\//g, '_')}"\n` +
-      'WARNING: never point --out at the input file; sips will overwrite it with no backup. The command above writes to a temporary file. Move it to replace the original only after verifying the quality.',
+    fix: rel => {
+      // Only re-encode a file that is already JPEG. Writing JPEG bytes to a
+      // .png or .webp path drops transparency and mismatches the extension.
+      const jpegOptions = /\.jpe?g$/i.test(rel) ? '-s format jpeg -s formatOptions 72 ' : ''
+      const out = `/tmp/sips-resize-${rel.replace(/\//g, '_')}`
+      return (
+        `Fix: sips -Z 1600 ${jpegOptions}"${rel}" --out "${out}"\n` +
+        'WARNING: never point --out at the input file; sips will overwrite it with no backup. The command above writes to a temporary file. Move it to replace the original only after verifying the quality.'
+      )
+    },
   },
   {
     kind: 'svg',
@@ -58,7 +65,7 @@ const BUDGETS = [
   },
   {
     kind: 'other',
-    match: /\.(woff2?|pdf|ico|ics)$/i,
+    match: /\.(woff2?|otf|ttf|pdf|ico|ics)$/i,
     limit: 2 * 1024 * 1024,
     fix: () => 'Compress the file, or ask an engineer whether it belongs in the repo.',
   },

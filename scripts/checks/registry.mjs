@@ -89,7 +89,10 @@ for (const file of sourceFiles()) {
   for (const match of text.matchAll(linkPattern)) {
     const url = match[1]
     if (url.startsWith('//') || reported.has(url)) continue
-    if (/\.[a-z0-9]{2,5}$/i.test(normalize(url))) continue
+    // Skip asset URLs, which assets.mjs owns. A .html link is a page link, not
+    // an asset, so it must still be resolved.
+    const target = normalize(url)
+    if (!/\.html$/i.test(target) && /\.[a-z0-9]{2,5}$/i.test(target)) continue
     if (resolves(url, pages, redirects)) continue
     reported.add(url)
     fail('Internal link goes nowhere', [
