@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>AI Builder Program — Overview</title>
+<style>
+  @font-face { font-family: 'Macan'; src: url('/assets/fonts/Macan/Macan-Book.woff2') format('woff2'); font-weight: 400; font-display: block; }
+  @font-face { font-family: 'Macan'; src: url('/assets/fonts/Macan/Macan-Medium.woff2') format('woff2'); font-weight: 500; font-display: block; }
+  @font-face { font-family: 'Macan'; src: url('/assets/fonts/Macan/Macan-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: block; }
+  @font-face { font-family: 'Season'; src: url('/assets/fonts/Season/SeasonMix-Medium.woff2') format('woff2'); font-weight: 500; font-display: block; }
+
+  :root {
+    --ink: #1a1a1a;
+    --muted: #55514b;
+    --faint: #8d877e;
+    --line: #e6e2da;
+    --cream: #f7f6f3;
+    --yellow: #ffd667;
+    --rust: #a14e22;
+    --blue-bg: #dce8f7;
+    --blue-ink: #2f5aa0;
+    --plum-bg: #ece5f1;
+    --plum-ink: #6b577f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @page { size: Letter; margin: 0; }
+
+  html, body { background: #fff; }
+  body {
+    font-family: 'Macan', -apple-system, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.44in 0.5in 0.4in;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  h1, h2, h3 { font-family: 'Season', Georgia, serif; font-weight: 500; letter-spacing: -0.015em; }
+
+  /* ---------- masthead ---------- */
+  .mast { display: flex; align-items: center; justify-content: space-between; padding-bottom: 9px; border-bottom: 2px solid var(--ink); }
+  .mast-logos { display: flex; align-items: center; gap: 11px; }
+  .mast-logos img.leland { height: 21px; }
+  .mast-logos .divider { width: 1px; height: 18px; background: var(--line); }
+  .mast-logos img.aibp { height: 17px; }
+  .mast-url { font-size: 8pt; font-weight: 500; color: var(--faint); letter-spacing: 0.02em; }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 16px 0 14px; border-bottom: 1px solid var(--line); }
+  .hero h1 { font-size: 27pt; line-height: 1.06; margin-bottom: 8px; }
+  .hero h1 .hl { background: linear-gradient(transparent 62%, var(--yellow) 62%); padding: 0 2px; }
+  .hero p { font-size: 10.5pt; color: var(--muted); max-width: 6.6in; }
+
+  /* ---------- stat strip ---------- */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .stat { background: var(--cream); border-radius: 9px; padding: 10px 11px; }
+  .stat-n { font-family: 'Season', Georgia, serif; font-size: 16pt; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+  .stat-l { font-size: 7.6pt; color: var(--muted); line-height: 1.3; margin-top: 4px; }
+
+  /* ---------- generic section ---------- */
+  .sec { padding: 13px 0 0; }
+  .sec-label { font-size: 7.6pt; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+  .sec h2 { font-size: 14.5pt; margin-bottom: 4px; }
+  .sec .lede { font-size: 9.6pt; color: var(--muted); margin-bottom: 10px; max-width: 6.8in; }
+
+  /* ---------- level rows ---------- */
+  .levels { display: flex; flex-direction: column; gap: 6px; }
+  .lvl { display: flex; gap: 11px; align-items: flex-start; border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; }
+  .lvl-tile { flex-shrink: 0; width: 41px; height: 41px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+  .lvl-tile-w { font-size: 5.6pt; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; opacity: 0.72; }
+  .lvl-tile-n { font-family: 'Season', Georgia, serif; font-size: 14pt; font-weight: 500; letter-spacing: -0.02em; margin-top: 1px; }
+  .t-zero { background: #f0ede7; color: #6f6a61; }
+  .t-one  { background: var(--yellow); color: #7d3c17; }
+  .t-two  { background: var(--blue-bg); color: var(--blue-ink); }
+  .t-adv  { background: var(--plum-bg); color: var(--plum-ink); }
+  .lvl-body { flex: 1; min-width: 0; }
+  .lvl-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .lvl-name { font-size: 10.4pt; font-weight: 600; letter-spacing: -0.01em; }
+  .lvl-tag { font-size: 6.7pt; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rust); background: #ffeec2; border-radius: 99px; padding: 2.5px 7px; }
+  .lvl-desc { font-size: 8.8pt; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+  /* ---------- footer bar ---------- */
+  .foot { margin-top: auto; padding-top: 11px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .foot-note { font-size: 7.6pt; color: var(--faint); }
+
+  /* ---------- page 2 ---------- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .card { border: 1px solid var(--line); border-radius: 9px; padding: 11px 12px; }
+  .card h3 { font-family: 'Macan', sans-serif; font-size: 9.8pt; font-weight: 600; letter-spacing: -0.005em; margin-bottom: 6px; }
+  .card ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .card li { font-size: 8.6pt; color: var(--muted); line-height: 1.4; padding-left: 12px; position: relative; }
+  .card li::before { content: ""; position: absolute; left: 0; top: 6px; width: 4px; height: 4px; border-radius: 50%; background: var(--yellow); }
+
+  .incl { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 18px; }
+  .incl li { list-style: none; font-size: 8.9pt; line-height: 1.4; padding-left: 15px; position: relative; color: var(--ink); }
+  .incl li::before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--rust); font-weight: 700; font-size: 8.5pt; }
+
+  /* ---------- price band ---------- */
+  .price-band { background: var(--cream); border-radius: 11px; padding: 14px 16px; display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; }
+  .price-n { font-family: 'Season', Georgia, serif; font-size: 31pt; font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
+  .price-cap { font-size: 8pt; color: var(--muted); margin-top: 4px; }
+  .price-copy { font-size: 8.9pt; color: var(--muted); line-height: 1.45; }
+  .price-copy strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- cohorts ---------- */
+  .cohorts { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .cohort { display: flex; align-items: center; gap: 11px; background: var(--cream); border-radius: 9px; padding: 9px 11px; }
+  .cohort-cal { flex-shrink: 0; width: 39px; border-radius: 7px; background: var(--yellow); padding: 5px 0 6px; text-align: center; line-height: 1; }
+  .cohort-m { display: block; font-size: 6.4pt; font-weight: 700; letter-spacing: 0.1em; color: var(--rust); }
+  .cohort-d { display: block; font-family: 'Season', Georgia, serif; font-size: 14pt; font-weight: 500; margin-top: 2px; }
+  .cohort-t { font-size: 9.4pt; font-weight: 600; }
+  .cohort-s { font-size: 8pt; color: var(--muted); margin-top: 1px; }
+
+  /* ---------- quote ---------- */
+  .quote { background: var(--ink); color: #fff; border-radius: 11px; padding: 14px 17px; display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+  .quote p { font-family: 'Season', Georgia, serif; font-size: 11.5pt; line-height: 1.32; letter-spacing: -0.01em; }
+  .quote .attrib { font-size: 8pt; color: #b8b2a8; white-space: nowrap; }
+
+  /* ---------- logos ---------- */
+  .logo-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 2px; }
+  .logo-row img { height: 17px; max-width: 88px; object-fit: contain; filter: grayscale(1); opacity: 0.8; }
+
+  /* ---------- CTA ---------- */
+  .cta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+  .cta-box { border: 1px solid var(--ink); border-radius: 9px; padding: 10px 12px; }
+  .cta-l { font-size: 7.4pt; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: var(--faint); margin-bottom: 3px; }
+  .cta-v { font-size: 9.2pt; font-weight: 500; word-break: break-word; }
+</style>
+</head>
+<body>
+
+<!-- ============================ PAGE 1 ============================ -->
+<section class="page">
+  <div class="mast">
+    <span class="mast-logos">
+      <img class="leland" src="/assets/logo-dark.svg" alt="Leland" />
+      <span class="divider"></span>
+      <img class="aibp" src="/assets/logos/aibp-dark.png" alt="AI Builder Program" />
+    </span>
+    <span class="mast-url">leland.ai</span>
+  </div>
+
+  <div class="hero">
+    <h1>Go from using AI to <span class="hl">building with it.</span></h1>
+    <p>The AI Builder Program is a hands-on program for knowledge workers, not engineers. You build real
+      skills, agents, and automations for your own work in every session, and leave with a portfolio you
+      can put to work immediately.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Builds in your portfolio from Level&nbsp;1 alone</div></div>
+    <div class="stat"><div class="stat-n">4 &times; 90min</div><div class="stat-l">Live core sessions over 2 weeks per level</div></div>
+    <div class="stat"><div class="stat-n">4.6/5</div><div class="stat-l">From 534 verified reviews</div></div>
+    <div class="stat"><div class="stat-n">Every 2 wks</div><div class="stat-l">A new live Level 1 cohort starts</div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">The core program</div>
+    <h2>Five levels, plus a free Foundations track.</h2>
+    <p class="lede">Every level is included in one price. Start with Foundations, get up to speed in a live
+      Level 1 cohort, then keep going through Level 5 at your own pace with optional live sessions and a
+      dedicated TA behind you.</p>
+
+    <div class="levels">
+      <div class="lvl">
+        <span class="lvl-tile t-zero"><span class="lvl-tile-w">Level</span><span class="lvl-tile-n">00</span></span>
+        <span class="lvl-body">
+          <span class="lvl-top"><span class="lvl-name">AI Builder Foundations</span><span class="lvl-tag">Self-paced &middot; optional</span></span>
+          <div class="lvl-desc">A free, hands-on introduction to using AI as a real tool in your work. Four core
+            modules, fully async, no coding experience or paid AI subscription required.</div>
+        </span>
+      </div>
+      <div class="lvl">
+        <span class="lvl-tile t-one"><span class="lvl-tile-w">Level</span><span class="lvl-tile-n">01</span></span>
+        <span class="lvl-body">
+          <span class="lvl-top"><span class="lvl-name">Use AI to 10x Your Impact</span><span class="lvl-tag">Live cohort</span></span>
+          <div class="lvl-desc">Go from AI user to AI builder: a research workflow, a data model, a daily
+            automation, and a writing system that sounds like you.</div>
+        </span>
+      </div>
+      <div class="lvl">
+        <span class="lvl-tile t-two"><span class="lvl-tile-w">Level</span><span class="lvl-tile-n">02</span></span>
+        <span class="lvl-body">
+          <span class="lvl-top"><span class="lvl-name">Build Complex Agentic Workflows</span><span class="lvl-tag">Self-paced &middot; live optional</span></span>
+          <div class="lvl-desc">Build a toolkit of specialized agents and finish with a full pipeline that runs
+            from first message to sale with no manual steps.</div>
+        </span>
+      </div>
+      <div class="lvl">
+        <span class="lvl-tile t-two"><span class="lvl-tile-w">Level</span><span class="lvl-tile-n">03</span></span>
+        <span class="lvl-body">
+          <span class="lvl-top"><span class="lvl-name">Create Autonomous Agents</span><span class="lvl-tag">Self-paced &middot; live optional</span></span>
+          <div class="lvl-desc">Build systems that trigger automatically, run in the background, and operate
+            24/7 with no manual step between you and the output.</div>
+        </span>
+      </div>
+      <div class="lvl">
+        <span class="lvl-tile t-adv"><span class="lvl-tile-w">Level</span><span class="lvl-tile-n">04</span></span>
+        <span class="lvl-body">
+          <span class="lvl-top"><span class="lvl-name">Build Your Agent Workforce</span><span class="lvl-tag">Advanced</span></span>
+          <div class="lvl-desc">Design systems where agents coordinate, delegate, evaluate each other's work,
+            and run full business processes from trigger to done.</div>
+        </span>
+      </div>
+      <div class="lvl">
+        <span class="lvl-tile t-adv"><span class="lvl-tile-w">Level</span><span class="lvl-tile-n">05</span></span>
+        <span class="lvl-body">
+          <span class="lvl-top"><span class="lvl-name">Build Your AI Orchestration Layer</span><span class="lvl-tag">Advanced</span></span>
+          <div class="lvl-desc">Build a fully autonomous AI team that sources, acts, self-corrects, and improves
+            over time, with you setting direction and reviewing exceptions.</div>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="quote">
+      <p>&ldquo;I came in as a business owner who uses AI daily but builds inconsistently. I left with systems
+        that run without me.&rdquo;</p>
+      <span class="attrib">&mdash; Connor M.<br />Level 2 graduate</span>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-note">AI Builder Program &middot; Leland &middot; Page 1 of 2</span>
+    <span class="foot-note">Ratings as of August 6, 2026</span>
+  </div>
+</section>
+
+<!-- ============================ PAGE 2 ============================ -->
+<section class="page">
+  <div class="mast">
+    <span class="mast-logos">
+      <img class="leland" src="/assets/logo-dark.svg" alt="Leland" />
+      <span class="divider"></span>
+      <img class="aibp" src="/assets/logos/aibp-dark.png" alt="AI Builder Program" />
+    </span>
+    <span class="mast-url">leland.ai</span>
+  </div>
+
+  <div class="hero" style="padding-bottom:12px">
+    <h1 style="font-size:22pt">What you get, and <span class="hl">what it costs.</span></h1>
+  </div>
+
+  <div class="sec" style="padding-top:12px">
+    <div class="price-band">
+      <div>
+        <div class="price-n">$1,499</div>
+        <div class="price-cap">Same price for individuals and teams</div>
+      </div>
+      <div class="price-copy">
+        <strong>Everything is included.</strong> Volume discounts and centralized billing are available for
+        teams of any size. We also offer special pricing for nonprofit, education, and military organizations,
+        and anyone can apply for a scholarship. Cost should never be the reason you don't learn AI.
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">What's included</div>
+    <ul class="incl">
+      <li>Live Level 1 cohort, with new cohorts starting every two weeks</li>
+      <li>AI Builder Foundations, plus every level on demand through Level 5</li>
+      <li>Weekly office hours and a dedicated TA you can message anytime</li>
+      <li>Function-specific blueprints, strategy guides, and agent templates</li>
+      <li>Curriculum updated weekly, built by AI experts</li>
+      <li>Builder community and verified certificate of completion</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">How it works</div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Built around your real work</h3>
+        <ul>
+          <li>You bring your own use cases, not toy exercises</li>
+          <li>Every session ends with something you actually use</li>
+          <li>Tool-agnostic: bring ChatGPT, Claude, or Gemini</li>
+          <li>No coding experience required</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Live, but never a blocker</h3>
+        <ul>
+          <li>Four 90-minute core sessions over two weeks</li>
+          <li>Optional build workshops with functional experts</li>
+          <li>Every session is recorded</li>
+          <li>Bring questions to weekly office hours</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Who it's for</div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Individuals</h3>
+        <ul>
+          <li>You use ChatGPT or Claude daily to draft and summarize, but haven't connected AI to your other tools</li>
+          <li>You want hours back, not another course to sit through</li>
+          <li>Executives, marketing, sales, CS, ops, finance, product, and HR</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Teams</h3>
+        <ul>
+          <li>Same program, same price per seat, with volume discounts and centralized billing</li>
+          <li>Your people leave with skills, agents, and automations built for your business</li>
+          <li>From 10-person startups to Fortune 500s</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Certification</div>
+    <p class="lede" style="margin-bottom:0">Every level culminates in a verified certificate of completion from
+      Leland. Finish all five and earn the full AI Builder designation, a signal to employers, clients, and
+      colleagues that you operate at the highest level of AI proficiency.</p>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">Upcoming live Level 1 cohorts</div>
+    <div class="cohorts">
+      <div class="cohort">
+        <span class="cohort-cal"><span class="cohort-m">AUG</span><span class="cohort-d">17</span></span>
+        <span><div class="cohort-t">Starts August 17</div><div class="cohort-s">Mondays &amp; Thursdays &middot; 8am or 4pm PT</div></span>
+      </div>
+      <div class="cohort">
+        <span class="cohort-cal"><span class="cohort-m">SEP</span><span class="cohort-d">1</span></span>
+        <span><div class="cohort-t">Starts September 1</div><div class="cohort-s">Tuesdays &amp; Fridays &middot; 8am or 12pm PT</div></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-label">We've trained people from hundreds of top organizations</div>
+    <div class="logo-row">
+      <img src="/assets/org-logos/gitlab.svg" alt="GitLab" />
+      <img src="/assets/org-logos/adobe.svg" alt="Adobe" />
+      <img src="/assets/org-logos/cisco.svg" alt="Cisco" />
+      <img src="/assets/org-logos/nike.svg" alt="Nike" />
+      <img src="/assets/org-logos/linkedin.svg" alt="LinkedIn" />
+      <img src="/assets/org-logos/miro.svg" alt="Miro" />
+      <img src="/assets/org-logos/morgan-stanley.svg" alt="Morgan Stanley" />
+      <img src="/assets/org-logos/etsy.svg" alt="Etsy" />
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="cta">
+      <div class="cta-box"><div class="cta-l">Enroll</div><div class="cta-v">leland.ai</div></div>
+      <div class="cta-box"><div class="cta-l">Talk to our team</div><div class="cta-v">Book a call at leland.ai</div></div>
+      <div class="cta-box"><div class="cta-l">Support</div><div class="cta-v">joinleland.com/support</div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="foot-note">AI Builder Program &middot; Leland &middot; Page 2 of 2</span>
+    <span class="foot-note">Cohort dates current as of August 6, 2026</span>
+  </div>
+</section>
+
+</body>
+</html>

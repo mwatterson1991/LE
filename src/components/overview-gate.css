@@ -1,0 +1,133 @@
+/* ============================================================
+   Overview gate — email capture before the program overview PDF
+   ============================================================ */
+
+.ogate-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(16, 15, 14, 0.62);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: ogate-fade 0.18s ease;
+}
+@keyframes ogate-fade { from { opacity: 0 } to { opacity: 1 } }
+
+.ogate {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 40px 32px;
+  box-shadow: 0 24px 70px rgba(20, 20, 20, 0.28);
+  animation: ogate-rise 0.22s ease;
+  font-family: 'Macan', -apple-system, sans-serif;
+  color: #1a1a1a;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+@keyframes ogate-rise { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+
+.ogate-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: none;
+  font-size: 26px;
+  line-height: 1;
+  color: #9a958c;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.ogate-close:hover { color: #1a1a1a; background: #f7f6f3; }
+
+.ogate-eyebrow {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a14e22;
+  margin-bottom: 10px;
+}
+.ogate-title {
+  font-family: 'Season', Georgia, serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.14;
+  margin: 0 0 10px;
+}
+.ogate-sub {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #55514b;
+  margin: 0 0 24px;
+}
+
+.ogate-form { display: flex; flex-direction: column; gap: 14px; }
+.ogate-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.ogate-field { display: flex; flex-direction: column; gap: 6px; }
+.ogate-field > span {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #4a453d;
+}
+.ogate-field > span em {
+  font-style: normal;
+  font-weight: 500;
+  color: #9a958c;
+}
+.ogate-field input {
+  font-family: inherit;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #f7f6f3;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.ogate-field input:focus {
+  background: #fff;
+  border-color: #ffd667;
+  box-shadow: 0 0 0 3px rgba(255, 214, 103, 0.35);
+}
+.ogate-field input[aria-invalid="true"] {
+  border-color: #c2452d;
+  box-shadow: 0 0 0 3px rgba(194, 69, 45, 0.14);
+}
+
+.ogate-error {
+  font-size: 13.5px;
+  color: #c2452d;
+  margin: -4px 0 0;
+}
+.ogate-submit { margin-top: 6px; width: 100%; justify-content: center; }
+.ogate-fine {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #9a958c;
+  margin: 0;
+  text-align: center;
+}
+
+.ogate-done { text-align: center; padding: 8px 0 4px; }
+.ogate-done .ogate-sub { margin-bottom: 22px; }
+.ogate-done a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 560px) {
+  .ogate { padding: 32px 24px 26px; border-radius: 16px; }
+  .ogate-title { font-size: 24px; }
+  .ogate-row { grid-template-columns: 1fr; }
+}

@@ -3,6 +3,21 @@ import '../index.css'
 import './home-rebrand.css'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
 
+// Where "back" goes. The reviews page is reachable from more than one landing
+// page, so it reads ?from= instead of assuming /program. Only known internal
+// paths are honoured, so a crafted ?from= can't bounce anyone off-site, and an
+// absent or unrecognised value keeps the original /program behaviour.
+const RETURN_PATHS = {
+  program: '/program',
+  'program-single-price': '/program-single-price',
+}
+
+function returnPath() {
+  if (typeof window === 'undefined') return '/program'
+  const from = new URLSearchParams(window.location.search).get('from')
+  return RETURN_PATHS[from] || '/program'
+}
+
 function useColumnCount() {
   const getCount = useCallback(() => {
     const w = window.innerWidth
@@ -47,6 +62,7 @@ export default function ReviewsPage() {
   }, [])
 
   const colCount = useColumnCount()
+  const backTo = useMemo(() => returnPath(), [])
 
   // Combined: featured first, then unique 5-star feed (dedup by quote signature),
   // normalized to the shared ReviewCard shape and ordered the same way as /program
@@ -75,7 +91,7 @@ export default function ReviewsPage() {
       <header className="rv-hero">
         <div className="container">
           <div className="rv-hero-links">
-            <a href="/program#pricing" className="rv-back">← Back to AI Builder Program</a>
+            <a href={backTo} className="rv-back">← Back to AI Builder Program</a>
             <a href="https://www.lelandcourses.com/program/results/" target="_blank" rel="noopener noreferrer" className="btn btn-primary rv-results-cta">
               See our results <span className="arrow">→</span>
             </a>
@@ -106,7 +122,7 @@ export default function ReviewsPage() {
         <div className="container">
           <p className="rv-footer-line">Want to join them?</p>
           <div className="rv-footer-cta-row">
-            <a href="/program#pricing" className="rv-footer-btn">Enroll in the next cohort →</a>
+            <a href={`${backTo}#pricing`} className="rv-footer-btn">Enroll in the next cohort →</a>
             <a href="https://www.lelandcourses.com/program/results/" target="_blank" rel="noopener noreferrer" className="rv-footer-btn rv-footer-btn-secondary">See our results</a>
           </div>
         </div>

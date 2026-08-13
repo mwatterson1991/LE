@@ -1,0 +1,43 @@
+name: Cohort watch
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build the report
+        id: report
+        run: |
+          if node scripts/checks/stale-cohorts.mjs > report.md; then
+            echo "findings=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "findings=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: File or update the issue
+        if: steps.report.outputs.findings == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -s report.md ]; then
+            echo "report.md is empty (the script likely crashed before printing). Skipping."
+            exit 0
+          fi
+          gh label create cohort-watch --color FBCA04 --description "Cohort data needs a refresh" || true
+          existing=$(gh issue list --label cohort-watch --state open --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file report.md
+          else
+            gh issue create --title "Cohort data needs a refresh" --label cohort-watch --body-file report.md
+          fi

@@ -19,10 +19,24 @@
     "photo_url": "https://user-assets.joinleland.com/profile-photos/69c5ac01fec156d5da84677e.jpg?fit=crop&crop=faces&h=320&w=320"
   },
   {
+    "display_name": "Connor M.",
+    "level": "L2",
+    "rating": 5.0,
+    "review": "Level 2 delivered. I came in as a business owner who uses AI daily but builds inconsistently. **I left with systems that run without me.**The biggest thing I built is a Friday Pain Points Digest. It reads 4 work mailboxes every week, classifies homeowner complaints and internal failures, ranks them by impact, and emails me a 2-minute analysis with automation picks. No manual work. The brief shows up Friday afternoon.I also built a 25+ file knowledge base that gives my AI tools full context on my business, custom skills for email triage, brand design, and homeowner communications, and a /learn retrospective that audits my setup after every session. I connected 10+ tools into one workspace: Outlook, HubSpot, Slack, Notion, Zoom, and n8n.The thing that actually changed how I build is reliability. A prompt that works once isn't a system. These things run every week without me touching them.",
+    "photo_url": "https://user-assets.joinleland.com/profile-photos/69e79665d5d620e9408fa5c5.jpg?fit=crop&crop=faces&h=320&w=320"
+  },
+  {
     "display_name": "Valentin K.",
     "level": "L1",
     "rating": 5,
     "review": "**The class value is 100x its cost!** By the end of session 2 I built a fully automated workflow for my wife's travel business that takes her note as input and produces beautifully designed mobile-friendly multi-language travel itineraries that later get automatically sent to her clients."
+  },
+  {
+    "display_name": "Corinna H.",
+    "level": "L2",
+    "rating": 5.0,
+    "review": "Before AIBP, I was using AI heavily, but everything was isolated. Even automations still needed babysitting. No continuity between sessions. The constant sense that things were falling through the cracks.\n\nWhat I built in the program changed that. I have a personal dashboard tracking all my active projects, and a knowledge wiki — so every AI session I open already knows my business. No more repeating myself. \n\nI got real hours back. And I'm not overwhelmed by my own operations anymore.",
+    "photo_url": "https://user-assets.joinleland.com/profile-photos/68812202ce31dc951adee6de.png?fit=crop&crop=faces&h=320&w=320"
   },
   {
     "display_name": "Brandon M.",
@@ -32,11 +46,23 @@
     "photo_url": "https://user-assets.joinleland.com/profile-photos/690f45e31359ce40f359046b.jpg?fit=crop&crop=faces&h=320&w=320"
   },
   {
+    "display_name": "Alonzo D.",
+    "level": "L2",
+    "rating": 5.0,
+    "review": "The program delivered exactly what it promised, not theory, but actual functioning builds. I left Level 2 with a 7 AM email triage agent running daily, a client-scoping tool that turns a problem description into a pitch brief in minutes, and two packaged design system skills I deploy on any UI project. The most valuable thing wasn't any single build. It was the compounding: every tool I built made the next one faster. By the final session, I wasn't re-explaining who I am or what I need. Claude already knew, because I'd built the context that made it possible."
+  },
+  {
     "display_name": "Debby C.",
     "level": "L1",
     "rating": 5,
     "review": "The AI Builder Bootcamp was a game-changer for my second venture. **In just three weeks, I made more progress than I had in the previous three years combined.** As a solo business owner, efficiency is everything; this course provided the exact tools I needed to streamline my operations and maximize the quality time I spend with my clients. Most importantly, the work I did during the program led directly to signing my first client! A huge thank you to Nick and the incredible TAs for their support and expertise.",
     "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocLraWyGsT7mtRqf-IOXZckD87ESSRbI4_VyHe0Budo3mnZggQ=s96-c"
+  },
+  {
+    "display_name": "Blaise P.",
+    "level": "L2",
+    "rating": 5.0,
+    "review": "**This course completely changed how I think about my workday.** The AI workflow concepts clicked fast, and the automation I built to host my own productivity site with live task tracking, sales pipeline, and cold outreach all running together... is something I use every single day. If you're serious about working smarter and actually building something that sticks, this is the course to take."
   },
   {
     "display_name": "Caroline L.",
@@ -45,11 +71,24 @@
     "review": "During this class I built four additional websites outside of my portfolio along with multiple workflows and tasks. This class was **EXTREMELY helpful in becoming an AI power user** within my team and company. It gave me the knowledge and confidence in building everything with AI."
   },
   {
+    "display_name": "Janira G.",
+    "level": "L2",
+    "rating": 5.0,
+    "review": "I built a complete Level 2 automation system: a knowledge wiki, two Claude Code routines connected to live APIs, an email‑manager workflow with QA, and a fully updated automation dashboard. The most valuable part was learning how to design agentic routines that read context, call APIs, and deliver useful briefs automatically. Now I can build custom automations that save time every day and scale with my work."
+  },
+  {
     "display_name": "Andrew S.",
     "level": "L1",
     "rating": 5,
     "review": "This course was incredible. Instructors and TAs were super hands on. **Walked away with real skills to help me grow a side business** and optimize my day to day work.",
     "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocIEuOync1V-HEj6z7Fk0W2Pe857xPtHLehuFRUpGK-ofxtEi7U=s96-c"
+  },
+  {
+    "display_name": "Tucker S.",
+    "level": "L2",
+    "rating": 5.0,
+    "review": "Through this program, I was able to build multiple updated briefings and have particularly enjoyed the idea of building a brain, not only for my own organization but also for personal projects I'm working on. I've been a long-time follower and believer in Leland, back to probably near the founding, and it's been pretty amazing to watch what has happened as Leland has gone all in on AI upskilling! I think this is going to be one of the largest needs over the next five years, and things are just getting started in this market. I'm expecting tremendous things from Leland, and this program was certainly a great indication of all to come with Leland.",
+    "photo_url": "https://lh3.googleusercontent.com/a/AGNmyxYiYaKnsGOoF41yJ8LLemFEFIKx9ae5MjgpQeqi=s96-c"
   },
   {
     "display_name": "Alexa C.",

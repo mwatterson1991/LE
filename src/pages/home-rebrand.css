@@ -2623,3 +2623,24 @@ body.rb-home .org-logo-cell:hover .org-logo-img { opacity: 0.85; }
   body.rb-home .org-logo-cell { height: 34px; margin: 0 16px; }
   body.rb-home .org-logo-img { height: 22px; max-width: 112px; }
 }
+
+/* ---------- Partner co-brand lockup (e.g. /scaling) ---------- */
+body.rb-home .rb-nav-partner-x {
+  color: #ffffff;
+  opacity: 0.5;
+  font-weight: 500;
+  font-size: 18px;
+  margin: 0 6px;
+}
+body.rb-home .rb-nav-scrolled .rb-nav-partner-x { color: #1a1a1a; }
+body.rb-home .rb-nav-partner-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+body.rb-home .rb-nav-scrolled .rb-nav-partner-logo { filter: none; }
+@media (max-width: 900px) {
+  body.rb-home .rb-nav-partner-x,
+  body.rb-home .rb-nav-partner-logo { display: none; }
+}

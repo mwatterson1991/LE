@@ -113,7 +113,7 @@ function ReviewModal({ review, onClose }) {
 }
 
 // review shape: { name, subtitle, stars, text, photo_url }
-export default function ReviewCard({ review }) {
+export default function ReviewCard({ review, variant }) {
   const [clamped, setClamped] = useState(false)
   const [open, setOpen] = useState(false)
   const innerRef = useRef(null)
@@ -128,7 +128,7 @@ export default function ReviewCard({ review }) {
   return (
     <>
       <div
-        className={'tcard tcard-review' + (clamped ? ' rv-clamped' : '')}
+        className={'tcard tcard-review' + (variant === 'google' ? ' tcard-google' : '') + (clamped ? ' rv-clamped' : '')}
         onClick={() => setOpen(true)}
         style={{ cursor: 'pointer' }}
         role="button"
@@ -149,9 +149,11 @@ export default function ReviewCard({ review }) {
           className={'rv-text-wrap' + (clamped ? ' rv-text-collapsed' : '')}
           style={clamped ? { maxHeight: REVIEW_COLLAPSED_HEIGHT + 'px' } : undefined}
         >
-          <p ref={innerRef} className="review-card-text">&ldquo;{renderReviewText(text)}&rdquo;</p>
+          <p ref={innerRef} className="review-card-text">
+            {variant === 'google' ? renderReviewText(text) : <>&ldquo;{renderReviewText(text)}&rdquo;</>}
+          </p>
+          {clamped && <div className="rv-text-fade" />}
         </div>
-        {clamped && <div className="rv-text-fade" />}
       </div>
       {open && <ReviewModal review={review} onClose={() => setOpen(false)} />}
     </>

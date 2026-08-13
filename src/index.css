@@ -4086,10 +4086,12 @@ body.rb-home .rv-masonry .tcard:hover {
 }
 .rv-text-fade {
   position: absolute;
-  bottom: 28px; /* match card bottom padding */
+  /* Inside .rv-text-wrap, which is the element that clips, so the fade always
+     lands exactly on the cut line no matter what padding the card carries. */
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 72px;
+  height: 64px;
   /* matches computed card bg: rgba(243,241,230,0.5) over #fff ≈ #F9F8F3 */
   background: linear-gradient(to bottom, rgba(249, 248, 243, 0) 0%, #F9F8F3 85%);
   pointer-events: none;

@@ -1,0 +1,103 @@
+/* ============================================================
+   Outcome visuals — inline animated SVG scenes
+   Animations only run inside an open row (.uo-out.open)
+   ============================================================ */
+
+.ov {
+  width: 100%;
+  border-radius: 14px;
+  background: #fbf8f2;
+  overflow: hidden;
+}
+.ov svg { display: block; }
+
+.ov-eyebrow {
+  font-family: 'Macan', -apple-system, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  fill: #b85a2b;
+}
+.ov-label {
+  font-family: 'Macan', -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  fill: #1a1a1a;
+}
+.ov-mini {
+  font-family: 'Macan', -apple-system, sans-serif;
+  font-size: 11.5px;
+  fill: #4c4c4c;
+}
+.ov-core {
+  font-family: 'Macan', -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  fill: #1a1a1a;
+}
+
+/* Everything starts hidden and holds until the row opens */
+.ov-stagger, .ov-pop, .ov-grow, .ov-rise, .ov-converge { opacity: 0; }
+.ov-fill { opacity: 0; }
+.ov-draw { stroke-dasharray: 240; stroke-dashoffset: 240; }
+
+.uo-out.open .ov-stagger { animation: ovFadeUp 0.5s ease forwards; }
+.uo-out.open .ov-pop { animation: ovPop 0.42s cubic-bezier(0.34, 1.4, 0.64, 1) forwards; }
+.uo-out.open .ov-grow { animation: ovGrow 0.5s ease forwards; transform-origin: left center; }
+.uo-out.open .ov-rise { animation: ovRise 0.5s ease forwards; }
+.uo-out.open .ov-fill { animation: ovFill 0.6s ease forwards; }
+.uo-out.open .ov-draw { animation: ovDraw 0.6s ease forwards; }
+.uo-out.open .ov-converge { animation: ovConverge 3.2s ease-in-out infinite; }
+.uo-out.open .ov-breathe { animation: ovBreathe 2.6s ease-in-out infinite; }
+.uo-out.open .ov-tick { animation: ovTick 3.4s linear infinite; }
+
+@keyframes ovFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ovPop {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes ovGrow {
+  from { opacity: 0; transform: scaleX(0.3); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+@keyframes ovRise {
+  from { opacity: 0; transform: scaleY(0); }
+  to   { opacity: 1; transform: scaleY(1); }
+}
+@keyframes ovFill {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ovDraw {
+  from { stroke-dashoffset: 240; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes ovConverge {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.9); }
+  18%  { opacity: 1; transform: translate(0, 0) scale(1); }
+  62%  { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(112px, 42px) scale(0.6); }
+}
+@keyframes ovBreathe {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.12); }
+}
+@keyframes ovTick {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(72px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uo-out.open .ov-stagger,
+  .uo-out.open .ov-pop,
+  .uo-out.open .ov-grow,
+  .uo-out.open .ov-rise,
+  .uo-out.open .ov-fill,
+  .uo-out.open .ov-converge { animation: none; opacity: 1; transform: none; }
+  .uo-out.open .ov-draw { animation: none; stroke-dashoffset: 0; }
+  .uo-out.open .ov-breathe,
+  .uo-out.open .ov-tick { animation: none; }
+}

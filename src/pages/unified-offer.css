@@ -1,0 +1,1824 @@
+/* ============================================================
+   Unified Offer LP — page-specific styles
+   Layered on top of home-rebrand.css; scoped under body.rb-home
+   ============================================================ */
+
+/* ---------- The offering (deck-style: L1 bar + 3 boxes) ---------- */
+body.rb-home .uo-offer {
+  background: #ffffff;
+  padding: 96px 0 72px;
+}
+body.rb-home .uo-offer-headline {
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: -0.02em;
+  margin: 0 0 40px;
+  max-width: 900px;
+}
+body.rb-home .uo-l1bar {
+  background: #ffd667;
+  border-radius: 18px;
+  padding: 28px 32px;
+  display: grid;
+  grid-template-columns: 1.15fr auto;
+  gap: 28px;
+  align-items: center;
+}
+body.rb-home .uo-l1bar-tag {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a14e22;
+}
+body.rb-home .uo-l1bar-title {
+  margin: 8px 0 0;
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  color: #1a1a1a;
+}
+body.rb-home .uo-l1bar-chips {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  justify-content: end;
+}
+body.rb-home .uo-l1bar-chips span {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.66);
+  border-radius: 999px;
+  padding: 9px 16px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+body.rb-home .uo-l1bar-chips span::before {
+  content: "\2713";
+  color: #a14e22;
+  font-weight: 700;
+}
+body.rb-home .uo-bkts {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+body.rb-home .uo-bkt {
+  border-radius: 16px;
+  padding: 26px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body.rb-home .uo-bkt-k2 { background: #dce8f7; }
+body.rb-home .uo-bkt-k3 { background: #f3dfd2; }
+body.rb-home .uo-bkt-k4 { background: #ece5f1; }
+body.rb-home .uo-bkt-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #555;
+}
+body.rb-home .uo-bkt-k2 .uo-bkt-tag { color: #2f5aa0; }
+body.rb-home .uo-bkt-k3 .uo-bkt-tag { color: #a14e22; }
+body.rb-home .uo-bkt-k4 .uo-bkt-tag { color: #6b577f; }
+body.rb-home .uo-bkt h3 {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin: 0;
+}
+body.rb-home .uo-bkt p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #333;
+  margin: 0;
+}
+
+/* ---------- Hero: overview PDF text link under the dual CTAs ---------- */
+body.rb-home .hero-overview-link {
+  margin: 14px 0 22px;
+  text-align: center;
+}
+body.rb-home .hero-overview-link a,
+body.rb-home .hero-overview-btn {
+  font-family: inherit;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+body.rb-home .hero-overview-link a:hover,
+body.rb-home .hero-overview-btn:hover { color: #fff; }
+
+/* teams-section secondary is a button now that it opens the gate */
+body.rb-home button.uo-teams-secondary {
+  font-family: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ---------- Hero: team signal line ---------- */
+body.rb-home .hero-team-line {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.72);
+}
+body.rb-home .hero-team-line a {
+  color: #ffd667;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+body.rb-home .hero-team-line a:hover { color: #fff; }
+
+/* ---------- Problem, then solution ---------- */
+body.rb-home .uo-problem {
+  background: #ffffff;
+  padding: 96px 0 88px;
+}
+body.rb-home .uo-problem-header {
+  max-width: 800px;
+  margin: 0 0 36px;
+}
+body.rb-home .uo-problem-eyebrow,
+body.rb-home .uo-guar-eyebrow,
+body.rb-home .uo-vstack-eyebrow,
+body.rb-home .uo-teams-eyebrow {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a14e22;
+  margin-bottom: 12px;
+}
+body.rb-home .uo-problem-headline {
+  font-size: clamp(28px, 3.6vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 14px;
+}
+body.rb-home .uo-problem-sub {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--gray-dark, #555);
+  margin: 0;
+}
+body.rb-home .uo-problem-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+body.rb-home .uo-problem-card {
+  background: #f7f6f3;
+  border-radius: 16px;
+  padding: 26px 26px 28px;
+}
+body.rb-home .uo-problem-num {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #b3aca0;
+  margin-bottom: 14px;
+}
+body.rb-home .uo-problem-card h3 {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.014em;
+  margin: 0 0 8px;
+}
+body.rb-home .uo-problem-card p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gray-dark, #555);
+  margin: 0;
+}
+body.rb-home .uo-solution {
+  margin-top: 20px;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 20px;
+  padding: 40px 44px;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 44px;
+  align-items: center;
+}
+body.rb-home .uo-solution-eyebrow {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffd667;
+  margin-bottom: 12px;
+}
+body.rb-home .uo-solution-headline {
+  color: #ffffff;
+  font-size: clamp(24px, 2.8vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 0 0 14px;
+}
+body.rb-home .uo-solution-body {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  max-width: 520px;
+}
+body.rb-home .uo-solution-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+body.rb-home .uo-solution-list li {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 13px 16px;
+}
+body.rb-home .uo-solution-list span {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: line-through;
+}
+body.rb-home .uo-solution-list em {
+  font-style: normal;
+  color: #ffd667;
+  font-size: 14px;
+}
+body.rb-home .uo-solution-list strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ---------- For teams ---------- */
+body.rb-home .uo-teams {
+  background: #f7f6f3;
+  padding: 96px 0;
+}
+body.rb-home .uo-teams-header {
+  max-width: 780px;
+  margin: 0 0 32px;
+}
+body.rb-home .uo-teams-headline {
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 14px;
+}
+body.rb-home .uo-teams-sub {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--gray-dark, #555);
+  margin: 0;
+}
+body.rb-home .uo-teams-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+body.rb-home .uo-teams-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+}
+body.rb-home .uo-teams-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin: 0 0 8px;
+}
+body.rb-home .uo-teams-card p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--gray-dark, #555);
+  margin: 0;
+}
+body.rb-home .uo-teams-ctas {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+body.rb-home .uo-teams-secondary {
+  font-size: 14.5px;
+  color: var(--gray-dark, #555);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.rb-home .uo-teams-secondary:hover { color: #111; }
+
+/* ---------- Guarantees ---------- */
+body.rb-home .uo-guarantees {
+  background: #ffffff;
+  padding: 96px 0 0;
+}
+body.rb-home .uo-guar-header {
+  max-width: 700px;
+  margin: 0 0 28px;
+}
+body.rb-home .uo-guar-headline {
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+body.rb-home .uo-guar-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+body.rb-home .uo-guar-card {
+  background: #fff9e8;
+  border-radius: 18px;
+  padding: 32px 32px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body.rb-home .uo-guar-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #a14e22;
+}
+body.rb-home .uo-guar-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.016em;
+  line-height: 1.18;
+  margin: 0;
+}
+body.rb-home .uo-guar-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4a453d;
+  margin: 0;
+}
+body.rb-home .uo-guar-link {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Value stack ---------- */
+body.rb-home .uo-vstack {
+  background: #ffffff;
+  padding: 72px 0 0;
+}
+body.rb-home .uo-vstack-header {
+  max-width: 720px;
+  margin: 0 0 32px;
+}
+body.rb-home .uo-vstack-headline {
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+body.rb-home .uo-vstack-sub {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--gray-dark, #555);
+  margin: 0;
+}
+body.rb-home .uo-vstack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+body.rb-home .uo-vstack-item {
+  background: #f7f6f3;
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+body.rb-home .uo-vstack-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+}
+body.rb-home .uo-vstack-name {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin-bottom: 5px;
+}
+body.rb-home .uo-vstack-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-dark, #555);
+}
+
+/* ---------- "See what people have built" header: keep headline on one line ---------- */
+body.rb-home .results-cta-intro { max-width: 860px; }
+
+/* ---------- The core program (Foundations + L1-L5 toggles) ---------- */
+body.rb-home .uo-core {
+  background: #ffffff;
+  padding: 24px 0 72px;
+}
+body.rb-home .uo-core-header {
+  max-width: 780px;
+  margin: 0 0 28px;
+}
+body.rb-home .uo-core-headline {
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+body.rb-home .uo-core-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gray-dark, #555);
+  margin: 0;
+}
+
+/* ---------- Upcoming L1 cohorts ---------- */
+body.rb-home .uo-cohorts {
+  background: #ffffff;
+  padding: 24px 0 96px;
+}
+body.rb-home .uo-cohorts-header {
+  max-width: 780px;
+  margin: 0 0 32px;
+}
+body.rb-home .uo-cohorts-eyebrow {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a14e22;
+  margin-bottom: 12px;
+}
+body.rb-home .uo-cohorts-headline {
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+body.rb-home .uo-cohorts-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gray-dark, #555);
+  margin: 0;
+}
+body.rb-home .uo-cohorts-empty {
+  font-size: 16px;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-cohort-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+body.rb-home .uo-cohort-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #f7f6f3;
+  border-radius: 16px;
+  padding: 20px 22px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+body.rb-home .uo-cohort-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(20, 20, 20, 0.08);
+}
+body.rb-home .uo-cohort-cal {
+  flex-shrink: 0;
+  width: 58px;
+  border-radius: 12px;
+  background: #ffd667;
+  padding: 8px 0 10px;
+  text-align: center;
+  line-height: 1;
+}
+body.rb-home .uo-cohort-cal-month {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #a14e22;
+}
+body.rb-home .uo-cohort-cal-day {
+  display: block;
+  margin-top: 5px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+body.rb-home .uo-cohort-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+body.rb-home .uo-cohort-label {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+body.rb-home .uo-cohort-meta,
+body.rb-home .uo-cohort-times {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-cohort-arrow {
+  margin-left: auto;
+  font-size: 18px;
+  color: #9a958c;
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+body.rb-home .uo-cohort-card:hover .uo-cohort-arrow {
+  transform: translateX(3px);
+  color: #1a1a1a;
+}
+
+body.rb-home .uo-lvl {
+  border-top: 1px solid #e8e5df;
+}
+body.rb-home .uo-lvl:last-child {
+  border-bottom: 1px solid #e8e5df;
+}
+body.rb-home .uo-lvl-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: none;
+  border: 0;
+  padding: 22px 8px;
+  margin: 0 -8px;
+  width: calc(100% + 16px);
+  border-radius: 14px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 0.18s ease;
+}
+body.rb-home .uo-lvl-head:hover {
+  background: #faf9f7;
+}
+body.rb-home .uo-lvl-tile {
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  line-height: 1;
+}
+body.rb-home .uo-lvl-tile-word {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+body.rb-home .uo-lvl-tile-num {
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+body.rb-home .uo-lvl-tile-zero { background: #f0ede7; color: #6f6a61; }
+body.rb-home .uo-lvl-tile-one  { background: #ffd667; color: #7d3c17; }
+body.rb-home .uo-lvl-tile-two  { background: #dce8f7; color: #2f5aa0; }
+body.rb-home .uo-lvl-tile-adv  { background: #ece5f1; color: #6b577f; }
+body.rb-home .uo-lvl-heads {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+body.rb-home .uo-lvl-nameline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+body.rb-home .uo-lvl-name {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.014em;
+}
+body.rb-home .uo-lvl-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a14e22;
+  background: #ffeec2;
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+body.rb-home .uo-lvl-blurb {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-lvl-expand {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-lvl-expand-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+body.rb-home .uo-lvl-head:hover .uo-lvl-expand { color: #1a1a1a; }
+body.rb-home .uo-lvl-head .faq-chevron {
+  flex-shrink: 0;
+  transition: transform 0.28s ease;
+}
+body.rb-home .uo-lvl.open .uo-lvl-head .faq-chevron {
+  transform: rotate(180deg);
+}
+body.rb-home .uo-lvl-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s ease;
+}
+body.rb-home .uo-lvl.open .uo-lvl-body {
+  grid-template-rows: 1fr;
+}
+body.rb-home .uo-lvl-body-inner {
+  overflow: hidden;
+}
+body.rb-home .uo-lvl-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 40px;
+  padding: 4px 4px 34px 90px;
+}
+body.rb-home .uo-lvl-overview {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+  max-width: 720px;
+}
+body.rb-home .uo-lvl-block {
+  margin-top: 26px;
+}
+body.rb-home .uo-lvl-block-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a958c;
+  margin-bottom: 12px;
+}
+body.rb-home .uo-lvl-block-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+  max-width: 720px;
+}
+body.rb-home .uo-lvl-sessions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  counter-reset: none;
+}
+body.rb-home .uo-lvl-sessions li {
+  display: flex;
+  gap: 14px;
+}
+body.rb-home .uo-lvl-session-num {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffd667;
+  color: #1a1a1a;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+body.rb-home .uo-lvl-session-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+body.rb-home .uo-lvl-session-title {
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+body.rb-home .uo-lvl-session-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-lvl-builds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 28px;
+}
+body.rb-home .uo-lvl-builds li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+body.rb-home .uo-lvl-check {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+body.rb-home .uo-lvl-learn {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px 28px;
+}
+body.rb-home .uo-lvl-learn-col {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+body.rb-home .uo-lvl-learn-col li {
+  display: flex;
+  gap: 8px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: #333;
+}
+body.rb-home .uo-lvl-bullet {
+  color: #c9c3b8;
+  font-weight: 700;
+}
+body.rb-home .uo-lvl-meta {
+  background: #f7f6f3;
+  border-radius: 16px;
+  padding: 24px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+body.rb-home .uo-lvl-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+body.rb-home .uo-lvl-meta-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a958c;
+}
+body.rb-home .uo-lvl-meta-value {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: #1a1a1a;
+}
+body.rb-home .uo-lvl-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+body.rb-home .uo-lvl-tool {
+  font-size: 12.5px;
+  font-weight: 500;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 5px 11px;
+}
+body.rb-home .uo-lvl-meta-cta {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Mid-page enroll strip ---------- */
+body.rb-home .uo-enroll-strip {
+  background: #ffffff;
+  padding: 0 0 96px;
+}
+body.rb-home .uo-enroll-strip .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  background: #f7f6f3;
+  border-radius: 20px;
+  padding: 40px 48px;
+}
+body.rb-home .uo-enroll-strip-title {
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+/* ---------- Advisor ---------- */
+body.rb-home .uo-advisor {
+  background: #ffffff;
+  padding: 0 0 96px;
+}
+body.rb-home .uo-how-capper {
+  margin: 36px auto 0;
+  text-align: center;
+  font-size: 15px;
+  color: var(--gray-dark, #555);
+  background: #f7f6f3;
+  border-radius: 999px;
+  padding: 12px 24px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* ---------- Pricing ---------- */
+body.rb-home .uo-pricing {
+  background: #f7f6f3;
+  padding: 96px 0;
+}
+body.rb-home .uo-pricing-headline {
+  font-size: clamp(30px, 4vw, 44px);
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin: 0 0 12px;
+}
+body.rb-home .uo-pricing-sub {
+  font-size: 17px;
+  color: var(--gray-dark, #555);
+  text-align: center;
+  margin: 0 auto 48px;
+  max-width: 560px;
+}
+body.rb-home .uo-price-card {
+  background: #ffffff;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 40px;
+  padding: 48px;
+  max-width: 960px;
+  margin: 0 auto;
+  box-shadow: 0 2px 24px rgba(20, 20, 20, 0.06);
+}
+body.rb-home .uo-price-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a958c;
+  margin-bottom: 16px;
+}
+body.rb-home .uo-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+body.rb-home .uo-price {
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+body.rb-home .uo-price-note {
+  font-size: 15px;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-price-after {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gray-dark, #555);
+  margin: 16px 0 28px;
+  max-width: 380px;
+}
+body.rb-home .uo-price-ctas {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+body.rb-home .uo-price-scholarship {
+  font-size: 14px;
+  color: var(--gray-dark, #555);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.rb-home .uo-price-scholarship:hover { color: #111; }
+body.rb-home .uo-price-includes-header {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a958c;
+  margin-bottom: 16px;
+}
+body.rb-home .uo-price-includes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+body.rb-home .uo-price-includes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+body.rb-home .uo-price-check {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* ---------- Discount strip ---------- */
+body.rb-home .uo-discounts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 960px;
+  margin: 24px auto 0;
+}
+body.rb-home .uo-discount-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+body.rb-home .uo-discount-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(20, 20, 20, 0.08);
+}
+body.rb-home .uo-discount-icon {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 10px;
+}
+body.rb-home .uo-discount-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+body.rb-home .uo-discount-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-discount-link {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  body.rb-home .uo-steps { grid-template-columns: repeat(2, 1fr); }
+  body.rb-home .uo-teams-grid { grid-template-columns: repeat(2, 1fr); }
+  body.rb-home .uo-vstack-grid { grid-template-columns: repeat(2, 1fr); }
+  body.rb-home .uo-problem-grid { grid-template-columns: repeat(2, 1fr); }
+  body.rb-home .uo-solution {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 32px 28px;
+  }
+}
+@media (max-width: 900px) {
+  body.rb-home .uo-price-card {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+    gap: 32px;
+  }
+  body.rb-home .uo-discounts { grid-template-columns: 1fr; }
+  body.rb-home .uo-problem-grid { grid-template-columns: 1fr; }
+  body.rb-home .uo-guar-grid { grid-template-columns: 1fr; }
+  body.rb-home .uo-lvl-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-left: 0;
+  }
+  body.rb-home .uo-lvl-builds { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  body.rb-home .uo-steps { grid-template-columns: 1fr; }
+  body.rb-home .uo-how { padding: 64px 0 48px; }
+  body.rb-home .uo-pricing { padding: 64px 0; }
+  body.rb-home .uo-price { font-size: 48px; }
+  body.rb-home .uo-core { padding: 16px 0 48px; }
+  body.rb-home .uo-cohorts { padding: 16px 0 64px; }
+  body.rb-home .uo-problem { padding: 64px 0 56px; }
+  body.rb-home .uo-teams { padding: 64px 0; }
+  body.rb-home .uo-teams-grid { grid-template-columns: 1fr; }
+  body.rb-home .uo-guarantees { padding: 64px 0 0; }
+  body.rb-home .uo-vstack { padding: 56px 0 0; }
+  body.rb-home .uo-vstack-grid { grid-template-columns: 1fr; }
+  body.rb-home .uo-guar-card { padding: 26px 24px 24px; }
+  body.rb-home .uo-cohort-grid { grid-template-columns: 1fr; }
+  body.rb-home .uo-lvl-head { gap: 14px; padding: 18px 6px; }
+  body.rb-home .uo-lvl-tile { width: 54px; height: 54px; border-radius: 12px; }
+  body.rb-home .uo-lvl-tile-num { font-size: 21px; }
+  body.rb-home .uo-lvl-expand-text { display: none; }
+}
+
+/* ---------- Single-offer value stack (clone at /program-single-price) ---------- */
+body.rb-home .value-stack-grid-single {
+  grid-template-columns: minmax(0, 460px);
+  justify-content: center;
+}
+
+/* ============================================================
+   Level 1 cohort date strip (clone at /program-single-price)
+   Light card overlapping the hero; horizontal row of dates
+   ============================================================ */
+body.rb-home .l1-dates-wrap {
+  background: #ffffff;
+  padding: 0 0 8px;
+}
+body.rb-home .l1-dates {
+  position: relative;
+  z-index: 3;
+  margin-top: -60px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px 30px 26px;
+  box-shadow: 0 14px 44px rgba(20, 20, 20, 0.14);
+}
+body.rb-home .l1-dates-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eeebe4;
+}
+body.rb-home .l1-dates-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #a14e22;
+}
+body.rb-home .l1-dates-note {
+  font-size: 13.5px;
+  color: #6f6a61;
+}
+body.rb-home .l1-dates-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0;
+}
+body.rb-home .l1-date {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 2px 20px;
+  text-decoration: none;
+  color: inherit;
+  border-left: 1px solid #eeebe4;
+  transition: transform 0.16s ease;
+}
+body.rb-home .l1-date:first-child { border-left: 0; padding-left: 0; }
+body.rb-home a.l1-date:hover { transform: translateY(-2px); }
+body.rb-home .l1-date-dow {
+  font-family: 'Season', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: #9a958c;
+}
+body.rb-home .l1-date-big {
+  font-family: 'Season', Georgia, serif;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: #1a1a1a;
+}
+body.rb-home .l1-date-time {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #6f6a61;
+}
+body.rb-home .l1-date-tag {
+  margin-top: 5px;
+  align-self: flex-start;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7d3c17;
+  background: #ffeec2;
+  border-radius: 999px;
+  padding: 5px 11px;
+}
+body.rb-home .l1-date-out .l1-date-tag,
+body.rb-home .l1-date-tag-out {
+  color: #8d877e;
+  background: #f2efe9;
+}
+body.rb-home .l1-date-out .l1-date-big { color: #b3aca0; }
+body.rb-home .l1-date-out .l1-date-dow,
+body.rb-home .l1-date-out .l1-date-time { color: #b3aca0; }
+
+@media (max-width: 900px) {
+  body.rb-home .l1-dates { margin-top: -34px; padding: 22px 20px 22px; border-radius: 16px; }
+  body.rb-home .l1-dates-row { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
+  body.rb-home .l1-date { padding: 0 16px; }
+  body.rb-home .l1-date:nth-child(odd) { border-left: 0; padding-left: 0; }
+  body.rb-home .l1-date-big { font-size: 27px; }
+}
+@media (max-width: 460px) {
+  body.rb-home .l1-dates-row { grid-template-columns: 1fr; gap: 18px; }
+  body.rb-home .l1-date { border-left: 0; padding: 0; }
+}
+
+/* ---------- CTAs that became <button> when they started opening the cohort modal ---------- */
+body.rb-home button.rb-nav-getstarted,
+body.rb-home button.lai-mobile-menu-cta,
+body.rb-home button.btn,
+body.rb-home button.value-stack-card-cta {
+  font-family: inherit;
+  border: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+body.rb-home button.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Video section: dual CTA ---------- */
+body.rb-home .save-time-ctas {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Urgency line under the price CTA ---------- */
+body.rb-home .uo-price-urgency {
+  margin: 14px 0 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #a14e22;
+}
+
+/* ============================================================
+   Google-style review cards (opt-in via .tboard-google)
+   Familiar UI cues: blue name, grey meta line, gold star row,
+   white card, no pull-quote marks.
+   ============================================================ */
+body.rb-home .tboard-google .tcard-google {
+  background: #ffffff;
+  border: 1px solid #e8e6e1;
+  border-radius: 10px;
+  box-shadow: none;
+  padding: 18px 18px 20px;
+}
+body.rb-home .tboard-google .tcard-google:hover {
+  box-shadow: 0 2px 10px rgba(20, 20, 20, 0.08);
+}
+body.rb-home .tboard-google .review-card-header {
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+body.rb-home .tboard-google .review-card-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 500;
+}
+body.rb-home .tboard-google .review-card-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a73e8;
+  letter-spacing: 0;
+}
+body.rb-home .tboard-google .review-card-subtitle {
+  font-size: 12.5px;
+  color: #70757a;
+  letter-spacing: 0;
+}
+body.rb-home .tboard-google .review-card-meta {
+  margin-bottom: 10px;
+}
+body.rb-home .tboard-google .review-card-stars svg {
+  fill: #fbbc04 !important;
+  width: 15px;
+  height: 15px;
+}
+body.rb-home .tboard-google .review-card-text {
+  font-size: 14.5px;
+  line-height: 1.58;
+  color: #3c4043;
+  font-style: normal;
+}
+
+/* urgency line: date reads calm, the seat count is the alarm */
+body.rb-home .uo-price-urgency-date {
+  color: #55514b;
+  font-weight: 500;
+}
+body.rb-home .uo-price-urgency-seats {
+  color: #c2452d;
+  font-weight: 700;
+}
+
+/* ---------- Hero CTAs: match the two boxes exactly ---------- */
+body.rb-home .hero-ctas { align-items: stretch; }
+body.rb-home .hero-ctas .btn,
+body.rb-home .hero-ctas .lai-cta-primary {
+  min-height: 56px;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+/* ---------- Take the first step: one continuous section ---------- */
+body.rb-home .uo-first-step {
+  background: #f2ebdd;
+  padding: 88px 0 80px;
+}
+body.rb-home .uo-first-step-headline {
+  font-size: clamp(30px, 3.8vw, 46px);
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin: 0 0 12px;
+}
+body.rb-home .uo-first-step-sub {
+  font-size: 17px;
+  color: var(--gray-dark, #555);
+  text-align: center;
+  margin: 0 auto;
+  max-width: 620px;
+}
+/* the shared pricing block drops its own background and padding when nested here */
+body.rb-home .uo-first-step .uo-pricing {
+  background: transparent;
+  padding: 34px 0 0;
+}
+body.rb-home .uo-first-step-teams {
+  margin-top: 28px;
+}
+
+/* ---------- Why-reveal, tightened (clone only) ----------
+   The desc paragraph came out, so the box no longer needs 80vh. Shorter box and
+   centered columns pull the headline and the skill pills together. */
+body.rb-home .why-reveal-tight .why-reveal-container {
+  height: auto;
+  min-height: 0;
+}
+body.rb-home .why-reveal-tight .why-reveal-content {
+  align-items: center;
+  gap: 48px;
+  padding: 52px 48px;
+  height: auto;
+}
+body.rb-home .why-reveal-tight .why-reveal-left {
+  justify-content: center;
+  gap: 28px;
+}
+body.rb-home .why-reveal-tight .why-reveal-heading {
+  font-size: clamp(30px, 3.6vw, 46px);
+  max-width: 560px;
+}
+body.rb-home .why-reveal-tight .why-reveal-right {
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  body.rb-home .why-reveal-tight .why-reveal-content {
+    padding: 36px 24px;
+    gap: 28px;
+  }
+}
+
+/* ---------- Advisor card spacing ----------
+   The section had no top padding, so the card butted straight into the cream
+   band above it, and the 48px shared headline made the card top-heavy. */
+body.rb-home .uo-advisor {
+  background: #ffffff;
+  padding: 72px 0 88px;
+}
+body.rb-home .uo-advisor .advisor-card {
+  padding: 52px 40px 56px;
+  text-align: center;
+}
+body.rb-home .uo-advisor .advisor-card h2 {
+  font-size: clamp(26px, 3vw, 36px);
+  margin: 0 0 10px;
+}
+body.rb-home .uo-advisor .advisor-card p {
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--gray-dark, #555);
+  margin: 0 auto 26px;
+  max-width: 600px;
+}
+@media (max-width: 700px) {
+  body.rb-home .uo-advisor { padding: 48px 0 64px; }
+  body.rb-home .uo-advisor .advisor-card { padding: 36px 22px 40px; }
+}
+
+/* ============================================================
+   Adjacent CTA pairs: one height everywhere
+   btn-lg and the plain btn variants carry different padding and
+   line-height, so any pair sitting side by side gets pinned here.
+   ============================================================ */
+body.rb-home .hero-ctas,
+body.rb-home .save-time-ctas,
+body.rb-home .uo-teams-ctas,
+body.rb-home .uo-price-ctas,
+body.rb-home .enterprise-bottom {
+  align-items: center;
+}
+body.rb-home .hero-ctas .btn,
+body.rb-home .hero-ctas .lai-cta-primary,
+body.rb-home .save-time-ctas .btn,
+body.rb-home .uo-teams-ctas .btn,
+body.rb-home .uo-price-ctas .btn,
+body.rb-home .enterprise-bottom .btn {
+  min-height: 56px;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+/* B2B button, loud: solid yellow instead of the outlined ghost */
+body.rb-home .enterprise-cta-loud {
+  font-size: 17px;
+  font-weight: 600;
+  padding-left: 34px;
+  padding-right: 34px;
+  box-shadow: none;
+}
+
+/* ---------- Certification: one real Level 1 certificate ---------- */
+body.rb-home .uo-cert {
+  background: #ffffff;
+  padding: 88px 0;
+}
+body.rb-home .uo-cert-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 56px;
+  align-items: center;
+}
+body.rb-home .uo-cert-eyebrow {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a14e22;
+  margin-bottom: 12px;
+}
+body.rb-home .uo-cert-headline {
+  font-size: clamp(30px, 3.6vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 16px;
+}
+body.rb-home .uo-cert-desc {
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--gray-dark, #555);
+  margin: 0 0 14px;
+  max-width: 460px;
+}
+body.rb-home .uo-cert-desc:last-child { margin-bottom: 0; }
+body.rb-home .uo-cert-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 22px 60px rgba(20, 30, 55, 0.22);
+}
+@media (max-width: 900px) {
+  body.rb-home .uo-cert { padding: 64px 0; }
+  body.rb-home .uo-cert-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* callout became a button so clicking it stops writing #enterprise into the URL
+   (a leftover hash meant every reload jumped straight to the teams section) */
+body.rb-home button.value-stack-teams-callout {
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* ============================================================
+   Mobile pass — scoped to body.uo-lp so the other five pages
+   that share these class names are untouched.
+   The shared sheet sets several headlines to a flat 48px with no
+   mobile override, which is what was blowing out on phones.
+   ============================================================ */
+@media (max-width: 768px) {
+  /* headlines that had no mobile size */
+  body.uo-lp .role-uses-headline,
+  body.uo-lp .enterprise-card h2,
+  body.uo-lp .faq-header h2,
+  body.uo-lp .expense-heading,
+  body.uo-lp .advisor-card h2,
+  body.uo-lp .value-stack-section-headline,
+  body.uo-lp .cert-intro h2 {
+    font-size: 30px;
+    line-height: 1.15;
+  }
+  body.uo-lp .role-uses-sub,
+  body.uo-lp .enterprise-desc,
+  body.uo-lp .expense-sub {
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+
+  /* CTA pairs stack full width instead of wrapping into a ragged two rows */
+  body.uo-lp .save-time-ctas,
+  body.uo-lp .uo-teams-ctas,
+  body.uo-lp .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+  }
+  body.uo-lp .save-time-ctas .btn,
+  body.uo-lp .uo-teams-ctas .btn,
+  body.uo-lp .hero-ctas .btn,
+  body.uo-lp .hero-ctas .lai-cta-primary {
+    width: 100%;
+    margin: 0;
+  }
+  /* .save-time-explore-cta carries a 28px top margin in the shared sheet, which
+     stacked on top of the flex gap once these went vertical */
+  body.uo-lp .save-time-ctas { margin-top: 26px; }
+  body.uo-lp .enterprise-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  body.uo-lp .enterprise-cta-loud { width: 100%; }
+
+  /* role tabs: a horizontal scroller that doesn't look truncated */
+  body.uo-lp .role-tabs {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    scroll-padding-left: 20px;
+  }
+  body.uo-lp .role-tabs::-webkit-scrollbar { display: none; }
+  body.uo-lp .role-tabs::after {
+    content: "";
+    flex: 0 0 8px;
+  }
+
+  /* section rhythm: 88-96px reads as dead space on a phone */
+  body.uo-lp .uo-first-step { padding: 56px 0 48px; }
+  body.uo-lp .uo-cert { padding: 56px 0; }
+  body.uo-lp .uo-problem { padding: 56px 0 48px; }
+  body.uo-lp .uo-teams { padding: 56px 0; }
+  body.uo-lp .uo-guarantees { padding: 56px 0 0; }
+  body.uo-lp .uo-vstack { padding: 48px 0 0; }
+  body.uo-lp .uo-cohorts { padding: 16px 0 56px; }
+  body.uo-lp .save-time-section { padding: 56px 0; }
+
+  /* the first-step block is centered, so keep its callout centered too */
+  body.uo-lp .uo-first-step-teams { margin-top: 22px; }
+}
+
+@media (max-width: 480px) {
+  body.uo-lp .hero h1 { font-size: 38px; }
+  body.uo-lp .role-uses-headline,
+  body.uo-lp .enterprise-card h2,
+  body.uo-lp .faq-header h2 { font-size: 27px; }
+  body.uo-lp .uo-cert-headline,
+  body.uo-lp .uo-outcomes-headline,
+  body.uo-lp .uo-first-step-headline { font-size: 27px; }
+  body.uo-lp .enterprise-card { padding: 28px 20px; }
+}
+
+/* financing line under the price CTA */
+body.rb-home .uo-price-finaid {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-price-finaid a {
+  color: #1a1a1a;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.rb-home .uo-price-finaid a:hover { color: #a14e22; }
+
+/* org logos in full colour on these two pages */
+body.uo-lp .org-logo-img {
+  filter: none;
+  opacity: 1;
+}
+body.uo-lp .org-logo-cell:hover .org-logo-img { opacity: 1; }
+
+/* the soonest open cohort gets a warmer tag than the plain countdowns */
+body.rb-home .l1-date-tag-hot {
+  color: #ffffff;
+  background: #c2452d;
+}
+
+/* ============================================================
+   Image-reveal boxes: readability pass
+   A flat 50% overlay left white text sitting on whatever the photo
+   happened to be doing. Swapped for a bottom-up scrim and moved the
+   copy into one left column instead of straddling the busy middle.
+   ============================================================ */
+body.uo-lp .img-reveal-container {
+  height: 62vh;
+  min-height: 440px;
+  border-radius: 16px;
+}
+body.uo-lp .img-reveal-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(12, 12, 14, 0.94) 0%,
+    rgba(12, 12, 14, 0.86) 26%,
+    rgba(12, 12, 14, 0.58) 52%,
+    rgba(12, 12, 14, 0.28) 78%,
+    rgba(12, 12, 14, 0.12) 100%
+  );
+}
+body.uo-lp .img-reveal-content {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 14px;
+  padding: 48px 52px 52px;
+}
+body.uo-lp .img-reveal-heading {
+  font-size: clamp(34px, 4.4vw, 56px);
+  line-height: 1.06;
+  max-width: 20ch;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+body.uo-lp .img-reveal-desc {
+  font-size: 19px;
+  line-height: 1.6;
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  body.uo-lp .img-reveal-container { height: auto; min-height: 0; }
+  body.uo-lp .img-reveal-content { padding: 32px 24px 36px; gap: 12px; }
+  body.uo-lp .img-reveal-heading { font-size: 30px; max-width: none; }
+  body.uo-lp .img-reveal-desc { font-size: 16px; }
+}
+
+/* ============================================================
+   Mobile: the cohort strip was 669px of vertical scroll before
+   anyone reached the video. Turn it into a snap carousel.
+   ============================================================ */
+@media (max-width: 768px) {
+  body.uo-lp .l1-dates-row {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -16px;
+    padding: 0 16px 4px;
+  }
+  body.uo-lp .l1-dates-row::-webkit-scrollbar { display: none; }
+  body.uo-lp .l1-date {
+    scroll-snap-align: start;
+    border-left: 0;
+    padding: 14px 16px;
+    background: #faf8f4;
+    border-radius: 12px;
+  }
+  body.uo-lp .l1-date-big { font-size: 24px; }
+  body.uo-lp .l1-dates { padding: 18px 16px 18px; margin-top: -28px; }
+  body.uo-lp .l1-dates-head {
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+  }
+  body.uo-lp .l1-dates-note { font-size: 12.5px; }
+}
+
+/* ---------- Skill pills: readable on the animated gradient ----------
+   They were rgba(255,255,255,0.12) over a bright moving background, so
+   contrast swung with whatever the gradient was doing underneath. */
+body.uo-lp .why-reveal-pill {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #ffffff;
+  background: rgba(12, 12, 14, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 7px 15px;
+}
+body.uo-lp .why-reveal-heading {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+body.uo-lp .why-reveal-tool-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+/* ============================================================
+   FAQ: let each card size to its own content
+   ============================================================ */
+
+/* The grid stretches both cards in a row to match the taller one, so opening
+   one answer left an empty box beside it. align-items: start collapses the
+   unopened neighbour back to its heading. Scoped to the offer pages because
+   .faq-grid is global in index.css. */
+body.uo-lp .faq-grid { align-items: start; }
+
+/* ============================================================
+   Mobile fixes
+   ============================================================ */
+
+/* The "Learn the best practices for AI in..." copy is white and sits on top of
+   a dark gradient video. When autoplay is refused (iOS Low Power Mode, or the
+   element still offscreen) the video paints nothing, leaving white text on the
+   section's cream background. The container carries the dark tone itself so the
+   text stays legible whether or not the video ever plays. */
+body.uo-lp .why-reveal-container { background: #14161c; }
+
+/* The cohort strip and the role tabs scroll sideways. Both were cut flush at
+   the container edge, so the clipped card read as broken layout rather than as
+   "there is more this way". Trailing space plus an edge fade makes it scan as a
+   carousel. */
+@media (max-width: 768px) {
+  body.uo-lp .l1-dates-row,
+  body.uo-lp .role-tabs {
+    scroll-padding-right: 16px;
+  }
+  body.uo-lp .role-tabs::after {
+    content: "";
+    flex: 0 0 8px;
+  }
+
+  /* Heading and body were 12px apart at a 1.06 line-height, which read as one
+     block of text over a busy photo. */
+  body.uo-lp .img-reveal-content { gap: 16px; }
+  body.uo-lp .img-reveal-heading { line-height: 1.18; }
+}
+
+/* On desktop the sold-out cohorts sit beside the open ones, so they read as
+   proof the cadence is real. In the mobile carousel they come first and fill the
+   screen, so the section opens on two SOLD OUT cards and looks like nothing is
+   available. Mobile shows only what can actually be booked. */
+@media (max-width: 768px) {
+  body.uo-lp .l1-dates-row .l1-date-out { display: none; }
+}
+
+/* The image-reveal card carries a scroll-driven scale as an inline style. On
+   desktop it reads as a reveal; on a phone the card just renders small and
+   off-centre with inconsistent space around it, changing as you scroll. The
+   photo inside still scales, so the reveal survives where there is room for it. */
+@media (max-width: 768px) {
+  body.uo-lp .img-reveal-container { transform: none !important; }
+}
+
+/* The Aug 17 card looked shaved on its left edge for two reasons.
+   1. .l1-date:nth-child(odd) zeroes padding-left. That rule is for the old
+      two-column grid, but the first visible card is the 3rd child, so it kept
+      applying in the carousel. Matching specificity, later in the file, wins.
+   2. scroll-snap-align: start snapped the card flush to the scrollport edge,
+      scrolling straight past the row's 16px padding (scrollLeft settled at 16).
+      scroll-padding-left keeps that gutter when snapping. */
+@media (max-width: 768px) {
+  body.uo-lp .l1-dates-row .l1-date { padding: 14px 16px; }
+  body.uo-lp .l1-dates-row { scroll-padding-left: 16px; }
+}
+
+/* The 1%-user card has no bottom spacing of its own, so its lower edge butted
+   straight into the cream "Take the first step" band. The next section's top
+   padding sits inside that band, so it reads as no gap at all. */
+body.uo-lp .img-reveal-section { padding-bottom: 64px; }
+@media (max-width: 768px) {
+  body.uo-lp .img-reveal-section { padding-bottom: 44px; }
+}
+
+/* The hero rating is a link down to the reviews. Underline on hover only, so it
+   stays quiet until someone looks for it. */
+body.uo-lp .hero-review-link {
+  color: inherit;
+  cursor: pointer;
+  border-bottom: 0;
+  text-decoration: none;
+}
+body.uo-lp .hero-review-link:hover,
+body.uo-lp .hero-review-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Push the scholarship line to the bottom of the price card so it sits roughly
+   level with the last item in the includes list, instead of hanging right under
+   the urgency line. "Next cohort starts..." stays tucked under the CTA. */
+body.uo-lp .uo-price-card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+body.uo-lp .uo-price-finaid {
+  margin-top: auto;
+  padding-top: 24px;
+}
+@media (max-width: 900px) {
+  /* Stacked, there is no second column to align against, so keep it close. */
+  body.uo-lp .uo-price-finaid { margin-top: 0; padding-top: 16px; }
+}

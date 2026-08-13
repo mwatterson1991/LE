@@ -1,0 +1,282 @@
+/* ============================================================
+   The path — one section, level names only, animates once in view
+   ============================================================ */
+
+body.rb-home .hp {
+  background: #ffffff;
+  padding: 88px 0 96px;
+}
+body.rb-home .hp-header {
+  max-width: 860px;
+  margin: 0 0 64px;
+}
+body.rb-home .hp-headline {
+  font-size: clamp(30px, 3.6vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 14px;
+}
+body.rb-home .hp-sub {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--gray-dark, #555);
+  margin: 0;
+}
+
+body.rb-home .hp-path { position: relative; }
+
+/* the rail the stops sit on */
+body.rb-home .hp-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 13px;
+  height: 2px;
+  background: #eee9df;
+  border-radius: 2px;
+  overflow: hidden;
+}
+body.rb-home .hp-line-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, #f0d78a, #ffd667 45%, #e5c9a8);
+}
+
+body.rb-home .hp-stops {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+body.rb-home .hp-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+body.rb-home .hp-node {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #e5c9a8;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+body.rb-home .hp-stop-live .hp-node {
+  background: #ffd667;
+  border-color: #ffd667;
+  box-shadow: 0 0 0 6px rgba(255, 214, 103, 0.25);
+}
+body.rb-home .hp-stop-core .hp-node { border-color: #ffd667; }
+body.rb-home .hp-stop-adv .hp-node { border-color: #d9d3c6; }
+body.rb-home .hp-stop-prep .hp-node { border-style: dashed; }
+
+body.rb-home .hp-stop-label {
+  font-family: 'Season', Georgia, serif;
+  font-size: clamp(19px, 1.7vw, 24px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: #1a1a1a;
+}
+body.rb-home .hp-stop-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9a958c;
+}
+body.rb-home .hp-stop-live .hp-stop-tag { color: #a14e22; }
+
+/* the always-available band under the track */
+body.rb-home .hp-anytime {
+  margin-top: 48px;
+  background: #f2ebdd;
+  border-radius: 18px;
+  padding: 30px 34px;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+body.rb-home .hp-anytime-tag {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7d3c17;
+  background: #ffd667;
+  border-radius: 999px;
+  padding: 5px 12px;
+  margin-bottom: 12px;
+}
+body.rb-home .hp-anytime-text {
+  font-size: 17px;
+  line-height: 1.55;
+  color: #3f3a33;
+  margin: 0;
+  max-width: 460px;
+}
+body.rb-home .hp-anytime-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body.rb-home .hp-anytime-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #1a1a1a;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+body.rb-home .hp-anytime-list li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffd667;
+}
+
+@media (max-width: 860px) {
+  body.rb-home .hp { padding: 56px 0 64px; }
+  body.rb-home .hp-header { margin-bottom: 36px; }
+  body.rb-home .hp-line {
+    left: 13px;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+  }
+  body.rb-home .hp-line-fill { width: 100%; }
+  body.rb-home .hp-stops { grid-template-columns: 1fr; gap: 26px; }
+  body.rb-home .hp-stop {
+    flex-direction: column;
+    padding-left: 44px;
+    position: relative;
+  }
+  body.rb-home .hp-node {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    margin-bottom: 0;
+  }
+  body.rb-home .hp-anytime {
+    margin-top: 32px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+  body.rb-home .hp-anytime-text { font-size: 16px; }
+  body.rb-home .hp-anytime-list li { font-size: 15px; padding: 11px 14px; }
+}
+
+
+
+/* small prompt under the anytime band */
+body.rb-home .hp-deeper {
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .hp-deeper a {
+  color: #1a1a1a;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body.rb-home .hp-deeper a:hover { color: #a14e22; }
+
+
+
+/* The rail spans only the stops. Without this wrapper it stretched the full
+   height of .hp-path, and on mobile (where it runs vertically) it drew straight
+   through the "anytime" box and the line of copy underneath it. */
+body.rb-home .hp-track { position: relative; }
+
+/* Level titles, folded away by default. The path itself is the message; this is
+   for the reader who wants the actual names without a curriculum dump. */
+body.rb-home .hp-levels { margin-top: 26px; }
+body.rb-home .hp-levels > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--gray-dark, #555);
+  text-underline-offset: 3px;
+  text-decoration: underline;
+}
+body.rb-home .hp-levels > summary::-webkit-details-marker { display: none; }
+body.rb-home .hp-levels > summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translate(-1px, -1px);
+  transition: transform 0.18s ease;
+}
+body.rb-home .hp-levels[open] > summary::after { transform: rotate(-135deg) translate(-1px, -1px); }
+body.rb-home .hp-levels > summary:hover { color: #1a1a1a; }
+
+body.rb-home .hp-levels-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: #eee9df;
+  border-radius: 12px;
+  overflow: hidden;
+}
+body.rb-home .hp-levels-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  background: #ffffff;
+  padding: 12px 16px;
+}
+body.rb-home .hp-levels-n {
+  flex: 0 0 62px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a958c;
+}
+body.rb-home .hp-levels-t {
+  font-family: 'Season', Georgia, serif;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: #1a1a1a;
+}
+
+@media (max-width: 860px) {
+  body.rb-home .hp-levels-list li { flex-direction: column; gap: 2px; padding: 11px 14px; }
+  body.rb-home .hp-levels-n { flex: none; }
+  body.rb-home .hp-levels-t { font-size: 16px; }
+}
+
+/* The sticky header would otherwise sit on top of the headline when
+   "See curriculum" jumps here. */
+body.rb-home .hp { scroll-margin-top: 84px; }

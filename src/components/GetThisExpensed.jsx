@@ -11,7 +11,7 @@ I'd like to expense the Leland AI Builder Program, a 2-week live cohort program 
 - I'll create a research workflow that pulls competitive intel on demand, without any manual searching
 - I'll set up a reusable AI system tuned to our brand voice so every output sounds like us, not a generic chatbot
 
-The program costs $999. Full details: leland.ai/program
+The program costs $1,499. Full details: leland.ai/program
 
 Every session ends with a working deliverable. By week three, I'll have tools that directly reduce the time I spend on repetitive tasks, and I can redirect that time toward higher-leverage work.
 
@@ -29,7 +29,7 @@ I'd like to expense the Leland AI Builder Program, a 2-week live program for pro
 - Build an AI-assisted analysis workflow that cuts time from data to insight
 - Set up a system that turns unstructured data into clean summaries without reformatting everything by hand
 
-Cost is $999. Details: leland.ai/program
+Cost is $1,499. Details: leland.ai/program
 
 I do a lot of this work manually right now. This program builds the tools to do it automatically, not just once, but on a recurring basis. The time savings should pay for the program within the first month.
 
@@ -49,7 +49,7 @@ A significant part of my week is repetitive, manual, and ripe for automation. He
 - An AI system to process unstructured inputs (emails, notes, vendor comms) into structured outputs
 - Automated documentation that keeps our processes current without extra overhead
 
-Cost is $999. Full details: leland.ai/program
+Cost is $1,499. Full details: leland.ai/program
 
 Every session ends with a working deliverable. By week three, I'll have tools running in the background that free up hours each week for higher-priority work.
 
@@ -67,7 +67,7 @@ I'd like to expense the Leland AI Builder Program, a 2-week live cohort that tea
 - Create an onboarding automation that sends the right resources to the right people at the right time
 - Set up a template system for documentation, policies, and comms that cuts drafting time dramatically
 
-Cost is $999. Full details: leland.ai/program
+Cost is $1,499. Full details: leland.ai/program
 
 Right now I do most of these tasks manually. This program builds tools that handle the recurring parts automatically, so I can focus on the work that requires a human.
 
@@ -87,7 +87,7 @@ What I'll build that applies to our work:
 - A competitive intelligence system that monitors and summarizes relevant signals on demand
 - An AI-assisted drafting workflow for presentations and analysis that cuts production time significantly
 
-Cost is $999. Full details: leland.ai/program
+Cost is $1,499. Full details: leland.ai/program
 
 The analysts and operators who move fastest in the next two years will be the ones who build these tools early. This gets me there in three weeks, with working deliverables by session six.
 
@@ -107,7 +107,7 @@ Here's what I'll build that applies directly to my role:
 - A spec-writing system that gets first drafts out faster and in a consistent format
 - An AI assistant tuned to how I write, so status updates, stakeholder comms, and documentation take a fraction of the time
 
-Cost is $999. Full details: leland.ai/program
+Cost is $1,499. Full details: leland.ai/program
 
 Most of my repetitive writing and synthesis work is something AI can handle. This program builds those workflows so they run reliably, not just when I experiment with prompts.
 
@@ -127,7 +127,7 @@ Here's why the investment makes sense:
 - I'll build workflows that reduce manual work across research, drafting, and data handling
 - I'll have a working toolkit of AI systems by week three that I use immediately at work
 
-Cost is $999. Full details: leland.ai/program
+Cost is $1,499. Full details: leland.ai/program
 
 Professionals using AI effectively save an average of 7.5 hours per week. This program gets me there in three weeks with live sessions, a small cohort, and real deliverables each session.
 

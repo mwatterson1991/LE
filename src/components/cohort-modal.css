@@ -1,0 +1,186 @@
+/* ============================================================
+   Cohort select modal — opened by every "Reserve your seat" CTA
+   ============================================================ */
+
+.cm-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  background: rgba(16, 15, 14, 0.62);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: cmFade 0.18s ease;
+}
+@keyframes cmFade { from { opacity: 0 } to { opacity: 1 } }
+
+.cm {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 36px 26px;
+  box-shadow: 0 24px 70px rgba(20, 20, 20, 0.3);
+  animation: cmRise 0.22s ease;
+  font-family: 'Macan', -apple-system, sans-serif;
+  color: #1a1a1a;
+  outline: none;
+}
+@keyframes cmRise { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+
+.cm-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: none;
+  font-size: 26px;
+  line-height: 1;
+  color: #9a958c;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.cm-close:hover { color: #1a1a1a; background: #f7f6f3; }
+
+.cm-head { margin-bottom: 22px; }
+.cm-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #a14e22;
+  margin-bottom: 10px;
+}
+.cm-title {
+  font-family: 'Season', Georgia, serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.14;
+  margin: 0 0 10px;
+}
+.cm-sub {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #55514b;
+  margin: 0 0 6px;
+}
+.cm-note {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #8d877e;
+  margin: 0;
+}
+
+.cm-list { display: flex; flex-direction: column; gap: 9px; }
+
+.cm-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f7f6f3;
+  border-radius: 13px;
+  padding: 13px 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.16s ease, transform 0.16s ease;
+}
+a.cm-row:hover { background: #fff4d6; transform: translateY(-1px); }
+
+.cm-cal {
+  flex-shrink: 0;
+  width: 46px;
+  border-radius: 10px;
+  background: #ffd667;
+  padding: 6px 0 7px;
+  text-align: center;
+  line-height: 1;
+}
+.cm-cal-m {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #7d3c17;
+}
+.cm-cal-d {
+  display: block;
+  font-family: 'Season', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 3px;
+  color: #1a1a1a;
+}
+.cm-cal-q { background: #e8e4dc; padding: 11px 0; }
+.cm-cal-q .cm-cal-d { margin-top: 0; color: #6f6a61; }
+
+.cm-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.cm-date {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.cm-next {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7d3c17;
+  background: #ffeec2;
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+.cm-meta, .cm-times {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #6f6a61;
+}
+
+.cm-tag {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6f6a61;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+.cm-tag-out { color: #a09a90; background: #eceae4; }
+.cm-arrow { flex-shrink: 0; font-size: 17px; color: #9a958c; }
+a.cm-row:hover .cm-arrow { color: #1a1a1a; }
+
+.cm-row-out { opacity: 0.6; }
+.cm-row-out .cm-cal { background: #e8e4dc; }
+.cm-row-unsure { background: #ffffff; box-shadow: inset 0 0 0 1px #e6e2da; }
+a.cm-row-unsure:hover { background: #f7f6f3; }
+
+.cm-fine {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #9a958c;
+}
+
+@media (max-width: 560px) {
+  .cm { padding: 30px 20px 22px; border-radius: 16px; }
+  .cm-title { font-size: 24px; }
+  .cm-row { gap: 12px; padding: 12px; }
+  .cm-tag { display: none; }
+  .cm-date { font-size: 14.5px; }
+}
