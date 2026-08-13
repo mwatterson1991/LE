@@ -22,8 +22,10 @@ Run `npm run check` at the end. It catches items 1, 2, and 4 automatically.
 ## 1. The HTML entry file
 
 Create `<name>.html` in the repo root. Copy an existing one, for example
-`program.html`, which is the smallest. Keep the `<div id="root">` and the module
+`reviews.html`, which is the smallest. Keep the `<div id="root">` and the module
 script that loads `/src/main.jsx`. Update `<title>` and the meta description.
+Do not copy `program.html`, because it carries a PostHog feature-flag redirect
+that belongs only to `/program`.
 
 ## 2. The Vite input map
 
@@ -33,13 +35,33 @@ Add the file to `build.rollupOptions.input` in `vite.config.js`:
 '<name>': resolve(__dirname, '<name>.html'),
 ```
 
-**This is the step that gets missed.** Without it the page builds locally and
-returns 404 in production, because Cloudflare only serves what the build wrote
-to `dist/`.
+Contributors often miss this step. Without it the page builds locally but
+returns 404 in production. Cloudflare only serves files the build wrote to `dist/`.
 
-## 3. The route in src/App.jsx
+## 3. The page component and route
 
-`App` routes on `window.location.pathname` with a chain of `startsWith` checks.
+Create the page component and wire it into the app:
+
+### 3.1 Create the component file
+
+Create `src/pages/<YourPage>.jsx`. The convention in `src/pages/` is one
+component file per page, with an optional matching CSS file beside it. Other
+pages in that directory show the pattern — for example, `ReviewsPage.jsx`.
+
+### 3.2 Add the import
+
+Add the import at the top of `src/App.jsx`, beside the existing page imports
+(lines 6–17):
+
+```jsx
+import YourPage from './pages/YourPage'
+```
+
+A missing import leaves the page blank, because `YourPage` is then undefined.
+This mistake is easy to make and costs real debugging time.
+
+### 3.3 Add the route branch
+
 Add a branch that returns the page component:
 
 ```jsx
@@ -79,8 +101,9 @@ invisible in reporting.
 
 ## 6. Footer links, when the page is permanent
 
-`src/components/Footer.jsx` holds the internal links, in the AI Builder column.
-`Nav.jsx` has no internal links, so it needs no change.
+`src/components/Footer.jsx` holds the internal links, in the For Organizations
+column at `src/components/Footer.jsx:48`. `Nav.jsx` has no internal links, so
+it needs no change.
 
 Skip this for a campaign or partner page that should not be discoverable.
 
