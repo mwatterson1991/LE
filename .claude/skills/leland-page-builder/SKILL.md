@@ -1,22 +1,27 @@
 ---
 name: leland-page-builder
 description: >
-  Build production-ready Leland-branded pages from idea to deployable Astro output.
-  Use this skill whenever a user wants to create a new page, landing page, marketing
-  page, campaign page, or any web page for the Leland website. Also trigger when the
-  user says "build me a page", "new landing page", "create a page for [feature/event/
-  podcast/product]", "make a Leland page", or any variation involving designing and
-  shipping a branded page. This skill handles the full lifecycle: creative prototyping
-  with the Leland design system, iterative refinement, and final export as a
-  deployable Astro file with supporting files (migration, env, context doc). Even if
-  the user just says "I need a page for X" without mentioning Leland or Astro, use
-  this skill — it's the standard pipeline for all new Leland pages.
+  Design a new Leland-branded page for this repo and ship it, from idea to a
+  production React page in this Vite multi-page site. Use this skill when the user
+  wants a page designed, not merely registered: "build me a page", "new landing
+  page", "design a page for [event/campaign/partner/product]", "make a Leland page",
+  or any request that starts from a brief rather than from finished markup. It covers
+  the full lifecycle: a self-contained HTML prototype in the Leland light brand,
+  iteration until the user is happy, then conversion to a React page component with
+  scoped CSS. This file is also the brand design spec for this repo, and REBRAND.md
+  cites it as the source of truth for the design tokens. For registering a page that
+  already exists, use the add-a-page skill instead. This skill is for this Vite repo;
+  it does not produce Astro output.
 ---
 
 # Leland Page Builder
 
-You are a page builder agent for Leland. Your job is to take a user from idea →
-polished prototype → production-ready Astro page, following a two-phase workflow.
+You are a page builder agent for the AI Builder Program site. Your job is to take a
+user from idea → polished prototype → production React page, in two phases.
+
+This repo is a Vite multi-page build. Pages are root `*.html` entry files plus React
+components under `src/pages/`. There is no server and no database: `wrangler.toml`
+declares `[assets] directory = "./dist"`, so Cloudflare serves static output only.
 
 ---
 
@@ -27,12 +32,12 @@ about what they see before worrying about production concerns.
 
 ### Step 1 — Understand the brief
 
-Ask the user what they're building. You need at minimum:
+Ask the user what they are building. You need at minimum:
 - **What is the page for?** (podcast, feature launch, event, campaign, etc.)
 - **Who is the audience?**
 - **Any specific content?** (copy, stats, episode data, speaker names, etc.)
 
-Don't over-interview. If the user gives you a clear description, start building
+Do not over-interview. If the user gives you a clear description, start building
 immediately. Fill in reasonable placeholder content — it's easier to edit than to
 wait.
 
@@ -44,8 +49,9 @@ never deviate from them.
 
 #### Fonts
 
-Two custom font families. Include `@font-face` declarations in the prototype's
-`<style>` block (or reference them from `src/assets/fonts/` when in-project):
+Two custom font families. Both are self-hosted in this repo under `public/`, so
+reference them by absolute URL. Copy the `@font-face` block from
+`src/pages/home-rebrand.css` rather than writing a new one.
 
 | Font | Role | CSS variable |
 |------|------|-------------|
@@ -56,16 +62,32 @@ Two custom font families. Include `@font-face` declarations in the prototype's
 
 | File | CSS `font-weight` | Name | Usage |
 |------|-------------------|------|-------|
-| `Macan-Trial-Regular.otf` | 300 | Regular (light) | Light body text |
-| `Macan-Trial-Book.otf` | 400 | Book (normal) | Default body text |
-| `Macan-Trial-Medium.otf` | 500 | Medium | Buttons, emphasis |
-| `Macan-Trial-Semibold.otf` | 600 | Semibold | Uppercase labels, bold emphasis |
+| `/assets/fonts/Macan/Macan-Regular.woff2` | 300 | Regular (light) | Light body text |
+| `/assets/fonts/Macan/Macan-Book.woff2` | 400 | Book (normal) | Default body text |
+| `/assets/fonts/Macan/Macan-Medium.woff2` | 500 | Medium | Buttons, emphasis |
+| `/assets/fonts/Macan/Macan-SemiBold.woff2` | 600 | SemiBold | Uppercase labels, bold emphasis |
 
-**Season** has a single weight: `SeasonMix-TRIAL-Medium.otf` at `font-weight: 500`.
+**Season** has a single weight: `/assets/fonts/Season/SeasonMix-Medium.woff2` at
+`font-weight: 500`.
 
-If font files are unavailable for the prototype, use the fallback stacks
-(Georgia for serif, system sans-serif for body). The custom fonts are essential
-for brand fidelity — always include them when possible.
+Match that capitalisation exactly. The repo ships `Macan-SemiBold`, not
+`Macan-Semibold`. macOS ignores the difference and Cloudflare returns 404 for it.
+Each family also ships a `.woff` beside the `.woff2` as a fallback source.
+
+Never substitute a system font stack. The files are present, and the fallbacks
+(Georgia, system sans-serif) exist only to cover the moment before the webfont
+loads.
+
+#### Two brands live in this repo — use the light one
+
+`src/index.css` defines a `:root` block for the **legacy dark theme**: black
+background, lime `--accent: #A5E446`, white text. Older pages still use it.
+
+The **light brand** below is the current one. It lives in
+`src/pages/home-rebrand.css`, scoped under `html.rb-home` and `body.rb-home`.
+Build new pages in the light brand unless the user asks for the dark one.
+
+Because both themes coexist, a new page's CSS must be scoped. See Phase 2 Step 3.
 
 #### Color Tokens
 
@@ -81,6 +103,10 @@ Define these as CSS custom properties. Use the variables — never hardcode valu
 | `--blue` | `#80ACED` | Accent color (rare) |
 | `--cream` | `#F0EBE0` | Warm neutral background |
 | `--gray-hover` | `rgba(34,34,34,0.05)` | Subtle hover states |
+
+**The brand yellow is a background colour only.** `#FFD667` is unreadable as text
+on white. For a gold text accent — a label, a checkmark, a price emphasis — use
+`#8a6d1a` instead.
 
 #### Section Backgrounds
 
@@ -193,7 +219,15 @@ CTA buttons go `width: 100%` when stacked on mobile.
 
 #### Logos
 
-Two logo SVGs are used. Always paste these inline — never reference an external file.
+The two SVGs below are for the **prototype only**, so it renders standalone with no
+server. In production the page uses this repo's `<Nav />` and `<Footer />`
+components, which already carry the correct marks — do not paste logo markup into a
+React page. This repo also ships its own AI Builder Program marks in
+`public/assets/logos/`, including `AI-Builder-Program-Logo.svg` and
+`aibp-light.png`. Note that `public/logos/` is a different directory holding
+third-party company logos such as `amazon.svg`.
+
+For the prototype, paste these inline — never reference an external file.
 
 **Full text logo (navbar)** — Black wordmark, used in the top navigation bar.
 Link it to `https://www.joinleland.com`.
@@ -233,179 +267,193 @@ Let the user react. They may want to:
 - Add interactivity (upvotes, forms, filters, etc.)
 
 Keep iterating on the HTML prototype until the user is happy. Each revision should
-be a new version of the same HTML file. Don't move to Phase 2 until the user
-explicitly signals they're satisfied (e.g., "looks good", "let's ship it", "ready
-to go", "convert this to Astro").
+be a new version of the same HTML file. Do not move to Phase 2 until the user
+explicitly signals they are satisfied, for example "looks good", "let's ship it",
+or "ready to go".
 
 ---
 
 ## Phase 2: Production Export
 
-Once the user approves the design, convert it to a production-ready Astro page.
+Once the user approves the design, convert the prototype into a React page in this
+repo. There is no server and no database here, so this phase produces markup,
+styles, and registration — nothing else.
 
 ### Step 1 — Ask for the page path
 
 Before writing any files, ask the user:
 
-> "What should the URL path be for this page? The filename becomes the route —
-> for example, `podcast.astro` would live at `/podcast`."
+> "What should the URL path be for this page? For example `/summit` is served by
+> `summit.html`. A path that does not match a file name needs a redirect rule, which
+> is one extra line."
 
-Wait for their answer. This determines the Astro filename.
+Wait for their answer. It determines the entry file name and the route.
 
-### Step 2 — Convert to Astro
+### Step 2 — Write the page component
 
-Transform the HTML prototype into a single `.astro` file:
+Create `src/pages/<Name>Page.jsx`. Follow the existing components in that directory,
+for example `src/pages/ServicesPage.jsx`.
 
-1. **Frontmatter** — Move all data (episode lists, speaker info, stats, etc.)
-   into the `---` frontmatter block as typed constants.
+1. **Data as module constants.** Put speaker lists, stats, FAQ entries, and similar
+   content in `const` declarations above the component. Never inline a long array in
+   the middle of the markup.
+2. **Cohort dates and prices come from `src/pages/courseData.js`.** `COURSE_COHORTS`
+   and `ENROLL_URLS` are the source of truth. Never hardcode a date or a price on a
+   new page. This is the top source of bugs in this repo, and the cohort-watch
+   report exists because of it.
+3. **Reuse the shared components.** Import `Nav` and `Footer` from
+   `src/components/`. Use `CohortPicker` for cohort selection and `Faq` for FAQ
+   sections rather than rebuilding them.
+4. **Interactivity uses React state**, not a `<script>` tag. This repo already
+   depends on `motion` and `gsap` if the design needs animation.
+5. **No server-side code.** There is no database, no Supabase, and no request
+   handler. A form must post to an external endpoint, such as a Typeform or HubSpot
+   URL. Existing pages use `https://joinleland.typeform.com/to/...` links.
 
-2. **Server-side logic** — If the page has any interactive features that need
-   persistence (upvotes, form submissions, etc.), handle them server-side in
-   the frontmatter using `Astro.request`. Use `@supabase/supabase-js` with the
-   service role key (never expose it client-side). Pattern:
+### Step 3 — Write the page CSS, scoped
 
-   ```ts
-   if (Astro.request.method === "POST") {
-     // handle the action
-     if (Astro.request.headers.get("accept")?.includes("application/json")) {
-       return new Response(JSON.stringify(result), {
-         headers: { "Content-Type": "application/json" },
-       });
-     }
-   }
-   ```
+Create `src/pages/<name>.css` and import it from the component.
 
-3. **Template** — Use Astro template expressions (`{data.map(...)}`, etc.)
-   instead of repeated HTML. Keep all markup in this single file.
+**Vite bundles every CSS file into one global stylesheet.** An unscoped rule on your
+new page changes all 24 pages in this repo. This is the single easiest way to break
+production from a new page.
 
-4. **Styles** — One `<style is:global>` block for resets/variables, one scoped
-   `<style>` block for everything else. Use the CSS custom properties defined
-   in the design system (Phase 1 Step 2).
+Scope every rule under one class that only your page sets, exactly as
+`src/pages/home-rebrand.css` scopes everything under `html.rb-home` and
+`body.rb-home`:
 
-5. **Client JS** — If interactivity is needed, use a single `<script>` tag
-   with vanilla JS. Avoid shipping a framework for simple interactions. Use
-   `client:load` React islands only if the interactivity is genuinely complex
-   (rich forms, drag-and-drop, real-time updates).
+```css
+body.summit-page .hero { padding: 128px 48px 72px; }
+body.summit-page .section-title { font-family: var(--font-serif); }
+```
 
-6. **HubSpot** — Always include in `<head>`:
+Set that class on `<body>` from the page component:
+
+```jsx
+useEffect(() => {
+  document.body.classList.add('summit-page')
+  return () => document.body.classList.remove('summit-page')
+}, [])
+```
+
+Redefine the design tokens inside your scope rather than editing a shared file. That
+is how the light brand re-themes `CohortPicker`, `GetThisExpensed`, and `LPPopup`
+without touching them.
+
+### Step 4 — Register the page
+
+Hand this off to the **add-a-page** skill, which owns the registration checklist and
+is kept in step with the repo. It covers all six places: the root HTML entry file,
+the `input` map in `vite.config.js`, the import and route in `src/App.jsx`, the
+analytics `pageNames` map, a `public/_redirects` rule when the URL and file name
+differ, and the `Footer` link for a permanent page.
+
+Two points from that checklist are worth repeating, because missing either ships a
+broken page:
+
+- **Route order matters.** `src/App.jsx` matches with a chain of `startsWith` checks,
+  so a route sharing a prefix with an existing one must sit above it.
+- **A missing `vite.config.js` input entry builds clean locally and returns 404 in
+  production.**
+
+Copy `reviews.html` as the entry file. It is the smallest. Do not copy
+`program.html`, because it carries a PostHog feature-flag redirect that belongs only
+to `/program`.
+
+### Step 5 — Head tags and analytics
+
+The entry HTML file owns everything in `<head>`.
+
+1. **SEO** — as specified in Phase 1: a `<title>` under 60 characters including
+   "Leland", a 120 to 155 character `<meta name="description">`, a canonical link,
+   Open Graph tags (`og:title`, `og:description`, `og:type`, `og:url`, `og:image`,
+   `og:site_name`), Twitter card tags, structured data where it applies, and one
+   `h1` per page.
+2. **PostHog is already initialised** in `src/main.jsx` for every page. Add nothing.
+   Capture events with `posthog.capture('event_name')` inside the component.
+3. **Google Tag Manager** is present on the entry files. The page name in the
+   `page_view` event comes from the `pageNames` map in `src/App.jsx`, which the
+   add-a-page checklist covers. Without an entry the page reports as `Home`.
+4. **HubSpot only when the page needs it.** Some pages load it and most do not, so
+   ask before adding it. When the user wants HubSpot form tracking, include the
+   loader in `<head>`:
    ```html
    <script type="text/javascript" id="hs-script-loader" async defer
      src="https://js.hs-scripts.com/22467258.js"></script>
    ```
+5. **Form fields need IDs and names** whenever a form exists, so submissions are
+   identifiable downstream. Form: `id="form-{purpose}"`. Fields:
+   `id="{form}-{field}"`, `name="{field}"`. Submit: `id="{form}-submit"`.
+6. **Canonical outbound links.** The Leland logo and home link always point to
+   `https://www.joinleland.com`. Footer links come from the `Footer` component, so
+   never invent footer URLs.
+7. **Accessibility** — `aria-label` on icon buttons, `aria-hidden` on decorative
+   SVGs, semantic elements, real `alt` text, and `loading="lazy"` on images below
+   the fold.
 
-7. **Forms & HubSpot tracking** — Every `<form>` and every form field must
-   have explicit, descriptive `id` and `name` attributes so submissions are
-   easy to identify in HubSpot. Use a consistent naming convention:
-   - Form: `id="form-{purpose}"` (e.g., `id="form-newsletter-subscribe"`)
-   - Fields: `id="{form}-{field}"`, `name="{field}"` (e.g.,
-     `id="newsletter-subscribe-email"`, `name="email"`)
-   - Submit buttons: `id="{form}-submit"`
+### Step 6 — Verify before you hand it over
 
-   Example:
-   ```html
-   <form id="form-newsletter-subscribe">
-     <input id="newsletter-subscribe-email" name="email" type="email"
-       placeholder="Enter your email" required autocomplete="email" />
-     <button id="newsletter-subscribe-submit" type="submit">Subscribe</button>
-   </form>
-   ```
+```bash
+npm run check   # page registered, links resolve, assets exist and fit the budget
+npm run build   # the real production build
+npm run dev     # then open http://localhost:5173/<path>
+```
 
-8. **Logo & navigation links** — The Leland logo / home link must always
-   point to `https://www.joinleland.com`. Footer links use these canonical
-   URLs:
-   - Contact Us → `https://intercom.help/leland-help-center/en/`
-   - Terms → `https://www.joinleland.com/legal/terms`
-   - Privacy → `https://www.joinleland.com/legal/privacy-policy`
+Confirm `dist/<name>.html` exists after the build. If it does not, the Vite input
+entry is missing.
 
-9. **SEO** — Every page must include quality SEO attributes in `<head>`:
-   - `<title>` — Descriptive, under 60 chars, include "Leland" brand name
-   - `<meta name="description">` — Compelling summary, 120–155 chars
-   - `<link rel="canonical">` — Full canonical URL of the page
-   - Open Graph tags: `og:title`, `og:description`, `og:type` (website),
-     `og:url`, `og:image` (use a relevant image or Leland default),
-     `og:site_name` ("Leland")
-   - Twitter card tags: `twitter:card` (summary_large_image),
-     `twitter:title`, `twitter:description`, `twitter:image`
-   - Structured data where appropriate (e.g., `PodcastSeries`,
-     `Event`, `WebPage` via `<script type="application/ld+json">`)
-   - Semantic heading hierarchy (`h1` → `h2` → `h3`, one `h1` per page)
+Then check the two things no script can check. Open one other page, for example
+`/program`, and confirm your CSS did not leak into it. Open the new page at 375
+pixels wide and confirm the mobile layout holds.
 
-   Ask the user for the canonical URL if not obvious from context. If they
-   don't have an OG image ready, use a placeholder comment noting where to
-   add one.
+### Step 7 — Present and explain
 
-10. **Fonts** — Include `@font-face` declarations for Season (serif, weight 500)
-    and Macan (weights 300, 400, 500, 600). Reference font files from
-    `src/assets/fonts/` (Season) and `src/assets/fonts/Macan/` (Macan). Set
-    `--font-serif: 'Season', Georgia, serif` and
-    `--font-body: 'Macan', -apple-system, sans-serif` as CSS custom properties.
-    If self-hosted font files aren't available yet, leave a commented
-    `@font-face` block with a note to add them in production and fall back to
-    the system stacks (Georgia for serif, system sans-serif for body).
-
-11. **Accessibility** — `aria-label` on icon buttons, `aria-hidden` on
-    decorative SVGs, semantic HTML (`<nav>`, `<article>`, `<footer>`), proper
-    `alt` text, `loading="lazy"` on below-fold images.
-
-### Step 3 — Write supporting files
-
-Always output exactly **4 files**:
-
-| File | Purpose |
-|------|---------|
-| `{page-name}.astro` | The page (named per the user's chosen URL path) |
-| `supabase/migrations/{YYYYMMDD}_{description}.sql` | Database migration (if the page has persistent features). Use today's date as prefix. If no persistence needed, write a minimal migration that creates a page_views table for analytics. |
-| `CONTEXT.md` | Project context: what was built, the full prompt history summarized, architecture (Astro on Cloudflare Workers), design decisions, setup steps, file inventory |
-| `.env.example` | Required environment variables with comments. Reference Cloudflare Workers (not Pages) for deployment config. |
-
-### Step 4 — Present and explain
-
-Present all 4 files to the user. Give a brief summary of:
-- What the Astro file does (server-side vs client-side split)
-- What the migration creates
-- What env vars they need to set
-- Any dependencies to install (`@supabase/supabase-js`, etc.)
-- The `astro.config.mjs` requirements (`output: 'server'`, `adapter: cloudflare()` from `@astrojs/cloudflare`, deployed to Cloudflare Workers)
-
-Keep it concise — the CONTEXT.md has the full details.
+Tell the user what you built: the files added, the URL it serves, which brand it
+uses, and anything you left as a placeholder. Name any image that still needs
+replacing, and remind them that an image over 400 KB fails `npm run check` — the
+add-an-image skill shrinks it.
 
 ---
 
 ## Rules
 
-1. **Never skip the prototype phase.** Even if the user asks to "just make an
-   Astro page", prototype in HTML first. It's faster to iterate on a static
-   HTML file than a full Astro component.
+1. **Never skip the prototype phase.** Even when the user asks you to go straight
+   to the real page, prototype in one HTML file first. Iterating on a static file
+   is faster than iterating on a registered React page.
 
-2. **Never skip asking for the page path.** The filename is the URL.
+2. **Never skip asking for the page path.** It decides the entry file name, the
+   route, and whether a redirect rule is needed.
 
-3. **Always include HubSpot.** No exceptions.
+3. **Scope every CSS rule to your page.** Vite bundles all CSS globally, so an
+   unscoped rule changes all 24 pages. See Phase 2 Step 3.
 
-4. **Server-side Supabase only.** Use `SUPABASE_SERVICE_ROLE_KEY` (no `PUBLIC_`
-   prefix) in the frontmatter. The anon key should never appear in the output.
+4. **No server-side code and no database.** This repo deploys static assets only.
+   Never write a Supabase call, a request handler, a `.sql` migration, or an
+   `.env.example`. A form posts to an external endpoint.
 
-5. **Single-file Astro.** No separate component files, no separate CSS files,
-   no separate JS files. Everything in one `.astro` file.
+5. **A page is a component plus a scoped stylesheet.** `src/pages/<Name>Page.jsx`
+   and `src/pages/<name>.css`, matching the existing files in that directory.
 
-6. **4 files total output.** Always: `.astro`, `.sql`, `CONTEXT.md`, `.env.example`.
+6. **Registration belongs to add-a-page.** Hand off to that skill rather than
+   restating its checklist, so the two never drift apart.
 
-7. **Date-prefixed migrations.** Format: `YYYYMMDD_description.sql`. Use today's
-   actual date.
+7. **Cohort dates and prices come from `courseData.js`.** Never hardcode a date or
+   a price on a new page.
 
 8. **Leland design system only.** Never deviate from the design tokens defined
    in Phase 1 Step 2. Use only Season and Macan fonts, the defined color
    variables (`--yellow`, `--gray-dark`, `--cream`, etc.), pill-shaped buttons
    (`border-radius: 999px`), and `16px` card radii. No custom colors, no
-   off-brand fonts.
+   off-brand fonts. The yellow is a background colour; gold text is `#8a6d1a`.
 
 9. **Logo always links home.** The Leland logo href is always
    `https://www.joinleland.com` — never `/` or `#`.
 
-10. **Canonical footer links.** Always use the exact URLs for Contact Us, Terms,
-    and Privacy specified in Phase 2 Step 2 item 8. Never invent footer URLs.
+10. **Reuse `Nav` and `Footer`.** Never paste navigation or footer markup into a
+    React page, and never invent footer URLs.
 
 11. **Form fields must have IDs and names.** Every form, input, and submit button
-    gets an explicit `id` and `name` so HubSpot can track submissions cleanly.
+    gets an explicit `id` and `name` so submissions are identifiable downstream.
 
 12. **SEO is mandatory.** Every page gets a full set of meta tags, OG tags,
     Twitter card tags, and structured data where appropriate.
@@ -413,3 +461,6 @@ Keep it concise — the CONTEXT.md has the full details.
 13. **Buttons use weight 500 (Macan Medium).** All buttons and CTAs must use
     `font-weight: 500`, never 600. This applies to primary, secondary, and
     any other button variant.
+
+14. **Run `npm run check` and `npm run build` before you hand over.** Both must
+    pass, and confirm your CSS did not leak into another page.
