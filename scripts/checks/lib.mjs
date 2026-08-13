@@ -34,3 +34,34 @@ export function reporter(name) {
     },
   }
 }
+
+const BUDGETS = [
+  {
+    kind: 'video',
+    match: /\.(mp4|webm|mov)$/i,
+    limit: 2 * 1024 * 1024,
+    fix: rel => `ffmpeg -i "${rel}" -vf "scale=-2:1080" -vcodec libx264 -crf 30 -an "${rel}.small.mp4"`,
+  },
+  {
+    kind: 'raster',
+    match: /\.(png|jpe?g|webp|gif|avif)$/i,
+    limit: 400 * 1024,
+    fix: rel => `sips -Z 1600 -s format jpeg -s formatOptions 72 "${rel}" --out "${rel}"`,
+  },
+  {
+    kind: 'svg',
+    match: /\.svg$/i,
+    limit: 400 * 1024,
+    fix: () => 'Re-export the SVG with fewer points, or use a PNG instead.',
+  },
+  {
+    kind: 'other',
+    match: /\.(woff2?|pdf|ico|ics)$/i,
+    limit: 2 * 1024 * 1024,
+    fix: () => 'Compress the file, or ask an engineer whether it belongs in the repo.',
+  },
+]
+
+export function assetBudget(rel) {
+  return BUDGETS.find(entry => entry.match.test(rel)) ?? null
+}

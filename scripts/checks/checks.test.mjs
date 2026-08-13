@@ -4,6 +4,7 @@ import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { assetBudget } from './lib.mjs'
 
 const REPO = path.resolve(fileURLToPath(new URL('../../', import.meta.url)))
 
@@ -106,4 +107,27 @@ test('assets accepts a URL-encoded reference whose file exists', () => {
   })
   const result = run('assets.mjs', root)
   assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assetBudget returns correct limit and fix for JPEG', () => {
+  const entry = assetBudget('public/images/photo.jpg')
+  assert.equal(entry.limit, 400 * 1024)
+  assert.match(entry.fix('public/images/photo.jpg'), /sips/)
+})
+
+test('assetBudget returns correct limit and fix for MP4', () => {
+  const entry = assetBudget('public/videos/demo.mp4')
+  assert.equal(entry.limit, 2 * 1024 * 1024)
+  assert.match(entry.fix('public/videos/demo.mp4'), /ffmpeg/)
+})
+
+test('assetBudget returns correct fix for PDF (no sips)', () => {
+  const entry = assetBudget('public/files/guide.pdf')
+  assert.match(entry.fix('public/files/guide.pdf'), /Compress/)
+  assert.doesNotMatch(entry.fix('public/files/guide.pdf'), /sips/)
+})
+
+test('assetBudget returns null for unknown extension', () => {
+  const entry = assetBudget('public/data.txt')
+  assert.equal(entry, null)
 })
