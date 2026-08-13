@@ -1,0 +1,250 @@
+import { test } from 'node:test'
+import assert from 'node:assert/strict'
+import { spawnSync } from 'node:child_process'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { assetBudget } from './lib.mjs'
+
+const REPO = path.resolve(fileURLToPath(new URL('../../', import.meta.url)))
+
+function run(script, root) {
+  return spawnSync('node', [path.join(REPO, 'scripts/checks', script)], {
+    cwd: REPO,
+    encoding: 'utf8',
+    env: { ...process.env, CHECK_ROOT: root },
+  })
+}
+
+// The fixture lives inside the repo so that `import 'vite'` inside the
+// fixture's vite.config.js resolves through the repo's node_modules.
+export function makeFixture(name, files) {
+  const dir = path.join(REPO, 'tmp-check-fixture', name)
+  fs.rmSync(dir, { recursive: true, force: true })
+  for (const [rel, body] of Object.entries(files)) {
+    const target = path.join(dir, rel)
+    fs.mkdirSync(path.dirname(target), { recursive: true })
+    fs.writeFileSync(target, body)
+  }
+  return dir
+}
+
+const VITE_CONFIG = `
+import { defineConfig } from 'vite'
+import { resolve } from 'path'
+import { fileURLToPath } from 'url'
+const __dirname = fileURLToPath(new URL('.', import.meta.url))
+export default defineConfig({
+  build: { rollupOptions: { input: {
+    main: resolve(__dirname, 'index.html'),
+    good: resolve(__dirname, 'good.html'),
+  } } },
+})
+`
+
+test('registry passes against the real repo', () => {
+  const result = run('registry.mjs', REPO)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('registry fails on an unregistered page', () => {
+  const root = makeFixture('unregistered', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<html></html>',
+    'good.html': '<html></html>',
+    'orphan.html': '<html></html>',
+    'public/_redirects': '',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /orphan\.html/)
+  assert.match(result.stdout, /vite\.config\.js/)
+})
+
+test('registry fails on a link with no page and no redirect', () => {
+  const root = makeFixture('deadlink', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<a href="/nowhere">go</a>',
+    'good.html': '<html></html>',
+    'public/_redirects': '',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /\/nowhere/)
+})
+
+test('registry accepts a link that resolves through _redirects', () => {
+  const root = makeFixture('redirected', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<a href="/pretty">go</a>',
+    'good.html': '<html></html>',
+    'public/_redirects': '/pretty /good 200\n',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assets passes against the real repo', () => {
+  const result = run('assets.mjs', REPO)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assets fails on a reference to a file that does not exist', () => {
+  const root = makeFixture('missing-asset', {
+    'index.html': '<img src="/assets/nope.png">',
+    'public/_redirects': '',
+  })
+  const result = run('assets.mjs', root)
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /nope\.png/)
+})
+
+test('assets accepts a URL-encoded reference whose file exists', () => {
+  const root = makeFixture('encoded-asset', {
+    'index.html': '<img src="/logos/My%20Logo.svg">',
+    'public/logos/My Logo.svg': '<svg/>',
+    'public/_redirects': '',
+  })
+  const result = run('assets.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assetBudget returns correct limit and fix for JPEG', () => {
+  const entry = assetBudget('public/images/photo.jpg')
+  assert.equal(entry.limit, 400 * 1024)
+  assert.match(entry.fix('public/images/photo.jpg'), /sips/)
+})
+
+test('assetBudget returns correct limit and fix for MP4', () => {
+  const entry = assetBudget('public/videos/demo.mp4')
+  assert.equal(entry.limit, 2 * 1024 * 1024)
+  assert.match(entry.fix('public/videos/demo.mp4'), /ffmpeg/)
+})
+
+test('assetBudget returns correct fix for PDF (no sips)', () => {
+  const entry = assetBudget('public/files/guide.pdf')
+  assert.match(entry.fix('public/files/guide.pdf'), /Compress/)
+  assert.doesNotMatch(entry.fix('public/files/guide.pdf'), /sips/)
+})
+
+test('assetBudget returns null for unknown extension', () => {
+  const entry = assetBudget('public/data.txt')
+  assert.equal(entry, null)
+})
+
+test('registry accepts an external https redirect target', () => {
+  const root = makeFixture('redirect-external', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<html></html>',
+    'good.html': '<html></html>',
+    'public/_redirects': '/discord https://discord.gg/abc 301\n',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('registry accepts a redirect target with an explicit .html extension', () => {
+  const root = makeFixture('redirect-html-suffix', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<html></html>',
+    'good.html': '<html></html>',
+    'public/_redirects': '/explicit /good.html 200\n',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('registry accepts a splat redirect target', () => {
+  const root = makeFixture('redirect-splat', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<html></html>',
+    'good.html': '<html></html>',
+    'public/_redirects': '/wild /anywhere/* 200\n',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assets size budget catches an over-budget uncommitted file end to end', () => {
+  const dir = path.join(REPO, 'tmp-check-fixture', 'size-budget-e2e')
+  fs.rmSync(dir, { recursive: true, force: true })
+  fs.mkdirSync(path.join(dir, 'public'), { recursive: true })
+  fs.writeFileSync(path.join(dir, 'index.html'), '<html></html>')
+  spawnSync('git', ['init'], { cwd: dir })
+  spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: dir })
+  spawnSync('git', ['config', 'user.name', 'Test'], { cwd: dir })
+  spawnSync('git', ['add', '-A'], { cwd: dir })
+  spawnSync('git', ['commit', '-m', 'baseline'], { cwd: dir })
+
+  // Left uncommitted on purpose: this is the case a committed range diff
+  // cannot see on its own.
+  fs.writeFileSync(path.join(dir, 'public', 'hero.png'), Buffer.alloc(500 * 1024))
+
+  const result = spawnSync('node', [path.join(REPO, 'scripts/checks/assets.mjs')], {
+    cwd: REPO,
+    encoding: 'utf8',
+    env: { ...process.env, CHECK_ROOT: dir, CHECK_BASE: 'HEAD', CI: '' },
+  })
+  assert.equal(result.status, 1, result.stdout + result.stderr)
+  assert.match(result.stdout, /hero\.png/)
+  assert.match(result.stdout, /KB/)
+})
+
+test('stale-cohorts flags a passed cohort that still sells', () => {
+  const result = spawnSync('node', [path.join(REPO, 'scripts/checks/stale-cohorts.mjs')], {
+    cwd: REPO,
+    encoding: 'utf8',
+    env: { ...process.env, CHECK_ROOT: REPO, CHECK_TODAY: '2099-01-01' },
+  })
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /## Report A/)
+  assert.match(result.stdout, /Level 1/)
+})
+
+test('registry catches a dead link written with an explicit .html extension', () => {
+  const root = makeFixture('deadlink-html', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<a href="/does-not-exist.html">dead</a>',
+    'good.html': '<html></html>',
+    'public/_redirects': '',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /does-not-exist/)
+})
+
+test('registry still accepts a live link written with an explicit .html extension', () => {
+  const root = makeFixture('livelink-html', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<a href="/good.html">live</a>',
+    'good.html': '<html></html>',
+    'public/_redirects': '',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assets catches a missing .otf font reference', () => {
+  const root = makeFixture('missing-font', {
+    'index.html': '<style>@font-face{src:url("/assets/fonts/Nope-Regular.otf")}</style>',
+    'public/_redirects': '',
+  })
+  const result = run('assets.mjs', root)
+  assert.equal(result.status, 1)
+  assert.match(result.stdout, /Nope-Regular\.otf/)
+})
+
+test('assetBudget gives a font its own budget rather than skipping it', () => {
+  const entry = assetBudget('public/assets/fonts/Heavy-Regular.otf')
+  assert.equal(entry.kind, 'other')
+  assert.equal(entry.limit, 2 * 1024 * 1024)
+  assert.doesNotMatch(entry.fix('public/assets/fonts/Heavy-Regular.otf'), /sips/)
+})
+
+test('assetBudget does not re-encode a non-JPEG raster as JPEG', () => {
+  const png = assetBudget('public/logos/mark.png').fix('public/logos/mark.png')
+  assert.doesNotMatch(png, /format jpeg/)
+  assert.match(png, /sips -Z 1600 "public\/logos\/mark\.png"/)
+  const jpg = assetBudget('public/images/photo.jpg').fix('public/images/photo.jpg')
+  assert.match(jpg, /format jpeg/)
+})

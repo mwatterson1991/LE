@@ -5,3 +5,5 @@ dist
 
 # PII-bearing aggregator output
 public/data/responses-raw.csv
+
+tmp-check-fixture
