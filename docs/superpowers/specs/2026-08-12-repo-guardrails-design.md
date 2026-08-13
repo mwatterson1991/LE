@@ -164,7 +164,7 @@ prints the file, the problem, and the exact fix. No stack traces.
 ## Component: `pr-checks.yml`
 
 Runs on pull requests to `main`. Steps: install dependencies, `npm run check`,
-`node --test scripts/checks/`, `npm run build`. The build takes 1.5 seconds
+`node --test scripts/checks/checks.test.mjs`, `npm run build`. The build takes 1.5 seconds
 today, so the whole job stays well under a minute.
 
 This workflow becomes a required status check under branch protection. Without
