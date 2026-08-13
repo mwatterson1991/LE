@@ -2,7 +2,11 @@ import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 
 let raw = ''
-for await (const chunk of process.stdin) raw += chunk
+try {
+  for await (const chunk of process.stdin) raw += chunk
+} catch {
+  process.exit(0)
+}
 
 const root = process.env.CLAUDE_PROJECT_DIR ?? process.cwd()
 let filePath = ''
@@ -22,5 +26,6 @@ const result = spawnSync('node', [path.join(root, 'scripts/checks/registry.mjs')
 })
 if (result.status === 0) process.exit(0)
 
-console.error(`${rel} changed and the page registry check now fails:\n\n${result.stdout}`)
+const detail = result.stdout || result.stderr || '(the check script produced no output)'
+console.error(`${rel} changed and the page registry check now fails:\n\n${detail}`)
 process.exit(2)

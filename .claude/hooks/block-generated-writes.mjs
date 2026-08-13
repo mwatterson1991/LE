@@ -1,5 +1,9 @@
 let raw = ''
-for await (const chunk of process.stdin) raw += chunk
+try {
+  for await (const chunk of process.stdin) raw += chunk
+} catch {
+  process.exit(0)
+}
 
 let filePath = ''
 try {
