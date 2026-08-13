@@ -21,8 +21,13 @@ Page weight decides conversion on this site. This is not housekeeping.
 Photos and screenshots:
 
 ```bash
-sips -Z 1600 -s format jpeg -s formatOptions 72 input.jpg --out public/assets/images/name.jpg
+sips -Z 1600 -s format jpeg -s formatOptions 72 input.jpg --out /tmp/resized.jpg
+mv /tmp/resized.jpg public/assets/images/name.jpg
 ```
+
+Shrink to a temporary file first, then move it into place. Never point `--out`
+at the input file or at the final destination without verifying the result,
+because `sips` overwrites without warning and without backup.
 
 `-Z 1600` caps the longest side at 1600 pixels and keeps the aspect ratio.
 `formatOptions 72` sets JPEG quality. A real example from this repo: a 12 MB
@@ -36,6 +41,10 @@ Images that need transparency stay PNG:
 ```bash
 sips -Z 1200 input.png --out public/logos/name.png
 ```
+
+`-Z` sets the longest side to that value, so it enlarges a file that is
+already smaller. Skip the resize when the input file is already inside the
+400 KB budget.
 
 Do not ask `sips` to write WebP. It cannot, and it fails with
 `Can't write format: org.webmproject.webp`.
@@ -68,8 +77,8 @@ Never write `../public/...`. That path breaks in the build.
 
 ## Avoid spaces in file names
 
-Three current files have spaces, which forces `%20` in the reference and is
-easy to get wrong. Use hyphens for anything new.
+File names must not contain spaces, because a space forces `%20` in the
+reference and is easy to get wrong. Use hyphens for anything new.
 
 ## Always write alt text
 

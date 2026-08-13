@@ -62,6 +62,7 @@ if (diff.status !== 0) {
       `${rel} is ${kb(size)}. The budget is ${kb(entry.limit)}.`,
       'Large files slow the page down, and page speed decides conversion.',
       entry.fix(rel),
+      'WARNING: never point --out at the input file; sips will overwrite it with no backup. The command above writes to a temporary file. Move it to replace the original only after verifying the quality.',
       'The add-an-image skill does this for you. Ask Claude to use it.',
     ])
   }

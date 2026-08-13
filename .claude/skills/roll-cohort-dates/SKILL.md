@@ -49,8 +49,8 @@ Edit `src/pages/courseData.js`:
 Search for the old date in every form it takes:
 
 ```bash
-grep -rn "August 4" --include="*.jsx" --include="*.html" src .
-grep -rn "2026-08-04" --include="*.jsx" --include="*.html" src .
+grep -rn "August 4" --include="*.jsx" --include="*.html" src
+grep -rn "2026-08-04" --include="*.jsx" --include="*.html" src
 ```
 
 Search the written month name and the ISO form separately. Commit `8048846`
@@ -60,14 +60,31 @@ is one more file than you have found.
 
 ## 5. Verify
 
+First, confirm the old date is gone from every page file:
+
+```bash
+grep -rn "August 4" --include="*.jsx" --include="*.html" src
+grep -rn "2026-08-04" --include="*.jsx" --include="*.html" src
+```
+
+No page file may still contain the old date. Both greps must print zero results.
+
+Then confirm the staleness report is clean:
+
 ```bash
 node scripts/checks/stale-cohorts.mjs   # Report A must be empty
+```
+
+Report A must list no cohorts. If any remain, mark them `soldOut: true` in
+`courseData.js` and re-run this check. Report B will still list remaining
+duplication, which is expected until the consolidation work lands.
+
+Then run the full test suite:
+
+```bash
 npm run check
 npm run build
 ```
-
-Report A must be clean. Report B will still list the remaining duplication,
-which is expected until the consolidation work lands.
 
 In your summary, state which levels changed and which you confirmed were
 already correct. The date roll commits do this, and it makes review fast.
