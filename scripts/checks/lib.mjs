@@ -46,7 +46,7 @@ const BUDGETS = [
     kind: 'raster',
     match: /\.(png|jpe?g|webp|gif|avif)$/i,
     limit: 400 * 1024,
-    fix: rel => `sips -Z 1600 -s format jpeg -s formatOptions 72 "${rel}" --out "/tmp/sips-resize-${path.basename(rel)}"`,
+    fix: rel => `sips -Z 1600 -s format jpeg -s formatOptions 72 "${rel}" --out "/tmp/sips-resize-${rel.replace(/\//g, '_')}"`,
   },
   {
     kind: 'svg',

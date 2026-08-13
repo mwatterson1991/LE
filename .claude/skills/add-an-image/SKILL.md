@@ -22,12 +22,14 @@ Photos and screenshots:
 
 ```bash
 sips -Z 1600 -s format jpeg -s formatOptions 72 input.jpg --out /tmp/resized.jpg
+open /tmp/resized.jpg
 mv /tmp/resized.jpg public/assets/images/name.jpg
 ```
 
-Shrink to a temporary file first, then move it into place. Never point `--out`
-at the input file or at the final destination without verifying the result,
-because `sips` overwrites without warning and without backup.
+Shrink to a temporary file first, then inspect it in Preview, then move it into
+place. Never point `--out` at the input file or at the final destination without
+verifying the result, because `sips` overwrites without warning and without
+backup.
 
 `-Z 1600` caps the longest side at 1600 pixels and keeps the aspect ratio.
 `formatOptions 72` sets JPEG quality. A real example from this repo: a 12 MB

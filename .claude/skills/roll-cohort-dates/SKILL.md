@@ -49,8 +49,8 @@ Edit `src/pages/courseData.js`:
 Search for the old date in every form it takes:
 
 ```bash
-grep -rn "August 4" --include="*.jsx" --include="*.html" src
-grep -rn "2026-08-04" --include="*.jsx" --include="*.html" src
+grep -rn "August 4" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
+grep -rn "2026-08-04" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
 ```
 
 Search the written month name and the ISO form separately. Commit `8048846`
@@ -63,8 +63,8 @@ is one more file than you have found.
 First, confirm the old date is gone from every page file:
 
 ```bash
-grep -rn "August 4" --include="*.jsx" --include="*.html" src
-grep -rn "2026-08-04" --include="*.jsx" --include="*.html" src
+grep -rn "August 4" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
+grep -rn "2026-08-04" --include="*.jsx" --include="*.html" --exclude-dir=node_modules --exclude-dir=dist .
 ```
 
 No page file may still contain the old date. Both greps must print zero results.
