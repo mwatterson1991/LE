@@ -26,6 +26,11 @@ const result = spawnSync('node', [path.join(root, 'scripts/checks/registry.mjs')
 })
 if (result.status === 0) process.exit(0)
 
-const detail = result.stdout || result.stderr || '(the check script produced no output)'
+const detail = result.stdout
+  ? result.stdout
+  : `The check script itself crashed before it could run.
+This usually means a file it imports has a syntax error. vite.config.js is the
+most likely one.
+Fix: run \`npm run check\` in your terminal to see the real error.`
 console.error(`${rel} changed and the page registry check now fails:\n\n${detail}`)
 process.exit(2)
