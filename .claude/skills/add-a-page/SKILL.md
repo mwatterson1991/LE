@@ -19,6 +19,18 @@ A miss in any one of them ships a broken page.
 
 Run `npm run check` at the end. It catches items 1, 2, and 4 automatically.
 
+**First, which shape is the page?** 17 of the 24 pages are React pages: the entry
+HTML loads `/src/main.jsx` and a component in `src/pages/` renders it. The other 7
+are standalone HTML files with their own `<style>` and `<script>`, and no React at
+all — `bundle-3.html`, `bundle-5.html`, `level-1-lp.html`, both
+`leland-ai-builders-b2b*` pages, and the MBA and law landing pages.
+
+A **standalone page skips steps 3 and 5**, because `App.jsx` never runs for it. It
+still needs steps 1, 2, 4, and 6. It also needs its own PostHog snippet if you want
+events, since `main.jsx` is what normally provides that.
+
+Everything below describes the React shape unless a step says otherwise.
+
 ## 1. The HTML entry file
 
 Create `<name>.html` in the repo root. Copy an existing one, for example
@@ -112,8 +124,14 @@ Skip this for a campaign or partner page that should not be discoverable.
 ```bash
 npm run check   # registry and assets
 npm run build   # the real production build
-npm run dev     # then open http://localhost:5173/<name>
+npm run dev     # then open the page, but read the warning below first
 ```
+
+**In dev, open a React page at `/<name>` and a standalone page at `/<name>.html`.**
+The dev server falls back to `index.html` for a path it does not recognise, and that
+fallback returns HTTP 200. So a standalone page opened at its clean URL looks like it
+worked while rendering the React shell instead of your page. Production is not
+affected: Cloudflare serves `/<name>` from `<name>.html`.
 
 Confirm `dist/<name>.html` exists after the build. If it does not, step 2 is
 missing.

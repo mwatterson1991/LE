@@ -279,7 +279,7 @@ Once the user approves the design, convert the prototype into a React page in th
 repo. There is no server and no database here, so this phase produces markup,
 styles, and registration — nothing else.
 
-### Step 1 — Ask for the page path
+### Step 1 — Ask for the page path, then choose the page shape
 
 Before writing any files, ask the user:
 
@@ -289,7 +289,29 @@ Before writing any files, ask the user:
 
 Wait for their answer. It determines the entry file name and the route.
 
-### Step 2 — Write the page component
+**Then choose the shape.** This repo ships two, and picking the wrong one wastes
+work:
+
+| Shape | Count today | Use it when | What you write |
+|---|---|---|---|
+| **React page** | 17 of 24 pages | The page shares the site chrome, reuses `Nav`, `Footer`, `CohortPicker`, or reads `courseData.js` | Entry HTML that loads `/src/main.jsx`, a component in `src/pages/`, a route in `App.jsx` |
+| **Standalone HTML** | 7 of 24 pages | A one-off campaign or partner page that shares nothing and must not touch the shared bundle | One self-contained `.html` file with its own `<style>` and `<script>`; no component, no route |
+
+`bundle-3.html`, `bundle-5.html`, `level-1-lp.html`, both `leland-ai-builders-b2b*`
+pages, and the MBA and law landing pages are the standalone shape. Ask the user
+which they want when it is not obvious. A campaign page with bespoke design is
+usually standalone; anything that shows cohort dates should be a React page, so it
+reads `courseData.js` instead of hardcoding them.
+
+**If the user chooses standalone**, skip Steps 2 and 3 below. You still need Step 4's
+Vite input entry, Step 5's head tags, and Step 6's verification. Move the
+prototype's `<style>` and `<script>` blocks into the file as they are — that is
+exactly what the existing standalone pages do — and add the PostHog snippet
+yourself, because `main.jsx` never runs for these pages.
+
+### Step 2 — Write the page component (React shape only)
+
+Skip this step for a standalone page.
 
 Create `src/pages/<Name>Page.jsx`. Follow the existing components in that directory,
 for example `src/pages/ServicesPage.jsx`.
@@ -310,7 +332,10 @@ for example `src/pages/ServicesPage.jsx`.
    handler. A form must post to an external endpoint, such as a Typeform or HubSpot
    URL. Existing pages use `https://joinleland.typeform.com/to/...` links.
 
-### Step 3 — Write the page CSS, scoped
+### Step 3 — Write the page CSS, scoped (React shape only)
+
+Skip this step for a standalone page, whose `<style>` block is already isolated to
+its own file and cannot leak.
 
 Create `src/pages/<name>.css` and import it from the component.
 
@@ -330,6 +355,8 @@ body.summit-page .section-title { font-family: var(--font-serif); }
 Set that class on `<body>` from the page component:
 
 ```jsx
+import { useEffect } from 'react'
+
 useEffect(() => {
   document.body.classList.add('summit-page')
   return () => document.body.classList.remove('summit-page')
@@ -369,8 +396,14 @@ The entry HTML file owns everything in `<head>`.
    Open Graph tags (`og:title`, `og:description`, `og:type`, `og:url`, `og:image`,
    `og:site_name`), Twitter card tags, structured data where it applies, and one
    `h1` per page.
-2. **PostHog is already initialised** in `src/main.jsx` for every page. Add nothing.
-   Capture events with `posthog.capture('event_name')` inside the component.
+2. **PostHog depends on the shape.** A React page loads `/src/main.jsx`, which
+   initialises PostHog already, so add nothing and capture events with
+   `posthog.capture('event_name')` inside the component. A **standalone page never
+   runs `main.jsx`**, so it must load PostHog itself. Copy the `posthog.init` block
+   from an existing standalone page such as `bundle-5.html`.
+   Only 17 of the 24 pages here get PostHog from `main.jsx`, and
+   `leland-mba-landing-page.html` has no PostHog at all — do not assume it is
+   present.
 3. **Google Tag Manager** is present on the entry files. The page name in the
    `page_view` event comes from the `pageNames` map in `src/App.jsx`, which the
    add-a-page checklist covers. Without an entry the page reports as `Home`.
@@ -396,11 +429,24 @@ The entry HTML file owns everything in `<head>`.
 ```bash
 npm run check   # page registered, links resolve, assets exist and fit the budget
 npm run build   # the real production build
-npm run dev     # then open http://localhost:5173/<path>
+npm run dev     # then open the page, but read the warning below first
 ```
 
 Confirm `dist/<name>.html` exists after the build. If it does not, the Vite input
 entry is missing.
+
+**Open the right URL in dev, or you will verify the wrong page.** The dev server
+does not resolve clean URLs the way production does:
+
+| Shape | Open this in dev | Why |
+|---|---|---|
+| React page | `http://localhost:5173/<path>` | The dev server falls back to `index.html`, and `App.jsx` then routes on the path, so the correct page renders |
+| Standalone HTML | `http://localhost:5173/<name>.html` | The clean URL falls back to `index.html` and silently renders the React shell instead of your page |
+
+That fallback returns HTTP 200, so a standalone page opened at its clean URL looks
+like it worked while showing entirely different content. Production is fine —
+Cloudflare serves `/<name>` from `<name>.html`, which is why the footer links to
+`/pledge` and `/services` with no redirect rule.
 
 Then check the two things no script can check. Open one other page, for example
 `/program`, and confirm your CSS did not leak into it. Open the new page at 375
