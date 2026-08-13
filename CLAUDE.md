@@ -5,8 +5,8 @@ engineers. Keep changes small, and let the checks catch mistakes.
 
 ## Before you open a pull request
 
-Run `npm run check` and `npm run build`. Both must pass. CI runs the same two
-commands, so a local pass means a green pull request.
+Run `npm run check` and `npm run build`. Both must pass. CI runs these same
+checks, so a local pass almost always means a green pull request.
 
 ## Cohort dates and prices
 
