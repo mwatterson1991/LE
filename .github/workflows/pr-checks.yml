@@ -1,0 +1,26 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Repo checks
+        run: npm run check
+        env:
+          CHECK_BASE: origin/${{ github.base_ref }}
+      - name: Check the checks
+        run: node --test scripts/checks/checks.test.mjs
+      - name: Production build
+        run: npm run build
