@@ -4,7 +4,7 @@
 
 **Goal:** Give non-engineer contributors automated guardrails — a `CLAUDE.md`, three check scripts, a required pull request gate, a weekly staleness cron, two hooks, and three skills — so engineering does not review every change.
 
-**Architecture:** Three node scripts under `scripts/checks/` hold all rules, over one shared `lib.mjs` that owns the root directory, the source file walk, and the error format. `npm run check` runs the two gate scripts. CI runs the same command, and a Claude hook runs the same command. One implementation, three consumers, so CI can never enforce a rule a contributor cannot reproduce locally. Every script takes its root directory from `CHECK_ROOT`, which lets the test suite run the real scripts against a throwaway fixture and assert on real exit codes.
+**Architecture:** Three node scripts under `scripts/checks/` hold all rules, over one shared `lib.mjs` that owns the root directory, the source file walk, and the error format. `npm run check` runs the two gate scripts, and CI runs the same command, so CI can never enforce a rule a contributor cannot reproduce locally. A Claude hook runs `registry.mjs` directly, because it fires only on root-HTML writes and has no need for the asset check. Each rule has one implementation. Every script takes its root directory from `CHECK_ROOT`, which lets the test suite run the real scripts against a throwaway fixture and assert on real exit codes.
 
 **Tech Stack:** Node 22 (`node --test`, `fs.readdirSync` recursive, top-level await), no new npm dependencies, GitHub Actions, `gh` CLI, `sips` for images.
 

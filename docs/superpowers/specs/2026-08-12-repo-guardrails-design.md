@@ -71,9 +71,10 @@ scripts/checks/checks.test.mjs     node:test, proves the checks catch a real bre
 .claude/skills/add-an-image/SKILL.md
 ```
 
-`npm run check` runs the gate scripts. CI runs the same command. The hook runs
-the same command. One implementation and three consumers, so CI can never
-enforce a rule that a contributor cannot reproduce locally.
+`npm run check` runs the gate scripts, and CI runs the same command, so CI can
+never enforce a rule that a contributor cannot reproduce locally. The hook runs
+`registry.mjs` directly, because it fires only on root-HTML writes and has no
+need for the asset check. Each rule has one implementation.
 
 ## Component: `registry.mjs`
 

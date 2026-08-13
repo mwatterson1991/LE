@@ -41,8 +41,15 @@ card or thumbnail.
 Images that need transparency stay PNG:
 
 ```bash
-sips -Z 1200 input.png --out public/logos/name.png
+sips -Z 1200 input.png --out /tmp/resized.png
+open /tmp/resized.png
+mv /tmp/resized.png public/logos/name.png
 ```
+
+Shrink to a temporary file first, then inspect it, then move it into place.
+Never point `--out` at the input file or the final destination without
+verifying the result, because `sips` overwrites without warning and without
+backup.
 
 `-Z` sets the longest side to that value, so it enlarges a file that is
 already smaller. Skip the resize when the input file is already inside the

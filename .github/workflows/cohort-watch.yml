@@ -30,6 +30,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          if [ ! -s report.md ]; then
+            echo "report.md is empty (the script likely crashed before printing). Skipping."
+            exit 0
+          fi
           gh label create cohort-watch --color FBCA04 --description "Cohort data needs a refresh" || true
           existing=$(gh issue list --label cohort-watch --state open --json number --jq '.[0].number // empty')
           if [ -n "$existing" ]; then

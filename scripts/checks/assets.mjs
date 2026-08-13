@@ -40,6 +40,7 @@ const diff = spawnSync('git', ['diff', '--name-only', '--diff-filter=d', `${BASE
   encoding: 'utf8',
 })
 
+let budgetRan = false
 if (diff.status !== 0) {
   if (process.env.CI) {
     fail('Size budget could not run', [
@@ -50,7 +51,22 @@ if (diff.status !== 0) {
     console.log(`⚠ size budget skipped: cannot compare against ${BASE}`)
   }
 } else {
-  const changed = diff.stdout.split('\n').filter(f => f.startsWith('public/') && ASSET.test(f))
+  budgetRan = true
+  // A committed range diff alone only sees history. It misses a file a
+  // contributor just dropped into public/ and has not committed yet, so the
+  // candidate list is the union of the committed range, the working tree
+  // (staged and unstaged), and untracked files under public/.
+  const working = spawnSync('git', ['diff', '--name-only', 'HEAD'], { cwd: ROOT, encoding: 'utf8' })
+  const untracked = spawnSync('git', ['ls-files', '--others', '--exclude-standard', 'public/'], {
+    cwd: ROOT,
+    encoding: 'utf8',
+  })
+  const candidates = new Set([
+    ...diff.stdout.split('\n'),
+    ...(working.status === 0 ? working.stdout.split('\n') : []),
+    ...(untracked.status === 0 ? untracked.stdout.split('\n') : []),
+  ])
+  const changed = [...candidates].filter(f => f.startsWith('public/') && ASSET.test(f))
   for (const rel of changed) {
     const entry = assetBudget(rel)
     if (!entry) continue
@@ -62,10 +78,13 @@ if (diff.status !== 0) {
       `${rel} is ${kb(size)}. The budget is ${kb(entry.limit)}.`,
       'Large files slow the page down, and page speed decides conversion.',
       entry.fix(rel),
-      'WARNING: never point --out at the input file; sips will overwrite it with no backup. The command above writes to a temporary file. Move it to replace the original only after verifying the quality.',
       'The add-an-image skill does this for you. Ask Claude to use it.',
     ])
   }
 }
 
-finish(`${scanned} references resolve, changed files within budget`)
+finish(
+  budgetRan
+    ? `${scanned} references resolve, changed files within budget`
+    : `${scanned} references resolve, size budget not checked`
+)

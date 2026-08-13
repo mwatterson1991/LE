@@ -11,7 +11,17 @@ const MONTHS =
   'Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec'
 const DATE_TEXT = new RegExp(`\\b(?:${MONTHS})\\.?\\s+\\d{1,2}\\b`, 'g')
 
-const { COURSE_COHORTS } = await import(pathToFileURL(DATA).href)
+let COURSE_COHORTS
+try {
+  ;({ COURSE_COHORTS } = await import(pathToFileURL(DATA).href))
+} catch {
+  console.error(
+    'src/pages/courseData.js failed to load, so the cohort report could not run.\n' +
+      'This usually means a recent edit introduced a syntax error.\n' +
+      'Fix: run `npm run build` in your terminal to see the real error, then correct src/pages/courseData.js.'
+  )
+  process.exit(1)
+}
 
 const passed = []
 for (const [level, cohorts] of Object.entries(COURSE_COHORTS)) {
@@ -78,4 +88,7 @@ if (unknown.length === 0) {
 }
 
 console.log(out.join('\n'))
-process.exit(passed.length || unknown.length ? 1 : 0)
+// Report B (unknown.length) is measurement for the follow-up consolidation
+// project, not an actionable finding yet — it stays in the printed report
+// but must not drive the exit code, or the weekly cron never goes quiet.
+process.exit(passed.length ? 1 : 0)

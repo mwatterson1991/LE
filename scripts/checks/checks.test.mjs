@@ -132,6 +132,64 @@ test('assetBudget returns null for unknown extension', () => {
   assert.equal(entry, null)
 })
 
+test('registry accepts an external https redirect target', () => {
+  const root = makeFixture('redirect-external', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<html></html>',
+    'good.html': '<html></html>',
+    'public/_redirects': '/discord https://discord.gg/abc 301\n',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('registry accepts a redirect target with an explicit .html extension', () => {
+  const root = makeFixture('redirect-html-suffix', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<html></html>',
+    'good.html': '<html></html>',
+    'public/_redirects': '/explicit /good.html 200\n',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('registry accepts a splat redirect target', () => {
+  const root = makeFixture('redirect-splat', {
+    'vite.config.js': VITE_CONFIG,
+    'index.html': '<html></html>',
+    'good.html': '<html></html>',
+    'public/_redirects': '/wild /anywhere/* 200\n',
+  })
+  const result = run('registry.mjs', root)
+  assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('assets size budget catches an over-budget uncommitted file end to end', () => {
+  const dir = path.join(REPO, 'tmp-check-fixture', 'size-budget-e2e')
+  fs.rmSync(dir, { recursive: true, force: true })
+  fs.mkdirSync(path.join(dir, 'public'), { recursive: true })
+  fs.writeFileSync(path.join(dir, 'index.html'), '<html></html>')
+  spawnSync('git', ['init'], { cwd: dir })
+  spawnSync('git', ['config', 'user.email', 'test@example.com'], { cwd: dir })
+  spawnSync('git', ['config', 'user.name', 'Test'], { cwd: dir })
+  spawnSync('git', ['add', '-A'], { cwd: dir })
+  spawnSync('git', ['commit', '-m', 'baseline'], { cwd: dir })
+
+  // Left uncommitted on purpose: this is the case a committed range diff
+  // cannot see on its own.
+  fs.writeFileSync(path.join(dir, 'public', 'hero.png'), Buffer.alloc(500 * 1024))
+
+  const result = spawnSync('node', [path.join(REPO, 'scripts/checks/assets.mjs')], {
+    cwd: REPO,
+    encoding: 'utf8',
+    env: { ...process.env, CHECK_ROOT: dir, CHECK_BASE: 'HEAD', CI: '' },
+  })
+  assert.equal(result.status, 1, result.stdout + result.stderr)
+  assert.match(result.stdout, /hero\.png/)
+  assert.match(result.stdout, /KB/)
+})
+
 test('stale-cohorts flags a passed cohort that still sells', () => {
   const result = spawnSync('node', [path.join(REPO, 'scripts/checks/stale-cohorts.mjs')], {
     cwd: REPO,

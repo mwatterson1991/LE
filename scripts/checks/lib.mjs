@@ -40,13 +40,15 @@ const BUDGETS = [
     kind: 'video',
     match: /\.(mp4|webm|mov)$/i,
     limit: 2 * 1024 * 1024,
-    fix: rel => `ffmpeg -i "${rel}" -vf "scale=-2:1080" -vcodec libx264 -crf 30 -an "${rel}.small.mp4"`,
+    fix: rel => `Fix: ffmpeg -i "${rel}" -vf "scale=-2:1080" -vcodec libx264 -crf 30 -an "${rel}.small.mp4"`,
   },
   {
     kind: 'raster',
     match: /\.(png|jpe?g|webp|gif|avif)$/i,
     limit: 400 * 1024,
-    fix: rel => `sips -Z 1600 -s format jpeg -s formatOptions 72 "${rel}" --out "/tmp/sips-resize-${rel.replace(/\//g, '_')}"`,
+    fix: rel =>
+      `Fix: sips -Z 1600 -s format jpeg -s formatOptions 72 "${rel}" --out "/tmp/sips-resize-${rel.replace(/\//g, '_')}"\n` +
+      'WARNING: never point --out at the input file; sips will overwrite it with no backup. The command above writes to a temporary file. Move it to replace the original only after verifying the quality.',
   },
   {
     kind: 'svg',

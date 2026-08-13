@@ -26,15 +26,30 @@ function normalize(url) {
 
 function resolves(url, pages, redirects, seen = new Set()) {
   const target = normalize(url)
+  // An external URL is not this repo's page to verify.
+  if (/^(https?:)?\/\//.test(target)) return true
+  // Splat (*) and placeholder (:) redirects expand at request time; this
+  // check cannot evaluate what they expand to.
+  if (target.includes('*') || target.includes(':')) return true
   if (seen.has(target)) return false
   seen.add(target)
   if (target === '/') return pages.includes('index.html')
-  if (pages.includes(`${target.slice(1)}.html`)) return true
+  const name = target.replace(/\.html$/, '')
+  if (pages.includes(`${name.slice(1)}.html`)) return true
   const rule = redirects.find(r => normalize(r.from) === target)
   return rule ? resolves(rule.to, pages, redirects, seen) : false
 }
 
-const config = (await import(pathToFileURL(path.join(ROOT, 'vite.config.js')).href)).default
+let config
+try {
+  config = (await import(pathToFileURL(path.join(ROOT, 'vite.config.js')).href)).default
+} catch {
+  fail('vite.config.js failed to load', [
+    'vite.config.js has a syntax error, so this check could not import it.',
+    'Fix: run `npm run build` in your terminal to see the real error, then correct vite.config.js.',
+  ])
+  finish('vite.config.js failed to load')
+}
 const inputs = Object.values(config.build?.rollupOptions?.input ?? {})
 const inputNames = inputs.map(p => path.basename(p))
 const pages = rootPages()
