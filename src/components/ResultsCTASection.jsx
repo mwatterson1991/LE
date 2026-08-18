@@ -73,7 +73,7 @@ export default function ResultsCTASection() {
         </p>
         <h2 className="testimonials-heading">See what people have built</h2>
         <p className="results-cta-subhead">
-          Real demos from AI Builder Program graduates: the agents, workflows, and systems non-technical people built with AI. Not prompts. Systems.
+          Watch real demos of what AI Builder Program graduates have built during the program.
         </p>
         {demos.length > 0 && (
           <p className="results-cta-meta">

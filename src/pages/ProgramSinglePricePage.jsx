@@ -13,6 +13,7 @@ import CohortModal from '../components/CohortModal'
 import FreeCourseModal from '../components/FreeCourseModal'
 import { openCohortModal } from '../components/cohortModalStore'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
+import ResultsCTASection from '../components/ResultsCTASection'
 import StarRating from '../components/StarRating'
 // Hero rating is pinned rather than read from the live S3 feed.
 //
@@ -1910,6 +1911,8 @@ function ProgramSinglePriceInner() {
       {/* ====== 4. Testimonials — Masonry board ====== */}
       <TestimonialsBoard />
 
+      {/* ====== Results CTA — see what people have built ====== */}
+      <ResultsCTASection />
 
       {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
       {/* ====== What you'll walk out with (outcomes, not a syllabus) ====== */}

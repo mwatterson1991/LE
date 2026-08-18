@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { TextMorph } from 'torph/react'
 import posthog from 'posthog-js'
 import { motion, AnimatePresence } from 'motion/react'
@@ -7,6 +7,7 @@ import LPPopup from '../components/LPPopup'
 import GetThisExpensed from '../components/GetThisExpensed'
 import CohortPicker from '../components/CohortPicker'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
+import ResultsCTASection from '../components/ResultsCTASection'
 import StarRating from '../components/StarRating'
 import { useRatingsData } from '../ratingsData'
 import { COURSE_COHORTS, courseData } from './courseData'
@@ -232,6 +233,7 @@ function TestimonialsBoard() {
     </section>
   )
 }
+
 
 function ReviewsCarousel() {
   const [reviews, setReviews] = useState([])
@@ -1336,7 +1338,7 @@ function HomePageRebrandInner({ partnerLogo = null, partnerLogoAlt = '' } = {}) 
   const heroRef = useRef(null)
   const { avg: ratingAvg, count: ratingCount } = useRatingsData()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.add('rb-home')
     document.body.classList.add('rb-home')
 
@@ -1930,6 +1932,9 @@ function HomePageRebrandInner({ partnerLogo = null, partnerLogoAlt = '' } = {}) 
 
       {/* ====== 4. Testimonials — Masonry board ====== */}
       <TestimonialsBoard />
+
+      {/* ====== 4b. Results CTA — link out to the program results page ====== */}
+      <ResultsCTASection />
 
       {/* ====== 5. Value Stack 1 (pricing anchor) ====== */}
       <ValueStack id="pricing" />

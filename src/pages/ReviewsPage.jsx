@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useMemo, useCallback } from 'react'
 import '../index.css'
 import './home-rebrand.css'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
@@ -40,7 +40,7 @@ export default function ReviewsPage() {
   const [feed, setFeed] = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.title = 'AI Builder Reviews | Leland'
     document.documentElement.classList.add('rb-home')
     document.body.classList.add('rb-home')
@@ -90,7 +90,12 @@ export default function ReviewsPage() {
     <div className="rv-page">
       <header className="rv-hero">
         <div className="container">
-          <a href={backTo} className="rv-back">← Back to AI Builder Program</a>
+          <div className="rv-hero-links">
+            <a href={backTo} className="rv-back">← Back to AI Builder Program</a>
+            <a href="https://www.lelandcourses.com/program/results/" target="_blank" rel="noopener noreferrer" className="btn btn-primary rv-results-cta">
+              See our results <span className="arrow">→</span>
+            </a>
+          </div>
           <h1 className="rv-title">
             What AI Builder grads are saying
           </h1>
@@ -116,7 +121,10 @@ export default function ReviewsPage() {
       <footer className="rv-footer">
         <div className="container">
           <p className="rv-footer-line">Want to join them?</p>
-          <a href={backTo} className="rv-footer-btn">Enroll in the next cohort →</a>
+          <div className="rv-footer-cta-row">
+            <a href={`${backTo}#pricing`} className="rv-footer-btn">Enroll in the next cohort →</a>
+            <a href="https://www.lelandcourses.com/program/results/" target="_blank" rel="noopener noreferrer" className="rv-footer-btn rv-footer-btn-secondary">See our results</a>
+          </div>
         </div>
       </footer>
     </div>
