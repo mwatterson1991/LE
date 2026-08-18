@@ -211,37 +211,14 @@ body.rb-home .hp-deeper a:hover { color: #a14e22; }
    through the "anytime" box and the line of copy underneath it. */
 body.rb-home .hp-track { position: relative; }
 
-/* Level titles, folded away by default. The path itself is the message; this is
-   for the reader who wants the actual names without a curriculum dump. */
+/* The level breakdown: what each level is called, how it's delivered, and the
+   four sessions inside it. Every child selector below is scoped with > because
+   .hp-levels-sessions nests its own <li> inside each row. */
 body.rb-home .hp-levels { margin-top: 26px; }
-body.rb-home .hp-levels > summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  cursor: pointer;
-  list-style: none;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--gray-dark, #555);
-  text-underline-offset: 3px;
-  text-decoration: underline;
-}
-body.rb-home .hp-levels > summary::-webkit-details-marker { display: none; }
-body.rb-home .hp-levels > summary::after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg) translate(-1px, -1px);
-  transition: transform 0.18s ease;
-}
-body.rb-home .hp-levels[open] > summary::after { transform: rotate(-135deg) translate(-1px, -1px); }
-body.rb-home .hp-levels > summary:hover { color: #1a1a1a; }
 
 body.rb-home .hp-levels-list {
   list-style: none;
-  margin: 14px 0 0;
+  margin: 0;
   padding: 0;
   display: grid;
   gap: 1px;
@@ -249,32 +226,92 @@ body.rb-home .hp-levels-list {
   border-radius: 12px;
   overflow: hidden;
 }
-body.rb-home .hp-levels-list li {
-  display: flex;
+body.rb-home .hp-levels-list > li {
+  display: grid;
+  grid-template-columns: 56px minmax(200px, 268px) 1fr;
   align-items: baseline;
-  gap: 14px;
+  gap: 14px 16px;
   background: #ffffff;
-  padding: 12px 16px;
+  padding: 14px 16px;
 }
 body.rb-home .hp-levels-n {
-  flex: 0 0 62px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #9a958c;
 }
+body.rb-home .hp-levels-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
 body.rb-home .hp-levels-t {
   font-family: 'Season', Georgia, serif;
   font-size: 17px;
   letter-spacing: -0.01em;
+  line-height: 1.25;
   color: #1a1a1a;
 }
+body.rb-home .hp-levels-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+/* Same amber the cohort strip uses for the live cohort you should be in. */
+body.rb-home .hp-levels-tag-live { color: #7d3c17; background: #ffeec2; }
+body.rb-home .hp-levels-tag-optional { color: #6f6a61; background: #f2efe9; }
+body.rb-home .hp-levels-tag-ondemand { color: #8d877e; background: #f7f5f1; }
 
-@media (max-width: 860px) {
-  body.rb-home .hp-levels-list li { flex-direction: column; gap: 2px; padding: 11px 14px; }
-  body.rb-home .hp-levels-n { flex: none; }
+/* Flex, not inline. Adjacent <li> come out of JSX with no whitespace between
+   them, so an inline row plus nowrap labels had zero break opportunities: the
+   whole row became one unbreakable line that overflowed and got silently clipped
+   on mobile. Flex wrapping gives a break between every label while nowrap keeps
+   each label whole. */
+body.rb-home .hp-levels-sessions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #6f6a61;
+}
+body.rb-home .hp-levels-sessions li { white-space: nowrap; }
+body.rb-home .hp-levels-sessions li::after {
+  content: "·";
+  margin: 0 6px;
+  color: #c9c3b8;
+}
+body.rb-home .hp-levels-sessions li:last-child::after { content: none; }
+
+/* Stack below 1200px, not 860px. The three-column row exists so the four session
+   titles read as one line; once the sessions column is narrower than the titles
+   need, a cramped two-line column is worse than stacking. */
+@media (max-width: 1200px) {
+  body.rb-home .hp-levels-list > li {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 13px 14px;
+  }
+  body.rb-home .hp-levels-main { gap: 6px; }
   body.rb-home .hp-levels-t { font-size: 16px; }
+  /* One label per line, separators dropped. Wrapping a middot-separated run at
+     this width left dangling separators at the end of every wrapped line and a
+     ragged shape (four lines on one level, two on another). A column reads as
+     deliberate, and nothing is hidden behind a gesture. */
+  body.rb-home .hp-levels-sessions {
+    margin-top: 6px;
+    flex-direction: column;
+    gap: 4px;
+  }
+  body.rb-home .hp-levels-sessions li::after { content: none; }
 }
 
 /* The sticky header would otherwise sit on top of the headline when

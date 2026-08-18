@@ -38,7 +38,10 @@ export function partnerForPath(pathname) {
     .replace(/^\/+/, '')
     .split(/[/?#]/)[0]
     .replace(/\.html$/, '')
-  return PARTNERS[slug] || null
+  // Own keys only. A URL like /__proto__ or /constructor would otherwise walk the
+  // prototype chain, return a truthy non-partner, and render "$NaN" and
+  // "undefined% off for undefined" on the pricing card.
+  return Object.hasOwn(PARTNERS, slug) ? PARTNERS[slug] : null
 }
 
 export function activePartner() {

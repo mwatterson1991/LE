@@ -365,7 +365,7 @@ export const courseData = {
         optional: true,
       },
       {
-        title: 'Build an Eval System + Demo Day',
+        title: 'Evaluate Your Agent + Demo Day',
         description: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy, then demo what you built.",
         concepts: 'The trust gradient (read-only → write-with-approval → autonomous), trigger types (scheduled / webhook / event-driven), approval gates, three ways to grade agent outputs (deterministic, LLM-as-judge, human), token cost monitoring.',
         build: 'Your agent deployed to the cloud, a 3–5 dimension eval rubric scoring real outputs, one tool flipped to write-with-approval, plus a 3-minute Demo Day walkthrough of one end-to-end moment.',
@@ -484,12 +484,12 @@ export const courseData = {
       { q: "Is this course right for me if I'm not building software?", a: "Yes. The eval, orchestration, and QA sessions apply directly to marketing pipelines, research systems, and content operations, not just software." },
     ],
     nextCourse: 5,
-    nextCourseName: 'Build Your AI Orchestration Layer',
+    nextCourseName: 'Design Your AI Orchestration Layer',
   },
 
   5: {
     id: 5,
-    name: 'Build Your AI Orchestration Layer',
+    name: 'Design Your AI Orchestration Layer',
     badge: 'Level 5 of 5',
     nextCohort: 'Sep 1 – Sep 11, 2026',
     cohortDates: ['September 1'],
@@ -597,5 +597,5 @@ export const allCourses = [
   { id: 2, name: 'Build Complex Agentic Workflows', nextCohort: 'Jul 21 – Jul 31', whoShort: "You've tried AI coding tools or workflow builders, but haven't built specialized agents for most tasks." },
   { id: 3, name: 'Create Autonomous Agents', nextCohort: 'Aug 3 – Aug 13', whoShort: "You've built multiple AI agents, but they don't run autonomously." },
   { id: 4, name: 'Build Your Agent Workforce', nextCohort: 'Oct 20 – Oct 30', whoShort: "You have multiple autonomous agents running, but they don't operate as a unified system." },
-  { id: 5, name: 'Build Your AI Orchestration Layer', nextCohort: 'Sep 1 – Sep 11', whoShort: "You've built and shipped AI systems, but they don't proactively iterate toward a goal." },
+  { id: 5, name: 'Design Your AI Orchestration Layer', nextCohort: 'Sep 1 – Sep 11', whoShort: "You've built and shipped AI systems, but they don't proactively iterate toward a goal." },
 ]

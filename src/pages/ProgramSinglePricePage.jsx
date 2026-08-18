@@ -607,7 +607,7 @@ function IcebergVisualization() {
     { num: 2, name: 'Build Complex Agentic Workflows' },
     { num: 3, name: 'Create Autonomous Agents' },
     { num: 4, name: 'Build Your Agent Workforce' },
-    { num: 5, name: 'Build Your AI Orchestration Layer' },
+    { num: 5, name: 'Design Your AI Orchestration Layer' },
   ]
   return (
     <div className="program-progression">
@@ -634,7 +634,7 @@ function WhichLevelDropdown() {
     { num: '2', name: 'Build Complex Agentic Workflows', who: "You've tried AI coding tools, MCP connectors, or workflow builders, but you haven't built specialized agents for most work tasks." },
     { num: '3', name: 'Create Autonomous Agents', who: "You've built multiple AI agents, but they don't run autonomously." },
     { num: '4', name: 'Build Your Agent Workforce', who: "You have multiple autonomous agents running, but they don't operate as a unified system." },
-    { num: '5', name: 'Build Your AI Orchestration Layer', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
+    { num: '5', name: 'Design Your AI Orchestration Layer', who: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal." },
   ]
 
   return (
@@ -893,7 +893,7 @@ function RoleUseCases() {
     <section className="role-uses-section">
       <div className="container">
         <div className="role-uses-header">
-          <h2 className="role-uses-headline">Get hours back, whatever your role is.</h2>
+          <h2 className="role-uses-headline">Drive more impact, whatever your role is.</h2>
           <p className="role-uses-sub">Learn to build AI systems tuned to your specific workflows. Select your role below for examples of what AI Builders are doing to transform their day-to-day.</p>
         </div>
         <div className="role-tabs" role="tablist">
@@ -1131,12 +1131,16 @@ function L1CohortStrip() {
     <div className="l1-dates">
       <div className="l1-dates-head">
         <span className="l1-dates-label">Start here</span>
-        <span className="l1-dates-note">Join a live program with a guided path from day one. New cohorts every two weeks.</span>
+        <span className="l1-dates-note">The program includes a 2-week live portion and self-paced courses with optional live support.</span>
       </div>
       <div className="l1-dates-row">
         {cohorts.map(c => {
           const isNext = firstOpen && c.iso === firstOpen.iso
           const times = [...new Set(Object.values(c.sessionTimes || {}))]
+          // scheduleDays on the in-person cohort carries a location after a middot
+          // ("Tuesdays & Fridays · In person in Utah"), which would read as
+          // "...in Utah for 2 weeks". Take the days and drop the rest.
+          const days = (c.scheduleDays || '').split(' · ')[0]
           const Wrapper = c.soldOut ? 'div' : 'a'
           const props = c.soldOut
             ? {}
@@ -1149,6 +1153,7 @@ function L1CohortStrip() {
           return (
             <Wrapper key={c.iso} className={`l1-date${c.soldOut ? ' l1-date-out' : ''}`} {...props}>
               <span className="l1-date-big">{L1_MONTHS[c.d.getUTCMonth()]} {c.d.getUTCDate()}</span>
+              {days && <span className="l1-date-dow">{days} for 2 weeks</span>}
               {times.length > 0 && <span className="l1-date-time">{times.join(' or ')}</span>}
               {c.soldOut ? (
                 <span className="l1-date-tag l1-date-tag-out">Sold out</span>
@@ -1613,7 +1618,7 @@ function ProgramSinglePriceInner() {
         { title: 'Build Your First Subagents', sub: 'Get better, broader output by training your agent to spin up specialist subagents for research and other specific tasks.', date: 'Fri, Jul 10', time: '8am PT / 11am ET' },
         { title: 'Strengthen Your Agents with Skills, Tools, and Context', sub: 'Scope what your agent owns, expand context to cover your real work, and connect the tools it needs to do that work.', date: 'Tue, Jul 14', time: '8am PT / 11am ET' },
         { title: 'Build Workshop (Optional)', sub: 'Optional workshop with a functional expert across marketing, sales, finance, ops, or another role to go deeper on a specific tool, skill, or build.', date: 'TBD', time: 'TBD', optional: true },
-        { title: 'Build an Eval System + Demo Day', sub: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy, then demo what you built.", date: 'Fri, Jul 17', time: '8am PT / 11am ET' },
+        { title: 'Evaluate Your Agent + Demo Day', sub: "Create a rubric and evals, wire an action logging system, and run tests to improve your agent until you're ready to deploy, then demo what you built.", date: 'Fri, Jul 17', time: '8am PT / 11am ET' },
       ],
       cohorts: [
         { month: 'JUN', day: '8', date: 'June 8', label: 'June 8', iso: '2026-06-08', scheduleDays: 'Mondays & Thursdays', sessionTimes: { monday: '4pm PT / 7pm ET', thursday: '4pm PT / 7pm ET' }, cohortSessions: [{ date: 'Mon, Jun 8', time: '4pm PT / 7pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 11', time: '4pm PT / 7pm ET' }, { date: 'Mon, Jun 15', time: '4pm PT / 7pm ET' }, { date: 'TBD · Optional', time: 'Build Workshop' }, { date: 'Thu, Jun 18', time: '4pm PT / 7pm ET' }], enrollUrl: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C69b199d0f61c38f9e9bbf7f5)', soldOut: true },
@@ -1649,7 +1654,7 @@ function ProgramSinglePriceInner() {
     },
     {
       id: 'level-5', num: '05', type: 'LIVE COURSE',
-      title: 'Build Your AI Orchestration Layer',
+      title: 'Design Your AI Orchestration Layer',
       tagline: "You've built and shipped AI systems that run in production, but they don't proactively iterate and pursue a goal.",
       tags: ['2 Weeks', '4 Core Sessions', '+ Optional Build Workshops'],
       sessions: [
@@ -1710,7 +1715,7 @@ function ProgramSinglePriceInner() {
     },
     {
       q: 'Do I need coding experience?',
-      a: "No. The program is built for knowledge workers. You'll learn technical concepts, but everything is taught for practical application over code. If you do have a technical background, Level 4 (Build Your Agent Workforce) and Level 5 (Build Your AI Orchestration Layer) go deep enough to challenge experienced builders.",
+      a: "No. The program is built for knowledge workers. You'll learn technical concepts, but everything is taught for practical application over code. If you do have a technical background, Level 4 (Build Your Agent Workforce) and Level 5 (Design Your AI Orchestration Layer) go deep enough to challenge experienced builders.",
     },
     {
       q: 'Which AI tools do I need?',

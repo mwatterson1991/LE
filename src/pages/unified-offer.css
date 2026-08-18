@@ -955,30 +955,42 @@ body.rb-home .uo-price-list {
   color: #9a958c;
   text-decoration: line-through;
 }
+/* Stacked on purpose. As a wrapping row the badge and the note broke onto two
+   lines anyway, which read as an accident rather than a decision. */
 body.rb-home .uo-partner-offer {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin: 16px 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 18px 0 0;
 }
+/* Soft amber, not the CTA's #ffd667. Sharing the button colour made this label
+   look like a second button competing with "Reserve your seat". This is the same
+   treatment the cohort strip and the level tags use for a label. */
 body.rb-home .uo-partner-offer-badge {
-  background: #ffd667;
+  background: #ffeec2;
+  color: #7d3c17;
   border-radius: 999px;
-  padding: 5px 13px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #111;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 body.rb-home .uo-partner-offer-note {
   font-size: 14px;
   color: var(--gray-dark, #555);
 }
+/* The code is the one thing in this line a reader needs to recognise later, so
+   it gets a token treatment rather than just bold text. */
 body.rb-home .uo-partner-offer-note code {
   font-family: inherit;
-  font-weight: 600;
-  color: #111;
+  font-weight: 700;
+  color: #7d3c17;
+  background: #fdf3dc;
+  border-radius: 5px;
+  padding: 2px 6px;
 }
 body.rb-home .uo-price-after {
   font-size: 14.5px;
@@ -1186,11 +1198,13 @@ body.rb-home .l1-date {
 }
 body.rb-home .l1-date:first-child { border-left: 0; padding-left: 0; }
 body.rb-home a.l1-date:hover { transform: translateY(-2px); }
+/* Which days the sessions land on, and how long the live portion runs. Sits
+   between the date and the times so the box reads big → bold → quiet. */
 body.rb-home .l1-date-dow {
-  font-family: 'Season', Georgia, serif;
-  font-style: italic;
-  font-size: 14px;
-  color: #9a958c;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #4a463f;
 }
 body.rb-home .l1-date-big {
   font-family: 'Season', Georgia, serif;
