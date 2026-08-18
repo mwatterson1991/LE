@@ -2,6 +2,7 @@ import React from 'react'
 import posthog from 'posthog-js'
 import { COURSE_COHORTS } from '../pages/courseData'
 import { openCohortModal } from './cohortModalStore'
+import { activePartner, offerPricing } from './partnerOffer'
 import '../pages/unified-offer.css'
 
 // Shared single-offer pricing block. Rendered on the team-focused LP (/) and on the
@@ -37,6 +38,11 @@ const TEAMS_URL = `${SALES_URL}?utm_source=program-lp&utm_medium=pricing-teams-c
 const SCHOLARSHIP_URL = 'https://joinleland.typeform.com/to/TEiacu5G?utm_campaign=landing_page_cta&utm_source=website&utm_medium=web'
 
 export default function SingleOfferPricing({ hideHeader = false }) {
+  // Off a partner route this is just the list price and listPrice is null, so
+  // the markup below is the same on /program and /scaling.
+  const partner = activePartner()
+  const { price, listPrice, discountLabel } = offerPricing(partner)
+
   const included = [
     'Live Level 1 cohort, with new cohorts starting every two weeks',
     'AI Builder Foundations, plus levels 2-5 on-demand',
@@ -84,8 +90,17 @@ export default function SingleOfferPricing({ hideHeader = false }) {
           <div className="uo-price-card-left">
             <span className="uo-price-eyebrow">AI Builder Program</span>
             <div className="uo-price-row">
-              <span className="uo-price">$1,499</span>
+              <span className="uo-price">{price}</span>
+              {listPrice && <span className="uo-price-list">{listPrice}</span>}
             </div>
+            {discountLabel && (
+              <p className="uo-partner-offer">
+                <span className="uo-partner-offer-badge">{discountLabel}</span>
+                <span className="uo-partner-offer-note">
+                  Code <code>{partner.discountCode}</code> is applied automatically at checkout.
+                </span>
+              </p>
+            )}
             <div className="uo-price-ctas">
               <button
                 type="button"

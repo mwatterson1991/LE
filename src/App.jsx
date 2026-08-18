@@ -7,7 +7,6 @@ import CoursePage from './pages/CoursePage'
 import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import ReviewsPage from './pages/ReviewsPage'
-import HomePageRebrand from './pages/HomePageRebrand'
 import SiliconSlopesAiBuilderPage from './pages/SiliconSlopesAiBuilderPage'
 import TeamsProgramPage from './pages/TeamsProgramPage'
 import ProgramV2Page from './pages/ProgramV2Page'
@@ -1739,8 +1738,12 @@ function App() {
   if (path.startsWith('/siliconslopes')) {
     return <SiliconSlopesAiBuilderPage />
   }
+  // Scaling.com's co-branded route: the same page /program serves, with their
+  // logo in the nav and their discount on the price and the checkout links. The
+  // partner is looked up from the path in partnerOffer.js, so this needs no
+  // props and the two pages cannot drift apart the way they did before.
   if (path.startsWith('/scaling')) {
-    return <HomePageRebrand partnerLogo="scaling-com.png" partnerLogoAlt="Scaling.com" />
+    return <ProgramSinglePricePage />
   }
   if (path.startsWith('/program-for-teams')) {
     return <TeamsProgramPage />

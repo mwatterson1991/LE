@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { activePartner, offerPricing, FULL_PRICE } from './partnerOffer'
 
 const EXPENSE_TEMPLATES = {
   'Marketing': {
@@ -137,11 +138,23 @@ P.S. If others on the team would benefit, Leland offers team pricing and there's
   },
 }
 
+// On a partner route (/scaling) the reader pays the discounted price and the
+// page to send a manager to is the co-branded one. Quoting the list price and
+// /program here would contradict the pricing card further up the same page.
+function forActivePartner(body) {
+  const partner = activePartner()
+  if (!partner) return body
+  return body
+    .replaceAll(`$${FULL_PRICE.toLocaleString('en-US')}`, offerPricing(partner).price)
+    .replaceAll('leland.ai/program', `leland.ai/${partner.slug}`)
+}
+
 export default function GetThisExpensed() {
   const [selected, setSelected] = useState('')
   const [copied, setCopied] = useState(false)
 
-  const template = selected ? EXPENSE_TEMPLATES[selected] : null
+  const base = selected ? EXPENSE_TEMPLATES[selected] : null
+  const template = base ? { ...base, body: forActivePartner(base.body) } : null
   const fullText = template
     ? `Subject: ${template.subject}\n\n${template.body}`
     : ''

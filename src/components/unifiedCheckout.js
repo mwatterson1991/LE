@@ -1,3 +1,5 @@
+import { activePartner } from './partnerOffer'
+
 // The checkout links used by the landing page: the cohort modal and the Level 1
 // date strip both read from here, so they can never end up selling different
 // products. This is the one file to edit when links change.
@@ -19,9 +21,25 @@ export const UNIFIED_CHECKOUT = {
 
 // "I'm not sure yet": enroll now, choose a start date later. Same bootcamp as
 // every dated cohort above, so an undecided buyer gets the same product.
-export const PICK_LATER_URL =
+const PICK_LATER_BASE_URL =
   'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a7cebc6e425705fa14adbb7)'
 
+// Partner routes (/scaling) sell the same cohorts at the partner's discount. The
+// code is appended here rather than at the route, so no link can reach checkout
+// without it and changing cohort links stays a one-file edit.
+export function withPartnerDiscount(url) {
+  if (!url) return url
+  const code = activePartner()?.discountCode
+  if (!code) return url
+  if (/[?&]discountCode=/i.test(url)) return url
+  return `${url}${url.includes('?') ? '&' : '?'}discountCode=${encodeURIComponent(code)}`
+}
+
 export function unifiedCheckoutFor(iso) {
-  return UNIFIED_CHECKOUT[String(iso).slice(0, 10)] || null
+  const url = UNIFIED_CHECKOUT[String(iso).slice(0, 10)]
+  return url ? withPartnerDiscount(url) : null
+}
+
+export function pickLaterUrl() {
+  return withPartnerDiscount(PICK_LATER_BASE_URL)
 }

@@ -8,7 +8,8 @@ import CohortPicker from '../components/CohortPicker'
 import SingleOfferPricing from '../components/SingleOfferPricing'
 import OutcomesSection from '../components/OutcomesSection'
 import HappyPath from '../components/HappyPath'
-import { unifiedCheckoutFor } from '../components/unifiedCheckout'
+import { unifiedCheckoutFor, withPartnerDiscount } from '../components/unifiedCheckout'
+import { activePartner, offerPricing } from '../components/partnerOffer'
 import CohortModal from '../components/CohortModal'
 import FreeCourseModal from '../components/FreeCourseModal'
 import { openCohortModal } from '../components/cohortModalStore'
@@ -445,7 +446,7 @@ function FoundationsAccordionItem({ open, onToggle }) {
 function CourseAccordionItem({ course, open, onToggle }) {
   const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
   const [showAllMobile, setShowAllMobile] = useState(false)
-  const enrollUrl = (selectedCohort && !selectedCohort.soldOut ? selectedCohort.enrollUrl : null) ?? course.enrollUrl
+  const enrollUrl = withPartnerDiscount((selectedCohort && !selectedCohort.soldOut ? selectedCohort.enrollUrl : null) ?? course.enrollUrl)
   const detail = courseData[parseInt(course.num, 10)] || {}
 
   const handleCohortChange = (cohort) => {
@@ -578,7 +579,7 @@ function CourseAccordionItem({ course, open, onToggle }) {
                 />
                 <div className="accordion-price-row">
                   <span className="accordion-price">Included</span>
-                  <span className="accordion-price-sub">Every level is included in the $1,499 program</span>
+                  <span className="accordion-price-sub">Every level is included in the {offerPricing().price} program</span>
                 </div>
                 {enrollUrl ? (
                   <a href={enrollUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => posthog.capture('app--enroll_cta_click', { source: 'course-accordion', level: course.num })}>
@@ -945,7 +946,8 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, showTiers = 
       meta: 'One price. Every level included.',
       badge: 'Everything included',
       featured: true,
-      price: '$1,499',
+      price: offerPricing().price,
+      crossed: offerPricing().listPrice,
       monthly: null,
       cta: 'Reserve your seat',
       enrollUrl: ENROLL_URL,
@@ -1405,6 +1407,9 @@ function ProgramSinglePriceInner() {
   const heroRef = useRef(null)
   const ratingAvg = HERO_RATING_AVG
   const ratingCount = HERO_RATING_COUNT
+  // null on /program. Set on partner routes like /scaling, which serve this same
+  // page with the partner's logo in the nav and their discount on the price.
+  const partner = activePartner()
 
   useEffect(() => {
     document.documentElement.classList.add('rb-home')
@@ -1668,7 +1673,7 @@ function ProgramSinglePriceInner() {
 
   const faqs = [
     {
-      q: 'What does the $1,499 include?',
+      q: `What does the ${offerPricing().price} include?`,
       a: 'Everything. The live Level 1 cohort, AI Builder Foundations, Levels 2 through 5 on demand, weekly office hours with a dedicated TA you can message anytime, function-specific blueprints and agent templates, the builder community, and a verified certificate. You finish Level 1 with a portfolio of 10 or more builds.',
     },
     {
@@ -1752,12 +1757,25 @@ function ProgramSinglePriceInner() {
                 : <img className="rb-logo-white" src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
               }
             </a>
-            <span className="rb-nav-lockup-divider" />
-            <img
-              className="rb-nav-aibp-logo"
-              src={`${import.meta.env.BASE_URL}assets/logos/${scrolled ? 'aibp-dark' : 'aibp-light'}.png`}
-              alt="AI Builder Program"
-            />
+            {partner ? (
+              <>
+                <span className="rb-nav-partner-x">&times;</span>
+                <img
+                  className="rb-nav-partner-logo"
+                  src={`${import.meta.env.BASE_URL}assets/logos/${partner.logo}`}
+                  alt={partner.name}
+                />
+              </>
+            ) : (
+              <>
+                <span className="rb-nav-lockup-divider" />
+                <img
+                  className="rb-nav-aibp-logo"
+                  src={`${import.meta.env.BASE_URL}assets/logos/${scrolled ? 'aibp-dark' : 'aibp-light'}.png`}
+                  alt="AI Builder Program"
+                />
+              </>
+            )}
           </div>
           <div className="rb-nav-actions">
             <a href={teamsUrl('nav')} target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>

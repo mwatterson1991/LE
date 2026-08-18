@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import posthog from 'posthog-js'
 import { COURSE_COHORTS } from '../pages/courseData'
 import { useCohortModal, closeCohortModal } from './cohortModalStore'
-import { unifiedCheckoutFor, PICK_LATER_URL } from './unifiedCheckout'
+import { unifiedCheckoutFor, pickLaterUrl } from './unifiedCheckout'
 import './cohort-modal.css'
 
 // Every "Reserve your seat" CTA opens this. Checkout links come from
@@ -52,6 +52,7 @@ export default function CohortModal() {
 
   const cohorts = upcomingL1()
   const firstOpen = cohorts.find(c => !c.soldOut)
+  const pickLater = pickLaterUrl()
 
   const pick = (label, url, extra = {}) => {
     posthog.capture('app--cohort_selected', { source, choice: label, ...extra })
@@ -127,10 +128,10 @@ export default function CohortModal() {
 
           <a
             className="cm-row cm-row-unsure"
-            href={PICK_LATER_URL}
+            href={pickLater}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => pick('not-sure-yet', PICK_LATER_URL)}
+            onClick={() => pick('not-sure-yet', pickLater)}
           >
             <span className="cm-cal cm-cal-q"><span className="cm-cal-d">?</span></span>
             <span className="cm-info">

@@ -947,6 +947,39 @@ body.rb-home .uo-price-note {
   font-size: 15px;
   color: var(--gray-dark, #555);
 }
+/* Partner routes (/scaling) only: list price struck through beside the
+   discounted price, then the code that gets applied at checkout. */
+body.rb-home .uo-price-list {
+  font-size: 28px;
+  font-weight: 500;
+  color: #9a958c;
+  text-decoration: line-through;
+}
+body.rb-home .uo-partner-offer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 0;
+}
+body.rb-home .uo-partner-offer-badge {
+  background: #ffd667;
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+}
+body.rb-home .uo-partner-offer-note {
+  font-size: 14px;
+  color: var(--gray-dark, #555);
+}
+body.rb-home .uo-partner-offer-note code {
+  font-family: inherit;
+  font-weight: 600;
+  color: #111;
+}
 body.rb-home .uo-price-after {
   font-size: 14.5px;
   line-height: 1.55;
