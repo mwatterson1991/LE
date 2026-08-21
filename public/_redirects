@@ -1,1 +1,19 @@
-/program/v2 /program-v2 200
+# Retired pages from the per-level offer. One product, one price now lives at /program.
+# Kept as 301s so existing links, bookmarks, and any stray ad URLs still land somewhere real.
+/level-1 /program 301
+/level-2 /program 301
+/level-3 /program 301
+/level-4 /program 301
+/level-5 /program 301
+/level-1-lp /program 301
+/bundle-3 /program 301
+/bundle-5 /program 301
+/program-v2 /program 301
+/program-unified /program 301
+/program-single-price /program 301
+/program/v2 /program 301
+
+# The MBA and law pages were admissions-coaching tests, not AI Builder. They go to
+# the matching school search on the main site rather than to /program.
+/leland-mba-landing-page https://www.joinleland.com/search/school/mba 301
+/leland-law-school-landing-page https://www.joinleland.com/search/school/law-school 301

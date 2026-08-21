@@ -3,14 +3,11 @@ import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import Squares from './components/Squares'
 import CardSwap, { Card } from './components/CardSwap'
-import CoursePage from './pages/CoursePage'
 import B2BPage from './pages/B2BPage'
 import SyllabusPage from './pages/SyllabusPage'
 import ReviewsPage from './pages/ReviewsPage'
 import SiliconSlopesAiBuilderPage from './pages/SiliconSlopesAiBuilderPage'
 import TeamsProgramPage from './pages/TeamsProgramPage'
-import ProgramV2Page from './pages/ProgramV2Page'
-import UnifiedOfferPage from './pages/UnifiedOfferPage'
 import ProgramSinglePricePage from './pages/ProgramSinglePricePage'
 import PledgePage from './pages/PledgePage'
 import RecruitPage from './pages/RecruitPage'
@@ -1727,10 +1724,7 @@ function App() {
       '/syllabus': 'Syllabus',
       '/services': 'Services',
     }
-    const levelMatch = path.match(/\/level-(\d+)/)
-    const pageName = levelMatch
-      ? `Level ${levelMatch[1]}`
-      : (pageNames[path.replace(/\/$/, '')] || 'Home')
+    const pageName = pageNames[path.replace(/\/$/, '')] || 'Home'
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({ event: 'page_view', page_path: path, page_name: pageName })
   }, [path])
@@ -1747,19 +1741,6 @@ function App() {
   }
   if (path.startsWith('/program-for-teams')) {
     return <TeamsProgramPage />
-  }
-  if (path.startsWith('/program/v2')) {
-    return <ProgramV2Page />
-  }
-  // The team-focused variant of the single offer. Kept on an explicit path so it
-  // stays reachable without taking over the homepage.
-  if (path.startsWith('/program-unified')) {
-    return <UnifiedOfferPage />
-  }
-  // The single $1,499 offer. /program-single-price is the original preview path,
-  // kept as an alias so existing links and bookmarks keep working.
-  if (path.startsWith('/program-single-price')) {
-    return <ProgramSinglePricePage />
   }
   if (path.startsWith('/program')) {
     return <ProgramSinglePricePage />
@@ -1781,10 +1762,6 @@ function App() {
   }
   if (path.startsWith('/services')) {
     return <ServicesPage />
-  }
-  const match = path.match(/\/level-(\d+)/)
-  if (match) {
-    return <CoursePage courseId={parseInt(match[1], 10)} />
   }
   return <LelandAIPage />
 }
