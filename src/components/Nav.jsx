@@ -13,9 +13,10 @@ const NAV_LINKS = [
   { label: '100M Pledge', href: '/pledge' },
 ]
 
-// The nav CTA is always "Talk to our team" on every page. Pages that route the
-// CTA somewhere else pass their own `ctaUrl`.
-const DEFAULT_CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
+// The nav CTA is always "Talk to our team" on every page, and points at the AI
+// Builder Program lead-magnet form. Pages that route the CTA somewhere else
+// pass their own `ctaUrl`.
+const DEFAULT_CTA_URL = 'https://joinleland.typeform.com/to/bZuwV6t5?utm_source=ailp'
 
 /**
  * Shared site navigation.
@@ -26,7 +27,7 @@ const DEFAULT_CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
  *   mobile menu header. Omit on standard pages so the menu mirrors the desktop
  *   nav (logo + links + CTA).
  * @param {string} ctaUrl  where the "Talk to our team" CTA points. Defaults to
- *   the B2B strategy call form; pass a different form to override per page.
+ *   the AI Builder Program form; pass a different form to override per page.
  */
 export default function Nav({ variant = 'transparent', mobileLabel = '', ctaUrl = DEFAULT_CTA_URL }) {
   const [scrolled, setScrolled] = useState(false)

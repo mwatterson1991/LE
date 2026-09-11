@@ -44,7 +44,9 @@ export default function RecruitPage() {
 
   return (
     <>
-      <Nav variant="light" />
+      {/* Recruit keeps the B2B strategy call form; the rest of the site
+          routes the nav CTA to the AI Builder Program form. */}
+      <Nav variant="light" ctaUrl="https://joinleland.typeform.com/to/nXD9kytE" />
 
       <main>
         {/* ===== HERO ===== */}
