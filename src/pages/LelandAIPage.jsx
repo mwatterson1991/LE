@@ -9,7 +9,7 @@ import Footer from '../components/Footer'
 import './home-rebrand.css'
 import './leland-ai.css'
 
-const CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
+const CTA_URL = 'https://joinleland.typeform.com/to/bZuwV6t5?utm_source=ailp'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
