@@ -209,7 +209,7 @@ export default function LelandAIPage() {
 
   return (
     <>
-      <Nav variant="transparent" />
+      <Nav variant="transparent" ctaUrl={CTA_URL} />
 
       {/* ====== Hero ====== */}
       <section className="hero lai-hero" id="hero">

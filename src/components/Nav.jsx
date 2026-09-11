@@ -13,8 +13,9 @@ const NAV_LINKS = [
   { label: '100M Pledge', href: '/pledge' },
 ]
 
-// The nav CTA is always "Talk to our team" on every page.
-const CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
+// The nav CTA is always "Talk to our team" on every page. Pages that route the
+// CTA somewhere else pass their own `ctaUrl`.
+const DEFAULT_CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
 
 /**
  * Shared site navigation.
@@ -24,8 +25,10 @@ const CTA_URL = 'https://joinleland.typeform.com/to/nXD9kytE'
  * @param {string} mobileLabel  optional label shown next to the logo in the
  *   mobile menu header. Omit on standard pages so the menu mirrors the desktop
  *   nav (logo + links + CTA).
+ * @param {string} ctaUrl  where the "Talk to our team" CTA points. Defaults to
+ *   the B2B strategy call form; pass a different form to override per page.
  */
-export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
+export default function Nav({ variant = 'transparent', mobileLabel = '', ctaUrl = DEFAULT_CTA_URL }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef(null)
@@ -90,7 +93,7 @@ export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
             </div>
           </div>
           <div className="rb-nav-actions">
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={onCtaClick}>
+            <a href={ctaUrl} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={onCtaClick}>
               <span className="nav-cta-full">Talk to our team</span>
               <span className="nav-cta-short">Book a call</span>
             </a>
@@ -119,7 +122,7 @@ export default function Nav({ variant = 'transparent', mobileLabel = '' }) {
           ))}
         </div>
         <a
-          href={CTA_URL}
+          href={ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="lai-mobile-menu-cta"

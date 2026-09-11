@@ -133,7 +133,7 @@ export default function ServicesPage() {
 
   return (
     <>
-      <Nav variant="light" />
+      <Nav variant="light" ctaUrl={CTA_URL} />
 
       {/* ====== Hero ====== */}
       <section className="hero lai-hero lai-hero-plain svc-hero" id="hero">
