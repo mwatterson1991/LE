@@ -3,7 +3,9 @@ import posthog from 'posthog-js'
 import './happy-path.css'
 
 // One section: headline, subhead, and the path. Level names only, no descriptions.
-const SALES_URL = 'https://form.typeform.com/to/bZuwV6t5'
+// Individual-facing CTA: no teams prefill, and carries utm_source so these
+// leads are attributable to /program instead of arriving untagged.
+const SALES_URL = 'https://joinleland.typeform.com/to/bZuwV6t5?utm_source=program-lp'
 // V7 level titles, the four session titles inside each level, and how each level
 // is delivered. Session titles only, no descriptions: enough for a reader to see
 // what a level covers without the section becoming a curriculum dump.
