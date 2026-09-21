@@ -69,6 +69,11 @@ const teamsUrl = placement =>
   `${SALES_URL}?utm_source=program-lp&utm_medium=${placement}&utm_campaign=teams${TRIAGE_TEAM_ANCHOR}`
 const SCHOLARSHIP_URL = 'https://joinleland.typeform.com/to/TEiacu5G?utm_campaign=landing_page_cta&utm_source=website&utm_medium=web'
 
+// The nav CTA is not a team CTA. /program is the consumer course page, so the
+// nav button lets people self-select on the Typeform's first question the same
+// way the leland.ai nav button does, rather than forcing the teams branch.
+const NAV_SALES_URL = 'https://joinleland.typeform.com/to/bZuwV6t5?utm_source=program-lp'
+
 // Deterministic per-5-hour-window count: everyone visiting in the same window sees the same number
 function getScarcityCount(min = 442, max = 532, salt = 0) {
   const FIVE_HOURS_MS = 5 * 60 * 60 * 1000
@@ -1783,7 +1788,7 @@ function ProgramSinglePriceInner() {
             )}
           </div>
           <div className="rb-nav-actions">
-            <a href={teamsUrl('nav')} target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
+            <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
             <button type="button" className="rb-nav-getstarted" onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'nav' }); openCohortModal('nav') }}>
               Reserve your seat
             </button>
