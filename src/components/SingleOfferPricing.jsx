@@ -32,9 +32,11 @@ const NEXT_COHORT_LABEL = (() => {
 
 const SALES_URL = 'https://form.typeform.com/to/bZuwV6t5'
 
-// The Teams card is a team CTA, so it carries utm_campaign=teams for the
-// Typeform's B2B branch. The nonprofit/education/military card is not.
-const TEAMS_URL = `${SALES_URL}?utm_source=program-lp&utm_medium=pricing-teams-card&utm_campaign=teams#answers-triage=c_team`
+// The Teams card is a team CTA, so it carries utm_campaign=teams for attribution.
+// It does not preselect the Typeform's triage question: people answer it
+// themselves and the form routes on what they said. The nonprofit/education/
+// military card is not a team CTA at all.
+const TEAMS_URL = `${SALES_URL}?utm_source=program-lp&utm_medium=pricing-teams-card&utm_campaign=teams`
 const SCHOLARSHIP_URL = 'https://joinleland.typeform.com/to/TEiacu5G?utm_campaign=landing_page_cta&utm_source=website&utm_medium=web'
 
 export default function SingleOfferPricing({ hideHeader = false }) {

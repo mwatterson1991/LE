@@ -53,25 +53,17 @@ const NEXT_COHORT_DISPLAY = (() => {
 })()
 const SALES_URL = 'https://form.typeform.com/to/bZuwV6t5'
 
-// Team-facing CTAs preselect "For me and my team" on the Typeform's first question
-// using its answer-prefill anchor: #answers-<block ref>=<choice ref>. Because it is
-// single-select, Typeform records the answer and advances past the question, so
-// nobody is asked to restate what they just clicked, and the response still lands
-// under the triage question rather than in a separate column.
-//
-// Both refs come from the form itself (block "triage", choice "c_team"). Renaming
-// either in the Typeform editor breaks the prefill silently.
-//
-// utm_campaign=teams rides along for attribution. Individual CTAs (advisor,
-// curriculum, scholarships) deliberately use the plain form URL.
-const TRIAGE_TEAM_ANCHOR = '#answers-triage=c_team'
+// These CTAs sit next to team-facing copy, so utm_campaign=teams tags them for
+// attribution. They deliberately do NOT preselect the Typeform's triage question:
+// everyone who arrives from /program answers "Who are you looking to level up
+// with AI?" themselves, and the form routes on what they actually said. Do not
+// reintroduce an #answers-triage= anchor here.
 const teamsUrl = placement =>
-  `${SALES_URL}?utm_source=program-lp&utm_medium=${placement}&utm_campaign=teams${TRIAGE_TEAM_ANCHOR}`
+  `${SALES_URL}?utm_source=program-lp&utm_medium=${placement}&utm_campaign=teams`
 const SCHOLARSHIP_URL = 'https://joinleland.typeform.com/to/TEiacu5G?utm_campaign=landing_page_cta&utm_source=website&utm_medium=web'
 
-// The nav CTA is not a team CTA. /program is the consumer course page, so the
-// nav button lets people self-select on the Typeform's first question the same
-// way the leland.ai nav button does, rather than forcing the teams branch.
+// The nav CTA is a generic site-wide button with no team framing, so it gets the
+// same plain URL the leland.ai nav CTA uses, just tagged to /program.
 const NAV_SALES_URL = 'https://joinleland.typeform.com/to/bZuwV6t5?utm_source=program-lp'
 
 // Deterministic per-5-hour-window count: everyone visiting in the same window sees the same number
