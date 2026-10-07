@@ -16,14 +16,15 @@ const ENROLL_URL = (() => {
   return next?.enrollUrl || cohorts[0]?.enrollUrl
 })()
 
-// Urgency line under the CTA, computed from real cohort data.
+// Urgency line under the CTA, computed from real cohort data. A cohort drops off
+// once its first session starts (8am PT = 15:00 UTC), the same cutoff the hero
+// card and prefooter use, so all three always name the same date.
 const NEXT_COHORT_LABEL = (() => {
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
+  const now = new Date()
   const next = (COURSE_COHORTS[1] || [])
-    .filter(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}/.test(c.iso))
-    .map(c => ({ ...c, d: new Date(`${c.iso.slice(0, 10)}T12:00:00Z`) }))
-    .filter(c => c.d >= today)
+    .filter(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso))
+    .map(c => ({ ...c, d: new Date(`${c.iso}T15:00:00Z`) }))
+    .filter(c => c.d >= now)
     .sort((a, b) => a.d - b.d)[0]
   if (!next) return null
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December']

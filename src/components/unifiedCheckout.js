@@ -10,13 +10,14 @@ import { activePartner } from './partnerOffer'
 // touching the data the live /program page shares.
 //
 // Keyed by cohort start date. A cohort with no entry here is not offered for
-// purchase and does not appear in the modal or the strip. That is why Oct 19 and
-// Nov 2 exist in courseData.js but are not sold on this page.
+// purchase and does not appear in the modal or the strip.
 export const UNIFIED_CHECKOUT = {
   '2026-08-17': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a231fa5e0ed35ab57e28232)',
   '2026-09-01': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a4fd3ad5c417da5103a1abd)',
   '2026-09-14': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a51144504bd393e57d03958)',
   '2026-10-05': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a511527100f60fd68b8fb51)',
+  '2026-10-19': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a51165104bd393e57d0397c)',
+  '2026-11-02': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a69077397de3ed8feceec1f)',
 }
 
 // "I'm not sure yet": enroll now, choose a start date later. Same bootcamp as
