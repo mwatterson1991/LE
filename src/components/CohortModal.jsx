@@ -9,8 +9,9 @@ import './cohort-modal.css'
 // unifiedCheckout.js (the unified-offer bootcamp SKU), NOT from courseData.js,
 // which still points at the old per-level Level 1 bootcamp.
 //
-// Only cohorts with a unified-offer SKU are listed, so the list ends where the
-// SKUs do rather than showing dates nobody can buy.
+// Only cohorts with a unified-offer SKU can be bought. Scheduled cohorts without
+// one yet are still listed, greyed out as "Enrollment opens soon", so visitors
+// can see every future date without being sent to a checkout that doesn't exist.
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -26,7 +27,6 @@ function upcomingL1() {
     })
     .filter(c => c.daysOut >= 0)
     .map(c => ({ ...c, checkoutUrl: unifiedCheckoutFor(c.iso) }))
-    .filter(c => c.checkoutUrl)
     .sort((a, b) => a.d - b.d)
 }
 
@@ -51,7 +51,7 @@ export default function CohortModal() {
   if (!open) return null
 
   const cohorts = upcomingL1()
-  const firstOpen = cohorts.find(c => !c.soldOut)
+  const firstOpen = cohorts.find(c => !c.soldOut && c.checkoutUrl)
   const pickLater = pickLaterUrl()
 
   const pick = (label, url, extra = {}) => {
@@ -82,7 +82,7 @@ export default function CohortModal() {
           {cohorts.map(c => {
             const times = [...new Set(Object.values(c.sessionTimes || {}))]
             const isNext = firstOpen && c.iso === firstOpen.iso
-            if (c.soldOut) {
+            if (c.soldOut || !c.checkoutUrl) {
               return (
                 <div className="cm-row cm-row-out" key={c.iso}>
                   <span className="cm-cal">
@@ -93,7 +93,7 @@ export default function CohortModal() {
                     <span className="cm-date">{DAYS[c.d.getUTCDay()]}, {c.label}</span>
                     <span className="cm-meta">{c.scheduleDays}</span>
                   </span>
-                  <span className="cm-tag cm-tag-out">Sold out</span>
+                  <span className="cm-tag cm-tag-out">{c.soldOut ? 'Sold out' : 'Enrollment opens soon'}</span>
                 </div>
               )
             }

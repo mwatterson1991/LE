@@ -18,6 +18,8 @@ export const UNIFIED_CHECKOUT = {
   '2026-10-05': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a511527100f60fd68b8fb51)',
   '2026-10-19': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a51165104bd393e57d0397c)',
   '2026-11-02': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a69077397de3ed8feceec1f)',
+  '2026-11-16': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6ac92aa8513db10108cda5f2)',
+  '2026-12-07': 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6ac92b02ecff5dc86fa80b90)',
 }
 
 // "I'm not sure yet": enroll now, choose a start date later. Same bootcamp as
