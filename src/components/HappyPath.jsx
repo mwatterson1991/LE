@@ -2,156 +2,154 @@ import React from 'react'
 import posthog from 'posthog-js'
 import './happy-path.css'
 
-// One section: headline, subhead, and the path. Level names only, no descriptions.
+// The curriculum: one foundation (AI Foundations), context under everything,
+// then four disciplines people take in whatever order fits.
 // Individual-facing CTA: no teams prefill, and carries utm_source so these
 // leads are attributable to /program instead of arriving untagged.
 const SALES_URL = 'https://joinleland.typeform.com/to/bZuwV6t5?utm_source=program-lp'
-// V7 level titles, the four session titles inside each level, and how each level
-// is delivered. Session titles only, no descriptions: enough for a reader to see
-// what a level covers without the section becoming a curriculum dump.
-const LEVELS = [
+
+const FOUNDATION_GROUPS = [
   {
-    n: 1,
-    title: 'Use AI to 10x Your Impact',
-    tag: 'Live recommended',
-    tone: 'live',
-    sessions: [
-      'Build a real product',
-      'Automate your communication',
-      'Analyze data and build decks',
-      'Launch your AI system',
-    ],
+    name: 'Essentials',
+    mode: 'Self-paced',
+    items: ['Explore what AI can do', 'Use AI every day', 'Give AI your context', 'Use it safely'],
   },
   {
-    n: 2,
-    title: 'Build Complex Agentic Workflows',
-    tag: 'Live optional',
-    tone: 'optional',
-    sessions: [
-      'Build your automation roadmap',
-      'Cloud-based agentic workflows',
-      'Build your second brain',
-      'Ship custom automations',
-    ],
-  },
-  {
-    n: 3,
-    title: 'Create Autonomous Agents',
-    tag: 'Live optional',
-    tone: 'optional',
-    sessions: [
-      'Build your agentic OS',
-      'Build your first subagents',
-      'Add skills, tools, and context',
-      'Evaluate your agent',
-    ],
-  },
-  {
-    n: 4,
-    title: 'Build Your Agent Workforce',
-    tag: 'On-demand',
-    tone: 'ondemand',
-    sessions: [
-      'Scope your AI employee',
-      'Build an orchestrated pipeline',
-      'Host and deploy your agent',
-      'Self-improving agent team',
-    ],
-  },
-  {
-    n: 5,
-    title: 'Design Your AI Orchestration Layer',
-    tag: 'On-demand',
-    tone: 'ondemand',
-    sessions: [
-      'Optimize performance and cost',
-      'Create shared context systems',
-      'Make agents proactive',
-      'Security and guardrails',
-    ],
+    name: 'First builds',
+    mode: 'Live with a cohort',
+    items: ['Build a real product', 'Automate your email', 'Analyze data and decks', 'Launch your AI system'],
   },
 ]
 
-const STOPS = [
-  { key: 'foundations', label: 'AI Builder Foundations', tag: 'Before you start', tone: 'prep' },
-  { key: 'l1', label: 'Level 1', tag: 'The live program', tone: 'live' },
-  { key: 'l23', label: 'Levels 2 & 3', tag: 'Go deeper', tone: 'core' },
-  { key: 'l45', label: 'Levels 4 & 5', tag: 'Advanced skills', tone: 'adv' },
+const CONTEXT_ITEMS = ['Build a second brain', 'Build an agentic OS', 'Add skills and tools', 'Share team context']
+
+// Icons are 24x24 line drawings, stroked by CSS.
+const DISCIPLINES = [
+  {
+    name: 'Creation',
+    line: 'Turn ideas into finished work.',
+    items: ['Build apps and sites', 'Design with AI', 'Make decks and docs', 'Ship real products'],
+    icon: <><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></>,
+  },
+  {
+    name: 'Automation',
+    line: 'Hand off the work that repeats.',
+    items: ['Map automations', 'Build workflows', 'Ship automations', 'Run proactive agents'],
+    icon: <path d="M4 12h4l3-8 4 16 3-8h2" />,
+  },
+  {
+    name: 'Orchestration',
+    line: 'Get agents working as one team.',
+    items: ['Build subagents', 'Scope AI employees', 'Build pipelines', 'Improve agent teams'],
+    icon: <><circle cx="5" cy="12" r="2" /><circle cx="19" cy="5" r="2" /><circle cx="19" cy="19" r="2" /><path d="M7 12h5l5-6M12 12l5 6" /></>,
+  },
+  {
+    name: 'Operations',
+    line: 'Run AI safely and within budget.',
+    items: ['Evaluate agents', 'Host and deploy', 'Set guardrails', 'Optimize cost'],
+    icon: <><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z" /><path d="M9 12l2 2 4-4" /></>,
+  },
 ]
 
 export default function HappyPath() {
   return (
-    <section className="hp" id="happy-path">
+    <section className="hp cd-section" id="happy-path">
       <div className="container">
         <div className="hp-header">
-          <h2 className="hp-headline">In 2 weeks, you&rsquo;ll have an AI portfolio with 10+ automations.</h2>
-          <p className="hp-sub">Then, keep improving your AI skills at your own pace, with live support.</p>
-        </div>
-
-        <div className="hp-path">
-          {/* The rail is scoped to the stops. On mobile it runs vertically, and
-              spanning the whole path made it cut through the copy below. */}
-          <div className="hp-track">
-            <div className="hp-line" aria-hidden="true"><span className="hp-line-fill" /></div>
-
-            <ol className="hp-stops">
-              {STOPS.map((s, i) => (
-                <li className={`hp-stop hp-stop-${s.tone}`} key={s.key} style={{ '--i': i }}>
-                  <span className="hp-node" aria-hidden="true" />
-                  <span className="hp-stop-label">{s.label}</span>
-                  <span className="hp-stop-tag">{s.tag}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          {/* Open, not a disclosure. This is the answer to "what do I actually get",
-              and behind a summary almost nobody read it. */}
-          <div className="hp-levels">
-            <ul className="hp-levels-list">
-              {LEVELS.map(l => (
-                <li key={l.n}>
-                  <span className="hp-levels-n">Level {l.n}</span>
-                  <span className="hp-levels-main">
-                    <span className="hp-levels-t">{l.title}</span>
-                    <span className={`hp-levels-tag hp-levels-tag-${l.tone}`}>{l.tag}</span>
-                  </span>
-                  <ol className="hp-levels-sessions">
-                    {l.sessions.map(s => <li key={s}>{s}</li>)}
-                  </ol>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="hp-anytime">
-            <div className="hp-anytime-copy">
-              <span className="hp-anytime-tag">Anytime</span>
-              <p className="hp-anytime-text">
-                Access our library of function-specific resources and sign up for live office hours
-                whenever you need them.
-              </p>
-            </div>
-            <ul className="hp-anytime-list">
-              <li>Function-specific blueprints</li>
-              <li>Skill and agent templates</li>
-              <li>Live office hours</li>
-            </ul>
-          </div>
-
-          <p className="hp-deeper">
-            Want a free consultation to determine if the program is right for you?{' '}
-            <a
-              href={SALES_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => posthog.capture('app--sales_cta_click', { source: 'happy-path-deeper' })}
-            >
-              Talk with our team
-            </a>
-            .
+          <span className="cd-eyebrow">The curriculum</span>
+          <h2 className="hp-headline">One foundation. Four disciplines.</h2>
+          <p className="hp-sub">
+            Everyone builds the foundation first, with a live cohort. Then each person goes deep in the
+            disciplines their work needs, in whatever order fits. Context runs through all of it.
           </p>
         </div>
+
+        <div className="cd-found">
+          <div>
+            <span className="cd-tag">Everyone starts here</span>
+            <h3>AI Foundations</h3>
+            <p>The shared baseline every person builds first, on the tools you already have.</p>
+          </div>
+          <div className="cd-fgs">
+            {FOUNDATION_GROUPS.map(g => (
+              <div key={g.name} className="cd-fg">
+                <b>{g.name}<em>{g.mode}</em></b>
+                <ul>{g.items.map(i => <li key={i}>{i}</li>)}</ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="cd-ctx">
+          <div className="cd-ctx-h">
+            <div className="cd-ic">
+              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3" /><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6" /><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" /></svg>
+            </div>
+            <div>
+              <b>Context, everywhere</b>
+              <span>The skill under every discipline: teaching AI how your work works.</span>
+            </div>
+          </div>
+          <ul>{CONTEXT_ITEMS.map(i => <li key={i}>{i}</li>)}</ul>
+        </div>
+
+        <div className="cd-grid">
+          {DISCIPLINES.map(d => (
+            <div key={d.name} className="cd-card">
+              <div className="cd-ic"><svg viewBox="0 0 24 24">{d.icon}</svg></div>
+              <h3>{d.name}</h3>
+              <p>{d.line}</p>
+              <ul className="cd-list">{d.items.map(i => <li key={i}>{i}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="cd-modes">
+          <b>Every discipline, your way</b>
+          <span>Live with a cohort</span>
+          <span>Self-paced</span>
+          <span>Or a mix of both</span>
+        </div>
+
+        <div className="hp-anytime">
+          <div className="hp-anytime-copy">
+            <span className="hp-anytime-tag">Always on</span>
+            <p className="hp-anytime-text">
+              A library of function-specific blueprints and skill templates, refreshed weekly, plus live
+              office hours whenever your team needs them.
+            </p>
+          </div>
+          <div className="cd-lib" aria-hidden="true">
+            <div className="cd-doc cd-d1">
+              <div className="cd-dh"><span className="cd-dic">MD</span>sales-blueprint.md</div>
+              <i style={{ width: '80%' }} /><i style={{ width: '64%' }} /><i style={{ width: '72%' }} />
+              <span className="cd-tagp">Function blueprint</span>
+            </div>
+            <div className="cd-doc cd-d2">
+              <div className="cd-dh"><span className="cd-dic y">/</span>SKILL.md · inbox-triage</div>
+              <div className="cd-code"><i style={{ width: '56%' }} /><i style={{ width: '78%' }} /><i className="y" style={{ width: '40%' }} /></div>
+              <span className="cd-tagp">Skill template</span>
+            </div>
+            <div className="cd-doc cd-d3">
+              <div className="cd-dh"><span className="cd-dic g" />Office hours</div>
+              <div className="cd-slots"><b>Tue 11am</b><b className="on">Thu 2pm</b><b>Fri 9am</b></div>
+              <span className="cd-tagp">Live, weekly</span>
+            </div>
+          </div>
+        </div>
+
+        <p className="hp-deeper">
+          Want a free consultation to determine if the program is right for you?{' '}
+          <a
+            href={SALES_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => posthog.capture('app--sales_cta_click', { source: 'happy-path-deeper' })}
+          >
+            Talk with our team
+          </a>
+          .
+        </p>
       </div>
     </section>
   )

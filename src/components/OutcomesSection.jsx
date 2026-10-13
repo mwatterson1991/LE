@@ -116,10 +116,10 @@ export default function OutcomesSection() {
     <section className="uo-outcomes" id="outcomes">
       <div className="container">
         <div className="uo-outcomes-header">
-          <h2 className="uo-outcomes-headline">Build live, alongside an expert instructor.</h2>
+          <h2 className="uo-outcomes-headline">Every session is a guided build.</h2>
           <p className="uo-outcomes-sub">
-            The program teaches you how to automate dozens of common work tasks. Here&rsquo;s a
-            sample of what you&rsquo;ll learn to do.
+            Live with an expert instructor, on the tools your team already uses. Here&rsquo;s a
+            sample of what people learn to automate.
           </p>
         </div>
 

@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { TextMorph } from 'torph/react'
 import posthog from 'posthog-js'
 import { motion, AnimatePresence } from 'motion/react'
 import Marquee from 'react-fast-marquee'
-import GetThisExpensed from '../components/GetThisExpensed'
 import CohortPicker from '../components/CohortPicker'
-import SingleOfferPricing from '../components/SingleOfferPricing'
+import './unified-offer.css' // loaded here, where SingleOfferPricing used to pull it in; many uo-* sections use it
 import OutcomesSection from '../components/OutcomesSection'
 import HappyPath from '../components/HappyPath'
 import { unifiedCheckoutFor, withPartnerDiscount } from '../components/unifiedCheckout'
@@ -13,7 +11,7 @@ import { activePartner, offerPricing } from '../components/partnerOffer'
 import CohortModal from '../components/CohortModal'
 import FreeCourseModal from '../components/FreeCourseModal'
 import { openCohortModal } from '../components/cohortModalStore'
-import ReviewCard, { orderReviews } from '../components/ReviewCard'
+import { orderReviews } from '../components/ReviewCard'
 import ResultsCTASection from '../components/ResultsCTASection'
 import StarRating from '../components/StarRating'
 // Hero rating is pinned rather than read from the live S3 feed.
@@ -25,9 +23,15 @@ import StarRating from '../components/StarRating'
 //   MTD Aug 2026 -> 13 reviews, 4.769
 //   all-time     -> 536 reviews, 4.582
 // So "4.8 stars from 536 reviews" attaches a 13-review average to a 536 count.
-// Accurate pairings are 4.6/536 or 4.8/13. Left at 4.8 pending a decision.
-const HERO_RATING_AVG = 4.8
-const HERO_RATING_COUNT = 536
+// Accurate pairings are 4.6/536 or 4.8/13.
+//
+// Decision 2026-10-13: the page shows Leland-wide reviews everywhere, marked with
+// a * that points to a footer note giving the program's own all-time rating
+// (4.6 from 536, the accurate pairing above).
+const LELAND_RATING_AVG = 4.99
+const LELAND_RATING_COUNT = '35,482'
+const PROGRAM_RATING_AVG = 4.6
+const PROGRAM_RATING_COUNT = 536
 import { COURSE_COHORTS, courseData } from './courseData'
 import { BorderBeam } from 'border-beam'
 import './home-rebrand.css'
@@ -146,11 +150,11 @@ function Countdown() {
   return (
     <div className="countdown">
       <a
-        href="#level-accordion"
+        href="#cohort-dates"
         className="cd-link"
         onClick={(e) => {
           e.preventDefault()
-          const el = document.querySelector('#level-accordion')
+          const el = document.getElementById('cohort-dates')
           if (el) {
             const navHeight = document.querySelector('.rb-nav')?.offsetHeight || 60
             const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 16
@@ -214,6 +218,25 @@ function FaqItem({ question, answer, index, open, onToggle }) {
   )
 }
 
+// Reviews: two company results, then a scrolling row of individual reviews
+// read from the live featured-reviews list. **bold** in a review becomes a
+// highlight. The accounting-team review is skipped: it's the graduate quote
+// directly above this section.
+const COMPANY_RESULTS = [
+  {
+    company: 'Ethisphere', person: 'Udit Pillay, Chief Revenue Officer', photo: 'udit-pillay.jpg',
+    stats: [['50%', 'increase in company AI maturity'], ['27', 'people building across Levels 1–3']],
+  },
+  {
+    company: '47G', person: 'Gerritt Vander Linden, Partnerships', photo: 'gerritt-vander-linden.jpg',
+    stats: [['1.5 hrs', 'saved per event on research and outreach'], ['200+', 'member companies managed with AI']],
+  },
+]
+
+function highlightBold(text) {
+  return String(text).split(/\*\*(.+?)\*\*/g).map((part, i) => (i % 2 ? <mark key={i}>{part}</mark> : part))
+}
+
 function TestimonialsBoard() {
   const [reviews, setReviews] = useState([])
 
@@ -224,53 +247,63 @@ function TestimonialsBoard() {
       .catch(() => setReviews([]))
   }, [])
 
-  if (!reviews.length) return null
-
-  const mapped = reviews.map((r, i) => ({
-    name: r.display_name,
-    subtitle: r.level === 'L2' ? 'Completed Level 2' : 'Completed Level 1',
-    date: '',
-    stars: r.rating,
-    text: r.review,
-    photo_url: r.photo_url || null,
-  }))
-
-  // Keep anonymous reviews out of the first 8, then sprinkle them in among the rest
+  const mapped = reviews
+    .filter(r => !/40 hours of work each quarter/.test(r.review || ''))
+    .map(r => ({
+      name: r.display_name,
+      subtitle: r.level === 'L2' ? 'Completed Level 2' : 'Completed Level 1',
+      text: r.review,
+    }))
+  // Same ordering as before: strongest named reviews first, anonymous spread out.
   const ordered = orderReviews(mapped)
 
-  // Distribute into 4 columns: cols 0,2 get 5 cards; cols 1,3 get 4 cards
-  const columns = [[], [], [], []]
-  ordered.forEach((review, i) => {
-    columns[i % 4].push(review)
-  })
-
   return (
-    <section className="testimonials-section" id="testimonials">
-      <div className="section-container">
-        <div className="testimonials-header">
-          <p className="testimonials-label">
-            <span className="testimonials-dot" />
-            Verified Reviews
-          </p>
-          <h2 className="testimonials-heading">Hear from real program graduates.</h2>
+    <section className="prog-revs" id="testimonials">
+      <div className="container">
+        <div className="prog-revs-head">
+          <div>
+            <span className="prog-eyebrow">Reviews</span>
+            <h2 className="prog-h2">Companies already building.</h2>
+            <p className="prog-revs-count">
+              <span className="prog-revs-star" aria-hidden="true">&#9733;</span>
+              {LELAND_RATING_AVG} from {LELAND_RATING_COUNT} Leland reviews<a href="#reviews-note" className="prog-note-ref">*</a>
+            </p>
+          </div>
+          <a href={reviewsHref()} className="prog-revs-link">See all reviews <span aria-hidden="true">&rarr;</span></a>
         </div>
-
-        <div className="tboard-wrap">
-          <div className="tboard tboard-google">
-            {columns.map((col, i) => (
-              <div className="tboard-col" key={i}>
-                {col.map((review, j) => (
-                  <ReviewCard review={review} variant="google" key={j} />
-                ))}
+        <div className="prog-revs-cc2">
+          {COMPANY_RESULTS.map(c => (
+            <article key={c.company} className="prog-revs-cc">
+              <div className="prog-revs-cctop">
+                <img src={`${import.meta.env.BASE_URL}assets/images/${c.photo}`} alt="" loading="lazy" />
+                <div><b>{c.company}</b><span>{c.person}</span></div>
               </div>
-            ))}
-          </div>
-          <div className="tboard-fade" />
-          <div className="tboard-cta">
-            <a href={reviewsHref()} className="tboard-show-more">See all reviews</a>
-          </div>
+              <div className="prog-revs-ccn">
+                {c.stats.map(([n, label]) => <div key={label}><b>{n}</b><span>{label}</span></div>)}
+              </div>
+            </article>
+          ))}
         </div>
       </div>
+      {ordered.length > 0 && (
+        <div className="prog-revs-row">
+          <Marquee speed={36} pauseOnHover>
+            {ordered.map((r, i) => {
+              const anon = !r.name || r.name.trim().toLowerCase() === 'anonymous'
+              return (
+                <article key={i} className="prog-rv">
+                  <span className="prog-rv-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                  <p>{highlightBold(r.text)}</p>
+                  <div className="prog-rv-who">
+                    <span className="prog-rv-init" aria-hidden="true">{anon ? 'A' : r.name.trim()[0]}</span>
+                    <div><b>{anon ? 'AI Builder graduate' : r.name}</b><span>{r.subtitle}</span></div>
+                  </div>
+                </article>
+              )
+            })}
+          </Marquee>
+        </div>
+      )}
     </section>
   )
 }
@@ -336,24 +369,262 @@ const ORG_LOGOS = [
   { name: 'Rula', file: 'org-logos/rula.png' },
 ]
 
-function OrgLogosBand() {
+// Logos whose files have a solid background or a knocked-out mark, so the
+// white filter turns them into a blank shape. They need white versions first.
+const NOT_WHITE_SAFE = new Set(['Salesforce', 'LinkedIn', 'GSV', 'Ethisphere', 'Degreed', 'Angel Studios', 'Stepful', 'Rula'])
+
+// Logo strip inside the dark hero: logos turned white, scrolling in a band
+// that fades out at both edges.
+function HeroLogos() {
   return (
-    <section className="org-logos-section" id="org-logos" data-theme="light">
-      <div className="container">
-        <h2 className="org-logos-headline">We&rsquo;ve trained people from hundreds of top organizations to use AI more effectively</h2>
-      </div>
-      <div className="org-logos-marquee">
-        <Marquee gradient gradientColor="#FFFFFF" gradientWidth={40} speed={60} pauseOnHover>
-          {ORG_LOGOS.map((l) => (
-            <span key={l.name} className="org-logo-cell">
-              <img
-                src={`${import.meta.env.BASE_URL}assets/${l.file}`}
-                alt={l.name}
-                className="org-logo-img"
-              />
-            </span>
+    <div className="prog-hero-logos">
+      <span className="prog-hero-logos-label">Trusted by teams at</span>
+      <div className="prog-hero-logos-band">
+        <Marquee speed={40} pauseOnHover>
+          {ORG_LOGOS.filter((l) => !NOT_WHITE_SAFE.has(l.name)).map((l) => (
+            <img
+              key={l.name}
+              src={`${import.meta.env.BASE_URL}assets/${l.file}`}
+              alt={l.name}
+              className="prog-hero-logo"
+            />
           ))}
         </Marquee>
+      </div>
+    </div>
+  )
+}
+
+// "Real results from real companies": three company case studies on a dark
+// band, then Leland-wide scale numbers. Bars and squares animate in once the
+// cards scroll into view.
+const RESULT_CASES = [
+  {
+    company: 'PlayPower', industry: 'Manufacturing',
+    big: '1,500', unit: '+', what: 'product spec sheets rebuilt',
+    viz: 'bars',
+    quote: <>&ldquo;It was a huge shift in the mindset of <mark>what&rsquo;s possible</mark>. Those excuses are almost gone.&rdquo;</>,
+    name: 'Ryan Moats', title: 'VP Global Marketing', photo: 'ryan-moats.jpg',
+  },
+  {
+    company: 'ASU+GSV Summit', industry: 'Education',
+    big: '8', unit: 'hrs', what: 'of meeting prep automated every week',
+    viz: 'week',
+    quote: <>&ldquo;It put everyone in a <mark>builder mindset</mark>. Many didn&rsquo;t think it was possible to truly build something.&rdquo;</>,
+    name: 'Lucy Baldwin', title: 'VP Product', photo: 'lucy-baldwin.jpg',
+  },
+  {
+    company: '47G', industry: 'Aerospace & defense',
+    big: '89', unit: '%', what: 'faster partnership plans',
+    viz: 'clock',
+    quote: <>&ldquo;I got <mark>more value out of that program</mark> for a thousand dollars than what I got out of my entire MBA.&rdquo;</>,
+    name: 'Gerritt Vander Linden', title: 'Commercial Partnerships', photo: 'gerritt-vander-linden.jpg',
+  },
+]
+
+function ResultViz({ kind }) {
+  if (kind === 'bars') return (
+    <div className="prog-res-viz" aria-hidden="true">
+      <div className="prog-res-bar"><span>Scoped</span><i style={{ '--w': '100%' }} /><b>6 months</b></div>
+      <div className="prog-res-bar hi"><span>Delivered</span><i style={{ '--w': '14%' }} /><b>Weeks</b></div>
+    </div>
+  )
+  if (kind === 'week') return (
+    <div className="prog-res-viz" aria-hidden="true">
+      <div className="prog-res-week">
+        {Array.from({ length: 40 }, (_, i) => <i key={i} className={i < 8 ? 'on' : ''} />)}
+      </div>
+      <span className="prog-res-vcap">40-hour week · 8 hours handed to agents</span>
+    </div>
+  )
+  return (
+    <div className="prog-res-viz" aria-hidden="true">
+      <div className="prog-res-clock">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.12)" strokeWidth="10" />
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#FFD96F" strokeWidth="10" strokeLinecap="round" strokeDasharray="34.9 314.2" transform="rotate(-90 60 60)" />
+        </svg>
+        <div><b>45 min</b><span>before</span><b className="y">5 min</b><span>now</span></div>
+      </div>
+    </div>
+  )
+}
+
+function ResultsSection() {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') { setInView(true); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect() } }, { threshold: 0.2 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <section className="prog-results" id="results">
+      <div className="prog-results-glow" aria-hidden="true" />
+      <div className="prog-wrap">
+        <div className="prog-results-head">
+          <span className="prog-eyebrow prog-eyebrow-light">Results</span>
+          <h2 className="prog-results-h2">Real results from real companies.</h2>
+          <p className="prog-results-sub">Measured at the company level, not just the classroom.</p>
+        </div>
+        <div ref={ref} className={`prog-results-grid${inView ? ' is-in' : ''}`}>
+          {RESULT_CASES.map(c => (
+            <article key={c.company} className="prog-res-card">
+              <div className="prog-res-top"><span className="prog-res-co">{c.company}</span><span className="prog-res-ind">{c.industry}</span></div>
+              <div className="prog-res-big">{c.big}<em>{c.unit}</em></div>
+              <p className="prog-res-what">{c.what}</p>
+              <ResultViz kind={c.viz} />
+              <p className="prog-res-quote">{c.quote}</p>
+              <div className="prog-res-person">
+                <img src={`${import.meta.env.BASE_URL}assets/images/${c.photo}`} alt="" loading="lazy" />
+                <div><b>{c.name}</b><span>{c.title}</span></div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="prog-results-scale">
+          <div><b>308K+</b><span>people trained on AI</span></div>
+          <div><b>1,000+</b><span>companies</span></div>
+          <div><b>1M+</b><span>people served</span></div>
+          <div><b>100+</b><span>countries</span></div>
+          <div><b>{LELAND_RATING_AVG}<i>&#9733;</i></b><span>{LELAND_RATING_COUNT} Leland reviews<a href="#reviews-note" className="prog-note-ref">*</a></span></div>
+        </div>
+        <div className="prog-results-foot">
+          <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg" onClick={() => posthog.capture('app--sales_cta_click', { source: 'results' })}>Request a demo</a>
+          <a href="#testimonials" className="prog-results-link">Read graduate reviews <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// "How a rollout works": three steps. Tabs reuse The shift's pill tabs; the
+// right panel shows an illustrative proficiency chart (Assess, Transform) or a
+// real lesson screenshot (Enable).
+const ROLLOUT_BARS = [
+  { name: 'Sales', a: 34, b: 78, base: '1.6', gain: '+2.1' },
+  { name: 'Marketing', a: 48, b: 86, base: '2.2', gain: '+2.4' },
+  { name: 'Finance', a: 22, b: 64, base: '1.1', gain: '+1.8' },
+  { name: 'Operations', a: 30, b: 72, base: '1.4', gain: '+2.0' },
+]
+
+const ROLLOUT_STEPS = [
+  {
+    tab: 'Assess',
+    title: 'See where everyone really is.',
+    body: 'A proficiency baseline by function and level, then a strategy session with your leadership team.',
+    get: 'A baseline report and a use-case map',
+  },
+  {
+    tab: 'Enable',
+    title: 'Build on real work.',
+    body: 'Live cohorts, self-paced lessons, expert coaching for leaders, and a TA for every person.',
+    get: 'Working automations your team owns',
+  },
+  {
+    tab: 'Transform',
+    title: 'Prove what moved.',
+    body: 'The same assessment again. Leadership gets an impact report, and everyone who finishes is certified.',
+    get: 'A progress report against the baseline',
+  },
+]
+
+function ProficiencyCard({ after }) {
+  return (
+    <div className="prog-how-card">
+      <h4>AI proficiency <span>{after ? 'Baseline → now' : 'Baseline'}</span></h4>
+      {ROLLOUT_BARS.map(r => (
+        <div key={r.name} className="prog-how-bar">
+          {r.name}
+          <i style={{ '--a': `${r.a}%`, '--b': after ? `${r.b}%` : '0%' }} />
+          <s>{after ? r.gain : r.base}</s>
+        </div>
+      ))}
+      <div className="prog-how-legend">
+        {after
+          ? <><span><i style={{ background: '#C3BFB4' }} />Baseline</span><span><i style={{ background: '#222' }} />Now</span></>
+          : <span><i style={{ background: '#C3BFB4' }} />Level 0–4</span>}
+        <span>Illustrative</span>
+      </div>
+    </div>
+  )
+}
+
+function RolloutSection() {
+  const [step, setStep] = useState(0)
+  const s = ROLLOUT_STEPS[step]
+  return (
+    <section className="prog-how" id="how">
+      <div className="container prog-how-grid">
+        <div className="prog-how-left">
+          <span className="prog-eyebrow">How a rollout works</span>
+          <h2 className="prog-h2">Assess. Enable. Transform.</h2>
+          <p className="prog-sub">Most AI programs start with training. We start with a measurement, so leadership can see exactly what moved.</p>
+          <div className="role-tabs prog-how-tabs" role="tablist" aria-label="Rollout steps">
+            {ROLLOUT_STEPS.map((x, i) => (
+              <button
+                key={x.tab}
+                type="button"
+                role="tab"
+                aria-selected={i === step}
+                className={'role-tab' + (i === step ? ' role-tab-active' : '')}
+                onClick={() => setStep(i)}
+              >
+                {x.tab}
+              </button>
+            ))}
+          </div>
+          <div className="prog-how-step" key={step}>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <div className="prog-how-get"><b>You get</b>{s.get}</div>
+          </div>
+        </div>
+        <div className="prog-how-panel" key={`panel-${step}`}>
+          {step === 1
+            ? <div className="prog-how-shot"><img src={`${import.meta.env.BASE_URL}assets/images/rollout-lesson.jpg`} alt="A guided build lesson in the AI Builder Program" loading="lazy" /></div>
+            : <ProficiencyCard after={step === 2} />}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Graduate quote with a before/after stat. Quote and numbers come from a real
+// verified Level 1 review (public/data/featured-reviews.json). The reviewer
+// estimated "maybe 40 minutes", so the after number is labeled an estimate.
+function GraduateQuote() {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') { setInView(true); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect() } }, { threshold: 0.3 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  return (
+    <section className="prog-face">
+      <div className="container prog-face-grid">
+        <div>
+          <p className="prog-face-quote">&ldquo;We built a skill that saves our accounting team <mark>roughly 40 hours of work each quarter</mark>. This has been HUGE for&nbsp;us.&rdquo;</p>
+          <div className="prog-face-who">
+            <span className="prog-face-init" aria-hidden="true">A</span>
+            <div><b>AI Builder graduate</b><span>Completed Level 1 · verified review</span></div>
+          </div>
+        </div>
+        <div ref={ref} className={`prog-face-res${inView ? ' is-in' : ''}`}>
+          <div className="prog-face-num">40 hrs <em>&rarr; 40 min</em></div>
+          <p>quarterly reporting for 25 customer reports, by the team&rsquo;s estimate</p>
+          <div className="prog-face-cmp">
+            <div><span>Before</span><i style={{ '--w': 1 }} /><b>40 hrs</b></div>
+            <div><span>After</span><i className="hi" style={{ '--w': 0.04 }} /><b>~40 min</b></div>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -890,8 +1161,9 @@ function RoleUseCases() {
     <section className="role-uses-section">
       <div className="container">
         <div className="role-uses-header">
-          <h2 className="role-uses-headline">Drive more impact, whatever your role is.</h2>
-          <p className="role-uses-sub">Learn to build AI systems tuned to your specific workflows. Select your role below for examples of what AI Builders are doing to transform their day-to-day.</p>
+          <span className="prog-eyebrow">The shift</span>
+          <h2 className="role-uses-headline">When everyone builds, every function moves.</h2>
+          <p className="role-uses-sub">Each team builds systems tuned to its own work. Pick a function to see what its builders ship.</p>
         </div>
         <div className="role-tabs" role="tablist">
           {roles.map((role, i) => (
@@ -1189,9 +1461,32 @@ function VideoEmbed() {
     }
   }, [])
 
+  // The Wistia player loads behind Dave's poster from the start. The click calls
+  // play() directly, so the browser counts it as the user's gesture and the video
+  // starts on the first click instead of showing Wistia's own thumbnail.
+  const [playing, setPlaying] = useState(false)
+  const playerRef = useRef(null)
+
+  const start = () => {
+    const player = playerRef.current
+    if (player && typeof player.play === 'function') player.play()
+    else if (player) player.setAttribute('autoplay', 'true')
+    setPlaying(true)
+    posthog.capture('app--video_play_click', { source: 'problem-section' })
+  }
+
   return (
-    <div className="video-embed">
-      <wistia-player media-id="6pv9oxdp3r" aspect="1.7777777777777777"></wistia-player>
+    <div className={`prog-video${playing ? ' prog-video-playing' : ''}`}>
+      <wistia-player ref={playerRef} media-id="6pv9oxdp3r" aspect="1.7777777777777777"></wistia-player>
+      {!playing && (
+        <button type="button" className="prog-video-poster" aria-label="Play program overview video" onClick={start}>
+          <img src={`${import.meta.env.BASE_URL}assets/images/program-overview-poster.jpg`} alt="" />
+          <span className="prog-video-play" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#222" /></svg>
+          </span>
+          <span className="prog-video-cap">Program overview · 5 min</span>
+        </button>
+      )}
     </div>
   )
 }
@@ -1241,9 +1536,9 @@ function ImageRevealSection() {
         />
         <div className="img-reveal-overlay" aria-hidden="true"></div>
         <div className="img-reveal-content">
-          <h2 className="img-reveal-heading">Become a top 1% AI user.</h2>
+          <h2 className="img-reveal-heading">Make your team the top 1% of AI users.</h2>
           <p className="img-reveal-desc">
-            Build skills, agents, and systems your colleagues notice. Upon completion of the course, you'll have a certificate (and real AI outcomes) you can share on LinkedIn.
+            Skills, agents, and systems colleagues notice. Everyone who finishes earns a verified certificate and real outcomes to show for it.
           </p>
         </div>
       </div>
@@ -1407,8 +1702,6 @@ export default function ProgramSinglePricePage() {
 
 function ProgramSinglePriceInner() {
   const heroRef = useRef(null)
-  const ratingAvg = HERO_RATING_AVG
-  const ratingCount = HERO_RATING_COUNT
   // null on /program. Set on partner routes like /scaling, which serve this same
   // page with the partner's logo in the nav and their discount on the price.
   const partner = activePartner()
@@ -1455,15 +1748,6 @@ function ProgramSinglePriceInner() {
   const [activeSection, setActiveSection] = useState(null)
   const [scarcityCount, setScarcityCount] = useState(() => getScarcityCount(442, 532, 0))
   const [advancedScarcityCount, setAdvancedScarcityCount] = useState(() => getScarcityCount(75, 110, 1))
-  const heroPhrases = ['operator', 'builder', 'marketer', 'product manager', 'designer', 'leader', 'founder', 'recruiter', 'analyst', 'seller']
-  const [heroPhraseIndex, setHeroPhraseIndex] = useState(0)
-  const heroPhrase = heroPhrases[heroPhraseIndex]
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setHeroPhraseIndex(i => (i + 1) % heroPhrases.length)
-    }, 2500)
-    return () => clearInterval(timer)
-  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -1675,28 +1959,32 @@ function ProgramSinglePriceInner() {
 
   const faqs = [
     {
-      q: `What does the ${offerPricing().price} include?`,
-      a: 'Everything. The live Level 1 cohort, AI Builder Foundations, Levels 2 through 5 on demand, weekly office hours with a dedicated TA you can message anytime, function-specific blueprints and agent templates, the builder community, and a verified certificate. You finish Level 1 with a portfolio of 10 or more builds.',
+      q: 'What does a team rollout include?',
+      a: 'Everything your team needs. A kickoff to pick your first use cases, private cohorts built on those use cases, AI Foundations with its live First builds cohort, weekly office hours with a dedicated TA people can message anytime, function-specific blueprints and agent templates, the builder community, a before-and-after assessment, an admin dashboard to track progress, and a verified certificate for everyone who finishes.',
     },
     {
-      q: 'How long do I have access?',
-      a: 'Three months of full access to everything. After that you can extend for $29/month or $119/year, which keeps all of it, including office hours and re-enrollment in live Level 1 cohorts. Team seats include a full year.',
+      q: 'How is pricing set for a company?',
+      a: `It's sized to your team. Start with a private program, then add exec strategy sessions, expert sessions for each function, 1:1 coaching for leaders, a security review and DPA, or a named success strategist as you need them. <a href="${teamsUrl('faq-pricing')}" target="_blank" rel="noopener noreferrer">Talk to our team</a> for a quote.`,
     },
     {
-      q: 'Do I have to attend Level 1 live?',
-      a: 'We recommend it, but no. Cohorts start every two weeks and run four 90-minute sessions across two weeks. Every session is recorded and the recordings stay available, so you can watch what you miss and bring questions to office hours.',
+      q: 'What does leadership see?',
+      a: 'A proficiency baseline by function before the program starts, an admin dashboard to track progress along the way, and the same assessment again at the end, so leadership gets an impact report showing exactly what moved.',
     },
     {
-      q: 'Where do I start?',
-      a: "If you're familiar with AI chatbots and other AI tools, start with Level 1. If you're new to AI, start with AI Builder Foundations, which is an on-demand course to help you build a foundation of understanding before diving into the live Level 1 cohort.",
+      q: 'How long do people have access?',
+      a: 'Team seats include a full year of access to everything, including office hours and re-enrollment in live cohorts. New hires get access automatically.',
     },
     {
-      q: 'What is AI Builder Foundations?',
-      a: "A short on-demand course covering the fundamentals before your live cohort starts. It's free, you can take it on its own, and it's included when you enroll.",
+      q: 'Do people have to attend live?',
+      a: 'We recommend it, but no. First builds cohorts start every two weeks and run four 90-minute sessions across two weeks. Every session is recorded and the recordings stay available, so people can watch what they miss and bring questions to office hours.',
     },
     {
-      q: 'How do the levels fit together?',
-      a: 'Each level is a full course that stands on its own, and they build in order. Level 1 covers core AI fluency, Level 2 builds agents, Level 3 makes them autonomous, Level 4 orchestrates a workforce of them, and Level 5 ships production systems. Level 1 is the live program everyone starts in. Levels 2 through 5 are yours on demand, in whatever order serves you.',
+      q: 'Where do people start?',
+      a: "Everyone starts with AI Foundations. If someone is new to AI, they begin with its self-paced Essentials, which build a foundation of understanding before the live First builds cohort.",
+    },
+    {
+      q: 'What is AI Foundations?',
+      a: "The shared baseline every person builds first, on the tools you already have. It has two parts: Essentials, a short self-paced course covering the fundamentals, and First builds, the live cohort where people build a real product, automate their email, analyze data and decks, and launch their own AI system.",
     },
     {
       q: 'What if AI tools change after I take the course?',
@@ -1704,7 +1992,7 @@ function ProgramSinglePriceInner() {
     },
     {
       q: 'Is this for individuals or teams?',
-      a: `Both. Individuals enroll directly. Teams get volume discounts, centralized billing, and custom use case workshops, and your people leave with skills, agents, and automations built for your business. <a href="${teamsUrl('faq-teams')}" target="_blank" rel="noopener noreferrer">Talk to our team</a> about team pricing.`,
+      a: `Both. Most companies roll it out to teams, with centralized billing and custom use case workshops, and their people leave with skills, agents, and automations built for the business. Individuals can still reserve a seat. <a href="${teamsUrl('faq-teams')}" target="_blank" rel="noopener noreferrer">Talk to our team</a> about bringing it to yours.`,
     },
     {
       q: 'Are there discounts?',
@@ -1712,7 +2000,7 @@ function ProgramSinglePriceInner() {
     },
     {
       q: 'Do I need coding experience?',
-      a: "No. The program is built for knowledge workers. You'll learn technical concepts, but everything is taught for practical application over code. If you do have a technical background, Level 4 (Build Your Agent Workforce) and Level 5 (Design Your AI Orchestration Layer) go deep enough to challenge experienced builders.",
+      a: "No. The program is built for knowledge workers. You'll learn technical concepts, but everything is taught for practical application over code. If you do have a technical background, the Orchestration and Operations disciplines go deep enough to challenge experienced builders.",
     },
     {
       q: 'Which AI tools do I need?',
@@ -1723,7 +2011,7 @@ function ProgramSinglePriceInner() {
       a: "A paid plan at $20/month or higher for ChatGPT or Claude gets you faster responses, the full feature set, and the most capable models. It's strongly recommended if you want the full value of the program.",
     },
     {
-      q: "My company won't let me connect AI to our internal systems. Can I still get value?",
+      q: "What if I can't connect AI to the systems I need?",
       a: "Yes, and the program is designed for it. A core skill we teach is building effective AI workflows without touching your company's live data. You'll structure information manually, build automations around what you can access, and get real results inside whatever your IT policy allows. Connecting AI to other systems is taught as an optional capability.",
     },
   ]
@@ -1780,10 +2068,10 @@ function ProgramSinglePriceInner() {
             )}
           </div>
           <div className="rb-nav-actions">
-            <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Talk to our team</a>
-            <button type="button" className="rb-nav-getstarted" onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'nav' }); openCohortModal('nav') }}>
+            <button type="button" className="rb-nav-signin" onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'nav' }); openCohortModal('nav') }}>
               Reserve your seat
             </button>
+            <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Request a demo</a>
           </div>
           <button className="lai-nav-hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
             <span /><span /><span />
@@ -1807,7 +2095,7 @@ function ProgramSinglePriceInner() {
           <a href="/pledge" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Our Pledge</a>
           <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Free Foundations Course</a>
         </div>
-        <button type="button" className="lai-mobile-menu-cta" onClick={() => { setMenuOpen(false); openCohortModal('mobile-menu') }}>Reserve your seat</button>
+        <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-cta" onClick={() => { setMenuOpen(false); posthog.capture('app--sales_cta_click', { source: 'mobile-menu' }) }}>Request a demo</a>
       </div>
 
       {/* ====== 2. Hero ====== */}
@@ -1824,25 +2112,29 @@ function ProgramSinglePriceInner() {
         <div className="container">
           <Countdown />
 
-          <h1 className="hero-stagger hero-stagger-1">Become an AI-native <br className="mobile-br" /><TextMorph className="rotating-text hero-morph-desktop">{heroPhrase}</TextMorph><span className="hero-morph-mobile">operator</span></h1>
+          <span className="prog-hero-eyebrow">AI transformation for teams</span>
 
-          <p className="hero-sub hero-stagger hero-stagger-2">Build tools that transform how you work, so you have more time and leverage to pursue what matters.</p>
+          <h1 className="hero-stagger hero-stagger-1">Bridge the gap between <br className="prog-desktop-br" />AI tools and real results</h1>
+
+          <p className="hero-sub hero-stagger hero-stagger-2">Live, expert-led training that makes your team AI-native and turns everyday work into systems that scale, on the AI tools you already have.</p>
 
           <div className="hero-ctas hero-stagger hero-stagger-3">
-            <button
-              type="button"
+            <a
+              href={NAV_SALES_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-primary btn-lg"
-              onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'hero' }); openCohortModal('hero') }}
+              onClick={() => posthog.capture('app--sales_cta_click', { source: 'hero' })}
             >
-              Reserve your seat
-            </button>
+              Request a demo
+            </a>
             <a href="#happy-path" className="lai-cta-primary" onClick={() => posthog.capture('app--curriculum_click', { source: 'hero' })}>
               See curriculum
             </a>
           </div>
 
           <div className="hero-review-row hero-stagger hero-stagger-4">
-            <StarRating value={ratingAvg} />
+            <StarRating value={LELAND_RATING_AVG} />
 
             <a
               href="#testimonials"
@@ -1866,9 +2158,11 @@ function ProgramSinglePriceInner() {
                 try { posthog.capture('app--reviews_click', { source: 'hero-rating' }) } catch (err) { /* non-fatal */ }
               }}
             >
-              {ratingAvg.toFixed(1)} stars from {ratingCount} reviews
+              {LELAND_RATING_AVG} stars from {LELAND_RATING_COUNT} Leland reviews*
             </a>
           </div>
+
+          <HeroLogos />
 
           <div className="track-cards-section track-cards-v2" id="courses">
           </div>
@@ -1877,17 +2171,39 @@ function ProgramSinglePriceInner() {
       </section>
 
       {/* ====== Next Level 1 cohorts ====== */}
-      <div className="l1-dates-wrap">
+      <div className="l1-dates-wrap" id="cohort-dates">
         <div className="container">
           <L1CohortStrip />
         </div>
       </div>
 
-      {/* ====== Org logos — trained at top organizations ====== */}
-      <OrgLogosBand />
 
 
-      {/* ====== 3. "Why This Course" ====== */}
+      {/* ====== Customer story: Ethisphere ====== */}
+      <section className="prog-story" id="customers">
+        <div className="container">
+          <article className="prog-story-card">
+            <div className="prog-story-photo">
+              <img src={`${import.meta.env.BASE_URL}assets/images/udit-pillay.jpg`} alt="Udit Pillay" loading="lazy" />
+            </div>
+            <div className="prog-story-body">
+              <span className="prog-story-eyebrow">Customer story · Ethisphere</span>
+              <p className="prog-story-quote">&ldquo;The course probably accelerated our company&rsquo;s AI adoption by six months.&rdquo;</p>
+              <div className="prog-story-who">
+                <b>Udit Pillay</b>
+                <span>Chief Revenue Officer, Ethisphere</span>
+              </div>
+            </div>
+            <div className="prog-story-stats">
+              <div><b>95%</b><span>of eligible staff through the program</span></div>
+              <div><b>75%</b><span>now use AI every day</span></div>
+              <div><b>6 months</b><span>ahead on AI adoption</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      {/* ====== 3. The problem ====== */}
       <section className="save-time-section" id="about">
         <div className="container">
           <div className="save-time-split">
@@ -1895,16 +2211,20 @@ function ProgramSinglePriceInner() {
               <VideoEmbed />
             </div>
             <div className="save-time-right">
-              <h2 className="save-time-headline">Stop using AI like a chatbot.</h2>
-              <p className="save-time-sub">Learn how to build specialized skills, workflows, and agents that triage your inbox, run research, prep your slides, ship your outreach, and more. All managed by you.</p>
+              <span className="prog-eyebrow">The problem</span>
+              <h2 className="save-time-headline">You bought the licenses. The work hasn&rsquo;t changed.</h2>
+              <p className="save-time-sub">Access isn&rsquo;t adoption. Most rollouts stall because nobody shows people how to build on their own work. We do, function by function, until AI is part of how the company runs.</p>
+              <p className="prog-stat-line"><b>85%</b> of employees say their AI training doesn&rsquo;t help them do their job. <span>Docebo, 2026</span></p>
               <div className="save-time-ctas">
-                <button
-                  type="button"
+                <a
+                  href={NAV_SALES_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn btn-primary save-time-explore-cta"
-                  onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'video-section' }); openCohortModal('video-section') }}
+                  onClick={() => posthog.capture('app--sales_cta_click', { source: 'video-section' })}
                 >
-                  Reserve your seat
-                </button>
+                  Request a demo
+                </a>
                 <a
                   href="#happy-path"
                   className="btn btn-ghost save-time-explore-cta"
@@ -1918,36 +2238,41 @@ function ProgramSinglePriceInner() {
         </div>
       </section>
 
+      {/* ====== Use Cases by Role ====== */}
+
+      <RoleUseCases />
+
+      {/* ====== Results from real companies ====== */}
+      <ResultsSection />
+
+      {/* ====== Results CTA — see what people have built ====== */}
+      <ResultsCTASection
+        label="Graduate builds"
+        heading="What your team will build."
+        subhead="Real demos from graduates, built on their own work during the program."
+      />
+
       {/* ====== Why — skills + tools ====== */}
       <WhyRevealSection toolPills={toolPills} skillPills={skillPills} />
 
-
       {/* ====== The happy path — level progression ====== */}
       <HappyPath />
-
-      {/* ====== 5. Value Stack 1 (pricing anchor) ====== */}
-      <SingleOfferPricing />
-
-      {/* ====== 4. Testimonials — Masonry board ====== */}
-      <TestimonialsBoard />
-
-      {/* ====== Results CTA — see what people have built ====== */}
-      <ResultsCTASection />
 
       {/* ====== 12. Iceberg + 5-Course Accordion ====== */}
       {/* ====== What you'll walk out with (outcomes, not a syllabus) ====== */}
       <OutcomesSection />
 
+      {/* ====== How a rollout works ====== */}
+      <RolloutSection />
 
-      {/* ====== Use Cases by Role ====== */}
       {/* ====== For Teams (moved above the role section so the callout is a short jump) ====== */}
       <section className="enterprise" id="enterprise">
         <div className="container">
           <div className="enterprise-card">
             <div className="enterprise-card-content">
-              <h2>For Teams</h2>
+              <h2>AI transformation for the whole company.</h2>
               <p className="enterprise-desc">
-                We work with 10-person startups to Fortune 500s to drive AI impact quickly. Explore B2B solutions, custom options, volume pricing, and dedicated support.
+                From 10-person startups to the Fortune 500. We assess where your people are, build alongside them on real work, and prove what moved with a before-and-after report for leadership.
               </p>
               <div className="enterprise-bottom">
                 <ul className="enterprise-points">
@@ -1962,7 +2287,7 @@ function ProgramSinglePriceInner() {
                   className="btn btn-primary btn-lg enterprise-cta-loud"
                   onClick={() => posthog.capture('app--sales_cta_click', { source: 'enterprise' })}
                 >
-                  Talk to our team
+                  Request a demo
                   <span className="arrow">&rarr;</span>
                 </a>
               </div>
@@ -1971,37 +2296,78 @@ function ProgramSinglePriceInner() {
         </div>
       </section>
 
-      <RoleUseCases />
+      {/* ====== Graduate quote: 40 hrs to 40 min ====== */}
+      <GraduateQuote />
+
+      {/* ====== Take the first step: company pricing (no individual buy here) ====== */}
+      <section className="uo-first-step" id="pricing">
+        <div className="container">
+          <h2 className="uo-first-step-headline">Take the first step.</h2>
+          <p className="uo-first-step-sub">Bring AI into how your whole company works.</p>
+        </div>
+        <div className="container">
+          <div className="prog-pc">
+            <div className="prog-pc-intro">
+              <span className="prog-pc-eb">For companies</span>
+              <h3>Simple solution, scaled to your company.</h3>
+              <p>Start with a private program for your team. Add leadership strategy, security and a rollout plan as you bring everyone along.</p>
+              <div className="prog-pc-btns">
+              <a
+                href={teamsUrl('pricing-teams-card')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="prog-pc-btn"
+                onClick={() => posthog.capture('app--sales_cta_click', { source: 'pricing-teams-card' })}
+              >
+                Plan your rollout &rarr;
+              </a>
+              </div>
+            </div>
+            <div className="prog-pc-right">
+              <div className="prog-pc-core">
+                <span className="prog-pc-ch">The solution</span>
+                <div className="prog-pc-t">Everything your team needs</div>
+                <ul>
+                  {['A kickoff to pick your first use cases', 'Private cohorts, built on your use cases', 'Content library, office hours and TAs', 'Before and after assessment', 'Admin dashboard to track progress', 'New hires get access automatically'].map(item => (
+                    <li key={item}><img className="prog-pc-ck" src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" /><span>{item}</span></li>
+                  ))}
+                </ul>
+              </div>
+              <div className="prog-pc-add">
+                <div className="prog-pc-add-hd">
+                  <div><span className="prog-pc-ch r">Add-ons</span><span className="prog-pc-add-sub">For integrated rollouts</span></div>
+                  <span className="prog-pc-opt">Optional</span>
+                </div>
+                <ul>
+                  {['Exec strategy sessions', 'Expert sessions for each function', '1:1 coaching for your leaders', 'Security review and DPA', 'Curriculum fit to your policies', 'Named success strategist'].map(item => (
+                    <li key={item}>
+                      <svg className="prog-pc-plus" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#ffd667" /><path d="M8 4.5v7M4.5 8h7" stroke="#7d3c17" strokeWidth="1.8" strokeLinecap="round" /></svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p className="prog-pc-strip">
+            Nonprofit, education or government?{' '}
+            <a
+              href={teamsUrl('pricing-special')}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => posthog.capture('app--sales_cta_click', { source: 'pricing-special' })}
+            >
+              Ask about special pricing
+            </a>
+          </p>
+        </div>
+      </section>
+
+      {/* ====== 4. Testimonials — Masonry board ====== */}
+      <TestimonialsBoard />
 
       {/* ====== VP1 — Image Reveal ====== */}
       <ImageRevealSection />
-
-
-      {/* ====== Take the first step — one section: headline, pricing, then the team callout ====== */}
-      <section className="uo-first-step">
-        <div className="container">
-          <h2 className="uo-first-step-headline">Take the first step</h2>
-          <p className="uo-first-step-sub">Seats are filling fast. Reserve your spot in the next Level 1 cohort.</p>
-        </div>
-
-        <SingleOfferPricing hideHeader />
-
-        <div className="container">
-          <a
-            href={teamsUrl('first-step-teams')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="value-stack-teams-callout uo-first-step-teams"
-            onClick={() => posthog.capture('app--sales_cta_click', { source: 'first-step-teams' })}
-          >
-            <img src={`${import.meta.env.BASE_URL}assets/icons/modern-building-4.svg`} alt="" className="value-stack-teams-icon" />
-            <span className="value-stack-teams-text">
-              <strong>Buying for a team or enterprise?</strong> Volume pricing, custom use cases, and dedicated support.
-            </span>
-            <span className="value-stack-teams-arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </section>
 
       {/* ====== Certification — one real certificate, Level 1 ====== */}
       <section className="uo-cert" id="certification">
@@ -2009,7 +2375,7 @@ function ProgramSinglePriceInner() {
           <div className="uo-cert-grid">
             <div className="uo-cert-copy">
               <span className="uo-cert-eyebrow">Certification</span>
-              <h2 className="uo-cert-headline">Walk away certified.</h2>
+              <h2 className="uo-cert-headline">Everyone walks away certified.</h2>
               <p className="uo-cert-desc">
                 Every course in the program culminates in a verified certificate of completion from
                 Leland, signaling to employers, clients, and colleagues that you operate at the
@@ -2018,7 +2384,7 @@ function ProgramSinglePriceInner() {
             </div>
             <div className="uo-cert-art">
               <img
-                src={`${import.meta.env.BASE_URL}assets/certificate-level-1.png`}
+                src={`${import.meta.env.BASE_URL}assets/certificate-level-1-arntz.webp`}
                 alt="Leland AI Builder Program Level 1 certificate of completion"
                 loading="lazy"
               />
@@ -2028,11 +2394,12 @@ function ProgramSinglePriceInner() {
       </section>
 
       {/* advisor card sits under the pricing, not above it */}
+
       <section className="uo-advisor">
         <div className="container">
           <div className="advisor-card">
-            <h2>Have questions about the program?</h2>
-            <p>Book a free call with an advisor and we will walk you through it.</p>
+            <h2>Bringing this to your team?</h2>
+            <p>Book a demo and we&rsquo;ll map the program to your functions, timeline, and goals.</p>
             <a
               href={`${SALES_URL}?utm_content=advisor-cta`}
               target="_blank"
@@ -2040,7 +2407,7 @@ function ProgramSinglePriceInner() {
               className="btn btn-primary btn-lg"
               onClick={() => posthog.capture('app--sales_cta_click', { source: 'advisor' })}
             >
-              Schedule a call
+              Request a demo
               <span className="arrow">&rarr;</span>
             </a>
           </div>
@@ -2117,8 +2484,6 @@ function ProgramSinglePriceInner() {
 
       {/* ====== 13. Certification (CardSwap) ====== */}
 
-      {/* ====== Get This Expensed ====== */}
-      <GetThisExpensed />
 
 
       {/* ====== 16. FAQ ====== */}
@@ -2154,13 +2519,22 @@ function ProgramSinglePriceInner() {
             src={`${import.meta.env.BASE_URL}assets/logos/aibp-light.png`}
             alt="AI Builder Program"
           />
-          <h2 className="rb-prefooter-heading">Next cohort starting {NEXT_COHORT_DISPLAY}</h2>
+          <h2 className="rb-prefooter-heading">Next cohort starting <br />{NEXT_COHORT_DISPLAY}</h2>
           <a
             href="#pricing"
             className="btn btn-primary btn-lg"
             onClick={(e) => { e.preventDefault(); posthog.capture('app--enroll_cta_click', { source: 'prefooter' }); openCohortModal('prefooter') }}
           >
             Reserve your seat
+          </a>
+          <a
+            href={NAV_SALES_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="prog-prefooter-demo"
+            onClick={() => posthog.capture('app--sales_cta_click', { source: 'prefooter' })}
+          >
+            Request a demo for your team
           </a>
         </div>
       </section>
@@ -2180,6 +2554,7 @@ function ProgramSinglePriceInner() {
                 </a>
               </div>
               <p className="footer-copyright">Copyright 2026 Leland Inc.<br />All rights reserved.</p>
+              <p className="prog-footer-note" id="reviews-note">* Leland reviews cover all Leland coaching, courses and programs. The AI Builder Program on its own is rated {PROGRAM_RATING_AVG} from {PROGRAM_RATING_COUNT} verified reviews.</p>
             </div>
           </div>
 

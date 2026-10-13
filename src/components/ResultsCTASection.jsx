@@ -37,7 +37,11 @@ function DemoCard({ demo, index }) {
   )
 }
 
-export default function ResultsCTASection() {
+export default function ResultsCTASection({
+  label = 'Proof It Works',
+  heading = 'See what people have built',
+  subhead = 'Watch real demos of what AI Builder Program graduates have built during the program.',
+} = {}) {
   const [demos, setDemos] = useState([])
   const trackRef = useRef(null)
 
@@ -69,12 +73,10 @@ export default function ResultsCTASection() {
       <div className="results-cta-intro">
         <p className="testimonials-label">
           <span className="testimonials-dot" />
-          Proof It Works
+          {label}
         </p>
-        <h2 className="testimonials-heading">See what people have built</h2>
-        <p className="results-cta-subhead">
-          Watch real demos of what AI Builder Program graduates have built during the program.
-        </p>
+        <h2 className="testimonials-heading">{heading}</h2>
+        <p className="results-cta-subhead">{subhead}</p>
         {demos.length > 0 && (
           <p className="results-cta-meta">
             {demos.length} demos <span className="results-cta-meta-dot" /> Levels {levels[0]}&ndash;{levels[levels.length - 1]}
