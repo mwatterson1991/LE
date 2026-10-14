@@ -1,9 +1,12 @@
+const PROGRAM_PICK_LATER_CHECKOUT_URL =
+  'https://www.joinleland.com/checkout?offering=fda10884-e355-4751-95fe-78a921804e76&cohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a7cebc6e425705fa14adbb7)'
+
 export const ENROLL_URLS = {
-  1: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69af7e391104a7bb1cbf5715%2C6a231ba2455a49d4abda3c39)',
-  2: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b075e725e910e72d636723%2C6a232210455a49d4abda3c91)',
-  3: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b1962de91acb3ef5f65986%2C6a2326fd455a49d4abda3d0c)',
-  4: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196b9f61c38f9e9bb316e%2C69e5259f1ac8f0ca2eba2107)',
-  5: 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69b196abf61c38f9e9bb2b9a%2C69e525cefe0055e715a6a025)',
+  1: PROGRAM_PICK_LATER_CHECKOUT_URL,
+  2: PROGRAM_PICK_LATER_CHECKOUT_URL,
+  3: PROGRAM_PICK_LATER_CHECKOUT_URL,
+  4: PROGRAM_PICK_LATER_CHECKOUT_URL,
+  5: PROGRAM_PICK_LATER_CHECKOUT_URL,
 }
 
 export const COURSE_COHORTS = {
