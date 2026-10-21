@@ -3098,7 +3098,7 @@ nav .btn {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  background: url('/assets/teams-bg.png') center center / cover no-repeat;
+  background: url('/assets/teams-bg.jpg') center center / cover no-repeat;
   min-height: 749px;
   display: flex;
   flex-direction: column;

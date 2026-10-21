@@ -1221,7 +1221,7 @@ function SkillsRevealSection() {
   const containerScale = 0.8 + eased * 0.2
   const imageScale = 1 / containerScale
 
-  const imageUrl = `${import.meta.env.BASE_URL}assets/images/quote-bg.png`
+  const imageUrl = `${import.meta.env.BASE_URL}assets/images/quote-bg.jpg`
 
   return (
     <section className="img-reveal-section" ref={sectionRef}>

@@ -1492,6 +1492,37 @@ function VideoEmbed() {
 }
 
 
+// True once the element is within ~one screen of the viewport. Used to hold
+// back background videos below the fold until they're about to be seen.
+function useNearView(ref, margin = '600px') {
+  const [near, setNear] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') { setNear(true); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setNear(true); io.disconnect() } }, { rootMargin: margin })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [ref, margin])
+  return near
+}
+
+// Pre-footer background video, loaded only when the pre-footer is close.
+function PrefooterVideo() {
+  const ref = useRef(null)
+  const near = useNearView(ref)
+  return (
+    <video
+      className="rb-prefooter-bg"
+      ref={v => { ref.current = v; if (v) { v.muted = true; v.setAttribute('muted', '') } }}
+      src={near ? `${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4` : undefined}
+      autoPlay
+      loop
+      muted
+      playsInline
+    />
+  )
+}
+
 function ImageRevealSection() {
   const sectionRef = useRef(null)
   const [progress, setProgress] = useState(0)
@@ -1573,7 +1604,7 @@ function SkillsRevealSection() {
   const containerScale = 0.8 + eased * 0.2
   const imageScale = 1 / containerScale
 
-  const imageUrl = `${import.meta.env.BASE_URL}assets/images/quote-bg.png`
+  const imageUrl = `${import.meta.env.BASE_URL}assets/images/quote-bg.jpg`
 
   return (
     <section className="img-reveal-section" ref={sectionRef}>
@@ -1627,6 +1658,7 @@ function WhyRevealSection({ toolPills, skillPills }) {
   const containerScale = 0.8 + eased * 0.2
   const mediaScale = 1 / containerScale
   const videoUrl = `${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`
+  const near = useNearView(sectionRef)
 
   return (
     <section className="why-reveal-section why-reveal-tight" ref={sectionRef}>
@@ -1656,7 +1688,7 @@ function WhyRevealSection({ toolPills, skillPills }) {
             window.addEventListener('touchstart', once, { passive: true, once: true })
             window.addEventListener('click', once, { once: true })
           }}
-          src={videoUrl}
+          src={near ? videoUrl : undefined}
           autoPlay
           loop
           muted
@@ -2503,15 +2535,7 @@ function ProgramSinglePriceInner() {
 
       {/* ====== Pre-Footer CTA ====== */}
       <section className="rb-prefooter-video">
-        <video
-          className="rb-prefooter-bg"
-          ref={v => { if (v) { v.muted = true; v.setAttribute('muted', '') } }}
-          src={`${import.meta.env.BASE_URL}assets/images/Animated Gradient - 06.mp4`}
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+        <PrefooterVideo />
         <div className="rb-prefooter-fade" />
         <div className="rb-prefooter-content">
           <img

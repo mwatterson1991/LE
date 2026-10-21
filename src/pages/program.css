@@ -38,7 +38,7 @@ body.rb-home button.rb-nav-signin {
 /* Bottom "For Teams" enterprise callout photo. Overrides only the image from
    the shared .enterprise-card rule; keeps its center/cover framing + overlay. */
 body.rb-home .enterprise-card {
-  background-image: url('/assets/images/for-teams-callout.png');
+  background-image: url('/assets/images/for-teams-callout.jpg');
 }
 
 /* ===== /program/v2 hero split layout ===== */
