@@ -1073,3 +1073,40 @@ body.rb-home .prog-prefooter-demo {
   padding-bottom: 2px;
 }
 body.rb-home .prog-prefooter-demo:hover { opacity: 1; }
+
+/* Phones: keep "Reserve your seat" (individuals) in the pinned header next to
+   the demo button. The shared mobile rules hide this link, so it's restored
+   here with short labels ("Reserve a seat" / "Get a demo") to fit. */
+@media (max-width: 768px) {
+  body.rb-home .rb-nav-signin {
+    display: block;
+    padding: 8px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  body.rb-home .rb-nav-getstarted { white-space: nowrap; }
+  body.rb-home .rb-nav-actions { gap: 2px; }
+}
+/* Mobile menu: second button for individuals, outlined under the demo button */
+body.rb-home .lai-mobile-menu button.prog-mobile-menu-seat {
+  margin-top: 12px;
+  background: transparent;
+  border: 1.5px solid var(--gray-dark, #222222);
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  body.rb-home .rb-nav-lockup { flex-shrink: 0; }
+  body.rb-home .rb-nav-logo img.rb-logo-dark { width: 90px; }
+  body.rb-home .rb-nav-logo img.rb-logo-white { height: 20px; }
+}
+/* Narrower Android phones: tighten both header actions so the logo keeps its size */
+@media (max-width: 390px) {
+  body.rb-home .rb-nav-signin { padding: 8px 6px; font-size: 13px; }
+  body.rb-home .rb-nav-getstarted { padding: 8px 12px; font-size: 13px; }
+  body.rb-home .lai-nav-hamburger { margin-left: 6px; }
+}
+/* Under 350px there's no room for both; keep the demo button and the menu,
+   where "Reserve your seat" is the second button. */
+@media (max-width: 349px) {
+  body.rb-home .rb-nav-signin { display: none; }
+}

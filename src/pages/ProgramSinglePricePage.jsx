@@ -2101,9 +2101,13 @@ function ProgramSinglePriceInner() {
           </div>
           <div className="rb-nav-actions">
             <button type="button" className="rb-nav-signin" onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'nav' }); openCohortModal('nav') }}>
-              Reserve your seat
+              <span className="nav-cta-full">Reserve your seat</span>
+              <span className="nav-cta-short">Reserve a seat</span>
             </button>
-            <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>Request a demo</a>
+            <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>
+              <span className="nav-cta-full">Request a demo</span>
+              <span className="nav-cta-short">Get a demo</span>
+            </a>
           </div>
           <button className="lai-nav-hamburger" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
             <span /><span /><span />
@@ -2128,6 +2132,7 @@ function ProgramSinglePriceInner() {
           <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Free Foundations Course</a>
         </div>
         <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-cta" onClick={() => { setMenuOpen(false); posthog.capture('app--sales_cta_click', { source: 'mobile-menu' }) }}>Request a demo</a>
+        <button type="button" className="lai-mobile-menu-cta prog-mobile-menu-seat" onClick={() => { setMenuOpen(false); posthog.capture('app--enroll_cta_click', { source: 'mobile-menu' }); openCohortModal('mobile-menu') }}>Reserve your seat</button>
       </div>
 
       {/* ====== 2. Hero ====== */}
