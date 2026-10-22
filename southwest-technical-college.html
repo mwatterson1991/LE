@@ -119,7 +119,7 @@ a:focus-visible,summary:focus-visible,.btn:focus-visible{outline:3px solid var(-
 .lnav.scrolled .aibp-light{display:none}
 .lnav.scrolled .aibp-dark{display:block}
 .lnav.scrolled .lnav-links a:not(.btn){color:var(--ink)}
-@media(max-width:700px){.lnav-links a:not(.btn){display:none}.lockup .aibp,.lockup .sep{display:none}}
+@media(max-width:700px){.lnav-links a:not(.btn){display:none}.lockup .aibp,.lnav.scrolled .aibp-dark,.lockup .sep{display:none}}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#000;z-index:60}
 
 /* hero */
@@ -181,6 +181,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .slot .d{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.1}
 .slot .m{font-size:15px;color:var(--muted);margin-top:6px}
 .slot .t{font-size:14px;color:var(--muted);margin-top:2px}
+.slot .t a{color:var(--ink);text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(34,34,34,.35)}
+.slot .t a:hover{text-decoration-color:var(--ink)}
 .pill{display:inline-block;margin-top:14px;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 .pill.y{background:var(--yellow);color:var(--ink)}
 .pill.g{background:var(--card);color:var(--muted)}
@@ -256,6 +258,9 @@ dl{margin:0}
 .gcard .big em{font-style:normal;color:var(--yellow);font-size:.42em;margin-left:6px;font-family:var(--sans);font-weight:500}
 .gcard .big em.blk{display:block;margin:10px 0 0}
 .gcard p{color:rgba(255,255,255,.78);font-size:17px;margin-top:10px}
+.gcard .apply{font-size:15px;margin-top:12px;color:rgba(255,255,255,.7)}
+.gcard .apply a{color:#fff;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(255,255,255,.4)}
+.gcard .apply a:hover{text-decoration-color:#fff}
 .fine{color:rgba(255,255,255,.8);font-size:16px;max-width:42em;margin:36px auto 0}
 .src{color:rgba(255,255,255,.5);font-size:13px;margin-top:12px}
 
@@ -428,7 +433,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="top"><span class="eyebrow">Start here</span><span>One day, two sessions, in person.</span></div>
       <div class="slots">
         <div class="slot"><div class="d">Monday, Nov 16</div><div class="m">Session one: 9:00 AM to 12:00 PM</div><div class="t">Session two: 1:00 PM to 4:00 PM</div><span class="pill y" id="startpill">Starts in 26 days</span></div>
-        <div class="slot"><div class="d">$1,500 per seat</div><div class="m">Up to 40% may be reimbursed by Custom Fit</div><span class="pill g">Multi-seat pricing available</span></div>
+        <div class="slot"><div class="d">$1,500 per seat</div><div class="m">Up to 40% may be reimbursed by Custom Fit</div><div class="t">Apply here: <a href="https://stech.edu/community/custom-fit/" target="_blank" rel="noopener">Southwest Tech Region businesses</a> / <a href="https://ushe.edu/custom-fit/" target="_blank" rel="noopener">Utah businesses outside of Southwest Tech's region</a></div><span class="pill g">Multi-seat pricing available</span></div>
       </div>
     </div>
   </div>
@@ -536,7 +541,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="sub">Here is exactly how reimbursement works, so nobody is surprised.</p>
     <div class="gcards">
       <div class="gcard"><div class="row1"><b>Step one</b><span>Leland</span></div><div class="big">$1,500<em class="blk">per seat</em></div><p>Pay the full amount up front when you reserve your seat.</p></div>
-      <div class="gcard"><div class="row1"><b>Step two</b><span>Custom Fit</span></div><div class="big">Apply</div><p>Your business applies to Custom Fit and must qualify.</p></div>
+      <div class="gcard"><div class="row1"><b>Step two</b><span>Custom Fit</span></div><div class="big">Apply</div><p>Your business applies to Custom Fit and must qualify.</p><p class="apply">Apply here: <a href="https://stech.edu/community/custom-fit/" target="_blank" rel="noopener">Southwest Tech Region businesses</a> / <a href="https://ushe.edu/custom-fit/" target="_blank" rel="noopener">Utah businesses outside of Southwest Tech's region</a></p></div>
       <div class="gcard"><div class="row1"><b>Step three</b><span>Reimbursement</span></div><div class="big">40%<em class="blk">at most</em></div><p>The award can be up to the full 40%. It may be less.</p></div>
     </div>
     <p class="fine">Reimbursement is not guaranteed. The amount depends on your application and available funds. Please do not plan around an automatic discount.</p>
@@ -551,7 +556,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="stepgrid">
       <div class="step" style="background:var(--yellow)"><span class="num">01</span><h3 class="h-sm">Book a short call</h3><p>Talk with the Leland team about your business, what you want from the day, and how Custom Fit funding works.</p></div>
       <div class="step" style="background:var(--peri)"><span class="num">02</span><h3 class="h-sm">Reserve and pay</h3><p>Pay to reserve your seat and lock in your spot for November 16. Sending more than a couple of people from your company? Ask about multi-seat pricing.</p></div>
-      <div class="step" style="background:var(--cream)"><span class="num">03</span><h3 class="h-sm">Show up and apply</h3><p>Join us on Nov 16, then apply to Custom Fit for reimbursement. Awards are up to 40% and not guaranteed.</p></div>
+      <div class="step" style="background:var(--cream)"><span class="num">03</span><h3 class="h-sm">Show up and apply</h3><p>Apply to Custom Fit for reimbursement before you show up on November 16. Awards are up to 40%.</p></div>
     </div>
   </div>
 </section>
