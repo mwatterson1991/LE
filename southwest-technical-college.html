@@ -102,7 +102,8 @@ a:focus-visible,summary:focus-visible,.btn:focus-visible{outline:3px solid var(-
 .lockup img{height:26px;width:auto}
 .lockup .logo-dark{display:none}
 .lockup .sep{width:1px;height:22px;background:rgba(255,255,255,.35)}
-.lockup .tag{font-weight:600;font-size:19px;color:#fff}
+.lockup .aibp{height:36px;width:auto}
+.lockup .aibp-dark{display:none}
 .lnav-links{display:flex;gap:26px;align-items:center}
 .lnav-links a:not(.btn){font-weight:500;font-size:15px;color:#fff}
 .lnav .btn-primary{padding:10px 20px;font-size:15px}
@@ -110,8 +111,10 @@ a:focus-visible,summary:focus-visible,.btn:focus-visible{outline:3px solid var(-
 .lnav.scrolled .logo-light{display:none}
 .lnav.scrolled .logo-dark{display:block}
 .lnav.scrolled .sep{background:rgba(34,34,34,.3)}
-.lnav.scrolled .tag,.lnav.scrolled .lnav-links a:not(.btn){color:var(--ink)}
-@media(max-width:700px){.lnav-links a:not(.btn){display:none}.lockup .tag,.lockup .sep{display:none}}
+.lnav.scrolled .aibp-light{display:none}
+.lnav.scrolled .aibp-dark{display:block}
+.lnav.scrolled .lnav-links a:not(.btn){color:var(--ink)}
+@media(max-width:700px){.lnav-links a:not(.btn){display:none}.lockup .aibp,.lockup .sep{display:none}}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#000;z-index:60}
 
 /* hero */
@@ -380,7 +383,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <nav class="lnav" id="lnav" aria-label="Primary">
   <div class="container">
-    <a class="lockup" href="https://www.joinleland.com" target="_blank" rel="noopener" aria-label="Leland"><img class="logo-light" src="/assets/logo-white.svg" alt="Leland"><img class="logo-dark" src="/assets/logo-dark.svg" alt="Leland"><span class="sep"></span><span class="tag">AI Builder</span></a>
+    <a class="lockup" href="https://www.joinleland.com" target="_blank" rel="noopener" aria-label="Leland"><img class="logo-light" src="/assets/logo-white.svg" alt="Leland"><img class="logo-dark" src="/assets/logo-dark.svg" alt="Leland"><span class="sep"></span><img class="aibp aibp-light" src="/assets/logos/aibp-light.png" alt="AI Builder Program"><img class="aibp aibp-dark" src="/assets/logos/aibp-dark.png" alt="AI Builder Program"></a>
     <div class="lnav-links">
       <a href="#details">The day</a>
       <a href="#funding">Funding</a>
