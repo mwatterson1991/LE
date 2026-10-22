@@ -56,7 +56,7 @@ src="https://www.facebook.com/tr?id=1389688331424669&ev=PageView&noscript=1"
   });
 </script>
 <!-- End PostHog -->
-<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + var(--banner-h) + 68px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <style>
 /* Layout: matches leland.ai/program. Transparent nav over a dark blurred-photo hero with countdown, review stat and logo marquee; floating white cohort card; photo split; two-column detail with sticky card; dark glass funding cards; ink stats band; colored steps; FAQ; ink CTA; dark footer. */
 @font-face{font-family:'SeasonMix';src:url('/assets/fonts/Season/SeasonMix-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
@@ -96,7 +96,12 @@ a:focus-visible,summary:focus-visible,.btn:focus-visible{outline:3px solid var(-
 .center{text-align:center}
 
 /* nav: transparent over the hero, white after scroll */
-.lnav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;transition:background .25s ease,box-shadow .25s ease}
+:root{--banner-h:34px}
+.topbar{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:51;height:var(--banner-h);display:flex;align-items:center;justify-content:center;gap:6px;padding:0 16px;background:var(--yellow);color:var(--ink);font-size:13.5px;font-weight:500;line-height:1.25;text-align:center;text-wrap:balance}
+.topbar strong{font-weight:600}
+.topbar:hover{text-decoration:underline}
+@media(max-width:700px){:root{--banner-h:48px}.topbar{font-size:12.5px}}
+.lnav{position:fixed;top:calc(env(safe-area-inset-top,0px) + var(--banner-h));left:0;right:0;z-index:50;transition:background .25s ease,box-shadow .25s ease}
 .lnav .container{display:flex;align-items:center;justify-content:space-between;height:68px}
 .lockup{display:flex;align-items:center;gap:14px}
 .lockup img{height:26px;width:auto}
@@ -118,7 +123,7 @@ a:focus-visible,summary:focus-visible,.btn:focus-visible{outline:3px solid var(-
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#000;z-index:60}
 
 /* hero */
-.hero{position:relative;background:#000;color:#fff;overflow:hidden;padding:128px 0 150px;text-align:center}
+.hero{position:relative;background:#000;color:#fff;overflow:hidden;padding:calc(128px + var(--banner-h)) 0 150px;text-align:center}
 .hero-bg{position:absolute;inset:-60px;z-index:0}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 0;filter:blur(30px) saturate(1.2);transform:scale(1.6);transform-origin:50% 0}
 .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,8,24,.55),rgba(0,8,24,.38) 50%,rgba(0,6,18,.74))}
@@ -381,6 +386,8 @@ footer{background:var(--footer);color:#fff;padding:64px 0 44px}
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<a class="topbar" href="#funding"><span><strong>State funding available:</strong> apply through Custom Fit for up to 40% back on every seat.</span></a>
+
 <nav class="lnav" id="lnav" aria-label="Primary">
   <div class="container">
     <a class="lockup" href="https://www.joinleland.com" target="_blank" rel="noopener" aria-label="Leland"><img class="logo-light" src="/assets/logo-white.svg" alt="Leland"><img class="logo-dark" src="/assets/logo-dark.svg" alt="Leland"><span class="sep"></span><img class="aibp aibp-light" src="/assets/logos/aibp-light.png" alt="AI Builder Program"><img class="aibp aibp-dark" src="/assets/logos/aibp-dark.png" alt="AI Builder Program"></a>
@@ -487,7 +494,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="note">Up to 40% may come back through Custom Fit if your business qualifies. Details below.</p>
         <a class="btn btn-primary btn-block" href="https://calendly.com/tyler-joinleland/ai-leland" target="_blank" rel="noopener">Book your sign-up call</a>
         <a class="btn btn-ink btn-block" href="#funding">How funding works</a>
-        <p class="contact">Questions? Email Tyler Welch at <span>tyler@joinleland.com</span></p>
+        <p class="contact">Questions? Email Erika at <span>erika@joinleland.com</span></p>
       </div>
     </aside>
   </div>
