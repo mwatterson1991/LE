@@ -1,0 +1,4555 @@
+{
+ "brand": {
+  "name": "Leland",
+  "app": "LE",
+  "fonts": {
+   "display": "Season",
+   "text": "Macan"
+  },
+  "colors": {
+   "ink": "#111111",
+   "ink2": "#4c4c4c",
+   "ink3": "#767676",
+   "paper": "#ffffff",
+   "gray": "#f5f5f5",
+   "blue": "#2f5fd6",
+   "yellow": "#ffd667"
+  },
+  "taglines": [
+   "Own your future.",
+   "Accomplish your goals.",
+   "The home for ambition.",
+   "Get there, with the people who\u2019ve been there."
+  ],
+  "pitch": {
+   "headline": "Get there, with the people who've been there.",
+   "oneliner": "Leland Community is where you follow people who've already done what you're trying to do, and learn from them every day. It's free.",
+   "core": "most people don't get this kind of access until years into their careers. Now you get it as a sophomore, no network required.",
+   "three": [
+    {
+     "title": "Real people who've done it",
+     "say": "Experts post with real names and verified backgrounds: former bankers, PMs at Google and Salesforce, consultants, HBS admits. Sometimes it's a senior who landed at Bain last month, and that counts too.",
+     "why": "Forums are anonymous and LinkedIn is a highlight reel. This is the real story from someone who lived it."
+    },
+    {
+     "title": "A feed built around your goal",
+     "say": "You follow the path you're on, not the people you already know.",
+     "why": "Your network shouldn't decide what advice you get."
+    },
+    {
+     "title": "Go deeper when you're ready",
+     "say": "Catch a livestream, ask in an AMA, or book a call with an expert from their profile.",
+     "why": "Learning in the feed is free. If you need more, it's one tap away."
+    }
+   ],
+   "sound": [
+    {
+     "t": "Excited, warm and specific.",
+     "d": "This is a launch, so let the energy show. Back every bit of hype with something real: a specific company, a real question, a real person."
+    },
+    {
+     "t": "Warm comes from the invitation.",
+     "d": "We sound welcoming when we invite people in: \"come ask,\" \"the door's open,\" \"send this to someone who needs it.\" We don't need community-speak to get there."
+    },
+    {
+     "t": "Lead with learning from people who've done it.",
+     "d": "Meeting peers is a nice bonus, but it's not the headline."
+    },
+    {
+     "t": "Keep the product human, not techy.",
+     "d": "Don't describe the feed as AI-powered, algorithmic or personalized. Say \"your feed is built around where you're trying to go.\" AI Builder posts can talk about AI freely, since that's what those builders are making."
+    },
+    {
+     "t": "Don't name LinkedIn as the comparison in public posts.",
+     "d": "Most of these posts will run on LinkedIn. Show the difference and let readers draw the comparison."
+    }
+   ],
+   "use": [
+    "follow, learn, ask, been there, real, open, free, every day",
+    "\"people who've done it\"",
+    "\"come ask,\" \"send this to someone\"",
+    "\"your feed is built around your goal\"",
+    "specific names: Google, Goldman, McKinsey, Bain, HBS",
+    "\"Today we launched\u2026\""
+   ],
+   "avoid": [
+    "platform, ecosystem, unlock, empower, journey, revolutionize",
+    "\"thought leaders,\" \"industry professionals\"",
+    "\"join our community,\" \"find your tribe\"",
+    "\"AI-powered feed,\" \"personalized,\" \"algorithm\"",
+    "\"top companies\" with no examples",
+    "\"Thrilled to announce\u2026,\" \"I'm humbled\u2026\""
+   ],
+   "hooks": [
+    {
+     "text": "Get there, with the people who've been there.",
+     "aud": null
+    },
+    {
+     "text": "Learn from people who've done it.",
+     "aud": null
+    },
+    {
+     "text": "Ask anything. Get real answers.",
+     "aud": null
+    },
+    {
+     "text": "Your next move starts here.",
+     "aud": null
+    },
+    {
+     "text": "Your network, before you have one.",
+     "aud": null
+    },
+    {
+     "text": "Win the day.",
+     "aud": null
+    },
+    {
+     "text": "Built something with AI? Show us.",
+     "aud": "builder"
+    }
+   ]
+  },
+  "launched": {
+   "lede": "Leland Community is a feed where you follow people who've already done what you're trying to do, and learn from them every day.",
+   "bullets": [
+    "Experts with real names and verified backgrounds post what they know: how they got in, what they'd do differently, what the job is actually like.",
+    "Your feed is built around where you're trying to go: consulting, finance, product, tech and startups, MBA and more.",
+    "Livestreams and AMAs live in the feed, so you can ask questions in real time.",
+    "When you want to go deeper, you can book a call with an expert right from their profile.",
+    "AI Builder Program students and grads have their own space to share what they build.",
+    "It's free on iOS, Android and web."
+   ],
+   "why": [
+    "Most ambitious students don't know anyone who has done the thing they want to do. The sophomore who just heard about product management doesn't have a PM in the family. Networking feels like a black box, and LinkedIn isn't built for someone with 200 connections.",
+    "So they guess. They read anonymous threads and polished highlight reels and try to piece it together.",
+    "The people who could answer their questions already exist, and thousands of them are on Leland. Community puts what they know in front of you every day, years before you'd normally have that kind of network."
+   ],
+   "who": [
+    "Core persona: an ambitious sophomore in the business school at a top-50 university, eyeing consulting, finance, product or tech, who knows they need to network but doesn't know where to start.",
+    "Write for them first, but don't exclude anyone. The product is open, and existing clients, grad school applicants, career switchers and AI Builder Program grads are all welcome. See Community ICP & GTM Plan (Oct 2026) for the full thinking."
+   ]
+  },
+  "faq": [
+   {
+    "q": "Is it free?",
+    "a": "Yes. Following, reading and asking questions are free. Booking a 1:1 call with an expert is paid."
+   },
+   {
+    "q": "Who's posting?",
+    "a": "Leland experts with real names and verified backgrounds, plus people a step or two ahead of you who just landed where you want to go."
+   },
+   {
+    "q": "Where do I get it?",
+    "a": "iOS, Android and web: {link}"
+   },
+   {
+    "q": "Is it just for MBA?",
+    "a": "No. It's for anyone figuring out their next move: consulting, finance, product, tech, grad school, AI and more."
+   }
+  ],
+  "tracks": [
+   {
+    "to": "College student (core)",
+    "lead": "Learning from people who broke in",
+    "say": "\"Curious about consulting or PM? Follow people who broke in at places like Bain and Google and learn how they did it. It's free.\""
+   },
+   {
+    "to": "Friend or family",
+    "lead": "What it is, in plain terms",
+    "say": "\"We launched a place where you can follow people who've actually done it, like ex-bankers and HBS grads, and learn from them. It's free.\""
+   },
+   {
+    "to": "MBA or grad applicant",
+    "lead": "People who got in with a profile like yours",
+    "say": "\"Worried your background doesn't fit? Ask someone who got in with a profile like yours.\""
+   },
+   {
+    "to": "Existing Leland client",
+    "lead": "More value between sessions",
+    "say": "\"Keep the momentum between sessions. Ask questions, catch livestreams and AMAs, and hear from more experts, all in the app.\""
+   },
+   {
+    "to": "AI Builder Program student or grad",
+    "lead": "A place to show their builds",
+    "say": "\"Share what you built and see what everyone else is shipping. Your AIBP cohort is already there.\""
+   },
+   {
+    "to": "Leland expert or coach",
+    "lead": "Building their audience",
+    "say": "\"It's the easiest way to get in front of people who need what you know. Answer the questions your ideal clients are asking, and they can book you right from your profile.\""
+   }
+  ],
+  "guardrails": [
+   "Post on Oct 15 or later. Nothing before.",
+   "Lead with learning from people who've done it. Meeting peers is a bonus, not the headline.",
+   "Say \"experts post with real names,\" not \"every post.\"",
+   "Real stories beat generic lines. If you have one, use it.",
+   "Don't call the Community product AI-powered.",
+   "Don't make up numbers, and don't quote the sample numbers in the graphics as real.",
+   "CTA: \"Come ask\" or \"Follow along,\" with a link to the App Store, Google Play or web."
+  ],
+  "links": {
+   "link": "https://www.joinleland.com/home",
+   "appStore": "https://apps.apple.com/us/app/leland/id6444394433",
+   "googlePlay": "https://play.google.com/store/apps/details?id=com.leland",
+   "web": "https://www.joinleland.com",
+   "launchDate": "2026-10-15",
+   "assetBase": "assets/",
+   "sourceDoc": "https://app.notion.com/p/joinleland/Community-Launch-Social-Kit-3f7a84f4c7d2812c8012c6c02286cfb6",
+   "gtmDoc": "https://app.notion.com/p/3f3a84f4c7d28112b139f72db826368e"
+  }
+ },
+ "assets": [
+  {
+   "id": "hero-learn",
+   "type": "image",
+   "group": "hero",
+   "title": "Learn from people who've done it",
+   "sub": "\"Introducing the Leland community,\" HBS admit post in the feed",
+   "ratio": "16/9",
+   "src": "assets/kit/hero-learn.jpg",
+   "thumb": "assets/kit/thumbs/hero-learn.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "hero"
+   ],
+   "best": "Ideas 1, 3"
+  },
+  {
+   "id": "hero-ask",
+   "type": "image",
+   "group": "hero",
+   "title": "Ask anything. Get real answers.",
+   "sub": "Kevin's GMAT question, \"Questions, livestreams and experts in one feed\"",
+   "ratio": "16/9",
+   "src": "assets/kit/hero-ask.jpg",
+   "thumb": "assets/kit/thumbs/hero-ask.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "hero"
+   ],
+   "best": "Ideas 2, 4, carousel cover"
+  },
+  {
+   "id": "hero-next",
+   "type": "image",
+   "group": "hero",
+   "title": "Your next move starts here.",
+   "sub": "6am case prep post, \"Free on iOS and Android\"",
+   "ratio": "16/9",
+   "src": "assets/kit/hero-next.jpg",
+   "thumb": "assets/kit/thumbs/hero-next.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "hero"
+   ],
+   "best": "Ideas 3, 5"
+  },
+  {
+   "id": "hero-accomplish",
+   "type": "image",
+   "group": "hero",
+   "title": "Accomplish your goals, together.",
+   "sub": "A signed PM offer, \"Now live on iOS and Android\"",
+   "ratio": "16/9",
+   "src": "assets/kit/hero-accomplish.jpg",
+   "thumb": "assets/kit/thumbs/hero-accomplish.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "hero"
+   ],
+   "best": "Ideas 8, 9"
+  },
+  {
+   "id": "hero-people",
+   "type": "image",
+   "group": "hero",
+   "title": "Find your people.",
+   "sub": "\"Thousands of ambitious people, and the experts helping them get there\"",
+   "ratio": "16/9",
+   "src": "assets/kit/hero-people.jpg",
+   "thumb": "assets/kit/thumbs/hero-people.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "hero"
+   ],
+   "best": "Idea 5 (pair with expert-heavy copy)"
+  },
+  {
+   "id": "hero-announce",
+   "type": "image",
+   "group": "hero",
+   "title": "Launch announcement image",
+   "sub": "\"Leland is launching a community,\" phone in hand",
+   "ratio": "16/9",
+   "src": "assets/kit/hero-announce.jpg",
+   "thumb": "assets/kit/thumbs/hero-announce.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "hero"
+   ],
+   "best": "Idea 1, carousel CTA slide"
+  },
+  {
+   "id": "v-one-conversation",
+   "type": "video",
+   "group": "kit",
+   "title": "One conversation",
+   "sub": "One conversation could change everything. A question typed into the feed, answered by someone who's done it.",
+   "ratio": "16/9",
+   "src": "assets/kit/video/one-conversation.mp4",
+   "poster": "assets/kit/video/one-conversation.jpg",
+   "tags": [
+    "launch",
+    "community"
+   ],
+   "best": ""
+  },
+  {
+   "id": "v-your-next-move",
+   "type": "video",
+   "group": "kit",
+   "title": "Your next move",
+   "sub": "Your next move starts here. Real people, MBA, careers, and the network you're joining.",
+   "ratio": "16/9",
+   "src": "assets/kit/video/your-next-move.mp4",
+   "poster": "assets/kit/video/your-next-move.jpg",
+   "tags": [
+    "launch",
+    "community"
+   ],
+   "best": ""
+  },
+  {
+   "id": "v-wherever",
+   "type": "video",
+   "group": "kit",
+   "title": "Wherever you're going",
+   "sub": "The brand spot. Wherever you're going, Leland helps you get there, with people who've been there. With sound.",
+   "ratio": "16/9",
+   "src": "assets/kit/video/wherever-youre-going.mp4",
+   "poster": "assets/kit/video/wherever-youre-going.jpg",
+   "tags": [
+    "launch",
+    "community"
+   ],
+   "best": ""
+  },
+  {
+   "id": "v-get-there",
+   "type": "video",
+   "group": "kit",
+   "title": "Get there, with the people who've been there",
+   "sub": "The story film: a question in the feed, a coach who answers, and the walk onto campus. With sound.",
+   "ratio": "16/9",
+   "src": "assets/kit/video/get-there.mp4",
+   "poster": "assets/kit/video/get-there.jpg",
+   "tags": [
+    "launch",
+    "community"
+   ],
+   "best": ""
+  },
+  {
+   "id": "v-home-tour",
+   "type": "video",
+   "group": "kit",
+   "title": "The home for ambition",
+   "sub": "A tour of the community: posts, profiles, livestreams and the feed, ending on the brand line.",
+   "ratio": "16/9",
+   "src": "assets/kit/video/home-for-ambition-tour.mp4",
+   "poster": "assets/kit/video/home-for-ambition-tour.jpg",
+   "tags": [
+    "launch",
+    "community"
+   ],
+   "best": ""
+  },
+  {
+   "id": "v-ai-tour",
+   "type": "video",
+   "group": "kit",
+   "title": "Level up with AI",
+   "sub": "The same tour for builders: AI Builder posts, projects shipped, live sessions.",
+   "ratio": "16/9",
+   "src": "assets/kit/video/level-up-with-ai-tour.mp4",
+   "poster": "assets/kit/video/level-up-with-ai-tour.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aibp"
+   ],
+   "best": ""
+  },
+  {
+   "id": "video-learn",
+   "type": "video",
+   "group": "kit",
+   "title": "Learn video",
+   "sub": "Questions answered by experts",
+   "ratio": "10/9",
+   "src": "assets/kit/video/learn-real-answers.mp4",
+   "poster": "assets/kit/video/learn-real-answers.jpg",
+   "tags": [
+    "launch",
+    "community"
+   ],
+   "best": "Ideas 2, 3"
+  },
+  {
+   "id": "video-momentum",
+   "type": "video",
+   "group": "kit",
+   "title": "Momentum video",
+   "sub": "People sharing wins. \"Win the day.\"",
+   "ratio": "5/4",
+   "src": "assets/kit/video/momentum-win-the-day.mp4",
+   "poster": "assets/kit/video/momentum-win-the-day.jpg",
+   "tags": [
+    "launch",
+    "community"
+   ],
+   "best": "Idea 9"
+  },
+  {
+   "id": "video-people",
+   "type": "video",
+   "group": "kit",
+   "title": "People video",
+   "sub": "Expert profiles from Google, Meta, Columbia, Michigan",
+   "ratio": "4/5",
+   "src": "assets/kit/video/people.mp4",
+   "poster": "assets/kit/video/people.jpg",
+   "tags": [
+    "launch",
+    "community"
+   ],
+   "best": "Ideas 5, 8"
+  },
+  {
+   "id": "card-kevin",
+   "type": "image",
+   "group": "card",
+   "title": "Kevin Zhou",
+   "sub": "\"Is it actually possible to land a FAANG job if you've never had an internship?\"",
+   "ratio": "16/9",
+   "src": "assets/kit/card-kevin.jpg",
+   "thumb": "assets/kit/thumbs/card-kevin.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "Idea 4, carousel"
+  },
+  {
+   "id": "card-marcus",
+   "type": "image",
+   "group": "card",
+   "title": "Marcus Bell",
+   "sub": "\"No internship doesn't mean no FAANG.\" (live session)",
+   "ratio": "16/9",
+   "src": "assets/kit/card-marcus.jpg",
+   "thumb": "assets/kit/thumbs/card-marcus.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "Idea 4, carousel"
+  },
+  {
+   "id": "card-amara",
+   "type": "image",
+   "group": "card",
+   "title": "Amara Okafor",
+   "sub": "\"What do top MBA programs actually look for?\"",
+   "ratio": "16/9",
+   "src": "assets/kit/card-amara.jpg",
+   "thumb": "assets/kit/thumbs/card-amara.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "Idea 4, carousel"
+  },
+  {
+   "id": "card-alex",
+   "type": "image",
+   "group": "card",
+   "title": "Alex Rivera",
+   "sub": "expert profile, Stanford GSB coach",
+   "ratio": "16/9",
+   "src": "assets/kit/card-alex.jpg",
+   "thumb": "assets/kit/thumbs/card-alex.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "Idea 4, carousel"
+  },
+  {
+   "id": "card-sofia",
+   "type": "image",
+   "group": "card",
+   "title": "Sofia Navarro",
+   "sub": "\"No CS degree? You can still become an AI PM.\" (live session)",
+   "ratio": "16/9",
+   "src": "assets/kit/card-sofia.jpg",
+   "thumb": "assets/kit/thumbs/card-sofia.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "Idea 5"
+  },
+  {
+   "id": "card-james",
+   "type": "image",
+   "group": "card",
+   "title": "James",
+   "sub": "AI PM livestream, coffee chat advice",
+   "ratio": "16/9",
+   "src": "assets/kit/card-james.jpg",
+   "thumb": "assets/kit/thumbs/card-james.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "Idea 5"
+  },
+  {
+   "id": "card-ben",
+   "type": "image",
+   "group": "card",
+   "title": "Ben Carter",
+   "sub": "Live AMA: is the GSB worth it?",
+   "ratio": "16/9",
+   "src": "assets/kit/card-ben.jpg",
+   "thumb": "assets/kit/thumbs/card-ben.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "Idea 7"
+  },
+  {
+   "id": "card-maya",
+   "type": "image",
+   "group": "card",
+   "title": "Maya Chen",
+   "sub": "Hot take on resumes",
+   "ratio": "16/9",
+   "src": "assets/kit/card-maya.jpg",
+   "thumb": "assets/kit/thumbs/card-maya.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "Idea 6"
+  },
+  {
+   "id": "card-dana",
+   "type": "image",
+   "group": "card",
+   "title": "Dana Lakra",
+   "sub": "Round 2 MBA poll",
+   "ratio": "16/9",
+   "src": "assets/kit/card-dana.jpg",
+   "thumb": "assets/kit/thumbs/card-dana.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "card"
+   ],
+   "best": "MBA follow-ups (use real poll numbers)"
+  },
+  {
+   "id": "aibp-community",
+   "type": "image",
+   "group": "aibp",
+   "title": "Your AI builder community.",
+   "sub": "The AI Builder space is live on Leland",
+   "ratio": "16/9",
+   "src": "assets/kit/aibp-community.jpg",
+   "thumb": "assets/kit/thumbs/aibp-community.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aibp",
+    "aibp",
+    "dark"
+   ],
+   "best": "Idea 10"
+  },
+  {
+   "id": "aibp-learn",
+   "type": "image",
+   "group": "aibp",
+   "title": "Learn it. Build it. Share it.",
+   "sub": "The AI Builder space is live on Leland",
+   "ratio": "16/9",
+   "src": "assets/kit/aibp-learn.jpg",
+   "thumb": "assets/kit/thumbs/aibp-learn.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aibp",
+    "aibp",
+    "dark"
+   ],
+   "best": "Idea 10"
+  },
+  {
+   "id": "aibp-builders",
+   "type": "image",
+   "group": "aibp",
+   "title": "Builders share what they ship.",
+   "sub": "Grads posting builds and time saved",
+   "ratio": "16/9",
+   "src": "assets/kit/aibp-builders.jpg",
+   "thumb": "assets/kit/thumbs/aibp-builders.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aibp",
+    "aibp",
+    "dark"
+   ],
+   "best": "Idea 12"
+  },
+  {
+   "id": "aibp-win",
+   "type": "image",
+   "group": "aibp",
+   "title": "From course project to company win.",
+   "sub": "Grads posting builds and time saved",
+   "ratio": "16/9",
+   "src": "assets/kit/aibp-win.jpg",
+   "thumb": "assets/kit/thumbs/aibp-win.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aibp",
+    "aibp",
+    "dark"
+   ],
+   "best": "Idea 12"
+  },
+  {
+   "id": "aibp-show",
+   "type": "image",
+   "group": "aibp",
+   "title": "Built something with AI? Show us.",
+   "sub": "Grad's sales follow-up bot",
+   "ratio": "16/9",
+   "src": "assets/kit/aibp-show.jpg",
+   "thumb": "assets/kit/thumbs/aibp-show.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aibp",
+    "aibp",
+    "dark"
+   ],
+   "best": "Idea 11"
+  },
+  {
+   "id": "mh-people",
+   "type": "image",
+   "group": "header",
+   "title": "Find your people.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-people.jpg",
+   "thumb": "assets/kit/thumbs/mh-people.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-learn",
+   "type": "image",
+   "group": "header",
+   "title": "Learn from people who've done it",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-learn.jpg",
+   "thumb": "assets/kit/thumbs/mh-learn.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-ask",
+   "type": "image",
+   "group": "header",
+   "title": "Ask anything. Get real answers.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-ask.jpg",
+   "thumb": "assets/kit/thumbs/mh-ask.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-next",
+   "type": "image",
+   "group": "header",
+   "title": "Your next move starts here.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-next.jpg",
+   "thumb": "assets/kit/thumbs/mh-next.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-accomplish",
+   "type": "image",
+   "group": "header",
+   "title": "Accomplish your goals, together.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-accomplish.jpg",
+   "thumb": "assets/kit/thumbs/mh-accomplish.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-answers",
+   "type": "image",
+   "group": "header",
+   "title": "Answers come to you.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-answers.jpg",
+   "thumb": "assets/kit/thumbs/mh-answers.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-question",
+   "type": "image",
+   "group": "header",
+   "title": "One question. Real answers.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-question.jpg",
+   "thumb": "assets/kit/thumbs/mh-question.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-thousands",
+   "type": "image",
+   "group": "header",
+   "title": "Thousands of people who've done it.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-thousands.jpg",
+   "thumb": "assets/kit/thumbs/mh-thousands.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-show",
+   "type": "image",
+   "group": "header",
+   "title": "Built something with AI? Show us.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-show.jpg",
+   "thumb": "assets/kit/thumbs/mh-show.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-lbs",
+   "type": "image",
+   "group": "header",
+   "title": "Learn it. Build it. Share it.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-lbs.jpg",
+   "thumb": "assets/kit/thumbs/mh-lbs.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-builders",
+   "type": "image",
+   "group": "header",
+   "title": "Builders share what they ship.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-builders.jpg",
+   "thumb": "assets/kit/thumbs/mh-builders.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-win",
+   "type": "image",
+   "group": "header",
+   "title": "From course project to company win.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-win.jpg",
+   "thumb": "assets/kit/thumbs/mh-win.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "mh-community",
+   "type": "image",
+   "group": "header",
+   "title": "Your AI builder community.",
+   "sub": "",
+   "ratio": "16/9",
+   "src": "assets/kit/mh-community.jpg",
+   "thumb": "assets/kit/thumbs/mh-community.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "header",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-priya",
+   "type": "image",
+   "group": "aipost",
+   "title": "Priya Nair",
+   "sub": "How do you decide when an agent is good enough to run without a human checking every output?",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-priya.jpg",
+   "thumb": "assets/kit/thumbs/ai-priya.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-tom",
+   "type": "image",
+   "group": "aipost",
+   "title": "Tom Becker",
+   "sub": "Built this in week 3 of the AI Builder Program. It drafts every post-demo follow-up for our sales team.",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-tom.jpg",
+   "thumb": "assets/kit/thumbs/ai-tom.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-marcus",
+   "type": "image",
+   "group": "aipost",
+   "title": "Marcus Bell",
+   "sub": "If you only had one afternoon, what's the first workflow you'd hand to AI?",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-marcus.jpg",
+   "thumb": "assets/kit/thumbs/ai-marcus.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-nina",
+   "type": "image",
+   "group": "aipost",
+   "title": "Nina Patel",
+   "sub": "Going live Thursday. We'll build a working agent from scratch in 45 minutes.",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-nina.jpg",
+   "thumb": "assets/kit/thumbs/ai-nina.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-andre",
+   "type": "image",
+   "group": "aipost",
+   "title": "Andre Lewis",
+   "sub": "Month-end close went from 6 days to 2. Here's the script that did most of the work.",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-andre.jpg",
+   "thumb": "assets/kit/thumbs/ai-andre.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-daniel",
+   "type": "image",
+   "group": "aipost",
+   "title": "Daniel Park",
+   "sub": "PMs: how are you writing specs differently now that your engineers build with Claude?",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-daniel.jpg",
+   "thumb": "assets/kit/thumbs/ai-daniel.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-hannah",
+   "type": "image",
+   "group": "aipost",
+   "title": "Hannah Berg",
+   "sub": "Evals are the most important AI skill nobody teaches. Live Q&A next week.",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-hannah.jpg",
+   "thumb": "assets/kit/thumbs/ai-hannah.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-owen",
+   "type": "image",
+   "group": "aipost",
+   "title": "Owen Hart",
+   "sub": "My capstone: a screener that summarizes every applicant before I open a resume.",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-owen.jpg",
+   "thumb": "assets/kit/thumbs/ai-owen.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "ai-camila",
+   "type": "image",
+   "group": "aipost",
+   "title": "Camila Reyes",
+   "sub": "How did you get leadership to trust an AI tool with real customer data?",
+   "ratio": "16/9",
+   "src": "assets/kit/ai-camila.jpg",
+   "thumb": "assets/kit/thumbs/ai-camila.jpg",
+   "tags": [
+    "launch",
+    "community",
+    "aipost",
+    "aibp",
+    "dark"
+   ],
+   "best": ""
+  },
+  {
+   "id": "film-leland-clips-launch-film-v8",
+   "type": "video",
+   "group": "film",
+   "title": "Clips launch film",
+   "sub": "Increase your reach, with Clips.",
+   "ratio": "16/9",
+   "src": "assets/films/leland-clips-launch-film-v8.mp4",
+   "poster": "assets/films/leland-clips-launch-film-v8.jpg",
+   "duration": 28,
+   "tags": [
+    "launch",
+    "film",
+    "clips"
+   ],
+   "audio": "assets/audio/leland-clips-launch-film-v8.mp3"
+  },
+  {
+   "id": "audio-leland-clips-launch-film-v8",
+   "type": "audio",
+   "group": "music",
+   "title": "Clips launch film",
+   "src": "assets/audio/leland-clips-launch-film-v8.mp3",
+   "duration": 28,
+   "tags": [
+    "music",
+    "clips"
+   ]
+  },
+  {
+   "id": "film-leland-jobs-film-v13",
+   "type": "video",
+   "group": "film",
+   "title": "Jobs launch film",
+   "sub": "Your next job is already looking for you.",
+   "ratio": "16/9",
+   "src": "assets/films/leland-jobs-film-v13.mp4",
+   "poster": "assets/films/leland-jobs-film-v13.jpg",
+   "duration": 32,
+   "tags": [
+    "launch",
+    "film",
+    "jobs"
+   ],
+   "audio": "assets/audio/leland-jobs-film-v13.mp3"
+  },
+  {
+   "id": "audio-leland-jobs-film-v13",
+   "type": "audio",
+   "group": "music",
+   "title": "Jobs launch film",
+   "src": "assets/audio/leland-jobs-film-v13.mp3",
+   "duration": 32,
+   "tags": [
+    "music",
+    "jobs"
+   ]
+  },
+  {
+   "id": "film-onconversation",
+   "type": "video",
+   "group": "film",
+   "title": "One conversation",
+   "sub": "One conversation could open the door.",
+   "ratio": "16/9",
+   "src": "assets/films/onconversation.mp4",
+   "poster": "assets/films/onconversation.jpg",
+   "duration": 27,
+   "tags": [
+    "launch",
+    "film",
+    "community"
+   ],
+   "audio": "assets/audio/onconversation.mp3"
+  },
+  {
+   "id": "audio-onconversation",
+   "type": "audio",
+   "group": "music",
+   "title": "One conversation",
+   "src": "assets/audio/onconversation.mp3",
+   "duration": 27,
+   "tags": [
+    "music",
+    "community"
+   ]
+  },
+  {
+   "id": "film-get-there-with-the-people-whove-been-there",
+   "type": "video",
+   "group": "film",
+   "title": "Get there",
+   "sub": "Get there, with the people who\u2019ve been there.",
+   "ratio": "16/9",
+   "src": "assets/films/get-there-with-the-people-whove-been-there.mp4",
+   "poster": "assets/films/get-there-with-the-people-whove-been-there.jpg",
+   "duration": 49,
+   "tags": [
+    "launch",
+    "film",
+    "community"
+   ],
+   "audio": "assets/audio/get-there-with-the-people-whove-been-there.mp3"
+  },
+  {
+   "id": "audio-get-there-with-the-people-whove-been-there",
+   "type": "audio",
+   "group": "music",
+   "title": "Get there",
+   "src": "assets/audio/get-there-with-the-people-whove-been-there.mp3",
+   "duration": 49,
+   "tags": [
+    "music",
+    "community"
+   ]
+  },
+  {
+   "id": "film-community-outcomes-v4-preview",
+   "type": "video",
+   "group": "film",
+   "title": "Community outcomes",
+   "sub": "The home for ambition.",
+   "ratio": "16/9",
+   "src": "assets/films/community-outcomes-v4-preview.mp4",
+   "poster": "assets/films/community-outcomes-v4-preview.jpg",
+   "duration": 43,
+   "tags": [
+    "launch",
+    "film",
+    "community"
+   ],
+   "audio": "assets/audio/community-outcomes-v4-preview.mp3"
+  },
+  {
+   "id": "audio-community-outcomes-v4-preview",
+   "type": "audio",
+   "group": "music",
+   "title": "Community outcomes",
+   "src": "assets/audio/community-outcomes-v4-preview.mp3",
+   "duration": 43,
+   "tags": [
+    "music",
+    "community"
+   ]
+  },
+  {
+   "id": "bg-crosswalk",
+   "type": "image",
+   "group": "background",
+   "title": "Crosswalk at dusk",
+   "ratio": "16/9",
+   "src": "assets/img/crosswalk.jpg",
+   "thumb": "assets/img/xs/crosswalk.jpg",
+   "tags": [
+    "background",
+    "city",
+    "walk",
+    "night"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-traveler",
+   "type": "image",
+   "group": "background",
+   "title": "Traveler in motion",
+   "ratio": "16/9",
+   "src": "assets/img/traveler.jpg",
+   "thumb": "assets/img/xs/traveler.jpg",
+   "tags": [
+    "background",
+    "person",
+    "travel",
+    "motion"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-grass",
+   "type": "image",
+   "group": "background",
+   "title": "Grass in motion",
+   "ratio": "16/9",
+   "src": "assets/img/grass.jpg",
+   "thumb": "assets/img/xs/grass.jpg",
+   "tags": [
+    "background",
+    "nature",
+    "motion",
+    "green"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-sky-1",
+   "type": "image",
+   "group": "background",
+   "title": "Sky, clouds",
+   "ratio": "16/9",
+   "src": "assets/img/sky-1.jpg",
+   "thumb": "assets/img/xs/sky-1.jpg",
+   "tags": [
+    "background",
+    "sky",
+    "clouds",
+    "blue"
+   ],
+   "light": true
+  },
+  {
+   "id": "bg-sky-2",
+   "type": "image",
+   "group": "background",
+   "title": "Sky, wide",
+   "ratio": "16/9",
+   "src": "assets/img/sky-2.jpg",
+   "thumb": "assets/img/xs/sky-2.jpg",
+   "tags": [
+    "background",
+    "sky",
+    "blue",
+    "open"
+   ],
+   "light": true
+  },
+  {
+   "id": "bg-streaks",
+   "type": "image",
+   "group": "background",
+   "title": "Light streaks",
+   "ratio": "16/9",
+   "src": "assets/img/streaks.jpg",
+   "thumb": "assets/img/xs/streaks.jpg",
+   "tags": [
+    "background",
+    "abstract",
+    "dark",
+    "light"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-blur",
+   "type": "image",
+   "group": "background",
+   "title": "Color blur",
+   "ratio": "16/9",
+   "src": "assets/img/blur.jpg",
+   "thumb": "assets/img/xs/blur.jpg",
+   "tags": [
+    "background",
+    "abstract",
+    "color",
+    "warm"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-halftone",
+   "type": "image",
+   "group": "background",
+   "title": "Halftone grain",
+   "ratio": "16/9",
+   "src": "assets/img/halftone.jpg",
+   "thumb": "assets/img/xs/halftone.jpg",
+   "tags": [
+    "background",
+    "texture",
+    "grain",
+    "paper"
+   ],
+   "light": true
+  },
+  {
+   "id": "bg-godrays-01",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 01",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-01.jpg",
+   "thumb": "assets/img/xs/godrays-01.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-02",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 02",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-02.jpg",
+   "thumb": "assets/img/xs/godrays-02.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-03",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 03",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-03.jpg",
+   "thumb": "assets/img/xs/godrays-03.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-04",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 04",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-04.jpg",
+   "thumb": "assets/img/xs/godrays-04.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-05",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 05",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-05.jpg",
+   "thumb": "assets/img/xs/godrays-05.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-06",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 06",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-06.jpg",
+   "thumb": "assets/img/xs/godrays-06.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-07",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 07",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-07.jpg",
+   "thumb": "assets/img/xs/godrays-07.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-08",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 08",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-08.jpg",
+   "thumb": "assets/img/xs/godrays-08.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-09",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 09",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-09.jpg",
+   "thumb": "assets/img/xs/godrays-09.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-10",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 10",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-10.jpg",
+   "thumb": "assets/img/xs/godrays-10.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-11",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 11",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-11.jpg",
+   "thumb": "assets/img/xs/godrays-11.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "bg-godrays-12",
+   "type": "image",
+   "group": "background",
+   "title": "Godrays 12",
+   "ratio": "16/9",
+   "src": "assets/img/godrays-12.jpg",
+   "thumb": "assets/img/xs/godrays-12.jpg",
+   "tags": [
+    "background",
+    "aibp",
+    "godrays",
+    "gradient",
+    "dark"
+   ],
+   "light": false
+  },
+  {
+   "id": "photo-african-american-female-call-agent-microphone",
+   "type": "image",
+   "group": "photo",
+   "title": "african american female call agent microphone",
+   "ratio": "3/2",
+   "src": "assets/photos/african-american-female-call-agent-microphone.jpg",
+   "thumb": "assets/photos/xs/african-american-female-call-agent-microphone.jpg",
+   "tags": [
+    "photo",
+    "african",
+    "american",
+    "female",
+    "call",
+    "agent",
+    "microphone"
+   ]
+  },
+  {
+   "id": "photo-african-american-male-backpack-smiling",
+   "type": "image",
+   "group": "photo",
+   "title": "african american male backpack smiling",
+   "ratio": "3/2",
+   "src": "assets/photos/african-american-male-backpack-smiling.jpg",
+   "thumb": "assets/photos/xs/african-american-male-backpack-smiling.jpg",
+   "tags": [
+    "photo",
+    "african",
+    "american",
+    "male",
+    "backpack",
+    "smiling"
+   ]
+  },
+  {
+   "id": "photo-african-american-professional-woman-entrepreneur",
+   "type": "image",
+   "group": "photo",
+   "title": "african american professional woman entrepreneur",
+   "ratio": "3/2",
+   "src": "assets/photos/african-american-professional-woman-entrepreneur.jpg",
+   "thumb": "assets/photos/xs/african-american-professional-woman-entrepreneur.jpg",
+   "tags": [
+    "photo",
+    "african",
+    "american",
+    "professional",
+    "woman",
+    "entrepreneur"
+   ]
+  },
+  {
+   "id": "photo-analyzing-profit-margins-business",
+   "type": "image",
+   "group": "photo",
+   "title": "analyzing profit margins business",
+   "ratio": "3/2",
+   "src": "assets/photos/analyzing-profit-margins-business.jpg",
+   "thumb": "assets/photos/xs/analyzing-profit-margins-business.jpg",
+   "tags": [
+    "photo",
+    "analyzing",
+    "profit",
+    "margins",
+    "business"
+   ]
+  },
+  {
+   "id": "photo-asian-college-student-laptop-online-course",
+   "type": "image",
+   "group": "photo",
+   "title": "asian college student laptop online course",
+   "ratio": "3/2",
+   "src": "assets/photos/asian-college-student-laptop-online-course.jpg",
+   "thumb": "assets/photos/xs/asian-college-student-laptop-online-course.jpg",
+   "tags": [
+    "photo",
+    "asian",
+    "college",
+    "student",
+    "laptop",
+    "online",
+    "course"
+   ]
+  },
+  {
+   "id": "photo-asian-woman-job-interview-diverse-office",
+   "type": "image",
+   "group": "photo",
+   "title": "asian woman job interview diverse office",
+   "ratio": "3/2",
+   "src": "assets/photos/asian-woman-job-interview-diverse-office.jpg",
+   "thumb": "assets/photos/xs/asian-woman-job-interview-diverse-office.jpg",
+   "tags": [
+    "photo",
+    "asian",
+    "woman",
+    "job",
+    "interview",
+    "diverse",
+    "office"
+   ]
+  },
+  {
+   "id": "photo-black-student-online-learning-video-call",
+   "type": "image",
+   "group": "photo",
+   "title": "black student online learning video call",
+   "ratio": "3/2",
+   "src": "assets/photos/black-student-online-learning-video-call.jpg",
+   "thumb": "assets/photos/xs/black-student-online-learning-video-call.jpg",
+   "tags": [
+    "photo",
+    "black",
+    "student",
+    "online",
+    "learning",
+    "video",
+    "call"
+   ]
+  },
+  {
+   "id": "photo-business-people-conference-room",
+   "type": "image",
+   "group": "photo",
+   "title": "business people conference room",
+   "ratio": "3/2",
+   "src": "assets/photos/business-people-conference-room.jpg",
+   "thumb": "assets/photos/xs/business-people-conference-room.jpg",
+   "tags": [
+    "photo",
+    "business",
+    "people",
+    "conference",
+    "room"
+   ]
+  },
+  {
+   "id": "photo-businesswoman-outdoors-city-skyscrapers",
+   "type": "image",
+   "group": "photo",
+   "title": "businesswoman outdoors city skyscrapers",
+   "ratio": "3/2",
+   "src": "assets/photos/businesswoman-outdoors-city-skyscrapers.jpg",
+   "thumb": "assets/photos/xs/businesswoman-outdoors-city-skyscrapers.jpg",
+   "tags": [
+    "photo",
+    "businesswoman",
+    "outdoors",
+    "city",
+    "skyscrapers"
+   ]
+  },
+  {
+   "id": "photo-businesswoman-working-office",
+   "type": "image",
+   "group": "photo",
+   "title": "businesswoman working office",
+   "ratio": "3/2",
+   "src": "assets/photos/businesswoman-working-office.jpg",
+   "thumb": "assets/photos/xs/businesswoman-working-office.jpg",
+   "tags": [
+    "photo",
+    "businesswoman",
+    "working",
+    "office"
+   ]
+  },
+  {
+   "id": "photo-colleagues-discussion-modern-office-plants",
+   "type": "image",
+   "group": "photo",
+   "title": "colleagues discussion modern office plants",
+   "ratio": "3/2",
+   "src": "assets/photos/colleagues-discussion-modern-office-plants.jpg",
+   "thumb": "assets/photos/xs/colleagues-discussion-modern-office-plants.jpg",
+   "tags": [
+    "photo",
+    "colleagues",
+    "discussion",
+    "modern",
+    "office",
+    "plants"
+   ]
+  },
+  {
+   "id": "photo-college-friends-talking-hallway",
+   "type": "image",
+   "group": "photo",
+   "title": "college friends talking hallway",
+   "ratio": "3/2",
+   "src": "assets/photos/college-friends-talking-hallway.jpg",
+   "thumb": "assets/photos/xs/college-friends-talking-hallway.jpg",
+   "tags": [
+    "photo",
+    "college",
+    "friends",
+    "talking",
+    "hallway"
+   ]
+  },
+  {
+   "id": "photo-college-students-taking-test-classroom",
+   "type": "image",
+   "group": "photo",
+   "title": "college students taking test classroom",
+   "ratio": "3/2",
+   "src": "assets/photos/college-students-taking-test-classroom.jpg",
+   "thumb": "assets/photos/xs/college-students-taking-test-classroom.jpg",
+   "tags": [
+    "photo",
+    "college",
+    "students",
+    "taking",
+    "test",
+    "classroom"
+   ]
+  },
+  {
+   "id": "photo-confident-businesswoman-entrepreneur-office",
+   "type": "image",
+   "group": "photo",
+   "title": "confident businesswoman entrepreneur office",
+   "ratio": "3/2",
+   "src": "assets/photos/confident-businesswoman-entrepreneur-office.jpg",
+   "thumb": "assets/photos/xs/confident-businesswoman-entrepreneur-office.jpg",
+   "tags": [
+    "photo",
+    "confident",
+    "businesswoman",
+    "entrepreneur",
+    "office"
+   ]
+  },
+  {
+   "id": "photo-consultant-business-man-in-office-with-team",
+   "type": "image",
+   "group": "photo",
+   "title": "consultant business man in office with team",
+   "ratio": "3/2",
+   "src": "assets/photos/consultant-business-man-in-office-with-team.jpg",
+   "thumb": "assets/photos/xs/consultant-business-man-in-office-with-team.jpg",
+   "tags": [
+    "photo",
+    "consultant",
+    "business",
+    "man",
+    "in",
+    "office",
+    "with",
+    "team"
+   ]
+  },
+  {
+   "id": "photo-diverse-professionals-brainstorming-session",
+   "type": "image",
+   "group": "photo",
+   "title": "diverse professionals brainstorming session",
+   "ratio": "3/2",
+   "src": "assets/photos/diverse-professionals-brainstorming-session.jpg",
+   "thumb": "assets/photos/xs/diverse-professionals-brainstorming-session.jpg",
+   "tags": [
+    "photo",
+    "diverse",
+    "professionals",
+    "brainstorming",
+    "session"
+   ]
+  },
+  {
+   "id": "photo-diverse-professionals-collaborating-modern-office",
+   "type": "image",
+   "group": "photo",
+   "title": "diverse professionals collaborating modern office",
+   "ratio": "3/2",
+   "src": "assets/photos/diverse-professionals-collaborating-modern-office.jpg",
+   "thumb": "assets/photos/xs/diverse-professionals-collaborating-modern-office.jpg",
+   "tags": [
+    "photo",
+    "diverse",
+    "professionals",
+    "collaborating",
+    "modern",
+    "office"
+   ]
+  },
+  {
+   "id": "photo-diverse-professionals-conference-meeting",
+   "type": "image",
+   "group": "photo",
+   "title": "diverse professionals conference meeting",
+   "ratio": "3/2",
+   "src": "assets/photos/diverse-professionals-conference-meeting.jpg",
+   "thumb": "assets/photos/xs/diverse-professionals-conference-meeting.jpg",
+   "tags": [
+    "photo",
+    "diverse",
+    "professionals",
+    "conference",
+    "meeting"
+   ]
+  },
+  {
+   "id": "photo-draftsman-daydreaming-workplace",
+   "type": "image",
+   "group": "photo",
+   "title": "draftsman daydreaming workplace",
+   "ratio": "3/2",
+   "src": "assets/photos/draftsman-daydreaming-workplace.jpg",
+   "thumb": "assets/photos/xs/draftsman-daydreaming-workplace.jpg",
+   "tags": [
+    "photo",
+    "draftsman",
+    "daydreaming",
+    "workplace"
+   ]
+  },
+  {
+   "id": "photo-entrepreneur-woman-modern-office",
+   "type": "image",
+   "group": "photo",
+   "title": "entrepreneur woman modern office",
+   "ratio": "3/2",
+   "src": "assets/photos/entrepreneur-woman-modern-office.jpg",
+   "thumb": "assets/photos/xs/entrepreneur-woman-modern-office.jpg",
+   "tags": [
+    "photo",
+    "entrepreneur",
+    "woman",
+    "modern",
+    "office"
+   ]
+  },
+  {
+   "id": "photo-female-student-college-campus-backpack-outdoor",
+   "type": "image",
+   "group": "photo",
+   "title": "female student college campus backpack outdoor",
+   "ratio": "3/2",
+   "src": "assets/photos/female-student-college-campus-backpack-outdoor.jpg",
+   "thumb": "assets/photos/xs/female-student-college-campus-backpack-outdoor.jpg",
+   "tags": [
+    "photo",
+    "female",
+    "student",
+    "college",
+    "campus",
+    "backpack",
+    "outdoor"
+   ]
+  },
+  {
+   "id": "photo-focused-asian-man-in-modern-spaceman-with-laptop-and-pencil",
+   "type": "image",
+   "group": "photo",
+   "title": "focused asian man in modern spaceman with laptop and pencil",
+   "ratio": "3/2",
+   "src": "assets/photos/focused-asian-man-in-modern-spaceman-with-laptop-and-pencil.jpg",
+   "thumb": "assets/photos/xs/focused-asian-man-in-modern-spaceman-with-laptop-and-pencil.jpg",
+   "tags": [
+    "photo",
+    "focused",
+    "asian",
+    "man",
+    "in",
+    "modern",
+    "spaceman",
+    "with",
+    "laptop",
+    "and",
+    "pencil"
+   ]
+  },
+  {
+   "id": "photo-graduation-hats-university-commencement",
+   "type": "image",
+   "group": "photo",
+   "title": "graduation hats university commencement",
+   "ratio": "3/2",
+   "src": "assets/photos/graduation-hats-university-commencement.jpg",
+   "thumb": "assets/photos/xs/graduation-hats-university-commencement.jpg",
+   "tags": [
+    "photo",
+    "graduation",
+    "hats",
+    "university",
+    "commencement"
+   ]
+  },
+  {
+   "id": "photo-hands-writing-notebook-startup-planning",
+   "type": "image",
+   "group": "photo",
+   "title": "hands writing notebook startup planning",
+   "ratio": "3/2",
+   "src": "assets/photos/hands-writing-notebook-startup-planning.jpg",
+   "thumb": "assets/photos/xs/hands-writing-notebook-startup-planning.jpg",
+   "tags": [
+    "photo",
+    "hands",
+    "writing",
+    "notebook",
+    "startup",
+    "planning"
+   ]
+  },
+  {
+   "id": "photo-home-office-laptop-plants-paperwork",
+   "type": "image",
+   "group": "photo",
+   "title": "home office laptop plants paperwork",
+   "ratio": "3/2",
+   "src": "assets/photos/home-office-laptop-plants-paperwork.jpg",
+   "thumb": "assets/photos/xs/home-office-laptop-plants-paperwork.jpg",
+   "tags": [
+    "photo",
+    "home",
+    "office",
+    "laptop",
+    "plants",
+    "paperwork"
+   ]
+  },
+  {
+   "id": "photo-man-blazer-working-laptop-home",
+   "type": "image",
+   "group": "photo",
+   "title": "man blazer working laptop home",
+   "ratio": "3/2",
+   "src": "assets/photos/man-blazer-working-laptop-home.jpg",
+   "thumb": "assets/photos/xs/man-blazer-working-laptop-home.jpg",
+   "tags": [
+    "photo",
+    "man",
+    "blazer",
+    "working",
+    "laptop",
+    "home"
+   ]
+  },
+  {
+   "id": "photo-man-glasses-video-call-home",
+   "type": "image",
+   "group": "photo",
+   "title": "man glasses video call home",
+   "ratio": "3/2",
+   "src": "assets/photos/man-glasses-video-call-home.jpg",
+   "thumb": "assets/photos/xs/man-glasses-video-call-home.jpg",
+   "tags": [
+    "photo",
+    "man",
+    "glasses",
+    "video",
+    "call",
+    "home"
+   ]
+  },
+  {
+   "id": "photo-man-tracking-finances-budget",
+   "type": "image",
+   "group": "photo",
+   "title": "man tracking finances budget",
+   "ratio": "3/2",
+   "src": "assets/photos/man-tracking-finances-budget.jpg",
+   "thumb": "assets/photos/xs/man-tracking-finances-budget.jpg",
+   "tags": [
+    "photo",
+    "man",
+    "tracking",
+    "finances",
+    "budget"
+   ]
+  },
+  {
+   "id": "photo-man-video-call-home-office",
+   "type": "image",
+   "group": "photo",
+   "title": "man video call home office",
+   "ratio": "3/2",
+   "src": "assets/photos/man-video-call-home-office.jpg",
+   "thumb": "assets/photos/xs/man-video-call-home-office.jpg",
+   "tags": [
+    "photo",
+    "man",
+    "video",
+    "call",
+    "home",
+    "office"
+   ]
+  },
+  {
+   "id": "photo-mixed-ethnicity-woman-professional-workplace",
+   "type": "image",
+   "group": "photo",
+   "title": "mixed ethnicity woman professional workplace",
+   "ratio": "3/2",
+   "src": "assets/photos/mixed-ethnicity-woman-professional-workplace.jpg",
+   "thumb": "assets/photos/xs/mixed-ethnicity-woman-professional-workplace.jpg",
+   "tags": [
+    "photo",
+    "mixed",
+    "ethnicity",
+    "woman",
+    "professional",
+    "workplace"
+   ]
+  },
+  {
+   "id": "photo-modern-school-building",
+   "type": "image",
+   "group": "photo",
+   "title": "modern school building",
+   "ratio": "3/2",
+   "src": "assets/photos/modern-school-building.jpg",
+   "thumb": "assets/photos/xs/modern-school-building.jpg",
+   "tags": [
+    "photo",
+    "modern",
+    "school",
+    "building"
+   ]
+  },
+  {
+   "id": "photo-multiracial-graduates-college-garden",
+   "type": "image",
+   "group": "photo",
+   "title": "multiracial graduates college garden",
+   "ratio": "3/2",
+   "src": "assets/photos/multiracial-graduates-college-garden.jpg",
+   "thumb": "assets/photos/xs/multiracial-graduates-college-garden.jpg",
+   "tags": [
+    "photo",
+    "multiracial",
+    "graduates",
+    "college",
+    "garden"
+   ]
+  },
+  {
+   "id": "photo-person-taking-notes-video-call-home-desk",
+   "type": "image",
+   "group": "photo",
+   "title": "person taking notes video call home desk",
+   "ratio": "3/2",
+   "src": "assets/photos/person-taking-notes-video-call-home-desk.jpg",
+   "thumb": "assets/photos/xs/person-taking-notes-video-call-home-desk.jpg",
+   "tags": [
+    "photo",
+    "person",
+    "taking",
+    "notes",
+    "video",
+    "call",
+    "home",
+    "desk"
+   ]
+  },
+  {
+   "id": "photo-resume-on-table-office",
+   "type": "image",
+   "group": "photo",
+   "title": "resume on table office",
+   "ratio": "3/2",
+   "src": "assets/photos/resume-on-table-office.jpg",
+   "thumb": "assets/photos/xs/resume-on-table-office.jpg",
+   "tags": [
+    "photo",
+    "resume",
+    "on",
+    "table",
+    "office"
+   ]
+  },
+  {
+   "id": "photo-smiling-black-male-designer-creative-office-startup",
+   "type": "image",
+   "group": "photo",
+   "title": "smiling black male designer creative office startup",
+   "ratio": "3/2",
+   "src": "assets/photos/smiling-black-male-designer-creative-office-startup.jpg",
+   "thumb": "assets/photos/xs/smiling-black-male-designer-creative-office-startup.jpg",
+   "tags": [
+    "photo",
+    "smiling",
+    "black",
+    "male",
+    "designer",
+    "creative",
+    "office",
+    "startup"
+   ]
+  },
+  {
+   "id": "photo-smiling-male-graduate-student-campus-steps",
+   "type": "image",
+   "group": "photo",
+   "title": "smiling male graduate student campus steps",
+   "ratio": "3/2",
+   "src": "assets/photos/smiling-male-graduate-student-campus-steps.jpg",
+   "thumb": "assets/photos/xs/smiling-male-graduate-student-campus-steps.jpg",
+   "tags": [
+    "photo",
+    "smiling",
+    "male",
+    "graduate",
+    "student",
+    "campus",
+    "steps"
+   ]
+  },
+  {
+   "id": "photo-student-backpack-books-outdoor",
+   "type": "image",
+   "group": "photo",
+   "title": "student backpack books outdoor",
+   "ratio": "3/2",
+   "src": "assets/photos/student-backpack-books-outdoor.jpg",
+   "thumb": "assets/photos/xs/student-backpack-books-outdoor.jpg",
+   "tags": [
+    "photo",
+    "student",
+    "backpack",
+    "books",
+    "outdoor"
+   ]
+  },
+  {
+   "id": "photo-woman-blazer-writing-notes-cafe",
+   "type": "image",
+   "group": "photo",
+   "title": "woman blazer writing notes cafe",
+   "ratio": "3/2",
+   "src": "assets/photos/woman-blazer-writing-notes-cafe.jpg",
+   "thumb": "assets/photos/xs/woman-blazer-writing-notes-cafe.jpg",
+   "tags": [
+    "photo",
+    "woman",
+    "blazer",
+    "writing",
+    "notes",
+    "cafe"
+   ]
+  },
+  {
+   "id": "photo-woman-headphones-studying-laptop-desk",
+   "type": "image",
+   "group": "photo",
+   "title": "woman headphones studying laptop desk",
+   "ratio": "3/2",
+   "src": "assets/photos/woman-headphones-studying-laptop-desk.jpg",
+   "thumb": "assets/photos/xs/woman-headphones-studying-laptop-desk.jpg",
+   "tags": [
+    "photo",
+    "woman",
+    "headphones",
+    "studying",
+    "laptop",
+    "desk"
+   ]
+  },
+  {
+   "id": "photo-woman-home-office-video-call-plants",
+   "type": "image",
+   "group": "photo",
+   "title": "woman home office video call plants",
+   "ratio": "3/2",
+   "src": "assets/photos/woman-home-office-video-call-plants.jpg",
+   "thumb": "assets/photos/xs/woman-home-office-video-call-plants.jpg",
+   "tags": [
+    "photo",
+    "woman",
+    "home",
+    "office",
+    "video",
+    "call",
+    "plants"
+   ]
+  },
+  {
+   "id": "photo-woman-remote-work-sunny-home-office",
+   "type": "image",
+   "group": "photo",
+   "title": "woman remote work sunny home office",
+   "ratio": "3/2",
+   "src": "assets/photos/woman-remote-work-sunny-home-office.jpg",
+   "thumb": "assets/photos/xs/woman-remote-work-sunny-home-office.jpg",
+   "tags": [
+    "photo",
+    "woman",
+    "remote",
+    "work",
+    "sunny",
+    "home",
+    "office"
+   ]
+  },
+  {
+   "id": "photo-woman-smiling-waving-video-call-laptop",
+   "type": "image",
+   "group": "photo",
+   "title": "woman smiling waving video call laptop",
+   "ratio": "3/2",
+   "src": "assets/photos/woman-smiling-waving-video-call-laptop.jpg",
+   "thumb": "assets/photos/xs/woman-smiling-waving-video-call-laptop.jpg",
+   "tags": [
+    "photo",
+    "woman",
+    "smiling",
+    "waving",
+    "video",
+    "call",
+    "laptop"
+   ]
+  },
+  {
+   "id": "photo-woman-working-from-home-laptop",
+   "type": "image",
+   "group": "photo",
+   "title": "woman working from home laptop",
+   "ratio": "3/2",
+   "src": "assets/photos/woman-working-from-home-laptop.jpg",
+   "thumb": "assets/photos/xs/woman-working-from-home-laptop.jpg",
+   "tags": [
+    "photo",
+    "woman",
+    "working",
+    "from",
+    "home",
+    "laptop"
+   ]
+  },
+  {
+   "id": "photo-women-smiling-cafe-recruiter-meeting",
+   "type": "image",
+   "group": "photo",
+   "title": "women smiling cafe recruiter meeting",
+   "ratio": "3/2",
+   "src": "assets/photos/women-smiling-cafe-recruiter-meeting.jpg",
+   "thumb": "assets/photos/xs/women-smiling-cafe-recruiter-meeting.jpg",
+   "tags": [
+    "photo",
+    "women",
+    "smiling",
+    "cafe",
+    "recruiter",
+    "meeting"
+   ]
+  },
+  {
+   "id": "photo-young-business-team-startup-project",
+   "type": "image",
+   "group": "photo",
+   "title": "young business team startup project",
+   "ratio": "3/2",
+   "src": "assets/photos/young-business-team-startup-project.jpg",
+   "thumb": "assets/photos/xs/young-business-team-startup-project.jpg",
+   "tags": [
+    "photo",
+    "young",
+    "business",
+    "team",
+    "startup",
+    "project"
+   ]
+  },
+  {
+   "id": "photo-young-businesswoman-smartphone",
+   "type": "image",
+   "group": "photo",
+   "title": "young businesswoman smartphone",
+   "ratio": "3/2",
+   "src": "assets/photos/young-businesswoman-smartphone.jpg",
+   "thumb": "assets/photos/xs/young-businesswoman-smartphone.jpg",
+   "tags": [
+    "photo",
+    "young",
+    "businesswoman",
+    "smartphone"
+   ]
+  },
+  {
+   "id": "photo-young-woman-working-from-home-on-laptop-studying",
+   "type": "image",
+   "group": "photo",
+   "title": "young woman working from home on laptop studying",
+   "ratio": "3/2",
+   "src": "assets/photos/young-woman-working-from-home-on-laptop-studying.jpg",
+   "thumb": "assets/photos/xs/young-woman-working-from-home-on-laptop-studying.jpg",
+   "tags": [
+    "photo",
+    "young",
+    "woman",
+    "working",
+    "from",
+    "home",
+    "on",
+    "laptop",
+    "studying"
+   ]
+  },
+  {
+   "id": "gfx-coach-available",
+   "type": "image",
+   "group": "graphic",
+   "title": "coach available",
+   "src": "assets/graphics/coach-available.png",
+   "tags": [
+    "graphic",
+    "coach",
+    "available"
+   ]
+  },
+  {
+   "id": "gfx-coach-videos",
+   "type": "image",
+   "group": "graphic",
+   "title": "coach videos",
+   "src": "assets/graphics/coach-videos.png",
+   "tags": [
+    "graphic",
+    "coach",
+    "videos"
+   ]
+  },
+  {
+   "id": "gfx-coaching-relationship",
+   "type": "image",
+   "group": "graphic",
+   "title": "coaching relationship",
+   "src": "assets/graphics/coaching-relationship.png",
+   "tags": [
+    "graphic",
+    "coaching",
+    "relationship"
+   ]
+  },
+  {
+   "id": "gfx-company-deep-dives",
+   "type": "image",
+   "group": "graphic",
+   "title": "company deep dives",
+   "src": "assets/graphics/company-deep-dives.png",
+   "tags": [
+    "graphic",
+    "company",
+    "deep",
+    "dives"
+   ]
+  },
+  {
+   "id": "gfx-example-resumes-main",
+   "type": "image",
+   "group": "graphic",
+   "title": "example resumes main",
+   "src": "assets/graphics/example-resumes-main.png",
+   "tags": [
+    "graphic",
+    "example",
+    "resumes",
+    "main"
+   ]
+  },
+  {
+   "id": "gfx-goal-success",
+   "type": "image",
+   "group": "graphic",
+   "title": "goal success",
+   "src": "assets/graphics/goal-success.png",
+   "tags": [
+    "graphic",
+    "goal",
+    "success"
+   ]
+  },
+  {
+   "id": "gfx-magnifying-glass-avatars",
+   "type": "image",
+   "group": "graphic",
+   "title": "magnifying glass avatars",
+   "src": "assets/graphics/magnifying-glass-avatars.png",
+   "tags": [
+    "graphic",
+    "magnifying",
+    "glass",
+    "avatars"
+   ]
+  },
+  {
+   "id": "gfx-video-cal",
+   "type": "image",
+   "group": "graphic",
+   "title": "video cal",
+   "src": "assets/graphics/video-cal.png",
+   "tags": [
+    "graphic",
+    "video",
+    "cal"
+   ]
+  },
+  {
+   "id": "icon-achievements",
+   "type": "icon",
+   "group": "icon",
+   "title": "achievements",
+   "src": "assets/icons/achievements.svg",
+   "tags": [
+    "icon",
+    "achievements"
+   ]
+  },
+  {
+   "id": "icon-activity",
+   "type": "icon",
+   "group": "icon",
+   "title": "activity",
+   "src": "assets/icons/activity.svg",
+   "tags": [
+    "icon",
+    "activity"
+   ]
+  },
+  {
+   "id": "icon-add",
+   "type": "icon",
+   "group": "icon",
+   "title": "add",
+   "src": "assets/icons/add.svg",
+   "tags": [
+    "icon",
+    "add"
+   ]
+  },
+  {
+   "id": "icon-add-plus",
+   "type": "icon",
+   "group": "icon",
+   "title": "add plus",
+   "src": "assets/icons/add-plus.svg",
+   "tags": [
+    "icon",
+    "add",
+    "plus"
+   ]
+  },
+  {
+   "id": "icon-ai-generate",
+   "type": "icon",
+   "group": "icon",
+   "title": "ai generate",
+   "src": "assets/icons/ai-generate.svg",
+   "tags": [
+    "icon",
+    "ai",
+    "generate"
+   ]
+  },
+  {
+   "id": "icon-airplane",
+   "type": "icon",
+   "group": "icon",
+   "title": "airplane",
+   "src": "assets/icons/airplane.svg",
+   "tags": [
+    "icon",
+    "airplane"
+   ]
+  },
+  {
+   "id": "icon-application-edit",
+   "type": "icon",
+   "group": "icon",
+   "title": "application edit",
+   "src": "assets/icons/application-edit.svg",
+   "tags": [
+    "icon",
+    "application",
+    "edit"
+   ]
+  },
+  {
+   "id": "icon-archive",
+   "type": "icon",
+   "group": "icon",
+   "title": "archive",
+   "src": "assets/icons/archive.svg",
+   "tags": [
+    "icon",
+    "archive"
+   ]
+  },
+  {
+   "id": "icon-arrow-double",
+   "type": "icon",
+   "group": "icon",
+   "title": "arrow double",
+   "src": "assets/icons/arrow-double.svg",
+   "tags": [
+    "icon",
+    "arrow",
+    "double"
+   ]
+  },
+  {
+   "id": "icon-arrow-down",
+   "type": "icon",
+   "group": "icon",
+   "title": "arrow down",
+   "src": "assets/icons/arrow-down.svg",
+   "tags": [
+    "icon",
+    "arrow",
+    "down"
+   ]
+  },
+  {
+   "id": "icon-arrow-left",
+   "type": "icon",
+   "group": "icon",
+   "title": "arrow left",
+   "src": "assets/icons/arrow-left.svg",
+   "tags": [
+    "icon",
+    "arrow",
+    "left"
+   ]
+  },
+  {
+   "id": "icon-arrow-right",
+   "type": "icon",
+   "group": "icon",
+   "title": "arrow right",
+   "src": "assets/icons/arrow-right.svg",
+   "tags": [
+    "icon",
+    "arrow",
+    "right"
+   ]
+  },
+  {
+   "id": "icon-arrow-round",
+   "type": "icon",
+   "group": "icon",
+   "title": "arrow round",
+   "src": "assets/icons/arrow-round.svg",
+   "tags": [
+    "icon",
+    "arrow",
+    "round"
+   ]
+  },
+  {
+   "id": "icon-arrow-up",
+   "type": "icon",
+   "group": "icon",
+   "title": "arrow up",
+   "src": "assets/icons/arrow-up.svg",
+   "tags": [
+    "icon",
+    "arrow",
+    "up"
+   ]
+  },
+  {
+   "id": "icon-attachment",
+   "type": "icon",
+   "group": "icon",
+   "title": "attachment",
+   "src": "assets/icons/attachment.svg",
+   "tags": [
+    "icon",
+    "attachment"
+   ]
+  },
+  {
+   "id": "icon-audio-mute",
+   "type": "icon",
+   "group": "icon",
+   "title": "audio mute",
+   "src": "assets/icons/audio-mute.svg",
+   "tags": [
+    "icon",
+    "audio",
+    "mute"
+   ]
+  },
+  {
+   "id": "icon-audio-volume",
+   "type": "icon",
+   "group": "icon",
+   "title": "audio volume",
+   "src": "assets/icons/audio-volume.svg",
+   "tags": [
+    "icon",
+    "audio",
+    "volume"
+   ]
+  },
+  {
+   "id": "icon-bar-chart",
+   "type": "icon",
+   "group": "icon",
+   "title": "bar chart",
+   "src": "assets/icons/bar-chart.svg",
+   "tags": [
+    "icon",
+    "bar",
+    "chart"
+   ]
+  },
+  {
+   "id": "icon-bell",
+   "type": "icon",
+   "group": "icon",
+   "title": "bell",
+   "src": "assets/icons/bell.svg",
+   "tags": [
+    "icon",
+    "bell"
+   ]
+  },
+  {
+   "id": "icon-bell-warning",
+   "type": "icon",
+   "group": "icon",
+   "title": "bell warning",
+   "src": "assets/icons/bell-warning.svg",
+   "tags": [
+    "icon",
+    "bell",
+    "warning"
+   ]
+  },
+  {
+   "id": "icon-book-closed",
+   "type": "icon",
+   "group": "icon",
+   "title": "book closed",
+   "src": "assets/icons/book-closed.svg",
+   "tags": [
+    "icon",
+    "book",
+    "closed"
+   ]
+  },
+  {
+   "id": "icon-books",
+   "type": "icon",
+   "group": "icon",
+   "title": "books",
+   "src": "assets/icons/books.svg",
+   "tags": [
+    "icon",
+    "books"
+   ]
+  },
+  {
+   "id": "icon-briefcase",
+   "type": "icon",
+   "group": "icon",
+   "title": "briefcase",
+   "src": "assets/icons/briefcase.svg",
+   "tags": [
+    "icon",
+    "briefcase"
+   ]
+  },
+  {
+   "id": "icon-build-your-career",
+   "type": "icon",
+   "group": "icon",
+   "title": "build your career",
+   "src": "assets/icons/build-your-career.svg",
+   "tags": [
+    "icon",
+    "build",
+    "your",
+    "career"
+   ]
+  },
+  {
+   "id": "icon-burst",
+   "type": "icon",
+   "group": "icon",
+   "title": "burst",
+   "src": "assets/icons/burst.svg",
+   "tags": [
+    "icon",
+    "burst"
+   ]
+  },
+  {
+   "id": "icon-business-chart",
+   "type": "icon",
+   "group": "icon",
+   "title": "business chart",
+   "src": "assets/icons/business-chart.svg",
+   "tags": [
+    "icon",
+    "business",
+    "chart"
+   ]
+  },
+  {
+   "id": "icon-calendar",
+   "type": "icon",
+   "group": "icon",
+   "title": "calendar",
+   "src": "assets/icons/calendar.svg",
+   "tags": [
+    "icon",
+    "calendar"
+   ]
+  },
+  {
+   "id": "icon-calendar-alt",
+   "type": "icon",
+   "group": "icon",
+   "title": "calendar alt",
+   "src": "assets/icons/calendar-alt.svg",
+   "tags": [
+    "icon",
+    "calendar",
+    "alt"
+   ]
+  },
+  {
+   "id": "icon-calendar-arrow",
+   "type": "icon",
+   "group": "icon",
+   "title": "calendar arrow",
+   "src": "assets/icons/calendar-arrow.svg",
+   "tags": [
+    "icon",
+    "calendar",
+    "arrow"
+   ]
+  },
+  {
+   "id": "icon-calendar-check",
+   "type": "icon",
+   "group": "icon",
+   "title": "calendar check",
+   "src": "assets/icons/calendar-check.svg",
+   "tags": [
+    "icon",
+    "calendar",
+    "check"
+   ]
+  },
+  {
+   "id": "icon-cancel",
+   "type": "icon",
+   "group": "icon",
+   "title": "cancel",
+   "src": "assets/icons/cancel.svg",
+   "tags": [
+    "icon",
+    "cancel"
+   ]
+  },
+  {
+   "id": "icon-casper-test",
+   "type": "icon",
+   "group": "icon",
+   "title": "casper test",
+   "src": "assets/icons/casper-test.svg",
+   "tags": [
+    "icon",
+    "casper",
+    "test"
+   ]
+  },
+  {
+   "id": "icon-certificate",
+   "type": "icon",
+   "group": "icon",
+   "title": "certificate",
+   "src": "assets/icons/certificate.svg",
+   "tags": [
+    "icon",
+    "certificate"
+   ]
+  },
+  {
+   "id": "icon-chat",
+   "type": "icon",
+   "group": "icon",
+   "title": "chat",
+   "src": "assets/icons/chat.svg",
+   "tags": [
+    "icon",
+    "chat"
+   ]
+  },
+  {
+   "id": "icon-chat-bubbles",
+   "type": "icon",
+   "group": "icon",
+   "title": "chat bubbles",
+   "src": "assets/icons/chat-bubbles.svg",
+   "tags": [
+    "icon",
+    "chat",
+    "bubbles"
+   ]
+  },
+  {
+   "id": "icon-check",
+   "type": "icon",
+   "group": "icon",
+   "title": "check",
+   "src": "assets/icons/check.svg",
+   "tags": [
+    "icon",
+    "check"
+   ]
+  },
+  {
+   "id": "icon-checkmark",
+   "type": "icon",
+   "group": "icon",
+   "title": "checkmark",
+   "src": "assets/icons/checkmark.svg",
+   "tags": [
+    "icon",
+    "checkmark"
+   ]
+  },
+  {
+   "id": "icon-checkmark-badge",
+   "type": "icon",
+   "group": "icon",
+   "title": "checkmark badge",
+   "src": "assets/icons/checkmark-badge.svg",
+   "tags": [
+    "icon",
+    "checkmark",
+    "badge"
+   ]
+  },
+  {
+   "id": "icon-chevron-double",
+   "type": "icon",
+   "group": "icon",
+   "title": "chevron double",
+   "src": "assets/icons/chevron-double.svg",
+   "tags": [
+    "icon",
+    "chevron",
+    "double"
+   ]
+  },
+  {
+   "id": "icon-chevron-down",
+   "type": "icon",
+   "group": "icon",
+   "title": "chevron down",
+   "src": "assets/icons/chevron-down.svg",
+   "tags": [
+    "icon",
+    "chevron",
+    "down"
+   ]
+  },
+  {
+   "id": "icon-chevron-left",
+   "type": "icon",
+   "group": "icon",
+   "title": "chevron left",
+   "src": "assets/icons/chevron-left.svg",
+   "tags": [
+    "icon",
+    "chevron",
+    "left"
+   ]
+  },
+  {
+   "id": "icon-chevron-right",
+   "type": "icon",
+   "group": "icon",
+   "title": "chevron right",
+   "src": "assets/icons/chevron-right.svg",
+   "tags": [
+    "icon",
+    "chevron",
+    "right"
+   ]
+  },
+  {
+   "id": "icon-chevron-up",
+   "type": "icon",
+   "group": "icon",
+   "title": "chevron up",
+   "src": "assets/icons/chevron-up.svg",
+   "tags": [
+    "icon",
+    "chevron",
+    "up"
+   ]
+  },
+  {
+   "id": "icon-clipboard",
+   "type": "icon",
+   "group": "icon",
+   "title": "clipboard",
+   "src": "assets/icons/clipboard.svg",
+   "tags": [
+    "icon",
+    "clipboard"
+   ]
+  },
+  {
+   "id": "icon-clock",
+   "type": "icon",
+   "group": "icon",
+   "title": "clock",
+   "src": "assets/icons/clock.svg",
+   "tags": [
+    "icon",
+    "clock"
+   ]
+  },
+  {
+   "id": "icon-clock-alt",
+   "type": "icon",
+   "group": "icon",
+   "title": "clock alt",
+   "src": "assets/icons/clock-alt.svg",
+   "tags": [
+    "icon",
+    "clock",
+    "alt"
+   ]
+  },
+  {
+   "id": "icon-code",
+   "type": "icon",
+   "group": "icon",
+   "title": "code",
+   "src": "assets/icons/code.svg",
+   "tags": [
+    "icon",
+    "code"
+   ]
+  },
+  {
+   "id": "icon-copy",
+   "type": "icon",
+   "group": "icon",
+   "title": "copy",
+   "src": "assets/icons/copy.svg",
+   "tags": [
+    "icon",
+    "copy"
+   ]
+  },
+  {
+   "id": "icon-deal-execution",
+   "type": "icon",
+   "group": "icon",
+   "title": "deal execution",
+   "src": "assets/icons/deal-execution.svg",
+   "tags": [
+    "icon",
+    "deal",
+    "execution"
+   ]
+  },
+  {
+   "id": "icon-discount",
+   "type": "icon",
+   "group": "icon",
+   "title": "discount",
+   "src": "assets/icons/discount.svg",
+   "tags": [
+    "icon",
+    "discount"
+   ]
+  },
+  {
+   "id": "icon-document",
+   "type": "icon",
+   "group": "icon",
+   "title": "document",
+   "src": "assets/icons/document.svg",
+   "tags": [
+    "icon",
+    "document"
+   ]
+  },
+  {
+   "id": "icon-document-cut",
+   "type": "icon",
+   "group": "icon",
+   "title": "document cut",
+   "src": "assets/icons/document-cut.svg",
+   "tags": [
+    "icon",
+    "document",
+    "cut"
+   ]
+  },
+  {
+   "id": "icon-dots-horizontal",
+   "type": "icon",
+   "group": "icon",
+   "title": "dots horizontal",
+   "src": "assets/icons/dots-horizontal.svg",
+   "tags": [
+    "icon",
+    "dots",
+    "horizontal"
+   ]
+  },
+  {
+   "id": "icon-dots-vertical",
+   "type": "icon",
+   "group": "icon",
+   "title": "dots vertical",
+   "src": "assets/icons/dots-vertical.svg",
+   "tags": [
+    "icon",
+    "dots",
+    "vertical"
+   ]
+  },
+  {
+   "id": "icon-download",
+   "type": "icon",
+   "group": "icon",
+   "title": "download",
+   "src": "assets/icons/download.svg",
+   "tags": [
+    "icon",
+    "download"
+   ]
+  },
+  {
+   "id": "icon-earnings",
+   "type": "icon",
+   "group": "icon",
+   "title": "earnings",
+   "src": "assets/icons/earnings.svg",
+   "tags": [
+    "icon",
+    "earnings"
+   ]
+  },
+  {
+   "id": "icon-editing",
+   "type": "icon",
+   "group": "icon",
+   "title": "editing",
+   "src": "assets/icons/editing.svg",
+   "tags": [
+    "icon",
+    "editing"
+   ]
+  },
+  {
+   "id": "icon-ellipse",
+   "type": "icon",
+   "group": "icon",
+   "title": "ellipse",
+   "src": "assets/icons/ellipse.svg",
+   "tags": [
+    "icon",
+    "ellipse"
+   ]
+  },
+  {
+   "id": "icon-email",
+   "type": "icon",
+   "group": "icon",
+   "title": "email",
+   "src": "assets/icons/email.svg",
+   "tags": [
+    "icon",
+    "email"
+   ]
+  },
+  {
+   "id": "icon-employee-badge",
+   "type": "icon",
+   "group": "icon",
+   "title": "employee badge",
+   "src": "assets/icons/employee-badge.svg",
+   "tags": [
+    "icon",
+    "employee",
+    "badge"
+   ]
+  },
+  {
+   "id": "icon-entertainment",
+   "type": "icon",
+   "group": "icon",
+   "title": "entertainment",
+   "src": "assets/icons/entertainment.svg",
+   "tags": [
+    "icon",
+    "entertainment"
+   ]
+  },
+  {
+   "id": "icon-expand",
+   "type": "icon",
+   "group": "icon",
+   "title": "expand",
+   "src": "assets/icons/expand.svg",
+   "tags": [
+    "icon",
+    "expand"
+   ]
+  },
+  {
+   "id": "icon-experiences",
+   "type": "icon",
+   "group": "icon",
+   "title": "experiences",
+   "src": "assets/icons/experiences.svg",
+   "tags": [
+    "icon",
+    "experiences"
+   ]
+  },
+  {
+   "id": "icon-eye-closed",
+   "type": "icon",
+   "group": "icon",
+   "title": "eye closed",
+   "src": "assets/icons/eye-closed.svg",
+   "tags": [
+    "icon",
+    "eye",
+    "closed"
+   ]
+  },
+  {
+   "id": "icon-eye-open",
+   "type": "icon",
+   "group": "icon",
+   "title": "eye open",
+   "src": "assets/icons/eye-open.svg",
+   "tags": [
+    "icon",
+    "eye",
+    "open"
+   ]
+  },
+  {
+   "id": "icon-filter",
+   "type": "icon",
+   "group": "icon",
+   "title": "filter",
+   "src": "assets/icons/filter.svg",
+   "tags": [
+    "icon",
+    "filter"
+   ]
+  },
+  {
+   "id": "icon-filter-levels",
+   "type": "icon",
+   "group": "icon",
+   "title": "filter levels",
+   "src": "assets/icons/filter-levels.svg",
+   "tags": [
+    "icon",
+    "filter",
+    "levels"
+   ]
+  },
+  {
+   "id": "icon-folder-plus",
+   "type": "icon",
+   "group": "icon",
+   "title": "folder plus",
+   "src": "assets/icons/folder-plus.svg",
+   "tags": [
+    "icon",
+    "folder",
+    "plus"
+   ]
+  },
+  {
+   "id": "icon-gift",
+   "type": "icon",
+   "group": "icon",
+   "title": "gift",
+   "src": "assets/icons/gift.svg",
+   "tags": [
+    "icon",
+    "gift"
+   ]
+  },
+  {
+   "id": "icon-globe",
+   "type": "icon",
+   "group": "icon",
+   "title": "globe",
+   "src": "assets/icons/globe.svg",
+   "tags": [
+    "icon",
+    "globe"
+   ]
+  },
+  {
+   "id": "icon-globe-lock",
+   "type": "icon",
+   "group": "icon",
+   "title": "globe lock",
+   "src": "assets/icons/globe-lock.svg",
+   "tags": [
+    "icon",
+    "globe",
+    "lock"
+   ]
+  },
+  {
+   "id": "icon-graduate-hat",
+   "type": "icon",
+   "group": "icon",
+   "title": "graduate hat",
+   "src": "assets/icons/graduate-hat.svg",
+   "tags": [
+    "icon",
+    "graduate",
+    "hat"
+   ]
+  },
+  {
+   "id": "icon-group",
+   "type": "icon",
+   "group": "icon",
+   "title": "group",
+   "src": "assets/icons/group.svg",
+   "tags": [
+    "icon",
+    "group"
+   ]
+  },
+  {
+   "id": "icon-headset",
+   "type": "icon",
+   "group": "icon",
+   "title": "headset",
+   "src": "assets/icons/headset.svg",
+   "tags": [
+    "icon",
+    "headset"
+   ]
+  },
+  {
+   "id": "icon-heart",
+   "type": "icon",
+   "group": "icon",
+   "title": "heart",
+   "src": "assets/icons/heart.svg",
+   "tags": [
+    "icon",
+    "heart"
+   ]
+  },
+  {
+   "id": "icon-heart-filled",
+   "type": "icon",
+   "group": "icon",
+   "title": "heart filled",
+   "src": "assets/icons/heart-filled.svg",
+   "tags": [
+    "icon",
+    "heart",
+    "filled"
+   ]
+  },
+  {
+   "id": "icon-help",
+   "type": "icon",
+   "group": "icon",
+   "title": "help",
+   "src": "assets/icons/help.svg",
+   "tags": [
+    "icon",
+    "help"
+   ]
+  },
+  {
+   "id": "icon-home",
+   "type": "icon",
+   "group": "icon",
+   "title": "home",
+   "src": "assets/icons/home.svg",
+   "tags": [
+    "icon",
+    "home"
+   ]
+  },
+  {
+   "id": "icon-home-thin",
+   "type": "icon",
+   "group": "icon",
+   "title": "home thin",
+   "src": "assets/icons/home-thin.svg",
+   "tags": [
+    "icon",
+    "home",
+    "thin"
+   ]
+  },
+  {
+   "id": "icon-image",
+   "type": "icon",
+   "group": "icon",
+   "title": "image",
+   "src": "assets/icons/image.svg",
+   "tags": [
+    "icon",
+    "image"
+   ]
+  },
+  {
+   "id": "icon-inbox",
+   "type": "icon",
+   "group": "icon",
+   "title": "inbox",
+   "src": "assets/icons/inbox.svg",
+   "tags": [
+    "icon",
+    "inbox"
+   ]
+  },
+  {
+   "id": "icon-info",
+   "type": "icon",
+   "group": "icon",
+   "title": "info",
+   "src": "assets/icons/info.svg",
+   "tags": [
+    "icon",
+    "info"
+   ]
+  },
+  {
+   "id": "icon-info-filled",
+   "type": "icon",
+   "group": "icon",
+   "title": "info filled",
+   "src": "assets/icons/info-filled.svg",
+   "tags": [
+    "icon",
+    "info",
+    "filled"
+   ]
+  },
+  {
+   "id": "icon-item-search",
+   "type": "icon",
+   "group": "icon",
+   "title": "item search",
+   "src": "assets/icons/item-search.svg",
+   "tags": [
+    "icon",
+    "item",
+    "search"
+   ]
+  },
+  {
+   "id": "icon-laurel-left",
+   "type": "icon",
+   "group": "icon",
+   "title": "laurel left",
+   "src": "assets/icons/laurel-left.svg",
+   "tags": [
+    "icon",
+    "laurel",
+    "left"
+   ]
+  },
+  {
+   "id": "icon-laurel-right",
+   "type": "icon",
+   "group": "icon",
+   "title": "laurel right",
+   "src": "assets/icons/laurel-right.svg",
+   "tags": [
+    "icon",
+    "laurel",
+    "right"
+   ]
+  },
+  {
+   "id": "icon-layers",
+   "type": "icon",
+   "group": "icon",
+   "title": "layers",
+   "src": "assets/icons/layers.svg",
+   "tags": [
+    "icon",
+    "layers"
+   ]
+  },
+  {
+   "id": "icon-letters-of-evaluation",
+   "type": "icon",
+   "group": "icon",
+   "title": "letters of evaluation",
+   "src": "assets/icons/letters-of-evaluation.svg",
+   "tags": [
+    "icon",
+    "letters",
+    "of",
+    "evaluation"
+   ]
+  },
+  {
+   "id": "icon-light-bulb",
+   "type": "icon",
+   "group": "icon",
+   "title": "light bulb",
+   "src": "assets/icons/light-bulb.svg",
+   "tags": [
+    "icon",
+    "light",
+    "bulb"
+   ]
+  },
+  {
+   "id": "icon-lightning",
+   "type": "icon",
+   "group": "icon",
+   "title": "lightning",
+   "src": "assets/icons/lightning.svg",
+   "tags": [
+    "icon",
+    "lightning"
+   ]
+  },
+  {
+   "id": "icon-lightning-filled",
+   "type": "icon",
+   "group": "icon",
+   "title": "lightning filled",
+   "src": "assets/icons/lightning-filled.svg",
+   "tags": [
+    "icon",
+    "lightning",
+    "filled"
+   ]
+  },
+  {
+   "id": "icon-lines-horizontal",
+   "type": "icon",
+   "group": "icon",
+   "title": "lines horizontal",
+   "src": "assets/icons/lines-horizontal.svg",
+   "tags": [
+    "icon",
+    "lines",
+    "horizontal"
+   ]
+  },
+  {
+   "id": "icon-link",
+   "type": "icon",
+   "group": "icon",
+   "title": "link",
+   "src": "assets/icons/link.svg",
+   "tags": [
+    "icon",
+    "link"
+   ]
+  },
+  {
+   "id": "icon-link-external",
+   "type": "icon",
+   "group": "icon",
+   "title": "link external",
+   "src": "assets/icons/link-external.svg",
+   "tags": [
+    "icon",
+    "link",
+    "external"
+   ]
+  },
+  {
+   "id": "icon-loader",
+   "type": "icon",
+   "group": "icon",
+   "title": "loader",
+   "src": "assets/icons/loader.svg",
+   "tags": [
+    "icon",
+    "loader"
+   ]
+  },
+  {
+   "id": "icon-location",
+   "type": "icon",
+   "group": "icon",
+   "title": "location",
+   "src": "assets/icons/location.svg",
+   "tags": [
+    "icon",
+    "location"
+   ]
+  },
+  {
+   "id": "icon-lock",
+   "type": "icon",
+   "group": "icon",
+   "title": "lock",
+   "src": "assets/icons/lock.svg",
+   "tags": [
+    "icon",
+    "lock"
+   ]
+  },
+  {
+   "id": "icon-lock-filled",
+   "type": "icon",
+   "group": "icon",
+   "title": "lock filled",
+   "src": "assets/icons/lock-filled.svg",
+   "tags": [
+    "icon",
+    "lock",
+    "filled"
+   ]
+  },
+  {
+   "id": "icon-md-phd-essay",
+   "type": "icon",
+   "group": "icon",
+   "title": "md phd essay",
+   "src": "assets/icons/md-phd-essay.svg",
+   "tags": [
+    "icon",
+    "md",
+    "phd",
+    "essay"
+   ]
+  },
+  {
+   "id": "icon-medical-cross",
+   "type": "icon",
+   "group": "icon",
+   "title": "medical cross",
+   "src": "assets/icons/medical-cross.svg",
+   "tags": [
+    "icon",
+    "medical",
+    "cross"
+   ]
+  },
+  {
+   "id": "icon-megaphone",
+   "type": "icon",
+   "group": "icon",
+   "title": "megaphone",
+   "src": "assets/icons/megaphone.svg",
+   "tags": [
+    "icon",
+    "megaphone"
+   ]
+  },
+  {
+   "id": "icon-menu-burger",
+   "type": "icon",
+   "group": "icon",
+   "title": "menu burger",
+   "src": "assets/icons/menu-burger.svg",
+   "tags": [
+    "icon",
+    "menu",
+    "burger"
+   ]
+  },
+  {
+   "id": "icon-microphone",
+   "type": "icon",
+   "group": "icon",
+   "title": "microphone",
+   "src": "assets/icons/microphone.svg",
+   "tags": [
+    "icon",
+    "microphone"
+   ]
+  },
+  {
+   "id": "icon-money",
+   "type": "icon",
+   "group": "icon",
+   "title": "money",
+   "src": "assets/icons/money.svg",
+   "tags": [
+    "icon",
+    "money"
+   ]
+  },
+  {
+   "id": "icon-money-chat",
+   "type": "icon",
+   "group": "icon",
+   "title": "money chat",
+   "src": "assets/icons/money-chat.svg",
+   "tags": [
+    "icon",
+    "money",
+    "chat"
+   ]
+  },
+  {
+   "id": "icon-move-copy",
+   "type": "icon",
+   "group": "icon",
+   "title": "move copy",
+   "src": "assets/icons/move-copy.svg",
+   "tags": [
+    "icon",
+    "move",
+    "copy"
+   ]
+  },
+  {
+   "id": "icon-onboarding",
+   "type": "icon",
+   "group": "icon",
+   "title": "onboarding",
+   "src": "assets/icons/onboarding.svg",
+   "tags": [
+    "icon",
+    "onboarding"
+   ]
+  },
+  {
+   "id": "icon-ops-tools",
+   "type": "icon",
+   "group": "icon",
+   "title": "ops tools",
+   "src": "assets/icons/ops-tools.svg",
+   "tags": [
+    "icon",
+    "ops",
+    "tools"
+   ]
+  },
+  {
+   "id": "icon-package",
+   "type": "icon",
+   "group": "icon",
+   "title": "package",
+   "src": "assets/icons/package.svg",
+   "tags": [
+    "icon",
+    "package"
+   ]
+  },
+  {
+   "id": "icon-pencil",
+   "type": "icon",
+   "group": "icon",
+   "title": "pencil",
+   "src": "assets/icons/pencil.svg",
+   "tags": [
+    "icon",
+    "pencil"
+   ]
+  },
+  {
+   "id": "icon-phone",
+   "type": "icon",
+   "group": "icon",
+   "title": "phone",
+   "src": "assets/icons/phone.svg",
+   "tags": [
+    "icon",
+    "phone"
+   ]
+  },
+  {
+   "id": "icon-pie-graph",
+   "type": "icon",
+   "group": "icon",
+   "title": "pie graph",
+   "src": "assets/icons/pie-graph.svg",
+   "tags": [
+    "icon",
+    "pie",
+    "graph"
+   ]
+  },
+  {
+   "id": "icon-pin",
+   "type": "icon",
+   "group": "icon",
+   "title": "pin",
+   "src": "assets/icons/pin.svg",
+   "tags": [
+    "icon",
+    "pin"
+   ]
+  },
+  {
+   "id": "icon-play-triangle",
+   "type": "icon",
+   "group": "icon",
+   "title": "play triangle",
+   "src": "assets/icons/play-triangle.svg",
+   "tags": [
+    "icon",
+    "play",
+    "triangle"
+   ]
+  },
+  {
+   "id": "icon-profile",
+   "type": "icon",
+   "group": "icon",
+   "title": "profile",
+   "src": "assets/icons/profile.svg",
+   "tags": [
+    "icon",
+    "profile"
+   ]
+  },
+  {
+   "id": "icon-promotion",
+   "type": "icon",
+   "group": "icon",
+   "title": "promotion",
+   "src": "assets/icons/promotion.svg",
+   "tags": [
+    "icon",
+    "promotion"
+   ]
+  },
+  {
+   "id": "icon-question",
+   "type": "icon",
+   "group": "icon",
+   "title": "question",
+   "src": "assets/icons/question.svg",
+   "tags": [
+    "icon",
+    "question"
+   ]
+  },
+  {
+   "id": "icon-quote",
+   "type": "icon",
+   "group": "icon",
+   "title": "quote",
+   "src": "assets/icons/quote.svg",
+   "tags": [
+    "icon",
+    "quote"
+   ]
+  },
+  {
+   "id": "icon-recurring",
+   "type": "icon",
+   "group": "icon",
+   "title": "recurring",
+   "src": "assets/icons/recurring.svg",
+   "tags": [
+    "icon",
+    "recurring"
+   ]
+  },
+  {
+   "id": "icon-refresh",
+   "type": "icon",
+   "group": "icon",
+   "title": "refresh",
+   "src": "assets/icons/refresh.svg",
+   "tags": [
+    "icon",
+    "refresh"
+   ]
+  },
+  {
+   "id": "icon-refund",
+   "type": "icon",
+   "group": "icon",
+   "title": "refund",
+   "src": "assets/icons/refund.svg",
+   "tags": [
+    "icon",
+    "refund"
+   ]
+  },
+  {
+   "id": "icon-save",
+   "type": "icon",
+   "group": "icon",
+   "title": "save",
+   "src": "assets/icons/save.svg",
+   "tags": [
+    "icon",
+    "save"
+   ]
+  },
+  {
+   "id": "icon-save-success",
+   "type": "icon",
+   "group": "icon",
+   "title": "save success",
+   "src": "assets/icons/save-success.svg",
+   "tags": [
+    "icon",
+    "save",
+    "success"
+   ]
+  },
+  {
+   "id": "icon-school",
+   "type": "icon",
+   "group": "icon",
+   "title": "school",
+   "src": "assets/icons/school.svg",
+   "tags": [
+    "icon",
+    "school"
+   ]
+  },
+  {
+   "id": "icon-search",
+   "type": "icon",
+   "group": "icon",
+   "title": "search",
+   "src": "assets/icons/search.svg",
+   "tags": [
+    "icon",
+    "search"
+   ]
+  },
+  {
+   "id": "icon-settings",
+   "type": "icon",
+   "group": "icon",
+   "title": "settings",
+   "src": "assets/icons/settings.svg",
+   "tags": [
+    "icon",
+    "settings"
+   ]
+  },
+  {
+   "id": "icon-shapes",
+   "type": "icon",
+   "group": "icon",
+   "title": "shapes",
+   "src": "assets/icons/shapes.svg",
+   "tags": [
+    "icon",
+    "shapes"
+   ]
+  },
+  {
+   "id": "icon-share",
+   "type": "icon",
+   "group": "icon",
+   "title": "share",
+   "src": "assets/icons/share.svg",
+   "tags": [
+    "icon",
+    "share"
+   ]
+  },
+  {
+   "id": "icon-sheet",
+   "type": "icon",
+   "group": "icon",
+   "title": "sheet",
+   "src": "assets/icons/sheet.svg",
+   "tags": [
+    "icon",
+    "sheet"
+   ]
+  },
+  {
+   "id": "icon-shield",
+   "type": "icon",
+   "group": "icon",
+   "title": "shield",
+   "src": "assets/icons/shield.svg",
+   "tags": [
+    "icon",
+    "shield"
+   ]
+  },
+  {
+   "id": "icon-sign-out",
+   "type": "icon",
+   "group": "icon",
+   "title": "sign out",
+   "src": "assets/icons/sign-out.svg",
+   "tags": [
+    "icon",
+    "sign",
+    "out"
+   ]
+  },
+  {
+   "id": "icon-sort",
+   "type": "icon",
+   "group": "icon",
+   "title": "sort",
+   "src": "assets/icons/sort.svg",
+   "tags": [
+    "icon",
+    "sort"
+   ]
+  },
+  {
+   "id": "icon-sparkle",
+   "type": "icon",
+   "group": "icon",
+   "title": "sparkle",
+   "src": "assets/icons/sparkle.svg",
+   "tags": [
+    "icon",
+    "sparkle"
+   ]
+  },
+  {
+   "id": "icon-specialization-strategy",
+   "type": "icon",
+   "group": "icon",
+   "title": "specialization strategy",
+   "src": "assets/icons/specialization-strategy.svg",
+   "tags": [
+    "icon",
+    "specialization",
+    "strategy"
+   ]
+  },
+  {
+   "id": "icon-star",
+   "type": "icon",
+   "group": "icon",
+   "title": "star",
+   "src": "assets/icons/star.svg",
+   "tags": [
+    "icon",
+    "star"
+   ]
+  },
+  {
+   "id": "icon-star-half",
+   "type": "icon",
+   "group": "icon",
+   "title": "star half",
+   "src": "assets/icons/star-half.svg",
+   "tags": [
+    "icon",
+    "star",
+    "half"
+   ]
+  },
+  {
+   "id": "icon-star-outline",
+   "type": "icon",
+   "group": "icon",
+   "title": "star outline",
+   "src": "assets/icons/star-outline.svg",
+   "tags": [
+    "icon",
+    "star",
+    "outline"
+   ]
+  },
+  {
+   "id": "icon-star-remove",
+   "type": "icon",
+   "group": "icon",
+   "title": "star remove",
+   "src": "assets/icons/star-remove.svg",
+   "tags": [
+    "icon",
+    "star",
+    "remove"
+   ]
+  },
+  {
+   "id": "icon-stop-octagon-minus",
+   "type": "icon",
+   "group": "icon",
+   "title": "stop octagon minus",
+   "src": "assets/icons/stop-octagon-minus.svg",
+   "tags": [
+    "icon",
+    "stop",
+    "octagon",
+    "minus"
+   ]
+  },
+  {
+   "id": "icon-store",
+   "type": "icon",
+   "group": "icon",
+   "title": "store",
+   "src": "assets/icons/store.svg",
+   "tags": [
+    "icon",
+    "store"
+   ]
+  },
+  {
+   "id": "icon-super-coach",
+   "type": "icon",
+   "group": "icon",
+   "title": "super coach",
+   "src": "assets/icons/super-coach.svg",
+   "tags": [
+    "icon",
+    "super",
+    "coach"
+   ]
+  },
+  {
+   "id": "icon-switch",
+   "type": "icon",
+   "group": "icon",
+   "title": "switch",
+   "src": "assets/icons/switch.svg",
+   "tags": [
+    "icon",
+    "switch"
+   ]
+  },
+  {
+   "id": "icon-template",
+   "type": "icon",
+   "group": "icon",
+   "title": "template",
+   "src": "assets/icons/template.svg",
+   "tags": [
+    "icon",
+    "template"
+   ]
+  },
+  {
+   "id": "icon-test",
+   "type": "icon",
+   "group": "icon",
+   "title": "test",
+   "src": "assets/icons/test.svg",
+   "tags": [
+    "icon",
+    "test"
+   ]
+  },
+  {
+   "id": "icon-text",
+   "type": "icon",
+   "group": "icon",
+   "title": "text",
+   "src": "assets/icons/text.svg",
+   "tags": [
+    "icon",
+    "text"
+   ]
+  },
+  {
+   "id": "icon-thumbs-down",
+   "type": "icon",
+   "group": "icon",
+   "title": "thumbs down",
+   "src": "assets/icons/thumbs-down.svg",
+   "tags": [
+    "icon",
+    "thumbs",
+    "down"
+   ]
+  },
+  {
+   "id": "icon-thumbs-down-filled",
+   "type": "icon",
+   "group": "icon",
+   "title": "thumbs down filled",
+   "src": "assets/icons/thumbs-down-filled.svg",
+   "tags": [
+    "icon",
+    "thumbs",
+    "down",
+    "filled"
+   ]
+  },
+  {
+   "id": "icon-thumbs-up",
+   "type": "icon",
+   "group": "icon",
+   "title": "thumbs up",
+   "src": "assets/icons/thumbs-up.svg",
+   "tags": [
+    "icon",
+    "thumbs",
+    "up"
+   ]
+  },
+  {
+   "id": "icon-thumbs-up-plain",
+   "type": "icon",
+   "group": "icon",
+   "title": "thumbs up plain",
+   "src": "assets/icons/thumbs-up-plain.svg",
+   "tags": [
+    "icon",
+    "thumbs",
+    "up",
+    "plain"
+   ]
+  },
+  {
+   "id": "icon-thumbs-up-plain-filled",
+   "type": "icon",
+   "group": "icon",
+   "title": "thumbs up plain filled",
+   "src": "assets/icons/thumbs-up-plain-filled.svg",
+   "tags": [
+    "icon",
+    "thumbs",
+    "up",
+    "plain",
+    "filled"
+   ]
+  },
+  {
+   "id": "icon-tools",
+   "type": "icon",
+   "group": "icon",
+   "title": "tools",
+   "src": "assets/icons/tools.svg",
+   "tags": [
+    "icon",
+    "tools"
+   ]
+  },
+  {
+   "id": "icon-trash",
+   "type": "icon",
+   "group": "icon",
+   "title": "trash",
+   "src": "assets/icons/trash.svg",
+   "tags": [
+    "icon",
+    "trash"
+   ]
+  },
+  {
+   "id": "icon-trash-alt",
+   "type": "icon",
+   "group": "icon",
+   "title": "trash alt",
+   "src": "assets/icons/trash-alt.svg",
+   "tags": [
+    "icon",
+    "trash",
+    "alt"
+   ]
+  },
+  {
+   "id": "icon-upload",
+   "type": "icon",
+   "group": "icon",
+   "title": "upload",
+   "src": "assets/icons/upload.svg",
+   "tags": [
+    "icon",
+    "upload"
+   ]
+  },
+  {
+   "id": "icon-user",
+   "type": "icon",
+   "group": "icon",
+   "title": "user",
+   "src": "assets/icons/user.svg",
+   "tags": [
+    "icon",
+    "user"
+   ]
+  },
+  {
+   "id": "icon-user-add",
+   "type": "icon",
+   "group": "icon",
+   "title": "user add",
+   "src": "assets/icons/user-add.svg",
+   "tags": [
+    "icon",
+    "user",
+    "add"
+   ]
+  },
+  {
+   "id": "icon-user-group",
+   "type": "icon",
+   "group": "icon",
+   "title": "user group",
+   "src": "assets/icons/user-group.svg",
+   "tags": [
+    "icon",
+    "user",
+    "group"
+   ]
+  },
+  {
+   "id": "icon-user-profile-group",
+   "type": "icon",
+   "group": "icon",
+   "title": "user profile group",
+   "src": "assets/icons/user-profile-group.svg",
+   "tags": [
+    "icon",
+    "user",
+    "profile",
+    "group"
+   ]
+  },
+  {
+   "id": "icon-video",
+   "type": "icon",
+   "group": "icon",
+   "title": "video",
+   "src": "assets/icons/video.svg",
+   "tags": [
+    "icon",
+    "video"
+   ]
+  },
+  {
+   "id": "icon-video-async",
+   "type": "icon",
+   "group": "icon",
+   "title": "video async",
+   "src": "assets/icons/video-async.svg",
+   "tags": [
+    "icon",
+    "video",
+    "async"
+   ]
+  },
+  {
+   "id": "icon-waitlist",
+   "type": "icon",
+   "group": "icon",
+   "title": "waitlist",
+   "src": "assets/icons/waitlist.svg",
+   "tags": [
+    "icon",
+    "waitlist"
+   ]
+  },
+  {
+   "id": "icon-warning",
+   "type": "icon",
+   "group": "icon",
+   "title": "warning",
+   "src": "assets/icons/warning.svg",
+   "tags": [
+    "icon",
+    "warning"
+   ]
+  },
+  {
+   "id": "icon-warning-triangle",
+   "type": "icon",
+   "group": "icon",
+   "title": "warning triangle",
+   "src": "assets/icons/warning-triangle.svg",
+   "tags": [
+    "icon",
+    "warning",
+    "triangle"
+   ]
+  },
+  {
+   "id": "icon-write",
+   "type": "icon",
+   "group": "icon",
+   "title": "write",
+   "src": "assets/icons/write.svg",
+   "tags": [
+    "icon",
+    "write"
+   ]
+  },
+  {
+   "id": "icon-x",
+   "type": "icon",
+   "group": "icon",
+   "title": "x",
+   "src": "assets/icons/x.svg",
+   "tags": [
+    "icon",
+    "x"
+   ]
+  }
+ ],
+ "posts": [
+  {
+   "id": "idea-1",
+   "num": 1,
+   "platform": "linkedin",
+   "group": "everyone",
+   "title": "The announcement",
+   "tag": "keep it simple",
+   "idea": "say what launched, who's on it, and that it's free.",
+   "works": "\"Learn from people who've done it\" hero, or the launch announcement image",
+   "text": "Today we launched Leland Community.\n\nFollow people who've already done what you're trying to do (former bankers, consultants, PMs, HBS grads) and learn from what they post every day. Real names, real backgrounds.\n\nIt's free on iOS, Android and web. Come ask. {link}",
+   "assets": [
+    "hero-learn",
+    "hero-announce",
+    "v-one-conversation",
+    "v-your-next-move",
+    "mh-learn"
+   ]
+  },
+  {
+   "id": "idea-2",
+   "num": 2,
+   "platform": "linkedin",
+   "group": "everyone",
+   "title": "Real answers from people who've done it",
+   "tag": "show the feed in action",
+   "idea": "let the visual do the talking. Real questions, answered by people who've already been through it.",
+   "works": "Learn video, or the \"Ask anything. Get real answers.\" hero",
+   "text": "Is a 690 GMAT a dealbreaker for Wharton? Low GPA, high GMAT? How do you break into PM?\n\nOn Leland Community, those questions get answered by people who've already done it. Questions, livestreams and experts, all in one feed.\n\nIt's free. Come ask yours. {link}",
+   "assets": [
+    "video-learn",
+    "hero-ask",
+    "v-one-conversation",
+    "mh-ask",
+    "mh-question",
+    "v-home-tour"
+   ]
+  },
+  {
+   "id": "idea-3",
+   "num": 3,
+   "platform": "linkedin",
+   "group": "everyone",
+   "title": "\"I wish I'd had this\"",
+   "tag": "a moment from your own path",
+   "idea": "a short personal moment (the recruiting season you guessed your way through, the person you wish you'd known) and why this would have changed it. The more specific the memory, the better.",
+   "works": "\"Learn from people who've done it\" or \"Your next move starts here\" hero, or the Learn video",
+   "text": "In college I didn't know a single person who'd [done the thing you wanted to do]. So I guessed.\n\nStarting today, students don't have to. Leland Community lets you follow people who've been there and learn from them every day. {link}",
+   "assets": [
+    "hero-learn",
+    "hero-next",
+    "video-learn",
+    "v-wherever",
+    "v-get-there",
+    "mh-next"
+   ]
+  },
+  {
+   "id": "idea-4",
+   "num": 4,
+   "platform": "x",
+   "group": "everyone",
+   "title": "Question \u2192 answer",
+   "tag": "the product in two beats",
+   "idea": "a real question someone is asking, then the person who's already lived the answer.",
+   "works": "a card pair as a two-image post (Kevin \u2192 Marcus, or Amara \u2192 Alex), or the \"Ask anything\" hero on its own",
+   "text": "\"Is it actually possible to land a FAANG job if you've never had an internship?\"\n\nOn Leland Community, you can ask the people who did it. {link}",
+   "assets": [
+    "card-kevin",
+    "card-marcus",
+    "card-amara",
+    "card-alex",
+    "hero-ask",
+    "v-one-conversation",
+    "mh-question"
+   ]
+  },
+  {
+   "id": "idea-5",
+   "num": 5,
+   "platform": "linkedin",
+   "group": "everyone",
+   "title": "Your network, before you have one",
+   "tag": "straight to students",
+   "idea": "speak to students who don't have connections yet. Name the companies and paths they're curious about.",
+   "works": "People video, \"Your next move starts here\" or \"Find your people\" hero, or the Sofia / James cards",
+   "text": "Sophomores: you don't need to know someone at Google to learn how people get into Google.\n\nFollow consultants, bankers and PMs who broke in at places like Google, Meta and Goldman. They post what worked, what didn't, and what the job is actually like. It's free. {link}",
+   "assets": [
+    "video-people",
+    "hero-next",
+    "hero-people",
+    "card-sofia",
+    "card-james",
+    "mh-people",
+    "mh-thousands",
+    "v-your-next-move"
+   ]
+  },
+  {
+   "id": "idea-6",
+   "num": 6,
+   "platform": "linkedin",
+   "group": "everyone",
+   "title": "The best thing I've seen in the feed",
+   "tag": "after launch",
+   "idea": "screenshot one great post or answer from the feed and say why it stuck with you. This one gets better every week as the feed fills up.",
+   "works": "your screenshot, or the Maya Chen card as an example",
+   "text": "\"Your resume matters less than your ability to tell the same story out loud in 60 seconds.\"\n\nThat's the kind of take showing up in Leland Community this week. Come see what else people are saying. {link}",
+   "assets": [
+    "card-maya",
+    "card-dana",
+    "card-ben"
+   ]
+  },
+  {
+   "id": "idea-7",
+   "num": 7,
+   "platform": "linkedin",
+   "group": "everyone",
+   "title": "Come ask me",
+   "tag": "for experts and anyone with a story",
+   "idea": "if you know something people want to learn (a path, a school, a job), invite them to follow you and bring their questions.",
+   "works": "your own profile or livestream card (the Ben Carter card shows what that looks like)",
+   "text": "I'm posting on Leland Community now. If you're [recruiting for consulting / breaking into PM / applying to MBA programs], follow along and bring your questions. {link}",
+   "assets": [
+    "card-ben",
+    "card-sofia",
+    "card-james",
+    "mh-answers"
+   ]
+  },
+  {
+   "id": "idea-8",
+   "num": 8,
+   "platform": "linkedin",
+   "group": "everyone",
+   "title": "Behind the build",
+   "tag": "celebrate the team",
+   "idea": "a proud, human look at the team that shipped it. Celebrate the people, then point to the product.",
+   "works": "a team photo, the People video, or the \"Accomplish your goals, together\" hero",
+   "text": "Our team has been heads down on this for months, and it's live today. Leland Community puts our experts, livestreams and AMAs in one feed. Really proud of this crew. Go take a look: {link}",
+   "assets": [
+    "video-people",
+    "hero-accomplish",
+    "v-get-there",
+    "v-wherever",
+    "mh-accomplish"
+   ]
+  },
+  {
+   "id": "idea-9",
+   "num": 9,
+   "platform": "linkedin",
+   "group": "everyone",
+   "title": "Win the day",
+   "tag": "the little wins add up",
+   "idea": "celebrate the everyday progress that happens in the feed: the early interview, the practice test that finally clicked, the offer. Keep it upbeat and point to the experts cheering people on.",
+   "works": "Momentum video, or the \"Accomplish your goals, together\" hero",
+   "text": "A 7am interview. Day 14 of LSAT logic games, up 8 points. A signed PM offer.\n\nThat's what a normal morning looks like on Leland Community, with people who've been there helping you get to the next one.\n\nWin the day. {link}",
+   "assets": [
+    "video-momentum",
+    "hero-accomplish",
+    "mh-accomplish",
+    "mh-answers"
+   ]
+  },
+  {
+   "id": "idea-10",
+   "num": 10,
+   "platform": "linkedin",
+   "group": "aibp",
+   "title": "The AI builder community is live",
+   "tag": "the announcement for builders",
+   "idea": "tell AIBP students, grads and anyone building with AI that they now have a home on Leland to share builds and learn from each other.",
+   "works": "\"Your AI builder community.\" or \"Learn it. Build it. Share it.\" graphic",
+   "text": "AI Builder Program grads now have a home on Leland.\n\nShare what you built, see what everyone else is shipping, and ask the people who've already wired AI into real workflows. It's free on iOS, Android and web. {link}",
+   "assets": [
+    "aibp-community",
+    "aibp-learn",
+    "mh-community",
+    "mh-lbs",
+    "v-ai-tour",
+    "ai-nina"
+   ]
+  },
+  {
+   "id": "idea-11",
+   "num": 11,
+   "platform": "linkedin",
+   "group": "aibp",
+   "title": "Show us what you built",
+   "tag": "invite grads to post",
+   "idea": "a direct ask to AIBP grads: post your build, what it does and what it saved. Every post you get makes the feed better for the next builder.",
+   "works": "\"Built something with AI? Show us.\" graphic",
+   "text": "Built something with AI? Show us.\n\nAI Builder Program grads: post your build on Leland. What it does, what it replaced, how much time it gives you back. The best ones teach the rest of us more than any tutorial. {link}",
+   "assets": [
+    "aibp-show",
+    "mh-show",
+    "ai-tom",
+    "ai-owen",
+    "ai-andre"
+   ]
+  },
+  {
+   "id": "idea-12",
+   "num": 12,
+   "platform": "linkedin",
+   "group": "aibp",
+   "title": "From course project to company win",
+   "tag": "a real build, start to finish",
+   "idea": "spotlight one real grad's build and the result at their company. Real names and real numbers only, with their permission.",
+   "works": "\"From course project to company win.\" or \"Builders share what they ship.\" graphic",
+   "text": "[Name] built [what] in week [X] of the AI Builder Program. It now [what it does] and saves their team [real number].\n\nThat's the kind of thing builders are posting on Leland every day. Come see what they're shipping. {link}",
+   "assets": [
+    "aibp-win",
+    "aibp-builders",
+    "mh-win",
+    "mh-builders",
+    "ai-andre",
+    "ai-tom",
+    "v-ai-tour"
+   ]
+  }
+ ]
+}
