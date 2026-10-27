@@ -26,4 +26,4 @@ Open LE → **Me → Connect Opus** → paste an Anthropic API key from console.
 7. In LE: **Me → Connect Opus** → leave the key blank → OK → paste that URL.
 
 ## 5. Give Claude the library (1 minute)
-Open LE → **Brand → Use LE in Claude → Copy skill**. Paste into Claude as a new skill named `le`. Replace `LE_URL` in it with your Pages link. From then on anyone can say "make a Leland post about X" in Claude and it pulls from the real library.
+Open LE → **Brand → Use LE in Claude → Copy skill**. Paste into Claude as a new skill named `le`. From then on anyone can say "make a Leland post about X" in Claude and it pulls from the real library.

@@ -8,7 +8,7 @@ description: Leland's brand asset library (LE). Use whenever making any Leland m
 LE is the repository. You are the hands. Nobody needs to open LE to use it.
 
 ## 1. Load the manifest
-Fetch `LE_URL/data/manifest.json` (LE_URL is where index.html is hosted, e.g. https://le.joinleland.com/).
+Fetch `https://mwatterson1991.github.io/LE/data/manifest.json` .
 It contains:
 - `brand` — fonts, colors, taglines, pitch, FAQ, audience tracks, guardrails, store links
 - `assets[]` — every file: `id`, `type` (image|video|audio|icon), `group`, `title`, `sub`, `tags[]`, `src` (relative to LE_URL), `thumb`/`poster`, `best` (which post ideas it fits)
@@ -17,7 +17,7 @@ It contains:
 Groups: `hero` `header` `card` `aibp` `aipost` (launch kit images) · `film` `kit` (videos) · `background` `photo` · `graphic` · `icon` · `music`.
 
 ## 2. Pick, don't invent
-Match the ask against `tags`, `title`, `sub` and `best`. Return the full URL (`LE_URL + src`). Never make up an asset or quote the sample numbers inside graphics as real.
+Match the ask against `tags`, `title`, `sub` and `best`. Return the full URL (`https://mwatterson1991.github.io/LE/` + src). Never make up an asset or quote the sample numbers inside graphics as real.
 
 ## 3. Write inside the brand
 - Headlines in **Season** (weight 500), everything else in **Macan**. Monochrome plus photography.
@@ -36,4 +36,4 @@ Match the ask against `tags`, `title`, `sub` and `best`. Return the full URL (`L
 - CTA: "Come ask" or "Follow along," with a link to the App Store, Google Play or web.
 
 ## 5. To make something, not just find it
-Open `LE_URL/#editor` for a person, or build it yourself: a still is a background from `background`/`hero` + Season headline + Macan subhead + logomark top-left. A launch video is three beats: hook (typed, blue phrase) → product shot (a `card`/`aipost` image, or a screenshot) → outro. Music comes from `music`.
+Open `https://mwatterson1991.github.io/LE/#editor` for a person, or build it yourself: a still is a background from `background`/`hero` + Season headline + Macan subhead + logomark top-left. A launch video is three beats: hook (typed, blue phrase) → product shot (a `card`/`aipost` image, or a screenshot) → outro. Music comes from `music`.
