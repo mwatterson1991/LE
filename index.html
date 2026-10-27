@@ -80,10 +80,12 @@
         </div>
         <div class="egrid">
           <div>
-            <div class="stage">
-              <div class="frame" id="frame" onclick="$('fHead').focus()">
-                <div class="lg"><img src="assets/logomark.png" alt=""></div>
-                <div class="copy" id="copy"><h2 id="pHead"></h2><p id="pSub"></p><span class="cta" id="pCta"></span></div>
+            <div class="stage" id="stage">
+              <div class="frame" id="frame">
+                <div class="lg layer" id="lgLayer"><img src="assets/logomark.png" alt=""></div>
+                <div class="layer copy" id="copy"><h2 id="pHead"></h2><p id="pSub"></p><span class="cta" id="pCta"></span></div>
+                <div class="layer gfx" id="gfxLayer"><img id="gfxImg" alt=""></div>
+                <div class="layer shotL" id="shotLayer"><img id="shotImg" alt=""></div>
                 <!-- video beats -->
                 <div class="beat b-hook" id="bHook"><div class="hook" id="vHook"></div></div>
                 <div class="beat b-shot" id="bShot"><div class="shot"><img id="vShot" alt=""></div></div>
@@ -94,6 +96,7 @@
             <div class="stagebar">
               <div class="seg" id="ratio"><button class="on" onclick="ratio('')">16:9</button><button onclick="ratio('r11')">1:1</button><button onclick="ratio('r45')">4:5</button><button onclick="ratio('r916')">9:16</button></div>
               <span id="vidctl" style="display:none;align-items:center;gap:10px"><button class="playbtn" id="playbtn" onclick="togglePlay()"><svg class="ico" id="playico" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><span class="time" id="time">0.0s / 9.0s</span></span>
+              <span style="margin-left:auto;display:flex;gap:4px" id="layerbar"></span>
             </div>
             <div class="beats" id="beats" style="display:none"></div>
             <div class="slides" id="slides" style="display:none"></div>
@@ -102,33 +105,38 @@
           <div class="panel">
             <div class="sec" id="secCopy">
               <h3>Copy <button class="link" onclick="rewrite()">Rewrite</button></h3>
-              <div class="f"><label id="lHead">Headline</label><input id="fHead" oninput="sync()"><div class="hint">Wrap words in [brackets] to make them <em>blue</em>.</div></div>
+              <div class="f"><label id="lHead">Headline</label><input id="fHead" oninput="sync()"><div class="hint">[brackets] turn <em>blue</em>. Drag the text on the canvas.</div></div>
               <div class="f" id="fTagWrap" style="display:none"><label>Outro line</label><input id="fTag" oninput="state.tag=this.value;sync()" placeholder="Talk to a [Human]."></div>
               <div class="f" id="fSubWrap"><label>Subhead</label><textarea id="fSub" oninput="sync()"></textarea></div>
               <div class="f" id="fCtaWrap"><label>Button</label><input id="fCta" oninput="sync()" placeholder="None"></div>
+              <div class="f" id="fSizeWrap"><label>Size</label><div class="slider"><input type="range" min=".6" max="1.6" step=".05" value="1" id="fSize" oninput="sync()"><b id="fSizeV">100%</b></div></div>
+              <div class="f" id="fAlignWrap"><label>Align</label><div class="seg" style="display:inline-flex"><button class="on" onclick="align(this,false)">Left</button><button onclick="align(this,true)">Center</button></div></div>
             </div>
             <div class="sec" id="secBg">
-              <h3>Background <button class="link" onclick="openPicker('bg')">All</button></h3>
+              <h3>Background <button class="link" onclick="openDrawer('bg')">Browse</button></h3>
               <div class="sw" id="sw"></div>
             </div>
+            <div class="sec" id="secGfx">
+              <h3>Illustration <button class="link" onclick="openDrawer('gfx')">Browse</button></h3>
+              <div class="sw" id="gfxsw"></div>
+              <div class="f" id="gfxSizeWrap" style="margin-top:10px;display:none"><label>Size</label><div class="slider"><input type="range" min=".1" max=".7" step=".01" value=".3" id="gfxSize" oninput="state.gfx.s=+this.value;sync()"><b></b></div></div>
+            </div>
             <div class="sec" id="secShot">
-              <h3>Product shot <button class="link" onclick="openPicker('shot')">Pick</button></h3>
+              <h3>Product shot <button class="link" onclick="openDrawer('shot')">Browse</button></h3>
               <div class="sw" id="shotsw"></div>
               <label class="btn sm" style="margin-top:10px">Upload screenshot<input type="file" accept="image/*" style="display:none" onchange="uploadShot(this.files[0])"></label>
             </div>
-            <div class="sec" id="secLayout">
-              <h3>Layout</h3>
-              <div class="two">
-                <div class="f"><label>Position</label><div class="pos" id="pos"></div></div>
-                <div class="f"><label>Align</label><div class="seg" style="display:inline-flex"><button class="on" onclick="align(this,false)">Left</button><button onclick="align(this,true)">Center</button></div></div>
-              </div>
+            <div class="sec" id="secMotion">
+              <h3>Motion</h3>
+              <div class="f"><label>Hook</label><div class="seg" id="anim" style="display:inline-flex"><button class="on" onclick="setAnim(this,'typed')">Typed</button><button onclick="setAnim(this,'rise')">Rise</button><button onclick="setAnim(this,'words')">Words</button></div></div>
+              <div class="f" style="margin-top:8px"><label>Outro</label><div class="seg" id="outroanim" style="display:inline-flex"><button class="on" onclick="setOutro(this,'leo')">Leo spins in</button><button onclick="setOutro(this,'fade')">Fade</button></div></div>
+              <div class="f" style="margin-top:8px"><label>Theme</label><div class="seg" style="display:inline-flex"><button class="on" onclick="vtheme(this,false)">White</button><button onclick="vtheme(this,true)">Black</button></div></div>
             </div>
             <div class="sec" id="secTiming">
               <h3>Timing</h3>
               <div class="f"><label>Hook</label><div class="slider"><input type="range" min="1.5" max="6" step=".5" value="3" id="dHook" oninput="syncBeats()"><b id="dHookV">3s</b></div></div>
               <div class="f"><label>Product</label><div class="slider"><input type="range" min="1.5" max="8" step=".5" value="3" id="dShot" oninput="syncBeats()"><b id="dShotV">3s</b></div></div>
               <div class="f"><label>Outro</label><div class="slider"><input type="range" min="1.5" max="6" step=".5" value="3" id="dOutro" oninput="syncBeats()"><b id="dOutroV">3s</b></div></div>
-              <div class="f" style="margin-top:8px"><label>Theme</label><div class="seg" style="display:inline-flex"><button class="on" onclick="vtheme(this,false)">White</button><button onclick="vtheme(this,true)">Black</button></div></div>
             </div>
             <div class="sec" id="secMusic">
               <h3>Music</h3>
@@ -136,6 +144,11 @@
             </div>
             <div class="cook"><button class="btn black" id="cookbtn" onclick="exportCurrent()">Download<span class="kbd">⌘⏎</span></button><small id="cooknote"></small></div>
           </div>
+        </div>
+        <!-- inline asset drawer -->
+        <div class="drawer" id="drawer">
+          <div class="dhead"><div class="tabs" id="dtabs" style="margin:0"></div><div class="search" style="width:220px;height:32px"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="dq" placeholder="Search" oninput="renderDrawer()"></div><button class="btn sm" onclick="closeDrawer()">Done</button></div>
+          <div class="grid" id="dgrid"></div>
         </div>
       </div>
     </section>

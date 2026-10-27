@@ -310,5 +310,13 @@ host.addEventListener('pointerenter',()=>peek('look'));
 host.addEventListener('pointerdown',e=>{e.preventDefault();if(!pl.face||pl.spun)pl.play('wake',['smile','bye']);else boopAt=performance.now()});
 setTimeout(()=>peek('look'),1800);
 setInterval(()=>{if(document.visibilityState==='visible'&&Math.random()<.6)peek()},14000);
-window.leo={peek,work:()=>pl.play('loading'),rest:()=>pl.play('logo'),player:pl};
+/* bake: render the loader → logo settle as frames for the video outro */
+async function bake(size,dark){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','-30 -40 1000 1010');svg.setAttribute('width',size);svg.setAttribute('height',size);svg.style.position='fixed';svg.style.left='-9999px';document.body.appendChild(svg);
+  const p2=new Player({zs:1,earIn:0,spin:90},['spinLoop','fromSpinQ'],false,false);const inst=makeInstance(svg,'bake_',{player:p2,eyeK:1,shine:false});
+  const frames=[];const fps=30,T=2.0;let now=0;
+  for(let i=0;i<=T*fps;i++){p2.advance(1/fps,now);now+=1000/fps;render(inst,now,1/fps);
+    const s=new XMLSerializer().serializeToString(svg).replace(/class="ink"/g,`fill="${dark?'#fff':'#111'}"`).replace(/ style="[^"]*"/,'');
+    const im=new Image();await new Promise(r=>{im.onload=r;im.onerror=r;im.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(s)))});frames.push(im)}
+  svg.remove();return frames}
+window.leo={peek,work:()=>pl.play('loading'),rest:()=>pl.play('logo'),player:pl,bake};
 })();

@@ -4326,6 +4326,3440 @@
     "icon",
     "x"
    ]
+  },
+  {
+   "id": "cat-accounting",
+   "type": "image",
+   "group": "category",
+   "title": "accounting",
+   "src": "assets/categories/accounting.png",
+   "tags": [
+    "category",
+    "illustration",
+    "accounting"
+   ]
+  },
+  {
+   "id": "cat-act",
+   "type": "image",
+   "group": "category",
+   "title": "act",
+   "src": "assets/categories/act.png",
+   "tags": [
+    "category",
+    "illustration",
+    "act"
+   ]
+  },
+  {
+   "id": "cat-ai",
+   "type": "image",
+   "group": "category",
+   "title": "ai",
+   "src": "assets/categories/ai.png",
+   "tags": [
+    "category",
+    "illustration",
+    "ai"
+   ]
+  },
+  {
+   "id": "cat-ai-careers",
+   "type": "image",
+   "group": "category",
+   "title": "ai careers",
+   "src": "assets/categories/ai-careers.png",
+   "tags": [
+    "category",
+    "illustration",
+    "ai",
+    "careers"
+   ]
+  },
+  {
+   "id": "cat-ai-for-businesses",
+   "type": "image",
+   "group": "category",
+   "title": "ai for businesses",
+   "src": "assets/categories/ai-for-businesses.png",
+   "tags": [
+    "category",
+    "illustration",
+    "ai",
+    "for",
+    "businesses"
+   ]
+  },
+  {
+   "id": "cat-ai-for-organizations",
+   "type": "image",
+   "group": "category",
+   "title": "ai for organizations",
+   "src": "assets/categories/ai-for-organizations.png",
+   "tags": [
+    "category",
+    "illustration",
+    "ai",
+    "for",
+    "organizations"
+   ]
+  },
+  {
+   "id": "cat-ai-ml-engineering",
+   "type": "image",
+   "group": "category",
+   "title": "ai ml engineering",
+   "src": "assets/categories/ai-ml-engineering.png",
+   "tags": [
+    "category",
+    "illustration",
+    "ai",
+    "ml",
+    "engineering"
+   ]
+  },
+  {
+   "id": "cat-ai-product-management",
+   "type": "image",
+   "group": "category",
+   "title": "ai product management",
+   "src": "assets/categories/ai-product-management.png",
+   "tags": [
+    "category",
+    "illustration",
+    "ai",
+    "product",
+    "management"
+   ]
+  },
+  {
+   "id": "cat-ai-productivity-and-tooling",
+   "type": "image",
+   "group": "category",
+   "title": "ai productivity and tooling",
+   "src": "assets/categories/ai-productivity-and-tooling.png",
+   "tags": [
+    "category",
+    "illustration",
+    "ai",
+    "productivity",
+    "and",
+    "tooling"
+   ]
+  },
+  {
+   "id": "cat-artificial-intelligence",
+   "type": "image",
+   "group": "category",
+   "title": "artificial intelligence",
+   "src": "assets/categories/artificial-intelligence.png",
+   "tags": [
+    "category",
+    "illustration",
+    "artificial",
+    "intelligence"
+   ]
+  },
+  {
+   "id": "cat-business-analytics-and-intelligence",
+   "type": "image",
+   "group": "category",
+   "title": "business analytics and intelligence",
+   "src": "assets/categories/business-analytics-and-intelligence.png",
+   "tags": [
+    "category",
+    "illustration",
+    "business",
+    "analytics",
+    "and",
+    "intelligence"
+   ]
+  },
+  {
+   "id": "cat-business-operations",
+   "type": "image",
+   "group": "category",
+   "title": "business operations",
+   "src": "assets/categories/business-operations.png",
+   "tags": [
+    "category",
+    "illustration",
+    "business",
+    "operations"
+   ]
+  },
+  {
+   "id": "cat-capital-markets",
+   "type": "image",
+   "group": "category",
+   "title": "capital markets",
+   "src": "assets/categories/capital-markets.png",
+   "tags": [
+    "category",
+    "illustration",
+    "capital",
+    "markets"
+   ]
+  },
+  {
+   "id": "cat-career-coaching",
+   "type": "image",
+   "group": "category",
+   "title": "career coaching",
+   "src": "assets/categories/career-coaching.png",
+   "tags": [
+    "category",
+    "illustration",
+    "career",
+    "coaching"
+   ]
+  },
+  {
+   "id": "cat-college",
+   "type": "image",
+   "group": "category",
+   "title": "college",
+   "src": "assets/categories/college.png",
+   "tags": [
+    "category",
+    "illustration",
+    "college"
+   ]
+  },
+  {
+   "id": "cat-data-science",
+   "type": "image",
+   "group": "category",
+   "title": "data science",
+   "src": "assets/categories/data-science.png",
+   "tags": [
+    "category",
+    "illustration",
+    "data",
+    "science"
+   ]
+  },
+  {
+   "id": "cat-dental-school",
+   "type": "image",
+   "group": "category",
+   "title": "dental school",
+   "src": "assets/categories/dental-school.png",
+   "tags": [
+    "category",
+    "illustration",
+    "dental",
+    "school"
+   ]
+  },
+  {
+   "id": "cat-economic-consulting",
+   "type": "image",
+   "group": "category",
+   "title": "economic consulting",
+   "src": "assets/categories/economic-consulting.png",
+   "tags": [
+    "category",
+    "illustration",
+    "economic",
+    "consulting"
+   ]
+  },
+  {
+   "id": "cat-equity-research",
+   "type": "image",
+   "group": "category",
+   "title": "equity research",
+   "src": "assets/categories/equity-research.png",
+   "tags": [
+    "category",
+    "illustration",
+    "equity",
+    "research"
+   ]
+  },
+  {
+   "id": "cat-executive-coaching",
+   "type": "image",
+   "group": "category",
+   "title": "executive coaching",
+   "src": "assets/categories/executive-coaching.png",
+   "tags": [
+    "category",
+    "illustration",
+    "executive",
+    "coaching"
+   ]
+  },
+  {
+   "id": "cat-financial-planning",
+   "type": "image",
+   "group": "category",
+   "title": "financial planning",
+   "src": "assets/categories/financial-planning.png",
+   "tags": [
+    "category",
+    "illustration",
+    "financial",
+    "planning"
+   ]
+  },
+  {
+   "id": "cat-gmat",
+   "type": "image",
+   "group": "category",
+   "title": "gmat",
+   "src": "assets/categories/gmat.png",
+   "tags": [
+    "category",
+    "illustration",
+    "gmat"
+   ]
+  },
+  {
+   "id": "cat-gre",
+   "type": "image",
+   "group": "category",
+   "title": "gre",
+   "src": "assets/categories/gre.png",
+   "tags": [
+    "category",
+    "illustration",
+    "gre"
+   ]
+  },
+  {
+   "id": "cat-hedge-fund",
+   "type": "image",
+   "group": "category",
+   "title": "hedge fund",
+   "src": "assets/categories/hedge-fund.png",
+   "tags": [
+    "category",
+    "illustration",
+    "hedge",
+    "fund"
+   ]
+  },
+  {
+   "id": "cat-human-resources",
+   "type": "image",
+   "group": "category",
+   "title": "human resources",
+   "src": "assets/categories/human-resources.png",
+   "tags": [
+    "category",
+    "illustration",
+    "human",
+    "resources"
+   ]
+  },
+  {
+   "id": "cat-investment-banking",
+   "type": "image",
+   "group": "category",
+   "title": "investment banking",
+   "src": "assets/categories/investment-banking.png",
+   "tags": [
+    "category",
+    "illustration",
+    "investment",
+    "banking"
+   ]
+  },
+  {
+   "id": "cat-law-school",
+   "type": "image",
+   "group": "category",
+   "title": "law school",
+   "src": "assets/categories/law-school.png",
+   "tags": [
+    "category",
+    "illustration",
+    "law",
+    "school"
+   ]
+  },
+  {
+   "id": "cat-leadership-coaching",
+   "type": "image",
+   "group": "category",
+   "title": "leadership coaching",
+   "src": "assets/categories/leadership-coaching.png",
+   "tags": [
+    "category",
+    "illustration",
+    "leadership",
+    "coaching"
+   ]
+  },
+  {
+   "id": "cat-legal-practice",
+   "type": "image",
+   "group": "category",
+   "title": "legal practice",
+   "src": "assets/categories/legal-practice.png",
+   "tags": [
+    "category",
+    "illustration",
+    "legal",
+    "practice"
+   ]
+  },
+  {
+   "id": "cat-lsat",
+   "type": "image",
+   "group": "category",
+   "title": "lsat",
+   "src": "assets/categories/lsat.png",
+   "tags": [
+    "category",
+    "illustration",
+    "lsat"
+   ]
+  },
+  {
+   "id": "cat-management-consulting",
+   "type": "image",
+   "group": "category",
+   "title": "management consulting",
+   "src": "assets/categories/management-consulting.png",
+   "tags": [
+    "category",
+    "illustration",
+    "management",
+    "consulting"
+   ]
+  },
+  {
+   "id": "cat-marketing",
+   "type": "image",
+   "group": "category",
+   "title": "marketing",
+   "src": "assets/categories/marketing.png",
+   "tags": [
+    "category",
+    "illustration",
+    "marketing"
+   ]
+  },
+  {
+   "id": "cat-masters-program",
+   "type": "image",
+   "group": "category",
+   "title": "masters program",
+   "src": "assets/categories/masters-program.png",
+   "tags": [
+    "category",
+    "illustration",
+    "masters",
+    "program"
+   ]
+  },
+  {
+   "id": "cat-mba",
+   "type": "image",
+   "group": "category",
+   "title": "mba",
+   "src": "assets/categories/mba.png",
+   "tags": [
+    "category",
+    "illustration",
+    "mba"
+   ]
+  },
+  {
+   "id": "cat-mcat",
+   "type": "image",
+   "group": "category",
+   "title": "mcat",
+   "src": "assets/categories/mcat.png",
+   "tags": [
+    "category",
+    "illustration",
+    "mcat"
+   ]
+  },
+  {
+   "id": "cat-medical-school",
+   "type": "image",
+   "group": "category",
+   "title": "medical school",
+   "src": "assets/categories/medical-school.png",
+   "tags": [
+    "category",
+    "illustration",
+    "medical",
+    "school"
+   ]
+  },
+  {
+   "id": "cat-military",
+   "type": "image",
+   "group": "category",
+   "title": "military",
+   "src": "assets/categories/military.png",
+   "tags": [
+    "category",
+    "illustration",
+    "military"
+   ]
+  },
+  {
+   "id": "cat-phd-programs",
+   "type": "image",
+   "group": "category",
+   "title": "phd programs",
+   "src": "assets/categories/phd-programs.png",
+   "tags": [
+    "category",
+    "illustration",
+    "phd",
+    "programs"
+   ]
+  },
+  {
+   "id": "cat-placeholder-image",
+   "type": "image",
+   "group": "category",
+   "title": "placeholder image",
+   "src": "assets/categories/placeholder-image.png",
+   "tags": [
+    "category",
+    "illustration",
+    "placeholder",
+    "image"
+   ]
+  },
+  {
+   "id": "cat-private-equity",
+   "type": "image",
+   "group": "category",
+   "title": "private equity",
+   "src": "assets/categories/private-equity.png",
+   "tags": [
+    "category",
+    "illustration",
+    "private",
+    "equity"
+   ]
+  },
+  {
+   "id": "cat-product-management",
+   "type": "image",
+   "group": "category",
+   "title": "product management",
+   "src": "assets/categories/product-management.png",
+   "tags": [
+    "category",
+    "illustration",
+    "product",
+    "management"
+   ]
+  },
+  {
+   "id": "cat-product-marketing",
+   "type": "image",
+   "group": "category",
+   "title": "product marketing",
+   "src": "assets/categories/product-marketing.png",
+   "tags": [
+    "category",
+    "illustration",
+    "product",
+    "marketing"
+   ]
+  },
+  {
+   "id": "cat-real-estate",
+   "type": "image",
+   "group": "category",
+   "title": "real estate",
+   "src": "assets/categories/real-estate.png",
+   "tags": [
+    "category",
+    "illustration",
+    "real",
+    "estate"
+   ]
+  },
+  {
+   "id": "cat-sat",
+   "type": "image",
+   "group": "category",
+   "title": "sat",
+   "src": "assets/categories/sat.png",
+   "tags": [
+    "category",
+    "illustration",
+    "sat"
+   ]
+  },
+  {
+   "id": "cat-search-fund",
+   "type": "image",
+   "group": "category",
+   "title": "search fund",
+   "src": "assets/categories/search-fund.png",
+   "tags": [
+    "category",
+    "illustration",
+    "search",
+    "fund"
+   ]
+  },
+  {
+   "id": "cat-software-engineering",
+   "type": "image",
+   "group": "category",
+   "title": "software engineering",
+   "src": "assets/categories/software-engineering.png",
+   "tags": [
+    "category",
+    "illustration",
+    "software",
+    "engineering"
+   ]
+  },
+  {
+   "id": "cat-startups",
+   "type": "image",
+   "group": "category",
+   "title": "startups",
+   "src": "assets/categories/startups.png",
+   "tags": [
+    "category",
+    "illustration",
+    "startups"
+   ]
+  },
+  {
+   "id": "cat-toefl",
+   "type": "image",
+   "group": "category",
+   "title": "toefl",
+   "src": "assets/categories/toefl.png",
+   "tags": [
+    "category",
+    "illustration",
+    "toefl"
+   ]
+  },
+  {
+   "id": "cat-venture-capital",
+   "type": "image",
+   "group": "category",
+   "title": "venture capital",
+   "src": "assets/categories/venture-capital.png",
+   "tags": [
+    "category",
+    "illustration",
+    "venture",
+    "capital"
+   ]
+  },
+  {
+   "id": "cat-visual-arts",
+   "type": "image",
+   "group": "category",
+   "title": "visual arts",
+   "src": "assets/categories/visual-arts.png",
+   "tags": [
+    "category",
+    "illustration",
+    "visual",
+    "arts"
+   ]
+  },
+  {
+   "id": "org-500_Global",
+   "type": "image",
+   "group": "org",
+   "title": "500_Global",
+   "src": "assets/orgs/500_Global.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "500_Global"
+   ]
+  },
+  {
+   "id": "org-Accel",
+   "type": "image",
+   "group": "org",
+   "title": "Accel",
+   "src": "assets/orgs/Accel.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Accel"
+   ]
+  },
+  {
+   "id": "org-Accenture",
+   "type": "image",
+   "group": "org",
+   "title": "Accenture",
+   "src": "assets/orgs/Accenture.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Accenture"
+   ]
+  },
+  {
+   "id": "org-Adobe",
+   "type": "image",
+   "group": "org",
+   "title": "Adobe",
+   "src": "assets/orgs/Adobe.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Adobe"
+   ]
+  },
+  {
+   "id": "org-Advent_International",
+   "type": "image",
+   "group": "org",
+   "title": "Advent_International",
+   "src": "assets/orgs/Advent_International.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Advent_International"
+   ]
+  },
+  {
+   "id": "org-Airbnb",
+   "type": "image",
+   "group": "org",
+   "title": "Airbnb",
+   "src": "assets/orgs/Airbnb.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Airbnb"
+   ]
+  },
+  {
+   "id": "org-Airtable",
+   "type": "image",
+   "group": "org",
+   "title": "Airtable",
+   "src": "assets/orgs/Airtable.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Airtable"
+   ]
+  },
+  {
+   "id": "org-Alumni_Ventures",
+   "type": "image",
+   "group": "org",
+   "title": "Alumni_Ventures",
+   "src": "assets/orgs/Alumni_Ventures.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Alumni_Ventures"
+   ]
+  },
+  {
+   "id": "org-Amazon_AWS",
+   "type": "image",
+   "group": "org",
+   "title": "Amazon_AWS",
+   "src": "assets/orgs/Amazon_AWS.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Amazon_AWS"
+   ]
+  },
+  {
+   "id": "org-American_Express",
+   "type": "image",
+   "group": "org",
+   "title": "American_Express",
+   "src": "assets/orgs/American_Express.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "American_Express"
+   ]
+  },
+  {
+   "id": "org-Amplitude",
+   "type": "image",
+   "group": "org",
+   "title": "Amplitude",
+   "src": "assets/orgs/Amplitude.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Amplitude"
+   ]
+  },
+  {
+   "id": "org-Andreessen_Horowitz_(a16z)",
+   "type": "image",
+   "group": "org",
+   "title": "Andreessen_Horowitz_(a16z)",
+   "src": "assets/orgs/Andreessen_Horowitz_(a16z).png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Andreessen_Horowitz_(a16z)"
+   ]
+  },
+  {
+   "id": "org-Anthropic",
+   "type": "image",
+   "group": "org",
+   "title": "Anthropic",
+   "src": "assets/orgs/Anthropic.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Anthropic"
+   ]
+  },
+  {
+   "id": "org-Apple",
+   "type": "image",
+   "group": "org",
+   "title": "Apple",
+   "src": "assets/orgs/Apple.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Apple"
+   ]
+  },
+  {
+   "id": "org-Atlassian",
+   "type": "image",
+   "group": "org",
+   "title": "Atlassian",
+   "src": "assets/orgs/Atlassian.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Atlassian"
+   ]
+  },
+  {
+   "id": "org-Bain_Capital",
+   "type": "image",
+   "group": "org",
+   "title": "Bain_Capital",
+   "src": "assets/orgs/Bain_Capital.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Bain_Capital"
+   ]
+  },
+  {
+   "id": "org-Bain_Capital_Ventures",
+   "type": "image",
+   "group": "org",
+   "title": "Bain_Capital_Ventures",
+   "src": "assets/orgs/Bain_Capital_Ventures.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Bain_Capital_Ventures"
+   ]
+  },
+  {
+   "id": "org-Bank_of_America",
+   "type": "image",
+   "group": "org",
+   "title": "Bank_of_America",
+   "src": "assets/orgs/Bank_of_America.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Bank_of_America"
+   ]
+  },
+  {
+   "id": "org-Battery_Ventures",
+   "type": "image",
+   "group": "org",
+   "title": "Battery_Ventures",
+   "src": "assets/orgs/Battery_Ventures.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Battery_Ventures"
+   ]
+  },
+  {
+   "id": "org-Benchmark",
+   "type": "image",
+   "group": "org",
+   "title": "Benchmark",
+   "src": "assets/orgs/Benchmark.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Benchmark"
+   ]
+  },
+  {
+   "id": "org-Bessemer_Venture_Partners",
+   "type": "image",
+   "group": "org",
+   "title": "Bessemer_Venture_Partners",
+   "src": "assets/orgs/Bessemer_Venture_Partners.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Bessemer_Venture_Partners"
+   ]
+  },
+  {
+   "id": "org-Blackstone",
+   "type": "image",
+   "group": "org",
+   "title": "Blackstone",
+   "src": "assets/orgs/Blackstone.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Blackstone"
+   ]
+  },
+  {
+   "id": "org-Boston_Consulting_Group",
+   "type": "image",
+   "group": "org",
+   "title": "Boston_Consulting_Group",
+   "src": "assets/orgs/Boston_Consulting_Group.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Boston_Consulting_Group"
+   ]
+  },
+  {
+   "id": "org-Brex",
+   "type": "image",
+   "group": "org",
+   "title": "Brex",
+   "src": "assets/orgs/Brex.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Brex"
+   ]
+  },
+  {
+   "id": "org-Brigham_Young_University",
+   "type": "image",
+   "group": "org",
+   "title": "Brigham_Young_University",
+   "src": "assets/orgs/Brigham_Young_University.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Brigham_Young_University"
+   ]
+  },
+  {
+   "id": "org-C3_AI",
+   "type": "image",
+   "group": "org",
+   "title": "C3_AI",
+   "src": "assets/orgs/C3_AI.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "C3_AI"
+   ]
+  },
+  {
+   "id": "org-Canva",
+   "type": "image",
+   "group": "org",
+   "title": "Canva",
+   "src": "assets/orgs/Canva.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Canva"
+   ]
+  },
+  {
+   "id": "org-Capital_One",
+   "type": "image",
+   "group": "org",
+   "title": "Capital_One",
+   "src": "assets/orgs/Capital_One.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Capital_One"
+   ]
+  },
+  {
+   "id": "org-Centerbridge_Partners",
+   "type": "image",
+   "group": "org",
+   "title": "Centerbridge_Partners",
+   "src": "assets/orgs/Centerbridge_Partners.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Centerbridge_Partners"
+   ]
+  },
+  {
+   "id": "org-Character.AI",
+   "type": "image",
+   "group": "org",
+   "title": "Character.AI",
+   "src": "assets/orgs/Character.AI.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Character.AI"
+   ]
+  },
+  {
+   "id": "org-Chime",
+   "type": "image",
+   "group": "org",
+   "title": "Chime",
+   "src": "assets/orgs/Chime.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Chime"
+   ]
+  },
+  {
+   "id": "org-Citigroup",
+   "type": "image",
+   "group": "org",
+   "title": "Citigroup",
+   "src": "assets/orgs/Citigroup.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Citigroup"
+   ]
+  },
+  {
+   "id": "org-Cloudflare",
+   "type": "image",
+   "group": "org",
+   "title": "Cloudflare",
+   "src": "assets/orgs/Cloudflare.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Cloudflare"
+   ]
+  },
+  {
+   "id": "org-Coatue_Management",
+   "type": "image",
+   "group": "org",
+   "title": "Coatue_Management",
+   "src": "assets/orgs/Coatue_Management.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Coatue_Management"
+   ]
+  },
+  {
+   "id": "org-Coca-Cola",
+   "type": "image",
+   "group": "org",
+   "title": "Coca Cola",
+   "src": "assets/orgs/Coca-Cola.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Coca",
+    "Cola"
+   ]
+  },
+  {
+   "id": "org-Cohere",
+   "type": "image",
+   "group": "org",
+   "title": "Cohere",
+   "src": "assets/orgs/Cohere.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Cohere"
+   ]
+  },
+  {
+   "id": "org-Coinbase",
+   "type": "image",
+   "group": "org",
+   "title": "Coinbase",
+   "src": "assets/orgs/Coinbase.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Coinbase"
+   ]
+  },
+  {
+   "id": "org-Columbia_Business_School",
+   "type": "image",
+   "group": "org",
+   "title": "Columbia_Business_School",
+   "src": "assets/orgs/Columbia_Business_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Columbia_Business_School"
+   ]
+  },
+  {
+   "id": "org-Columbia_Law_School",
+   "type": "image",
+   "group": "org",
+   "title": "Columbia_Law_School",
+   "src": "assets/orgs/Columbia_Law_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Columbia_Law_School"
+   ]
+  },
+  {
+   "id": "org-Columbia_SIPA",
+   "type": "image",
+   "group": "org",
+   "title": "Columbia_SIPA",
+   "src": "assets/orgs/Columbia_SIPA.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Columbia_SIPA"
+   ]
+  },
+  {
+   "id": "org-Columbia_University_College_of_Dental_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "Columbia_University_College_of_Dental_Medicine",
+   "src": "assets/orgs/Columbia_University_College_of_Dental_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Columbia_University_College_of_Dental_Medicine"
+   ]
+  },
+  {
+   "id": "org-Columbia_University_Vagelos_College_of_Physicians",
+   "type": "image",
+   "group": "org",
+   "title": "Columbia_University_Vagelos_College_of_Physicians",
+   "src": "assets/orgs/Columbia_University_Vagelos_College_of_Physicians.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Columbia_University_Vagelos_College_of_Physicians"
+   ]
+  },
+  {
+   "id": "org-Cornell_University",
+   "type": "image",
+   "group": "org",
+   "title": "Cornell_University",
+   "src": "assets/orgs/Cornell_University.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Cornell_University"
+   ]
+  },
+  {
+   "id": "org-Cursor",
+   "type": "image",
+   "group": "org",
+   "title": "Cursor",
+   "src": "assets/orgs/Cursor.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Cursor"
+   ]
+  },
+  {
+   "id": "org-Darden_School_of_Business_(UVA)",
+   "type": "image",
+   "group": "org",
+   "title": "Darden_School_of_Business_(UVA)",
+   "src": "assets/orgs/Darden_School_of_Business_(UVA).png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Darden_School_of_Business_(UVA)"
+   ]
+  },
+  {
+   "id": "org-Dartmouth_Tuck_School_of_Business",
+   "type": "image",
+   "group": "org",
+   "title": "Dartmouth_Tuck_School_of_Business",
+   "src": "assets/orgs/Dartmouth_Tuck_School_of_Business.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Dartmouth_Tuck_School_of_Business"
+   ]
+  },
+  {
+   "id": "org-Databricks",
+   "type": "image",
+   "group": "org",
+   "title": "Databricks",
+   "src": "assets/orgs/Databricks.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Databricks"
+   ]
+  },
+  {
+   "id": "org-Datadog",
+   "type": "image",
+   "group": "org",
+   "title": "Datadog",
+   "src": "assets/orgs/Datadog.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Datadog"
+   ]
+  },
+  {
+   "id": "org-DeepMind",
+   "type": "image",
+   "group": "org",
+   "title": "DeepMind",
+   "src": "assets/orgs/DeepMind.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "DeepMind"
+   ]
+  },
+  {
+   "id": "org-Deloitte",
+   "type": "image",
+   "group": "org",
+   "title": "Deloitte",
+   "src": "assets/orgs/Deloitte.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Deloitte"
+   ]
+  },
+  {
+   "id": "org-Deutsche_Bank",
+   "type": "image",
+   "group": "org",
+   "title": "Deutsche_Bank",
+   "src": "assets/orgs/Deutsche_Bank.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Deutsche_Bank"
+   ]
+  },
+  {
+   "id": "org-Duke_Fuqua_School_of_Business",
+   "type": "image",
+   "group": "org",
+   "title": "Duke_Fuqua_School_of_Business",
+   "src": "assets/orgs/Duke_Fuqua_School_of_Business.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Duke_Fuqua_School_of_Business"
+   ]
+  },
+  {
+   "id": "org-Duke_University_School_of_Law",
+   "type": "image",
+   "group": "org",
+   "title": "Duke_University_School_of_Law",
+   "src": "assets/orgs/Duke_University_School_of_Law.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Duke_University_School_of_Law"
+   ]
+  },
+  {
+   "id": "org-Duke_University_School_of_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "Duke_University_School_of_Medicine",
+   "src": "assets/orgs/Duke_University_School_of_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Duke_University_School_of_Medicine"
+   ]
+  },
+  {
+   "id": "org-EY-Parthenon",
+   "type": "image",
+   "group": "org",
+   "title": "EY Parthenon",
+   "src": "assets/orgs/EY-Parthenon.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "EY",
+    "Parthenon"
+   ]
+  },
+  {
+   "id": "org-Eli_Lilly",
+   "type": "image",
+   "group": "org",
+   "title": "Eli_Lilly",
+   "src": "assets/orgs/Eli_Lilly.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Eli_Lilly"
+   ]
+  },
+  {
+   "id": "org-Evercore",
+   "type": "image",
+   "group": "org",
+   "title": "Evercore",
+   "src": "assets/orgs/Evercore.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Evercore"
+   ]
+  },
+  {
+   "id": "org-Figma",
+   "type": "image",
+   "group": "org",
+   "title": "Figma",
+   "src": "assets/orgs/Figma.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Figma"
+   ]
+  },
+  {
+   "id": "org-Financial_Technology_Partners",
+   "type": "image",
+   "group": "org",
+   "title": "Financial_Technology_Partners",
+   "src": "assets/orgs/Financial_Technology_Partners.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Financial_Technology_Partners"
+   ]
+  },
+  {
+   "id": "org-First_Round_Capital",
+   "type": "image",
+   "group": "org",
+   "title": "First_Round_Capital",
+   "src": "assets/orgs/First_Round_Capital.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "First_Round_Capital"
+   ]
+  },
+  {
+   "id": "org-Ford_Motor_Company",
+   "type": "image",
+   "group": "org",
+   "title": "Ford_Motor_Company",
+   "src": "assets/orgs/Ford_Motor_Company.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Ford_Motor_Company"
+   ]
+  },
+  {
+   "id": "org-Founders_Fund",
+   "type": "image",
+   "group": "org",
+   "title": "Founders_Fund",
+   "src": "assets/orgs/Founders_Fund.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Founders_Fund"
+   ]
+  },
+  {
+   "id": "org-Gartner",
+   "type": "image",
+   "group": "org",
+   "title": "Gartner",
+   "src": "assets/orgs/Gartner.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Gartner"
+   ]
+  },
+  {
+   "id": "org-Genentech",
+   "type": "image",
+   "group": "org",
+   "title": "Genentech",
+   "src": "assets/orgs/Genentech.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Genentech"
+   ]
+  },
+  {
+   "id": "org-General_Catalyst",
+   "type": "image",
+   "group": "org",
+   "title": "General_Catalyst",
+   "src": "assets/orgs/General_Catalyst.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "General_Catalyst"
+   ]
+  },
+  {
+   "id": "org-Georgetown_McCourt_School_of_Public_Policy",
+   "type": "image",
+   "group": "org",
+   "title": "Georgetown_McCourt_School_of_Public_Policy",
+   "src": "assets/orgs/Georgetown_McCourt_School_of_Public_Policy.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Georgetown_McCourt_School_of_Public_Policy"
+   ]
+  },
+  {
+   "id": "org-Georgetown_University_Law_Center",
+   "type": "image",
+   "group": "org",
+   "title": "Georgetown_University_Law_Center",
+   "src": "assets/orgs/Georgetown_University_Law_Center.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Georgetown_University_Law_Center"
+   ]
+  },
+  {
+   "id": "org-Glean",
+   "type": "image",
+   "group": "org",
+   "title": "Glean",
+   "src": "assets/orgs/Glean.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Glean"
+   ]
+  },
+  {
+   "id": "org-Goldman_Sachs",
+   "type": "image",
+   "group": "org",
+   "title": "Goldman_Sachs",
+   "src": "assets/orgs/Goldman_Sachs.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Goldman_Sachs"
+   ]
+  },
+  {
+   "id": "org-Google",
+   "type": "image",
+   "group": "org",
+   "title": "Google",
+   "src": "assets/orgs/Google.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Google"
+   ]
+  },
+  {
+   "id": "org-Google_DeepMind",
+   "type": "image",
+   "group": "org",
+   "title": "Google_DeepMind",
+   "src": "assets/orgs/Google_DeepMind.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Google_DeepMind"
+   ]
+  },
+  {
+   "id": "org-Greycroft",
+   "type": "image",
+   "group": "org",
+   "title": "Greycroft",
+   "src": "assets/orgs/Greycroft.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Greycroft"
+   ]
+  },
+  {
+   "id": "org-Greylock",
+   "type": "image",
+   "group": "org",
+   "title": "Greylock",
+   "src": "assets/orgs/Greylock.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Greylock"
+   ]
+  },
+  {
+   "id": "org-HEC_Paris",
+   "type": "image",
+   "group": "org",
+   "title": "HEC_Paris",
+   "src": "assets/orgs/HEC_Paris.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "HEC_Paris"
+   ]
+  },
+  {
+   "id": "org-HSBC",
+   "type": "image",
+   "group": "org",
+   "title": "HSBC",
+   "src": "assets/orgs/HSBC.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "HSBC"
+   ]
+  },
+  {
+   "id": "org-Haas_School_of_Business_(UC_Berkeley)",
+   "type": "image",
+   "group": "org",
+   "title": "Haas_School_of_Business_(UC_Berkeley)",
+   "src": "assets/orgs/Haas_School_of_Business_(UC_Berkeley).png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Haas_School_of_Business_(UC_Berkeley)"
+   ]
+  },
+  {
+   "id": "org-Harvard_Business_School_(HBS)",
+   "type": "image",
+   "group": "org",
+   "title": "Harvard_Business_School_(HBS)",
+   "src": "assets/orgs/Harvard_Business_School_(HBS).png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Harvard_Business_School_(HBS)"
+   ]
+  },
+  {
+   "id": "org-Harvard_Law_School",
+   "type": "image",
+   "group": "org",
+   "title": "Harvard_Law_School",
+   "src": "assets/orgs/Harvard_Law_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Harvard_Law_School"
+   ]
+  },
+  {
+   "id": "org-Harvard_Medical_School",
+   "type": "image",
+   "group": "org",
+   "title": "Harvard_Medical_School",
+   "src": "assets/orgs/Harvard_Medical_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Harvard_Medical_School"
+   ]
+  },
+  {
+   "id": "org-Harvard_School_of_Dental_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "Harvard_School_of_Dental_Medicine",
+   "src": "assets/orgs/Harvard_School_of_Dental_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Harvard_School_of_Dental_Medicine"
+   ]
+  },
+  {
+   "id": "org-Harvard_University",
+   "type": "image",
+   "group": "org",
+   "title": "Harvard_University",
+   "src": "assets/orgs/Harvard_University.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Harvard_University"
+   ]
+  },
+  {
+   "id": "org-Harvey_AI",
+   "type": "image",
+   "group": "org",
+   "title": "Harvey_AI",
+   "src": "assets/orgs/Harvey_AI.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Harvey_AI"
+   ]
+  },
+  {
+   "id": "org-Hugging_Face",
+   "type": "image",
+   "group": "org",
+   "title": "Hugging_Face",
+   "src": "assets/orgs/Hugging_Face.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Hugging_Face"
+   ]
+  },
+  {
+   "id": "org-IBM",
+   "type": "image",
+   "group": "org",
+   "title": "IBM",
+   "src": "assets/orgs/IBM.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "IBM"
+   ]
+  },
+  {
+   "id": "org-INSEAD",
+   "type": "image",
+   "group": "org",
+   "title": "INSEAD",
+   "src": "assets/orgs/INSEAD.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "INSEAD"
+   ]
+  },
+  {
+   "id": "org-Indiana_University_Kelley_School_of_Business",
+   "type": "image",
+   "group": "org",
+   "title": "Indiana_University_Kelley_School_of_Business",
+   "src": "assets/orgs/Indiana_University_Kelley_School_of_Business.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Indiana_University_Kelley_School_of_Business"
+   ]
+  },
+  {
+   "id": "org-Instacart",
+   "type": "image",
+   "group": "org",
+   "title": "Instacart",
+   "src": "assets/orgs/Instacart.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Instacart"
+   ]
+  },
+  {
+   "id": "org-Jefferies",
+   "type": "image",
+   "group": "org",
+   "title": "Jefferies",
+   "src": "assets/orgs/Jefferies.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Jefferies"
+   ]
+  },
+  {
+   "id": "org-Johns_Hopkins_School_of_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "Johns_Hopkins_School_of_Medicine",
+   "src": "assets/orgs/Johns_Hopkins_School_of_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Johns_Hopkins_School_of_Medicine"
+   ]
+  },
+  {
+   "id": "org-Kearney",
+   "type": "image",
+   "group": "org",
+   "title": "Kearney",
+   "src": "assets/orgs/Kearney.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Kearney"
+   ]
+  },
+  {
+   "id": "org-Kellogg_School_of_Management",
+   "type": "image",
+   "group": "org",
+   "title": "Kellogg_School_of_Management",
+   "src": "assets/orgs/Kellogg_School_of_Management.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Kellogg_School_of_Management"
+   ]
+  },
+  {
+   "id": "org-Klaviyo",
+   "type": "image",
+   "group": "org",
+   "title": "Klaviyo",
+   "src": "assets/orgs/Klaviyo.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Klaviyo"
+   ]
+  },
+  {
+   "id": "org-Kleiner_Perkins",
+   "type": "image",
+   "group": "org",
+   "title": "Kleiner_Perkins",
+   "src": "assets/orgs/Kleiner_Perkins.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Kleiner_Perkins"
+   ]
+  },
+  {
+   "id": "org-L.E.K._Consulting",
+   "type": "image",
+   "group": "org",
+   "title": "L.E.K._Consulting",
+   "src": "assets/orgs/L.E.K._Consulting.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "L.E.K._Consulting"
+   ]
+  },
+  {
+   "id": "org-Lazard",
+   "type": "image",
+   "group": "org",
+   "title": "Lazard",
+   "src": "assets/orgs/Lazard.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Lazard"
+   ]
+  },
+  {
+   "id": "org-Leland",
+   "type": "image",
+   "group": "org",
+   "title": "Leland",
+   "src": "assets/orgs/Leland.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Leland"
+   ]
+  },
+  {
+   "id": "org-Lightspeed_Venture_Partners",
+   "type": "image",
+   "group": "org",
+   "title": "Lightspeed_Venture_Partners",
+   "src": "assets/orgs/Lightspeed_Venture_Partners.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Lightspeed_Venture_Partners"
+   ]
+  },
+  {
+   "id": "org-LinkedIn",
+   "type": "image",
+   "group": "org",
+   "title": "LinkedIn",
+   "src": "assets/orgs/LinkedIn.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "LinkedIn"
+   ]
+  },
+  {
+   "id": "org-London_Business_School",
+   "type": "image",
+   "group": "org",
+   "title": "London_Business_School",
+   "src": "assets/orgs/London_Business_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "London_Business_School"
+   ]
+  },
+  {
+   "id": "org-Loom",
+   "type": "image",
+   "group": "org",
+   "title": "Loom",
+   "src": "assets/orgs/Loom.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Loom"
+   ]
+  },
+  {
+   "id": "org-Lyft",
+   "type": "image",
+   "group": "org",
+   "title": "Lyft",
+   "src": "assets/orgs/Lyft.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Lyft"
+   ]
+  },
+  {
+   "id": "org-MIT_Sloan_School_of_Management",
+   "type": "image",
+   "group": "org",
+   "title": "MIT_Sloan_School_of_Management",
+   "src": "assets/orgs/MIT_Sloan_School_of_Management.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "MIT_Sloan_School_of_Management"
+   ]
+  },
+  {
+   "id": "org-Massachusetts_Institute_of_Technology",
+   "type": "image",
+   "group": "org",
+   "title": "Massachusetts_Institute_of_Technology",
+   "src": "assets/orgs/Massachusetts_Institute_of_Technology.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Massachusetts_Institute_of_Technology"
+   ]
+  },
+  {
+   "id": "org-Mayo_Clinic_School_of_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "Mayo_Clinic_School_of_Medicine",
+   "src": "assets/orgs/Mayo_Clinic_School_of_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Mayo_Clinic_School_of_Medicine"
+   ]
+  },
+  {
+   "id": "org-Meta_(Facebook)",
+   "type": "image",
+   "group": "org",
+   "title": "Meta_(Facebook)",
+   "src": "assets/orgs/Meta_(Facebook).png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Meta_(Facebook)"
+   ]
+  },
+  {
+   "id": "org-Microsoft",
+   "type": "image",
+   "group": "org",
+   "title": "Microsoft",
+   "src": "assets/orgs/Microsoft.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Microsoft"
+   ]
+  },
+  {
+   "id": "org-Midjourney",
+   "type": "image",
+   "group": "org",
+   "title": "Midjourney",
+   "src": "assets/orgs/Midjourney.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Midjourney"
+   ]
+  },
+  {
+   "id": "org-Millennium",
+   "type": "image",
+   "group": "org",
+   "title": "Millennium",
+   "src": "assets/orgs/Millennium.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Millennium"
+   ]
+  },
+  {
+   "id": "org-Miro",
+   "type": "image",
+   "group": "org",
+   "title": "Miro",
+   "src": "assets/orgs/Miro.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Miro"
+   ]
+  },
+  {
+   "id": "org-Mistral_AI",
+   "type": "image",
+   "group": "org",
+   "title": "Mistral_AI",
+   "src": "assets/orgs/Mistral_AI.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Mistral_AI"
+   ]
+  },
+  {
+   "id": "org-Monitor_Deloitte",
+   "type": "image",
+   "group": "org",
+   "title": "Monitor_Deloitte",
+   "src": "assets/orgs/Monitor_Deloitte.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Monitor_Deloitte"
+   ]
+  },
+  {
+   "id": "org-Morgan_Stanley",
+   "type": "image",
+   "group": "org",
+   "title": "Morgan_Stanley",
+   "src": "assets/orgs/Morgan_Stanley.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Morgan_Stanley"
+   ]
+  },
+  {
+   "id": "org-NBCUniversal",
+   "type": "image",
+   "group": "org",
+   "title": "NBCUniversal",
+   "src": "assets/orgs/NBCUniversal.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "NBCUniversal"
+   ]
+  },
+  {
+   "id": "org-NYU_Grossman_School_of_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "NYU_Grossman_School_of_Medicine",
+   "src": "assets/orgs/NYU_Grossman_School_of_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "NYU_Grossman_School_of_Medicine"
+   ]
+  },
+  {
+   "id": "org-NYU_School_of_Law",
+   "type": "image",
+   "group": "org",
+   "title": "NYU_School_of_Law",
+   "src": "assets/orgs/NYU_School_of_Law.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "NYU_School_of_Law"
+   ]
+  },
+  {
+   "id": "org-NYU_Stern_School_of_Business",
+   "type": "image",
+   "group": "org",
+   "title": "NYU_Stern_School_of_Business",
+   "src": "assets/orgs/NYU_Stern_School_of_Business.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "NYU_Stern_School_of_Business"
+   ]
+  },
+  {
+   "id": "org-Netflix",
+   "type": "image",
+   "group": "org",
+   "title": "Netflix",
+   "src": "assets/orgs/Netflix.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Netflix"
+   ]
+  },
+  {
+   "id": "org-New_Enterprise_Associates_(NEA)",
+   "type": "image",
+   "group": "org",
+   "title": "New_Enterprise_Associates_(NEA)",
+   "src": "assets/orgs/New_Enterprise_Associates_(NEA).png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "New_Enterprise_Associates_(NEA)"
+   ]
+  },
+  {
+   "id": "org-Nike",
+   "type": "image",
+   "group": "org",
+   "title": "Nike",
+   "src": "assets/orgs/Nike.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Nike"
+   ]
+  },
+  {
+   "id": "org-Norwest_Venture_Partners",
+   "type": "image",
+   "group": "org",
+   "title": "Norwest_Venture_Partners",
+   "src": "assets/orgs/Norwest_Venture_Partners.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Norwest_Venture_Partners"
+   ]
+  },
+  {
+   "id": "org-Notion",
+   "type": "image",
+   "group": "org",
+   "title": "Notion",
+   "src": "assets/orgs/Notion.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Notion"
+   ]
+  },
+  {
+   "id": "org-Oliver_Wyman",
+   "type": "image",
+   "group": "org",
+   "title": "Oliver_Wyman",
+   "src": "assets/orgs/Oliver_Wyman.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Oliver_Wyman"
+   ]
+  },
+  {
+   "id": "org-OpenAI",
+   "type": "image",
+   "group": "org",
+   "title": "OpenAI",
+   "src": "assets/orgs/OpenAI.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "OpenAI"
+   ]
+  },
+  {
+   "id": "org-Opendoor",
+   "type": "image",
+   "group": "org",
+   "title": "Opendoor",
+   "src": "assets/orgs/Opendoor.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Opendoor"
+   ]
+  },
+  {
+   "id": "org-Palantir",
+   "type": "image",
+   "group": "org",
+   "title": "Palantir",
+   "src": "assets/orgs/Palantir.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Palantir"
+   ]
+  },
+  {
+   "id": "org-PayPal",
+   "type": "image",
+   "group": "org",
+   "title": "PayPal",
+   "src": "assets/orgs/PayPal.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "PayPal"
+   ]
+  },
+  {
+   "id": "org-Perplexity_AI",
+   "type": "image",
+   "group": "org",
+   "title": "Perplexity_AI",
+   "src": "assets/orgs/Perplexity_AI.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Perplexity_AI"
+   ]
+  },
+  {
+   "id": "org-Pinterest",
+   "type": "image",
+   "group": "org",
+   "title": "Pinterest",
+   "src": "assets/orgs/Pinterest.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Pinterest"
+   ]
+  },
+  {
+   "id": "org-Plaid",
+   "type": "image",
+   "group": "org",
+   "title": "Plaid",
+   "src": "assets/orgs/Plaid.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Plaid"
+   ]
+  },
+  {
+   "id": "org-Podium",
+   "type": "image",
+   "group": "org",
+   "title": "Podium",
+   "src": "assets/orgs/Podium.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Podium"
+   ]
+  },
+  {
+   "id": "org-Princeton_School_of_Public_and_International_Affairs",
+   "type": "image",
+   "group": "org",
+   "title": "Princeton_School_of_Public_and_International_Affairs",
+   "src": "assets/orgs/Princeton_School_of_Public_and_International_Affairs.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Princeton_School_of_Public_and_International_Affairs"
+   ]
+  },
+  {
+   "id": "org-Public_Investment_Fund",
+   "type": "image",
+   "group": "org",
+   "title": "Public_Investment_Fund",
+   "src": "assets/orgs/Public_Investment_Fund.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Public_Investment_Fund"
+   ]
+  },
+  {
+   "id": "org-PwC",
+   "type": "image",
+   "group": "org",
+   "title": "PwC",
+   "src": "assets/orgs/PwC.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "PwC"
+   ]
+  },
+  {
+   "id": "org-Qualtrics",
+   "type": "image",
+   "group": "org",
+   "title": "Qualtrics",
+   "src": "assets/orgs/Qualtrics.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Qualtrics"
+   ]
+  },
+  {
+   "id": "org-RBC_Capital_Markets",
+   "type": "image",
+   "group": "org",
+   "title": "RBC_Capital_Markets",
+   "src": "assets/orgs/RBC_Capital_Markets.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "RBC_Capital_Markets"
+   ]
+  },
+  {
+   "id": "org-Ramp",
+   "type": "image",
+   "group": "org",
+   "title": "Ramp",
+   "src": "assets/orgs/Ramp.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Ramp"
+   ]
+  },
+  {
+   "id": "org-Redpoint_Ventures",
+   "type": "image",
+   "group": "org",
+   "title": "Redpoint_Ventures",
+   "src": "assets/orgs/Redpoint_Ventures.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Redpoint_Ventures"
+   ]
+  },
+  {
+   "id": "org-Retool",
+   "type": "image",
+   "group": "org",
+   "title": "Retool",
+   "src": "assets/orgs/Retool.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Retool"
+   ]
+  },
+  {
+   "id": "org-Rippling",
+   "type": "image",
+   "group": "org",
+   "title": "Rippling",
+   "src": "assets/orgs/Rippling.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Rippling"
+   ]
+  },
+  {
+   "id": "org-Robinhood",
+   "type": "image",
+   "group": "org",
+   "title": "Robinhood",
+   "src": "assets/orgs/Robinhood.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Robinhood"
+   ]
+  },
+  {
+   "id": "org-Runway_ML",
+   "type": "image",
+   "group": "org",
+   "title": "Runway_ML",
+   "src": "assets/orgs/Runway_ML.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Runway_ML"
+   ]
+  },
+  {
+   "id": "org-Salesforce",
+   "type": "image",
+   "group": "org",
+   "title": "Salesforce",
+   "src": "assets/orgs/Salesforce.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Salesforce"
+   ]
+  },
+  {
+   "id": "org-Sequoia_Capital",
+   "type": "image",
+   "group": "org",
+   "title": "Sequoia_Capital",
+   "src": "assets/orgs/Sequoia_Capital.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Sequoia_Capital"
+   ]
+  },
+  {
+   "id": "org-Snap_Snapchat",
+   "type": "image",
+   "group": "org",
+   "title": "Snap_Snapchat",
+   "src": "assets/orgs/Snap_Snapchat.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Snap_Snapchat"
+   ]
+  },
+  {
+   "id": "org-Snowflake",
+   "type": "image",
+   "group": "org",
+   "title": "Snowflake",
+   "src": "assets/orgs/Snowflake.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Snowflake"
+   ]
+  },
+  {
+   "id": "org-SoftBank_Vision_Fund",
+   "type": "image",
+   "group": "org",
+   "title": "SoftBank_Vision_Fund",
+   "src": "assets/orgs/SoftBank_Vision_Fund.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "SoftBank_Vision_Fund"
+   ]
+  },
+  {
+   "id": "org-SpaceX",
+   "type": "image",
+   "group": "org",
+   "title": "SpaceX",
+   "src": "assets/orgs/SpaceX.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "SpaceX"
+   ]
+  },
+  {
+   "id": "org-Spark_Capital",
+   "type": "image",
+   "group": "org",
+   "title": "Spark_Capital",
+   "src": "assets/orgs/Spark_Capital.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Spark_Capital"
+   ]
+  },
+  {
+   "id": "org-Spotify",
+   "type": "image",
+   "group": "org",
+   "title": "Spotify",
+   "src": "assets/orgs/Spotify.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Spotify"
+   ]
+  },
+  {
+   "id": "org-Square_Block",
+   "type": "image",
+   "group": "org",
+   "title": "Square_Block",
+   "src": "assets/orgs/Square_Block.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Square_Block"
+   ]
+  },
+  {
+   "id": "org-Stability_AI",
+   "type": "image",
+   "group": "org",
+   "title": "Stability_AI",
+   "src": "assets/orgs/Stability_AI.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Stability_AI"
+   ]
+  },
+  {
+   "id": "org-Stanford_Law_School",
+   "type": "image",
+   "group": "org",
+   "title": "Stanford_Law_School",
+   "src": "assets/orgs/Stanford_Law_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Stanford_Law_School"
+   ]
+  },
+  {
+   "id": "org-Stanford_School_of_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "Stanford_School_of_Medicine",
+   "src": "assets/orgs/Stanford_School_of_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Stanford_School_of_Medicine"
+   ]
+  },
+  {
+   "id": "org-Stanford_University",
+   "type": "image",
+   "group": "org",
+   "title": "Stanford_University",
+   "src": "assets/orgs/Stanford_University.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Stanford_University"
+   ]
+  },
+  {
+   "id": "org-Stanford_University_Graduate_School_of_Business",
+   "type": "image",
+   "group": "org",
+   "title": "Stanford_University_Graduate_School_of_Business",
+   "src": "assets/orgs/Stanford_University_Graduate_School_of_Business.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Stanford_University_Graduate_School_of_Business"
+   ]
+  },
+  {
+   "id": "org-Stripe",
+   "type": "image",
+   "group": "org",
+   "title": "Stripe",
+   "src": "assets/orgs/Stripe.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Stripe"
+   ]
+  },
+  {
+   "id": "org-Sunrun",
+   "type": "image",
+   "group": "org",
+   "title": "Sunrun",
+   "src": "assets/orgs/Sunrun.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Sunrun"
+   ]
+  },
+  {
+   "id": "org-T-Mobile",
+   "type": "image",
+   "group": "org",
+   "title": "T Mobile",
+   "src": "assets/orgs/T-Mobile.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "T",
+    "Mobile"
+   ]
+  },
+  {
+   "id": "org-TPG",
+   "type": "image",
+   "group": "org",
+   "title": "TPG",
+   "src": "assets/orgs/TPG.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "TPG"
+   ]
+  },
+  {
+   "id": "org-Target",
+   "type": "image",
+   "group": "org",
+   "title": "Target",
+   "src": "assets/orgs/Target.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Target"
+   ]
+  },
+  {
+   "id": "org-Temasek",
+   "type": "image",
+   "group": "org",
+   "title": "Temasek",
+   "src": "assets/orgs/Temasek.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Temasek"
+   ]
+  },
+  {
+   "id": "org-Texas_McCombs_School_of_Business",
+   "type": "image",
+   "group": "org",
+   "title": "Texas_McCombs_School_of_Business",
+   "src": "assets/orgs/Texas_McCombs_School_of_Business.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Texas_McCombs_School_of_Business"
+   ]
+  },
+  {
+   "id": "org-The_University_of_Chicago",
+   "type": "image",
+   "group": "org",
+   "title": "The_University_of_Chicago",
+   "src": "assets/orgs/The_University_of_Chicago.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "The_University_of_Chicago"
+   ]
+  },
+  {
+   "id": "org-The_Walt_Disney_Company",
+   "type": "image",
+   "group": "org",
+   "title": "The_Walt_Disney_Company",
+   "src": "assets/orgs/The_Walt_Disney_Company.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "The_Walt_Disney_Company"
+   ]
+  },
+  {
+   "id": "org-The_Wharton_School",
+   "type": "image",
+   "group": "org",
+   "title": "The_Wharton_School",
+   "src": "assets/orgs/The_Wharton_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "The_Wharton_School"
+   ]
+  },
+  {
+   "id": "org-Tiger_Global",
+   "type": "image",
+   "group": "org",
+   "title": "Tiger_Global",
+   "src": "assets/orgs/Tiger_Global.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Tiger_Global"
+   ]
+  },
+  {
+   "id": "org-Toast",
+   "type": "image",
+   "group": "org",
+   "title": "Toast",
+   "src": "assets/orgs/Toast.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Toast"
+   ]
+  },
+  {
+   "id": "org-Together_AI",
+   "type": "image",
+   "group": "org",
+   "title": "Together_AI",
+   "src": "assets/orgs/Together_AI.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Together_AI"
+   ]
+  },
+  {
+   "id": "org-Tufts_University_School_of_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "Tufts_University_School_of_Medicine",
+   "src": "assets/orgs/Tufts_University_School_of_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Tufts_University_School_of_Medicine"
+   ]
+  },
+  {
+   "id": "org-UCLA_Anderson",
+   "type": "image",
+   "group": "org",
+   "title": "UCLA_Anderson",
+   "src": "assets/orgs/UCLA_Anderson.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "UCLA_Anderson"
+   ]
+  },
+  {
+   "id": "org-UCSF_School_of_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "UCSF_School_of_Medicine",
+   "src": "assets/orgs/UCSF_School_of_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "UCSF_School_of_Medicine"
+   ]
+  },
+  {
+   "id": "org-UC_Berkeley_Goldman_School_of_Public_Policy",
+   "type": "image",
+   "group": "org",
+   "title": "UC_Berkeley_Goldman_School_of_Public_Policy",
+   "src": "assets/orgs/UC_Berkeley_Goldman_School_of_Public_Policy.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "UC_Berkeley_Goldman_School_of_Public_Policy"
+   ]
+  },
+  {
+   "id": "org-UNC_Kenan-Flagler_Business_School",
+   "type": "image",
+   "group": "org",
+   "title": "UNC_Kenan Flagler_Business_School",
+   "src": "assets/orgs/UNC_Kenan-Flagler_Business_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "UNC_Kenan",
+    "Flagler_Business_School"
+   ]
+  },
+  {
+   "id": "org-Uber",
+   "type": "image",
+   "group": "org",
+   "title": "Uber",
+   "src": "assets/orgs/Uber.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Uber"
+   ]
+  },
+  {
+   "id": "org-Union_Square_Ventures",
+   "type": "image",
+   "group": "org",
+   "title": "Union_Square_Ventures",
+   "src": "assets/orgs/Union_Square_Ventures.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Union_Square_Ventures"
+   ]
+  },
+  {
+   "id": "org-University_of_California_Berkeley",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_California_Berkeley",
+   "src": "assets/orgs/University_of_California_Berkeley.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_California_Berkeley"
+   ]
+  },
+  {
+   "id": "org-University_of_California_Irvine",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_California_Irvine",
+   "src": "assets/orgs/University_of_California_Irvine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_California_Irvine"
+   ]
+  },
+  {
+   "id": "org-University_of_Michigan_Ross_School_of_Business",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Michigan_Ross_School_of_Business",
+   "src": "assets/orgs/University_of_Michigan_Ross_School_of_Business.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Michigan_Ross_School_of_Business"
+   ]
+  },
+  {
+   "id": "org-University_of_Michigan_School_of_Dentistry",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Michigan_School_of_Dentistry",
+   "src": "assets/orgs/University_of_Michigan_School_of_Dentistry.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Michigan_School_of_Dentistry"
+   ]
+  },
+  {
+   "id": "org-University_of_Notre_Dame",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Notre_Dame",
+   "src": "assets/orgs/University_of_Notre_Dame.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Notre_Dame"
+   ]
+  },
+  {
+   "id": "org-University_of_Oxford",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Oxford",
+   "src": "assets/orgs/University_of_Oxford.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Oxford"
+   ]
+  },
+  {
+   "id": "org-University_of_Pennsylvania",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Pennsylvania",
+   "src": "assets/orgs/University_of_Pennsylvania.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Pennsylvania"
+   ]
+  },
+  {
+   "id": "org-University_of_Pennsylvania_Carey_Law_School",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Pennsylvania_Carey_Law_School",
+   "src": "assets/orgs/University_of_Pennsylvania_Carey_Law_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Pennsylvania_Carey_Law_School"
+   ]
+  },
+  {
+   "id": "org-University_of_Pennsylvania_School_of_Dental_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Pennsylvania_School_of_Dental_Medicine",
+   "src": "assets/orgs/University_of_Pennsylvania_School_of_Dental_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Pennsylvania_School_of_Dental_Medicine"
+   ]
+  },
+  {
+   "id": "org-University_of_Southern_California",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Southern_California",
+   "src": "assets/orgs/University_of_Southern_California.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Southern_California"
+   ]
+  },
+  {
+   "id": "org-University_of_Washington",
+   "type": "image",
+   "group": "org",
+   "title": "University_of_Washington",
+   "src": "assets/orgs/University_of_Washington.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "University_of_Washington"
+   ]
+  },
+  {
+   "id": "org-Vanderbilt_University_School_of_Medicine",
+   "type": "image",
+   "group": "org",
+   "title": "Vanderbilt_University_School_of_Medicine",
+   "src": "assets/orgs/Vanderbilt_University_School_of_Medicine.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Vanderbilt_University_School_of_Medicine"
+   ]
+  },
+  {
+   "id": "org-Vanta",
+   "type": "image",
+   "group": "org",
+   "title": "Vanta",
+   "src": "assets/orgs/Vanta.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Vanta"
+   ]
+  },
+  {
+   "id": "org-Verizon",
+   "type": "image",
+   "group": "org",
+   "title": "Verizon",
+   "src": "assets/orgs/Verizon.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Verizon"
+   ]
+  },
+  {
+   "id": "org-Warburg_Pincus",
+   "type": "image",
+   "group": "org",
+   "title": "Warburg_Pincus",
+   "src": "assets/orgs/Warburg_Pincus.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Warburg_Pincus"
+   ]
+  },
+  {
+   "id": "org-Washington_University_in_St._Louis",
+   "type": "image",
+   "group": "org",
+   "title": "Washington_University_in_St._Louis",
+   "src": "assets/orgs/Washington_University_in_St._Louis.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Washington_University_in_St._Louis"
+   ]
+  },
+  {
+   "id": "org-Wells_Fargo_Securities",
+   "type": "image",
+   "group": "org",
+   "title": "Wells_Fargo_Securities",
+   "src": "assets/orgs/Wells_Fargo_Securities.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Wells_Fargo_Securities"
+   ]
+  },
+  {
+   "id": "org-William_Blair",
+   "type": "image",
+   "group": "org",
+   "title": "William_Blair",
+   "src": "assets/orgs/William_Blair.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "William_Blair"
+   ]
+  },
+  {
+   "id": "org-Wisconsin_School_of_Business",
+   "type": "image",
+   "group": "org",
+   "title": "Wisconsin_School_of_Business",
+   "src": "assets/orgs/Wisconsin_School_of_Business.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Wisconsin_School_of_Business"
+   ]
+  },
+  {
+   "id": "org-Writer",
+   "type": "image",
+   "group": "org",
+   "title": "Writer",
+   "src": "assets/orgs/Writer.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Writer"
+   ]
+  },
+  {
+   "id": "org-Y_Combinator",
+   "type": "image",
+   "group": "org",
+   "title": "Y_Combinator",
+   "src": "assets/orgs/Y_Combinator.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Y_Combinator"
+   ]
+  },
+  {
+   "id": "org-Yale_Law_School",
+   "type": "image",
+   "group": "org",
+   "title": "Yale_Law_School",
+   "src": "assets/orgs/Yale_Law_School.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Yale_Law_School"
+   ]
+  },
+  {
+   "id": "org-Yale_School_of_Management",
+   "type": "image",
+   "group": "org",
+   "title": "Yale_School_of_Management",
+   "src": "assets/orgs/Yale_School_of_Management.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Yale_School_of_Management"
+   ]
+  },
+  {
+   "id": "org-Zillow",
+   "type": "image",
+   "group": "org",
+   "title": "Zillow",
+   "src": "assets/orgs/Zillow.png",
+   "tags": [
+    "logo",
+    "org",
+    "school",
+    "company",
+    "Zillow"
+   ]
   }
  ],
  "posts": [

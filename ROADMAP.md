@@ -1,5 +1,16 @@
 # LE — what's real, what's next, what to ask engineering
 
+## The five flows LE is built around
+1. **A visual for my post** — Make → Image. Pick a background from the drawer, type the headline (one [blue] phrase), drag it where you want it, add an illustration or a product shot, Download. Under a minute.
+2. **A launch film for the thing I shipped** — Make → Video. Hook (typed / rise / words), product shot (upload a screenshot or pick a kit card), outro (Leo spins in, wordmark, tagline, badges), music from the real launch films. Render.
+3. **A deck for what I'm proposing** — Make → Deck. Slides on the same system, each a 1920×1080 PNG. (Next: pptx export.)
+4. **A campaign tied to Meta / Google** — not yet. Needs the ad-account connections below. Design is ready (the hidden Ads/Connections screens); data isn't.
+5. **Grab an approved asset from anywhere** — Library, or `/le` in Claude. Nobody has to open LE.
+
+## Drag and drop vs. Canva
+Today: three draggable layers on the canvas (text, illustration, product shot), wheel to scale, arrow keys to nudge, inline drawer for every asset. Canva still wins on free-form: arbitrary shapes, multiple text boxes, rotation, guides, templates. Those are the next editor steps, in that order, if we want them — but the point of LE is that you never need them, because the brand system does the composing.
+
+
 ## Real today (no backend)
 - Library of 300+ brand assets with search, tags, in-place preview, back routes
 - Image export (PNG, four sizes), video export (launch-film template, music mixed, MP4/WebM), deck export (PNGs)
