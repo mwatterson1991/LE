@@ -43,7 +43,7 @@ h3{font-size:.75rem;font-weight:600;color:var(--ink);letter-spacing:.02em;text-t
 /* chrome */
 .top{height:56px;display:flex;align-items:center;padding:0 20px;gap:16px;background:#fff}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer;color:var(--ink);text-decoration:none}
-.logo img{height:22px;width:auto}
+.logo svg{width:30px;height:30px;overflow:visible;cursor:pointer}.logo .ink{fill:var(--ink)}
 .logo .word{font-weight:600;font-size:1.125rem;letter-spacing:-.02em;line-height:1}
 .logo .rule{width:1px;height:20px;background:var(--g3);margin:0 2px}
 .logo .le{font-family:var(--serif);font-weight:500;font-size:1.0625rem;color:var(--ink3);line-height:1}
@@ -77,7 +77,7 @@ h3{font-size:.75rem;font-weight:600;color:var(--ink);letter-spacing:.02em;text-t
 .sec-h{display:flex;align-items:baseline;justify-content:space-between;margin:36px 0 12px}
 
 /* ===== make ===== */
-.picks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:960px}
+.picks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:960px;margin-top:28px}
 .pick{background:var(--g1);border-radius:16px;padding:0;cursor:pointer;text-align:left;overflow:hidden;transition:transform .25s var(--ease),background .25s}
 .pick:hover{transform:translateY(-3px);background:var(--g2)}
 .pick .art{aspect-ratio:4/3;position:relative;display:flex;align-items:center;justify-content:center}

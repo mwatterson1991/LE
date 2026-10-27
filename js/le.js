@@ -12,7 +12,7 @@ const base=()=>location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,'');
 /* ---------- boot ---------- */
 async function boot(){
   try{M=await (await fetch('data/manifest.json')).json()}catch(e){toast('Could not load data/manifest.json. Serve the folder (npx serve .) rather than opening the file.');}
-  renderTabs();renderLib();renderQueue();renderBrand();renderProjects();renderSw();renderShotSw();renderMusic();renderPos();
+  renderTabs();renderLib();if($('queue'))renderQueue();renderBrand();renderProjects();renderSw();renderShotSw();renderMusic();renderPos();
   setCopy('Own your future.','Work 1:1 with a coach who got in.','Find a coach');useBg('bg-crosswalk');sync();
   route();window.addEventListener('hashchange',route);
   document.fonts.ready.then(()=>{const s=document.fonts.check('500 16px Season'),m=document.fonts.check('400 16px Macan');$('fontst').textContent=s&&m?'Season + Macan loaded':s?'Season loaded · Macan missing':'Fonts missing — check fonts/'});
@@ -42,7 +42,7 @@ document.addEventListener('keydown',e=>{const typing=/INPUT|TEXTAREA|SELECT/.tes
   if($('pv').classList.contains('on')&&!typing){if(e.key==='ArrowRight')stepPreview(1);if(e.key==='ArrowLeft')stepPreview(-1)}
   if((e.metaKey||e.ctrlKey)&&e.key==='Enter'&&isOn('editor'))exportCurrent();
   if(e.key===' '&&!typing&&isOn('editor')&&state.kind==='video'){e.preventDefault();togglePlay()}});
-function toast(m,act){const t=$('toast');t.innerHTML=m+(act?`<b onclick="${act}">Open</b>`:'');t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),3000)}
+function toast(m,act){if(window.leo&&/error/i.test(m))leo.peek('puzzled');const t=$('toast');t.innerHTML=m+(act?`<b onclick="${act}">Open</b>`:'');t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),3000)}
 function copyText(s,msg){(navigator.clipboard?navigator.clipboard.writeText(s):Promise.reject()).then(()=>toast(msg||'Copied')).catch(()=>{prompt('Copy:',s)})}
 
 /* ---------- library ---------- */
@@ -64,7 +64,7 @@ function renderLib(){
   const tab=TABS.find(t=>t[0]===state.tab)||TABS[0];let items=state.q?allItems():(tab[0]==='copy'?copyItems():byGroup(...tab[2]));
   items=items.filter(match);const g=$('grid');g.className='grid'+(tab[0]==='icon'&&!state.q?' icons':'')+(tab[0]==='video'?' wide':'');
   g.innerHTML=items.map(card).join('')||'<div class="empty">Nothing matches.</div>';
-  $('libnote').textContent=state.q?`${items.length} results across the library`:{kit:'Shipped with the Community launch, Oct 15. Heroes carry store badges; cards are real posts from the feed; AIBP graphics are for the dark accounts.',video:'The five launch films plus the nine kit cuts. Click to play here.',bg:'Brand photography and the AIBP godrays. Used behind headlines.',photo:'Photography from the design library.',graphic:'Illustrations from the design library.',icon:'165 line icons. Click to copy the SVG.',music:'Soundtracks pulled from the launch films.',copy:'Approved taglines and the 12 post ideas from the launch kit, verbatim.'}[tab[0]]}
+  $("libnote").textContent=""}
 const wave=()=>'<div class="wave">'+Array.from({length:14},()=>`<i style="height:${15+Math.random()*85}%"></i>`).join('')+'</div>';
 
 /* ---------- preview (in place, back route) ---------- */
@@ -187,8 +187,8 @@ function connectOpus(){const k=prompt('Paste an Anthropic API key (stays in this
 function opusNote(){const n=$('opusnote');if(n)n.textContent=CFG.api?'Connected through your proxy.':CFG.key?'Connected with a key stored in this browser.':'Not connected. The brief bar, Rewrite and scheduling copy use a scripted fallback until you connect.';$('opusst').textContent=hasOpus()?'on':''}
 async function brief(){const p=$('ask').value.trim();if(!p){toast('Say what it’s for, or just edit on the right');$('ask').focus();return}
   const l=p.toLowerCase();
-  if(hasOpus()){$('ov').classList.add('on');$('ovp').textContent='Opus is reading the brief';try{const out=jsonOf(await opus(SYSTEM(),`Brief: ${p}\nFormat: ${state.kind}.\nReturn JSON {"title":"short project title","headline":"<=48 chars, with one [blue phrase]","subhead":"<=110 chars or empty","cta":"2-3 words or empty","tagline":"one of the approved taglines or a 4-6 word closer with a [blue phrase]","background":"black|white|crosswalk|traveler|grass|sky|godrays|hero-learn|hero-ask|hero-next|hero-people|hero-accomplish","ratio":"16:9|1:1|4:5|9:16"}`));
-    if(out){setCopy(out.headline,out.subhead,out.cta);if(out.title)$('etitle').value=out.title;if(out.tagline)state.tag=out.tagline;applyBgWord(out.background);ratio({'16:9':'','1:1':'r11','4:5':'r45','9:16':'r916'}[out.ratio]||'');sync();$('ov').classList.remove('on');toast('Opus drafted it. Everything on the right is yours.');return}}catch(e){toast('Opus error. Using the scripted draft.')}$('ov').classList.remove('on')}
+  if(hasOpus()){$('ov').classList.add('on');$('ovp').textContent='Opus is reading the brief';window.leo&&leo.work();try{const out=jsonOf(await opus(SYSTEM(),`Brief: ${p}\nFormat: ${state.kind}.\nReturn JSON {"title":"short project title","headline":"<=48 chars, with one [blue phrase]","subhead":"<=110 chars or empty","cta":"2-3 words or empty","tagline":"one of the approved taglines or a 4-6 word closer with a [blue phrase]","background":"black|white|crosswalk|traveler|grass|sky|godrays|hero-learn|hero-ask|hero-next|hero-people|hero-accomplish","ratio":"16:9|1:1|4:5|9:16"}`));
+    if(out){setCopy(out.headline,out.subhead,out.cta);if(out.title)$('etitle').value=out.title;if(out.tagline)state.tag=out.tagline;applyBgWord(out.background);ratio({'16:9':'','1:1':'r11','4:5':'r45','9:16':'r916'}[out.ratio]||'');sync();$('ov').classList.remove('on');window.leo&&leo.rest();toast('Opus drafted it. Everything on the right is yours.');return}}catch(e){toast('Opus error. Using the scripted draft.')}$('ov').classList.remove('on')}
   let title='New asset';
   if(/invite/.test(l)){setCopy('Invites is here.','Earn when your friends book their first session.','Invite a friend');title='Invites launch'}
   else if(/job/.test(l)){setCopy('Your next job is [already looking for you].','','');state.tag='Your next job is [already looking for you].';title='Jobs';applyBgWord('white')}

@@ -10,7 +10,7 @@
 <body>
 
 <div class="top">
-  <a class="logo" href="#make"><img src="assets/logomark.png" alt="Leland"><span class="word">Leland</span><span class="rule"></span><span class="le">LE</span></a>
+  <a class="logo" href="#make"><svg id="leo" width="30" height="30" aria-label="Leland"></svg><span class="word">Leland</span><span class="rule"></span><span class="le">LE</span></a>
   <div class="search"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" placeholder="Search the library" oninput="searchLib(this.value)" onfocus="if(!isOn('lib'))go('lib')"></div>
   <div class="right">
     <button class="me" onclick="menu('m-me')"><div class="av">MW</div>Me</button>
@@ -29,7 +29,6 @@
     <a id="s-lib" href="#lib"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/></svg>Library</a>
     <a id="s-projects" href="#projects"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Projects</a>
     <a id="s-brand" href="#brand"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>Brand</a>
-    <div class="claude" onclick="go('brand','claude')"><b>Use LE in Claude</b>Every asset here is one <code>/le</code> away. You don't have to come here.</div>
   </nav>
 
   <div class="main" id="main">
@@ -38,7 +37,6 @@
     <section id="make" class="screen on">
       <div class="wrap" style="padding-top:52px">
         <h1>What are we making?</h1>
-        <p class="lede">Pick one. It starts on brand.</p>
         <div class="picks">
           <button class="pick" onclick="start('still')">
             <div class="art"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="130" rx="10" class="g-frame"/><rect x="28" y="92" width="92" height="8" rx="4" class="g-ink"/><rect x="28" y="108" width="58" height="6" rx="3" class="g-soft"/><rect x="28" y="26" width="18" height="18" rx="4" class="g-ink"/><circle cx="150" cy="50" r="22" class="g-soft"/></svg></div>
@@ -54,8 +52,6 @@
           </button>
         </div>
 
-        <div class="sec-h"><h2>Ready to post</h2><span class="link" id="qnote"></span></div>
-        <div class="queue" id="queue"></div>
       </div>
     </section>
 
@@ -63,7 +59,6 @@
     <section id="lib" class="screen">
       <div class="wrap">
         <h1>Library</h1>
-        <p class="lede">Everything brand-approved, in one place. Click anything to preview it here.</p>
         <div class="tabs" id="tabs"></div>
         <div class="grid" id="grid"></div>
         <p class="note" style="margin-top:16px" id="libnote"></p>
@@ -149,7 +144,6 @@
     <section id="projects" class="screen">
       <div class="wrap">
         <h1>Projects</h1>
-        <p class="lede">Everything made in LE, newest first.</p>
         <div class="list" id="projlist"></div>
       </div>
     </section>
@@ -158,7 +152,6 @@
     <section id="brand" class="screen">
       <div class="wrap">
         <h1>Brand</h1>
-        <p class="lede">The guardrails. Everything LE makes lives inside this.</p>
         <div class="kit">
           <div class="kcard"><div class="hd"><h2>Logo</h2></div>
             <div class="logos"><div style="background:#fff;color:#111"><img src="assets/logomark.png" alt="">Leland</div><div style="background:#111;color:#fff"><img src="assets/logomark.png" alt="" style="filter:invert(1)">Leland</div><div style="background:var(--g2);color:#111"><img src="assets/logomark.png" alt=""></div></div></div>
@@ -196,5 +189,6 @@
 <div class="toast" id="toast"></div>
 
 <script src="js/le.js"></script>
+<script src="js/leo.js"></script>
 </body>
 </html>
