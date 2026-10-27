@@ -8,10 +8,10 @@ description: Leland's brand asset library (LE). Use whenever making any Leland m
 LE is the repository. You are the hands. Nobody needs to open LE to use it.
 
 ## 1. Load the manifest
-Fetch `https://mwatterson1991.github.io/LE/data/manifest.json` .
+Fetch `https://mwatterson1991.github.io/LE/data/manifest.json`.
 It contains:
 - `brand` — fonts, colors, taglines, pitch, FAQ, audience tracks, guardrails, store links
-- `assets[]` — every file: `id`, `type` (image|video|audio|icon), `group`, `title`, `sub`, `tags[]`, `src` (relative to LE_URL), `thumb`/`poster`, `best` (which post ideas it fits)
+- `assets[]` — every file: `id`, `type` (image|video|audio|icon), `group`, `title`, `sub`, `tags[]`, `src` (relative to https://mwatterson1991.github.io/LE/), `thumb`/`poster`, `best` (which post ideas it fits)
 - `posts[]` — the 12 launch post ideas, verbatim, each with `assets[]` it pairs with
 
 Groups: `hero` `header` `card` `aibp` `aipost` (launch kit images) · `film` `kit` (videos) · `background` `photo` · `graphic` · `icon` · `music`.
