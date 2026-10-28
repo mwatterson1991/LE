@@ -17,15 +17,6 @@ body.rb-home .rb-nav-scrolled .prog-nav-forteams {
   color: var(--gray-dark, #222222);
 }
 
-/* "Reserve your seat" text link in the nav is a <button> (it opens the cohort
-   modal), so reset the browser button chrome to match the shared link style. */
-body.rb-home button.rb-nav-signin {
-  background: none;
-  border: 0;
-  font-family: inherit;
-  line-height: 24px;
-  cursor: pointer;
-}
 
 /* On narrow screens the lockup divider / aibp logo hide; keep "For Teams"
    visible but tightened up so it still reads next to the logo. */
@@ -1087,8 +1078,8 @@ body.rb-home .prog-prefooter-demo:hover { opacity: 1; }
   body.rb-home .rb-nav-getstarted { white-space: nowrap; }
   body.rb-home .rb-nav-actions { gap: 2px; }
 }
-/* Mobile menu: second button for individuals, outlined under the demo button */
-body.rb-home .lai-mobile-menu button.prog-mobile-menu-seat {
+/* Mobile menu: Request a demo, outlined under the Enroll now button */
+body.rb-home .lai-mobile-menu a.prog-mobile-menu-secondary {
   margin-top: 12px;
   background: transparent;
   border: 1.5px solid var(--gray-dark, #222222);
@@ -1110,3 +1101,83 @@ body.rb-home .lai-mobile-menu button.prog-mobile-menu-seat {
 @media (max-width: 349px) {
   body.rb-home .rb-nav-signin { display: none; }
 }
+
+/* Hero: quiet scholarship line under the two buttons */
+body.rb-home .prog-hero-finaid {
+  margin: -8px 0 22px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+body.rb-home .prog-hero-finaid a {
+  color: #FFFFFF;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+}
+body.rb-home .prog-hero-finaid a:hover { text-decoration-color: #FFFFFF; }
+
+/* ===== Pricing: individual card (sibling of the company card) ===== */
+body.rb-home .prog-pc + .prog-pc { margin-top: 18px; }
+body.rb-home .prog-pc-price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 14px;
+}
+body.rb-home .prog-pc-amount {
+  font-family: 'Season', Georgia, serif;
+  font-weight: 500;
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+body.rb-home .prog-pc-list {
+  font-size: 18px;
+  color: #9A958C;
+  text-decoration: line-through;
+}
+body.rb-home .prog-pc-discount {
+  align-self: flex-start;
+  margin-top: 10px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7D3C17;
+  background: #FFD667;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+body.rb-home button.prog-pc-btn { border: 0; cursor: pointer; font-family: inherit; }
+body.rb-home .prog-pc-next {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #6F6A61;
+  text-align: center;
+}
+body.rb-home .prog-pc-finaid {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+body.rb-home .prog-pc-finaid-icon { width: 44px; height: 44px; object-fit: contain; }
+body.rb-home .prog-pc-finaid p { margin: 4px 0 0; font-size: 13.5px; line-height: 1.45; color: #55514B; white-space: normal; }
+body.rb-home .prog-pc-finaid-link {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+body.rb-home .prog-pc-finaid-link:hover { color: #A14E22; }
+@media (max-width: 900px) {
+  body.rb-home .prog-pc-finaid { grid-template-columns: 44px 1fr; }
+  body.rb-home .prog-pc-finaid-link { grid-column: 1 / -1; }
+}
+/* Individual card's items are longer than the company card's; let them wrap */
+body.rb-home .prog-pc-individual li { white-space: normal; }

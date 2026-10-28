@@ -630,6 +630,74 @@ function GraduateQuote() {
   )
 }
 
+// Pricing card for individuals, built as a sibling of the company card below it
+// (same white card, same two-column layout) so the section reads as a pair.
+// Price comes from offerPricing(), so partner routes like /scaling show their
+// discount here too.
+const INDIVIDUAL_INCLUDES = [
+  'Live Level 1 cohort, starting every two weeks',
+  'AI Builder Foundations, plus Levels 2–5 on demand',
+  'Weekly office hours and a dedicated TA',
+  'Function-specific blueprints and agent templates',
+  'Curriculum updated weekly by AI experts',
+  'Builder community and a verified certificate',
+]
+
+function IndividualPriceCard({ partner }) {
+  const { price, listPrice, discountLabel } = offerPricing(partner)
+  return (
+    <div className="prog-pc prog-pc-individual">
+      <div className="prog-pc-intro">
+        <span className="prog-pc-eb">For individuals</span>
+        <h3>AI Builder Program</h3>
+        <div className="prog-pc-price">
+          <span className="prog-pc-amount">{price}</span>
+          {listPrice && <span className="prog-pc-list">{listPrice}</span>}
+        </div>
+        {discountLabel && <span className="prog-pc-discount">{discountLabel}</span>}
+        <p>Everything you need to build real AI systems for your own work, starting with a live cohort.</p>
+        <div className="prog-pc-btns">
+          <button
+            type="button"
+            className="prog-pc-btn"
+            onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'pricing-individual' }); openCohortModal('pricing-individual') }}
+          >
+            Enroll now &rarr;
+          </button>
+          <span className="prog-pc-next">Next cohort starts {NEXT_COHORT_DISPLAY}</span>
+        </div>
+      </div>
+      <div className="prog-pc-right">
+        <div className="prog-pc-core">
+          <span className="prog-pc-ch">What&rsquo;s included</span>
+          <div className="prog-pc-t">Everything in the program</div>
+          <ul>
+            {INDIVIDUAL_INCLUDES.map(item => (
+              <li key={item}><img className="prog-pc-ck" src={`${import.meta.env.BASE_URL}assets/icons/checkmark.svg`} alt="" /><span>{item}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div className="prog-pc-add prog-pc-finaid">
+          <img className="prog-pc-finaid-icon" src={`${import.meta.env.BASE_URL}assets/product-illustrations/scholarships.svg`} alt="" />
+          <div>
+            <span className="prog-pc-ch r">Scholarships</span>
+            <p>Anyone can apply. Cost should never be the reason you don&rsquo;t learn AI.</p>
+          </div>
+          <a
+            href={`${SCHOLARSHIP_URL}&utm_content=pricing-finaid`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="prog-pc-finaid-link"
+            onClick={() => posthog.capture('app--scholarship_click', { source: 'pricing' })}
+          >
+            Apply for a scholarship &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function getDefaultCohort(cohorts) {
   const now = new Date()
   return (
@@ -2100,11 +2168,10 @@ function ProgramSinglePriceInner() {
             )}
           </div>
           <div className="rb-nav-actions">
-            <button type="button" className="rb-nav-signin" onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'nav' }); openCohortModal('nav') }}>
-              <span className="nav-cta-full">Reserve your seat</span>
-              <span className="nav-cta-short">Reserve a seat</span>
+            <button type="button" className="rb-nav-getstarted" onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'nav' }); openCohortModal('nav') }}>
+              Enroll now
             </button>
-            <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-getstarted" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>
+            <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="rb-nav-signin" onClick={() => posthog.capture('app--sales_cta_click', { source: 'nav' })}>
               <span className="nav-cta-full">Request a demo</span>
               <span className="nav-cta-short">Get a demo</span>
             </a>
@@ -2131,8 +2198,8 @@ function ProgramSinglePriceInner() {
           <a href="/pledge" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Our Pledge</a>
           <a href="https://www.lelandcourses.com/ai-builder/foundations/" target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-link" onClick={() => setMenuOpen(false)}>Free Foundations Course</a>
         </div>
-        <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-cta" onClick={() => { setMenuOpen(false); posthog.capture('app--sales_cta_click', { source: 'mobile-menu' }) }}>Request a demo</a>
-        <button type="button" className="lai-mobile-menu-cta prog-mobile-menu-seat" onClick={() => { setMenuOpen(false); posthog.capture('app--enroll_cta_click', { source: 'mobile-menu' }); openCohortModal('mobile-menu') }}>Reserve your seat</button>
+        <button type="button" className="lai-mobile-menu-cta" onClick={() => { setMenuOpen(false); posthog.capture('app--enroll_cta_click', { source: 'mobile-menu' }); openCohortModal('mobile-menu') }}>Enroll now</button>
+        <a href={NAV_SALES_URL} target="_blank" rel="noopener noreferrer" className="lai-mobile-menu-cta prog-mobile-menu-secondary" onClick={() => { setMenuOpen(false); posthog.capture('app--sales_cta_click', { source: 'mobile-menu' }) }}>Request a demo</a>
       </div>
 
       {/* ====== 2. Hero ====== */}
@@ -2156,19 +2223,35 @@ function ProgramSinglePriceInner() {
           <p className="hero-sub hero-stagger hero-stagger-2">Live, expert-led training that makes your team AI-native and turns everyday work into systems that scale, on the AI tools you already have.</p>
 
           <div className="hero-ctas hero-stagger hero-stagger-3">
+            <button
+              type="button"
+              className="btn btn-primary btn-lg"
+              onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'hero' }); openCohortModal('hero') }}
+            >
+              Enroll now
+            </button>
             <a
               href={NAV_SALES_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary btn-lg"
+              className="lai-cta-primary"
               onClick={() => posthog.capture('app--sales_cta_click', { source: 'hero' })}
             >
               Request a demo
             </a>
-            <a href="#happy-path" className="lai-cta-primary" onClick={() => posthog.capture('app--curriculum_click', { source: 'hero' })}>
-              See curriculum
-            </a>
           </div>
+
+          <p className="prog-hero-finaid hero-stagger hero-stagger-3">
+            Need financing help?{' '}
+            <a
+              href={`${SCHOLARSHIP_URL}&utm_content=hero-finaid`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => posthog.capture('app--scholarship_click', { source: 'hero' })}
+            >
+              Apply for a scholarship
+            </a>
+          </p>
 
           <div className="hero-review-row hero-stagger hero-stagger-4">
             <StarRating value={LELAND_RATING_AVG} />
@@ -2253,21 +2336,21 @@ function ProgramSinglePriceInner() {
               <p className="save-time-sub">Access isn&rsquo;t adoption. Most rollouts stall because nobody shows people how to build on their own work. We do, function by function, until AI is part of how the company runs.</p>
               <p className="prog-stat-line"><b>85%</b> of employees say their AI training doesn&rsquo;t help them do their job. <span>Docebo, 2026</span></p>
               <div className="save-time-ctas">
+                <button
+                  type="button"
+                  className="btn btn-primary save-time-explore-cta"
+                  onClick={() => { posthog.capture('app--enroll_cta_click', { source: 'video-section' }); openCohortModal('video-section') }}
+                >
+                  Enroll now
+                </button>
                 <a
                   href={NAV_SALES_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary save-time-explore-cta"
+                  className="btn btn-ghost save-time-explore-cta"
                   onClick={() => posthog.capture('app--sales_cta_click', { source: 'video-section' })}
                 >
                   Request a demo
-                </a>
-                <a
-                  href="#happy-path"
-                  className="btn btn-ghost save-time-explore-cta"
-                  onClick={() => posthog.capture('app--curriculum_click', { source: 'video-section' })}
-                >
-                  See curriculum
                 </a>
               </div>
             </div>
@@ -2340,7 +2423,7 @@ function ProgramSinglePriceInner() {
       <section className="uo-first-step" id="pricing">
         <div className="container">
           <h2 className="uo-first-step-headline">Take the first step.</h2>
-          <p className="uo-first-step-sub">Bring AI into how your whole company works.</p>
+          <p className="uo-first-step-sub">Bring AI into how your whole company works, or enroll yourself.</p>
         </div>
         <div className="container">
           <div className="prog-pc">
@@ -2386,6 +2469,7 @@ function ProgramSinglePriceInner() {
               </div>
             </div>
           </div>
+          <IndividualPriceCard partner={partner} />
           <p className="prog-pc-strip">
             Nonprofit, education or government?{' '}
             <a
