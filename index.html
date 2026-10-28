@@ -28,6 +28,8 @@
     <a id="s-make" class="on" href="#make"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Make</a>
     <a id="s-lib" href="#lib"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/></svg>Library</a>
     <a id="s-projects" href="#projects"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Projects</a>
+    <a id="s-connect" href="#connect"><svg class="ico" viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>Connect</a>
+    <a id="s-motion" href="#motion"><svg class="ico" viewBox="0 0 24 24"><path d="M4 12c3-6 5-6 8 0s5 6 8 0"/></svg>Motion</a>
     <a id="s-brand" href="#brand"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>Brand</a>
   </nav>
 
@@ -50,8 +52,11 @@
             <div class="art"><svg viewBox="0 0 200 150"><rect x="34" y="8" width="150" height="100" rx="8" class="g-soft"/><rect x="22" y="22" width="150" height="100" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" opacity=".7"/><rect x="10" y="36" width="150" height="100" rx="8" class="g-frame"/><rect x="26" y="56" width="70" height="8" rx="4" class="g-ink"/><rect x="26" y="72" width="100" height="5" rx="2.5" class="g-soft"/><rect x="26" y="84" width="84" height="5" rx="2.5" class="g-soft"/></svg></div>
             <div class="body"><b>Deck</b><span>Sessions, sales, all-hands</span></div>
           </button>
+          <button class="pick" onclick="start('story')">
+            <div class="art"><svg viewBox="0 0 200 150"><rect x="10" y="14" width="96" height="122" rx="10" class="g-frame"/><rect x="118" y="14" width="72" height="122" rx="10" class="g-soft"/><rect x="26" y="30" width="26" height="26" rx="6" class="g-ink"/><rect x="26" y="74" width="64" height="7" rx="3.5" class="g-ink"/><rect x="26" y="88" width="48" height="5" rx="2.5" class="g-soft"/><rect x="26" y="100" width="56" height="5" rx="2.5" class="g-soft"/><path d="M134 34q10-10 20 0" class="g-line"/></svg></div>
+            <div class="body"><b>Story</b><span>Case studies, customer wins</span></div>
+          </button>
         </div>
-
       </div>
     </section>
 
@@ -60,8 +65,8 @@
       <div class="wrap">
         <h1>Library</h1>
         <div class="tabs" id="tabs"></div>
+        <div class="chips" id="chips"></div>
         <div class="grid" id="grid"></div>
-        <p class="note" style="margin-top:16px" id="libnote"></p>
       </div>
     </section>
 
@@ -75,7 +80,7 @@
         </div>
         <div class="ask">
           <svg class="ico" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>
-          <input id="ask" placeholder="Tell Opus what this is for, or just edit on the right" onkeydown="if(event.key==='Enter')brief()">
+          <input id="ask" placeholder="Tell Opus what this is for, or paste a post" onkeydown="if(event.key==='Enter')brief()">
           <button class="btn black sm" onclick="brief()">Go</button>
         </div>
         <div class="egrid">
@@ -86,10 +91,13 @@
                 <div class="layer copy" id="copy"><h2 id="pHead"></h2><p id="pSub"></p><span class="cta" id="pCta"></span></div>
                 <div class="layer gfx" id="gfxLayer"><img id="gfxImg" alt=""></div>
                 <div class="layer shotL" id="shotLayer"><img id="shotImg" alt=""></div>
-                <!-- video beats -->
+                <!-- video scenes -->
                 <div class="beat b-hook" id="bHook"><div class="hook" id="vHook"></div></div>
                 <div class="beat b-shot" id="bShot"><div class="shot"><img id="vShot" alt=""></div></div>
+                <div class="beat b-clip" id="bClip"><video id="vClip" muted playsinline preload="auto"></video></div>
                 <div class="beat b-outro outro" id="bOutro"><div class="wm"><img src="assets/logomark.png" alt="">Leland</div><div class="tl" id="vTag"></div><div class="badges"><span>App Store</span><span>Google Play</span></div></div>
+                <!-- story -->
+                <img class="storyimg" id="storyImg" alt="">
                 <div class="prog"><i id="prog"></i></div>
               </div>
             </div>
@@ -99,19 +107,21 @@
               <span style="margin-left:auto;display:flex;gap:4px" id="layerbar"></span>
             </div>
             <div class="beats" id="beats" style="display:none"></div>
+            <div class="addscene" id="addscene" style="display:none"></div>
             <div class="slides" id="slides" style="display:none"></div>
           </div>
 
           <div class="panel">
             <div class="sec" id="secCopy">
               <h3>Copy <button class="link" onclick="rewrite()">Rewrite</button></h3>
-              <div class="f"><label id="lHead">Headline</label><input id="fHead" oninput="sync()"><div class="hint">[brackets] turn <em>blue</em>. Drag the text on the canvas.</div></div>
-              <div class="f" id="fTagWrap" style="display:none"><label>Outro line</label><input id="fTag" oninput="state.tag=this.value;sync()" placeholder="Talk to a [Human]."></div>
+              <div class="f"><label id="lHead">Headline</label><input id="fHead" oninput="sync()"></div>
               <div class="f" id="fSubWrap"><label>Subhead</label><textarea id="fSub" oninput="sync()"></textarea></div>
               <div class="f" id="fCtaWrap"><label>Button</label><input id="fCta" oninput="sync()" placeholder="None"></div>
               <div class="f" id="fSizeWrap"><label>Size</label><div class="slider"><input type="range" min=".6" max="1.6" step=".05" value="1" id="fSize" oninput="sync()"><b id="fSizeV">100%</b></div></div>
               <div class="f" id="fAlignWrap"><label>Align</label><div class="seg" style="display:inline-flex"><button class="on" onclick="align(this,false)">Left</button><button onclick="align(this,true)">Center</button></div></div>
             </div>
+            <!-- video scene panel -->
+            <div class="sec" id="secScene"><h3 id="sceneTitle">Scene</h3><div id="sceneBody"></div></div>
             <div class="sec" id="secBg">
               <h3>Background <button class="link" onclick="openDrawer('bg')">Browse</button></h3>
               <div class="sw" id="sw"></div>
@@ -119,28 +129,37 @@
             <div class="sec" id="secGfx">
               <h3>Illustration <button class="link" onclick="openDrawer('gfx')">Browse</button></h3>
               <div class="sw" id="gfxsw"></div>
-              <div class="f" id="gfxSizeWrap" style="margin-top:10px;display:none"><label>Size</label><div class="slider"><input type="range" min=".1" max=".7" step=".01" value=".3" id="gfxSize" oninput="state.gfx.s=+this.value;sync()"><b></b></div></div>
+              <div class="f" id="gfxSizeWrap" style="margin-top:10px;display:none"><label>Size</label><div class="slider"><input type="range" min=".1" max=".7" step=".01" value=".3" id="gfxSize" oninput="state.layers.gfx.s=+this.value;sync()"><b></b></div></div>
             </div>
             <div class="sec" id="secShot">
               <h3>Product shot <button class="link" onclick="openDrawer('shot')">Browse</button></h3>
               <div class="sw" id="shotsw"></div>
               <label class="btn sm" style="margin-top:10px">Upload screenshot<input type="file" accept="image/*" style="display:none" onchange="uploadShot(this.files[0])"></label>
             </div>
-            <div class="sec" id="secMotion">
-              <h3>Motion</h3>
-              <div class="f"><label>Hook</label><div class="seg" id="anim" style="display:inline-flex"><button class="on" onclick="setAnim(this,'typed')">Typed</button><button onclick="setAnim(this,'rise')">Rise</button><button onclick="setAnim(this,'words')">Words</button></div></div>
-              <div class="f" style="margin-top:8px"><label>Outro</label><div class="seg" id="outroanim" style="display:inline-flex"><button class="on" onclick="setOutro(this,'leo')">Leo spins in</button><button onclick="setOutro(this,'fade')">Fade</button></div></div>
-              <div class="f" style="margin-top:8px"><label>Theme</label><div class="seg" style="display:inline-flex"><button class="on" onclick="vtheme(this,false)">White</button><button onclick="vtheme(this,true)">Black</button></div></div>
-            </div>
-            <div class="sec" id="secTiming">
-              <h3>Timing</h3>
-              <div class="f"><label>Hook</label><div class="slider"><input type="range" min="1.5" max="6" step=".5" value="3" id="dHook" oninput="syncBeats()"><b id="dHookV">3s</b></div></div>
-              <div class="f"><label>Product</label><div class="slider"><input type="range" min="1.5" max="8" step=".5" value="3" id="dShot" oninput="syncBeats()"><b id="dShotV">3s</b></div></div>
-              <div class="f"><label>Outro</label><div class="slider"><input type="range" min="1.5" max="6" step=".5" value="3" id="dOutro" oninput="syncBeats()"><b id="dOutroV">3s</b></div></div>
+            <div class="sec" id="secTheme">
+              <h3>Look</h3>
+              <div class="f"><label>Theme</label><div class="seg" id="themeseg" style="display:inline-flex"><button class="on" onclick="vtheme(this,false)">White</button><button onclick="vtheme(this,true)">Black</button></div></div>
+              <div class="f" style="margin-top:8px"><label>Logo outro</label><div class="seg" id="outroanim" style="display:inline-flex"><button class="on" onclick="setOutro(this,'leo')">Leo spins in</button><button onclick="setOutro(this,'fade')">Fade</button></div></div>
             </div>
             <div class="sec" id="secMusic">
               <h3>Music</h3>
               <div class="music" id="music"></div>
+            </div>
+            <!-- story -->
+            <div class="sec" id="secStory">
+              <h3>Story <button class="link" onclick="openDrawer('logo')">Logo</button></h3>
+              <div class="f"><label>Company</label><input id="stCo" oninput="storySync()" placeholder="ASU+GSV"></div>
+              <div class="f"><label>Headline</label><input id="stHead" oninput="storySync()" placeholder="33 people, [building together]"></div>
+              <div class="f"><label>Who they are</label><textarea id="stWho" oninput="storySync()" placeholder="The team behind the ASU+GSV Summit…"></textarea></div>
+              <div class="f"><label>Before</label><textarea id="stBefore" oninput="storySync()" placeholder="Most of the team used AI for simple productivity work."></textarea></div>
+              <div class="f"><label>What they built (one per line)</label><textarea id="stBuilt" oninput="storySync()" style="min-height:90px" placeholder="Lucy Baldwin, VP Product — meeting prep from Slack — 8 hrs/week"></textarea></div>
+              <div class="f"><label>Quote</label><textarea id="stQuote" oninput="storySync()" placeholder="It put everyone in a builder mindset."></textarea></div>
+              <div class="f"><label>Said by</label><input id="stBy" oninput="storySync()" placeholder="Lucy Baldwin, VP Product"></div>
+              <div class="f"><label>Close</label><input id="stCta" oninput="storySync()" placeholder="Let’s chat."></div>
+            </div>
+            <div class="sec" id="secStoryOut">
+              <h3>Outputs</h3>
+              <div class="outs"><button class="btn sm" onclick="exportStory('carousel')">Carousel PDF</button><button class="btn sm" onclick="exportStory('png')">Slides PNG</button><button class="btn sm" onclick="exportStory('page')">Web page</button><button class="btn sm" onclick="exportStory('post')">Post text</button></div>
             </div>
             <div class="cook"><button class="btn black" id="cookbtn" onclick="exportCurrent()">Download<span class="kbd">⌘⏎</span></button><small id="cooknote"></small></div>
           </div>
@@ -156,8 +175,29 @@
     <!-- ===== PROJECTS ===== -->
     <section id="projects" class="screen">
       <div class="wrap">
-        <h1>Projects</h1>
+        <div class="hrow"><h1>Projects</h1><button class="btn black" onclick="go('make')">New</button></div>
         <div class="list" id="projlist"></div>
+      </div>
+    </section>
+
+    <!-- ===== CONNECT ===== -->
+    <section id="connect" class="screen">
+      <div class="wrap">
+        <h1>Connect</h1>
+        <h2 class="sub">Create</h2>
+        <div class="conns" id="connCreate"></div>
+        <h2 class="sub">Distribute and measure</h2>
+        <div class="conns" id="connDist"></div>
+        <h2 class="sub">Where everything is</h2>
+        <div class="place" id="placements"></div>
+      </div>
+    </section>
+
+    <!-- ===== MOTION ===== -->
+    <section id="motion" class="screen">
+      <div class="wrap">
+        <div class="hrow"><h1>Motion</h1><div style="display:flex;gap:6px"><button class="btn" onclick="motionReset()">Reset</button><button class="btn black" onclick="motionExport()">Export presets</button></div></div>
+        <div class="motion" id="motionlist"></div>
       </div>
     </section>
 
@@ -172,19 +212,11 @@
             <div class="specimen"><div class="s" style="font-family:var(--serif)">Season</div><div class="m">Headlines · Mix Medium</div></div>
             <div class="specimen"><div class="s" style="font-family:var(--sans);font-weight:600">Macan</div><div class="m">Everything else · Book, Medium, SemiBold</div></div></div>
           <div class="kcard"><div class="hd"><h2>Color</h2></div>
-            <div class="swatches"><div style="background:#111"></div><div style="background:#4c4c4c"></div><div style="background:#767676"></div><div style="background:#eee"></div><div style="background:#fff"></div><div style="background:#2f5fd6"></div><div style="background:#ffd667"></div></div>
-            <p class="note" style="margin-top:12px">Monochrome, plus photography. Blue is for one phrase in a headline. Yellow is for one small accent. The logomark is never yellow.</p></div>
+            <div class="swatches"><div style="background:#111"></div><div style="background:#4c4c4c"></div><div style="background:#767676"></div><div style="background:#eee"></div><div style="background:#fff"></div><div style="background:#2f5fd6"></div><div style="background:#80aced"></div><div style="background:#ffd667"></div></div></div>
           <div class="kcard"><div class="hd"><h2>Taglines</h2></div><div class="list" id="taglist"></div></div>
-          <div class="kcard wide"><div class="hd"><h2>How we talk about it</h2><span class="link">From the Community launch kit</span></div>
-            <p class="note" id="pitch"></p>
-            <ul class="rules" id="rules" style="list-style:none;margin-top:12px"></ul></div>
+          <div class="kcard wide"><div class="hd"><h2>Illustration</h2><button class="link" onclick="go('lib','illustration')">All 299</button></div><div class="illrow" id="illrow"></div></div>
           <div class="kcard wide" id="claude"><div class="hd"><h2>Use LE in Claude</h2><button class="btn sm" onclick="copyText($('skilltext').textContent,'Skill copied. Paste it into Claude as /le.')">Copy skill</button></div>
-            <p class="note">Nobody has to come here. LE is the repository; Claude is the hands. Drop this skill into Claude (or Claude Code, or any agent) and it can reach every asset, tagline and post idea in this library by name.</p>
-            <pre class="code" id="skilltext"></pre>
-            <p class="note" style="margin-top:10px">Every asset also has <b>Copy for Claude</b> in its preview — it copies the asset's name and link so you can paste it into any chat.</p></div>
-          <div class="kcard wide"><div class="hd"><h2>Opus</h2></div>
-            <p class="note" id="opusnote"></p>
-            <div style="display:flex;gap:8px;margin-top:12px"><button class="btn sm black" onclick="connectOpus()">Connect</button><button class="btn sm" onclick="CFG.key='';CFG.api='';opusNote();toast('Disconnected')">Disconnect</button></div></div>
+            <pre class="code" id="skilltext"></pre></div>
         </div>
       </div>
     </section>
@@ -202,6 +234,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="js/le.js"></script>
+<script src="js/story.js"></script>
 <script src="js/leo.js"></script>
 </body>
 </html>

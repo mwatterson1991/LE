@@ -43,3 +43,14 @@ Today: three draggable layers on the canvas (text, illustration, product shot), 
 8. Where can LE be hosted inside Leland — `design.joinleland.com` already serves brand assets with CORS; can it serve this app?
 9. Is there an Anthropic org key and a place to keep secrets (Cloudflare Workers, or the existing n8n)?
 10. Who owns the Buffer/Zapier accounts, if any, and can "Schedule" post through them as a bridge?
+
+
+## Oct 28 — what landed
+- 299 product illustrations pulled straight from Figma as SVG (Communication & Social, Business & Work, Growth & Achievements). The old 3D category emojis are gone.
+- Logos split into Schools (62) and Companies (137), each with generated black and white versions (`mono.black`, `mono.white`). A few solid-tile marks need a hand pass.
+- 23 coach headshots from the brand library's `coach_images` (the sharp ones; low-res and odd-background ones left out).
+- Every video cut into scenes (61 clips) tagged intro / text / product / outro. Scenes tab in the library, and the video editor is now scene-based: Text animation · Product shot · Animated UI (any scene clip) · Intro · Outro, reorder, remove, per-scene length.
+- Motion page: director-owned presets for text animation, transitions and the logo outro. Edit speed, stagger, easing; set defaults; export JSON. The editor reads them.
+- Connect page: Create (Figma, Drive, Notion, Opus, Slack) vs Distribute and measure (LinkedIn, Instagram, Meta Ads, Google Ads, YouTube, PostHog) and a "Where everything is" table — asset, format, where, spend, results. Spend and results fill when the ad accounts are wired (needs tokens; see the ten questions above).
+- Story maker (from the Sep 29 Slack thread on case studies): paste a customer story → company logo, headline, who, before, what they built, quote, close. Outputs: LinkedIn carousel PDF (4:5), slide PNGs, a web page for leland.ai/customers, and the post text. Opus extracts the fields when connected; scripted read otherwise.
+- Tabs are text-only (bold black on, grey off). Videos are two-up and autoplay on hover. Three duplicate launch-kit copies of films removed. Music has waveform artwork. "Copy for Claude" removed; the skill covers it.
