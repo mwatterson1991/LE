@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Hours back</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
+:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#2f5fd6;--sky:#80aced}
+html,body{margin:0;background:#fff}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
+h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
+h1 b{font-weight:500;color:var(--blue)}
+.mark{position:absolute;right:80px;bottom:60px;width:30px}
+.bar{position:absolute;left:80px;top:390px;height:84px;border-radius:14px;background:#eee}
+.lab{position:absolute;left:80px;top:338px;font-size:24px;font-weight:500;color:var(--ink);white-space:nowrap}
+.lab span{color:var(--ink3)}
+.ticks{position:absolute;left:80px;top:496px;width:1120px;height:12px}
+.ticks i{position:absolute;top:0;width:2px;height:12px;background:#eee}
+</style></head><body>
+<div class="stage">
+  <h1><b>Hours back,</b> every week.</h1>
+  <div class="lab" id="before"><span>Before</span>&nbsp;&nbsp;·&nbsp;&nbsp;8 hrs</div>
+  <div class="lab" id="after"><span>After</span>&nbsp;&nbsp;·&nbsp;&nbsp;30 min</div>
+  <div class="bar" id="bar"></div>
+  <div class="ticks" id="ticks"></div>
+  <img class="mark" src="../../logomark.png" alt="">
+</div>
+<script>
+const D=8; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const eo=x=>1-Math.pow(1-x,3), eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const mix=(a,b,k)=>{const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));const A=p(a),B=p(b);return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(',')+')';};
+const ticks=document.getElementById('ticks');ticks.innerHTML=Array.from({length:9},(_,i)=>`<i style="left:${i*140-(i===8?2:0)}px"></i>`).join('');
+const bar=document.getElementById('bar'),before=document.getElementById('before'),after=document.getElementById('after');
+const WF=1120, WS=70; // 30 min of 8 hrs = 1/16 of the track
+function render(t){
+  const sh=eio(seg(t,1.4,3.0));
+  const w=WF+(WS-WF)*sh;
+  const col=mix('#eeeeee','#2f5fd6',eio(seg(t,1.8,2.8)));
+  // reset: fade out blue, fade in grey
+  const out=seg(t,5.8,6.3), back=eo(seg(t,6.5,7.1));
+  let op=1, width=w, color=col;
+  if(t>=5.8){ op=Math.max(1-out,back); if(t>=6.4){width=WF;color='#eeeeee';} }
+  bar.style.width=width+'px'; bar.style.background=color; bar.style.opacity=op;
+  const bo=t<5.8?1-seg(t,1.4,1.8):back, ao=t<5.8?seg(t,2.6,3.0):1-out;
+  before.style.opacity=bo; before.style.transform=`translateY(${-8*(1-bo)}px)`;
+  after.style.opacity=ao; after.style.transform=`translateY(${8*(1-ao)}px)`;
+}
+let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
+(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+</script></body></html>

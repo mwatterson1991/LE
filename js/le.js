@@ -1,7 +1,7 @@
 /* LE — Leland's asset engine */
 const $=id=>document.getElementById(id);
 let M={brand:{},assets:[],posts:[]};
-let state={kind:'still',tab:'kit',q:'',bg:null,shot:null,center:false,dark:false,music:null,slide:0,chip:'all',logoMode:'color'};
+let state={kind:'still',tab:'kit',sub:'kit',q:'',bg:null,shot:null,center:false,dark:false,music:null,slide:0,chip:'all',logoMode:'color'};
 const A=id=>M.assets.find(a=>a.id===id);
 const byGroup=(...g)=>M.assets.filter(a=>g.includes(a.group));
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -16,7 +16,7 @@ async function boot(){
   loadMotion();renderTabs();renderLib();renderBrand();renderProjects();renderConnect();renderMotion();renderSw();renderGfxSw();renderShotSw();renderMusic();
   setCopy('Own your future.','Work 1:1 with a coach who got in.','Find a coach');state.bg='bg-crosswalk';renderSw();sync();
   route();window.addEventListener('hashchange',route);
-  document.fonts.ready.then(()=>{const s=document.fonts.check('500 16px Season'),m=document.fonts.check('400 16px Macan');$('fontst').textContent=s&&m?'Season + Macan loaded':s?'Season loaded · Macan missing':'Fonts missing — check fonts/'});
+  document.fonts.ready.then(()=>{const s=document.fonts.check('500 16px Season'),m=document.fonts.check('400 16px Macan');if(!(s&&m))toast('Fonts missing — check fonts/')});
   opusNote();restoreProjects();
 }
 document.addEventListener('DOMContentLoaded',boot);
@@ -30,8 +30,8 @@ function route(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
   document.querySelectorAll('.side a').forEach(a=>a.classList.toggle('on',a.id==='s-'+id));
   $('main').scrollTop=0;stopPlay();
-  if(id==='lib'&&arg){state.tab=arg;state.chip='all';renderTabs();renderLib()}
-  if(id==='brand'&&arg==='claude')setTimeout(()=>$('claude').scrollIntoView({behavior:'smooth'}),50);
+  if(id==='lib'){if(arg){state.tab=arg;state.chip='all'}renderLib()}
+  
   if(id==='projects')renderProjects();if(id==='connect')renderConnect();
 }
 function go(id,arg){location.hash=id+(arg?'/'+arg:'')}
@@ -47,34 +47,44 @@ document.addEventListener('keydown',e=>{const typing=/INPUT|TEXTAREA|SELECT/.tes
 function toast(m,act){if(window.leo&&/error/i.test(m))leo.peek('puzzled');const t=$('toast');t.innerHTML=m+(act?`<b onclick="${act}">Open</b>`:'');t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),3000)}
 function copyText(s,msg){(navigator.clipboard?navigator.clipboard.writeText(s):Promise.reject()).then(()=>toast(msg||'Copied')).catch(()=>{prompt('Copy:',s)})}
 
-/* ---------- library ---------- */
-const TABS=[['kit','Launch kit',['hero','header','card','aibp','aipost']],['video','Videos',['film','kit']],['scene','Scenes',['scene']],['bg','Backgrounds',['background']],['photo','Photos',['photo']],['coach','Coaches',['coach']],['graphic','Graphics',['graphic']],['illustration','Illustrations',['illustration']],['org','Logos',['org']],['icon','Icons',['icon']],['music','Music',['music']],['copy','Copy',['copy']]];
+/* ---------- library: four shelves, sub-shelves beneath ---------- */
+const LIB=[
+ ['images','Images','<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/>',[['kit','Launch kit',['hero','header','card','aibp','aipost']],['bg','Backgrounds',['background']],['photo','Photos',['photo']],['expert','Experts',['expert']],['illustration','Illustrations',['illustration']],['graphic','Graphics',['graphic']],['org','Logos',['org']],['icon','Icons',['icon']]]],
+ ['gifs','GIFs','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 12h2M12 9v6M15 9h3M15 12h2"/>',[['gif','Sales',['gif']]]],
+ ['videos','Videos','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>',[['film','Films',['film','kit']],['scene','Scenes',['scene']],['music','Music',['music']]]],
+ ['copy','Copy','<path d="M5 6h14M5 12h10M5 18h7"/>',[['tagline','Taglines',['tagline']],['post','Posts',['post']]]]];
+const subOf=k=>{for(const t of LIB)for(const s of t[3])if(s[0]===k)return {tab:t,sub:s};return {tab:LIB[0],sub:LIB[0][3][0]}};
 const CHIPS={scene:[['all','All'],['intro','Intros'],['text','Text'],['product','Product'],['outro','Outros']],org:[['all','All'],['school','Schools'],['company','Companies']],illustration:[['all','All'],['social','Communication'],['work','Work'],['growth','Growth']]};
-function renderTabs(){$('tabs').innerHTML=TABS.map(([k,n,g])=>`<button class="${state.tab===k?'on':''}" onclick="go('lib','${k}')">${n}<small>${k==='copy'?M.posts.length+(M.brand.taglines||[]).length:byGroup(...g).length}</small></button>`).join('')}
-function renderChips(){const c=CHIPS[state.tab];const el=$('chips');if(!c||state.q){el.innerHTML='';return}
-  el.innerHTML=c.map(([k,n])=>`<button class="${state.chip===k?'on':''}" onclick="state.chip='${k}';renderLib()">${n}</button>`).join('')+(state.tab==='org'?`<span class="seg sm" style="margin-left:auto">${['color','black','white'].map(m=>`<button class="${state.logoMode===m?'on':''}" onclick="state.logoMode='${m}';renderLib()">${m[0].toUpperCase()+m.slice(1)}</button>`).join('')}</span>`:'')}
+function count(g){return g[0]==='tagline'?(M.brand.taglines||[]).length:g[0]==='post'?M.posts.length:byGroup(...g).length}
+function renderTabs(){const cur=subOf(state.tab).tab[0];$('tabs').innerHTML=LIB.map(([k,n,ic,subs])=>`<button class="${cur===k?'on':''}" onclick="go('lib','${subs[0][0]}')"><svg class="ico" viewBox="0 0 24 24">${ic}</svg>${n}</button>`).join('')}
+function renderChips(){const {tab,sub}=subOf(state.tab);const el=$('chips');if(state.q){el.innerHTML='';return}
+  let h=tab[3].map(s=>`<button class="${s[0]===sub[0]?'on':''}" onclick="go('lib','${s[0]}')">${s[1]}<small>${count(s)}</small></button>`).join('');
+  const c=CHIPS[sub[0]];if(c)h+=`<span class="seg sm" style="margin-left:auto">${c.map(([k,n])=>`<button class="${state.chip===k?'on':''}" onclick="state.chip='${k}';renderLib()">${n}</button>`).join('')}</span>`;
+  if(sub[0]==='org')h+=`<span class="seg sm">${['color','black','white'].map(m=>`<button class="${state.logoMode===m?'on':''}" onclick="state.logoMode='${m}';renderLib()">${m[0].toUpperCase()+m.slice(1)}</button>`).join('')}</span>`;
+  el.innerHTML=h}
 function searchLib(q){state.q=q.toLowerCase();if(!isOn('lib'))go('lib');renderLib()}
 function match(a){const q=state.q;if(!q)return true;return ((a.title||'')+' '+(a.sub||'')+' '+(a.tags||[]).join(' ')+' '+(a.text||'')).toLowerCase().includes(q)}
 function chipMatch(a){const c=state.chip;if(!c||c==='all')return true;if(a.group==='scene')return a.style===c;if(a.group==='org')return a.kind===c;if(a.group==='illustration')return a.set===c;return true}
 const logoSrc=a=>state.logoMode==='color'||!a.mono?a.src:a.mono[state.logoMode];
 function card(a){
   if(a.type==='video')return `<div class="card vid" onclick="openAsset('${a.id}')" onmouseenter="hoverPlay(this,1)" onmouseleave="hoverPlay(this,0)"><div class="th" style="background-image:url('${a.poster}')"><video muted loop playsinline preload="none" poster="${a.poster}" data-src="${a.src}"></video>${a.duration?`<span class="dur">${fmtDur(a.duration)}</span>`:''}</div><div class="t">${esc(a.title)}</div><div class="m">${esc(a.sub||a.group)}</div></div>`;
+  if(a.type==='gif')return `<div class="card gif" onclick="openAsset('${a.id}')" onmouseenter="this.querySelector('img').src='${a.src}'" onmouseleave="this.querySelector('img').src='${a.poster}'"><div class="th"><img src="${a.poster}" alt=""><span class="dur">${a.duration}s · loop</span></div><div class="t">${esc(plain(a.title))}</div><div class="m">${esc(a.sub)}</div></div>`;
   if(a.type==='audio')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th" style="background-image:url('${a.thumb}')"></div><div class="t">${esc(a.title)}</div><div class="m">${a.duration}s</div></div>`;
   if(a.type==='icon')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th icon"><img loading="lazy" src="${a.src}" alt=""></div><div class="m" style="text-align:center;margin-top:6px">${esc(a.title)}</div></div>`;
   if(a.group==='org')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th contain sq ${state.logoMode==='white'?'dark':''}"><img loading="lazy" src="${logoSrc(a)}" alt=""></div><div class="t">${esc(a.title)}</div></div>`;
   if(a.group==='illustration')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th ill"><img loading="lazy" src="${a.src}" alt=""></div><div class="t">${esc(a.title)}</div></div>`;
   if(a.group==='graphic')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th contain r43"><img loading="lazy" src="${a.src}" alt=""></div><div class="t">${esc(a.title)}</div></div>`;
-  if(a.group==='coach')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th sq" style="background-image:url('${a.thumb}')"></div><div class="t">${esc(a.title)}</div></div>`;
+  if(a.group==='expert')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th sq" style="background-image:url('${a.thumb}')"></div><div class="t">${esc(a.title)}</div></div>`;
   if(a.group==='copy')return `<div class="card copy" onclick="openAsset('${a.id}')"><div class="th">${esc(a.title)}</div><div class="m">${esc(a.sub)}</div></div>`;
   return `<div class="card" onclick="openAsset('${a.id}')"><div class="th ${a.group==='photo'?'r43':''}" style="background-image:url('${a.thumb||a.src}')"></div><div class="t">${esc(a.title)}</div><div class="m">${esc(a.group==='background'?(a.tags||[]).filter(t=>t!=='background').slice(0,3).join(' · '):a.sub||a.group)}</div></div>`}
 const fmtDur=d=>`${Math.floor(d/60)}:${String(Math.round(d%60)).padStart(2,'0')}`;
 function hoverPlay(el,on){const v=el.querySelector('video');if(!v)return;if(on){if(!v.src)v.src=v.dataset.src;v.currentTime=0;v.play().catch(()=>{})}else{v.pause()}}
-function copyItems(){return (M.brand.taglines||[]).map((t,i)=>({id:'tag-'+i,type:'copy',group:'copy',title:t,sub:'Approved tagline',text:t,tags:['tagline']})).concat(M.posts.map(p=>({id:'post-'+p.id,type:'copy',group:'copy',title:p.title,sub:`Post idea ${p.num} · ${p.platform}${p.group==='aibp'?' · AIBP':''}`,text:p.text,idea:p.idea,works:p.works,assets:p.assets,tags:['post',p.platform,p.group]})))}
+function copyItems(kind){const t=(M.brand.taglines||[]).map((t,i)=>({id:'tag-'+i,type:'copy',group:'copy',kind:'tagline',title:t,sub:'Approved tagline',text:t,tags:['tagline']}));const p=M.posts.map(p=>({id:'post-'+p.id,type:'copy',group:'copy',kind:'post',title:p.title,sub:`Post idea ${p.num} · ${p.platform}${p.group==='aibp'?' · AIBP':''}`,text:p.text,idea:p.idea,works:p.works,assets:p.assets,tags:['post',p.platform,p.group]}));return kind==='tagline'?t:kind==='post'?p:t.concat(p)}
 function allItems(){return M.assets.concat(copyItems())}
 function renderLib(){
-  const tab=TABS.find(t=>t[0]===state.tab)||TABS[0];let items=state.q?allItems():(tab[0]==='copy'?copyItems():byGroup(...tab[2]));
-  items=items.filter(match).filter(chipMatch);renderChips();const g=$('grid');const t=tab[0];
-  g.className='grid'+(state.q?'':t==='icon'?' icons':t==='video'?' video':t==='scene'?' scenes':t==='org'?' logos':t==='illustration'?' ills':t==='coach'?' coaches':'');
+  const {sub}=subOf(state.tab);const t=sub[0];let items=state.q?allItems():(t==='tagline'||t==='post'?copyItems(t):byGroup(...sub[2]));
+  items=items.filter(match).filter(chipMatch);renderTabs();renderChips();const g=$('grid');
+  g.className='grid'+(state.q?'':t==='icon'?' icons':t==='film'?' video':t==='scene'||t==='gif'?' scenes':t==='org'?' orgs':t==='illustration'?' ills':t==='expert'?' coaches':'');
   g.innerHTML=items.map(card).join('')||'<div class="empty">Nothing matches.</div>'}
 
 /* ---------- preview (in place, back route) ---------- */
@@ -84,6 +94,7 @@ function stepPreview(d){if(!pvList.length)return;pvIdx=(pvIdx+d+pvList.length)%p
 function showPreview(id){
   const a=allItems().find(x=>x.id===id);if(!a)return;const st=$('pvstage'),sd=$('pvside');st.className='stage';
   if(a.type==='video')st.innerHTML=`<video src="${a.src}" poster="${a.poster}" controls autoplay playsinline ${a.group==='scene'?'loop muted':''}></video>`;
+  else if(a.type==='gif')st.innerHTML=`<img src="${a.src}" alt="">`;
   else if(a.type==='audio')st.innerHTML=`<div style="width:100%"><img src="${a.art||a.thumb}" style="width:100%;border-radius:10px;margin-bottom:14px" alt=""><audio src="${a.src}" controls autoplay></audio></div>`;
   else if(a.type==='icon'){st.classList.add('icon');st.innerHTML=`<img src="${a.src}" alt="">`}
   else if(a.type==='copy')st.innerHTML=`<div class="copytext ${a.text.length>80?'post':''}">${esc(a.text)}</div>`;
@@ -94,12 +105,13 @@ function showPreview(id){
   let actions='';
   if(a.type==='copy')actions=`<button class="btn black" onclick="copyText(${JSON.stringify(a.text)},'Copied')">Copy text</button>${a.id.startsWith('tag')?`<button class="btn" onclick="useTagline(${JSON.stringify(a.text)})">Use as headline</button>`:''}`;
   else if(a.type==='audio')actions=`<button class="btn black" onclick="closePreview(true);pickMusic('${a.id}');start('video')">Use in a video</button><a class="btn" href="${a.src}" download>Download</a>`;
+  else if(a.type==='gif')actions=`<a class="btn black" href="${a.src}" download>Download GIF</a><a class="btn" href="${a.mp4}" download>Download MP4</a><button class="btn" onclick="closePreview(true);start('video',true);addScene('clip','${a.id}')">Add to a video</button><a class="btn" href="${base()}assets/gifs/src/${a.src.split('/').pop().replace('.gif','.html')}" target="_blank">Open source</a>`;
   else if(a.group==='scene')actions=`<button class="btn black" onclick="closePreview(true);start('video',true);addScene('clip','${a.id}')">Add to a video</button><a class="btn" href="${a.src}" download>Download clip</a>`;
   else if(a.type==='video')actions=`<a class="btn black" href="${a.src}" download>Download</a><button class="btn" onclick="closePreview(true);go('lib','scene');state.q='';$('q').value='';setTimeout(()=>{searchLib(${JSON.stringify((a.title||'').toLowerCase())})},50)">See its scenes</button>`;
   else if(a.type==='icon')actions=`<button class="btn black" onclick="copySvg('${a.src}')">Copy SVG</button><a class="btn" href="${a.src}" download>Download</a>`;
   else if(a.group==='org')actions=`<button class="btn black" onclick="closePreview(true);start('still',true);useGfx('${a.id}')">Add to an image</button><a class="btn" href="${a.src}" download>Download color</a>${a.mono?`<div class="two"><a class="btn" href="${a.mono.black}" download>Black</a><a class="btn" href="${a.mono.white}" download>White</a></div>`:''}`;
   else if(a.group==='illustration')actions=`<button class="btn black" onclick="closePreview(true);start('still',true);useGfx('${a.id}')">Add to an image</button><button class="btn" onclick="copySvg('${a.src}')">Copy SVG</button><a class="btn" href="${a.src}" download>Download</a>`;
-  else if(a.group==='coach')actions=`<button class="btn black" onclick="closePreview(true);start('still',true);useGfx('${a.id}')">Add to an image</button><a class="btn" href="${a.src}" download>Download</a>`;
+  else if(a.group==='expert')actions=`<button class="btn black" onclick="closePreview(true);start('still',true);useGfx('${a.id}')">Add to an image</button><a class="btn" href="${a.src}" download>Download</a>`;
   else{const isBg=['background','photo','hero','header','aibp'].includes(a.group),isGfx=['graphic'].includes(a.group),isShot=['card','aipost','hero','upload'].includes(a.group);
     actions=`${isBg?`<button class="btn black" onclick="closePreview(true);useBg('${a.id}');start('still',true)">Use as background</button>`:''}${isGfx?`<button class="btn black" onclick="closePreview(true);start('still',true);useGfx('${a.id}')">Add to an image</button>`:''}${isShot?`<button class="btn ${isBg?'':'black'}" onclick="closePreview(true);start('video',true);addScene('shot','${a.id}')">Use in a video</button><button class="btn" onclick="closePreview(true);start('still',true);useShot('${a.id}')">Add to an image</button>`:''}<a class="btn" href="${a.src}" download>Download</a>`}
   sd.innerHTML=`<h2>${esc(a.title)}</h2><div class="m">${esc(a.sub||'')}${a.best?`<br><b style="color:var(--ink)">Best for:</b> ${esc(a.best)}`:''}${a.idea?`<br><br>${esc(a.idea)}`:''}</div><div class="tags">${tags}</div>${actions}`;
@@ -108,28 +120,36 @@ function showPreview(id){
 function closePreview(silent){const pv=$('pv');if(!pv.classList.contains('on'))return;pv.classList.remove('on');pv.querySelectorAll('video,audio').forEach(v=>v.pause());$('pvstage').innerHTML='';if(!silent&&location.hash.startsWith('#asset/')){if(pvPushed)history.back();else location.hash=state.tab?'lib/'+state.tab:'lib'}pvPushed=false}
 async function copySvg(src){try{const t=await (await fetch(src)).text();copyText(t,'SVG copied')}catch(e){copyText(base()+src,'Link copied')}}
 
-/* ---------- motion presets (director-owned) ---------- */
+/* ---------- motion presets: measured from the five launch films ---------- */
 const MOTION_DEFAULT={
-  text:[{id:'typed',name:'Typed',desc:'Characters arrive one by one, cursor-less.',speed:1.2,ease:'linear'},{id:'rise',name:'Rise',desc:'Lines rise and fade in, staggered.',speed:.6,stagger:.18,ease:'out'},{id:'words',name:'Words',desc:'Each word scales in, staggered.',speed:.35,stagger:.12,ease:'out'}],
-  transition:[{id:'cut',name:'Cut',desc:'No transition.',dur:0},{id:'fade',name:'Fade',desc:'Cross-fade through the background.',dur:.35},{id:'push',name:'Push',desc:'Next scene pushes up from below.',dur:.45}],
-  logo:[{id:'leo',name:'Leo spins in',desc:'The loader spins, the ears land, the mark settles into the wordmark.',dur:1.5},{id:'fade',name:'Fade',desc:'Lockup fades in.',dur:.4}],
-  defaults:{text:'typed',transition:'fade',logo:'leo',scene:3}
+  text:[{id:'typed',name:'Typed',desc:'Characters arrive left to right from where the finished line sits. Fast, ~45 characters a second; the rhythm comes from pauses, not slow letters.',speed:.65,ease:'linear'},
+        {id:'words',name:'Words',desc:'Each word fades up from below with a touch of blur, a tenth of a second apart. The house treatment for taglines and end cards.',speed:.45,stagger:.1,ease:'out'},
+        {id:'rise',name:'Rise',desc:'A whole line or card rises and fades in. Used for UI cards and stacked status lines, never a hero headline.',speed:.4,stagger:.1,ease:'out'}],
+  transition:[{id:'fade',name:'Dissolve',desc:'A 0.35s cross-dissolve between scenes. Lockups and typed headlines leave on a hard cut.',dur:.35},{id:'cut',name:'Cut',desc:'No transition.',dur:0},{id:'push',name:'Push',desc:'The next scene pushes up from below. Not in the films; use sparingly.',dur:.45}],
+  logo:[{id:'draw',name:'Draws on',desc:'The mark draws on stroke by stroke (~0.55s), holds a beat, then the wordmark types in while the lockup re-centres. This is what the films do.',dur:1.5},
+        {id:'fade',name:'Fade',desc:'The finished lockup fades in over a quarter second above a headline that already landed. Dark end cards.',dur:.25},
+        {id:'leo',name:'Leo spins in',desc:'The loader spins, the ears land, Leo settles into the mark. For the Community product only.',dur:1.5}],
+  defaults:{text:'words',transition:'fade',logo:'draw',scene:3}
 };
-let MOTION=null;
-function loadMotion(){try{MOTION=JSON.parse(localStorage.getItem('le-motion')||'null')}catch(e){}if(!MOTION)MOTION=JSON.parse(JSON.stringify(MOTION_DEFAULT))}
+let MOTION=null,MREF={};
+function loadMotion(){try{MOTION=JSON.parse(localStorage.getItem('le-motion')||'null')}catch(e){}if(!MOTION||!MOTION.logo.find(p=>p.id==='draw'))MOTION=JSON.parse(JSON.stringify(MOTION_DEFAULT));fetch('data/motion-ref.json').then(r=>r.json()).then(d=>{MREF=d;if(isOn('motion'))renderMotion()}).catch(()=>{})}
 function saveMotion(){try{localStorage.setItem('le-motion',JSON.stringify(MOTION))}catch(e){}}
 const preset=(kind,id)=>(MOTION[kind]||[]).find(p=>p.id===id)||MOTION[kind][0];
 const EASE={linear:t=>t,out:t=>1-Math.pow(1-t,3),inout:t=>t<.5?2*t*t:-1+(4-2*t)*t};
-function renderMotion(){const groups=[['text','Text',['speed','stagger','ease']],['transition','Transitions',['dur']],['logo','Logo',['dur']]];
-  $('motionlist').innerHTML=groups.map(([k,n,fields])=>`<div class="mgroup"><h2>${n}</h2>${MOTION[k].map(p=>`<div class="mrow ${MOTION.defaults[k]===p.id?'def':''}"><div class="mdemo" id="demo-${k}-${p.id}" onmouseenter="demoMotion('${k}','${p.id}')"><span>${k==='logo'?'<img src="assets/logomark.png" alt="">':k==='text'?'Own your <em>future</em>.':'Scene'}</span></div><div class="mbody"><b>${esc(p.name)}</b><span>${esc(p.desc)}</span></div><div class="mfields">${fields.filter(f=>f in p).map(f=>f==='ease'?`<label>Ease<select onchange="MOTION.${k}.find(x=>x.id==='${p.id}').ease=this.value;saveMotion()">${['linear','out','inout'].map(e=>`<option ${p.ease===e?'selected':''}>${e}</option>`).join('')}</select></label>`:`<label>${({speed:'Speed',stagger:'Stagger',dur:'Duration'})[f]}<input type="number" step=".05" min="0" value="${p[f]}" onchange="MOTION.${k}.find(x=>x.id==='${p.id}').${f}=+this.value;saveMotion()"><i>s</i></label>`).join('')}</div><button class="link" onclick="MOTION.defaults.${k}='${p.id}';saveMotion();renderMotion()">${MOTION.defaults[k]===p.id?'Default':'Make default'}</button></div>`).join('')}</div>`).join('')+
-  `<div class="mgroup"><h2>Scenes</h2><div class="mrow"><div class="mbody"><b>Default scene length</b><span>New scenes start at this length.</span></div><div class="mfields"><label>Duration<input type="number" step=".5" min="1" value="${MOTION.defaults.scene}" onchange="MOTION.defaults.scene=+this.value;saveMotion()"><i>s</i></label></div></div></div>`}
+function refClips(k,id){if(k==='logo')id=id==='draw'?'leo':id==='leo'?'none':id;const r=((MREF[k]||{})[id]||{}).refs||[];return r.map(A).filter(Boolean).slice(0,3)}
+function renderMotion(){const groups=[['text','Text',['speed','stagger','ease']],['logo','Logo',['dur']],['transition','Transitions',['dur']]];
+  $('motionlist').innerHTML=(MREF.summary?`<div class="msum">${MREF.summary.map(s=>`<p>${esc(s)}</p>`).join('')}</div>`:'')+groups.map(([k,n,fields])=>`<div class="mgroup"><h2>${n}</h2>${MOTION[k].map(p=>{const refs=refClips(k,p.id);return `<div class="mrow ${MOTION.defaults[k]===p.id?'def':''}">
+    <div class="mdemo" id="demo-${k}-${p.id}" onmouseenter="demoMotion('${k}','${p.id}')"><span>${k==='logo'?'<img src="assets/logomark.png" alt=""><b>Leland</b>':k==='text'?'Own your <em>future</em>.':'Scene'}</span></div>
+    <div class="mbody"><b>${esc(p.name)}</b><span>${esc(p.desc)}</span><div class="mfields">${fields.filter(f=>f in p).map(f=>f==='ease'?`<label>Ease<select onchange="MOTION.${k}.find(x=>x.id==='${p.id}').ease=this.value;saveMotion()">${['linear','out','inout'].map(e=>`<option ${p.ease===e?'selected':''}>${e}</option>`).join('')}</select></label>`:`<label>${({speed:'Speed',stagger:'Stagger',dur:'Duration'})[f]}<input type="number" step=".05" min="0" value="${p[f]}" onchange="MOTION.${k}.find(x=>x.id==='${p.id}').${f}=+this.value;saveMotion()"></label>`).join('')}<button class="link" onclick="MOTION.defaults.${k}='${p.id}';saveMotion();renderMotion()">${MOTION.defaults[k]===p.id?'Default':'Make default'}</button></div></div>
+    <div class="mrefs">${refs.map(a=>`<div class="mref" onclick="openAsset('${a.id}')" onmouseenter="hoverPlay(this,1)" onmouseleave="hoverPlay(this,0)"><video muted loop playsinline preload="none" poster="${a.poster}" data-src="${a.src}"></video><span>${esc(a.title)}</span></div>`).join('')||'<div class="mref none">Not in the films</div>'}</div></div>`}).join('')}</div>`).join('')+
+  `<div class="mgroup"><h2>Scenes</h2><div class="mrow"><div class="mdemo"><span>3s</span></div><div class="mbody"><b>Default scene length</b><span>Finished headlines hold 0.25–1s; end cards hold 2–2.5s with the store badges arriving 0.4s after the tagline.</span><div class="mfields"><label>Duration<input type="number" step=".5" min="1" value="${MOTION.defaults.scene}" onchange="MOTION.defaults.scene=+this.value;saveMotion()"></label></div></div><div class="mrefs"></div></div></div>`}
 function demoMotion(k,id){const el=$(`demo-${k}-${id}`);el.classList.remove('go');void el.offsetWidth;el.dataset.anim=id;el.classList.add('go')}
-function motionReset(){MOTION=JSON.parse(JSON.stringify(MOTION_DEFAULT));saveMotion();renderMotion();toast('Presets reset')}
-function motionExport(){dl(new Blob([JSON.stringify(MOTION,null,2)],{type:'application/json'}),'le-motion.json');toast('Presets exported. Drop the file into data/ to make them the house defaults.')}
+function motionReset(){MOTION=JSON.parse(JSON.stringify(MOTION_DEFAULT));saveMotion();renderMotion();toast('Presets reset to what the films do')}
+function motionExport(){dl(new Blob([JSON.stringify(MOTION,null,2)],{type:'application/json'}),'le-motion.json');toast('Presets exported')}
 
 /* ---------- editor ---------- */
 const DEF_LAYERS=()=>({copy:{x:.07,y:.62,w:.72},gfx:{id:null,x:.62,y:.12,s:.3},shot:{id:null,x:.56,y:.18,s:.42}});
-Object.assign(state,{layers:DEF_LAYERS(),sel:'copy',outro:'leo',size:1,scenes:[],scene:0});
+Object.assign(state,{layers:DEF_LAYERS(),sel:'copy',outro:'draw',size:1,scenes:[],scene:0});
 const defScenes=()=>[{type:'text',text:'One conversation could [open the door].',anim:MOTION.defaults.text,dur:3},{type:'shot',asset:'card-kevin',dur:3},{type:'outro',tag:'Talk to a [Human].',dur:3}];
 function start(k,keep){state.kind=k;stopPlay();
   if(!keep){state.layers=DEF_LAYERS();state.size=1;$('fSize').value=1;
@@ -144,7 +164,7 @@ function start(k,keep){state.kind=k;stopPlay();
 function setCopy(h,s,c){$('fHead').value=h||'';$('fSub').value=s||'';$('fCta').value=c||''}
 function useTagline(t){setCopy(t,'','');closePreview(true);start('still',true);sync();toast('Tagline applied')}
 function useBg(id){state.bg=id;renderSw();sync()}
-function useGfx(id){state.layers.gfx.id=id;state.sel='gfx';if((A(id)||{}).group==='coach')state.layers.gfx.s=.28;renderGfxSw();sync()}
+function useGfx(id){state.layers.gfx.id=id;state.sel='gfx';if((A(id)||{}).group==='expert')state.layers.gfx.s=.28;renderGfxSw();sync()}
 function useShot(id){state.shot=id;if(state.kind==='still'){state.layers.shot.id=id;state.sel='shot'}renderShotSw();sync()}
 function uploadShot(f){if(!f)return;const r=new FileReader();r.onload=()=>{const id='upload-'+Date.now();M.assets.push({id,type:'image',group:'upload',title:f.name,src:r.result,thumb:r.result,tags:['upload']});if(state.kind==='video')addScene('shot',id);else useShot(id)};r.readAsDataURL(f)}
 function ratio(c){state.ratio=c;document.querySelectorAll('#ratio button').forEach(b=>b.classList.toggle('on',(b.textContent==='16:9'&&!c)||(b.textContent==='1:1'&&c==='r11')||(b.textContent==='4:5'&&c==='r45')||(b.textContent==='9:16'&&c==='r916')));sync()}
@@ -161,7 +181,7 @@ function hsFor(){const f=$('frame');return Math.min(f.clientWidth,f.clientHeight
 function sync(){
   const f=$('frame'),k=state.kind,bg=A(state.bg)||{},L=state.layers;const isVid=k==='video',isDeck=k==='deck',isStory=k==='story';
   const gfx=A(L.gfx.id),shot=A(L.shot.id);
-  f.className='frame '+(state.ratio||'')+(isVid?' vid'+(state.dark?' dark':''):isStory?' story':(bg.src?' photo'+(bg.light?' light':''):' light'))+(state.center?' center':'')+(gfx?' has-gfx':'')+(shot?' has-shotL':'')+(gfx&&gfx.group==='coach'?' round':'');
+  f.className='frame '+(state.ratio||'')+(isVid?' vid'+(state.dark?' dark':''):isStory?' story':(bg.src?' photo'+(bg.light?' light':''):' light'))+(state.center?' center':'')+(gfx?' has-gfx':'')+(shot?' has-shotL':'')+(gfx&&gfx.group==='expert'?' round':'');
   f.style.backgroundImage=isVid||isStory?'none':`url('${bg.src||''}')`;if((!isVid&&!bg.src)||isStory)f.style.backgroundColor='#fff';
   f.style.setProperty('--hs',hsFor()+'px');f.style.setProperty('--sz',state.size);
   $('pHead').innerHTML=blue($('fHead').value);$('pSub').textContent=$('fSub').value;$('pCta').textContent=$('fCta').value;$('fSizeV').textContent=Math.round(state.size*100)+'%';
@@ -174,8 +194,8 @@ function sync(){
   ['secCopy','secBg','secGfx','secShot'].forEach(id=>$(id).style.display=isVid||isStory?'none':'');
   ['secScene','secTheme','secMusic'].forEach(id=>$(id).style.display=isVid?'':'none');
   ['secStory','secStoryOut'].forEach(id=>$(id).style.display=isStory?'':'none');
-  $('vidctl').style.display=isVid?'flex':'none';$('beats').style.display=isVid?'':'none';$('addscene').style.display=isVid?'':'none';$('slides').style.display=isDeck||isStory?'':'none';$('ratio').style.display=isDeck||isStory?'none':'';
-  $('layerbar').innerHTML=isVid||isStory?'':`<button class="layerbtn ${state.sel==='copy'?'on':''}" onclick="state.sel='copy';sync()">Text</button>${gfx?`<button class="layerbtn ${state.sel==='gfx'?'on':''}" onclick="state.sel='gfx';sync()">${gfx.group==='coach'?'Coach':gfx.group==='org'?'Logo':'Illustration'}</button>`:''}${shot?`<button class="layerbtn ${state.sel==='shot'?'on':''}" onclick="state.sel='shot';sync()">Shot</button>`:''}`;
+  $('vidctl').style.display=isVid?'flex':'none';$('beats').style.display=isVid?'':'none';$('blocks').style.display=isVid?'':'none';$('egrid').classList.toggle('video',isVid);$('slides').style.display=isDeck||isStory?'':'none';$('ratio').style.display=isDeck||isStory?'none':'';
+  $('ratio').style.display=isDeck||isStory?'none':'';$('layerbar').innerHTML=isVid||isStory?'':`<button class="layerbtn ${state.sel==='copy'?'on':''}" onclick="state.sel='copy';sync()">Text</button>${gfx?`<button class="layerbtn ${state.sel==='gfx'?'on':''}" onclick="state.sel='gfx';sync()">${gfx.group==='expert'?'Expert':gfx.group==='org'?'Logo':'Illustration'}</button>`:''}${shot?`<button class="layerbtn ${state.sel==='shot'?'on':''}" onclick="state.sel='shot';sync()">Shot</button>`:''}`;
   $('cookbtn').innerHTML=(isVid?'Render video':isDeck?'Download slides':isStory?'Download carousel':'Download PNG')+'<span class="kbd">⌘⏎</span>';
   $('cooknote').textContent=isVid?'Renders in your browser with the music mixed in.':isDeck?'Every slide as a 1920×1080 PNG.':isStory?'5 slides · PDF for LinkedIn':({'':'1920×1080',r11:'1080×1080',r45:'1080×1350',r916:'1080×1920'}[state.ratio||'']);
   if(isVid){syncScenes();showScene(curScene)}else ['bHook','bShot','bClip','bOutro'].forEach(id=>$(id).classList.remove('on'));
@@ -192,7 +212,7 @@ window.addEventListener('resize',()=>{if(isOn('editor'))sync()});
   document.addEventListener('keydown',e=>{if(!isOn('editor')||state.kind!=='still'||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;const L=state.layers[state.sel];if(!L)return;const st=e.shiftKey?.05:.01;if(e.key==='ArrowLeft'){L.x-=st}else if(e.key==='ArrowRight'){L.x+=st}else if(e.key==='ArrowUp'){L.y-=st}else if(e.key==='ArrowDown'){L.y+=st}else if((e.key==='Backspace'||e.key==='Delete')&&state.sel!=='copy'){L.id=null;state.sel='copy';renderGfxSw();renderShotSw()}else return;e.preventDefault();sync()});
 })();
 /* inline drawer */
-const DTABS={bg:[['bg','Backgrounds',['background']],['kit','Launch kit',['hero','header']],['photo','Photos',['photo']]],gfx:[['illustration','Illustrations',['illustration']],['coach','Coaches',['coach']],['org','Logos',['org']],['graphic','Graphics',['graphic']],['icon','Icons',['icon']]],shot:[['card','Launch kit',['card','aipost','hero']],['upload','Uploads',['upload']]],clip:[['scene','Scenes',['scene']]],logo:[['org','Logos',['org']]]};
+const DTABS={bg:[['bg','Backgrounds',['background']],['kit','Launch kit',['hero','header']],['photo','Photos',['photo']]],gfx:[['illustration','Illustrations',['illustration']],['expert','Experts',['expert']],['org','Logos',['org']],['graphic','Graphics',['graphic']],['icon','Icons',['icon']]],shot:[['card','Launch kit',['card','aipost','hero']],['upload','Uploads',['upload']]],clip:[['scene','Scenes',['scene']],['gif','GIFs',['gif']]],logo:[['org','Logos',['org']]]};
 let dmode='bg',dtab='bg';
 function openDrawer(mode){dmode=mode;dtab=DTABS[mode][0][0];$('dq').value='';renderDrawer();$('drawer').classList.add('on')}
 function closeDrawer(){$('drawer').classList.remove('on')}
@@ -200,7 +220,7 @@ function renderDrawer(){const tabs=DTABS[dmode];$('dtabs').innerHTML=tabs.map(t=
   const q=$('dq').value.toLowerCase();const t=tabs.find(x=>x[0]===dtab);let items=byGroup(...t[2]).filter(a=>!q||((a.title||'')+' '+(a.tags||[]).join(' ')).toLowerCase().includes(q));
   const fn={bg:'useBg',gfx:'useGfx',shot:'useShot',clip:'pickClip',logo:'storyLogo'}[dmode];
   $('dgrid').className='grid'+(dtab==='icon'?' icons':dtab==='illustration'?' ills':dtab==='scene'?' scenes':'');
-  $('dgrid').innerHTML=items.map(a=>{const contain=['graphic','illustration','icon','org'].includes(a.group);const cls=a.group==='icon'?'icon':a.group==='illustration'?'ill':contain?'contain sq':a.group==='photo'||a.group==='coach'?(a.group==='coach'?'sq':'r43'):'';
+  $('dgrid').innerHTML=items.map(a=>{const contain=['graphic','illustration','icon','org'].includes(a.group);const cls=a.group==='icon'?'icon':a.group==='illustration'?'ill':contain?'contain sq':a.group==='photo'||a.group==='expert'?(a.group==='expert'?'sq':'r43'):'';
     return `<div class="card" onclick="${fn}('${a.id}')"><div class="th ${cls}" style="${contain?'':`background-image:url('${a.poster||a.thumb||a.src}')`}">${contain?`<img loading="lazy" src="${a.src}" alt="">`:''}${a.duration?`<span class="dur">${a.duration}s</span>`:''}</div>${a.group==='icon'?'':`<div class="t">${esc(a.title)}</div>`}</div>`}).join('')||'<div class="empty">Nothing matches.</div>'}
 function pickClip(id){addScene('clip',id);closeDrawer()}
 
@@ -208,37 +228,53 @@ function pickClip(id){addScene('clip',id);closeDrawer()}
 let curScene=0,playing=false,tPos=0,raf=null,lastTs=0,musicEl=null;
 const SCENE_TYPES=[['text','Text animation'],['shot','Product shot'],['clip','Animated UI'],['intro','Intro'],['outro','Outro']];
 const sceneDur=s=>s.type==='clip'?((A(s.asset)||{}).duration||3):s.dur;
+const clipSrc=a=>a.mp4||a.src;
 const total=()=>state.scenes.reduce((a,s)=>a+sceneDur(s),0);
 function addScene(type,asset){const sc={type,dur:MOTION.defaults.scene};
   if(type==='text')sc.text='Your next move [starts here].',sc.anim=MOTION.defaults.text;
   if(type==='shot')sc.asset=asset||'card-kevin';
-  if(type==='clip'){sc.asset=asset||(byGroup('scene').find(a=>a.style==='product')||{}).id;sc.type='clip'}
+  if(type==='clip'){sc.asset=asset||(byGroup('scene').find(a=>a.style==='product')||{}).id}
+  if(type==='gif'){sc.type='clip';sc.asset=asset||(byGroup('gif')[0]||{}).id}
   if(type==='intro'){const a=byGroup('scene').find(x=>x.style==='intro');sc.type='clip';sc.asset=asset||(a&&a.id)}
   if(type==='outro')sc.tag='Talk to a [Human].';
   const at=type==='intro'?0:type==='outro'?state.scenes.length:(state.scenes[state.scenes.length-1]||{}).type==='outro'?state.scenes.length-1:state.scenes.length;
   state.scenes.splice(at,0,sc);state.scene=at;seekScene(at);sync()}
 function removeScene(i){if(state.scenes.length<=1)return;state.scenes.splice(i,1);state.scene=Math.max(0,i-1);seekScene(state.scene);sync()}
 function moveScene(i,d){const j=i+d;if(j<0||j>=state.scenes.length)return;const s=state.scenes;[s[i],s[j]]=[s[j],s[i]];state.scene=j;seekScene(j);sync()}
+function sceneThumb(s){const a=A(s.asset)||{};
+  if(s.type==='text')return `<div class="bt text ${state.dark?'dark':''}"><span>${blue(s.text)}</span></div>`;
+  if(s.type==='shot')return `<div class="bt shot ${state.dark?'dark':''}"><img src="${a.thumb||a.src||''}" alt=""></div>`;
+  if(s.type==='clip')return `<div class="bt clip" style="background-image:url('${a.poster||''}')"></div>`;
+  return `<div class="bt outro ${state.dark?'dark':''}"><img src="assets/logomark.png" alt=""><b>Leland</b></div>`}
+const BLOCKS=[['text','Text','A headline, animated the house way'],['shot','Product shot','A screenshot in a soft frame'],['intro','Intro','A real intro from the films'],['clip','UI clip','A product scene from the films'],['gif','Concept','A looping sales concept'],['outro','Outro','Lockup, tagline, store badges']];
+function blockThumb(k){const sc=byGroup('scene');const pick=k==='intro'?sc.find(a=>a.style==='intro'):k==='clip'?sc.find(a=>a.style==='product'):k==='gif'?byGroup('gif')[0]:null;
+  if(k==='text')return `<div class="bt text"><span>Your next <em>move</em>.</span></div>`;
+  if(k==='shot')return `<div class="bt shot"><img src="${(A('card-kevin')||{}).thumb||''}" alt=""></div>`;
+  if(k==='outro')return `<div class="bt outro"><img src="assets/logomark.png" alt=""><b>Leland</b></div>`;
+  return `<div class="bt clip" style="background-image:url('${(pick||{}).poster||''}')"></div>`}
 function syncScenes(){const S=state.scenes;
-  $('beats').innerHTML=S.map((s,i)=>{const a=A(s.asset)||{};const label=s.type==='text'?plain(s.text):s.type==='shot'?(a.title||'Pick a shot'):s.type==='clip'?(a.title||'Pick a clip'):'Leland · '+plain(s.tag);const name={text:'Text',shot:'Product',clip:a.style==='intro'?'Intro':'UI',outro:'Outro'}[s.type];
-    return `<div class="beat-c ${state.scene===i?'on':''}" style="--w:${sceneDur(s)}" onclick="state.scene=${i};seekScene(${i});sync()"><b>${name}</b><span>${esc(label)}</span><div class="d">${sceneDur(s)}s</div></div>`}).join('');
-  $('addscene').innerHTML=`<span>Add</span>`+SCENE_TYPES.map(([k,n])=>`<button class="chip" onclick="addScene('${k}')">${n}</button>`).join('');
+  $('beats').innerHTML=S.map((s,i)=>{const a=A(s.asset)||{};const label=s.type==='text'?plain(s.text):s.type==='shot'?(a.title||'Pick a shot'):s.type==='clip'?(a.title?plain(a.title):'Pick a clip'):'Leland · '+plain(s.tag);
+    return `<div class="blk ${state.scene===i?'on':''}" style="--w:${sceneDur(s)}" draggable="true" ondragstart="dragScene=${i}" ondragover="event.preventDefault()" ondrop="dropScene(${i})" onclick="state.scene=${i};seekScene(${i});sync()">${sceneThumb(s)}<div class="bl"><span>${esc(label)}</span><i>${sceneDur(s)}s</i></div></div>`}).join('')+`<div class="blk end"><span>${total().toFixed(1)}s</span></div>`;
+  $('blocks').innerHTML=BLOCKS.map(([k,n,d])=>`<button class="block" onclick="addScene('${k}')">${blockThumb(k)}<b>${n}</b><span>${d}</span></button>`).join('');
   const s=S[state.scene];if(!s)return;const i=state.scene;
-  $('sceneTitle').innerHTML=`Scene ${i+1} <span><button class="link" onclick="moveScene(${i},-1)">←</button><button class="link" onclick="moveScene(${i},1)">→</button><button class="link" onclick="removeScene(${i})">Remove</button></span>`;
+  $('sceneTitle').innerHTML=`${({text:'Text',shot:'Product shot',clip:'Clip',outro:'Outro'})[s.type]} <span><button class="link" onclick="moveScene(${i},-1)">←</button><button class="link" onclick="moveScene(${i},1)">→</button><button class="link" onclick="removeScene(${i})">Remove</button></span>`;
   let body='';
-  if(s.type==='text')body=`<div class="f"><label>Text</label><input value="${esc(s.text)}" oninput="state.scenes[${i}].text=this.value;sync()"></div><div class="f"><label>Animation</label><div class="seg" style="display:inline-flex">${MOTION.text.map(p=>`<button class="${s.anim===p.id?'on':''}" onclick="state.scenes[${i}].anim='${p.id}';sync()">${esc(p.name)}</button>`).join('')}</div></div>`;
+  if(s.type==='text')body=`<div class="f"><label>Text</label><input value="${esc(s.text)}" oninput="state.scenes[${i}].text=this.value;sync()"></div><div class="f"><label>Arrives</label><div class="seg" style="display:inline-flex">${MOTION.text.map(p=>`<button class="${s.anim===p.id?'on':''}" onclick="state.scenes[${i}].anim='${p.id}';sync()">${esc(p.name)}</button>`).join('')}</div></div>`;
   if(s.type==='shot')body=`<div class="sw">${byGroup('card','aipost','upload').slice(0,8).map(a=>swBtn(a,s.asset===a.id,`state.scenes[${i}].asset='${a.id}';sync()`)).join('')}</div><label class="btn sm" style="margin-top:10px">Upload screenshot<input type="file" accept="image/*" style="display:none" onchange="state.scene=${i};uploadScene(this.files[0])"></label>`;
-  if(s.type==='clip')body=`<div class="clippick" onclick="openDrawer('clip')"><img src="${(A(s.asset)||{}).poster||''}" alt=""><span>${esc((A(s.asset)||{}).title||'Pick a clip')}</span></div>`;
-  if(s.type==='outro')body=`<div class="f"><label>Outro line</label><input value="${esc(s.tag)}" oninput="state.scenes[${i}].tag=this.value;sync()"></div>`;
+  if(s.type==='clip')body=`<div class="clippick" onclick="openDrawer('clip')"><img src="${(A(s.asset)||{}).poster||''}" alt=""><span>${esc(plain((A(s.asset)||{}).title||'Pick a clip'))}</span></div>`;
+  if(s.type==='outro')body=`<div class="f"><label>Tagline</label><input value="${esc(s.tag)}" oninput="state.scenes[${i}].tag=this.value;sync()"></div>`;
   if(s.type!=='clip')body+=`<div class="f" style="margin-top:8px"><label>Length</label><div class="slider"><input type="range" min="1" max="8" step=".5" value="${s.dur}" oninput="state.scenes[${i}].dur=+this.value;sync()"><b>${s.dur}s</b></div></div>`;
-  $('sceneBody').innerHTML=body;$('time').textContent=tPos.toFixed(1)+'s / '+total().toFixed(1)+'s'}
+  $('sceneBody').innerHTML=body;$('time').textContent=tPos.toFixed(1)+'s / '+total().toFixed(1)+'s';
+  $('outroanim').innerHTML=MOTION.logo.map(p=>`<button class="${state.outro===p.id?'on':''}" onclick="setOutro(this,'${p.id}')">${esc(p.name)}</button>`).join('')}
+let dragScene=null;
+function dropScene(i){if(dragScene===null||dragScene===i)return;const s=state.scenes;const [m]=s.splice(dragScene,1);s.splice(i,0,m);state.scene=i;dragScene=null;seekScene(i);sync()}
 function uploadScene(f){if(!f)return;const r=new FileReader();r.onload=()=>{const id='upload-'+Date.now();M.assets.push({id,type:'image',group:'upload',title:f.name,src:r.result,thumb:r.result,tags:['upload']});state.scenes[state.scene].asset=id;sync()};r.readAsDataURL(f)}
 function sceneAt(t){let acc=0;for(let i=0;i<state.scenes.length;i++){acc+=sceneDur(state.scenes[i]);if(t<acc)return i}return state.scenes.length-1}
 function sceneStart(i){let acc=0;for(let j=0;j<i;j++)acc+=sceneDur(state.scenes[j]);return acc}
 function showScene(i){curScene=i;const s=state.scenes[i];if(!s)return;const t=s.type;
-  $('bHook').classList.toggle('on',t==='text');$('bShot').classList.toggle('on',t==='shot');$('bClip').classList.toggle('on',t==='clip');$('bOutro').classList.toggle('on',t==='outro');
+  $('bHook').classList.toggle('on',t==='text');$('bShot').classList.toggle('on',t==='shot');$('bClip').classList.toggle('on',t==='clip');$('bOutro').classList.toggle('on',t==='outro');$('bOutro').dataset.logo=state.outro;if(t==='outro'){const o=$('bOutro');o.classList.remove('go');void o.offsetWidth;o.classList.add('go')}
   if(t==='text')$('vHook').innerHTML=blue(s.text);if(t==='shot')$('vShot').src=(A(s.asset)||{}).src||'';if(t==='outro')$('vTag').innerHTML=blue(s.tag);
-  const v=$('vClip');if(t==='clip'){const a=A(s.asset)||{};if(a.src&&!v.src.endsWith(a.src)){v.src=a.src}if(playing){v.play().catch(()=>{})}}else{v.pause()}
+  const v=$('vClip');if(t==='clip'){const a=A(s.asset)||{};const src=clipSrc(a);if(src&&!v.src.endsWith(src)){v.src=src}if(playing){v.play().catch(()=>{})}}else{v.pause()}
   document.querySelectorAll('.beat-c').forEach((el,j)=>el.classList.toggle('on',j===i))}
 function seekScene(i){tPos=sceneStart(i);showScene(i);const s=state.scenes[i];if(s&&s.type==='clip'){const v=$('vClip');try{v.currentTime=0}catch(e){}}$('prog').style.width=(tPos/total()*100)+'%';$('time').textContent=tPos.toFixed(1)+'s / '+total().toFixed(1)+'s'}
 function togglePlay(){playing?stopPlay():startPlay()}
@@ -298,7 +334,7 @@ async function renderStill(ratioKey,opts={}){const [W,H]=SIZES[ratioKey];const c
   const bg=A(opts.bg!==undefined?opts.bg:state.bg)||{};let light=!!bg.light;const L=opts.layers||state.layers;
   if(bg.src){const im=await loadImg(bg.src);const s=Math.max(W/im.width,H/im.height);x.drawImage(im,(W-im.width*s)/2,(H-im.height*s)/2,im.width*s,im.height*s);const g=x.createLinearGradient(0,0,0,H);if(light){g.addColorStop(0,'rgba(255,255,255,.05)');g.addColorStop(1,'rgba(255,255,255,.5)')}else{g.addColorStop(0,'rgba(0,0,0,.02)');g.addColorStop(1,'rgba(0,0,0,.5)')}x.fillStyle=g;x.fillRect(0,0,W,H)}else{x.fillStyle='#fff';x.fillRect(0,0,W,H);light=true}
   const ink=light?'#111':'#fff',m=Math.min(W,H),pad=W*.06,lm=await loadImg('assets/logomark.png');const lh=H*.042,lw=lm.width/lm.height*lh;x.save();if(!light)x.filter='invert(1)';x.drawImage(lm,pad,H*.06,lw,lh);x.restore();
-  const gfx=A(L.gfx.id);if(gfx){const src=gfx.group==='org'&&gfx.mono&&bg.src?gfx.mono[light?'black':'white']:gfx.src;const im=await loadImg(src);const gw=W*L.gfx.s,gh=im.height/im.width*gw;if(gfx.group==='coach'){x.save();x.beginPath();x.arc(W*L.gfx.x+gw/2,H*L.gfx.y+gw/2,gw/2,0,Math.PI*2);x.clip();x.drawImage(im,W*L.gfx.x,H*L.gfx.y,gw,gw);x.restore()}else x.drawImage(im,W*L.gfx.x,H*L.gfx.y,gw,gh)}
+  const gfx=A(L.gfx.id);if(gfx){const src=gfx.group==='org'&&gfx.mono&&bg.src?gfx.mono[light?'black':'white']:gfx.src;const im=await loadImg(src);const gw=W*L.gfx.s,gh=im.height/im.width*gw;if(gfx.group==='expert'){x.save();x.beginPath();x.arc(W*L.gfx.x+gw/2,H*L.gfx.y+gw/2,gw/2,0,Math.PI*2);x.clip();x.drawImage(im,W*L.gfx.x,H*L.gfx.y,gw,gw);x.restore()}else x.drawImage(im,W*L.gfx.x,H*L.gfx.y,gw,gh)}
   const shot=A(L.shot.id);if(shot){const im=await loadImg(shot.src);const sw=W*L.shot.s,sh=im.height/im.width*sw,sx=W*L.shot.x,sy=H*L.shot.y;x.save();x.shadowColor='rgba(0,0,0,.25)';x.shadowBlur=m*.03;x.shadowOffsetY=m*.01;roundRect(x,sx,sy,sw,sh,sw*.04);x.fillStyle='#fff';x.fill();x.restore();x.save();roundRect(x,sx,sy,sw,sh,sw*.04);x.clip();x.drawImage(im,sx,sy,sw,sh);x.restore()}
   const head=opts.head??$('fHead').value,sub=opts.sub??$('fSub').value,cta=opts.cta??$('fCta').value,sz=opts.size||state.size,hs=Math.round(m*.085*sz),ss=Math.round(hs*.36),cs=Math.round(hs*.31),maxW=W*L.copy.w;
   x.font=`500 ${hs}px Season, Georgia, serif`;const hl=wrapText(x,head,maxW);x.font=`400 ${ss}px Macan, sans-serif`;const sl=sub?wrapText(x,sub,Math.min(maxW,ss*36)):[];
@@ -317,7 +353,7 @@ async function exportCurrent(){const name=slug($('etitle').value);
 async function exportVideo(){stopPlay();const r=state.ratio||'';const [W,H]=SIZES[r];toast('Rendering '+total().toFixed(0)+'s of video in your browser…');
   const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');await fontsReady();
   const lm=await loadImg('assets/logomark.png');const dark=state.dark,ink=dark?'#fff':'#111',bgc=dark?'#111':'#fff',m=Math.min(W,H);
-  const S=state.scenes;const media=[];for(const s of S){if(s.type==='shot'){media.push(await loadImg((A(s.asset)||{}).src))}else if(s.type==='clip'){const v=document.createElement('video');v.muted=true;v.playsInline=true;v.src=(A(s.asset)||{}).src;await new Promise(res=>{v.oncanplaythrough=res;v.onerror=res;v.load()});media.push(v)}else media.push(null)}
+  const S=state.scenes;const media=[];for(const s of S){if(s.type==='shot'){media.push(await loadImg((A(s.asset)||{}).src))}else if(s.type==='clip'){const v=document.createElement('video');v.muted=true;v.playsInline=true;v.src=clipSrc(A(s.asset)||{});await new Promise(res=>{v.oncanplaythrough=res;v.onerror=res;v.load()});media.push(v)}else media.push(null)}
   let leoFrames=null;if(state.outro==='leo'&&S.some(s=>s.type==='outro')&&window.leo&&leo.bake){try{leoFrames=await leo.bake(Math.round(m*.5),dark)}catch(e){console.warn('leo bake',e)}}
   const stream=c.captureStream(30);let musicNode=null;
   if(state.music){try{const actx=new (window.AudioContext||window.webkitAudioContext)();const au=new Audio((A(state.music)||{}).src);au.crossOrigin='anonymous';await new Promise(r=>{au.oncanplaythrough=r;au.onerror=r;au.load()});const src=actx.createMediaElementSource(au);const dest=actx.createMediaStreamDestination();const gain=actx.createGain();gain.gain.value=.9;src.connect(gain).connect(dest);dest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));musicNode={au,gain,actx}}catch(e){console.warn('music mix failed',e)}}
@@ -328,11 +364,17 @@ async function exportVideo(){stopPlay();const r=state.ratio||'';const [W,H]=SIZE
     if(s.anim==='typed'){const n=Math.floor(plain(s.text).length*Math.min(1,local/(p.speed||1.2)));let shown=0;x.globalAlpha=a;lines.forEach((l,i)=>{const pl=plain(l);const take=Math.max(0,Math.min(pl.length,n-shown));shown+=pl.length+1;let cut='',seen=0;for(const ch of l){if(ch==='['||ch===']'){cut+=ch;continue}if(seen<take){cut+=ch;seen++}}drawRich(x,cut,W/2,y0+i*hs*1.25,'center',ink)});x.globalAlpha=1}
     else if(s.anim==='rise'){lines.forEach((l,i)=>{const u=Math.max(0,Math.min(1,(local-i*(p.stagger||.18))/(p.speed||.6)));x.globalAlpha=a*E(u);drawRich(x,l,W/2,y0+i*hs*1.25+(1-E(u))*hs*.6,'center',ink)});x.globalAlpha=1}
     else{let k=0;lines.forEach((l,i)=>{const parts=l.split(/(\[[^\]]+\])/).filter(Boolean);const words=[];parts.forEach(pp=>{const b=pp.startsWith('[');pp.replace(/[\[\]]/g,'').split(' ').forEach(w=>w&&words.push({w,b}))});x.textAlign='left';const tw=words.reduce((ss,w)=>ss+x.measureText(w.w+' ').width,0);let cx=W/2-tw/2;words.forEach(w=>{const u=Math.max(0,Math.min(1,(local-k*(p.stagger||.12))/(p.speed||.35)));k++;x.globalAlpha=a*E(u);x.fillStyle=w.b?'#2f5fd6':ink;x.save();x.translate(cx,y0+i*hs*1.25);x.scale(.85+.15*E(u),.85+.15*E(u));x.fillText(w.w,0,0);x.restore();cx+=x.measureText(w.w+' ').width})});x.globalAlpha=1}}
-  function drawOutro(s,local,a,fout){const lh=m*.07;x.font=`600 ${Math.round(m*.052)}px Macan, sans-serif`;const ww=x.measureText('Leland').width;const lw=lm.width/lm.height*lh;const totalW=lw+m*.02+ww;const y=H/2-m*.09;const tag=s.tag||'Talk to a [Human].';
-    if(leoFrames&&leoFrames.length){const lf=leoFrames;const spinT=Math.min(1,local/1.1);const fi=Math.min(lf.length-1,Math.floor(spinT*(lf.length-1)));const settle=Math.max(0,Math.min(1,(local-1.1)/.4));const big=m*.5,size=big+(lh*1.6-big)*ease(settle);const cx=W/2+(W/2-totalW/2+lw/2-W/2)*ease(settle),cy=H/2+(y-H/2)*ease(settle);x.globalAlpha=Math.min(fout,1);x.drawImage(lf[fi],cx-size/2,cy-size/2,size,size);
-      x.globalAlpha=settle*fout;x.fillStyle=ink;x.textAlign='left';x.fillText('Leland',W/2-totalW/2+lw+m*.02,y+m*.004);x.font=`500 ${Math.round(m*.05)}px Macan, sans-serif`;drawRich(x,tag,W/2,H/2+m*.02,'center',ink)}
-    else{x.globalAlpha=a;x.save();if(dark)x.filter='invert(1)';x.drawImage(lm,W/2-totalW/2,y-lh/2,lw,lh);x.restore();x.fillStyle=ink;x.textAlign='left';x.fillText('Leland',W/2-totalW/2+lw+m*.02,y+m*.004);x.font=`500 ${Math.round(m*.05)}px Macan, sans-serif`;drawRich(x,tag,W/2,H/2+m*.02,'center',ink)}
-    const ba=leoFrames?Math.max(0,Math.min(1,(local-1.3)/.4))*fout:a;x.globalAlpha=ba;x.font=`600 ${Math.round(m*.02)}px Macan, sans-serif`;const bs=['App Store','Google Play'];let bx=W/2-(x.measureText(bs[0]).width+x.measureText(bs[1]).width+m*.1)/2;const by=H/2+m*.11;bs.forEach(ss=>{const tw=x.measureText(ss).width+m*.03;x.strokeStyle=ink;x.lineWidth=2;roundRect(x,bx,by,tw,m*.045,m*.008);x.stroke();x.fillStyle=ink;x.textBaseline='middle';x.fillText(ss,bx+m*.015,by+m*.0225);bx+=tw+m*.04});x.globalAlpha=1}
+  function drawOutro(s,local,a,fout){const lh=m*.07;x.font=`600 ${Math.round(m*.052)}px Macan, sans-serif`;const ww=x.measureText('Leland').width;const lw=lm.width/lm.height*lh;const totalW=lw+m*.02+ww;const y=H/2-m*.09;const tag=s.tag||'Talk to a [Human].';const L=preset('logo',state.outro);const mode=leoFrames?'leo':state.outro==='leo'?'draw':state.outro;
+    const wordP=preset('text','words'),E=EASE.out;
+    if(mode==='leo'){const lf=leoFrames;const spinT=Math.min(1,local/1.1);const fi=Math.min(lf.length-1,Math.floor(spinT*(lf.length-1)));const settle=Math.max(0,Math.min(1,(local-1.1)/.4));const big=m*.5,size=big+(lh*1.6-big)*ease(settle);const cx=W/2+(W/2-totalW/2+lw/2-W/2)*ease(settle),cy=H/2+(y-H/2)*ease(settle);x.globalAlpha=Math.min(fout,1);x.drawImage(lf[fi],cx-size/2,cy-size/2,size,size);
+      x.globalAlpha=settle*fout;x.fillStyle=ink;x.textAlign='left';x.fillText('Leland',W/2-totalW/2+lw+m*.02,y+m*.004)}
+    else if(mode==='draw'){const d=L.dur||1.5;const drawT=Math.min(1,local/(d*.37)),hold=d*.37+.2,typeT=Math.max(0,Math.min(1,(local-hold)/(d*.3)));const shift=E(typeT);const mx=W/2-lw/2+(W/2-totalW/2-(W/2-lw/2))*shift;
+      x.save();x.globalAlpha=Math.min(fout,1);x.beginPath();x.rect(mx-lw*.05,y-lh/2-lh*.1,lw*1.1*E(drawT),lh*1.2);x.clip();if(dark)x.filter='invert(1)';x.drawImage(lm,mx,y-lh/2,lw,lh);x.restore();
+      const n=Math.floor(6*typeT);x.globalAlpha=fout;x.fillStyle=ink;x.textAlign='left';x.fillText('Leland'.slice(0,n),mx+lw+m*.02,y+m*.004)}
+    else{const f=Math.min(1,local/(L.dur||.25));x.globalAlpha=f*a;x.save();if(dark)x.filter='invert(1)';x.drawImage(lm,W/2-totalW/2,y-lh/2,lw,lh);x.restore();x.fillStyle=ink;x.textAlign='left';x.fillText('Leland',W/2-totalW/2+lw+m*.02,y+m*.004)}
+    const tagStart=mode==='fade'?.1:(L.dur||1.5)*.75;const tl=Math.max(0,local-tagStart);x.font=`500 ${Math.round(m*.05)}px Macan, sans-serif`;
+    {const words=[];tag.split(/(\[[^\]]+\])/).filter(Boolean).forEach(pp=>{const b=pp.startsWith('[');pp.replace(/[\[\]]/g,'').split(' ').forEach(w=>w&&words.push({w,b}))});x.textAlign='left';const tw=words.reduce((ss,w)=>ss+x.measureText(w.w+' ').width,0);let cx=W/2-tw/2;words.forEach((w,k)=>{const u=Math.max(0,Math.min(1,(tl-k*(wordP.stagger||.1))/(wordP.speed||.45)));x.globalAlpha=E(u)*fout;x.fillStyle=w.b?'#2f5fd6':ink;x.fillText(w.w,cx,H/2+m*.02+(1-E(u))*m*.015);cx+=x.measureText(w.w+' ').width})}
+    const ba=Math.max(0,Math.min(1,(tl-.4)/.4))*fout;x.globalAlpha=ba;x.font=`600 ${Math.round(m*.02)}px Macan, sans-serif`;const bs=['App Store','Google Play'];let bx=W/2-(x.measureText(bs[0]).width+x.measureText(bs[1]).width+m*.1)/2;const by=H/2+m*.11;bs.forEach(ss=>{const tw=x.measureText(ss).width+m*.03;x.strokeStyle=ink;x.lineWidth=2;roundRect(x,bx,by,tw,m*.045,m*.008);x.stroke();x.fillStyle=ink;x.textBaseline='middle';x.fillText(ss,bx+m*.015,by+m*.0225);bx+=tw+m*.04});x.globalAlpha=1}
   let lastIdx=-1;
   function draw(t){x.fillStyle=bgc;x.fillRect(0,0,W,H);const i=sceneAt(t);const s=S[i];const local=t-sceneStart(i);const D=sceneDur(s);const fin=Math.min(1,local/fadeD),fout=Math.min(1,(D-local)/fadeD);const a=Math.min(fin,fout);x.textBaseline='middle';
     if(i!==lastIdx){lastIdx=i;if(s.type==='clip'){const v=media[i];try{v.currentTime=0;v.play()}catch(e){}}}
@@ -380,9 +422,31 @@ function renderConnect(){const row=c=>{const s=c.st();return `<div class="conn $
 function connReq(n){copyText(`LE needs ${n} access: an API token or ad-account read access so assets can be matched to spend and results.`,`${n} isn’t wired yet. Request text copied for the dev team.`)}
 
 /* ---------- brand ---------- */
-function renderBrand(){const b=M.brand;$('taglist').innerHTML=(b.taglines||[]).map(t=>`<div class="row" onclick="useTagline(${JSON.stringify(t)})"><div class="t" style="font-family:var(--serif);font-weight:500;font-size:1.125rem">${esc(t)}</div><span class="r link">Use</span></div>`).join('');
-  const ills=byGroup('illustration');const pick=[0,37,74,111,148,185,222,259].map(i=>ills[i]).filter(Boolean);$('illrow').innerHTML=pick.map(a=>`<div onclick="openAsset('${a.id}')"><img src="${a.src}" alt=""></div>`).join('');
-  $('skilltext').textContent=SKILL();}
+let B=null;
+async function renderBrand(){try{B=await (await fetch('data/brand.json')).json()}catch(e){B=null}const b=M.brand;
+  const ills=byGroup('illustration');const pick=[0,37,74,111,148,185,222,259].map(i=>ills[i]).filter(Boolean);
+  const secs=[['thesis','Thesis'],['principles','Principles'],['voice','Voice'],['rules','Do and don’t'],['look','Look'],['audience','Who it’s for']];
+  $('bnav').innerHTML=secs.map(([k,n])=>`<a href="#brand" onclick="event.preventDefault();$('b-${k}').scrollIntoView({behavior:'smooth',block:'start'})">${n}</a>`).join('');
+  if(!B){$('brandbody').innerHTML='<div class="empty">data/brand.json is missing.</div>';return}
+  $('brandbody').innerHTML=`
+  <section class="bsec" id="b-thesis"><h2 class="big">${blue(B.thesis.headline)}</h2><div class="prose">${B.thesis.body.map(p=>`<p>${esc(p)}</p>`).join('')}</div></section>
+  <section class="bsec" id="b-principles"><h2>Principles</h2><div class="pgrid">${B.principles.map(p=>`<div><b>${esc(p.name)}</b><span>${esc(p.desc)}</span></div>`).join('')}</div></section>
+  <section class="bsec" id="b-voice"><h2>Voice</h2><p class="lead">${esc(B.voice.summary)}</p><div class="two">
+    <div class="vcol"><h3>Sounds like</h3><ul>${B.voice.sounds_like.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>
+    <div class="vcol"><h3>Not like</h3><ul class="no">${B.voice.not_like.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div></div>
+    <div class="two" style="margin-top:20px"><div class="vcol"><h3>Words we use</h3><div class="words">${B.voice.words_we_use.map(s=>`<span>${esc(s)}</span>`).join('')}</div></div><div class="vcol"><h3>Words we avoid</h3><div class="words no">${B.voice.words_we_avoid.map(s=>`<span>${esc(s)}</span>`).join('')}</div></div></div>
+    <h3 style="margin-top:28px">Taglines</h3><div class="list" id="taglist">${(b.taglines||[]).map(t=>`<div class="row" onclick="useTagline(${JSON.stringify(t)})"><div class="t" style="font-family:var(--serif);font-weight:500;font-size:1.125rem">${esc(t)}</div><span class="r link">Use</span></div>`).join('')}</div></section>
+  <section class="bsec" id="b-rules"><h2>Do and don’t</h2><div class="two"><div class="rulecol do">${B.dos.map(s=>`<div><i>Do</i>${esc(s)}</div>`).join('')}</div><div class="rulecol dont">${B.donts.map(s=>`<div><i>Don’t</i>${esc(s)}</div>`).join('')}</div></div></section>
+  <section class="bsec" id="b-look"><h2>Look</h2>
+    <div class="kit">
+      <div class="kcard"><div class="hd"><h2>Logo</h2></div><div class="logos"><div style="background:#fff;color:#111"><img src="assets/logomark.png" alt="">Leland</div><div style="background:#111;color:#fff"><img src="assets/logomark.png" alt="" style="filter:invert(1)">Leland</div><div style="background:var(--g2);color:#111"><img src="assets/logomark.png" alt=""></div></div><p class="note">${esc(B.visual.logo)}</p></div>
+      <div class="kcard"><div class="hd"><h2>Type</h2></div><div class="specimen"><div class="s" style="font-family:var(--serif)">Season</div><div class="m">Headlines · Medium</div></div><div class="specimen"><div class="s" style="font-family:var(--sans);font-weight:600">Macan</div><div class="m">Everything else · Book, Medium, SemiBold</div></div><p class="note">${esc(B.visual.type)}</p></div>
+      <div class="kcard"><div class="hd"><h2>Color</h2></div><div class="swatches"><div style="background:#111"></div><div style="background:#4c4c4c"></div><div style="background:#767676"></div><div style="background:#eee"></div><div style="background:#fff"></div><div style="background:#2f5fd6"></div><div style="background:#80aced"></div><div style="background:#ffd667"></div></div><p class="note">${esc(B.visual.color)}</p></div>
+      <div class="kcard"><div class="hd"><h2>Photography</h2><button class="link" onclick="go('lib','photo')">Photos</button></div><div class="photorow">${byGroup('photo').slice(0,3).map(a=>`<div style="background-image:url('${a.thumb||a.src}')" onclick="openAsset('${a.id}')"></div>`).join('')}</div><p class="note">${esc(B.visual.photography)}</p></div>
+      <div class="kcard wide"><div class="hd"><h2>Illustration</h2><button class="link" onclick="go('lib','illustration')">All 299</button></div><div class="illrow">${pick.map(a=>`<div onclick="openAsset('${a.id}')"><img src="${a.src}" alt=""></div>`).join('')}</div><p class="note">${esc(B.visual.illustration)}</p></div>
+      <div class="kcard wide"><div class="hd"><h2>Motion</h2><button class="link" onclick="go('motion')">Presets</button></div><p class="note">${esc(B.visual.motion)}</p></div>
+    </div></section>
+  <section class="bsec" id="b-audience"><h2>Who it’s for</h2><div class="pgrid">${B.audience.map(p=>`<div><b>${esc(p.name)}</b><span>${esc(p.desc)}</span></div>`).join('')}</div></section>`}
 const SKILL=()=>`---
 name: le
 description: Leland's brand asset library. Use whenever making any Leland marketing asset, post, image, video, case study or deck — to find approved images, videos, scenes, illustrations, logos, coach photos, music, taglines and post copy, and to stay inside the brand guardrails.
@@ -392,7 +456,7 @@ description: Leland's brand asset library. Use whenever making any Leland market
 Manifest: ${base()}data/manifest.json
 Fetch it first. Every entry has id, type, group, title, tags and src (relative to ${base()}).
 
-Groups: hero, header, card, aibp, aipost (launch kit images) · film, kit (videos) · scene (video scenes, style: intro|text|product|outro) · background, photo · coach (headshots) · graphic · illustration (299 blue line illustrations, set: social|work|growth) · org (199 logos, kind: school|company, mono.black / mono.white) · icon · music (thumb = waveform art).
+Groups: hero, header, card, aibp, aipost (launch kit images) · film, kit (videos) · scene (video scenes, style: intro|text|product|outro) · gif (looping sales concepts, src .gif, mp4) · background, photo · expert (headshots) · graphic · illustration (299 blue line illustrations, set: social|work|growth) · org (199 logos, kind: school|company, mono.black / mono.white) · icon · music (thumb = waveform art).
 Copy: manifest.posts (12 post ideas, verbatim) and manifest.brand.taglines.
 
 Rules (manifest.brand.guardrails):

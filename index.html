@@ -18,7 +18,7 @@
 </div>
 <div class="menu" id="m-me">
   <button onclick="connectOpus();closeMenus()">Connect Opus<small id="opusst"></small></button>
-  <button onclick="go('brand','claude');closeMenus()">Use LE in Claude</button>
+  <button onclick="copyText(SKILL(),'Skill copied. Paste it into Claude as /le.');closeMenus()">Copy the /le skill</button>
   <div class="sep"></div>
   <button onclick="toast('Signed out (demo)');closeMenus()">Sign out</button>
 </div>
@@ -42,7 +42,7 @@
         <div class="picks">
           <button class="pick" onclick="start('still')">
             <div class="art"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="130" rx="10" class="g-frame"/><rect x="28" y="92" width="92" height="8" rx="4" class="g-ink"/><rect x="28" y="108" width="58" height="6" rx="3" class="g-soft"/><rect x="28" y="26" width="18" height="18" rx="4" class="g-ink"/><circle cx="150" cy="50" r="22" class="g-soft"/></svg></div>
-            <div class="body"><b>Image</b><span>Posts, ads, email heroes</span></div>
+            <div class="body"><b>Post</b><span>Images for LinkedIn, Instagram, ads, email</span></div>
           </button>
           <button class="pick" onclick="start('video')">
             <div class="art"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="104" rx="10" class="g-frame"/><g class="g-play"><circle cx="100" cy="62" r="20" class="g-ink"/><path d="M94 52l16 10-16 10z" fill="#fff"/></g><rect x="10" y="126" width="180" height="14" rx="7" class="g-soft"/><rect x="10" y="126" width="68" height="14" rx="7" class="g-ink"/></svg></div>
@@ -50,7 +50,7 @@
           </button>
           <button class="pick" onclick="start('deck')">
             <div class="art"><svg viewBox="0 0 200 150"><rect x="34" y="8" width="150" height="100" rx="8" class="g-soft"/><rect x="22" y="22" width="150" height="100" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" opacity=".7"/><rect x="10" y="36" width="150" height="100" rx="8" class="g-frame"/><rect x="26" y="56" width="70" height="8" rx="4" class="g-ink"/><rect x="26" y="72" width="100" height="5" rx="2.5" class="g-soft"/><rect x="26" y="84" width="84" height="5" rx="2.5" class="g-soft"/></svg></div>
-            <div class="body"><b>Deck</b><span>Sessions, sales, all-hands</span></div>
+            <div class="body"><b>Deck</b><span>Sales, sessions, all-hands</span></div>
           </button>
           <button class="pick" onclick="start('story')">
             <div class="art"><svg viewBox="0 0 200 150"><rect x="10" y="14" width="96" height="122" rx="10" class="g-frame"/><rect x="118" y="14" width="72" height="122" rx="10" class="g-soft"/><rect x="26" y="30" width="26" height="26" rx="6" class="g-ink"/><rect x="26" y="74" width="64" height="7" rx="3.5" class="g-ink"/><rect x="26" y="88" width="48" height="5" rx="2.5" class="g-soft"/><rect x="26" y="100" width="56" height="5" rx="2.5" class="g-soft"/><path d="M134 34q10-10 20 0" class="g-line"/></svg></div>
@@ -83,7 +83,7 @@
           <input id="ask" placeholder="Tell Opus what this is for, or paste a post" onkeydown="if(event.key==='Enter')brief()">
           <button class="btn black sm" onclick="brief()">Go</button>
         </div>
-        <div class="egrid">
+        <div class="egrid" id="egrid">
           <div>
             <div class="stage" id="stage">
               <div class="frame" id="frame">
@@ -95,7 +95,7 @@
                 <div class="beat b-hook" id="bHook"><div class="hook" id="vHook"></div></div>
                 <div class="beat b-shot" id="bShot"><div class="shot"><img id="vShot" alt=""></div></div>
                 <div class="beat b-clip" id="bClip"><video id="vClip" muted playsinline preload="auto"></video></div>
-                <div class="beat b-outro outro" id="bOutro"><div class="wm"><img src="assets/logomark.png" alt="">Leland</div><div class="tl" id="vTag"></div><div class="badges"><span>App Store</span><span>Google Play</span></div></div>
+                <div class="beat b-outro outro" id="bOutro"><div class="wm"><img src="assets/logomark.png" alt=""><span>Leland</span></div><div class="tl" id="vTag"></div><div class="badges"><span>App Store</span><span>Google Play</span></div></div>
                 <!-- story -->
                 <img class="storyimg" id="storyImg" alt="">
                 <div class="prog"><i id="prog"></i></div>
@@ -106,8 +106,9 @@
               <span id="vidctl" style="display:none;align-items:center;gap:10px"><button class="playbtn" id="playbtn" onclick="togglePlay()"><svg class="ico" id="playico" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><span class="time" id="time">0.0s / 9.0s</span></span>
               <span style="margin-left:auto;display:flex;gap:4px" id="layerbar"></span>
             </div>
-            <div class="beats" id="beats" style="display:none"></div>
-            <div class="addscene" id="addscene" style="display:none"></div>
+            <!-- video: timeline + building blocks -->
+            <div class="tl" id="beats" style="display:none"></div>
+            <div class="blocks" id="blocks" style="display:none"></div>
             <div class="slides" id="slides" style="display:none"></div>
           </div>
 
@@ -120,7 +121,6 @@
               <div class="f" id="fSizeWrap"><label>Size</label><div class="slider"><input type="range" min=".6" max="1.6" step=".05" value="1" id="fSize" oninput="sync()"><b id="fSizeV">100%</b></div></div>
               <div class="f" id="fAlignWrap"><label>Align</label><div class="seg" style="display:inline-flex"><button class="on" onclick="align(this,false)">Left</button><button onclick="align(this,true)">Center</button></div></div>
             </div>
-            <!-- video scene panel -->
             <div class="sec" id="secScene"><h3 id="sceneTitle">Scene</h3><div id="sceneBody"></div></div>
             <div class="sec" id="secBg">
               <h3>Background <button class="link" onclick="openDrawer('bg')">Browse</button></h3>
@@ -139,23 +139,22 @@
             <div class="sec" id="secTheme">
               <h3>Look</h3>
               <div class="f"><label>Theme</label><div class="seg" id="themeseg" style="display:inline-flex"><button class="on" onclick="vtheme(this,false)">White</button><button onclick="vtheme(this,true)">Black</button></div></div>
-              <div class="f" style="margin-top:8px"><label>Logo outro</label><div class="seg" id="outroanim" style="display:inline-flex"><button class="on" onclick="setOutro(this,'leo')">Leo spins in</button><button onclick="setOutro(this,'fade')">Fade</button></div></div>
+              <div class="f" style="margin-top:8px"><label>Logo</label><div class="seg" id="outroanim" style="display:inline-flex"></div></div>
             </div>
             <div class="sec" id="secMusic">
               <h3>Music</h3>
               <div class="music" id="music"></div>
             </div>
-            <!-- story -->
             <div class="sec" id="secStory">
               <h3>Story <button class="link" onclick="openDrawer('logo')">Logo</button></h3>
               <div class="f"><label>Company</label><input id="stCo" oninput="storySync()" placeholder="ASU+GSV"></div>
               <div class="f"><label>Headline</label><input id="stHead" oninput="storySync()" placeholder="33 people, [building together]"></div>
-              <div class="f"><label>Who they are</label><textarea id="stWho" oninput="storySync()" placeholder="The team behind the ASU+GSV Summit…"></textarea></div>
-              <div class="f"><label>Before</label><textarea id="stBefore" oninput="storySync()" placeholder="Most of the team used AI for simple productivity work."></textarea></div>
-              <div class="f"><label>What they built (one per line)</label><textarea id="stBuilt" oninput="storySync()" style="min-height:90px" placeholder="Lucy Baldwin, VP Product — meeting prep from Slack — 8 hrs/week"></textarea></div>
-              <div class="f"><label>Quote</label><textarea id="stQuote" oninput="storySync()" placeholder="It put everyone in a builder mindset."></textarea></div>
-              <div class="f"><label>Said by</label><input id="stBy" oninput="storySync()" placeholder="Lucy Baldwin, VP Product"></div>
-              <div class="f"><label>Close</label><input id="stCta" oninput="storySync()" placeholder="Let’s chat."></div>
+              <div class="f"><label>Who they are</label><textarea id="stWho" oninput="storySync()"></textarea></div>
+              <div class="f"><label>Before</label><textarea id="stBefore" oninput="storySync()"></textarea></div>
+              <div class="f"><label>What they built (one per line)</label><textarea id="stBuilt" oninput="storySync()" style="min-height:90px"></textarea></div>
+              <div class="f"><label>Quote</label><textarea id="stQuote" oninput="storySync()"></textarea></div>
+              <div class="f"><label>Said by</label><input id="stBy" oninput="storySync()"></div>
+              <div class="f"><label>Close</label><input id="stCta" oninput="storySync()"></div>
             </div>
             <div class="sec" id="secStoryOut">
               <h3>Outputs</h3>
@@ -164,7 +163,6 @@
             <div class="cook"><button class="btn black" id="cookbtn" onclick="exportCurrent()">Download<span class="kbd">⌘⏎</span></button><small id="cooknote"></small></div>
           </div>
         </div>
-        <!-- inline asset drawer -->
         <div class="drawer" id="drawer">
           <div class="dhead"><div class="tabs" id="dtabs" style="margin:0"></div><div class="search" style="width:220px;height:32px"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="dq" placeholder="Search" oninput="renderDrawer()"></div><button class="btn sm" onclick="closeDrawer()">Done</button></div>
           <div class="grid" id="dgrid"></div>
@@ -183,7 +181,7 @@
     <!-- ===== CONNECT ===== -->
     <section id="connect" class="screen">
       <div class="wrap">
-        <h1>Connect</h1>
+        <div class="hrow"><h1>Connect</h1><a class="btn" href="DEVELOPERS.md" download>Developer instructions</a></div>
         <h2 class="sub">Create</h2>
         <div class="conns" id="connCreate"></div>
         <h2 class="sub">Distribute and measure</h2>
@@ -196,7 +194,7 @@
     <!-- ===== MOTION ===== -->
     <section id="motion" class="screen">
       <div class="wrap">
-        <div class="hrow"><h1>Motion</h1><div style="display:flex;gap:6px"><button class="btn" onclick="motionReset()">Reset</button><button class="btn black" onclick="motionExport()">Export presets</button></div></div>
+        <div class="hrow"><h1>Motion</h1><div style="display:flex;gap:6px"><button class="btn" onclick="motionReset()">Reset to the films</button><button class="btn black" onclick="motionExport()">Export presets</button></div></div>
         <div class="motion" id="motionlist"></div>
       </div>
     </section>
@@ -205,25 +203,13 @@
     <section id="brand" class="screen">
       <div class="wrap">
         <h1>Brand</h1>
-        <div class="kit">
-          <div class="kcard"><div class="hd"><h2>Logo</h2></div>
-            <div class="logos"><div style="background:#fff;color:#111"><img src="assets/logomark.png" alt="">Leland</div><div style="background:#111;color:#fff"><img src="assets/logomark.png" alt="" style="filter:invert(1)">Leland</div><div style="background:var(--g2);color:#111"><img src="assets/logomark.png" alt=""></div></div></div>
-          <div class="kcard"><div class="hd"><h2>Type</h2><span class="link" id="fontst"></span></div>
-            <div class="specimen"><div class="s" style="font-family:var(--serif)">Season</div><div class="m">Headlines · Mix Medium</div></div>
-            <div class="specimen"><div class="s" style="font-family:var(--sans);font-weight:600">Macan</div><div class="m">Everything else · Book, Medium, SemiBold</div></div></div>
-          <div class="kcard"><div class="hd"><h2>Color</h2></div>
-            <div class="swatches"><div style="background:#111"></div><div style="background:#4c4c4c"></div><div style="background:#767676"></div><div style="background:#eee"></div><div style="background:#fff"></div><div style="background:#2f5fd6"></div><div style="background:#80aced"></div><div style="background:#ffd667"></div></div></div>
-          <div class="kcard"><div class="hd"><h2>Taglines</h2></div><div class="list" id="taglist"></div></div>
-          <div class="kcard wide"><div class="hd"><h2>Illustration</h2><button class="link" onclick="go('lib','illustration')">All 299</button></div><div class="illrow" id="illrow"></div></div>
-          <div class="kcard wide" id="claude"><div class="hd"><h2>Use LE in Claude</h2><button class="btn sm" onclick="copyText($('skilltext').textContent,'Skill copied. Paste it into Claude as /le.')">Copy skill</button></div>
-            <pre class="code" id="skilltext"></pre></div>
-        </div>
+        <div class="bnav" id="bnav"></div>
+        <div id="brandbody"></div>
       </div>
     </section>
   </div>
 </div>
 
-<!-- preview -->
 <div class="pv" id="pv" onclick="if(event.target===this)closePreview()">
   <button class="close" onclick="closePreview()"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <button class="nav prev" onclick="stepPreview(-1)"><svg class="ico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>

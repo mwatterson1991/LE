@@ -12165,13 +12165,12 @@
 {
 "id": "coach-ade-d",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Ade D.",
-"src": "assets/coaches/ade-d.jpg",
-"thumb": "assets/coaches/ade-d-xs.jpg",
+"src": "assets/experts/ade-d.jpg",
+"thumb": "assets/experts/ade-d-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "ade d."
@@ -12180,13 +12179,12 @@
 {
 "id": "coach-alessandro-v",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Alessandro V.",
-"src": "assets/coaches/alessandro-v.jpg",
-"thumb": "assets/coaches/alessandro-v-xs.jpg",
+"src": "assets/experts/alessandro-v.jpg",
+"thumb": "assets/experts/alessandro-v-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "alessandro v."
@@ -12195,13 +12193,12 @@
 {
 "id": "coach-alex-h",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Alex H.",
-"src": "assets/coaches/alex-h.jpg",
-"thumb": "assets/coaches/alex-h-xs.jpg",
+"src": "assets/experts/alex-h.jpg",
+"thumb": "assets/experts/alex-h-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "alex h."
@@ -12210,13 +12207,12 @@
 {
 "id": "coach-anant-s",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Anant S.",
-"src": "assets/coaches/anant-s.jpg",
-"thumb": "assets/coaches/anant-s-xs.jpg",
+"src": "assets/experts/anant-s.jpg",
+"thumb": "assets/experts/anant-s-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "anant s."
@@ -12225,13 +12221,12 @@
 {
 "id": "coach-ava-b",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Ava B.",
-"src": "assets/coaches/ava-b.jpg",
-"thumb": "assets/coaches/ava-b-xs.jpg",
+"src": "assets/experts/ava-b.jpg",
+"thumb": "assets/experts/ava-b-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "ava b."
@@ -12240,13 +12235,12 @@
 {
 "id": "coach-braden-a",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Braden A.",
-"src": "assets/coaches/braden-a.jpg",
-"thumb": "assets/coaches/braden-a-xs.jpg",
+"src": "assets/experts/braden-a.jpg",
+"thumb": "assets/experts/braden-a-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "braden a."
@@ -12255,13 +12249,12 @@
 {
 "id": "coach-claudia-p",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Claudia P.",
-"src": "assets/coaches/claudia-p.jpg",
-"thumb": "assets/coaches/claudia-p-xs.jpg",
+"src": "assets/experts/claudia-p.jpg",
+"thumb": "assets/experts/claudia-p-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "claudia p."
@@ -12270,13 +12263,12 @@
 {
 "id": "coach-dionysis-s",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Dionysis S.",
-"src": "assets/coaches/dionysis-s.jpg",
-"thumb": "assets/coaches/dionysis-s-xs.jpg",
+"src": "assets/experts/dionysis-s.jpg",
+"thumb": "assets/experts/dionysis-s-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "dionysis s."
@@ -12285,13 +12277,12 @@
 {
 "id": "coach-emily-t",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Emily T.",
-"src": "assets/coaches/emily-t.jpg",
-"thumb": "assets/coaches/emily-t-xs.jpg",
+"src": "assets/experts/emily-t.jpg",
+"thumb": "assets/experts/emily-t-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "emily t."
@@ -12300,13 +12291,12 @@
 {
 "id": "coach-gregory-g",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Gregory G.",
-"src": "assets/coaches/gregory-g.jpg",
-"thumb": "assets/coaches/gregory-g-xs.jpg",
+"src": "assets/experts/gregory-g.jpg",
+"thumb": "assets/experts/gregory-g-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "gregory g."
@@ -12315,13 +12305,12 @@
 {
 "id": "coach-isabela-u",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Isabela U.",
-"src": "assets/coaches/isabela-u.jpg",
-"thumb": "assets/coaches/isabela-u-xs.jpg",
+"src": "assets/experts/isabela-u.jpg",
+"thumb": "assets/experts/isabela-u-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "isabela u."
@@ -12330,13 +12319,12 @@
 {
 "id": "coach-jiali-y",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Jiali Y.",
-"src": "assets/coaches/jiali-y.jpg",
-"thumb": "assets/coaches/jiali-y-xs.jpg",
+"src": "assets/experts/jiali-y.jpg",
+"thumb": "assets/experts/jiali-y-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "jiali y."
@@ -12345,13 +12333,12 @@
 {
 "id": "coach-joscha-b",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Joscha B.",
-"src": "assets/coaches/joscha-b.jpg",
-"thumb": "assets/coaches/joscha-b-xs.jpg",
+"src": "assets/experts/joscha-b.jpg",
+"thumb": "assets/experts/joscha-b-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "joscha b."
@@ -12360,13 +12347,12 @@
 {
 "id": "coach-laura-b",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Laura B.",
-"src": "assets/coaches/laura-b.jpg",
-"thumb": "assets/coaches/laura-b-xs.jpg",
+"src": "assets/experts/laura-b.jpg",
+"thumb": "assets/experts/laura-b-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "laura b."
@@ -12375,13 +12361,12 @@
 {
 "id": "coach-meghna-s",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Meghna S.",
-"src": "assets/coaches/meghna-s.jpg",
-"thumb": "assets/coaches/meghna-s-xs.jpg",
+"src": "assets/experts/meghna-s.jpg",
+"thumb": "assets/experts/meghna-s-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "meghna s."
@@ -12390,13 +12375,12 @@
 {
 "id": "coach-mia-t",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Mia T.",
-"src": "assets/coaches/mia-t.jpg",
-"thumb": "assets/coaches/mia-t-xs.jpg",
+"src": "assets/experts/mia-t.jpg",
+"thumb": "assets/experts/mia-t-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "mia t."
@@ -12405,13 +12389,12 @@
 {
 "id": "coach-nneoma-u",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Nneoma U.",
-"src": "assets/coaches/nneoma-u.jpg",
-"thumb": "assets/coaches/nneoma-u-xs.jpg",
+"src": "assets/experts/nneoma-u.jpg",
+"thumb": "assets/experts/nneoma-u-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "nneoma u."
@@ -12420,13 +12403,12 @@
 {
 "id": "coach-ryan-p",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Ryan P.",
-"src": "assets/coaches/ryan-p.jpg",
-"thumb": "assets/coaches/ryan-p-xs.jpg",
+"src": "assets/experts/ryan-p.jpg",
+"thumb": "assets/experts/ryan-p-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "ryan p."
@@ -12435,13 +12417,12 @@
 {
 "id": "coach-soven-b",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Soven B.",
-"src": "assets/coaches/soven-b.jpg",
-"thumb": "assets/coaches/soven-b-xs.jpg",
+"src": "assets/experts/soven-b.jpg",
+"thumb": "assets/experts/soven-b-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "soven b."
@@ -12450,13 +12431,12 @@
 {
 "id": "coach-spencer-s",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Spencer S.",
-"src": "assets/coaches/spencer-s.jpg",
-"thumb": "assets/coaches/spencer-s-xs.jpg",
+"src": "assets/experts/spencer-s.jpg",
+"thumb": "assets/experts/spencer-s-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "spencer s."
@@ -12465,13 +12445,12 @@
 {
 "id": "coach-steven-l",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Steven L.",
-"src": "assets/coaches/steven-l.jpg",
-"thumb": "assets/coaches/steven-l-xs.jpg",
+"src": "assets/experts/steven-l.jpg",
+"thumb": "assets/experts/steven-l-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "steven l."
@@ -12480,13 +12459,12 @@
 {
 "id": "coach-susan-l",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Susan L.",
-"src": "assets/coaches/susan-l.jpg",
-"thumb": "assets/coaches/susan-l-xs.jpg",
+"src": "assets/experts/susan-l.jpg",
+"thumb": "assets/experts/susan-l-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "susan l."
@@ -12495,560 +12473,15 @@
 {
 "id": "coach-theo-m",
 "type": "image",
-"group": "coach",
+"group": "expert",
 "title": "Theo M.",
-"src": "assets/coaches/theo-m.jpg",
-"thumb": "assets/coaches/theo-m-xs.jpg",
+"src": "assets/experts/theo-m.jpg",
+"thumb": "assets/experts/theo-m-xs.jpg",
 "tags": [
-"coach",
-"avatar",
+"expert",
 "headshot",
 "person",
 "theo m."
-]
-},
-{
-"id": "scene-your-next-move-1",
-"type": "video",
-"group": "scene",
-"title": "Your next move · 1",
-"sub": "Intro · 8s",
-"src": "assets/scenes/your-next-move-1.mp4",
-"poster": "assets/scenes/your-next-move-1.jpg",
-"duration": 7.9,
-"style": "intro",
-"from": "v-your-next-move",
-"tags": [
-"scene",
-"intro",
-"your next move"
-]
-},
-{
-"id": "scene-your-next-move-2",
-"type": "video",
-"group": "scene",
-"title": "Your next move · 2",
-"sub": "Text · 7s",
-"src": "assets/scenes/your-next-move-2.mp4",
-"poster": "assets/scenes/your-next-move-2.jpg",
-"duration": 6.7,
-"style": "text",
-"from": "v-your-next-move",
-"tags": [
-"scene",
-"text",
-"your next move"
-]
-},
-{
-"id": "scene-your-next-move-3",
-"type": "video",
-"group": "scene",
-"title": "Your next move · 3",
-"sub": "Text · 3s",
-"src": "assets/scenes/your-next-move-3.mp4",
-"poster": "assets/scenes/your-next-move-3.jpg",
-"duration": 2.9,
-"style": "text",
-"from": "v-your-next-move",
-"tags": [
-"scene",
-"text",
-"your next move"
-]
-},
-{
-"id": "scene-your-next-move-4",
-"type": "video",
-"group": "scene",
-"title": "Your next move · 4",
-"sub": "Text · 6s",
-"src": "assets/scenes/your-next-move-4.mp4",
-"poster": "assets/scenes/your-next-move-4.jpg",
-"duration": 5.8,
-"style": "text",
-"from": "v-your-next-move",
-"tags": [
-"scene",
-"text",
-"your next move"
-]
-},
-{
-"id": "scene-your-next-move-5",
-"type": "video",
-"group": "scene",
-"title": "Your next move · 5",
-"sub": "Outro · 10s",
-"src": "assets/scenes/your-next-move-5.mp4",
-"poster": "assets/scenes/your-next-move-5.jpg",
-"duration": 9.5,
-"style": "outro",
-"from": "v-your-next-move",
-"tags": [
-"scene",
-"outro",
-"your next move"
-]
-},
-{
-"id": "scene-wherever-1",
-"type": "video",
-"group": "scene",
-"title": "Wherever you're going · 1",
-"sub": "Product · 4s",
-"src": "assets/scenes/wherever-1.mp4",
-"poster": "assets/scenes/wherever-1.jpg",
-"duration": 4.2,
-"style": "product",
-"from": "v-wherever",
-"tags": [
-"scene",
-"product",
-"wherever you're going"
-]
-},
-{
-"id": "scene-wherever-2",
-"type": "video",
-"group": "scene",
-"title": "Wherever you're going · 2",
-"sub": "Product · 2s",
-"src": "assets/scenes/wherever-2.mp4",
-"poster": "assets/scenes/wherever-2.jpg",
-"duration": 1.8,
-"style": "product",
-"from": "v-wherever",
-"tags": [
-"scene",
-"product",
-"wherever you're going"
-]
-},
-{
-"id": "scene-wherever-3",
-"type": "video",
-"group": "scene",
-"title": "Wherever you're going · 3",
-"sub": "Product · 2s",
-"src": "assets/scenes/wherever-3.mp4",
-"poster": "assets/scenes/wherever-3.jpg",
-"duration": 1.6,
-"style": "product",
-"from": "v-wherever",
-"tags": [
-"scene",
-"product",
-"wherever you're going"
-]
-},
-{
-"id": "scene-wherever-4",
-"type": "video",
-"group": "scene",
-"title": "Wherever you're going · 4",
-"sub": "Text · 5s",
-"src": "assets/scenes/wherever-4.mp4",
-"poster": "assets/scenes/wherever-4.jpg",
-"duration": 5.5,
-"style": "text",
-"from": "v-wherever",
-"tags": [
-"scene",
-"text",
-"wherever you're going"
-]
-},
-{
-"id": "scene-wherever-5",
-"type": "video",
-"group": "scene",
-"title": "Wherever you're going · 5",
-"sub": "Product · 2s",
-"src": "assets/scenes/wherever-5.mp4",
-"poster": "assets/scenes/wherever-5.jpg",
-"duration": 1.6,
-"style": "product",
-"from": "v-wherever",
-"tags": [
-"scene",
-"product",
-"wherever you're going"
-]
-},
-{
-"id": "scene-wherever-6",
-"type": "video",
-"group": "scene",
-"title": "Wherever you're going · 6",
-"sub": "Product · 9s",
-"src": "assets/scenes/wherever-6.mp4",
-"poster": "assets/scenes/wherever-6.jpg",
-"duration": 8.8,
-"style": "product",
-"from": "v-wherever",
-"tags": [
-"scene",
-"product",
-"wherever you're going"
-]
-},
-{
-"id": "scene-wherever-7",
-"type": "video",
-"group": "scene",
-"title": "Wherever you're going · 7",
-"sub": "Outro · 5s",
-"src": "assets/scenes/wherever-7.mp4",
-"poster": "assets/scenes/wherever-7.jpg",
-"duration": 5.0,
-"style": "outro",
-"from": "v-wherever",
-"tags": [
-"scene",
-"outro",
-"wherever you're going"
-]
-},
-{
-"id": "scene-ai-tour-1",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 1",
-"sub": "Intro · 10s",
-"src": "assets/scenes/ai-tour-1.mp4",
-"poster": "assets/scenes/ai-tour-1.jpg",
-"duration": 10.1,
-"style": "intro",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"intro",
-"level up with ai"
-]
-},
-{
-"id": "scene-ai-tour-2",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 2",
-"sub": "Product · 7s",
-"src": "assets/scenes/ai-tour-2.mp4",
-"poster": "assets/scenes/ai-tour-2.jpg",
-"duration": 7.1,
-"style": "product",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"product",
-"level up with ai"
-]
-},
-{
-"id": "scene-ai-tour-3",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 3",
-"sub": "Text · 2s",
-"src": "assets/scenes/ai-tour-3.mp4",
-"poster": "assets/scenes/ai-tour-3.jpg",
-"duration": 2.0,
-"style": "text",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"text",
-"level up with ai"
-]
-},
-{
-"id": "scene-ai-tour-4",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 4",
-"sub": "Product · 9s",
-"src": "assets/scenes/ai-tour-4.mp4",
-"poster": "assets/scenes/ai-tour-4.jpg",
-"duration": 9.4,
-"style": "product",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"product",
-"level up with ai"
-]
-},
-{
-"id": "scene-ai-tour-5",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 5",
-"sub": "Product · 2s",
-"src": "assets/scenes/ai-tour-5.mp4",
-"poster": "assets/scenes/ai-tour-5.jpg",
-"duration": 1.5,
-"style": "product",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"product",
-"level up with ai"
-]
-},
-{
-"id": "scene-ai-tour-6",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 6",
-"sub": "Product · 2s",
-"src": "assets/scenes/ai-tour-6.mp4",
-"poster": "assets/scenes/ai-tour-6.jpg",
-"duration": 2.0,
-"style": "product",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"product",
-"level up with ai"
-]
-},
-{
-"id": "scene-ai-tour-7",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 7",
-"sub": "Product · 2s",
-"src": "assets/scenes/ai-tour-7.mp4",
-"poster": "assets/scenes/ai-tour-7.jpg",
-"duration": 1.5,
-"style": "product",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"product",
-"level up with ai"
-]
-},
-{
-"id": "scene-ai-tour-8",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 8",
-"sub": "Product · 3s",
-"src": "assets/scenes/ai-tour-8.mp4",
-"poster": "assets/scenes/ai-tour-8.jpg",
-"duration": 3.1,
-"style": "product",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"product",
-"level up with ai"
-]
-},
-{
-"id": "scene-ai-tour-9",
-"type": "video",
-"group": "scene",
-"title": "Level up with AI · 9",
-"sub": "Outro · 6s",
-"src": "assets/scenes/ai-tour-9.mp4",
-"poster": "assets/scenes/ai-tour-9.jpg",
-"duration": 6.0,
-"style": "outro",
-"from": "v-ai-tour",
-"tags": [
-"scene",
-"outro",
-"level up with ai"
-]
-},
-{
-"id": "scene-learn-1",
-"type": "video",
-"group": "scene",
-"title": "Learn video · 1",
-"sub": "Product · 8s",
-"src": "assets/scenes/learn-1.mp4",
-"poster": "assets/scenes/learn-1.jpg",
-"duration": 8.1,
-"style": "product",
-"from": "video-learn",
-"tags": [
-"scene",
-"product",
-"learn video"
-]
-},
-{
-"id": "scene-learn-2",
-"type": "video",
-"group": "scene",
-"title": "Learn video · 2",
-"sub": "Product · 5s",
-"src": "assets/scenes/learn-2.mp4",
-"poster": "assets/scenes/learn-2.jpg",
-"duration": 5.0,
-"style": "product",
-"from": "video-learn",
-"tags": [
-"scene",
-"product",
-"learn video"
-]
-},
-{
-"id": "scene-learn-3",
-"type": "video",
-"group": "scene",
-"title": "Learn video · 3",
-"sub": "Product · 5s",
-"src": "assets/scenes/learn-3.mp4",
-"poster": "assets/scenes/learn-3.jpg",
-"duration": 4.8,
-"style": "product",
-"from": "video-learn",
-"tags": [
-"scene",
-"product",
-"learn video"
-]
-},
-{
-"id": "scene-learn-4",
-"type": "video",
-"group": "scene",
-"title": "Learn video · 4",
-"sub": "Outro · 5s",
-"src": "assets/scenes/learn-4.mp4",
-"poster": "assets/scenes/learn-4.jpg",
-"duration": 5.2,
-"style": "outro",
-"from": "video-learn",
-"tags": [
-"scene",
-"outro",
-"learn video"
-]
-},
-{
-"id": "scene-momentum-1",
-"type": "video",
-"group": "scene",
-"title": "Momentum video · 1",
-"sub": "Product · 9s",
-"src": "assets/scenes/momentum-1.mp4",
-"poster": "assets/scenes/momentum-1.jpg",
-"duration": 9.1,
-"style": "product",
-"from": "video-momentum",
-"tags": [
-"scene",
-"product",
-"momentum video"
-]
-},
-{
-"id": "scene-momentum-2",
-"type": "video",
-"group": "scene",
-"title": "Momentum video · 2",
-"sub": "Product · 6s",
-"src": "assets/scenes/momentum-2.mp4",
-"poster": "assets/scenes/momentum-2.jpg",
-"duration": 6.3,
-"style": "product",
-"from": "video-momentum",
-"tags": [
-"scene",
-"product",
-"momentum video"
-]
-},
-{
-"id": "scene-momentum-3",
-"type": "video",
-"group": "scene",
-"title": "Momentum video · 3",
-"sub": "Product · 5s",
-"src": "assets/scenes/momentum-3.mp4",
-"poster": "assets/scenes/momentum-3.jpg",
-"duration": 5.5,
-"style": "product",
-"from": "video-momentum",
-"tags": [
-"scene",
-"product",
-"momentum video"
-]
-},
-{
-"id": "scene-momentum-4",
-"type": "video",
-"group": "scene",
-"title": "Momentum video · 4",
-"sub": "Outro · 4s",
-"src": "assets/scenes/momentum-4.mp4",
-"poster": "assets/scenes/momentum-4.jpg",
-"duration": 4.0,
-"style": "outro",
-"from": "video-momentum",
-"tags": [
-"scene",
-"outro",
-"momentum video"
-]
-},
-{
-"id": "scene-people-1",
-"type": "video",
-"group": "scene",
-"title": "People video · 1",
-"sub": "Product · 1s",
-"src": "assets/scenes/people-1.mp4",
-"poster": "assets/scenes/people-1.jpg",
-"duration": 1.0,
-"style": "product",
-"from": "video-people",
-"tags": [
-"scene",
-"product",
-"people video"
-]
-},
-{
-"id": "scene-people-2",
-"type": "video",
-"group": "scene",
-"title": "People video · 2",
-"sub": "Product · 9s",
-"src": "assets/scenes/people-2.mp4",
-"poster": "assets/scenes/people-2.jpg",
-"duration": 8.7,
-"style": "product",
-"from": "video-people",
-"tags": [
-"scene",
-"product",
-"people video"
-]
-},
-{
-"id": "scene-leland-clips-launch-v8-1",
-"type": "video",
-"group": "scene",
-"title": "Clips launch film · 1",
-"sub": "Intro · 1s",
-"src": "assets/scenes/leland-clips-launch-v8-1.mp4",
-"poster": "assets/scenes/leland-clips-launch-v8-1.jpg",
-"duration": 1.0,
-"style": "intro",
-"from": "film-leland-clips-launch-film-v8",
-"tags": [
-"scene",
-"intro",
-"clips launch film"
 ]
 },
 {
@@ -13124,15 +12557,15 @@
 "type": "video",
 "group": "scene",
 "title": "Jobs launch film · 1",
-"sub": "Intro · 7s",
+"sub": "Product · 7s",
 "src": "assets/scenes/leland-jobs-v13-1.mp4",
 "poster": "assets/scenes/leland-jobs-v13-1.jpg",
 "duration": 7,
-"style": "intro",
+"style": "product",
 "from": "film-leland-jobs-film-v13",
 "tags": [
 "scene",
-"intro",
+"product",
 "jobs launch film"
 ]
 },
@@ -13175,15 +12608,15 @@
 "type": "video",
 "group": "scene",
 "title": "Jobs launch film · 4",
-"sub": "Text · 5s",
+"sub": "Product · 5s",
 "src": "assets/scenes/leland-jobs-v13-4.mp4",
 "poster": "assets/scenes/leland-jobs-v13-4.jpg",
 "duration": 5,
-"style": "text",
+"style": "product",
 "from": "film-leland-jobs-film-v13",
 "tags": [
 "scene",
-"text",
+"product",
 "jobs launch film"
 ]
 },
@@ -13447,15 +12880,15 @@
 "type": "video",
 "group": "scene",
 "title": "Community outcomes · 3",
-"sub": "Text · 2s",
+"sub": "Product · 2s",
 "src": "assets/scenes/community-outcomes-v4-preview-3.mp4",
 "poster": "assets/scenes/community-outcomes-v4-preview-3.jpg",
 "duration": 2.0,
-"style": "text",
+"style": "product",
 "from": "film-community-outcomes-v4-preview",
 "tags": [
 "scene",
-"text",
+"product",
 "community outcomes"
 ]
 },
@@ -13542,6 +12975,92 @@
 "scene",
 "outro",
 "community outcomes"
+]
+},
+{
+"id": "gif-ladder",
+"type": "gif",
+"group": "gif",
+"title": "From using AI to [building with it].",
+"sub": "Framing the program: the five levels from using AI to running an orchestration layer.",
+"src": "assets/gifs/ladder.gif",
+"mp4": "assets/gifs/ladder.mp4",
+"poster": "assets/gifs/ladder.jpg",
+"duration": 8,
+"tags": [
+"ladder",
+"levels",
+"framing",
+"agents",
+"orchestration"
+]
+},
+{
+"id": "gif-hours-back",
+"type": "gif",
+"group": "gif",
+"title": "[Hours back], every week.",
+"sub": "The time-savings pitch: an 8-hour task collapsing to 30 minutes (illustrative).",
+"src": "assets/gifs/hours-back.gif",
+"mp4": "assets/gifs/hours-back.mp4",
+"poster": "assets/gifs/hours-back.jpg",
+"duration": 8,
+"tags": [
+"time",
+"roi",
+"before-after",
+"productivity"
+]
+},
+{
+"id": "gif-your-work",
+"type": "gif",
+"group": "gif",
+"title": "Built on [your work], not examples.",
+"sub": "Answering 'is this generic?': their docs, sheets and inbox become a Research → Draft → Send system.",
+"src": "assets/gifs/your-work.gif",
+"mp4": "assets/gifs/your-work.mp4",
+"poster": "assets/gifs/your-work.jpg",
+"duration": 9,
+"tags": [
+"workflow",
+"personal",
+"system",
+"objection"
+]
+},
+{
+"id": "gif-builder-mindset",
+"type": "gif",
+"group": "gif",
+"title": "Everyone is a [builder].",
+"sub": "The team pitch: one person starts, the whole org follows.",
+"src": "assets/gifs/builder-mindset.gif",
+"mp4": "assets/gifs/builder-mindset.mp4",
+"poster": "assets/gifs/builder-mindset.jpg",
+"duration": 8,
+"tags": [
+"team",
+"culture",
+"adoption",
+"spread"
+]
+},
+{
+"id": "gif-ai-employee",
+"type": "gif",
+"group": "gif",
+"title": "An agent that [owns the job].",
+"sub": "Explaining autonomous agents: a Trigger → Research → Draft → Deliver loop that runs without a person.",
+"src": "assets/gifs/ai-employee.gif",
+"mp4": "assets/gifs/ai-employee.mp4",
+"poster": "assets/gifs/ai-employee.jpg",
+"duration": 8,
+"tags": [
+"agent",
+"autonomous",
+"loop",
+"automation"
 ]
 }
 ],

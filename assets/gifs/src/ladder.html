@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Ladder</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
+:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#2f5fd6;--sky:#80aced}
+html,body{margin:0;background:#fff}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
+h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
+h1 b{font-weight:500;color:var(--blue)}
+.mark{position:absolute;right:80px;bottom:60px;width:30px}
+svg{position:absolute;left:0;top:0}
+.lbl{font-family:'Macan',sans-serif;font-weight:500;font-size:17px;fill:var(--ink3)}
+</style></head><body>
+<div class="stage">
+  <h1>From using AI to <b>building with it.</b></h1>
+  <svg id="s" width="1280" height="720" viewBox="0 0 1280 720" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg>
+  <img class="mark" src="../../logomark.png" alt="">
+</div>
+<script>
+const D=8; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const eo=x=>1-Math.pow(1-x,3), ei=x=>x*x*x, eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const LABELS=['Use AI','Agentic workflows','Autonomous agents','Agent workforce','Orchestration layer'];
+const X0=80, W=216, Y0=630, R=72;
+const tread=i=>({x0:X0+i*W,x1:X0+(i+1)*W,y:Y0-i*R});
+const svg=document.getElementById('s');
+// static base staircase
+let base='M'+X0+' '+Y0;
+for(let i=0;i<5;i++){const s=tread(i);base+=' H'+s.x1;if(i<4)base+=' V'+tread(i+1).y;}
+let html=`<path d="${base}" stroke="#eee" stroke-width="3"/>`;
+// lit segments: riser into tread i + tread i
+for(let i=0;i<5;i++){const s=tread(i);let d=i===0?`M${s.x0} ${s.y} H${s.x1}`:`M${s.x0} ${tread(i-1).y} V${s.y} H${s.x1}`;const len=(i===0?0:R)+W;
+  html+=`<path id="lit${i}" d="${d}" stroke="#2f5fd6" stroke-width="3" stroke-dasharray="${len}" stroke-dashoffset="${len}"/>`;
+  html+=`<text id="lab${i}" class="lbl" x="${s.x0+6}" y="${s.y-18}">${LABELS[i]}</text>`;}
+html+=`<circle id="halo" r="18" fill="#80aced" opacity="0"/><circle id="dot" r="8" fill="#2f5fd6"/>`;
+svg.innerHTML=html;
+const lit=[],lab=[];for(let i=0;i<5;i++){lit.push(document.getElementById('lit'+i));lab.push(document.getElementById('lab'+i));}
+const dot=document.getElementById('dot'),halo=document.getElementById('halo');
+const L=i=>0.4+i*0.9;
+// dot path: centers of treads with corners
+function dotPos(p){ // p in [0,4] continuous step index
+  const i=clamp(Math.floor(p),0,3), f=p-i; const a=tread(i), b=tread(i+1);
+  const cx=a.x0+W/2, legs=[W/2,R,W/2], tot=W+R; let d=f*tot;
+  if(d<=legs[0])return{x:cx+d,y:a.y};
+  d-=legs[0]; if(d<=legs[1])return{x:a.x1,y:a.y-d};
+  d-=legs[1]; return{x:a.x1+d,y:b.y};
+}
+function render(t){
+  // lighting
+  for(let i=0;i<5;i++){
+    const on=eo(seg(t,L(i),L(i)+0.45)); const off=seg(t,6.2+(4-i)*0.12,6.5+(4-i)*0.12);
+    const len=(i===0?0:R)+W; lit[i].setAttribute('stroke-dashoffset',len*(1-on)); lit[i].setAttribute('opacity',1-off);
+    const k=on*(1-off); lab[i].setAttribute('fill',mix('#767676','#111111',k));
+  }
+  // dot
+  let p=0;
+  for(let i=0;i<4;i++)p+=eio(seg(t,L(i)+0.35,L(i)+0.85));
+  if(t>=6.3)p=4*(1-eio(seg(t,6.3,7.3)));
+  const q=dotPos(p===4?3.9999:p); if(p>=4){q.x=tread(4).x0+W/2;q.y=tread(4).y;}
+  dot.setAttribute('cx',q.x);dot.setAttribute('cy',q.y);halo.setAttribute('cx',q.x);halo.setAttribute('cy',q.y);
+  // halo pulse on arrival at top
+  const hp=seg(t,4.4,5.2); halo.setAttribute('r',8+22*eo(hp)); halo.setAttribute('opacity',hp>0?0.5*(1-hp):0);
+}
+function mix(a,b,k){const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));const A=p(a),B=p(b);return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(',')+')';}
+let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
+(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+</script></body></html>

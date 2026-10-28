@@ -54,3 +54,13 @@ Today: three draggable layers on the canvas (text, illustration, product shot), 
 - Connect page: Create (Figma, Drive, Notion, Opus, Slack) vs Distribute and measure (LinkedIn, Instagram, Meta Ads, Google Ads, YouTube, PostHog) and a "Where everything is" table — asset, format, where, spend, results. Spend and results fill when the ad accounts are wired (needs tokens; see the ten questions above).
 - Story maker (from the Sep 29 Slack thread on case studies): paste a customer story → company logo, headline, who, before, what they built, quote, close. Outputs: LinkedIn carousel PDF (4:5), slide PNGs, a web page for leland.ai/customers, and the post text. Opus extracts the fields when connected; scripted read otherwise.
 - Tabs are text-only (bold black on, grey off). Videos are two-up and autoplay on hover. Three duplicate launch-kit copies of films removed. Music has waveform artwork. "Copy for Claude" removed; the skill covers it.
+
+## Oct 28, later — second pass
+- Library is four shelves (Images, GIFs, Videos, Copy) with sub-shelves beneath; atoms you combine on Make.
+- GIFs: five looping sales concepts built from the AIBP pitch (ladder, hours back, your work, builder mindset, AI employee) — GIF + MP4 + editable HTML source in assets/gifs/src. They also drop into videos as clips.
+- Graphics recolored to the current brand (no green). Four are still old-era compositions and should be redrawn: company-deep-dives, example-resumes, coach-videos, coach-available.
+- Scenes trimmed to the five finished films (29 clips). "Coaches" renamed "Experts" per house style.
+- Motion presets now come from measuring the films (data/motion-ref.json): typed ~45 chars/s, words 0.45s with 0.1s stagger, logo draws on then the wordmark types (default), dissolve 0.35s. Each preset shows its reference clips. Leo spin-in kept as an option for Community only.
+- Video editor: stage, a timeline of thumbnail blocks (drag to reorder), and building blocks beneath (Text, Product shot, Intro, UI clip, Concept, Outro).
+- Brand page: thesis, principles, voice, do/don't, look, audiences from data/brand.json (compiled from the brand kickoff, house style, marketing copy guide). The /le skill is no longer shown; copy it from the Me menu until it becomes an org-level skill.
+- DEVELOPERS.md: the hand-off for wiring Meta, Google Ads, LinkedIn, Instagram, YouTube, PostHog and the create-side tools through the Worker.

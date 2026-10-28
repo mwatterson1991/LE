@@ -1,0 +1,75 @@
+{
+  "measured": "2026-10-28",
+  "method": "Frames pulled at 24/48 fps (320-640px grey), per-frame mean-abs diff, ink-pixel count, ink bounding box and centroid; every scene checked by eye on 12-frame contact sheets. Times are seconds from the start of the scene clip.",
+  "text": {
+    "typed": {
+      "speed": 0.65,
+      "chars_per_s": 45,
+      "s_per_char": 0.022,
+      "refs": ["scene-onconversation-2", "scene-onconversation-1", "scene-leland-clips-launch-v8-5"],
+      "notes": "Headline lines of 20-30 chars type in 0.45-0.75s (onconversation ~45 chars/s, Clips ~27 chars/s with a visible cursor). Typing pauses for inline swaps (avatars, logos, grey ghost phrases, emoji placeholders) which stretch a 40-char line to ~2.2s on screen. The wordmark 'Leland' also types in, 0.3-0.6s. Typing is left-anchored from the position where the finished line sits centred."
+    },
+    "rise": {
+      "speed": 0.4,
+      "stagger": 0.1,
+      "refs": ["scene-leland-jobs-v13-3", "scene-leland-jobs-v13-2", "scene-onconversation-3"],
+      "notes": "Whole-element rise+fade is used for UI cards, status lines and swapped words, not for headlines: 0.3-0.45s to settle, 0.1s between cards, ~1.1s between stacked status lines (previous lines dim to grey)."
+    },
+    "words": {
+      "speed": 0.45,
+      "stagger": 0.1,
+      "per_word": 0.25,
+      "line_stagger": 0.5,
+      "refs": ["scene-leland-jobs-v13-5", "scene-get-there-with-the-people-whove-been-there-9", "scene-community-outcomes-v4-preview-8", "scene-community-outcomes-v4-preview-1"],
+      "notes": "Word-by-word is the dominant tagline treatment: each word fades in with a small upward move and blur, ~0.09-0.1s apart, ~0.25s per word, so a 3-5 word line settles in ~0.45s and an 8-word line in ~0.9s. Multi-line blocks stagger lines ~0.5s and re-centre vertically as lines are added."
+    }
+  },
+  "logo": {
+    "leo": {
+      "dur": 1.5,
+      "mark_only": 0.55,
+      "refs": ["scene-onconversation-1", "scene-leland-jobs-v13-5", "scene-onconversation-3"],
+      "notes": "No spin. The mark draws on stroke-by-stroke (0.5-0.6s), holds ~0.25s, then the wordmark types in (0.3-0.6s) while the lockup re-centres. First motion to settled lockup: 1.1s (Jobs), 1.5s (One conversation intro), 2.4s (One conversation outro, where yellow/blue pieces fly in from outside the final bounds and converge before the black draw-on)."
+    },
+    "fade": {
+      "dur": 0.25,
+      "refs": ["scene-get-there-with-the-people-whove-been-there-9", "scene-community-outcomes-v4-preview-8", "scene-leland-clips-launch-v8-5"],
+      "notes": "Finished lockup fades in over ~0.25s (Clips adds a small ~60%->100% scale-up on the mark, then types the wordmark). Dark outros fade the lockup in above an already-landed headline."
+    }
+  },
+  "transition": {
+    "fade": {
+      "dur": 0.35,
+      "refs": ["scene-leland-clips-launch-v8-1", "scene-leland-jobs-v13-4", "scene-get-there-with-the-people-whove-been-there-9", "scene-community-outcomes-v4-preview-1"],
+      "notes": "Cross-dissolves measured at 0.3s (Clips title card -> video), 0.4s (Jobs message -> calendar), 0.35s blur-fade out (Get there headline), 0.25s (Community list -> post card). Logo lockups and the One conversation headline leave on a hard cut (<=0.1s). Logo-flash montage cuts every 0.21s."
+    }
+  },
+  "hold": {
+    "headline_after_settle": 1.0,
+    "end_card": 2.2,
+    "notes": "Finished headlines hold ~0.25-1.0s before the next beat; end cards (lockup + tagline + store badges) hold 2.0-2.5s, badges fade in ~0.4s after the tagline lands."
+  },
+  "scenes": [
+    {"id": "scene-leland-clips-launch-v8-1", "film": "Clips launch film", "style": "intro", "start_s": 0.0, "settle_s": 0.0, "logo_settle_s": 0.0, "arrival": "cut", "confidence": 0.9, "notes": "1s hold of an already-finished title card: lockup above 'Increase your reach, with Clips.' (centred, sentence case, blue phrase 'with Clips.', store badges). Fades out 0.7-1.0s into the first clip. No entrance to measure."},
+    {"id": "scene-leland-clips-launch-v8-5", "film": "Clips launch film", "style": "outro", "start_s": 0.52, "settle_s": 4.7, "logo_settle_s": 1.36, "arrival": "typed", "confidence": 0.95, "notes": "Opens on collage with 'Your best moments, ready to post.' (blue phrase) dissolving to white by 0.45. Mark fades+scales in 0.52-0.75, wordmark types 1.0-1.36 (lockup re-centres). Tagline types with cursor from 1.5: 'Increase your reach,' done 2.25, 'with' 2.75-2.95, emoji placeholder 3.05-3.3 swapped for blue 'Clips.' at 3.9-4.1. Badges fade 4.3-4.7, hold to 5.9. Centred, sentence case."},
+    {"id": "scene-leland-jobs-v13-1", "film": "Jobs launch film", "style": "intro", "start_s": 0.25, "settle_s": null, "logo_settle_s": null, "arrival": "rise", "confidence": 0.6, "notes": "Not a logo intro: product demo (resume dragged onto drop zone, upload card with progress bar, profile rows fading in staggered ~0.3s, then AI status line). No headline typography, no logomark. State changes are ~0.3s dissolves."},
+    {"id": "scene-leland-jobs-v13-2", "film": "Jobs launch film", "style": "text", "start_s": 0.0, "settle_s": 0.3, "logo_settle_s": null, "arrival": "rise", "confidence": 0.7, "notes": "AI status list on white: each line (icon + 'Reading Jordan's experience' etc, bold key phrase) fades/rises in ~0.3s, previous lines dim to grey and stack upward, ~1.08s between lines (0, 1.1, 2.2, 3.3, 4.4). Left-aligned inside a centred block, sentence case, dotted-grid background. Ends on a hard cut."},
+    {"id": "scene-leland-jobs-v13-3", "film": "Jobs launch film", "style": "text", "start_s": 0.04, "settle_s": 0.5, "logo_settle_s": null, "arrival": "rise", "confidence": 0.8, "notes": "Three job cards rise+fade in 0.1s apart, settled by ~0.5s; match percentages count up 0.2-1.2s; cursor hover 1.4, Apply -> blue 'Applied' pill 1.8-2.1 with particle burst, other cards dim. Product UI, not typography."},
+    {"id": "scene-leland-jobs-v13-4", "film": "Jobs launch film", "style": "text", "start_s": 0.0, "settle_s": 0.0, "logo_settle_s": null, "arrival": "cut", "confidence": 0.8, "notes": "Chat message already on screen at frame 0 ('Hey Jordan, saw you applied to Anthropic. I've placed 12 people there.' - blue phrase '12 people', left-aligned, sentence case) with Booked pill. Cross-dissolve 0.35-0.75 (0.4s) to calendar; 'Interview · Anthropic' event pops at 1.5s. Hard cut out."},
+    {"id": "scene-leland-jobs-v13-5", "film": "Jobs launch film", "style": "outro", "start_s": 0.25, "settle_s": 3.1, "logo_settle_s": 1.35, "arrival": "words", "confidence": 0.95, "notes": "Mark draws on 0.25-0.75 (two strokes), wordmark types 1.0-1.3 while lockup re-centres. Tagline 'Your next job is already looking for you.' arrives word by word from 1.55, 0.09s apart, each word fading up from below with blur, settled 2.45. Blue phrase 'already looking for you.' Centred, sentence case, period. Badges 2.5-3.1, hold ~2s, fades out over last 0.3s."},
+    {"id": "scene-onconversation-1", "film": "One conversation", "style": "intro", "start_s": 0.5, "settle_s": 3.03, "logo_settle_s": 2.0, "arrival": "typed", "confidence": 0.95, "notes": "Mark draws on 0.5-1.1, wordmark types 1.37-2.0, hold to 2.42, hard cut out. Headline types from 2.57: 'One conversation could' in 0.46s (22 chars), then grey ghost completions 'get you hired' / 'change you' swap in and out before 'change everything' lands ~6.3; hold to 7.3. Centred, sentence case, black on white, no blue phrase (ghost text is light grey). Then chat UI with typed messages and cursor to 15s."},
+    {"id": "scene-onconversation-2", "film": "One conversation", "style": "text", "start_s": 1.17, "settle_s": 3.4, "logo_settle_s": null, "arrival": "typed", "confidence": 1.0, "notes": "Chat UI to 1.15 then cut to white. 'One conversation could change everything' types 1.17-3.4 at ~45 chars/s with pauses after 'could' and 'change' while inline avatars/company logos cycle (pure typing ~0.85s). Hold 0.25, hard cut, 'Ask the people who've done it' types 3.7-4.3 (0.6s) as avatars pop in around it. Typing is left-anchored from where the finished line sits centred. Sentence case, no blue phrase."},
+    {"id": "scene-onconversation-3", "film": "One conversation", "style": "outro", "start_s": 1.1, "settle_s": 4.3, "logo_settle_s": 3.9, "arrival": "words", "confidence": 0.9, "notes": "Avatars + headline shrink/fade 1.1-1.5. Yellow and blue mark pieces fly in from outside the final bounds 1.5-2.3 (bbox larger than final), converge and draw on as the black mark by 3.1; wordmark types 3.2-3.9. 'Talk to a Coach.' words rise 3.9-4.3; last word then swaps every ~0.6s to light-blue 'Expert.' / 'Mentor.' each rising in ~0.2s. Badges fade 4.5-4.9. Centred, sentence case, blue phrase present."},
+    {"id": "scene-get-there-with-the-people-whove-been-there-9", "film": "Get there", "style": "outro", "start_s": 0.5, "settle_s": 1.9, "logo_settle_s": 4.55, "arrival": "words", "confidence": 0.95, "notes": "Black background, white centred 3-line headline 'Get there, / with the people / who've been there'. Words blur-fade in left to right ~0.1s apart; lines land 0.5-0.8, 1.05-1.5, 1.55-1.9 (0.5s line stagger) and the block re-centres as lines add. Avatars pop in around it. Hold to 3.0, blur-fade out 3.25-3.6, avatars collapse to centre, 'Join the community' scales in with slight overshoot 3.85-4.25, lockup fades in above 4.33-4.55 (0.25s), badges 4.5-4.9, hold 2.3s. No blue phrase."},
+    {"id": "scene-community-outcomes-v4-preview-1", "film": "Community outcomes", "style": "intro", "start_s": 0.27, "settle_s": 0.6, "logo_settle_s": null, "arrival": "words", "confidence": 0.85, "notes": "Not a logo intro. Feature list on white: icon + bold sentence-case line ('Join live sessions', 'Meet ambitious people', 'Save hours with AI', 'Ask experts anything', 'Find your people'). Each line's words rise+blur in ~0.1s apart (~0.3s per line); previous lines dim to grey and stack upward; ~1.1s between lines (0.3, 1.36, 2.45, 3.6, 4.8). Dissolves ~0.25s to a post card, then phone frame. No blue phrase."},
+    {"id": "scene-community-outcomes-v4-preview-3", "film": "Community outcomes", "style": "text", "start_s": 0.0, "settle_s": 0.0, "logo_settle_s": null, "arrival": "cut", "confidence": 1.0, "notes": "Logo-flash montage: white school/company logos on black, hard cut every ~0.21s (Stanford, Google, HBS, McKinsey, Penn, Goldman, Columbia, Meta), hard cut to phone UI at 1.92. No Leland typography."},
+    {"id": "scene-community-outcomes-v4-preview-8", "film": "Community outcomes", "style": "outro", "start_s": 0.0, "settle_s": 0.3, "logo_settle_s": 2.75, "arrival": "words", "confidence": 0.9, "notes": "Clip starts mid-entrance: 'The home for ambition' (white on black, centred, sentence case) words blur-fade in left to right, done by 0.3; avatars pop in to 1.6; everything fades 1.7-2.2 and avatars collapse to centre. Lockup fades in 2.5-2.75, 'Join the community' scales/blurs in 2.5-3.0, badges 3.2-3.7, hold ~2.2s. No blue phrase."}
+  ],
+  "summary": [
+    "Leland headlines arrive two ways: typed character by character at roughly 45 chars/s (a 20-30 char line in 0.45-0.75s, with deliberate pauses while inline avatars, logos or grey ghost phrases swap), or word by word, each word fading up from below with blur about 0.1s apart so a tagline lands in 0.45-0.9s. Whole-line rise is only used for UI cards and stacked status lines, never for a hero line.",
+    "The logo never spins. The mark draws on stroke by stroke in ~0.55s, holds a beat, then the wordmark types in while the lockup re-centres; first motion to finished lockup is 1.1-2.4s (median 1.5s), and the One conversation outro adds yellow/blue pieces flying in from outside the final bounds. On dark end cards the finished lockup simply fades in over ~0.25s above a headline that has already landed.",
+    "Text is centred and sentence case, black on white or white on black, with a light-blue phrase closing the tagline on three of the five end cards ('with Clips.', 'already looking for you.', 'Expert.'); the blue phrase is typed/rises in like the rest, it is not a separate reveal. Typing is left-anchored from the spot where the finished line will be centred.",
+    "Holds: a finished headline sits 0.25-1.0s before the next beat, end cards hold 2.0-2.5s with store badges fading in ~0.4s after the tagline, and stacked lists add a new line every ~1.1s while older lines dim to grey. Scene changes are 0.3-0.4s cross-dissolves or blur-fades; logo lockups and typed headlines leave on a hard cut.",
+    "Measured presets: typed 0.65s per line, words 0.45s with 0.1s stagger, leo 1.5s, logo fade 0.25s, transition 0.35s. The 'rise' preset has no headline example in the films; the 0.4s/0.1s values come from the Jobs UI cards and status lines, so keep the current default if a hero-line rise is wanted."
+  ]
+}
