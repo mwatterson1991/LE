@@ -42,13 +42,20 @@ async function storyBrief(p){
   if(hasOpus()){$('ov').classList.add('on');$('ovp').textContent='Opus is reading the story';window.leo&&leo.work();
     try{const out=jsonOf(await opus(SYSTEM(),`Turn this into a customer story. Keep the facts, do not invent numbers.\n\n${p}\n\nReturn JSON {"company":"","headline":"<=40 chars with one number and one [blue phrase]","who":"<=160 chars","before":"<=160 chars","built":["Name, Role — what they built — result",...],"quote":"","by":"Name, Role","cta":"Let’s chat.","post":"a LinkedIn post in John's voice, <=1300 chars, ends with 'If you want to help your team get set up for this next chapter of AI change, let's chat.'"}`));
       if(out){story={...story,co:out.company||story.co,head:out.headline||story.head,who:out.who||'',before:out.before||'',built:out.built||[],quote:out.quote||'',by:out.by||'',cta:out.cta||story.cta,post:out.post};$('etitle').value=out.company||'Story';storyFill();storyMatchLogo();storySync();$('ov').classList.remove('on');window.leo&&leo.rest();toast('Opus drafted the story. Everything on the right is yours.');return}}catch(e){toast('Opus error. Using the scripted read.')}$('ov').classList.remove('on')}
-  const lines=p.split('\n').map(s=>s.trim()).filter(Boolean);
-  const built=lines.filter(l=>/^[-•*]/.test(l)).map(l=>l.replace(/^[-•*]\s*/,''));
-  const quote=(p.match(/"([^"]{10,})"|“([^”]{10,})”/)||[]);const q=quote[1]||quote[2]||'';
-  const rest=lines.filter(l=>!/^[-•*]/.test(l)&&!l.includes(q));
-  const co=(rest[0]||'').split(/ (team|marketing|just|had|is|put)/)[0].slice(0,32);
-  const num=(p.match(/\d[\d,]*\+?/)||[''])[0];
-  story={...story,co,head:num?`${num} ${(p.match(new RegExp(num.replace('+','\\+')+' ([a-z ]{3,24})'))||['',''])[1].trim()}, [built here].`:`${co}, [building]`,who:rest[0]||'',before:rest.find(l=>/before|used to|old way|putting off|never/i.test(l))||rest[1]||'',built,quote:q,by:q?((p.slice(0,p.indexOf(q)).match(/([A-Z][a-z]+ [A-Z][a-z]+)[^.]*$/)||['',''])[1]):'',post:p};
+  // scripted read: sentences, bullets, quotes, a speaker, a company
+  const text=p.replace(/\s+-\s+/g,'\n- ').replace(/•/g,'\n- ');
+  const lines=text.split('\n').map(s=>s.trim()).filter(Boolean);
+  const built=lines.filter(l=>/^-\s*/.test(l)).map(l=>l.replace(/^-\s*/,'').replace(/\.$/,''));
+  const prose=lines.filter(l=>!/^-\s*/.test(l)).join(' ');
+  const qm=prose.match(/[“"]([^”"]{8,})[”"]/);let q=qm?qm[1].replace(/[,\s]+$/,''):'';
+  let by='';if(qm){const after=prose.slice(prose.indexOf(qm[0])+qm[0].length);const bm=after.match(/^[\s,]*(?:said|says|—|-)?\s*([A-Z][a-z]+ [A-Z][a-z]+(?:,\s*[^.]{3,40})?)/);if(bm)by=bm[1].trim();else{const pre=prose.slice(0,prose.indexOf(qm[0]));const pm=pre.match(/([A-Z][a-z]+ [A-Z][a-z]+)(?:,\s*([^.]{3,40}))?[^.]{0,30}$/);if(pm)by=pm[1]+(pm[2]?', '+pm[2]:'')}}
+  const sents=prose.replace(qm?qm[0]:'','').split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(s=>s.length>3);
+  const first=sents[0]||'';const cm=first.match(/^((?:[A-Z][\w+&.]*\s?){1,3})(?=\s+(?:team|marketing|sales|ops|operations|is|was|had|put|went|built|launched|just))/);const co=cm?cm[1].trim():first.split(' ').slice(0,2).join(' ');
+  const num=(prose.match(/\d[\d,]*\+?/)||[''])[0];const numSent=sents.find(s=>num&&s.includes(num))||'';
+  const before=sents.slice(1).find(s=>/before|used to|old way|putting off|never|by hand|manual|hours|years|needed/i.test(s))||sents[1]||'';
+  const after=sents.find(s=>/got it done|now|in weeks|instead|today/i.test(s)&&s!==before)||'';
+  const head=num?`${num} ${(numSent.replace(num,'').trim().split(' ').slice(0,3).join(' ')).replace(/[.,]$/,'')}, [done in weeks].`:`${co}, [building].`;
+  story={...story,co,head:num&&numSent?head:`${co}, [building].`,who:first,before,built:built.length?built:(after?[after]:[]),quote:q,by,post:p};
   $('etitle').value=co||'Story';storyFill();storyMatchLogo();storySync();toast('Read it. Connect Opus under Me for a real draft.')}
 function storyMatchLogo(){const n=(story.co||'').toLowerCase().replace(/[^a-z0-9]/g,'');if(!n)return;const hit=byGroup('org').find(a=>a.title.toLowerCase().replace(/[^a-z0-9]/g,'').includes(n)||n.includes(a.title.toLowerCase().replace(/[^a-z0-9]/g,'')));if(hit)story.logo=hit.id}
 function storyPost(){if(story.post)return story.post;const b=story.built.map(i=>'- '+i.replace(/ — /g,': ').replace(/: ([^:]+)$/,'. $1.')).join('\n');return `${story.who}\n\n${story.before}\n\nA few things they built:\n\n${b}\n\n${story.by.split(',')[0]||'They'} said it best:\n\n"${story.quote}"\n\nThat's the whole point of the AI Builder Program. It's not a learning experience, it's a building experience.\n\nIf you want to help your team get set up for this next chapter of AI change, let's chat.`}
