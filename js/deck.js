@@ -302,6 +302,15 @@
     x.fillStyle = BLUE; x.beginPath(); x.moveTo(bx + r.w * .42, by); x.lineTo(tx, ty); x.lineTo(tx, ty + r.h * .22); x.lineTo(tx - r.w * .16, ty); x.closePath(); x.fill();
     x.restore();
   };
+  /* a grid of outlined seats: licensed; the first row filled: in use */
+  PH.licensed = function (x, r, c) {
+    var cols = 15, rows = 8, gap = Math.round(r.w * .012), cw = (r.w - gap * (cols - 1)) / cols, ch = (r.h - gap * (rows - 1)) / rows, d = Math.min(cw, ch);
+    var ox = r.x + (r.w - (d * cols + gap * (cols - 1))) / 2, oy = r.y + (r.h - (d * rows + gap * (rows - 1))) / 2;
+    for (var i = 0; i < cols * rows; i++) {
+      var X = ox + (i % cols) * (d + gap), Y = oy + Math.floor(i / cols) * (d + gap);
+      if (i < cols) { x.fillStyle = BLUE; x.fillRect(X, Y, d, d); } else { x.strokeStyle = lineFor(c); x.lineWidth = 2; x.strokeRect(X + 1, Y + 1, d - 2, d - 2); }
+    }
+  };
   /* two bars, one clearing a band */
   PH.bars = function (x, r, c) { PH.rise(x, r, c, 3); };
   /* draw an illustration (assets/illus/<file>), else a library illustration (asset id), else a placeholder; returns the drawn rect */
@@ -717,7 +726,7 @@
       { key: 'title', label: 'Title', type: 'text', max: 80 },
       { key: 'lines', label: 'Lines (**Lead.** text, one per line, up to three)', type: 'text', max: 400, optional: true },
       ILLUS, ILL,
-      { key: 'ph', label: 'Placeholder', type: 'choice', options: ['layers', 'grid', 'rise', 'rings', 'launch'] },
+      { key: 'ph', label: 'Placeholder', type: 'choice', options: ['layers', 'grid', 'rise', 'rings', 'launch', 'licensed'] },
       { key: 'color', label: 'Field', type: 'color', options: FIELDS }
     ],
     defaults: { title: 'Squads walk into AKO with working agents to demo.', lines: '', illus: '', ill: '', ph: 'rise', color: 'white' },
@@ -774,6 +783,67 @@
         block(x, tr, X + w / 2, Y + (bh - tr.h) / 2, 'center', last ? PAL.white : ink);
       });
       visual({ x: PAD, y: top, w: CW, h: total });
+    }
+  };
+
+  /* two or three plain columns: "Title | line | line | line" per column, a hairline under each title */
+  K.cols = {
+    name: 'Columns',
+    fields: [
+      { key: 'title', label: 'Title', type: 'text', max: 80 },
+      { key: 'cols', label: 'Columns (Title | line | line, one column per line, up to three)', type: 'text', max: 600 },
+      { key: 'color', label: 'Field', type: 'color', options: FIELDS }
+    ],
+    defaults: { title: 'Without a partner, champions teach on top of day jobs.', cols: 'Without a partner | Champions teach on top of day jobs\nWith Leland | Foundations in October for all ~185', color: 'white' },
+    render: async function (x, d, h, slide) {
+      var c = get(d, 'color', 'white'), ink = inkFor(c), body = bodyFor(c);
+      fill(x, W0, H0, fieldHex(c, h.PAL));
+      var H = head(x, d, c, h, slide, { gap: 80 }), y = H.y, bottom = H.bottom;
+      var cols = splitLines(get(d, 'cols', '')).slice(0, 3).map(function (l) { var p = l.split('|').map(function (t) { return t.trim(); }); return { t: p[0], lines: p.slice(1).filter(Boolean).slice(0, 3) }; });
+      if (!cols.length) return;
+      var CG = 96, colW = (CW - CG * (cols.length - 1)) / cols.length, px = BODY, GAP = 64;
+      /* measure, then centre the block in the field */
+      var trs = cols.map(function (col) { return fit(x, col.t, 'display', colW, 120, 48, 30, 1.08, 2, false); });
+      var titleH = Math.max.apply(null, trs.map(function (r) { return r.h; }));
+      var colH = cols.map(function (col) { return col.lines.reduce(function (a, l, j) { return a + mixedH(x, l, px, colW) + (j ? GAP : 0); }, 0); });
+      var blockH = titleH + 32 + 40 + Math.max.apply(null, colH), top = y + Math.max(0, (bottom - y - blockH) / 2);
+      cols.forEach(function (col, i) {
+        var cx = PAD + i * (colW + CG), cy = top;
+        font(x, 'display', trs[i].px); block(x, trs[i], cx, cy + titleH - trs[i].h, 'left', i && cols.length === 2 ? BLUE : ink); cy += titleH + 32;
+        hair(x, c, cx, cy, colW); cy += 40;
+        col.lines.forEach(function (l, j) { if (j) { hair(x, c, cx, cy - GAP / 2, colW); } cy = mixed(x, l, cx, cy, px, colW, 1.35, ink, body) + GAP; });
+      });
+      visual({ x: PAD, y: top, w: CW, h: blockH });
+    }
+  };
+
+  /* a component and its consequence on the left, the evidence that supports it on the right */
+  K.claim = {
+    name: 'Claim and evidence',
+    fields: [
+      { key: 'title', label: 'Title', type: 'text', max: 80 },
+      { key: 'lines', label: 'Lines (**Lead.** text, one per line, up to two)', type: 'text', max: 400 },
+      { key: 'result', label: 'Evidence (the result)', type: 'text', max: 160 },
+      { key: 'who', label: 'Who, company, timeframe', type: 'text', max: 120, optional: true },
+      { key: 'color', label: 'Field', type: 'color', options: FIELDS }
+    ],
+    defaults: { title: 'Squads walk into AKO with working agents to demo.', lines: '', result: '', who: '', color: 'white' },
+    render: async function (x, d, h, slide) {
+      var c = get(d, 'color', 'white'), ink = inkFor(c), body = bodyFor(c);
+      fill(x, W0, H0, fieldHex(c, h.PAL));
+      var H = head(x, d, c, h, slide, { gap: 80 }), y = H.y, bottom = H.bottom;
+      var lines = splitLines(get(d, 'lines', '')).slice(0, 2), result = get(d, 'result', ''), who = get(d, 'who', '');
+      var leftW = Math.round(CW * .42), rx = PAD + leftW + 120, rw = W0 - PAD - rx, avail = bottom - y;
+      if (lines.length) { var th = linesH(x, lines, leftW), ty = y + Math.max(0, (avail - th) / 2); linesDraw(x, lines, PAD, ty, leftW, c); }
+      if (result) {
+        /* the evidence is the focal point: the result in Season, who and when beneath, centred in the field */
+        var rr = fit(x, result, 'display', rw, avail - 120, 60, 36, 1.1, 5, true), wr = who ? fit(x, who, 'text400', rw, 120, SMALL + 2, SMALL, 1.35, 3, false) : null;
+        var eh = 40 + rr.h + (wr ? 28 + wr.h : 0), ey = y + Math.max(0, (avail - eh) / 2);
+        hair(x, c, rx, ey, rw); ey += 40;
+        font(x, 'display', rr.px); ey = block(x, rr, rx, ey, 'left', ink);
+        if (wr) { font(x, 'text400', wr.px); block(x, wr, rx, ey + 28, 'left', body); }
+        visual({ x: rx, y: y + Math.max(0, (avail - eh) / 2), w: rw, h: eh });
+      } else visual(null);
     }
   };
 
@@ -1045,7 +1115,7 @@
     { id: 'session', name: 'Session', desc: 'A live cohort session or workshop.', outline: ['cover', 'bullets', 'section', 'bullets', 'two', 'section', 'bullets', 'stat', 'quote', 'close'], closeTitle: 'See you next session.', contact: 'Post what you built on Leland' },
     { id: 'allhands', name: 'All-hands', desc: 'Company update.', outline: ['cover', 'section', 'stat', 'bullets', 'section', 'two', 'bullets', 'quote', 'photo', 'close'], closeTitle: 'Thank you.', contact: 'Questions in #general' },
     { id: 'story', name: 'Customer story', desc: 'One customer, start to finish.', outline: ['cover', 'section', 'bullets', 'two', 'stat', 'quote', 'photo', 'close'], closeTitle: 'Build yours.', contact: 'joinleland.com/ai' },
-    { id: 'proposal', name: 'Proposal', desc: 'A client proposal: what we heard, the solution, the roadmap, the price.', outline: ['cover', 'agenda', 'pair', 'stats', 'illus', 'layers', 'illus', 'timeline', 'timeline', 'timeline', 'cards3', 'price', 'price', 'price', 'steps', 'section', 'cards3', 'cards3', 'cards3', 'levels', 'people', 'people', 'illus'], closeTitle: '', contact: '', json: 'data/decks/sheerid.json' }
+    { id: 'proposal', name: 'Proposal', desc: 'A client proposal: what we heard, the solution, the roadmap, the price.', outline: ['cover', 'illus', 'cols', 'layers', 'claim', 'claim', 'claim', 'claim', 'claim', 'timeline', 'timeline', 'cols', 'illus', 'price', 'price', 'steps', 'levels', 'people', 'people'], closeTitle: '', contact: '', json: 'data/decks/sheerid.json' }
   ];
   function typeOf(id) { for (var i = 0; i < types.length; i++) if (types[i].id === id) return types[i]; return types[0]; }
 
