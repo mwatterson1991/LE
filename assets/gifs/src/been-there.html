@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Experts who have been there</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#3963D7}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#010101;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#fff}
+.h{position:absolute;margin:0;font:500 70px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#fff;left:80px;top:80px;width:500px}
+.h em{font-style:normal;color:#80ACED}
+.sub{position:absolute;left:80px;margin:0;font:400 26px/1.3 'Macan',sans-serif;color:#F3F1E6;width:470px}
+.logo{position:absolute;left:80px;bottom:64px;width:120px}
+svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
+</style></head><body>
+<div class="stage">
+  <h1 class="h">Experts who have <em>been there</em>.</h1>
+  <p class="sub">Matched experts who ran this in their own function.</p>
+  <img class="logo" src="../../brand/logo-white.svg" alt="">
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
+  
+</div>
+<script>
+const D=9; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
+const svg=document.getElementById('svg');
+const _H=document.querySelector('.h'), _S=document.querySelector('.sub');
+const place=()=>{_S.style.top=(_H.getBoundingClientRect().bottom+18)+'px'}; place(); document.fonts.ready.then(place);
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
+const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
+let _s=13; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
+const INK='#010101', WHITE='#fff', YEL='#FFD96F', BLUE='#80ACED', FOLLOW='#3963D7', SLATE='#869AA6', TAN='#EBD4B5', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+
+// A trail to a summit. The expert is already at the top; the path lights up from them back down to you.
+const SX=680,SY=620, TX=1110,TY=150;
+// contour lines around the summit
+[[70,40],[130,80],[200,130],[280,190],[370,260]].forEach(([rx,ry],i)=>{ mk('ellipse',{cx:TX-20-i*20,cy:TY+30+i*40,rx,ry,fill:'none',stroke:'#3d3d3d','stroke-width':2,transform:`rotate(-18 ${TX} ${TY})`}); });
+const d=`M${SX} ${SY} C 700 480, 900 560, 940 440 S 860 300, 980 250 S 1040 190, ${TX-62} ${TY+4}`;
+const base=mk('path',{d,fill:'none',stroke:'#555','stroke-width':6,'stroke-dasharray':'0 16','stroke-linecap':'round'});
+const lit=mk('path',{d,fill:'none',stroke:BLUE,'stroke-width':8,'stroke-dasharray':'0 16','stroke-linecap':'round'});
+const LEN=lit.getTotalLength();
+const litClip=mk('clipPath',{id:'lc'},mk('defs')); const reveal=mk('path',{d,fill:'none',stroke:'#000','stroke-width':20},litClip);
+lit.setAttribute('clip-path','url(#lc)');
+// you
+const you=mk('g'); mk('circle',{cx:0,cy:0,r:18,fill:INK,stroke:WHITE,'stroke-width':4},you); txt(0,48,'You',{'font-size':20,'font-weight':500,fill:WHITE,'text-anchor':'middle'},you);
+// the expert at the summit
+const cp=mk('clipPath',{id:'ex'},mk('defs')); mk('circle',{cx:TX,cy:TY-10,r:56},cp);
+mk('image',{href:'../../experts/spencer-s.jpg',x:TX-56,y:TY-66,width:112,height:112,'clip-path':'url(#ex)',preserveAspectRatio:'xMidYMid slice'});
+const flag=mk('g',{transform:`translate(${TX+64} ${TY-40})`}); mk('line',{x1:0,y1:0,x2:0,y2:-50,stroke:WHITE,'stroke-width':3},flag); mk('path',{d:'M0 -50 h30 l-7 10 l7 10 h-30 z',fill:BLUE},flag);
+txt(TX,TY+76,'Spencer S.',{'font-size':22,'font-weight':500,fill:WHITE,'text-anchor':'middle'});
+txt(TX,TY+100,'Leland expert',{'font-size':16,fill:WHITE,opacity:.7,'text-anchor':'middle'});
+function render(t){
+  const reset=E.in(seg(t,7.9,8.7));
+  // light the path from the summit back down: reveal clip grows from the far end
+  const k=E.io(seg(t,.8,3.2))*(1-reset);
+  reveal.setAttribute('stroke-dasharray',`${LEN} ${LEN}`); reveal.setAttribute('stroke-dashoffset',-LEN*(1-k));
+  // you start walking once the way is lit
+  const w=E.io(seg(t,3.8,6.4))*(1-reset); const p=lit.getPointAtLength(LEN*.32*w);
+  you.setAttribute('transform',`translate(${p.x} ${p.y})`);
+}
+
+window.seek=t=>{place();render(((t%D)+D)%D)};
+render(0);
+if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+</script></body></html>

@@ -141,7 +141,8 @@ async function makeVideo(){const story=ED.story.trim();busy(true,'Writing the ho
   busy(false)}
 
 /* ---------- Deck: a type, pasted text, slides ---------- */
-function startDeck(tid,saved){const t=DECK.types.find(x=>x.id===tid)||DECK.types[0];openEditor('deck',saved?saved.t:t.name+' deck',saved);ED={pid:ED.pid,type:t,text:saved?saved.deck.text:DECK.sample(t.id),slides:[],i:0};buildDeck()}
+function startDeck(tid,saved){const t=DECK.types.find(x=>x.id===tid)||DECK.types[0];openEditor('deck',saved?saved.t:t.name+' deck',saved);ED={pid:ED.pid,type:t,text:saved?saved.deck.text:DECK.sample(t.id),slides:[],i:0};buildDeck();
+  if(!saved&&DECK.ready)DECK.ready(t.id).then(txt=>{if(ED.type===t&&txt&&ED.text!==txt&&!ED.slides.some(s=>s.edited)){ED.text=txt;buildDeck()}})}
 function buildDeck(){const prev=ED.slides||[];ED.slides=DECK.parse(ED.text,ED.type.id);ED.slides.forEach((s,i)=>{const p=prev[i];if(p&&p.kind===s.kind&&p.edited)Object.assign(s.data,p.edited),s.edited=p.edited});ED.i=Math.min(ED.i,ED.slides.length-1);renderDeckPanel();deckSync(true)}
 function renderDeckPanel(){const s=ED.slides[ED.i];const k=s?DECK.kinds[s.kind]:null;
   $('panel').innerHTML=`<div class="sec"><h3>${esc(ED.type.name)} deck <button class="link" onclick="history.replaceState(null,'','#pick/deck');route()">Change</button></h3><div class="f"><textarea id="deckText" style="min-height:160px;font-size:.8125rem" oninput="ED.text=this.value">${esc(ED.text)}</textarea></div><button class="btn sm" onclick="buildDeck()">Rebuild slides</button></div>

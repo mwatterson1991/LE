@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Level one opens the door</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#3963D7}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#EBD4B5;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
+.h{position:absolute;margin:0;font:500 66px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#010101;left:80px;top:72px;width:1120px}
+.h em{font-style:normal;color:#010101}
+.sub{position:absolute;left:80px;margin:0;font:400 26px/1.3 'Macan',sans-serif;color:#222;width:1120px;white-space:nowrap}
+.logo{position:absolute;left:80px;bottom:64px;width:120px}
+svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
+</style></head><body>
+<div class="stage">
+  <h1 class="h">Level one opens the <em>door</em>.</h1>
+  <p class="sub">The program moves at the speed of your infrastructure.</p>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
+  
+</div>
+<script>
+const D=10; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
+const svg=document.getElementById('svg');
+const _H=document.querySelector('.h'), _S=document.querySelector('.sub');
+const place=()=>{_S.style.top=(_H.getBoundingClientRect().bottom+18)+'px'}; place(); document.fonts.ready.then(place);
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
+const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
+let _s=4; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
+const INK='#010101', WHITE='#fff', YEL='#FFD96F', BLUE='#80ACED', FOLLOW='#3963D7', SLATE='#869AA6', TAN='#EBD4B5', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+
+// Level one clears the infrastructure gate today. The deeper levels unlock as systems connect.
+const FY=560; // floor
+mk('line',{x1:80,y1:FY,x2:1200,y2:FY,stroke:INK,'stroke-width':2});
+// gate
+const GX=180; const gate=mk('g'); mk('line',{x1:GX,y1:FY,x2:GX,y2:380,stroke:INK,'stroke-width':4},gate);
+const bar=mk('g',{},gate); mk('line',{x1:0,y1:0,x2:96,y2:0,stroke:INK,'stroke-width':6,'stroke-linecap':'round'},bar);
+txt(GX,FY+34,'Your infrastructure gate',{'font-size':16,'font-weight':500,fill:INK,'text-anchor':'middle'});
+const DOORS=['Use AI to 10x your impact','Build agentic workflows','Create autonomous agents','Build your agent workforce','Design your orchestration layer'];
+const SYS=['','CRM','Docs','Data','SSO'];
+const DX=[330,500,670,840,1010], DW=120, DH=190, DY=FY-DH;
+const doors=DOORS.map((n,i)=>{
+  const x=DX[i]; const g=mk('g');
+  mk('rect',{x,y:DY,width:DW,height:DH,fill:'none',stroke:INK,'stroke-width':2.5},g);
+  const panel=mk('rect',{x:x+2,y:DY+2,width:DW-4,height:DH-4,fill:INK},g);
+  txt(x+DW/2,FY+34,'Level '+(i+1),{'font-size':17,'font-weight':500,fill:INK,'text-anchor':'middle'},g);
+  const w=mk('foreignObject',{x:x-20,y:FY+46,width:DW+40,height:60},g);
+  const dv=document.createElementNS('http://www.w3.org/1999/xhtml','div'); dv.setAttribute('style','font:400 14px/1.25 Macan;color:#010101;text-align:center'); dv.textContent=n; w.appendChild(dv);
+  let plug=null, chip=null;
+  if(i>0){
+    chip=mk('g',{},g); mk('rect',{x:x+DW/2-50,y:266,width:100,height:38,fill:WHITE,stroke:INK,'stroke-width':1.5},chip);
+    txt(x+DW/2,291,SYS[i],{'font-size':17,'font-weight':500,fill:INK,'text-anchor':'middle'},chip);
+    plug=mk('line',{x1:x+DW/2,y1:304,x2:x+DW/2,y2:304,stroke:INK,'stroke-width':2.5},g);
+    mk('circle',{cx:x+DW/2,cy:DY,r:5,fill:'none',stroke:INK,'stroke-width':2},g);
+  }
+  return {x,panel,plug,chip,open:i===0?1.6:2.4+(i-1)*1.1};
+});
+const walker=mk('circle',{cx:110,cy:FY-14,r:12,fill:FOLLOW});
+function render(t){
+  const reset=E.in(seg(t,8.7,9.5));
+  const go=E.io(seg(t,.6,1.2))*(1-reset); bar.setAttribute('transform',`translate(${GX} 380) rotate(${lerp(0,-80,go)})`);
+  doors.forEach((d,i)=>{
+    const o=E.io(seg(t,d.open,d.open+.6))*(1-reset);
+    d.panel.setAttribute('transform',`translate(${d.x+2} ${DY+2}) scale(${lerp(1,.1,o)} 1) translate(${-(d.x+2)} ${-(DY+2)})`);
+    if(d.plug){ const p=E.out(seg(t,d.open-.6,d.open-.1))*(1-reset); d.plug.setAttribute('y2',lerp(304,DY-6,p)); }
+  });
+  // walker steps through each door as it opens
+  let x=110;
+  const stops=[[1.3,1.9,110,250],[1.9,2.5,250,DX[0]+DW+40]];
+  doors.forEach((d,i)=>{ if(i>0) stops.push([d.open+.4,d.open+1.0,DX[i-1]+DW+40,DX[i]+DW+40]); });
+  stops.forEach(s=>{ const k=E.io(seg(t,s[0],s[1])); x=lerp(x,s[3],k)});
+  // last leg off the right edge
+  x=lerp(x,1300,E.in(seg(t,7.9,8.6)));
+  if(t>=8.7) x=110;
+  walker.setAttribute('cx',x); walker.setAttribute('opacity',t>=8.7?E.out(seg(t,9.2,9.6)):1);
+}
+
+window.seek=t=>{place();render(((t%D)+D)%D)};
+render(0);
+if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+</script></body></html>

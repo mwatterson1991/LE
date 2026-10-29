@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Momentum before the holidays</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#3963D7}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#FFD96F;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
+.h{position:absolute;margin:0;font:500 66px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#010101;left:80px;top:72px;width:1120px}
+.h em{font-style:normal;color:#010101}
+.sub{position:absolute;left:80px;margin:0;font:400 26px/1.3 'Macan',sans-serif;color:#222;width:1120px;white-space:nowrap}
+.logo{position:absolute;left:80px;bottom:64px;width:120px}
+svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
+</style></head><body>
+<div class="stage">
+  <h1 class="h">Momentum before the <em>holidays</em>.</h1>
+  <p class="sub">Start in October and the holidays hit a program already moving.</p>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
+  
+</div>
+<script>
+const D=10; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
+const svg=document.getElementById('svg');
+const _H=document.querySelector('.h'), _S=document.querySelector('.sub');
+const place=()=>{_S.style.top=(_H.getBoundingClientRect().bottom+18)+'px'}; place(); document.fonts.ready.then(place);
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
+const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
+let _s=5; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
+const INK='#010101', WHITE='#fff', YEL='#FFD96F', BLUE='#80ACED', FOLLOW='#3963D7', SLATE='#869AA6', TAN='#EBD4B5', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+
+// A calendar track. Two runners; the one that started in October has momentum through the holidays, the November runner stalls.
+const X0=330, X1=1200, MON=['Oct','Nov','Dec','Jan','Feb','Mar'], MW=(X1-X0)/6;
+MON.forEach((m,i)=>{ txt(X0+i*MW,276,m,{'font-size':20,'font-weight':500,fill:INK}); mk('line',{x1:X0+i*MW,y1:292,x2:X0+i*MW,y2:596,stroke:INK,'stroke-width':1,opacity:.2}); });
+const HX0=X0+2*MW+MW*.55, HX1=X0+3*MW+MW*.3; // late Dec to early Jan
+const pat=mk('pattern',{id:'hatch',width:10,height:10,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'},mk('defs'));
+mk('line',{x1:0,y1:0,x2:0,y2:10,stroke:INK,'stroke-width':2,opacity:.35},pat);
+mk('rect',{x:HX0,y:292,width:HX1-HX0,height:304,fill:'url(#hatch)'});
+txt((HX0+HX1)/2,624,'Holidays',{'font-size':19,'font-weight':500,fill:INK,'text-anchor':'middle'});
+const lanes=[{y:380,label:'Start in October',x0:X0,stall:false},{y:510,label:'Start in November',x0:X0+MW,stall:true}];
+const RUN=2.1*MW; // program length in track units (about two months of work)
+lanes.forEach(l=>{
+  txt(80,l.y+8,l.label,{'font-size':24,'font-weight':500,fill:INK});
+  mk('line',{x1:X0,y1:l.y,x2:X1,y2:l.y,stroke:INK,'stroke-width':2,opacity:.25});
+  l.trail=mk('path',{d:'',fill:'none',stroke:INK,'stroke-width':12,'stroke-linecap':'round'});
+  l.coast=mk('line',{x1:0,y1:l.y,x2:0,y2:l.y,stroke:INK,'stroke-width':4,'stroke-dasharray':'2 12','stroke-linecap':'round',opacity:0});
+  l.dot=mk('circle',{cx:l.x0,cy:l.y,r:15,fill:INK});
+  l.flag=mk('g',{opacity:0}); mk('line',{x1:0,y1:0,x2:0,y2:-58,stroke:INK,'stroke-width':3},l.flag); mk('path',{d:'M0 -58 h44 l-10 14 l10 14 h-44 z',fill:FOLLOW},l.flag);
+});
+// time: clock runs x from X0 to X1 between t=.6 and t=7.4
+function render(t){
+  const reset=E.in(seg(t,8.8,9.6));
+  const xc=t<8.8? lerp(X0,X1,seg(t,.6,7.4)) : lerp(X1,X0,reset);
+  lanes.forEach(l=>{
+    const started=xc>=l.x0;
+    let done=0, cx=l.x0, coastA=0, coastB=0;
+    if(started){
+      cx=xc;
+      if(!l.stall){ done=Math.min(cx-l.x0,RUN); }
+      else {
+        // progress accrues outside the holiday band
+        const before=clamp(cx-l.x0,0,HX0-l.x0), after=clamp(cx-HX1,0,1e9);
+        done=Math.min(before+after,RUN); coastA=HX0; coastB=clamp(cx,HX0,HX1);
+      }
+    }
+    // trail: for the stalled runner the trail is broken across the band
+    let d='';
+    if(started){
+      if(!l.stall) d=`M${l.x0} ${l.y} L${l.x0+done} ${l.y}`;
+      else { const b=clamp(cx,l.x0,HX0); d=`M${l.x0} ${l.y} L${b} ${l.y}`; if(cx>HX1) d+=` M${HX1} ${l.y} L${Math.min(cx,HX1+(RUN-(HX0-l.x0)))} ${l.y}`; }
+    }
+    l.trail.setAttribute('d',d);
+    l.coast.setAttribute('opacity',coastB>coastA?1:0); l.coast.setAttribute('x1',coastA); l.coast.setAttribute('x2',coastB);
+    const finishX=l.stall? (l.x0+RUN>HX0? HX1+(RUN-(HX0-l.x0)) : l.x0+RUN) : l.x0+RUN;
+    const dotX=started?Math.min(cx,finishX):l.x0;
+    l.dot.setAttribute('cx',dotX);
+    // the stalled runner goes hollow while coasting through the band
+    const inBand=l.stall&&cx>=HX0&&cx<HX1;
+    l.dot.setAttribute('fill',inBand?YEL:INK); l.dot.setAttribute('stroke',INK); l.dot.setAttribute('stroke-width',inBand?4:0);
+    const fin=started&&cx>=finishX?1:0;
+    l.flag.setAttribute('transform',`translate(${finishX} ${l.y})`); l.flag.setAttribute('opacity',fin*(1-reset));
+  });
+}
+
+window.seek=t=>{place();render(((t%D)+D)%D)};
+render(0);
+if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+</script></body></html>

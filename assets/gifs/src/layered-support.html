@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Support in layers</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#3963D7}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#F3F1E6;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
+.h{position:absolute;margin:0;font:500 70px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#010101;left:80px;top:80px;width:500px}
+.h em{font-style:normal;color:#3963D7}
+.sub{position:absolute;left:80px;margin:0;font:400 26px/1.3 'Macan',sans-serif;color:#222;width:470px}
+.logo{position:absolute;left:80px;bottom:64px;width:120px}
+svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
+</style></head><body>
+<div class="stage">
+  <h1 class="h">Support in <em>layers</em>.</h1>
+  <p class="sub">Foundations for everyone, experts for leaders, engineers on call.</p>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
+  
+</div>
+<script>
+const D=10; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
+const svg=document.getElementById('svg');
+const _H=document.querySelector('.h'), _S=document.querySelector('.sub');
+const place=()=>{_S.style.top=(_H.getBoundingClientRect().bottom+18)+'px'}; place(); document.fonts.ready.then(place);
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
+const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
+let _s=3; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
+const INK='#010101', WHITE='#fff', YEL='#FFD96F', BLUE='#80ACED', FOLLOW='#3963D7', SLATE='#869AA6', TAN='#EBD4B5', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+
+// Cross-section of a building going up floor by floor; the crane (AI engineers) stays.
+const GY=656, CX=880;
+mk('line',{x1:560,y1:GY,x2:1240,y2:GY,stroke:INK,'stroke-width':2});
+// crane
+const MX=1186;
+const JY=176;
+mk('line',{x1:MX,y1:GY,x2:MX,y2:JY,stroke:INK,'stroke-width':4});
+mk('line',{x1:MX+18,y1:JY,x2:600,y2:JY,stroke:INK,'stroke-width':4});
+mk('line',{x1:MX,y1:JY,x2:MX,y2:JY-36,stroke:INK,'stroke-width':4});
+mk('line',{x1:MX,y1:JY-36,x2:960,y2:JY,stroke:INK,'stroke-width':2});
+for(let y=JY+20;y<GY;y+=44){mk('line',{x1:MX-7,y1:y,x2:MX+7,y2:y+22,stroke:INK,'stroke-width':2});}
+txt(600,JY-14,'AI engineers, 10 hours a month, on call',{'font-size':18,'font-weight':500,fill:INK});
+const cable=mk('line',{x1:CX,y1:JY,x2:CX,y2:JY,stroke:INK,'stroke-width':2});
+const hook=mk('path',{d:'M0 0 v10 a6 6 0 1 0 6 6',fill:'none',stroke:INK,'stroke-width':2.5});
+const L=[
+ {w:560,h:112,c:YEL,tc:INK,a:'AI Builder Foundations',b:'everyone, self-paced plus live sessions'},
+ {w:440,h:100,c:TAN,tc:INK,a:'AI Builder Program',b:'champions and leaders, in waves'},
+ {w:320,h:88,c:BLUE,tc:WHITE,a:'Matched domain expert',b:'one per cluster, monthly 1:1'},
+ {w:220,h:64,c:WHITE,tc:INK,a:'Innovation Sprint',b:''},
+];
+let y=GY; const slabs=L.map((s,i)=>{
+  y-=s.h; const g=mk('g'); const r=mk('rect',{x:CX-s.w/2,y:0,width:s.w,height:s.h,fill:s.c,stroke:s.c===WHITE?INK:'none','stroke-width':1.5},g);
+  txt(CX-s.w/2+22,s.b?s.h/2-4:s.h/2+8,s.a,{'font-size':s.b?24:20,'font-weight':500,fill:s.tc},g);
+  if(s.b)txt(CX-s.w/2+22,s.h/2+22,s.b,{'font-size':17,fill:s.tc},g);
+  return {g,fy:y,h:s.h,t:.5+i*1.55};
+});
+function render(t){
+  let hookY=JY, drop=E.in(seg(t,8.7,9.5))*760;
+  slabs.forEach(s=>{
+    const k=E.io(seg(t,s.t,s.t+1.2));
+    const yy=lerp(JY+8,s.fy,k);
+    const vis=t>=s.t?1:0;
+    s.g.setAttribute('transform',`translate(0 ${yy+drop})`); s.g.setAttribute('opacity',vis);
+    if(t>=s.t&&t<s.t+1.45){ const up=E.io(seg(t,s.t+1.2,s.t+1.45)); hookY=lerp(yy,JY,up); }
+  });
+  if(t>=8.7) hookY=JY;
+  cable.setAttribute('y2',hookY); hook.setAttribute('transform',`translate(${CX} ${hookY-16})`); hook.setAttribute('opacity',hookY>JY+4?1:0);
+}
+
+window.seek=t=>{place();render(((t%D)+D)%D)};
+render(0);
+if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+</script></body></html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Leaders first, then every team</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#3963D7}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#80ACED;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
+.h{position:absolute;margin:0;font:500 70px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#010101;left:80px;top:80px;width:500px}
+.h em{font-style:normal;color:#fff}
+.sub{position:absolute;left:80px;margin:0;font:400 26px/1.3 'Macan',sans-serif;color:#F3F1E6;width:470px}
+.logo{position:absolute;left:80px;bottom:64px;width:120px}
+svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
+</style></head><body>
+<div class="stage">
+  <h1 class="h">Leaders first, then <em>every team</em>.</h1>
+  <p class="sub">Leadership, then squads, then everyone.</p>
+  <img class="logo" src="../../brand/logo-white.svg" alt="">
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
+  
+</div>
+<script>
+const D=9; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
+const svg=document.getElementById('svg');
+const _H=document.querySelector('.h'), _S=document.querySelector('.sub');
+const place=()=>{_S.style.top=(_H.getBoundingClientRect().bottom+18)+'px'}; place(); document.fonts.ready.then(place);
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
+const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
+let _s=9; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
+const INK='#010101', WHITE='#fff', YEL='#FFD96F', BLUE='#80ACED', FOLLOW='#3963D7', SLATE='#869AA6', TAN='#EBD4B5', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+
+// A stone dropped in water: first ring reaches leadership, second the squads, third the whole company.
+const CX=910, CY=376, SP=40, R=7;
+const dots=[];
+for(let x=630;x<=1190;x+=SP)for(let y=96;y<=656;y+=SP){
+  const d=Math.hypot(x-CX,y-CY); if(d>300)continue;
+  const el=mk('circle',{cx:x,cy:y,r:R,fill:INK,opacity:0}); dots.push({el,d,x,y});
+}
+const W=[{r:62,t:.6,dur:1.0,label:'Leadership'},{r:168,t:2.3,dur:1.2,label:'Squads, in roadmap order'},{r:310,t:4.3,dur:1.6,label:'Company-wide'}];
+W.forEach(w=>{ w.ring=mk('circle',{cx:CX,cy:CY,r:0,fill:'none',stroke:INK,'stroke-width':3,opacity:0}); });
+const labels=W.map((w,i)=>{ const g=mk('g',{opacity:0}); mk('circle',{cx:88,cy:470+i*44,r:7,fill:INK},g); txt(108,470+i*44+7,w.label,{'font-size':22,'font-weight':500,fill:INK},g); return g; });
+function render(t){
+  const reset=E.in(seg(t,7.9,8.7));
+  let front=0;
+  W.forEach((w,i)=>{
+    const k=E.out(seg(t,w.t,w.t+w.dur)); const r=lerp(0,w.r+30,k);
+    w.ring.setAttribute('r',r); w.ring.setAttribute('opacity',(k>0?1-k*k*k:0)*(1-reset));
+    if(t>=w.t) front=Math.max(front,r);
+    labels[i].setAttribute('opacity',E.out(seg(t,w.t+.3,w.t+.8))*(1-reset));
+    labels[i].setAttribute('transform',`translate(${lerp(-16,0,E.out(seg(t,w.t+.3,w.t+.8)))} 0)`);
+  });
+  const drop=E.out(seg(t,.25,.6));
+  dots.forEach(d=>{
+    const on=d.d<=front?1:0;
+    d.el.setAttribute('opacity',on*(1-reset));
+    d.el.setAttribute('r',d.d<1?R*lerp(1,1.6,drop*(1-reset)):R);
+  });
+}
+// white base layer so fading ink dots reveal the resting state
+dots.forEach(d=>{ const b=mk('circle',{cx:d.x,cy:d.y,r:R,fill:WHITE,opacity:.55}); svg.insertBefore(b,svg.firstChild); });
+
+window.seek=t=>{place();render(((t%D)+D)%D)};
+render(0);
+if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+</script></body></html>
