@@ -115,7 +115,10 @@
   function contain(x, img, X, Y, w, h) {
     var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
     var s = Math.min(w / iw, h / ih), dw = iw * s, dh = ih * s, dx = X + (w - dw) / 2, dy = Y + (h - dh) / 2;
-    x.drawImage(img, dx, dy, dw, dh); return { x: dx, y: dy, w: dw, h: dh };
+    var lib = /\/assets\/illustrations\/.*\.svg$/i.test(String(img.src || ''));
+    if (lib) VISUAL.illus.push({ src: img.src, x: dx, y: dy, w: dw, h: dh });
+    if (!(lib && VISUAL.skipLib)) x.drawImage(img, dx, dy, dw, dh);
+    return { x: dx, y: dy, w: dw, h: dh };
   }
   function roundRectP(x, X, Y, w, h, r) {
     r = Math.min(r, w / 2, h / 2);
@@ -170,13 +173,14 @@
   var PAD = Math.round(.08 * W0);           /* 154: the 8% margin */
   var PADY = Math.round(.08 * H0) + 18;     /* 104 */
   var CW = W0 - 2 * PAD;                    /* 1612 */
-  var LOCK = 44;                             /* lockup height on content slides */
-  var PAGE_PX = 24;                          /* page number, Macan 500 */
+  var LOCK = 24;                             /* lockup height on content slides (wordmark cap ~22px at 1920) */
+  var PAGE_PX = 20;                          /* page number, Macan 500, neutral */
   var BODY_MIN = 28;                         /* body text never below 28px at 1920 */
   var FOOT_Y = H0 - PADY - LOCK;             /* top of the foot row */
   var HEAD_PX = 88;                          /* Season headline */
   var BODY = 34, SMALL = 24, SUB = 40;       /* Macan body, Macan small labels, Season sub-titles */
-  var VISUAL = { area: 0 };                  /* the last slide's visual share, read by the render harness */
+  var VISUAL = { area: 0, illus: [], t: 1, skipLib: false };   /* the last slide's visual share and illustration rects (render harness, present mode) */
+  function easeOut(t) { t = Math.max(0, Math.min(1, t)); return 1 - Math.pow(1 - t, 3); }
 
   /* lockup bottom-left, page number bottom-right; returns the y content must stay above */
   function foot(x, h, color, page, opts) {
@@ -184,12 +188,12 @@
     if (opts.mark) h.mark(x, PAD, FOOT_Y, LOCK, isDark(color) ? 'white' : 'ink');
     else h.logo(x, PAD, FOOT_Y, LOCK, isDark(color) ? 'white' : 'ink');
     if (page) {
-      font(x, 'text500', PAGE_PX); x.fillStyle = isDark(color) ? 'rgba(255,255,255,.72)' : 'rgba(1,1,1,.55)';
+      font(x, 'text500', PAGE_PX); x.fillStyle = isDark(color) ? 'rgba(255,255,255,.72)' : PAL.neutral;
       x.textAlign = 'right'; x.textBaseline = 'alphabetic';
-      x.fillText(String(page), W0 - PAD, FOOT_Y + LOCK - 8);
+      x.fillText(String(page), W0 - PAD, FOOT_Y + LOCK - 4);
       x.textAlign = 'left';
     }
-    return FOOT_Y - 64;
+    return FOOT_Y - 72;
   }
   function pageOf(slide) { return slide && slide.page ? slide.page : (slide && slide.index ? slide.index + 1 : 0); }
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
@@ -334,7 +338,7 @@
         ink = PAL.white; dim = 'rgba(255,255,255,.82)'; c = 'ink';
       }
       var title = get(d, 'title', ''), meta = get(d, 'meta', '');
-      var lockH = 64, top = PADY, bottom = H0 - PADY - lockH - 72;
+      var lockH = 36, top = PADY, bottom = H0 - PADY - lockH - 72;
       var art = img ? null : await loadIllus(h, get(d, 'illus', ''));
       if (!art && !img && get(d, 'ill', '')) art = await loadAsset(h, get(d, 'ill', ''));
       var textW = art ? CW * .5 : CW * .82;
@@ -760,9 +764,12 @@
       }
       /* drawn: a stack of bars, widest at the bottom, the bottom bar blue with white type */
       var gap = 16, bh = Math.min(150, Math.floor((bottom - y - gap * (n - 1)) / Math.max(1, n))), total = bh * n + gap * (n - 1), top = y + (bottom - y - total) / 2, step = CW * .08;
+      var T = easeOut(VISUAL.t); VISUAL.build = true;
       layers.forEach(function (t, i) {
         var k = n - 1 - i, w = CW - step * k, X = PAD + (CW - w) / 2, Y = top + i * (bh + gap), last = i === n - 1;
-        if (last) { x.fillStyle = BLUE; x.fillRect(X, Y, w, bh); } else tightRect(x, X, Y, w, bh, c);
+        if (T < .02) return;
+        if (last) { x.fillStyle = BLUE; x.fillRect(X, Y, w * T, bh); } else tightRect(x, X, Y, w * T, bh, c);
+        if (T < .98) return;
         var tr = fit(x, t, last ? 'text500' : 'text400', w - 80, bh - 24, BODY, BODY_MIN, 1.2, 2, false); font(x, last ? 'text500' : 'text400', tr.px);
         block(x, tr, X + w / 2, Y + (bh - tr.h) / 2, 'center', last ? PAL.white : ink);
       });
@@ -823,12 +830,13 @@
         if (r.sub) { font(x, 'text400', SPX); x.fillStyle = dim; x.textAlign = 'right'; x.textBaseline = 'alphabetic'; x.fillText(r.sub, PAD + labelW, ly + lr.h + 8 + SPX * .78); }
         x.textAlign = 'left';
         r.segs.forEach(function (s) {
-          var x0 = mx(s.a), x1 = mx(s.b), w = Math.max(barH, x1 - x0), by = mid - barH / 2;
+          var T = easeOut(VISUAL.t), x0 = mx(s.a), x1 = x0 + (mx(s.b) - x0) * T, w = Math.max(barH * T, x1 - x0), by = mid - barH / 2;
+          if (T < .02) return;
           if (s.st === 'solid') { x.fillStyle = ink; x.fillRect(x0, by, w, barH); }
           else if (s.st === 'blue') { x.fillStyle = BLUE; x.fillRect(x0, by, w, barH); }
           else if (s.st === 'light') { x.fillStyle = isDark(c) ? 'rgba(255,255,255,.18)' : 'rgba(1,1,1,.1)'; x.fillRect(x0, by, w, barH); }
           else tightRect(x, x0, by, w, barH, c, true);
-          if (s.t) {
+          if (s.t && T > .98) {
             font(x, 'text500', SMALL); var tw = mw(x, s.t), inside = tw + 32 <= w;
             x.fillStyle = (s.st === 'solid' || s.st === 'blue') ? (isDark(c) && s.st === 'solid' ? PAL.ink : PAL.white) : ink; x.textBaseline = 'middle';
             if (inside) x.fillText(s.t, x0 + 18, mid + 1);
@@ -838,7 +846,7 @@
           }
         });
       });
-      visual({ x: PAD, y: axisY, w: CW, h: rowsTop + chartH + bandLabelH - axisY });
+      visual({ x: PAD, y: axisY, w: CW, h: rowsTop + chartH + bandLabelH - axisY }); VISUAL.build = true;
     }
   };
 
@@ -947,9 +955,9 @@
     name: 'Price',
     fields: [
       { key: 'title', label: 'Title', type: 'text', max: 70 },
-      { key: 'p1', label: 'Figure', type: 'text', max: 14 },
-      { key: 'd1', label: 'Term', type: 'text', max: 90, optional: true },
       { key: 'l1', label: 'Lines (one per line, up to three)', type: 'text', max: 400 },
+      { key: 'p1', label: 'Figure', type: 'text', max: 14 },
+      { key: 'd1', label: 'Term (follows the figure, parts split by ·)', type: 'text', max: 120, optional: true },
       { key: 'color', label: 'Field', type: 'color', options: ['ink', 'white', 'beige', 'blue'] }
     ],
     defaults: { title: '18 months of dedicated support.', p1: '$250,000', d1: '', l1: '', color: 'ink' },
@@ -957,15 +965,13 @@
       var c = get(d, 'color', 'ink'), ink = inkFor(c);
       fill(x, W0, H0, fieldHex(c, h.PAL));
       var H = head(x, d, c, h, slide, { gap: 72 }), y = H.y, bottom = H.bottom;
+      /* the lines are the body (Macan 36, hairlines between); the figure is one quiet Macan 500 line at body size, last */
       var p = get(d, 'p1', ''), dt = get(d, 'd1', ''), lines = splitLines(get(d, 'l1', '')).slice(0, 3);
-      var leftW = Math.round(CW * .52), rx = PAD + leftW + 96, rw = W0 - PAD - rx;
-      var pr = fit(x, p, 'display', leftW, bottom - y - (dt ? 90 : 0), 360, 120, 1, 1);
-      var dr = dt ? fit(x, dt, 'text500', leftW, 120, BODY, BODY_MIN, 1.3, 2, false) : null;
-      var blockH = pr.h + (dr ? 40 + dr.h : 0), py = y + (bottom - y - blockH) / 2;
-      font(x, 'display', pr.px); var ey = block(x, pr, PAD - pr.px * .03, py, 'left', ink);
-      if (dr) { font(x, 'text500', dr.px); block(x, dr, PAD, ey + 40, 'left', ink); }
-      if (lines.length) { var th = linesH(x, lines, rw), ly = y + (bottom - y - th) / 2; linesDraw(x, lines, rx, ly, rw, c); }
-      visual({ x: PAD, y: py, w: pr.w, h: pr.h });
+      var px = 36, bw = Math.round(CW * .78), quiet = [p, dt].filter(Boolean).join(' \u00b7 ');
+      var th = linesH(x, lines, bw, px), ly = y + Math.max(0, (bottom - y - th - (quiet ? 120 : 0)) * .35);
+      var end = lines.length ? linesDraw(x, lines, PAD, ly, bw, c, px) : ly;
+      if (quiet) { var qr = fit(x, quiet, 'text500', CW, 120, px, BODY_MIN, 1.3, 2, false); font(x, 'text500', qr.px); block(x, qr, PAD, Math.max(end + 96, bottom - qr.h), 'left', ink); }
+      visual(null);
     }
   };
 
@@ -1164,10 +1170,12 @@
     if (W !== W0 || H !== H0) x.scale(W / W0, H / H0);
     x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
     x.textAlign = 'left'; x.textBaseline = 'alphabetic';
-    VISUAL.area = 0; VISUAL.rect = null; VISUAL.content = null;
+    VISUAL.area = 0; VISUAL.rect = null; VISUAL.content = null; VISUAL.illus = []; VISUAL.build = false;
+    VISUAL.t = slide && slide.t != null ? +slide.t : 1;          /* build-in progress for the timeline and layers diagrams */
+    VISUAL.skipLib = !!(slide && slide.noIllus);                  /* present mode overlays library SVGs itself */
     await k.render(x, d, hh, slide || {});
     x.restore();
-    return { visual: VISUAL.area };
+    return { visual: VISUAL.area, illus: VISUAL.illus.slice(), build: VISUAL.build };
   }
 
   /* ---------- sample text per deck type (real copy from data/copy.json, no invented numbers) ---------- */

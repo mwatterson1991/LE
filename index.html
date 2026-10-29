@@ -67,7 +67,7 @@
         <div class="ehead">
           <button class="back" id="eback" onclick="go('make')"><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Back</button>
           <input class="title" id="etitle" value="Untitled">
-          <div class="right"><button class="btn black" id="dlbtn" onclick="exportCurrent()">Download</button></div>
+          <div class="right"><button class="btn" id="prbtn" onclick="presentCurrent()" style="display:none">Present</button><button class="btn black" id="dlbtn" onclick="exportCurrent()">Download</button></div>
         </div>
         <div class="egrid" id="egrid">
           <div class="estage">
@@ -135,6 +135,7 @@
 <script src="js/templates.js"></script>
 <script src="js/deck.js"></script>
 <script src="js/le.js"></script>
+<script src="js/present.js"></script>
 <script src="js/story.js"></script>
 <script src="js/leo.js"></script>
 </body>

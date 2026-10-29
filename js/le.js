@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded',boot);
 function route(){
   const h=location.hash.slice(1)||'make';const [scr,arg]=h.split('/');
   if(scr==='asset'&&arg){showPreview(arg,true);return}
+  if(scr==='present'&&window.openPresent){openPresent(arg);return}
+  if(window.closePresent)closePresent(true);
   closePreview(true);
   const id=SCREENS.includes(scr)?scr:'make';
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
@@ -83,7 +85,7 @@ function renderPick(kind){
 /* ---------- Editor shell ---------- */
 let ED={};
 function openEditor(kind,title,saved){let from=location.hash;if(/^#asset/.test(from)){history.replaceState(null,'','#lib/'+state.tab);from='#lib/'+state.tab}state.kind=kind;ED={pid:saved&&saved.id||null};$('etitle').value=title;const name=/^#pick/.test(from)?'Types':/^#lib|^#asset/.test(from)?'Library':/^#projects/.test(from)?'Projects':'Make';$('eback').lastChild.textContent=name;$('eback').onclick=()=>{if(/^#asset/.test(from))go('lib',state.tab);else if(from&&from!=='#editor')history.back();else go('make')};
-  $('dlbtn').textContent='Download';$('dlbtn').disabled=false;$('canvasImg').style.display='';$('canvasImg').removeAttribute('src');$('resultVid').style.display='none';$('resultVid').removeAttribute('src');$('slides').innerHTML='';$('stagebar').innerHTML='';$('stage').className='stage';
+  $('dlbtn').textContent='Download';$('dlbtn').disabled=false;if($('prbtn'))$('prbtn').style.display=kind==='deck'?'':'none';$('canvasImg').style.display='';$('canvasImg').removeAttribute('src');$('resultVid').style.display='none';$('resultVid').removeAttribute('src');$('slides').innerHTML='';$('stagebar').innerHTML='';$('stage').className='stage';
   if(location.hash!=='#editor')history.pushState(null,'','#editor');route()}
 const SW_CONTAIN=['graphic','illustration','icon','org'];
 const swBtn=(a,on,fn)=>`<button class="${on?'on':''}" style="background-image:url('${a.thumb||a.poster||a.src}');${SW_CONTAIN.includes(a.group)?'background-size:contain;background-repeat:no-repeat;background-color:#fff':''}" title="${esc(a.title)}" onclick="${fn}"></button>`;

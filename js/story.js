@@ -25,16 +25,16 @@ async function renderStorySlide(kind,W,H){const c=document.createElement('canvas
     if(lg){const im=await loadImg(lg.src);const s=220*u;roundRect(x,pad,pad+90*u,s,s,s*.18);x.save();x.clip();x.drawImage(im,pad,pad+90*u,s,s);x.restore()}
     else{x.font=`600 ${64*u}px Macan`;x.fillText(story.co,pad,pad+110*u)}
     head(story.head||story.co,H*.48,100*u,W-pad*2);
-    if(lg){x.font=`500 ${34*u}px Macan`;x.fillStyle='#767676';x.fillText(story.co,pad,H-pad-120*u)}lockup(H-pad-40*u,40*u)}
-  else if(kind==='who'){eyebrow(story.co);head('Who they are',H*.3,84*u,W-pad*2);body(story.who,H*.3+170*u,46*u,W-pad*2,'#4c4c4c',1.4);lockup(H-pad-40*u,40*u)}
-  else if(kind==='before'){eyebrow(story.co);head('Before',H*.3,84*u,W-pad*2);body(story.before,H*.3+170*u,46*u,W-pad*2,'#4c4c4c',1.4);lockup(H-pad-40*u,40*u)}
+    if(lg){x.font=`500 ${34*u}px Macan`;x.fillStyle='#767676';x.fillText(story.co,pad,H-pad-120*u)}lockup(H-pad-22*u,22*u)}
+  else if(kind==='who'){eyebrow(story.co);head('Who they are',H*.3,84*u,W-pad*2);body(story.who,H*.3+170*u,46*u,W-pad*2,'#4c4c4c',1.4);lockup(H-pad-22*u,22*u)}
+  else if(kind==='before'){eyebrow(story.co);head('Before',H*.3,84*u,W-pad*2);body(story.before,H*.3+170*u,46*u,W-pad*2,'#4c4c4c',1.4);lockup(H-pad-22*u,22*u)}
   else if(kind==='built'){eyebrow(story.co);let y=head('What they [built]',pad+90*u,84*u,W-pad*2)+40*u;
     story.built.slice(0,4).forEach(item=>{const parts=item.split('—').map(s=>s.trim());x.font=`600 ${36*u}px Macan`;x.fillStyle='#111';wrapText(x,parts[0]||'',W-pad*2).forEach(l=>{x.fillText(l,pad,y);y+=46*u});y+=4*u;
       if(parts[1]){y=body(parts[1],y,34*u,W-pad*2,'#4c4c4c',1.35)}
       if(parts[2]){x.font=`600 ${34*u}px Macan`;x.fillStyle=BLUE;x.fillText(parts[2],pad,y);y+=48*u}
-      y+=36*u});lockup(H-pad-40*u,40*u)}
+      y+=36*u});lockup(H-pad-22*u,22*u)}
   else if(kind==='quote'){eyebrow(story.co);x.font=`500 ${200*u}px Season, Georgia, serif`;x.fillStyle=SOFT;x.fillText('“',pad-10*u,H*.24);
-    let y=head(story.quote,H*.24+190*u,84*u,W-pad*2);x.font=`400 ${36*u}px Macan`;x.fillStyle='#767676';x.fillText(story.by,pad,y+40*u);lockup(H-pad-40*u,40*u)}
+    let y=head(story.quote,H*.24+190*u,84*u,W-pad*2);x.font=`400 ${36*u}px Macan`;x.fillStyle='#767676';x.fillText(story.by,pad,y+40*u);lockup(H-pad-22*u,22*u)}
   else if(kind==='close'){const s=120*u;x.drawImage(lm,pad,H*.3,lm.width/lm.height*s,s);head('Want this for [your team]?',H*.3+s+60*u,96*u,W-pad*2);
     x.font=`500 ${40*u}px Macan`;x.fillStyle='#111';x.fillText(story.cta,pad,H*.3+s+60*u+96*u*2.4);x.fillStyle='#767676';x.fillText('leland.ai',pad,H-pad-40*u)}
   return c}

@@ -150,7 +150,7 @@
   function fill(x, W, H, hex) { x.fillStyle = hex; x.fillRect(0, 0, W, H); }
   /* one size for the mark and one for the lockup, on every template */
   function markSize(f) { return Math.round(f.u * .095); }
-  function logoSize(f) { return Math.round(f.u * .052); }
+  function logoSize(f) { return Math.round(f.u * .029); }
   /* an outlined store badge: small line over a bold name, no platform logos */
   function storeBadge(x, X, Y, w, h, small, big, ink) {
     x.save(); x.strokeStyle = ink; x.lineWidth = Math.max(2, Math.round(h * .035)); roundRect(x, X, Y, w, h, h * .22); x.stroke();
