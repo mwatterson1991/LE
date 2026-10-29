@@ -5,8 +5,9 @@
       "kind": "cover",
       "data": {
         "title": "Six months to AKO, and the whole company to activate.",
-        "illus": "sheerid-cover.png",
-        "color": "ink"
+        "color": "ink",
+        "photo": "assets/brand/board-10.webp",
+        "focus": ".5,.45"
       }
     },
     {
@@ -32,56 +33,56 @@
         "title": "Five layers, each tied to [something that changes.]",
         "layers": "Workshops and the AI Innovation Sprint\nAI engineering and AI services\n1:1 support in your function\nAI Builder Program\nAI Builder Foundations",
         "illus": "sheerid-layers.png",
-        "color": "white"
+        "color": "blue"
       }
     },
     {
-      "kind": "claim",
+      "kind": "tile",
       "data": {
         "title": "Foundations lands policy and guardrails [in the same motion.]",
         "lines": "**All ~185 in October**: self-paced, about seven hours, four live sessions.\n**Your AI policy and data classification** taught in the same round.",
-        "result": "33 people through the program, the whole team building together.",
-        "who": "ASU+GSV Summit: partnerships, marketing, programs",
+        "tiles": "33 | people through the program, the whole team building together | ASU+GSV Summit: partnerships, marketing, programs",
         "color": "white"
       }
     },
     {
-      "kind": "claim",
+      "kind": "tile",
       "data": {
         "title": "Leaders go first, [so they lead the change.]",
         "lines": "**SLT and ELT first**, 20 leaders, then squads in roadmap order.\n**Company-wide at AKO.**",
-        "result": "A meeting-prep system triggered from Slack: about 8 hours a week automated in busy season.",
-        "who": "Lucy Baldwin, VP Product, ASU+GSV Summit",
+        "tiles": "~8 hours | a week of meeting prep automated in busy season, from a Slack trigger | Lucy Baldwin, VP Product, ASU+GSV Summit",
         "color": "white"
       }
     },
     {
-      "kind": "claim",
+      "kind": "mock",
       "data": {
         "title": "A matched expert takes each cluster [one level deeper.]",
-        "lines": "**One expert per cluster** who has run it in that function.\n**A monthly 1:1** per cluster lead through February, then six months more.",
-        "result": "Proposals in her voice, from 2 hours to 30 minutes.",
-        "who": "Genny Velazquez, SVP Global Partnerships, ASU+GSV Summit",
+        "lines": "**One expert per cluster** who has run it in that function.\n**A monthly 1:1** per cluster lead through February, then six months more.\n**Proposals: 2 hours to 30 minutes.** Genny Velazquez, SVP, ASU+GSV",
+        "img": "assets/decks/frames/expert-profile.jpg",
+        "crop": "0.10,0.26,0.34,0.56",
+        "img2": "assets/decks/frames/intro-call.jpg",
+        "crop2": "0.12,0.53,0.34,0.40",
+        "note": "Expert profile and the intro call",
         "color": "white"
       }
     },
     {
-      "kind": "claim",
+      "kind": "mock",
       "data": {
         "title": "Squads walk into AKO [with working agents to demo.]",
-        "lines": "**Three executive workshops**: reclaim time, lead the change, prove ROI.\n**The AI Innovation Sprint** ahead of AKO.",
-        "result": "Target: any Amazon brand to scorecard deck and outreach in about five seconds, not hours.",
-        "who": "Mike, sales, AI Builder Program alumnus",
+        "lines": "**Three executive workshops**: reclaim time, lead change, prove ROI.\n**The AI Innovation Sprint** ahead of AKO.",
+        "card": "Target, Mike, sales | Revenue, pricing, top sellers | Scorecard deck, talking points | Contacts, outreach per role",
+        "note": "About five seconds, not hours. An illustration",
         "color": "white"
       }
     },
     {
-      "kind": "claim",
+      "kind": "tile",
       "data": {
         "title": "Builds don't stall [on infrastructure.]",
         "lines": "**A 60-hour bank** from kickoff, 10 hours/month, on demand.\n**AI engineering or AI leadership support**, as the build needs.",
-        "result": "1,500+ product spec sheets, scoped at 12 months, done in weeks.",
-        "who": "PlayPower marketing team; Ryan Moats, VP Global Marketing",
+        "tiles": "1,500+ | product spec sheets, scoped at 12 months, done in weeks | PlayPower marketing team; Ryan Moats, VP Global Marketing",
         "color": "white"
       }
     },
@@ -93,7 +94,7 @@
         "band": "2.5 | 3 | Holidays",
         "rows": "October start | Baseline fluency first | 0-2.4 blue Fluency ; 2.4-5 light Phased waves\nNovember start | Runs into the holidays | 1-2.9 dashed Momentum stalls",
         "size": "big",
-        "color": "white"
+        "color": "blue"
       }
     },
     {
@@ -107,20 +108,25 @@
       }
     },
     {
-      "kind": "cols",
+      "kind": "mock",
       "data": {
         "title": "Adoption is work. [Here is who does it.]",
-        "cols": "First step | Foundations live sessions: four over two weeks | About seven hours self-paced per employee\nLaura's team | The roster and the policy content | Leaders add their cohort hours\nLeland | Sessions, matched experts, engineers | Reporting to the AI Acceleration team",
-        "color": "white"
+        "lines": "**First step:** Foundations live sessions, four over two weeks; about seven hours self-paced.\n**Laura's team:** the roster and policy content; leaders add cohort hours.\n**Leland:** sessions, experts, engineers, reporting to the AI Acceleration team.",
+        "img": "assets/decks/frames/live-session.jpg",
+        "crop": "0.28,0.14,0.42,0.66",
+        "note": "A live session, chat beside it",
+        "color": "white",
+        "img2": "assets/decks/frames/live-session.jpg",
+        "crop2": "0.70,0.16,0.26,0.64"
       }
     },
     {
-      "kind": "claim",
+      "kind": "tile",
       "data": {
         "title": "Success is a baseline, [then a follow-up.]",
         "lines": "**Baseline survey, then follow-up**, person by person.\n**Completion and builds per cohort**, reported to the AI Acceleration team.",
-        "result": "13,000 Verizon employees supported; chosen by the Governor's Office of Economic Development statewide.",
-        "who": "Leland: 3,500+ experts, 4.99 rating, 7.5M+ people",
+        "tiles": "13,000 | Verizon employees supported; chosen by the Governor’s Office of Economic Development statewide | Leland: 3,500+ experts, 4.99 rating, 7.5M+ people",
+        "ill": "ill-survey",
         "color": "white"
       }
     },
@@ -145,11 +151,12 @@
       }
     },
     {
-      "kind": "steps",
+      "kind": "photorail",
       "data": {
         "title": "Onsite September 9 to 11: [scope and the SOW.]",
-        "steps": "Sept 7-8 | Solution refinement with Laura\nSept 9-11 | Onsite with the AIA and leadership team\nSept 14-15 | Finalized SOW\nSept 18 | Contracting complete\nOct 1 | Kick-off",
-        "color": "white"
+        "photo": "assets/photos/business-people-conference-room.jpg",
+        "focus": ".5,.4",
+        "steps": "Sept 7-8 | Solution refinement with Laura\nSept 9-11 | Onsite with the AIA and leadership team\nSept 14-15 | Finalized SOW\nSept 18 | Contracting complete\nOct 1 | Kick-off"
       }
     },
     {

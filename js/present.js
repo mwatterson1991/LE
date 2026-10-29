@@ -70,10 +70,25 @@
       picks.slice(0, 2).forEach(function (p, j) { p.k.classList.add('pfloat'); if (j) p.k.classList.add('b'); p.k.style.setProperty('--amp', amp.toFixed(3) + 'px'); });
     }
   }
-  async function draw(t, seq) {
-    var s = P.slides[P.i], x = canvas.getContext('2d');
-    var r = await DECK.render(x, canvas.width, canvas.height, Object.assign({}, s, { index: P.i, total: P.slides.length, t: t, noIllus: true }), helpers());
+  /* render off screen, then blit: the renderer clears and awaits images, which would flash on a live canvas */
+  var buf = null;
+  async function draw(t, seq, drift) {
+    var s = P.slides[P.i];
+    if (!buf) buf = document.createElement('canvas');
+    if (buf.width !== canvas.width || buf.height !== canvas.height) { buf.width = canvas.width; buf.height = canvas.height; }
+    var r = await DECK.render(buf.getContext('2d'), buf.width, buf.height, Object.assign({}, s, { index: P.i, total: P.slides.length, t: t, noIllus: true, drift: drift || 0 }), helpers());
+    if (seq === P.seq) { var x = canvas.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.drawImage(buf, 0, 0); }
     return r;
+  }
+  /* a product mock's back card drifts 4px on a slow sine while the slide is up */
+  function drift(seq) {
+    var t0 = performance.now(), busy = false;
+    var step = async function (now) {
+      if (seq !== P.seq) return;
+      if (!busy) { busy = true; await draw(1, seq, 4 * Math.sin((now - t0) / 2600)); busy = false; }
+      if (seq === P.seq) P.raf = requestAnimationFrame(step);
+    };
+    P.raf = requestAnimationFrame(step);
   }
   async function show() {
     var seq = ++P.seq; cancelAnimationFrame(P.raf);
@@ -93,6 +108,7 @@
     } else await draw(1, seq);
     if (seq !== P.seq) return;
     placeIllus(r && r.illus || [], seq);
+    if (r && r.mock) drift(seq);
   }
   function next() { if (P.i < P.slides.length - 1) { P.i++; show(); } }
   function prev() { if (P.i > 0) { P.i--; show(); } }

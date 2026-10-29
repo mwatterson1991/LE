@@ -18,7 +18,9 @@
   function inkFor(name) { return isDark(name) ? PAL.white : PAL.ink; }
   function dimFor(name) { return isDark(name) ? 'rgba(255,255,255,.72)' : 'rgba(1,1,1,.58)'; }
   /* the one coloured phrase: brand blue #80ACED on every field (never the UI blue) */
-  function accentFor(name) { return BLUE; }
+  function accentFor(name) { return name === 'blue' ? PAL.white : BLUE; }
+  function fillFor(name) { return name === 'blue' ? PAL.white : BLUE; }           /* the filled bar or dot on a field */
+  function onFill(name) { return name === 'blue' ? PAL.ink : PAL.white; }      /* type on that fill */
 
   /* ---------- type ---------- */
   var DISPLAY = '"Season Mix", "Season", Georgia, serif', TEXT = 'Macan, sans-serif';
@@ -137,6 +139,7 @@
     };
   }
   async function loadAsset(h, id, fallbackGroup) {
+    if (id && /[\/.]/.test(id) && !h.A(id)) { try { return await h.loadImg(id); } catch (e) { return null; } }   /* a path, not a manifest id */
     var a = id && h.A(id);
     if (!a && fallbackGroup) a = h.byGroup(fallbackGroup)[0];
     if (!a) return null;
@@ -304,11 +307,11 @@
   };
   /* a grid of outlined seats: licensed; the first row filled: in use */
   PH.licensed = function (x, r, c) {
-    var cols = 15, rows = 8, gap = Math.round(r.w * .012), cw = (r.w - gap * (cols - 1)) / cols, ch = (r.h - gap * (rows - 1)) / rows, d = Math.min(cw, ch);
+    var cols = 16, rows = 8, gap = Math.round(r.w * .014), cw = (r.w - gap * (cols - 1)) / cols, ch = (r.h - gap * (rows - 1)) / rows, d = Math.min(cw, ch);
     var ox = r.x + (r.w - (d * cols + gap * (cols - 1))) / 2, oy = r.y + (r.h - (d * rows + gap * (rows - 1))) / 2;
     for (var i = 0; i < cols * rows; i++) {
       var X = ox + (i % cols) * (d + gap), Y = oy + Math.floor(i / cols) * (d + gap);
-      if (i < cols) { x.fillStyle = BLUE; x.fillRect(X, Y, d, d); } else { x.strokeStyle = lineFor(c); x.lineWidth = 2; x.strokeRect(X + 1, Y + 1, d - 2, d - 2); }
+      if (i < cols) { x.fillStyle = fillFor(c); x.fillRect(X, Y, d, d); } else { x.strokeStyle = lineFor(c); x.lineWidth = 2; x.strokeRect(X + 1, Y + 1, d - 2, d - 2); }
     }
   };
   /* two bars, one clearing a band */
@@ -333,7 +336,8 @@
       { key: 'title', label: 'Title', type: 'text', max: 70 },
       { key: 'meta', label: 'Date or audience', type: 'text', max: 60, optional: true },
       ILLUS, ILL,
-      { key: 'photo', label: 'Photo (instead of a field)', type: 'asset', groups: ['background', 'photo'], optional: true },
+      { key: 'photo', label: 'Photo (asset or path, instead of a field)', type: 'text', max: 120, optional: true },
+      { key: 'focus', label: 'Focus (x,y fractions)', type: 'text', max: 20, optional: true },
       { key: 'color', label: 'Field', type: 'color', options: ['ink', 'white', 'blue', 'beige'] }
     ],
     defaults: { title: 'The AI Builder Program', meta: '', illus: '', ill: '', photo: '', color: 'ink' },
@@ -342,9 +346,11 @@
       var img = get(d, 'photo', '') ? await loadAsset(h, get(d, 'photo', '')) : null;
       fill(x, W0, H0, fieldHex(c, h.PAL));
       if (img) {
-        h.cover(x, img, 0, 0, W0, H0, .5, .5);
-        x.fillStyle = 'rgba(0,0,0,.22)'; x.fillRect(0, 0, W0, H0);
-        ink = PAL.white; dim = 'rgba(255,255,255,.82)'; c = 'ink';
+        var f = get(d, 'focus', '.5,.5').split(',').map(Number);
+        h.cover(x, img, 0, 0, W0, H0, isNaN(f[0]) ? .5 : f[0], isNaN(f[1]) ? .5 : f[1]);
+        x.fillStyle = 'rgba(0,0,0,.34)'; x.fillRect(0, 0, W0, H0);
+        grain(x, W0, H0, .04);
+        ink = PAL.white; acc = PAL.white; dim = 'rgba(255,255,255,.82)'; c = 'ink';
       }
       var title = get(d, 'title', ''), meta = get(d, 'meta', '');
       var lockH = 36, top = PADY, bottom = H0 - PADY - lockH - 72;
@@ -734,7 +740,7 @@
       var c = get(d, 'color', 'white');
       fill(x, W0, H0, fieldHex(c, h.PAL));
       /* headline and lines in the left half, the visual full height on the right */
-      var textW = Math.round(CW * .46);
+      var textW = Math.round(CW * .40);
       var H = head(x, d, c, h, slide, { gap: 72, maxW: textW, lines: 3, maxH: 330, oneMin: 88 }), y = H.y, bottom = H.bottom;
       var lines = splitLines(get(d, 'lines', '')).slice(0, 3);
       var box = { x: PAD + textW + 96, y: PADY, w: W0 - PAD - (PAD + textW + 96), h: FOOT_Y - 48 - PADY };
@@ -752,7 +758,7 @@
       { key: 'title', label: 'Title', type: 'text', max: 80 },
       { key: 'layers', label: 'Layers (one per line, top to bottom, up to five)', type: 'text', max: 300 },
       ILLUS, ILL,
-      { key: 'color', label: 'Field', type: 'color', options: FIELDS }
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'blue', 'beige'] }
     ],
     defaults: { title: 'End-to-end layered support for AI acceleration.', layers: 'Workshops and the AI Innovation Sprint\nAI engineering and AI services\n1:1 support in your function\nAI Builder Program\nAI Builder Foundations', illus: '', ill: '', color: 'white' },
     render: async function (x, d, h, slide) {
@@ -772,15 +778,15 @@
         visual(r); return;
       }
       /* drawn: a stack of bars, widest at the bottom, the bottom bar blue with white type */
-      var gap = 16, bh = Math.min(150, Math.floor((bottom - y - gap * (n - 1)) / Math.max(1, n))), total = bh * n + gap * (n - 1), top = y + (bottom - y - total) / 2, step = CW * .08;
+      var gap = 16, bh = Math.min(170, Math.floor((bottom - y - gap * (n - 1)) / Math.max(1, n))), total = bh * n + gap * (n - 1), top = y + (bottom - y - total) / 2, step = CW * .08;
       var T = easeOut(VISUAL.t); VISUAL.build = true;
       layers.forEach(function (t, i) {
         var k = n - 1 - i, w = CW - step * k, X = PAD + (CW - w) / 2, Y = top + i * (bh + gap), last = i === n - 1;
         if (T < .02) return;
-        if (last) { x.fillStyle = BLUE; x.fillRect(X, Y, w * T, bh); } else tightRect(x, X, Y, w * T, bh, c);
+        if (last) { x.fillStyle = fillFor(c); x.fillRect(X, Y, w * T, bh); } else tightRect(x, X, Y, w * T, bh, c);
         if (T < .98) return;
         var tr = fit(x, t, last ? 'text500' : 'text400', w - 80, bh - 24, BODY, BODY_MIN, 1.2, 2, false); font(x, last ? 'text500' : 'text400', tr.px);
-        block(x, tr, X + w / 2, Y + (bh - tr.h) / 2, 'center', last ? PAL.white : ink);
+        block(x, tr, X + w / 2, Y + (bh - tr.h) / 2, 'center', last ? onFill(c) : ink);
       });
       visual({ x: PAD, y: top, w: CW, h: total });
     }
@@ -847,6 +853,163 @@
     }
   };
 
+  /* a card of real product UI: a crop of a frame at 1.5-2x, 12px radius, hairline, an offset second card behind, one annotation */
+  function cardPath(x, X, Y, w, h) { roundRectP(x, X, Y, w, h, 12); }
+  function cropOf(img, crop) {
+    var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height, p = String(crop || '').split(',').map(Number);
+    if (p.length < 4 || p.some(isNaN)) return { x: 0, y: 0, w: iw, h: ih };
+    return { x: p[0] * iw, y: p[1] * ih, w: p[2] * iw, h: p[3] * ih };
+  }
+  function drawCard(x, img, crop, X, Y, w, h, c, alpha) {
+    x.save(); if (alpha != null) x.globalAlpha = alpha;
+    x.shadowColor = 'rgba(0,0,0,.10)'; x.shadowBlur = 48; x.shadowOffsetY = 18;
+    x.fillStyle = '#fff'; cardPath(x, X, Y, w, h); x.fill();
+    x.shadowColor = 'transparent';
+    if (img) { var cr = cropOf(img, crop), s = Math.max(w / cr.w, h / cr.h), dw = cr.w * s, dh = cr.h * s; x.save(); cardPath(x, X, Y, w, h); x.clip(); x.drawImage(img, cr.x, cr.y, cr.w, cr.h, X + (w - dw) / 2, Y + (h - dh) / 2, dw, dh); x.restore(); }
+    x.strokeStyle = 'rgba(1,1,1,.18)'; x.lineWidth = 1; cardPath(x, X + .5, Y + .5, w - 1, h - 1); x.stroke();
+    x.restore();
+  }
+  /* a Leland-styled message card drawn in code: an illustration of a build, never a screenshot */
+  function drawBuildCard(x, X, Y, w, h, title, lines) {
+    x.save(); x.shadowColor = 'rgba(0,0,0,.10)'; x.shadowBlur = 48; x.shadowOffsetY = 18; x.fillStyle = '#fff'; cardPath(x, X, Y, w, h); x.fill(); x.shadowColor = 'transparent';
+    x.strokeStyle = 'rgba(1,1,1,.18)'; x.lineWidth = 1; cardPath(x, X + .5, Y + .5, w - 1, h - 1); x.stroke();
+    var pad = 40, cy = Y + pad;
+    x.fillStyle = BLUE; x.beginPath(); x.arc(X + pad + 24, cy + 24, 24, 0, Math.PI * 2); x.fill();
+    font(x, 'text600', 30); x.fillStyle = PAL.ink; x.textBaseline = 'alphabetic'; x.fillText(title, X + pad + 68, cy + 34);
+    cy += 48 + 36; hair(x, 'white', X + pad, cy, w - pad * 2); cy += 32;
+    lines.forEach(function (l) { x.fillStyle = BLUE; x.fillRect(X + pad, cy + 10, 10, 10); cy = mixed(x, l, X + pad + 30, cy, 28, w - pad * 2 - 30, 1.35, PAL.ink, PAL.neutral) + 26; });
+    x.restore();
+  }
+  K.mock = {
+    name: 'Product mock',
+    fields: [
+      { key: 'title', label: 'Title', type: 'text', max: 80 },
+      { key: 'lines', label: 'Lines (**Lead.** text, one per line, up to three)', type: 'text', max: 400, optional: true },
+      { key: 'img', label: 'Front frame (path or asset)', type: 'text', max: 120, optional: true },
+      { key: 'crop', label: 'Front crop (x,y,w,h as fractions)', type: 'text', max: 40, optional: true },
+      { key: 'img2', label: 'Back frame (path or asset)', type: 'text', max: 120, optional: true },
+      { key: 'crop2', label: 'Back crop', type: 'text', max: 40, optional: true },
+      { key: 'card', label: 'Drawn card (Title | line | line) instead of a frame', type: 'text', max: 400, optional: true },
+      { key: 'note', label: 'Annotation', type: 'text', max: 90, optional: true },
+      { key: 'color', label: 'Field', type: 'color', options: FIELDS }
+    ],
+    defaults: { title: 'A matched expert takes each cluster one level deeper.', lines: '', img: '', crop: '', img2: '', crop2: '', card: '', note: '', color: 'white' },
+    render: async function (x, d, h, slide) {
+      var c = get(d, 'color', 'white'), ink = inkFor(c), body = bodyFor(c);
+      fill(x, W0, H0, fieldHex(c, h.PAL));
+      var textW = Math.round(CW * .44);
+      var H = head(x, d, c, h, slide, { gap: 72, maxW: textW, lines: 3, maxH: 330, oneMin: 88 }), y = H.y, bottom = H.bottom;
+      var lines = splitLines(get(d, 'lines', '')).slice(0, 3), note = get(d, 'note', '');
+      var img = get(d, 'img', '') ? await loadAsset(h, get(d, 'img', '')) : null, img2 = get(d, 'img2', '') ? await loadAsset(h, get(d, 'img2', '')) : null;
+      var card = splitLines(get(d, 'card', '')).length ? get(d, 'card', '').split('|').map(function (t) { return t.trim(); }) : null;
+      /* the stage: right of the text column, from the top margin to the foot */
+      var sx = PAD + textW + 96, sw = W0 - PAD - sx, sy = PADY, sh = FOOT_Y - 48 - PADY;
+      VISUAL.content = { x: PAD, y: PADY, w: CW, h: sh };
+      var cw = Math.round(sw * .8), ch = Math.round(sh * .78);
+      if (img && !card) { var cr0 = cropOf(img, get(d, 'crop', '')), a = cr0.w / cr0.h; cw = Math.min(Math.round(sw * .92), Math.round(ch * a)); ch = Math.round(cw / a); }
+      var cx = sx + sw - cw, cy = sy + (sh - ch) / 2 + 10;
+      var dx = (slide && slide.drift) || 0;
+      if (img2 || (img && !card)) drawCard(x, img2 || null, get(d, 'crop2', ''), cx - sw * .18 + dx, cy - sh * .12, cw * .9, ch * .9, c, img2 ? .9 : .55);
+      if (card) drawBuildCard(x, cx, cy, cw, ch, card[0], card.slice(1, 4));
+      else drawCard(x, img, get(d, 'crop', ''), cx, cy, cw, ch, c);
+      if (note) {
+        /* one annotation under the card with a short leader to its bottom-left corner */
+        var ny = cy + ch + 48; x.strokeStyle = lineFor(c); x.lineWidth = 2; x.beginPath(); x.moveTo(cx + 40, cy + ch + 4); x.lineTo(cx + 40, ny - 10); x.stroke();
+        font(x, 'text400', SMALL); x.fillStyle = body; x.textBaseline = 'alphabetic'; x.fillText(note, cx + 56, ny + 6);
+      }
+      if (lines.length) { var th = linesH(x, lines, textW), ty = y + Math.max(0, (bottom - y - th) / 2); linesDraw(x, lines, PAD, ty, textW, c); }
+      visual({ x: cx - sw * .18, y: cy - sh * .12, w: cw + sw * .18, h: ch + sh * .12 });
+      VISUAL.mock = true;
+    }
+  };
+
+  /* a stat tile: the real number in Season, a one-line caption, the source line; lines on the left; up to three tiles in a row */
+  K.tile = {
+    name: 'Stat tile',
+    fields: [
+      { key: 'title', label: 'Title', type: 'text', max: 80 },
+      { key: 'lines', label: 'Lines (**Lead.** text, one per line, up to two)', type: 'text', max: 400, optional: true },
+      { key: 'tiles', label: 'Tiles (number | caption | source, one per line, up to three)', type: 'text', max: 500 },
+      ILL,
+      { key: 'color', label: 'Field', type: 'color', options: FIELDS }
+    ],
+    defaults: { title: 'Leaders go first, so they lead the change.', lines: '', tiles: '33 | people through the program | ASU+GSV Summit team', ill: '', color: 'white' },
+    render: async function (x, d, h, slide) {
+      var c = get(d, 'color', 'white'), ink = inkFor(c), body = bodyFor(c);
+      fill(x, W0, H0, fieldHex(c, h.PAL));
+      var lines = splitLines(get(d, 'lines', '')).slice(0, 2);
+      var tiles = splitLines(get(d, 'tiles', '')).slice(0, 3).map(function (l) { var p = l.split('|').map(function (t) { return t.trim(); }); return { n: p[0] || '', cap: p[1] || '', src: p[2] || '' }; });
+      var row = tiles.length > 1 || !lines.length;
+      var textW = row ? CW : Math.round(CW * .40);
+      var H = head(x, d, c, h, slide, { gap: 80 }), y = H.y, bottom = H.bottom;
+      var ill = get(d, 'ill', '') ? await loadAsset(h, get(d, 'ill', '')) : null;
+      if (!row) {
+        var th = lines.length ? linesH(x, lines, textW) : 0, ty = y + Math.max(0, (bottom - y - th) / 2);
+        if (lines.length) linesDraw(x, lines, PAD, ty, textW, c);
+        var tx = PAD + textW + 120, tw = W0 - PAD - tx, t = tiles[0], top = y, avail = bottom - y;
+        var nr = fit(x, t.n, 'display', tw, 320, 160, 96, 1, 2, false), cr = fit(x, t.cap, 'text400', tw, 140, BODY, BODY_MIN, 1.3, 3, false), sr = t.src ? fit(x, t.src, 'text400', tw, 90, SMALL, SMALL, 1.35, 2, false) : null;
+        var illH = ill ? 200 : 0, bh = illH + (illH ? 40 : 0) + nr.h + 28 + cr.h + (sr ? 20 + sr.h : 0), by = top + (avail - bh) / 2;
+        if (ill) { contain(x, ill, tx, by, illH, illH); by += illH + 40; }
+        hair(x, c, tx, by - 36, tw);
+        font(x, 'display', nr.px); by = block(x, nr, tx - nr.px * .03, by, 'left', ink) + 28;
+        font(x, 'text400', cr.px); by = block(x, cr, tx, by, 'left', ink);
+        if (sr) { font(x, 'text400', sr.px); block(x, sr, tx, by + 20, 'left', body); }
+        visual({ x: tx, y: top + (avail - bh) / 2 - 36, w: tw, h: bh + 36 });
+        return;
+      }
+      var CG = 72, colW = (CW - CG * (tiles.length - 1)) / tiles.length, avail = bottom - y;
+      var rs = tiles.map(function (t) { return { nr: fit(x, t.n, 'display', colW, 260, 140, 72, 1, 2, false), cr: fit(x, t.cap, 'text400', colW, 140, BODY, BODY_MIN, 1.3, 3, false), sr: t.src ? fit(x, t.src, 'text400', colW, 90, SMALL, SMALL, 1.35, 2, false) : null }; });
+      var bh = Math.max.apply(null, rs.map(function (r) { return 36 + r.nr.h + 28 + r.cr.h + (r.sr ? 20 + r.sr.h : 0); })), by0 = y + (avail - bh) / 2;
+      tiles.forEach(function (t, i) {
+        var cx = PAD + i * (colW + CG), by = by0, r = rs[i];
+        hair(x, c, cx, by, colW); by += 36;
+        font(x, 'display', r.nr.px); by = block(x, r.nr, cx - r.nr.px * .03, by, 'left', ink) + 28;
+        font(x, 'text400', r.cr.px); by = block(x, r.cr, cx, by, 'left', ink);
+        if (r.sr) { font(x, 'text400', r.sr.px); block(x, r.sr, cx, by + 20, 'left', body); }
+      });
+      visual({ x: PAD, y: by0, w: CW, h: bh });
+    }
+  };
+
+  /* a photo full-bleed, the headline in white, and the dated rail on a white panel along the bottom */
+  K.photorail = {
+    name: 'Photo and next steps',
+    fields: [
+      { key: 'title', label: 'Title', type: 'text', max: 80 },
+      { key: 'photo', label: 'Photo (asset or path)', type: 'text', max: 120 },
+      { key: 'focus', label: 'Focus (x,y fractions)', type: 'text', max: 20, optional: true },
+      { key: 'steps', label: 'Steps (Date | what happens, one per line, up to five)', type: 'text', max: 600 }
+    ],
+    defaults: { title: 'Onsite September 9 to 11: scope and the SOW.', photo: 'assets/brand/board-6.webp', focus: '.5,.4', steps: 'Sept 18 | Contracting complete\nOct 1 | Kick-off' },
+    render: async function (x, d, h, slide) {
+      var img = await loadAsset(h, get(d, 'photo', ''), 'photo'), f = get(d, 'focus', '.5,.5').split(',').map(Number);
+      fill(x, W0, H0, PAL.neutral);
+      if (img) h.cover(x, img, 0, 0, W0, H0, isNaN(f[0]) ? .5 : f[0], isNaN(f[1]) ? .5 : f[1]);
+      x.fillStyle = 'rgba(0,0,0,.28)'; x.fillRect(0, 0, W0, H0);
+      grain(x, W0, H0, .04);
+      var panelH = 440, py = H0 - panelH;
+      x.fillStyle = '#fff'; x.fillRect(0, py, W0, panelH);
+      var hr = fit(x, get(d, 'title', ''), 'display', CW * .8, py - PADY - 80, HEAD_PX + 8, 56, 1.0, 2);
+      font(x, 'display', hr.px); block(x, hr, PAD, PADY, 'left', PAL.white, PAL.white);
+      var steps = splitLines(get(d, 'steps', '')).slice(0, 5).map(function (l) { var p = l.split('|'); return { dt: p[0].trim(), t: (p[1] || '').trim() }; });
+      var n = steps.length, cellW = CW / n, railY = py + 128, DOT = 26;
+      if (n) {
+        x.fillStyle = lineFor('white'); x.fillRect(PAD, railY - 1, CW - cellW + DOT, 2);
+        steps.forEach(function (s, i) {
+          var sx = PAD + i * cellW, last = i === n - 1;
+          x.beginPath(); x.arc(sx + DOT / 2, railY, last ? DOT / 2 + 6 : DOT / 2, 0, Math.PI * 2);
+          if (last) { x.fillStyle = BLUE; x.fill(); } else { x.fillStyle = '#fff'; x.fill(); x.lineWidth = 2; x.strokeStyle = lineFor('white'); x.stroke(); }
+          font(x, 'text500', 26); x.fillStyle = PAL.ink; x.textBaseline = 'alphabetic'; x.fillText(s.dt, sx, railY - 44);
+          var tr = fit(x, s.t, last ? 'text500' : 'text400', cellW - 56, 160, BODY - 2, BODY_MIN, 1.3, 3, false);
+          font(x, last ? 'text500' : 'text400', tr.px); block(x, tr, sx, railY + 44, 'left', last ? PAL.ink : PAL.neutral);
+        });
+      }
+      h.logo(x, PAD, H0 - 64 - LOCK, LOCK, 'ink');
+      var p = pageOf(slide); if (p) { font(x, 'text500', PAGE_PX); x.fillStyle = PAL.neutral; x.textAlign = 'right'; x.fillText(String(p), W0 - PAD, H0 - 64 - 4); x.textAlign = 'left'; }
+      visual({ x: 0, y: 0, w: W0, h: py });
+    }
+  };
+
   /* a roadmap: month axis, one bar (or several) per row, an optional shaded band; nothing under the chart */
   K.timeline = {
     name: 'Timeline',
@@ -856,7 +1019,7 @@
       { key: 'rows', label: 'Rows (Label | sublabel | start-end style text ; ...), up to five', type: 'text', max: 1200 },
       { key: 'band', label: 'Shaded band (start | end | label)', type: 'text', max: 40, optional: true },
       { key: 'size', label: 'Bars', type: 'choice', options: ['regular', 'big'] },
-      { key: 'color', label: 'Field', type: 'color', options: FIELDS }
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'blue', 'beige'] }
     ],
     defaults: { title: 'Roadmap.', months: 'Oct, Nov, Dec, Jan, Feb', rows: 'Foundations | Everyone | 0-2 solid All employees', band: '', size: 'regular', color: 'white' },
     render: async function (x, d, h, slide) {
@@ -903,12 +1066,12 @@
           var T = easeOut(VISUAL.t), x0 = mx(s.a), x1 = x0 + (mx(s.b) - x0) * T, w = Math.max(barH * T, x1 - x0), by = mid - barH / 2;
           if (T < .02) return;
           if (s.st === 'solid') { x.fillStyle = ink; x.fillRect(x0, by, w, barH); }
-          else if (s.st === 'blue') { x.fillStyle = BLUE; x.fillRect(x0, by, w, barH); }
+          else if (s.st === 'blue') { x.fillStyle = fillFor(c); x.fillRect(x0, by, w, barH); }
           else if (s.st === 'light') { x.fillStyle = isDark(c) ? 'rgba(255,255,255,.18)' : 'rgba(1,1,1,.1)'; x.fillRect(x0, by, w, barH); }
           else tightRect(x, x0, by, w, barH, c, true);
           if (s.t && T > .98) {
             font(x, 'text500', SMALL); var tw = mw(x, s.t), inside = tw + 32 <= w;
-            x.fillStyle = (s.st === 'solid' || s.st === 'blue') ? (isDark(c) && s.st === 'solid' ? PAL.ink : PAL.white) : ink; x.textBaseline = 'middle';
+            x.fillStyle = s.st === 'solid' ? (isDark(c) ? PAL.ink : PAL.white) : s.st === 'blue' ? onFill(c) : ink; x.textBaseline = 'middle';
             if (inside) x.fillText(s.t, x0 + 18, mid + 1);
             else if (x1 + 16 + tw <= W0 - PAD) { x.fillStyle = ink; x.fillText(s.t, x1 + 16, mid + 1); }
             else { x.fillStyle = ink; x.textAlign = 'right'; x.fillText(s.t, x0 - 16, mid + 1); x.textAlign = 'left'; }
@@ -1092,9 +1255,9 @@
       var by = y + Math.max(0, (bottom - y - boxH) / 2);
       levels.forEach(function (t, i) {
         var bx = PAD + i * (boxW + gap), first = i === 0;
-        if (first) { x.fillStyle = BLUE; x.fillRect(bx, by, boxW, boxH); } else tightRect(x, bx, by, boxW, boxH, c);
-        var tcol = first ? PAL.white : ink;
-        label(x, pad2(i + 1), bx + 28, by + 28 + SMALL * .78, c, 'left', first ? PAL.white : null);
+        if (first) { x.fillStyle = fillFor(c); x.fillRect(bx, by, boxW, boxH); } else tightRect(x, bx, by, boxW, boxH, c);
+        var tcol = first ? onFill(c) : ink;
+        label(x, pad2(i + 1), bx + 28, by + 28 + SMALL * .78, c, 'left', first ? onFill(c) : null);
         var tr = fit(x, t, 'display', boxW - 56, boxH - 110, 38, 26, 1.1, 3, false); font(x, 'display', tr.px);
         block(x, tr, bx + 28, by + boxH - 28 - tr.h, 'left', tcol);
       });
@@ -1115,7 +1278,7 @@
     { id: 'session', name: 'Session', desc: 'A live cohort session or workshop.', outline: ['cover', 'bullets', 'section', 'bullets', 'two', 'section', 'bullets', 'stat', 'quote', 'close'], closeTitle: 'See you next session.', contact: 'Post what you built on Leland' },
     { id: 'allhands', name: 'All-hands', desc: 'Company update.', outline: ['cover', 'section', 'stat', 'bullets', 'section', 'two', 'bullets', 'quote', 'photo', 'close'], closeTitle: 'Thank you.', contact: 'Questions in #general' },
     { id: 'story', name: 'Customer story', desc: 'One customer, start to finish.', outline: ['cover', 'section', 'bullets', 'two', 'stat', 'quote', 'photo', 'close'], closeTitle: 'Build yours.', contact: 'joinleland.com/ai' },
-    { id: 'proposal', name: 'Proposal', desc: 'A client proposal: what we heard, the solution, the roadmap, the price.', outline: ['cover', 'illus', 'cols', 'layers', 'claim', 'claim', 'claim', 'claim', 'claim', 'timeline', 'timeline', 'cols', 'illus', 'price', 'price', 'steps', 'levels', 'people', 'people'], closeTitle: '', contact: '', json: 'data/decks/sheerid.json' }
+    { id: 'proposal', name: 'Proposal', desc: 'A client proposal: what we heard, the solution, the roadmap, the price.', outline: ['cover', 'illus', 'cols', 'layers', 'tile', 'tile', 'mock', 'mock', 'tile', 'timeline', 'timeline', 'mock', 'tile', 'price', 'price', 'photorail', 'levels', 'people', 'people'], closeTitle: '', contact: '', json: 'data/decks/sheerid.json' }
   ];
   function typeOf(id) { for (var i = 0; i < types.length; i++) if (types[i].id === id) return types[i]; return types[0]; }
 
@@ -1243,9 +1406,10 @@
     VISUAL.area = 0; VISUAL.rect = null; VISUAL.content = null; VISUAL.illus = []; VISUAL.build = false;
     VISUAL.t = slide && slide.t != null ? +slide.t : 1;          /* build-in progress for the timeline and layers diagrams */
     VISUAL.skipLib = !!(slide && slide.noIllus);                  /* present mode overlays library SVGs itself */
+    VISUAL.mock = false;
     await k.render(x, d, hh, slide || {});
     x.restore();
-    return { visual: VISUAL.area, illus: VISUAL.illus.slice(), build: VISUAL.build };
+    return { visual: VISUAL.area, illus: VISUAL.illus.slice(), build: VISUAL.build, mock: VISUAL.mock };
   }
 
   /* ---------- sample text per deck type (real copy from data/copy.json, no invented numbers) ---------- */
