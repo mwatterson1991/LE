@@ -79,8 +79,8 @@ h2.sub{font-size:1.125rem;margin:32px 0 12px}
 .picks{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:28px;max-width:1000px}
 .pick{background:var(--g1);border-radius:14px;padding:0;cursor:pointer;text-align:left;overflow:hidden;transition:transform .25s var(--ease),background .25s;display:flex;flex-direction:column}
 .pick:hover{transform:translateY(-3px);background:var(--g2)}
-.pick .art{position:relative;overflow:hidden;background:#fff;aspect-ratio:16/9;margin:14px 14px 0;border-radius:8px}
-.pick .art img,.pick .art video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .6s var(--ease)}
+.pick .art{position:relative;overflow:hidden;background:var(--g2);height:250px;margin:14px 14px 0;border-radius:8px}
+.pick .art img,.pick .art video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .6s var(--ease)}
 .pick .art img.on,.pick .art video{opacity:1}
 .pick .body{padding:14px 18px 16px}
 .pick .body b{font-family:var(--serif);font-weight:500;font-size:1.25rem;color:var(--ink);white-space:nowrap}
@@ -150,7 +150,7 @@ h2.sub{font-size:1.125rem;margin:32px 0 12px}
 .pv .stage .copytext{font-family:var(--serif);font-weight:500;font-size:1.5rem;line-height:1.2;color:var(--ink);max-width:28ch;white-space:pre-wrap}
 .pv .stage .copytext.post{font-family:var(--sans);font-weight:400;font-size:.9375rem;line-height:1.5;color:var(--ink2);max-width:52ch}
 .pv .stage audio{width:100%}
-.pv .stage .logo3{display:flex;gap:12px;width:100%}.pv .stage .logo3>div{flex:1;aspect-ratio:1;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;padding:18%}.pv .stage .logo3>div.dark{background:#111}.pv .stage .logo3 img{width:100%;height:100%;object-fit:contain;box-shadow:none;border-radius:0}
+.pv .stage .logo3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%}.pv .stage .logo3>div{height:200px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;padding:40px}.pv .stage .logo3>div.dark{background:#111}.pv .stage .logo3 img{width:100%;height:100%;object-fit:contain;box-shadow:none;border-radius:0}
 .pv .side2{padding:22px;display:flex;flex-direction:column;gap:10px}
 .pv .side2 h2{font-size:1.25rem;margin-bottom:2px}
 .pv .side2 .m{color:var(--ink3);font-size:.8125rem;line-height:1.45;margin-bottom:8px}
@@ -172,6 +172,7 @@ h2.sub{font-size:1.125rem;margin:32px 0 12px}
 .estage{min-width:0}
 .stage{background:var(--g1);border-radius:12px;padding:32px;display:flex;align-items:center;justify-content:center;min-height:520px}
 .stage img,.stage video{max-width:100%;max-height:72vh;border-radius:4px;box-shadow:0 12px 40px rgba(0,0,0,.14)}
+.stage.r45 img{max-height:62vh}
 .stage.empty{background:var(--g1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='%23c8c8c8' stroke-width='1.2'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='M10 9l5 3-5 3z'/%3E%3C/svg%3E") center no-repeat}
 .stage.empty img{display:none}
 .stagebar{display:flex;align-items:center;gap:10px;margin-top:14px;color:var(--ink3);font-size:.8125rem;min-height:28px}
@@ -211,7 +212,7 @@ h2.sub{font-size:1.125rem;margin:32px 0 12px}
 .slide{flex-shrink:0;width:144px;aspect-ratio:16/9;border-radius:4px;background:var(--g2) center/cover no-repeat;cursor:pointer;position:relative;transition:.15s;overflow:hidden}
 .slide.story{aspect-ratio:4/5;width:96px}
 .slide.on{outline:2px solid var(--ink);outline-offset:2px}
-.slide .n{position:absolute;left:6px;bottom:4px;font-size:.625rem;color:#111;background:rgba(255,255,255,.85);padding:1px 5px;border-radius:3px}
+.slide .n{position:absolute;left:6px;top:4px;font-size:.625rem;color:#111;background:rgba(255,255,255,.85);padding:1px 5px;border-radius:3px}
 /* drawer */
 .drawer{position:fixed;left:200px;right:0;bottom:0;height:0;background:#fff;box-shadow:0 -10px 40px rgba(0,0,0,.1);border-radius:14px 14px 0 0;overflow:hidden;transition:height .3s var(--ease);z-index:50;display:flex;flex-direction:column}
 .drawer.on{height:62vh}
@@ -233,6 +234,7 @@ h2.sub{font-size:1.125rem;margin:32px 0 12px}
 .conn .ico{width:22px;height:22px;color:var(--ink)}
 .conn>div{flex:1;min-width:0}.conn b{display:block;font-size:.9375rem;color:var(--ink)}.conn span{font-size:.8125rem;color:var(--ink3)}
 .conn.on .btn{background:transparent;color:var(--ink3);cursor:default}
+.conn .btn{background:transparent;color:var(--ink3)}.conn .btn:hover{color:var(--ink)}
 .place{background:var(--g1);border-radius:10px;padding:6px 10px}
 .prow{display:grid;grid-template-columns:56px 1.6fr 1fr 1fr .6fr .6fr;gap:12px;align-items:center;padding:10px 8px;font-size:.875rem;color:var(--ink2)}
 .prow+.prow{border-top:1px solid #fff}

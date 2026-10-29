@@ -11,7 +11,7 @@ let stT=null;
 function storySync(){storyRead();clearTimeout(stT);stT=setTimeout(async()=>{const sl=storySlides();if(story.slide>=sl.length)story.slide=0;
   const c=await renderStorySlide(sl[story.slide][0],864,1080);$('canvasImg').src=c.toDataURL();$('stage').className='stage r45';
   const thumbs=[];for(const [k] of sl){const t=await renderStorySlide(k,160,200);thumbs.push(t.toDataURL())}
-  $('slides').innerHTML=sl.map(([k,n],i)=>`<div class="slide story ${i===story.slide?'on':''}" style="background-image:url('${thumbs[i]}')" onclick="story.slide=${i};storySync()"><span class="n">${n}</span></div>`).join('')},60)}
+  $('slides').innerHTML=sl.map(([k,n],i)=>`<div class="slide story ${i===story.slide?'on':''}" style="background-image:url('${thumbs[i]}')" onclick="story.slide=${i};storySync()"><span class="n">${i+1}</span></div>`).join('');if(window.autosave)autosave(()=>({t:$('etitle').value,m:'Story · '+sl.length+' slides',th:$('canvasImg').src,kind:'story',story:JSON.parse(JSON.stringify(story))}))},60)}
 const BLUE='#2f5fd6',SOFT='#80aced';
 async function renderStorySlide(kind,W,H){const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');await fontsReady();const u=W/1080;
   const BG={cover:'#FFD96F',who:'#F9F8F3',before:'#F9F8F3',built:'#F9F8F3',quote:'#F3F1E6',close:'#FFD96F'};x.fillStyle=BG[kind]||'#F9F8F3';x.fillRect(0,0,W,H);x.fillStyle='#111';x.textBaseline='top';
@@ -26,15 +26,15 @@ async function renderStorySlide(kind,W,H){const c=document.createElement('canvas
     else{x.font=`600 ${64*u}px Macan`;x.fillText(story.co,pad,pad+110*u)}
     head(story.head||story.co,H*.48,100*u,W-pad*2);
     if(lg){x.font=`500 ${34*u}px Macan`;x.fillStyle='#767676';x.fillText(story.co,pad,H-pad-120*u)}lockup(H-pad-40*u,40*u)}
-  else if(kind==='who'){eyebrow(story.co);head('Who they are',pad+90*u,84*u,W-pad*2);body(story.who,pad+260*u,44*u,W-pad*2,'#4c4c4c',1.4);lockup(H-pad-40*u,40*u)}
-  else if(kind==='before'){eyebrow(story.co);head('Before',pad+90*u,84*u,W-pad*2);body(story.before,pad+260*u,44*u,W-pad*2,'#4c4c4c',1.4);lockup(H-pad-40*u,40*u)}
+  else if(kind==='who'){eyebrow(story.co);head('Who they are',H*.3,84*u,W-pad*2);body(story.who,H*.3+170*u,46*u,W-pad*2,'#4c4c4c',1.4);lockup(H-pad-40*u,40*u)}
+  else if(kind==='before'){eyebrow(story.co);head('Before',H*.3,84*u,W-pad*2);body(story.before,H*.3+170*u,46*u,W-pad*2,'#4c4c4c',1.4);lockup(H-pad-40*u,40*u)}
   else if(kind==='built'){eyebrow(story.co);let y=head('What they [built]',pad+90*u,84*u,W-pad*2)+40*u;
-    story.built.slice(0,4).forEach(item=>{const parts=item.split('—').map(s=>s.trim());x.font=`600 ${36*u}px Macan`;x.fillStyle='#111';x.fillText(parts[0]||'',pad,y);y+=50*u;
+    story.built.slice(0,4).forEach(item=>{const parts=item.split('—').map(s=>s.trim());x.font=`600 ${36*u}px Macan`;x.fillStyle='#111';wrapText(x,parts[0]||'',W-pad*2).forEach(l=>{x.fillText(l,pad,y);y+=46*u});y+=4*u;
       if(parts[1]){y=body(parts[1],y,34*u,W-pad*2,'#4c4c4c',1.35)}
       if(parts[2]){x.font=`600 ${34*u}px Macan`;x.fillStyle=BLUE;x.fillText(parts[2],pad,y);y+=48*u}
       y+=36*u});lockup(H-pad-40*u,40*u)}
-  else if(kind==='quote'){eyebrow(story.co);x.font=`500 ${200*u}px Season, Georgia, serif`;x.fillStyle=SOFT;x.fillText('“',pad-10*u,pad+70*u);
-    let y=head(story.quote,pad+260*u,80*u,W-pad*2);x.font=`400 ${36*u}px Macan`;x.fillStyle='#767676';x.fillText(story.by,pad,y+40*u);lockup(H-pad-40*u,40*u)}
+  else if(kind==='quote'){eyebrow(story.co);x.font=`500 ${200*u}px Season, Georgia, serif`;x.fillStyle=SOFT;x.fillText('“',pad-10*u,H*.24);
+    let y=head(story.quote,H*.24+190*u,84*u,W-pad*2);x.font=`400 ${36*u}px Macan`;x.fillStyle='#767676';x.fillText(story.by,pad,y+40*u);lockup(H-pad-40*u,40*u)}
   else if(kind==='close'){const s=120*u;x.drawImage(lm,pad,H*.3,lm.width/lm.height*s,s);head('Want this for [your team]?',H*.3+s+60*u,96*u,W-pad*2);
     x.font=`500 ${40*u}px Macan`;x.fillStyle='#111';x.fillText(story.cta,pad,H*.3+s+60*u+96*u*2.4);x.fillStyle='#767676';x.fillText('leland.ai',pad,H-pad-40*u)}
   return c}
@@ -48,8 +48,8 @@ async function storyBrief(p){
   const built=lines.filter(l=>/^-\s*/.test(l)).map(l=>l.replace(/^-\s*/,'').replace(/\.$/,''));
   const prose=lines.filter(l=>!/^-\s*/.test(l)).join(' ');
   const qm=prose.match(/[“"]([^”"]{8,})[”"]/);let q=qm?qm[1].replace(/[,\s]+$/,''):'';
-  let by='';if(qm){const after=prose.slice(prose.indexOf(qm[0])+qm[0].length);const bm=after.match(/^[\s,]*(?:said|says|—|-)?\s*([A-Z][a-z]+ [A-Z][a-z]+(?:,\s*[^.]{3,40})?)/);if(bm)by=bm[1].trim();else{const pre=prose.slice(0,prose.indexOf(qm[0]));const pm=pre.match(/([A-Z][a-z]+ [A-Z][a-z]+)(?:,\s*([^.]{3,40}))?[^.]{0,30}$/);if(pm)by=pm[1]+(pm[2]?', '+pm[2]:'')}}
-  const sents=prose.replace(qm?qm[0]:'','').split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(s=>s.length>3);
+  let by='';if(qm){const after=prose.slice(prose.indexOf(qm[0])+qm[0].length);const bm=after.match(/^[\s,]*(?:said|says|—|-)?\s*([A-Z][a-z]+ [A-Z][a-z]+)(?:,\s*(?:their|the|our|its)?\s*([^.,]{3,40}))?/);if(bm)by=bm[1]+(bm[2]?', '+bm[2].trim():'');else{const pre=prose.slice(0,prose.indexOf(qm[0]));const pm=pre.match(/(?:As\s+)?([A-Z][a-z]+ [A-Z][a-z]+)(?:,\s*(?:their|the|our|its)?\s*([^.,]{3,40}))?,?\s*(?:put it|said|says|explains|told)[^.]*$/);if(pm)by=pm[1]+(pm[2]?', '+pm[2].trim():'')}}
+  const sents=prose.replace(qm?qm[0]:'','').replace(/(?:As\s+)?[A-Z][a-z]+ [A-Z][a-z]+(?:,[^.:]{0,40})?,?\s*(?:put it|said|says)[:,]?\s*/,'').split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(s=>s.length>3);
   const first=sents[0]||'';const cm=first.match(/^((?:[A-Z][\w+&.]*\s?){1,3})(?=\s+(?:team|marketing|sales|ops|operations|is|was|had|put|went|built|launched|just))/);const co=cm?cm[1].trim():first.split(' ').slice(0,2).join(' ');
   const num=(prose.match(/\d[\d,]*\+?/)||[''])[0];const numSent=sents.find(s=>num&&s.includes(num))||'';
   const before=sents.slice(1).find(s=>/before|used to|old way|putting off|never|by hand|manual|hours|years|needed/i.test(s))||sents[1]||'';

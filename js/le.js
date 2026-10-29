@@ -62,7 +62,7 @@ function renderPicks(){
   const clip=byGroup('scene').find(a=>a.from==='film-get-there-with-the-people-whove-been-there'&&a.style==='product')||byGroup('scene')[0]||{};
   $('picks').innerHTML=`
   <button class="pick" onclick="go('pick','image')"><div class="art r45" data-cycle="1">${tpl.map((s,i)=>`<img src="${s}" class="${i?'':'on'}" alt="">`).join('')}</div><div class="body"><b>Image</b></div></button>
-  <button class="pick" onclick="go('pick','video')"><div class="art r169"><video muted loop playsinline autoplay poster="${clip.poster||''}" src="${clip.src||''}"></video></div><div class="body"><b>Video</b></div></button>
+  <button class="pick" onclick="startVideo()"><div class="art r169"><video muted loop playsinline autoplay poster="${clip.poster||''}" src="${clip.src||''}"></video></div><div class="body"><b>Video</b></div></button>
   <button class="pick" onclick="go('pick','deck')"><div class="art r169" data-cycle="1">${decks.map((s,i)=>`<img src="${s}" class="${i?'':'on'}" alt="">`).join('')}</div><div class="body"><b>Deck</b></div></button>
   <button class="pick" onclick="startStory()"><div class="art" data-cycle="1" id="storyArt"><img src="assets/templates/stat.jpg" class="on" alt=""></div><div class="body"><b>Case study</b></div></button>`;
   stopPicks(true);storyArt()}
@@ -78,13 +78,12 @@ function renderPick(kind){
     <h2 class="sub">Or start from something we posted</h2><div class="grid">${byGroup('hero','header','card','aibp').slice(0,10).map(a=>`<div class="card" onclick="openAsset('${a.id}')"><div class="th" style="background-image:url('${a.thumb||a.src}')"></div><div class="t">${esc(a.title)}</div></div>`).join('')}</div>`}
   else if(kind==='deck'){$('pickTitle').textContent='Which kind of deck?';
     $('pickBody').innerHTML=`<div class="types four">${DECK.types.map(t=>`<button class="type" onclick="startDeck('${t.id}')"><div class="th r169"><img src="assets/templates/deck-${t.id}.jpg" alt=""></div><b>${esc(t.name)}</b></button>`).join('')}</div>`}
-  else if(kind==='video'){startVideo()}
   else go('make')}
 
 /* ---------- Editor shell ---------- */
 let ED={};
-function openEditor(kind,title){const from=location.hash;state.kind=kind;ED={};$('etitle').value=title;const name=/^#pick/.test(from)?'Types':/^#lib|^#asset/.test(from)?'Library':/^#projects/.test(from)?'Projects':'Make';$('eback').lastChild.textContent=name;$('eback').onclick=()=>{if(/^#asset/.test(from))go('lib',state.tab);else if(from&&from!=='#editor')history.back();else go('make')};
-  $('canvasImg').style.display='';$('canvasImg').removeAttribute('src');$('resultVid').style.display='none';$('resultVid').removeAttribute('src');$('slides').innerHTML='';$('stagebar').innerHTML='';$('stage').className='stage';
+function openEditor(kind,title,saved){let from=location.hash;if(/^#asset/.test(from)){history.replaceState(null,'','#lib/'+state.tab);from='#lib/'+state.tab}state.kind=kind;ED={pid:saved&&saved.id||null};$('etitle').value=title;const name=/^#pick/.test(from)?'Types':/^#lib|^#asset/.test(from)?'Library':/^#projects/.test(from)?'Projects':'Make';$('eback').lastChild.textContent=name;$('eback').onclick=()=>{if(/^#asset/.test(from))go('lib',state.tab);else if(from&&from!=='#editor')history.back();else go('make')};
+  $('dlbtn').textContent='Download';$('dlbtn').disabled=false;$('canvasImg').style.display='';$('canvasImg').removeAttribute('src');$('resultVid').style.display='none';$('resultVid').removeAttribute('src');$('slides').innerHTML='';$('stagebar').innerHTML='';$('stage').className='stage';
   if(location.hash!=='#editor')history.pushState(null,'','#editor');route()}
 const SW_CONTAIN=['graphic','illustration','icon','org'];
 const swBtn=(a,on,fn)=>`<button class="${on?'on':''}" style="background-image:url('${a.thumb||a.poster||a.src}');${SW_CONTAIN.includes(a.group)?'background-size:contain;background-repeat:no-repeat;background-color:#fff':''}" title="${esc(a.title)}" onclick="${fn}"></button>`;
@@ -92,20 +91,20 @@ function field(f,v,on){
   if(f.type==='text')return `<div class="f"><label>${esc(f.label)}</label>${(f.max||0)>70?`<textarea oninput="${on}">${esc(v)}</textarea>`:`<input value="${esc(v)}" oninput="${on}" placeholder="${f.optional?'Optional':''}">`}</div>`;
   if(f.type==='color')return `<div class="f"><label>${esc(f.label)}</label><div class="pal">${(f.options||Object.keys(PAL)).map(c=>`<button class="${v===c?'on':''}" style="background:${PAL[c]}" title="${c}" onclick="${on.replace('this.value',`'${c}'`)}"></button>`).join('')}</div></div>`;
   if(f.type==='choice')return `<div class="f"><label>${esc(f.label)}</label><div class="seg">${f.options.map(o=>`<button class="${v===o?'on':''}" onclick="${on.replace('this.value',`'${o}'`)}">${esc(o[0].toUpperCase()+o.slice(1))}</button>`).join('')}</div></div>`;
-  if(f.type==='asset'){const cur=A(v);let items=byGroup(...f.groups).slice(0,7);if(cur&&!items.includes(cur))items=[cur].concat(items.slice(0,6));return `<div class="f"><label>${esc(f.label)}<button class="link" onclick='openDrawer(${JSON.stringify(f.groups)},"${f.key}")'>Browse</button></label><div class="sw">${items.map(a=>swBtn(a,v===a.id,on.replace('this.value',`'${a.id}'`))).join('')}${f.optional?`<button class="more ${!v?'on':''}" onclick="${on.replace('this.value','null')}">×</button>`:''}</div></div>`}
+  if(f.type==='asset'){const cur=A(v);let items=byGroup(...f.groups).slice(0,f.optional?6:7);if(cur&&!items.includes(cur))items=[cur].concat(items.slice(0,f.optional?5:6));return `<div class="f"><label>${esc(f.label)}<button class="link" onclick='openDrawer(${JSON.stringify(f.groups)},"${f.key}")'>Browse</button></label><div class="sw">${items.map(a=>swBtn(a,v===a.id,on.replace('this.value',`'${a.id}'`))).join('')}${f.optional?`<button class="more ${!v?'on':''}" onclick="${on.replace('this.value','null')}">×</button>`:''}</div></div>`}
   return ''}
 function helpers(){const T=window.TPL_HELPERS||{};return {A,byGroup,loadImg,wrapText,drawRich,roundRect,PAL,logo:T.logo,mark:T.mark,cover:T.cover}}
 const SIZES={'':[1920,1080],r11:[1080,1080],r45:[1080,1350],r916:[1080,1920]};
 const RNAME={'':'16:9',r11:'1:1',r45:'4:5',r916:'9:16'};
 
 /* ---------- Image: a template, its fields, a canvas ---------- */
-function startImage(tid,saved){const t=TEMPLATES.find(x=>x.id===tid);if(!t)return;openEditor('image',saved?saved.t:t.name);
-  ED={t,d:{...t.defaults,...(saved&&saved.d||{})},ratio:saved?saved.ratio:t.ratios[0]};
+function startImage(tid,saved){const t=TEMPLATES.find(x=>x.id===tid);if(!t)return;openEditor('image',saved?saved.t:t.name,saved);
+  ED={pid:ED.pid,t,d:{...t.defaults,...(saved&&saved.d||{})},ratio:saved?saved.ratio:t.ratios[0]};
   $('stagebar').innerHTML=`<div class="seg" id="ratio">${t.ratios.map(r=>`<button class="${ED.ratio===r?'on':''}" onclick="ED.ratio='${r}';imageSync();renderStagebar()">${RNAME[r]}</button>`).join('')}</div>`;
   renderImagePanel();imageSync()}
 function renderStagebar(){document.querySelectorAll('#ratio button').forEach(b=>b.classList.toggle('on',b.textContent===RNAME[ED.ratio]))}
-function renderImagePanel(){const t=ED.t;const first=t.fields.find(f=>['head','quote','label'].includes(f.key))||t.fields.find(f=>f.type==='text');
-  $('panel').innerHTML=`<div class="sec"><h3>${esc(t.name)} <button class="link" onclick="go('pick/image')">Change</button></h3>${t.fields.map(f=>field(f,ED.d[f.key],`setField('${f.key}',this.value,true)`)).join('')}</div>
+function renderImagePanel(){const t=ED.t;const first=t.fields.find(f=>f.key==='head');
+  $('panel').innerHTML=`<div class="sec"><h3>${esc(t.name)} <button class="link" onclick="history.replaceState(null,'','#pick/image');route()">Change</button></h3>${t.fields.map(f=>field(f,ED.d[f.key],`setField('${f.key}',this.value,true)`)).join('')}</div>
   ${first?`<div class="sec"><h3>Lines we've used <button class="link" onclick="go('lib','headline')">All</button></h3><div class="copylist">${copyFor('headline').slice(0,6).map(c=>`<button onclick='setField("${first.key}",${JSON.stringify(c.text)})'>${esc(plain(c.text))}</button>`).join('')}</div></div>`:''}
 `}
 function setField(k,v,fromInput){ED.d[k]=v;const f=ED.t.fields.find(x=>x.key===k);if(k==='expert'&&A(v)){ED.d.name=A(v).title;ED.d.role='Leland expert'}if(!fromInput||(f&&f.type!=='text'))renderImagePanel();imageSync()}
@@ -116,18 +115,18 @@ async function renderImageFull(){const [W,H]=SIZES[ED.ratio];const c=document.cr
 function copyFor(kind,prod){return (COPY.items||[]).filter(c=>c.kind===kind&&(!prod||c.for===prod))}
 
 /* ---------- Video: a form, then a film ---------- */
-function startVideo(saved){openEditor('video',saved?saved.t:'Untitled video');ED={shots:saved?saved.shots||[]:[],story:saved?saved.story||'':'',dur:20,vibe:'audio-onconversation',dark:false,blob:null,tag:'Own your future.',badges:true};$('stage').className='stage r169 empty';renderVideoPanel()}
+function startVideo(saved){openEditor('video',saved?saved.t:'Untitled video',saved);const v=saved&&saved.video||{};ED={pid:ED.pid,shots:saved?saved.shots||[]:[],story:saved?saved.story||'':'',dur:v.dur||20,vibe:'vibe' in v?v.vibe:'audio-onconversation',dark:!!v.dark,blob:null,tag:v.tag||'Own your future.',badges:'badges' in v?v.badges:false};$('stage').className='stage r169 empty';renderVideoPanel()}
 function renderVideoPanel(){
   const shots=ED.shots.map(id=>A(id)).filter(Boolean);
   $('panel').innerHTML=`<div class="sec"><h3>The story</h3><div class="f"><textarea id="vStory" style="min-height:96px" oninput="ED.story=this.value;renderVideoBtn()" placeholder="Jobs is live. Drop your resume and your next job finds you.">${esc(ED.story)}</textarea></div></div>
   <div class="sec"><h3>Three screenshots <small>${shots.length}</small></h3><div class="shotlist">${shots.map((a,i)=>`<div class="shotc"><img src="${a.thumb||a.poster||a.src}" alt=""><button class="x" onclick="ED.shots.splice(${i},1);renderVideoPanel()">×</button></div>`).join('')}<label class="shotc add">+<input type="file" accept="image/*" multiple style="display:none" onchange="uploadShots(this.files)"></label></div><button class="link" onclick="openDrawer(['card','aipost','hero','gif'],'shots')">From the library</button></div>
   <div class="sec"><h3>Length</h3><div class="seg">${[15,20,30].map(d=>`<button class="${ED.dur===d?'on':''}" onclick="ED.dur=${d};renderVideoPanel()">${d}s</button>`).join('')}</div></div>
   <div class="sec"><h3>Music</h3><div class="music">${byGroup('music').map(a=>`<button class="${ED.vibe===a.id?'on':''}" onclick="ED.vibe='${a.id}';renderVideoPanel()"><img src="${a.thumb}" alt="">${esc(a.title)}<small>${a.duration}s</small></button>`).join('')}<button class="${ED.vibe===null?'on':''}" onclick="ED.vibe=null;renderVideoPanel()"><span style="width:34px"></span>No music</button></div></div>
-  <div class="sec"><h3>Close with</h3><div class="f"><input value="${esc(ED.tag)}" oninput="ED.tag=this.value"></div><div class="copylist">${(M.brand.taglines||[]).map(t=>`<button onclick='ED.tag=${JSON.stringify(t)};renderVideoPanel()'>${esc(t)}</button>`).join('')}</div><div class="f" style="margin-top:10px"><div class="seg"><button class="${ED.badges?'on':''}" onclick="ED.badges=true;renderVideoPanel()">App badges</button><button class="${!ED.badges?'on':''}" onclick="ED.badges=false;renderVideoPanel()">No badges</button></div></div></div>
+  <div class="sec"><h3>Close with</h3><div class="f"><input value="${esc(ED.tag)}" oninput="ED.tag=this.value"></div><div class="copylist">${(M.brand.taglines||[]).filter(t=>t!==ED.tag).map(t=>`<button onclick='ED.tag=${JSON.stringify(t)};renderVideoPanel()'>${esc(t)}</button>`).join('')}</div><div class="f" style="margin-top:10px"><div class="seg"><button class="${ED.badges?'on':''}" onclick="ED.badges=true;renderVideoPanel()">App badges</button><button class="${!ED.badges?'on':''}" onclick="ED.badges=false;renderVideoPanel()">No badges</button></div></div></div>
   <div class="sec"><h3>Look</h3><div class="seg"><button class="${!ED.dark?'on':''}" onclick="ED.dark=false;renderVideoPanel()">White</button><button class="${ED.dark?'on':''}" onclick="ED.dark=true;renderVideoPanel()">Black</button></div></div>
   <div class="cook"><button class="btn black" id="vgo" onclick="makeVideo()">Make the film</button></div>`;renderVideoBtn();
   if(ED.blob){$('resultVid').style.display='';$('stage').className='stage r169'}}
-function renderVideoBtn(){const b=$('vgo');if(b)b.disabled=ED.shots.length<3||!ED.story.trim()}
+function renderVideoBtn(){const ok=ED.shots.length>=3&&!!ED.story.trim();const b=$('vgo');if(b)b.disabled=!ok;const d=$('dlbtn');d.textContent=ED.blob?'Download':'Make the film';d.disabled=!ok&&!ED.blob}
 function uploadShots(files){[...files].forEach(f=>{const r=new FileReader();r.onload=()=>{const id='upload-'+Date.now()+Math.random().toString(36).slice(2,6);M.assets.push({id,type:'image',group:'upload',title:f.name,src:r.result,thumb:r.result,tags:['upload']});ED.shots.push(id);renderVideoPanel()};r.readAsDataURL(f)})}
 async function makeVideo(){const story=ED.story.trim();busy(true,'Writing the hook');
   let hook=story.split(/(?<=[.!?])\s/)[0].replace(/!/g,'.').slice(0,60),tag=ED.tag||'Own your future.';
@@ -138,14 +137,14 @@ async function makeVideo(){const story=ED.story.trim();busy(true,'Writing the ho
   state.dark=ED.dark;state.music=ED.vibe;state.outro=MOTION.defaults.logo;
   busy(true,'Rendering '+Math.round(S.reduce((a,s)=>a+sceneDur(s),0))+' seconds in your browser');
   try{const {blob,ext,T}=await renderVideo(S);ED.blob=blob;ED.ext=ext;const v=$('resultVid');v.src=URL.createObjectURL(blob);v.style.display='';$('canvasImg').style.display='none';$('stage').className='stage r169';$('main').scrollTop=0;v.play().catch(()=>{});
-    addProject({t:$('etitle').value,m:'Video · '+T.toFixed(0)+'s',th:(A(ED.shots[0])||{}).thumb,kind:'video',shots:ED.shots.filter(id=>!id.startsWith('upload')),story:ED.story});toast('Play it, then download.')}catch(e){console.error(e);toast('Render error: '+e.message)}
+    addProject({t:$('etitle').value,m:'Video · '+T.toFixed(0)+'s',th:(A(ED.shots[0])||{}).thumb,kind:'video',shots:ED.shots.filter(id=>!id.startsWith('upload')),story:ED.story,video:{dur:ED.dur,vibe:ED.vibe,dark:ED.dark,tag:ED.tag,badges:ED.badges}});toast('Play it, then download.')}catch(e){console.error(e);toast('Render error: '+e.message)}
   busy(false)}
 
 /* ---------- Deck: a type, pasted text, slides ---------- */
-function startDeck(tid,saved){const t=DECK.types.find(x=>x.id===tid)||DECK.types[0];openEditor('deck',saved?saved.t:t.name+' deck');ED={type:t,text:saved?saved.deck.text:DECK.sample(t.id),slides:[],i:0};buildDeck()}
+function startDeck(tid,saved){const t=DECK.types.find(x=>x.id===tid)||DECK.types[0];openEditor('deck',saved?saved.t:t.name+' deck',saved);ED={pid:ED.pid,type:t,text:saved?saved.deck.text:DECK.sample(t.id),slides:[],i:0};buildDeck()}
 function buildDeck(){const prev=ED.slides||[];ED.slides=DECK.parse(ED.text,ED.type.id);ED.slides.forEach((s,i)=>{const p=prev[i];if(p&&p.kind===s.kind&&p.edited)Object.assign(s.data,p.edited),s.edited=p.edited});ED.i=Math.min(ED.i,ED.slides.length-1);renderDeckPanel();deckSync(true)}
 function renderDeckPanel(){const s=ED.slides[ED.i];const k=s?DECK.kinds[s.kind]:null;
-  $('panel').innerHTML=`<div class="sec"><h3>${esc(ED.type.name)} deck <button class="link" onclick="go('pick/deck')">Change</button></h3><div class="f"><textarea id="deckText" style="min-height:160px;font-size:.8125rem" oninput="ED.text=this.value">${esc(ED.text)}</textarea></div><button class="btn sm" onclick="buildDeck()">Rebuild slides</button></div>
+  $('panel').innerHTML=`<div class="sec"><h3>${esc(ED.type.name)} deck <button class="link" onclick="history.replaceState(null,'','#pick/deck');route()">Change</button></h3><div class="f"><textarea id="deckText" style="min-height:160px;font-size:.8125rem" oninput="ED.text=this.value">${esc(ED.text)}</textarea></div><button class="btn sm" onclick="buildDeck()">Rebuild slides</button></div>
   ${s?`<div class="sec"><h3>Slide ${ED.i+1} · ${esc(k.name||s.kind)}</h3>${(k.fields||[]).map(f=>field(f,s.data[f.key]??'',`ED.slides[${ED.i}].data['${f.key}']=this.value;(ED.slides[${ED.i}].edited=ED.slides[${ED.i}].edited||{})['${f.key}']=this.value;deckSync(true)`)).join('')}</div>`:''}
   <div class="sec"><button class="link" onclick="exportDeck('png')">Download as PNGs instead</button></div>`}
 let deckT=null;
@@ -160,7 +159,7 @@ async function exportDeck(kind){const name=slug($('etitle').value);const h=helpe
 function loadJsPDF(){if(window.jspdf)return Promise.resolve();return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
 
 /* ---------- Story (story.js renders; this is the shell) ---------- */
-function startStory(saved){openEditor('story',saved?saved.t:'Untitled story');ED={};$('stage').className='stage r45';
+function startStory(saved){openEditor('story',saved?saved.t:'Untitled story',saved);$('stage').className='stage r45';
   $('panel').innerHTML=`<div class="sec"><h3>Paste the story</h3><div class="f"><textarea id="stPaste" style="min-height:80px" placeholder="A post, notes, anything about the customer"></textarea></div><button class="btn sm" onclick="storyBrief($('stPaste').value)">Read it</button></div>
   <div class="sec"><h3>Story <button class="link" onclick="openDrawer(['org'],'storyLogo')">Logo</button></h3>
   <div class="f"><label>Company</label><input id="stCo" oninput="storySync()"></div><div class="f"><label>Headline</label><input id="stHead" oninput="storySync()"></div><div class="f"><label>Who they are</label><textarea id="stWho" oninput="storySync()"></textarea></div><div class="f"><label>Before</label><textarea id="stBefore" oninput="storySync()"></textarea></div><div class="f"><label>What they built, one per line</label><textarea id="stBuilt" oninput="storySync()" style="min-height:90px"></textarea></div><div class="f"><label>Quote</label><textarea id="stQuote" oninput="storySync()"></textarea></div><div class="f"><label>Said by</label><input id="stBy" oninput="storySync()"></div><div class="f"><label>Close</label><input id="stCta" oninput="storySync()"></div></div>
@@ -190,7 +189,7 @@ const COPY_KINDS=['post','headline','hook','tagline','cta','subject','ad','bio',
 const subOf=k=>{for(const t of LIB)for(const s of t[3])if(s[0]===k)return {tab:t,sub:s};return {tab:LIB[0],sub:LIB[0][3][0]}};
 const CHIPS={scene:[['all','All'],['intro','Intros'],['text','Text'],['product','Product'],['outro','Outros']],org:[['all','All'],['school','Schools'],['company','Companies']],illustration:[['all','All'],['social','Communication'],['work','Work'],['growth','Growth']],post:[['all','All'],['community','Community'],['aibp','AI Builder'],['coaching','Coaching'],['jobs','Jobs']]};
 function count(s){return COPY_KINDS.includes(s[0])?copyItems(s[0]).length:byGroup(...s[2]).length}
-function renderTabs(){const cur=subOf(state.tab).tab[0];$('tabs').innerHTML=LIB.map(([k,n,ic,subs])=>`<button class="${cur===k?'on':''}" onclick="go('lib','${subs[0][0]}')"><svg class="ico" viewBox="0 0 24 24">${ic}</svg>${n}</button>`).join('')}
+function renderTabs(){const cur=state.q?null:subOf(state.tab).tab[0];$('tabs').innerHTML=LIB.map(([k,n,ic,subs])=>`<button class="${cur===k?'on':''}" onclick="go('lib','${subs[0][0]}')"><svg class="ico" viewBox="0 0 24 24">${ic}</svg>${n}</button>`).join('')}
 function renderChips(){const {tab,sub}=subOf(state.tab);const el=$('chips');if(state.q){el.innerHTML='';return}
   let h=tab[3].map(s=>`<button class="${s[0]===sub[0]?'on':''}" onclick="go('lib','${s[0]}')">${s[1]}<small>${count(s)}</small></button>`).join('');
   const c=CHIPS[sub[0]];if(c)h+=`<span class="filters">${c.map(([k,n])=>`<button class="${state.chip===k?'on':''}" onclick="state.chip='${k}';renderLib()">${n}</button>`).join('')}</span>`;
@@ -249,7 +248,7 @@ function showPreview(id){
   else if(['background','photo','hero','header','aibp'].includes(a.group))actions=`<button class="btn black" onclick="${useIn('photo-lockup','photo')}">Use as the photo</button><a class="btn" href="${a.src}" download>Download</a>`;
   else if(['card','aipost','upload'].includes(a.group))actions=`<button class="btn black" onclick="${useIn('product-moment','shot')}">Use as the product shot</button><button class="btn" onclick="closePreview(true);startVideo();ED.shots=['${a.id}'];renderVideoPanel()">Start a film with it</button><a class="btn" href="${a.src}" download>Download</a>`;
   else actions=`<a class="btn black" href="${a.src}" download>Download</a>`;
-  sd.innerHTML=`<h2>${esc(a.title)}</h2><div class="m">${esc(a.sub||'')}${a.note&&!/manifest/i.test(a.note)?`<br><br>${esc(a.note)}`:''}${a.source?`<br><br><span class="dim">${esc(a.source)}</span>`:''}${a.best?`<br><b style="color:var(--ink)">Best for:</b> ${esc(a.best)}`:''}${a.idea?`<br><br>${esc(a.idea)}`:''}</div>${actions}`;
+  sd.innerHTML=`<h2>${esc(plain(a.title))}</h2><div class="m">${esc(a.sub||'')}${a.note&&!/manifest/i.test(a.note)?`<br><br>${esc(a.note)}`:''}${a.source?`<br><br><span class="dim">${esc(String(a.source).split(';')[0])}</span>`:''}${a.best?`<br><b style="color:var(--ink)">Best for:</b> ${esc(a.best)}`:''}${a.idea?`<br><br>${esc(a.idea)}`:''}</div>${actions}`;
   $('pv').classList.add('on');
 }
 function closePreview(silent){const pv=$('pv');if(!pv.classList.contains('on'))return;pv.classList.remove('on');pv.querySelectorAll('video,audio').forEach(v=>v.pause());$('pvstage').innerHTML='';if(!silent&&location.hash.startsWith('#asset/')){if(pvPushed)history.back();else location.hash=state.tab?'lib/'+state.tab:'lib'}pvPushed=false}
@@ -323,7 +322,7 @@ async function renderVideo(S,ratioKey=''){const [W,H]=SIZES[ratioKey];const c=do
   function drawText(s,local,a){const hs=Math.round(m*.082);x.font=`500 ${hs}px Macan, sans-serif`;const lines=wrapText(x,s.text,W*.8);const y0=H/2-(lines.length-1)/2*hs*1.25;const p=preset('text',s.anim),E=EASE[p.ease]||eo;
     if(s.anim==='typed'){const n=Math.floor(plain(s.text).length*Math.min(1,local/(p.speed||.65)));let shown=0;x.globalAlpha=a;lines.forEach((l,i)=>{const pl=plain(l);const take=Math.max(0,Math.min(pl.length,n-shown));shown+=pl.length+1;let cut='',seen=0;for(const ch of l){if(ch==='['||ch===']'){cut+=ch;continue}if(seen<take){cut+=ch;seen++}}drawRich(x,cut,W/2,y0+i*hs*1.25,'center',ink)});x.globalAlpha=1}
     else if(s.anim==='rise'){lines.forEach((l,i)=>{const u=Math.max(0,Math.min(1,(local-i*(p.stagger||.1))/(p.speed||.4)));x.globalAlpha=a*E(u);drawRich(x,l,W/2,y0+i*hs*1.25+(1-E(u))*hs*.6,'center',ink)});x.globalAlpha=1}
-    else{let k=0;lines.forEach((l,i)=>{const parts=l.split(/(\[[^\]]+\])/).filter(Boolean);const words=[];parts.forEach(pp=>{const b=pp.startsWith('[');pp.replace(/[\[\]]/g,'').split(' ').forEach(w=>w&&words.push({w,b}))});x.textAlign='left';const tw=words.reduce((ss,w)=>ss+x.measureText(w.w+' ').width,0);let cx=W/2-tw/2;words.forEach(w=>{const u=Math.max(0,Math.min(1,(local-k*(p.stagger||.1))/(p.speed||.45)));k++;x.globalAlpha=a*E(u);x.fillStyle=w.b?PAL.blue:ink;x.fillText(w.w,cx,y0+i*hs*1.25+(1-E(u))*hs*.3);cx+=x.measureText(w.w+' ').width})});x.globalAlpha=1}}
+    else{let k=0;lines.forEach((l,i)=>{const parts=l.split(/(\[[^\]]+\])/).filter(Boolean);const words=[];parts.forEach(pp=>{const b=pp.startsWith('[');pp.replace(/[\[\]]/g,'').split(' ').forEach(w=>{if(!w)return;if(/^[.,!?:;]+$/.test(w)&&words.length)words[words.length-1].w+=w;else words.push({w,b})})});x.textAlign='left';const tw=words.reduce((ss,w)=>ss+x.measureText(w.w+' ').width,0);let cx=W/2-tw/2;words.forEach(w=>{const u=Math.max(0,Math.min(1,(local-k*(p.stagger||.1))/(p.speed||.45)));k++;x.globalAlpha=a*E(u);x.fillStyle=w.b?PAL.blue:ink;x.fillText(w.w,cx,y0+i*hs*1.25+(1-E(u))*hs*.3);cx+=x.measureText(w.w+' ').width})});x.globalAlpha=1}}
   function drawOutro(s,local,a,fout){const lh=m*.07;x.font=`600 ${Math.round(m*.052)}px Macan, sans-serif`;const ww=x.measureText('Leland').width;const lw=lh;const totalW=lw+m*.02+ww;const y=H/2-m*.09;const tag=s.tag||'Own your future.';const L=preset('logo',state.outro);const mode=leoFrames?'leo':state.outro==='leo'?'draw':state.outro;const wordP=preset('text','words'),E=EASE.out;
     if(mode==='leo'){const lf=leoFrames;const spinT=Math.min(1,local/1.1);const fi=Math.min(lf.length-1,Math.floor(spinT*(lf.length-1)));const settle=Math.max(0,Math.min(1,(local-1.1)/.4));const big=m*.5,size=big+(lh*1.6-big)*ease(settle);const cx=W/2+(W/2-totalW/2+lw/2-W/2)*ease(settle),cy=H/2+(y-H/2)*ease(settle);x.globalAlpha=Math.min(fout,1);x.drawImage(lf[fi],cx-size/2,cy-size/2,size,size);x.globalAlpha=settle*fout;x.fillStyle=ink;x.textAlign='left';x.fillText('Leland',W/2-totalW/2+lw+m*.02,y+m*.004)}
     else if(mode==='draw'){const d=L.dur||1.5;const drawT=Math.min(1,local/(d*.37)),hold=d*.37+.2,typeT=Math.max(0,Math.min(1,(local-hold)/(d*.3)));const shift=E(typeT);const mx=W/2-lw/2+(W/2-totalW/2-(W/2-lw/2))*shift;
@@ -331,7 +330,7 @@ async function renderVideo(S,ratioKey=''){const [W,H]=SIZES[ratioKey];const c=do
       const n=Math.floor(6*typeT);x.globalAlpha=fout;x.fillStyle=ink;x.textAlign='left';x.textBaseline='middle';x.fillText('Leland'.slice(0,n),mx+lw+m*.02,y+m*.004)}
     else{const f=Math.min(1,local/(L.dur||.25));x.globalAlpha=f*a;drawMark(W/2-totalW/2,y-lh/2,lh);x.fillStyle=ink;x.textAlign='left';x.textBaseline='middle';x.fillText('Leland',W/2-totalW/2+lw+m*.02,y+m*.004)}
     const tagStart=mode==='fade'?.1:(L.dur||1.5)*.75;const tl=Math.max(0,local-tagStart);x.font=`500 ${Math.round(m*.05)}px Macan, sans-serif`;x.textBaseline='middle';
-    {const words=[];tag.split(/(\[[^\]]+\])/).filter(Boolean).forEach(pp=>{const b=pp.startsWith('[');pp.replace(/[\[\]]/g,'').split(' ').forEach(w=>w&&words.push({w,b}))});x.textAlign='left';const tw=words.reduce((ss,w)=>ss+x.measureText(w.w+' ').width,0);let cx=W/2-tw/2;words.forEach((w,k)=>{const u=Math.max(0,Math.min(1,(tl-k*(wordP.stagger||.1))/(wordP.speed||.45)));x.globalAlpha=E(u)*fout;x.fillStyle=w.b?PAL.blue:ink;x.fillText(w.w,cx,H/2+m*.02+(1-E(u))*m*.015);cx+=x.measureText(w.w+' ').width})}
+    {const words=[];tag.split(/(\[[^\]]+\])/).filter(Boolean).forEach(pp=>{const b=pp.startsWith('[');pp.replace(/[\[\]]/g,'').split(' ').forEach(w=>{if(!w)return;if(/^[.,!?:;]+$/.test(w)&&words.length)words[words.length-1].w+=w;else words.push({w,b})})});x.textAlign='left';const tw=words.reduce((ss,w)=>ss+x.measureText(w.w+' ').width,0);let cx=W/2-tw/2;words.forEach((w,k)=>{const u=Math.max(0,Math.min(1,(tl-k*(wordP.stagger||.1))/(wordP.speed||.45)));x.globalAlpha=E(u)*fout;x.fillStyle=w.b?PAL.blue:ink;x.fillText(w.w,cx,H/2+m*.02+(1-E(u))*m*.015);cx+=x.measureText(w.w+' ').width})}
     const ba=(s.badges===false?0:1)*Math.max(0,Math.min(1,(tl-.4)/.4))*fout;x.globalAlpha=ba;x.font=`600 ${Math.round(m*.02)}px Macan, sans-serif`;const bs=['App Store','Google Play'];let bx=W/2-(x.measureText(bs[0]).width+x.measureText(bs[1]).width+m*.1)/2;const by=H/2+m*.11;bs.forEach(ss=>{const tw=x.measureText(ss).width+m*.03;x.strokeStyle=ink;x.lineWidth=2;roundRect(x,bx,by,tw,m*.045,m*.008);x.stroke();x.fillStyle=ink;x.fillText(ss,bx+m*.015,by+m*.0225);bx+=tw+m*.04});x.globalAlpha=1}
   let lastIdx=-1;
   function draw(t){x.fillStyle=bgc;x.fillRect(0,0,W,H);const i=sceneAt(t);const s=S[i];const local=t-sceneStart(i);const D=sceneDur(s);const fin=Math.min(1,local/fadeD),fout=Math.min(1,(D-local)/fadeD);const a=Math.min(fin,fout);x.textBaseline='middle';
@@ -350,7 +349,7 @@ async function renderVideo(S,ratioKey=''){const [W,H]=SIZES[ratioKey];const c=do
 let projects=[];
 function restoreProjects(){try{projects=JSON.parse(localStorage.getItem('le-projects')||'[]')}catch(e){projects=[]}renderProjects()}
 function addProject(p){const id=ED.pid||p.id||(crypto.randomUUID?crypto.randomUUID():String(Date.now()));projects=projects.filter(q=>q.id!==id);projects.unshift({...p,id,at:new Date().toISOString()});projects=projects.slice(0,60);try{localStorage.setItem('le-projects',JSON.stringify(projects))}catch(e){}renderProjects()}
-function renderProjects(){$('projlist').innerHTML=projects.length?`<div class="pgrid2">${projects.map((p,i)=>`<div class="proj" onclick="openProject(${i})"><div class="th" style="background-image:url('${p.th||''}')"></div><div class="t">${esc(p.t)}</div><div class="m">${esc(p.m)} · ${new Date(p.at).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</div></div>`).join('')}</div>`:`<div class="empty big"><button class="btn black" onclick="go('make')">Make something</button></div>`}
+function renderProjects(){const nb=document.querySelector('#projects .hrow .btn');if(nb)nb.style.display=projects.length?'':'none';$('projlist').innerHTML=projects.length?`<div class="pgrid2">${projects.map((p,i)=>`<div class="proj" onclick="openProject(${i})"><div class="th" style="background-image:url('${p.th||''}')"></div><div class="t">${esc(p.t)}</div><div class="m">${esc(p.m)} · ${new Date(p.at).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</div></div>`).join('')}</div>`:`<div class="empty big"><button class="btn black" onclick="go('make')">Make something</button></div>`}
 function openProject(i){const p=projects[i];if(p.kind==='image'&&p.tid)startImage(p.tid,p);else if(p.kind==='deck'&&p.deck)startDeck(p.deck.type,p);else if(p.kind==='story'&&p.story)startStory(p);else if(p.kind==='video')startVideo(p);else toast(p.m)}
 
 /* ---------- connect ---------- */
@@ -358,7 +357,7 @@ const CONNS={create:[
   {id:'figma',n:'Figma',d:'Product illustrations, brand file',st:()=>'Imported · 299 illustrations'},
   {id:'drive',n:'Google Drive',d:'Brand library, expert photos, launch kit',st:()=>'Imported · brand library'},
   {id:'notion',n:'Notion',d:'Case study drafts, post copy',st:()=>'Imported · copy'},
-  {id:'opus',n:'Claude Opus',d:'Writes copy inside the guardrails',st:()=>hasOpus()?'Connected':'',act:'connectOpus()'},
+  {id:'opus',n:'Claude Opus',d:'Writes copy inside the guardrails',st:()=>hasOpus()?'Connected':'',act:'connectOpus()',label:'Connect'},
   {id:'slack',n:'Slack',d:'Where requests and the voice come from',st:()=>'Imported · voice'}],
   dist:[
   {id:'linkedin',n:'LinkedIn',d:'Posts, carousels, company page',st:()=>''},
@@ -368,9 +367,9 @@ const CONNS={create:[
   {id:'youtube',n:'YouTube',d:'Films and clips',st:()=>''},
   {id:'posthog',n:'PostHog',d:'What happens after the click',st:()=>''}]};
 const LOGO_SVG={figma:'<path d="M9 3h6a3 3 0 010 6H9zM9 9h6a3 3 0 010 6H9zM9 15h3a3 3 0 11-3 3z"/><path d="M15 9a3 3 0 110 6 3 3 0 010-6z"/>',drive:'<path d="M8 4h8l5 9-4 7H7l-4-7z"/><path d="M8 4l4 9h9M12 13l-4 7"/>',notion:'<rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 16V8l6 8V8"/>',opus:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',slack:'<path d="M9 4v6M15 14v6M4 15h6M14 9h6M9 10a2 2 0 11-2-2M15 14a2 2 0 112 2M10 15a2 2 0 11-2 2M14 9a2 2 0 112-2"/>',linkedin:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10v6M8 7v.5M12 16v-3.5a2 2 0 014 0V16"/>',instagram:'<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><path d="M17 7v.5"/>',meta:'<path d="M3 16c2-8 5-8 9 0 4-8 7-8 9 0"/>',gads:'<path d="M6 17l6-10 6 10"/><circle cx="6" cy="17" r="2"/>',youtube:'<rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10 9l5 3-5 3z"/>',posthog:'<path d="M4 18l6-6 4 4 6-6"/>'};
-function renderConnect(){const row=c=>{const s=c.st();return `<div class="conn ${s?'on':''}"><svg class="ico" viewBox="0 0 24 24">${LOGO_SVG[c.id]||''}</svg><div><b>${c.n}</b><span>${c.d}</span></div><button class="btn sm ${s?'':'black'}" onclick="${c.act||`connReq('${c.n}')`}">${s||'Needs a developer'}</button></div>`};
+function renderConnect(){const row=c=>{const s=c.st();return `<div class="conn ${s?'on':''}"><svg class="ico" viewBox="0 0 24 24">${LOGO_SVG[c.id]||''}</svg><div><b>${c.n}</b><span>${c.d}</span></div><button class="btn sm" onclick="${c.act||`connReq('${c.n}')`}">${s||c.label||'Needs a developer'}</button></div>`};
   $('connCreate').innerHTML=CONNS.create.map(row).join('');$('connDist').innerHTML=CONNS.dist.map(row).join('');
-  const rows=projects.map(p=>`<div class="prow"><div class="th" style="background-image:url('${p.th||''}')"></div><div class="t">${esc(p.t)}</div><div>${esc(p.m)}</div><div>Downloaded</div><div class="dim">—</div><div class="dim">—</div></div>`).join('');
+  const rows=projects.map(p=>`<div class="prow"><div class="th" style="background-image:url('${p.th||''}')"></div><div class="t">${esc(p.t)}</div><div>${esc(p.m)}</div><div>Saved</div><div class="dim">—</div><div class="dim">—</div></div>`).join('');
   $('placements').innerHTML=`<div class="prow head"><div></div><div>Asset</div><div>Format</div><div>Where</div><div>Spend</div><div>Results</div></div>${rows||'<div class="empty">Nothing made yet.</div>'}`}
 function connReq(n){window.open('DEVELOPERS.md','_blank')}
 

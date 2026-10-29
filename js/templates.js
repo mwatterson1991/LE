@@ -16,7 +16,7 @@
   function accentFor(name) {
     if (name === 'yellow' || name === 'tan') return PAL.ink;
     if (isDark(name)) return PAL.white;
-    return PAL.blue;
+    return PAL.follow || '#3963D7';
   }
 
   /* ---------- vector lockup (assets/brand/logo.svg, viewBox 0 0 112 24) ---------- */

@@ -64,3 +64,15 @@ Today: three draggable layers on the canvas (text, illustration, product shot), 
 - Video editor: stage, a timeline of thumbnail blocks (drag to reorder), and building blocks beneath (Text, Product shot, Intro, UI clip, Concept, Outro).
 - Brand page: thesis, principles, voice, do/don't, look, audiences from data/brand.json (compiled from the brand kickoff, house style, marketing copy guide). The /le skill is no longer shown; copy it from the Me menu until it becomes an org-level skill.
 - DEVELOPERS.md: the hand-off for wiring Meta, Google Ads, LinkedIn, Instagram, YouTube, PostHog and the create-side tools through the Worker.
+
+
+## Oct 29 — the rebuild
+- The brand board (brand/board.html) is the source of truth. The palette is yellow #FFD96F, blue #80ACED, slate, beige, tan, paper, ink; the tool's chrome stays monochrome but the assets carry the color. Vector lockup extracted from the board: assets/brand/logo.svg, mark.svg (+ white).
+- Make → Image → ten templates (headline on a field, photo with lockup, expert spotlight, one number, three illustrations, product moment, quote, before/after, list, announcement), each a canvas renderer in js/templates.js: preview = export. Fields: text, field color, assets, align. "Lines we've used" pulls real headlines from data/copy.json.
+- Make → Video is a form: the story, three screenshots, length, music, close line, badges. The film is rendered from that; no timeline.
+- Make → Deck: pick Sales / Session / All-hands / Customer story, paste what it should say, slides are parsed and rendered (js/deck.js), edit per slide, PDF or PNGs.
+- Make → Case study: paste a post, fields fill (Opus if connected, a scripted reader otherwise), carousel PDF / PNGs / web page / post.
+- Copy library: data/copy.json, 117 real lines mined from Slack, Notion and Drive (posts, headlines, hooks, taglines, CTAs, subjects, ads, bios) with sources, plus a voice summary and rules. The voice findings that brand.json gets wrong are in the agent report and in copy.voice.
+- GIFs: 15 looping sales concepts (assets/gifs, sources in assets/gifs/src).
+- No pills anywhere. No subcopy on cards. One Download button per editor. Drafts autosave to Projects.
+- Still weak: org logos are favicon-size sources (blurry when large; 27 mono versions are silhouettes); the PDF export loads jsPDF from a CDN at click time; Connect is honest about needing a developer (DEVELOPERS.md).
