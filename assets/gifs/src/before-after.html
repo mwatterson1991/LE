@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Before, after</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+:root{--yellow:#FFD96F;--blue:#80ACED;--ink:#010101}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--blue);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
+.layer{position:absolute;inset:0;overflow:hidden}
+.photo img.bg{position:absolute;left:-3%;top:-3%;width:106%;height:106%;object-fit:cover;object-position:50% 40%;display:block;will-change:transform}
+.after{background:var(--blue)}
+.lbl{position:absolute;top:56px;margin:0;font:500 64px/1 'Season',Georgia,serif;letter-spacing:-.022em;color:#fff;white-space:nowrap;will-change:transform}
+.lbl.b{right:1280px;padding-right:72px}
+.lbl.a{left:0;padding-left:72px}
+.logo{position:absolute;right:72px;bottom:60px;width:140px}
+.frame{position:absolute;left:400px;top:120px;width:560px;height:466px;border-radius:18px;overflow:hidden;background:#fff;will-change:transform}
+.frame img{position:absolute;display:block}
+.edge{position:absolute;top:0;bottom:0;width:4px;background:#fff;margin-left:-2px;will-change:transform}
+.cap{position:absolute;left:72px;bottom:64px;font:500 18px/1.4 'Macan';color:#fff;width:300px}
+</style></head><body>
+<div class="stage">
+  <div class="layer photo"><img id="ph" class="bg" src="../../photos/hands-writing-notebook-startup-planning.jpg" alt=""><h1 class="lbl b" id="lb">Before</h1><img class="logo" src="../../brand/logo-white.svg" alt=""></div>
+  <div class="layer after" id="after">
+    <h1 class="lbl a" id="la">After</h1><img class="logo" src="../../brand/logo-white.svg" alt="">
+    <div class="frame" id="frame"><img src="../../kit/ai-tom.jpg" alt=""></div>
+  </div>
+  <div class="edge" id="edge"></div>
+</div>
+<script>
+const D=10; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
+  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2};
+const lerp=(a,b,k)=>a+(b-a)*k;
+// show only the card region of the kit screenshot (card at 403..1516 x 76..1003 in the 1920x1080 jpg)
+const fi=document.querySelector('#frame img'); const S=560/1089; fi.style.width=1920*S+'px'; fi.style.left=-415*S+'px'; fi.style.top=-86*S+'px';
+const after=document.getElementById('after'), edge=document.getElementById('edge'), frame=document.getElementById('frame'), ph=document.getElementById('ph');
+function render(t){
+  // divider: sits at the right edge, sweeps left (after revealed), holds, sweeps back
+  const a=E.xio(seg(t,1.2,3.1)), b=E.xio(seg(t,6.6,8.5));
+  const x=lerp(1280,0,a)+lerp(0,1280,b);
+  after.style.clipPath=`inset(0 0 0 ${x}px)`;
+  edge.style.transform=`translateX(${x}px)`; edge.style.opacity=(x>2&&x<1278)?1:0;
+  // the labels ride the divider: Before on its left, After on its right; each parks at the edge when its side is full
+  document.getElementById('lb').style.transform=`translateX(${Math.min(x,332)}px)`;
+  document.getElementById('la').style.transform=`translateX(${x}px)`;
+  // the card rides a little with the divider, so the two sides have depth
+  frame.style.transform=`translateX(${(x/1280)*90}px)`;
+}
+let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
+(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+</script></body></html>

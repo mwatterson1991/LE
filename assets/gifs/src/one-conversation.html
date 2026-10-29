@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>One conversation</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
+:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#3963D7}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--beige);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:var(--neutral)}
+.h{position:absolute;left:80px;top:68px;margin:0;font:500 60px/1 'Season',Georgia,serif;letter-spacing:-.022em;color:var(--ink)}
+.h b{font-weight:500;color:var(--blue)}
+.chat{position:absolute;left:80px;top:196px;width:680px}
+.q{position:absolute;left:0;top:0;width:600px;background:#fff;border-radius:24px 24px 24px 6px;padding:26px 30px;box-sizing:border-box;font:400 27px/1.3 'Macan';color:var(--ink);opacity:0;will-change:transform}
+.who{position:absolute;left:0;top:184px;display:flex;align-items:center;gap:12px;opacity:0;will-change:transform}
+.who .av{width:52px;height:52px;border-radius:50%;background:url(../../kit/card-marcus.jpg) no-repeat;background-size:998.4px auto;background-position:-208px -54.6px}
+.who .nm{font:600 19px/1 'Macan';color:var(--ink);display:flex;align-items:center;gap:6px}
+.who .nm svg{width:15px;height:15px}
+.who .cr{margin-top:6px;font:400 16px/1 'Macan';color:#5d5d59}
+.a{position:absolute;left:0;top:248px;width:560px;background:var(--yellow);border-radius:24px 24px 24px 6px;padding:26px 30px;box-sizing:border-box;font:500 27px/1.3 'Macan';color:var(--ink);opacity:0;will-change:transform;transform-origin:0 0}
+.dots{position:absolute;left:0;top:248px;width:92px;height:60px;background:var(--yellow);border-radius:22px 22px 22px 6px;opacity:0;display:flex;align-items:center;justify-content:center;gap:7px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--ink);display:block}
+.ill{position:absolute;left:800px;top:200px;width:420px;height:420px;opacity:0;transform-origin:50% 60%;will-change:transform}
+.ill img{width:100%;height:100%;object-fit:contain;display:block}
+.mark{position:absolute;right:80px;bottom:60px;width:34px;height:34px}
+</style></head><body>
+<div class="stage">
+  <h1 class="h">One conversation could <b>open the door.</b></h1>
+  <div class="chat">
+    <div class="q" id="q">I don't have a strong network yet. Is McKinsey or Bain out of reach?</div>
+    <div class="who" id="who"><i class="av"></i><div><div class="nm">Marcus Bell<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#3963D7"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+    <div class="dots" id="dots"><i></i><i></i><i></i></div>
+    <div class="a" id="a">Lead with what you built, not the logo.</div>
+  </div>
+  <div class="ill" id="ill"><img src="../../illustrations/key.svg" alt=""></div>
+  <img class="mark" src="../../brand/mark.svg" alt="">
+</div>
+<script>
+const D=10; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
+  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2,
+  back:(x,s=1.4)=>{const c=s+1;return 1+c*Math.pow(x-1,3)+s*Math.pow(x-1,2)}};
+const lerp=(a,b,k)=>a+(b-a)*k;
+const $=id=>document.getElementById(id);
+const q=$('q'),who=$('who'),dots=$('dots'),a=$('a'),ill=$('ill');
+const dot=[...dots.children];
+function render(t){
+  const out=E.in(seg(t,8.0,8.8)); // everything scrolls up and away
+  const oy=-out*160;
+  const k1=E.back(seg(t,.4,1.2),1.1); q.style.opacity=seg(t,.4,.6)*(1-out); q.style.transform=`translateY(${lerp(40,0,k1)+oy}px)`;
+  const k2=E.out(seg(t,1.5,2.1)); who.style.opacity=seg(t,1.5,1.7)*(1-out); who.style.transform=`translateY(${lerp(24,0,k2)+oy}px)`;
+  // typing dots 1.9 - 3.1
+  const td=t>1.9&&t<3.05?1:0; dots.style.opacity=td*seg(t,1.9,2.05);
+  dot.forEach((d,i)=>{d.style.transform=`translateY(${-Math.max(0,Math.sin((t-1.9)*7-i*.9))*5}px)`});
+  const k3=E.back(seg(t,3.05,3.85),1.3); a.style.opacity=seg(t,3.05,3.2)*(1-out); a.style.transform=`translateY(${oy}px) scale(${lerp(.6,1,k3)})`;
+  // the key: settles in once the answer lands, then turns a little, like a key in a lock
+  const k4=E.back(seg(t,3.6,4.7),1.2); const turn=Math.sin(seg(t,4.7,6.2)*Math.PI)*-10;
+  ill.style.opacity=seg(t,3.6,3.9)*(1-E.in(seg(t,8.1,8.7)));
+  ill.style.transform=`translateY(${lerp(50,0,k4)}px) rotate(${lerp(-14,0,k4)+turn}deg) scale(${lerp(.8,1,k4)})`;
+}
+let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
+(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+</script></body></html>

@@ -9,17 +9,17 @@ function storyLogo(id){story.logo=id;closeDrawer();storySync()}
 function storySlides(){const s=[['cover','Cover']];if(story.who)s.push(['who','Who']);if(story.before)s.push(['before','Before']);if(story.built.length)s.push(['built','What they built']);if(story.quote)s.push(['quote','Quote']);s.push(['close','Close']);return s}
 let stT=null;
 function storySync(){storyRead();clearTimeout(stT);stT=setTimeout(async()=>{const sl=storySlides();if(story.slide>=sl.length)story.slide=0;
-  const c=await renderStorySlide(sl[story.slide][0],540,675);$('storyImg').src=c.toDataURL();
+  const c=await renderStorySlide(sl[story.slide][0],864,1080);$('canvasImg').src=c.toDataURL();$('stage').className='stage r45';
   const thumbs=[];for(const [k] of sl){const t=await renderStorySlide(k,160,200);thumbs.push(t.toDataURL())}
   $('slides').innerHTML=sl.map(([k,n],i)=>`<div class="slide story ${i===story.slide?'on':''}" style="background-image:url('${thumbs[i]}')" onclick="story.slide=${i};storySync()"><span class="n">${n}</span></div>`).join('')},60)}
 const BLUE='#2f5fd6',SOFT='#80aced';
 async function renderStorySlide(kind,W,H){const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');await fontsReady();const u=W/1080;
-  x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#111';x.textBaseline='top';
-  const lm=await loadImg('assets/logomark.png');const pad=96*u;
+  const BG={cover:'#FFD96F',who:'#F9F8F3',before:'#F9F8F3',built:'#F9F8F3',quote:'#F3F1E6',close:'#FFD96F'};x.fillStyle=BG[kind]||'#F9F8F3';x.fillRect(0,0,W,H);x.fillStyle='#111';x.textBaseline='top';
+  const lm=await loadImg('assets/brand/mark.svg');const pad=96*u;
   const eyebrow=(t)=>{x.font=`600 ${30*u}px Macan`;x.fillStyle='#767676';x.fillText(t.toUpperCase(),pad,pad);x.fillStyle='#111'};
   const lockup=(y,size)=>{const lh=size,lw=lm.width/lm.height*lh;x.drawImage(lm,pad,y,lw,lh);x.font=`600 ${size*.95}px Macan`;x.fillStyle='#111';x.textBaseline='middle';x.fillText('Leland',pad+lw+size*.35,y+lh/2);x.textBaseline='top'};
   const body=(t,y,size,maxW,ink='#111',lh=1.3)=>{x.font=`400 ${size}px Macan`;x.fillStyle=ink;const ls=wrapText(x,t,maxW);ls.forEach(l=>{x.fillText(l,pad,y);y+=size*lh});return y};
-  const head=(t,y,size,maxW)=>{x.font=`500 ${size}px Season, Georgia, serif`;const ls=wrapText(x,t,maxW);ls.forEach(l=>{drawRich(x,l,pad,y,'left','#111');y+=size*1.06});return y};
+  const accent=(BG[kind]==='#FFD96F')?'#010101':'#3963D7';const head=(t,y,size,maxW)=>{x.font=`500 ${size}px Season, Georgia, serif`;const ls=wrapText(x,t,maxW);ls.forEach(l=>{drawRich(x,l,pad,y,'left','#111',accent);y+=size*1.06});return y};
   const lg=A(story.logo);
   if(kind==='cover'){eyebrow('AI Builder Program');
     if(lg){const im=await loadImg(lg.src);const s=220*u;roundRect(x,pad,pad+90*u,s,s,s*.18);x.save();x.clip();x.drawImage(im,pad,pad+90*u,s,s);x.restore()}

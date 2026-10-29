@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Your feed</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
+:root{--yellow:#FFD96F;--blue:#80ACED;--beige:#F3F1E6;--paper:#F9F8F3;--ink:#010101;--neutral:#222}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--blue);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:var(--neutral)}
+.h{position:absolute;left:80px;top:72px;width:400px;margin:0;font:500 60px/1.02 'Season',Georgia,serif;letter-spacing:-.022em;color:var(--ink)}
+.h b{font-weight:500;color:#fff}
+.logo{position:absolute;left:80px;bottom:64px;width:120px}
+.seg{position:absolute;left:560px;top:72px;width:640px;height:54px;border-radius:27px;background:rgba(255,255,255,.55);display:flex;padding:5px;box-sizing:border-box}
+.seg .ind{position:absolute;left:5px;top:5px;height:44px;border-radius:22px;background:var(--ink);will-change:transform,width}
+.seg span{position:relative;flex:1;display:grid;place-items:center;font:500 18px/1 'Macan';color:var(--ink);z-index:1}
+.feed{position:absolute;left:560px;top:150px;width:640px;height:506px;overflow:hidden}
+.post{position:absolute;left:0;top:0;width:640px;height:140px;background:#fff;border-radius:16px;padding:18px 22px;box-sizing:border-box;will-change:transform}
+.post .hd{display:flex;align-items:center;gap:10px}
+.post .hd .av{width:34px;height:34px;border-radius:50%;background-repeat:no-repeat;background-size:652.8px auto;flex:none}
+.post .nm{font:600 15px/1 'Macan';color:var(--ink)}
+.post .tm{font:400 14px/1 'Macan';color:#8a8a86;margin-left:4px}
+.post .tx{margin-top:7px;font:400 17px/1.3 'Macan';color:var(--ink);padding-left:44px;padding-right:20px;height:44px;overflow:hidden}
+.post .ac{position:absolute;left:66px;bottom:14px;display:flex;gap:26px}
+.post .ac svg{width:16px;height:16px;fill:none;stroke:#8a8a86;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.post .tag{position:absolute;right:16px;top:16px;font:500 12px/1 'Macan';color:var(--ink);background:var(--yellow);padding:6px 9px;border-radius:9px;opacity:0}
+</style></head><body>
+<div class="stage">
+  <h1 class="h">Your feed is built around <b>your goal.</b></h1>
+  <img class="logo" src="../../brand/logo-white.svg" alt="">
+  <div class="seg" id="seg"><i class="ind" id="ind"></i><span>MBA</span><span>Consulting</span><span>PM</span></div>
+  <div class="feed" id="feed"></div>
+</div>
+<script>
+const D=10.5; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
+  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2};
+const lerp=(a,b,k)=>a+(b-a)*k;
+const GOALS=['MBA','Consulting','PM'];
+const POSTS=[
+  // launch-kit sample personas; avatars are cropped from their own kit cards (assets/kit/card-*.jpg), 100px circles at [x,y]
+  {g:0,name:'Amara Okafor',kit:'card-amara',at:[350,390],tm:'4h',tx:'What do top MBA programs actually look for in an application? Be honest.'},
+  {g:1,name:'Ben Carter',kit:'card-ben',at:[400,105],tm:'1h',tx:"I don't have a strong network yet. Is McKinsey or Bain out of reach?"},
+  {g:2,name:'Kevin Zhou',kit:'card-kevin',at:[345,390],tm:'2h',tx:"Is it actually possible to land a FAANG job if you've never had an internship?"},
+  {g:0,name:'Dana Lakra',kit:'card-dana',at:[490,215],tm:'3h',tx:'Is a 690 GMAT a dealbreaker for Wharton?'},
+  {g:1,name:'Maya Chen',kit:'card-maya',at:[490,395],tm:'30m',tx:'Signed the Bain offer. Six months ago I froze in every case.'},
+  {g:2,name:'Marcus Bell',kit:'card-marcus',at:[400,105],tm:'2h',tx:"No internship doesn't mean no FAANG."},
+];
+const ic={heart:'<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+  cm:'<svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+  rp:'<svg viewBox="0 0 24 24"><path d="M4 9l3-3 3 3M7 6v9a3 3 0 0 0 3 3h3M20 15l-3 3-3-3M17 18V9a3 3 0 0 0-3-3h-3"/></svg>',
+  bk:'<svg viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4z"/></svg>'};
+const feed=document.getElementById('feed');
+const els=POSTS.map(p=>{const d=document.createElement('div');d.className='post';
+  const k=34/100; d.innerHTML=`<div class="hd"><i class="av" style="background-image:url(../../kit/${p.kit}.jpg);background-position:${-p.at[0]*k}px ${-p.at[1]*k}px"></i><span class="nm">${p.name}</span><span class="tm">${p.tm}</span></div><div class="tx">${p.tx}</div><div class="ac">${ic.heart}${ic.cm}${ic.rp}${ic.bk}</div><span class="tag">${GOALS[p.g]}</span>`;
+  feed.appendChild(d);return d;});
+const H=140,G=12;
+// order for a goal: matching posts first (stable), then the rest
+const orderFor=g=>{const m=POSTS.map((p,i)=>i).filter(i=>POSTS[i].g===g), r=POSTS.map((p,i)=>i).filter(i=>POSTS[i].g!==g);return [...m,...r];};
+const posFor=g=>{const o=orderFor(g),y=[];o.forEach((i,k)=>y[i]=k*(H+G));return y;};
+const SW=[.6,4.1,7.6]; // switch times: at SW[k] the goal becomes k
+const ind=document.getElementById('ind');
+function render(t){
+  // current goal and transition progress
+  let cur=2, prev=1, p=1; // before the first switch we are at PM (end of the loop)
+  for(let k=0;k<3;k++){ if(t>=SW[k]){cur=k; prev=(k+2)%3; p=seg(t,SW[k],SW[k]+1.0);} }
+  const from=posFor(prev), to=posFor(cur);
+  els.forEach((el,i)=>{
+    const k=E.xio(clamp(p*1.3-i*.05,0,1));
+    const y=lerp(from[i],to[i],k);
+    const dim=POSTS[i].g===cur?1:(POSTS[i].g===prev?lerp(1,.72,k):.72);
+    el.style.transform=`translateY(${y}px)`; el.style.opacity=dim;
+    el.querySelector('.tag').style.opacity=POSTS[i].g===cur?seg(p,.5,1):(POSTS[i].g===prev?1-seg(p,0,.4):0);
+  });
+  [...document.querySelectorAll('#seg span')].forEach((sp,i)=>{sp.style.color=i===cur?(p>.5?'#fff':'#010101'):(i===prev&&p<=.5?'#fff':'#010101')});
+  const fromX=5+prev*210, toX=5+cur*210;
+  ind.style.transform=`translateX(${lerp(fromX,toX,E.xio(p))-5}px)`; ind.style.width='210px';
+}
+let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
+(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+</script></body></html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Real names</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
+:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#3963D7}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--paper);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:var(--neutral)}
+.h{position:absolute;left:80px;top:68px;margin:0;font:500 60px/1 'Season',Georgia,serif;letter-spacing:-.022em;color:var(--ink)}
+.h b{font-weight:500;color:var(--blue)}
+.row{position:absolute;left:0;top:192px;width:1280px;height:440px;perspective:1600px}
+.card{position:absolute;top:0;width:300px;height:440px;transform-style:preserve-3d;will-change:transform}
+.face{position:absolute;inset:0;border-radius:18px;overflow:hidden;backface-visibility:hidden}
+.front{background:var(--slate)}
+.front svg{position:absolute;left:50%;top:92px;width:150px;height:150px;transform:translateX(-50%)}
+.front .bar{position:absolute;left:28px;height:14px;border-radius:7px;background:#fff;opacity:.45}
+.back{background:#fff;transform:rotateY(180deg)}
+.back img{position:absolute;left:0;top:0;width:300px;height:330px;object-fit:cover;object-position:50% 20%;display:block}
+.back .meta{position:absolute;left:0;right:0;bottom:0;height:110px;padding:22px 24px 0;box-sizing:border-box}
+.back .nm{font:600 20px/1.1 'Macan';color:var(--ink);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.back .nm svg{width:17px;height:17px;flex:none}
+.back .cr{margin-top:8px;font:400 15px/1.3 'Macan';color:#5d5d59;white-space:nowrap}
+.mark{position:absolute;right:80px;top:80px;width:34px;height:34px}
+</style></head><body>
+<div class="stage">
+  <h1 class="h">Real names, <b>real backgrounds.</b></h1>
+  <img class="mark" src="../../brand/mark.svg" alt="">
+  <div class="row" id="row"></div>
+</div>
+<script>
+const D=10; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
+  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2,
+  back:(x,s=1.2)=>{const c=s+1;return 1+c*Math.pow(x-1,3)+s*Math.pow(x-1,2)}};
+const lerp=(a,b,k)=>a+(b-a)*k;
+// names exactly as data/manifest.json titles these experts; no invented credentials
+const P=[
+  {img:'claudia-p',name:'Claudia P.',cred:'Expert'},
+  {img:'theo-m',name:'Theo M.',cred:'Expert'},
+  {img:'nneoma-u',name:'Nneoma U.',cred:'Expert'},
+];
+const check=`<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#3963D7"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const sil=`<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="36" r="20" fill="#fff" opacity=".5"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36" fill="#fff" opacity=".5"/></svg>`;
+const row=document.getElementById('row');
+const X=[150,490,830];
+const cards=P.map((p,i)=>{const d=document.createElement('div');d.className='card';d.style.left=X[i]+'px';
+  d.innerHTML=`<div class="face front">${sil}<i class="bar" style="top:292px;width:150px"></i><i class="bar" style="top:318px;width:96px"></i></div>
+  <div class="face back"><img src="../../experts/${p.img}.jpg" alt=""><div class="meta"><div class="nm">${p.name}${check}</div><div class="cr">${p.cred}</div></div></div>`;
+  row.appendChild(d);return d;});
+const F=i=>1.1+i*.5, B=i=>7.3+i*.4;
+function render(t){
+  cards.forEach((c,i)=>{
+    const f=E.back(seg(t,F(i),F(i)+.95)), b=E.xio(seg(t,B(i),B(i)+.8));
+    const rot=180*f-180*b;
+    const lift=Math.sin(Math.PI*seg(t,F(i),F(i)+.95))*26+Math.sin(Math.PI*seg(t,B(i),B(i)+.8))*18;
+    c.style.transform=`translateY(${-lift}px) rotateY(${rot}deg)`;
+  });
+}
+let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
+(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+</script></body></html>

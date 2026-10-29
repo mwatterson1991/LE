@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LE</title>
-<link rel="icon" href="assets/logomark.png">
+<link rel="icon" href="assets/brand/mark.svg">
 <link rel="stylesheet" href="css/le.css">
 </head>
 <body>
@@ -37,26 +37,17 @@
 
     <!-- ===== MAKE ===== -->
     <section id="make" class="screen on">
-      <div class="wrap" style="padding-top:52px">
+      <div class="wrap" style="padding-top:44px">
         <h1>What are we making?</h1>
-        <div class="picks">
-          <button class="pick" onclick="start('still')">
-            <div class="art"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="130" rx="10" class="g-frame"/><rect x="28" y="92" width="92" height="8" rx="4" class="g-ink"/><rect x="28" y="108" width="58" height="6" rx="3" class="g-soft"/><rect x="28" y="26" width="18" height="18" rx="4" class="g-ink"/><circle cx="150" cy="50" r="22" class="g-soft"/></svg></div>
-            <div class="body"><b>Post</b><span>Images for LinkedIn, Instagram, ads, email</span></div>
-          </button>
-          <button class="pick" onclick="start('video')">
-            <div class="art"><svg viewBox="0 0 200 150"><rect x="10" y="10" width="180" height="104" rx="10" class="g-frame"/><g class="g-play"><circle cx="100" cy="62" r="20" class="g-ink"/><path d="M94 52l16 10-16 10z" fill="#fff"/></g><rect x="10" y="126" width="180" height="14" rx="7" class="g-soft"/><rect x="10" y="126" width="68" height="14" rx="7" class="g-ink"/></svg></div>
-            <div class="body"><b>Video</b><span>Launch films, promos, reels</span></div>
-          </button>
-          <button class="pick" onclick="start('deck')">
-            <div class="art"><svg viewBox="0 0 200 150"><rect x="34" y="8" width="150" height="100" rx="8" class="g-soft"/><rect x="22" y="22" width="150" height="100" rx="8" fill="#fff" stroke="#111" stroke-width="1.5" opacity=".7"/><rect x="10" y="36" width="150" height="100" rx="8" class="g-frame"/><rect x="26" y="56" width="70" height="8" rx="4" class="g-ink"/><rect x="26" y="72" width="100" height="5" rx="2.5" class="g-soft"/><rect x="26" y="84" width="84" height="5" rx="2.5" class="g-soft"/></svg></div>
-            <div class="body"><b>Deck</b><span>Sales, sessions, all-hands</span></div>
-          </button>
-          <button class="pick" onclick="start('story')">
-            <div class="art"><svg viewBox="0 0 200 150"><rect x="10" y="14" width="96" height="122" rx="10" class="g-frame"/><rect x="118" y="14" width="72" height="122" rx="10" class="g-soft"/><rect x="26" y="30" width="26" height="26" rx="6" class="g-ink"/><rect x="26" y="74" width="64" height="7" rx="3.5" class="g-ink"/><rect x="26" y="88" width="48" height="5" rx="2.5" class="g-soft"/><rect x="26" y="100" width="56" height="5" rx="2.5" class="g-soft"/><path d="M134 34q10-10 20 0" class="g-line"/></svg></div>
-            <div class="body"><b>Story</b><span>Case studies, customer wins</span></div>
-          </button>
-        </div>
+        <div class="picks" id="picks"></div>
+      </div>
+    </section>
+
+    <!-- ===== PICK A TYPE ===== -->
+    <section id="pick" class="screen">
+      <div class="wrap">
+        <div class="ehead"><button class="back" onclick="go('make')"><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Make</button><h1 id="pickTitle" style="margin:0"></h1></div>
+        <div id="pickBody"></div>
       </div>
     </section>
 
@@ -74,94 +65,17 @@
     <section id="editor" class="screen">
       <div class="wrap" style="padding-top:18px">
         <div class="ehead">
-          <button class="back" onclick="go('make')"><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Make</button>
+          <button class="back" id="eback" onclick="go('make')"><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Back</button>
           <input class="title" id="etitle" value="Untitled">
-          <div class="right"><button class="btn" id="dlbtn" onclick="exportCurrent()"><svg class="ico" viewBox="0 0 24 24"><path d="M12 4v12M6 10l6 6 6-6M4 20h16"/></svg>Download</button></div>
-        </div>
-        <div class="ask">
-          <svg class="ico" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>
-          <input id="ask" placeholder="Tell Opus what this is for, or paste a post" onkeydown="if(event.key==='Enter')brief()">
-          <button class="btn black sm" onclick="brief()">Go</button>
+          <div class="right"><button class="btn black" id="dlbtn" onclick="exportCurrent()">Download</button></div>
         </div>
         <div class="egrid" id="egrid">
-          <div>
-            <div class="stage" id="stage">
-              <div class="frame" id="frame">
-                <div class="lg layer" id="lgLayer"><img src="assets/logomark.png" alt=""></div>
-                <div class="layer copy" id="copy"><h2 id="pHead"></h2><p id="pSub"></p><span class="cta" id="pCta"></span></div>
-                <div class="layer gfx" id="gfxLayer"><img id="gfxImg" alt=""></div>
-                <div class="layer shotL" id="shotLayer"><img id="shotImg" alt=""></div>
-                <!-- video scenes -->
-                <div class="beat b-hook" id="bHook"><div class="hook" id="vHook"></div></div>
-                <div class="beat b-shot" id="bShot"><div class="shot"><img id="vShot" alt=""></div></div>
-                <div class="beat b-clip" id="bClip"><video id="vClip" muted playsinline preload="auto"></video></div>
-                <div class="beat b-outro outro" id="bOutro"><div class="wm"><img src="assets/logomark.png" alt=""><span>Leland</span></div><div class="tl" id="vTag"></div><div class="badges"><span>App Store</span><span>Google Play</span></div></div>
-                <!-- story -->
-                <img class="storyimg" id="storyImg" alt="">
-                <div class="prog"><i id="prog"></i></div>
-              </div>
-            </div>
-            <div class="stagebar">
-              <div class="seg" id="ratio"><button class="on" onclick="ratio('')">16:9</button><button onclick="ratio('r11')">1:1</button><button onclick="ratio('r45')">4:5</button><button onclick="ratio('r916')">9:16</button></div>
-              <span id="vidctl" style="display:none;align-items:center;gap:10px"><button class="playbtn" id="playbtn" onclick="togglePlay()"><svg class="ico" id="playico" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><span class="time" id="time">0.0s / 9.0s</span></span>
-              <span style="margin-left:auto;display:flex;gap:4px" id="layerbar"></span>
-            </div>
-            <!-- video: timeline + building blocks -->
-            <div class="tl" id="beats" style="display:none"></div>
-            <div class="blocks" id="blocks" style="display:none"></div>
-            <div class="slides" id="slides" style="display:none"></div>
+          <div class="estage">
+            <div class="stage" id="stage"><img id="canvasImg" alt=""><video id="resultVid" controls playsinline style="display:none"></video></div>
+            <div class="stagebar" id="stagebar"></div>
+            <div class="slides" id="slides"></div>
           </div>
-
-          <div class="panel">
-            <div class="sec" id="secCopy">
-              <h3>Copy <button class="link" onclick="rewrite()">Rewrite</button></h3>
-              <div class="f"><label id="lHead">Headline</label><input id="fHead" oninput="sync()"></div>
-              <div class="f" id="fSubWrap"><label>Subhead</label><textarea id="fSub" oninput="sync()"></textarea></div>
-              <div class="f" id="fCtaWrap"><label>Button</label><input id="fCta" oninput="sync()" placeholder="None"></div>
-              <div class="f" id="fSizeWrap"><label>Size</label><div class="slider"><input type="range" min=".6" max="1.6" step=".05" value="1" id="fSize" oninput="sync()"><b id="fSizeV">100%</b></div></div>
-              <div class="f" id="fAlignWrap"><label>Align</label><div class="seg" style="display:inline-flex"><button class="on" onclick="align(this,false)">Left</button><button onclick="align(this,true)">Center</button></div></div>
-            </div>
-            <div class="sec" id="secScene"><h3 id="sceneTitle">Scene</h3><div id="sceneBody"></div></div>
-            <div class="sec" id="secBg">
-              <h3>Background <button class="link" onclick="openDrawer('bg')">Browse</button></h3>
-              <div class="sw" id="sw"></div>
-            </div>
-            <div class="sec" id="secGfx">
-              <h3>Illustration <button class="link" onclick="openDrawer('gfx')">Browse</button></h3>
-              <div class="sw" id="gfxsw"></div>
-              <div class="f" id="gfxSizeWrap" style="margin-top:10px;display:none"><label>Size</label><div class="slider"><input type="range" min=".1" max=".7" step=".01" value=".3" id="gfxSize" oninput="state.layers.gfx.s=+this.value;sync()"><b></b></div></div>
-            </div>
-            <div class="sec" id="secShot">
-              <h3>Product shot <button class="link" onclick="openDrawer('shot')">Browse</button></h3>
-              <div class="sw" id="shotsw"></div>
-              <label class="btn sm" style="margin-top:10px">Upload screenshot<input type="file" accept="image/*" style="display:none" onchange="uploadShot(this.files[0])"></label>
-            </div>
-            <div class="sec" id="secTheme">
-              <h3>Look</h3>
-              <div class="f"><label>Theme</label><div class="seg" id="themeseg" style="display:inline-flex"><button class="on" onclick="vtheme(this,false)">White</button><button onclick="vtheme(this,true)">Black</button></div></div>
-              <div class="f" style="margin-top:8px"><label>Logo</label><div class="seg" id="outroanim" style="display:inline-flex"></div></div>
-            </div>
-            <div class="sec" id="secMusic">
-              <h3>Music</h3>
-              <div class="music" id="music"></div>
-            </div>
-            <div class="sec" id="secStory">
-              <h3>Story <button class="link" onclick="openDrawer('logo')">Logo</button></h3>
-              <div class="f"><label>Company</label><input id="stCo" oninput="storySync()" placeholder="ASU+GSV"></div>
-              <div class="f"><label>Headline</label><input id="stHead" oninput="storySync()" placeholder="33 people, [building together]"></div>
-              <div class="f"><label>Who they are</label><textarea id="stWho" oninput="storySync()"></textarea></div>
-              <div class="f"><label>Before</label><textarea id="stBefore" oninput="storySync()"></textarea></div>
-              <div class="f"><label>What they built (one per line)</label><textarea id="stBuilt" oninput="storySync()" style="min-height:90px"></textarea></div>
-              <div class="f"><label>Quote</label><textarea id="stQuote" oninput="storySync()"></textarea></div>
-              <div class="f"><label>Said by</label><input id="stBy" oninput="storySync()"></div>
-              <div class="f"><label>Close</label><input id="stCta" oninput="storySync()"></div>
-            </div>
-            <div class="sec" id="secStoryOut">
-              <h3>Outputs</h3>
-              <div class="outs"><button class="btn sm" onclick="exportStory('carousel')">Carousel PDF</button><button class="btn sm" onclick="exportStory('png')">Slides PNG</button><button class="btn sm" onclick="exportStory('page')">Web page</button><button class="btn sm" onclick="exportStory('post')">Post text</button></div>
-            </div>
-            <div class="cook"><button class="btn black" id="cookbtn" onclick="exportCurrent()">Download<span class="kbd">⌘⏎</span></button><small id="cooknote"></small></div>
-          </div>
+          <div class="panel" id="panel"></div>
         </div>
         <div class="drawer" id="drawer">
           <div class="dhead"><div class="tabs" id="dtabs" style="margin:0"></div><div class="search" style="width:220px;height:32px"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="dq" placeholder="Search" oninput="renderDrawer()"></div><button class="btn sm" onclick="closeDrawer()">Done</button></div>
@@ -201,9 +115,8 @@
 
     <!-- ===== BRAND ===== -->
     <section id="brand" class="screen">
-      <div class="wrap">
+      <div class="wrap wide">
         <h1>Brand</h1>
-        <div class="bnav" id="bnav"></div>
         <div id="brandbody"></div>
       </div>
     </section>
@@ -219,6 +132,8 @@
 <div class="ov" id="ov"><h1>Working on it</h1><p id="ovp"></p></div>
 <div class="toast" id="toast"></div>
 
+<script src="js/templates.js"></script>
+<script src="js/deck.js"></script>
 <script src="js/le.js"></script>
 <script src="js/story.js"></script>
 <script src="js/leo.js"></script>

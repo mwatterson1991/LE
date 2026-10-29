@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Cohort</title>
+<style>
+@font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
+:root{--yellow:#FFD96F;--blue:#80ACED;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--beige);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:var(--neutral)}
+.eyebrow{position:absolute;left:60px;top:52px;font:500 18px/1 'Macan';color:var(--ink)}
+.tile{position:absolute;border-radius:14px;overflow:hidden;will-change:transform}
+.tile img.face{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block}
+.live{background:var(--yellow);color:var(--ink)}
+.live .big{position:absolute;left:36px;top:30px;font:500 96px/1 'Season',Georgia,serif;letter-spacing:-.022em}
+.live .dot{position:absolute;left:38px;bottom:40px;width:12px;height:12px;border-radius:50%;background:var(--ink)}
+.live .sub{position:absolute;left:60px;bottom:36px;font:500 20px/1 'Macan'}
+.live .mark{position:absolute;right:30px;bottom:30px;width:44px;height:44px}
+</style></head><body>
+<div class="stage">
+  <div class="eyebrow">AI Builder Program · taught live, online, by leading AI Instructors</div>
+  <div id="grid"></div>
+</div>
+<script>
+const D=11; window.DURATION=D;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
+  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2,
+  back:(x,s=1.5)=>{const c=s+1;return 1+c*Math.pow(x-1,3)+s*Math.pow(x-1,2)}};
+const lerp=(a,b,k)=>a+(b-a)*k;
+// grid: 4 x 3, margins 60, top 100
+const X0=60,Y0=100,GW=1160,GH=560,G=16,COLS=4,ROWS=3;
+const TW=(GW-(COLS-1)*G)/COLS, TH=(GH-(ROWS-1)*G)/ROWS;
+const at=(c,r,w=1,h=1)=>({x:X0+c*(TW+G),y:Y0+r*(TH+G),w:w*TW+(w-1)*G,h:h*TH+(h-1)*G});
+const faces=['claudia-p','ryan-p','meghna-s','alex-h','isabela-u','soven-b','laura-b','theo-m'];
+const slots=[[2,0],[3,0],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2]];
+const order=[0,4,2,6,1,5,3,7]; // join order (which face index joins k-th)
+const grid=document.getElementById('grid');
+const live=document.createElement('div'); live.className='tile live';
+live.innerHTML=`<div class="big">Live</div><i class="dot"></i><div class="sub">6 sessions over 3 weeks</div><img class="mark" src="../../brand/mark.svg" alt="">`;
+grid.appendChild(live);
+const tiles=faces.map((f,i)=>{const d=document.createElement('div');d.className='tile';d.innerHTML=`<img class="face" src="../../experts/${f}.jpg" alt="">`;grid.appendChild(d);return d;});
+function place(el,r){el.style.left=r.x+'px';el.style.top=r.y+'px';el.style.width=r.w+'px';el.style.height=r.h+'px';}
+place(live,at(0,0,2,2));
+const J=k=>.6+k*.62; // join time of k-th joiner
+function render(t){
+  // live dot breathes
+  live.querySelector('.dot').style.opacity=.55+.45*Math.sin(t*2.6);
+  tiles.forEach((el,i)=>{
+    const k=order.indexOf(i); const [c,r]=slots[i]; const R=at(c,r); place(el,R);
+    const jn=E.back(seg(t,J(k),J(k)+.75)), o=seg(t,J(k),J(k)+.18);
+    const lv=E.in(seg(t,8.6+(7-k)*.08,9.1+(7-k)*.08));
+    const s=lerp(.55,1,jn)*lerp(1,.8,lv);
+    // live photos breathe very slightly after joining
+    const z=1+.025*E.out(seg(t,J(k)+.75,J(k)+5));
+    el.style.opacity=o*(1-lv); el.style.transform=`scale(${s})`;
+    el.firstElementChild.style.transform=`scale(${z})`;
+  });
+}
+let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
+(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+</script></body></html>

@@ -1,0 +1,1110 @@
+{
+ "voice": {
+  "summary": "Leland sounds like a smart friend who has done the thing and is telling you how: short sentences, a named school or company or number in nearly every line, and warmth that comes from inviting you in (\"Come ask.\") rather than from adjectives. Brand surfaces stay flat and confident with no exclamation points; the energy lives in founder and employee posts, in real customer quotes, and in the specificity of the detail.",
+  "rules": [
+   "Lead with the point. \"Today we launched Leland Community.\" not \"Thrilled to announce\" (house-style; Social Kit words-to-avoid).",
+   "Name it: the school, the company, the number, the person. \"Google, Meta and Goldman\" beats \"top companies\" every time (Social Kit idea 5; marketing-copy-guide).",
+   "Sell what they'll be able to do and how fast. \"Become an AI Builder in 6-10 weeks\", \"about two hours\", \"from 2 hours to 30 minutes\" (marketing-copy-guide core promise; case-study posts).",
+   "Numbers are real or absent. Never quote the sample numbers in the graphics or videos; never round a profile stat up (Social Kit guardrails; marketing-copy-guide).",
+   "No exclamation points and no em dashes in Leland's own copy. Verbatim quotes keep theirs (house-style). Founder and employee LinkedIn posts run warmer, and the kit allows it (\"let the energy show\"), so strip the punctuation when you move a team post onto a brand surface.",
+   "Warm comes from the invitation: come ask, follow along, send this to someone, the door's open. Not from community-speak like join our community or find your tribe (Social Kit voice).",
+   "Lead with learning from people who've done it. Meeting peers is a bonus, not the headline (Social Kit guardrails).",
+   "Don't call Community AI-powered, personalized or algorithmic, and don't name LinkedIn as the comparison in public posts (Social Kit guardrails).",
+   "Say expert, never coach, in anything new. The team still says coach in Slack and Nick edited \"mentors\" to \"coaches\" in-product on 10-19, so copy from Slack with care (BRAND-BRIEF; Mike Mella in #brand 2026-06-11).",
+   "The first line is the hook and the logo waits. A face beats a graphic, an opinion beats an announcement, a question beats a statement (Michael L via Vica 2026-01-30; Vica 2025-10-08; John on the jobs video 2026-10-22; John 2025-06-09).",
+   "Headlines are sentence case, 4 to 8 words, no period unless the period is the move (\"Walk away certified.\") (house-style; marketing-copy-guide).",
+   "First-touch email is friendly, not aggressive: \"Welcome to Leland 👋\" doubled opens over \"Meet the experts getting customers into HBS, GSB and Wharton\"; the CTA names the action, \"Join Your First GRE Livestream\" (Christian, #email 2026-08-16 and 2026-08-27)."
+  ],
+  "examples": [
+   {
+    "good": "Sophomores: you don't need to know someone at Google to learn how people get into Google.",
+    "why": "Names the audience, names the company, states the whole product idea in one sentence with no adjectives."
+   },
+   {
+    "good": "One of our AI Builder Program alumni lost his sales engineer. So he built one.",
+    "why": "Outcome first, a turn in the second sentence, and a named program. The reader keeps going."
+   },
+   {
+    "good": "Lead with what you built, not the logo.",
+    "why": "An expert answer in seven words. Instruction, not encouragement."
+   },
+   {
+    "good": "It's free on iOS, Android and web. Come ask.",
+    "why": "The close does the selling: a fact and an invitation. No urgency theater."
+   },
+   {
+    "bad": "Huge news for Utah entrepreneurs!\n\nWe're excited to announce a new partnership between Startup State Initiative, part of the Utah Governor's Office of Economic Opportunity, and Leland to help entrepreneurs across Utah build practical AI skills and put them to work in their businesses.",
+    "why": "Erika's 2026-08-28 draft. Exclamation point, \"excited to announce\", and 40 words before anything concrete. Lead with what the entrepreneur gets and the free seat."
+   },
+   {
+    "bad": "A bomb has dropped on traditional paths of success\n\nEveryone will need to adapt. We're here to help",
+    "why": "Josh's rebrand tweet draft, 2026-06-15. Fear framing with no name, number or outcome. The brand makes goals feel closer, not the ground shakier."
+   },
+   {
+    "bad": "Every non-technical team should upskill in AI!\n\nLeland is hosting a FREE AI Transformation Week: 8+ virtual sessions for non-technical professionals who want to become AI-native.",
+    "why": "Joyce's 2026-10-15 blurb. Exclamation point, shouted FREE, and \"upskill\" before the proof. The 6,000+ attendees line further down is the hook; start there."
+   },
+   {
+    "bad": "Excited to announce Lola Blankets as a new customer of our AI Transformation offering...",
+    "why": "Dave's suggested opener for customer-win posts, 2026-10-23. Nick observed the LinkedIn algorithm rewards \"excited to announce\" (2026-01-22), which is why employees reach for it, but it is the one opener the kit bans. Start with what Lola is building instead."
+   }
+  ]
+ },
+ "items": [
+  {
+   "id": "c-001",
+   "kind": "post",
+   "text": "Today we launched Leland Community.\n\nFollow people who've already done what you're trying to do (former bankers, consultants, PMs, HBS grads) and learn from what they post every day. Real names, real backgrounds.\n\nIt's free on iOS, Android and web. Come ask. {link}",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 1",
+   "note": "The announcement. What launched, who's on it, that it's free. Default launch post."
+  },
+  {
+   "id": "c-002",
+   "kind": "post",
+   "text": "Is a 690 GMAT a dealbreaker for Wharton? Low GPA, high GMAT? How do you break into PM?\n\nOn Leland Community, those questions get answered by people who've already done it. Questions, livestreams and experts, all in one feed.\n\nIt's free. Come ask yours. {link}",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 2",
+   "note": "Three real questions as the hook, then the product in one line. Pair with the Learn video."
+  },
+  {
+   "id": "c-003",
+   "kind": "post",
+   "text": "In college I didn't know a single person who'd [done the thing you wanted to do]. So I guessed.\n\nStarting today, students don't have to. Leland Community lets you follow people who've been there and learn from them every day. {link}",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 3",
+   "note": "Personal-memory template. The more specific the memory, the better it works. Fill the bracket with a real one."
+  },
+  {
+   "id": "c-004",
+   "kind": "post",
+   "text": "\"Is it actually possible to land a FAANG job if you've never had an internship?\"\n\nOn Leland Community, you can ask the people who did it. {link}",
+   "for": "community",
+   "platform": "x",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 4",
+   "note": "Question then answer in two beats. Use with the Kevin to Marcus card pair."
+  },
+  {
+   "id": "c-005",
+   "kind": "post",
+   "text": "Sophomores: you don't need to know someone at Google to learn how people get into Google.\n\nFollow consultants, bankers and PMs who broke in at places like Google, Meta and Goldman. They post what worked, what didn't, and what the job is actually like. It's free. {link}",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 5",
+   "note": "Straight to the core persona. Names three companies. The strongest student-facing post in the kit."
+  },
+  {
+   "id": "c-006",
+   "kind": "post",
+   "text": "\"Your resume matters less than your ability to tell the same story out loud in 60 seconds.\"\n\nThat's the kind of take showing up in Leland Community this week. Come see what else people are saying. {link}",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 6",
+   "note": "Screenshot one real post from the feed and quote it. Gets better every week; swap in a real take."
+  },
+  {
+   "id": "c-007",
+   "kind": "post",
+   "text": "I'm posting on Leland Community now. If you're [recruiting for consulting / breaking into PM / applying to MBA programs], follow along and bring your questions. {link}",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 7",
+   "note": "For experts and anyone with a story. Two sentences, one invitation."
+  },
+  {
+   "id": "c-008",
+   "kind": "post",
+   "text": "Our team has been heads down on this for months, and it's live today. Leland Community puts our experts, livestreams and AMAs in one feed. Really proud of this crew. Go take a look: {link}",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 8",
+   "note": "Team post. Celebrate the people, then point to the product."
+  },
+  {
+   "id": "c-009",
+   "kind": "post",
+   "text": "A 7am interview. Day 14 of LSAT logic games, up 8 points. A signed PM offer.\n\nThat's what a normal morning looks like on Leland Community, with people who've been there helping you get to the next one.\n\nWin the day. {link}",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 9",
+   "note": "Three concrete wins as the hook. Pair with the Momentum video."
+  },
+  {
+   "id": "c-010",
+   "kind": "post",
+   "text": "AI Builder Program grads now have a home on Leland.\n\nShare what you built, see what everyone else is shipping, and ask the people who've already wired AI into real workflows. It's free on iOS, Android and web. {link}",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 10",
+   "note": "Announcement for builders. Use with the dark AIBP graphics."
+  },
+  {
+   "id": "c-011",
+   "kind": "post",
+   "text": "Built something with AI? Show us.\n\nAI Builder Program grads: post your build on Leland. What it does, what it replaced, how much time it gives you back. The best ones teach the rest of us more than any tutorial. {link}",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 11",
+   "note": "Direct ask to grads. Headline doubles as the hook."
+  },
+  {
+   "id": "c-012",
+   "kind": "post",
+   "text": "[Name] built [what] in week [X] of the AI Builder Program. It now [what it does] and saves their team [real number].\n\nThat's the kind of thing builders are posting on Leland every day. Come see what they're shipping. {link}",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 12",
+   "note": "Template. Real names and real numbers only, with permission. The graphic numbers (11 hours a week) are illustrations."
+  },
+  {
+   "id": "c-013",
+   "kind": "post",
+   "text": "One of our AI Builder Program alumni lost his sales engineer. So he built one.\n\nMike works in sales at a company that partners with brands selling on Amazon. Every new prospect needed hours of research: revenue, pricing, growth, storefront, top sellers. When their sales engineer left, that work had nowhere to go.\n\nSo Mike built a tool his team calls Target. You type in any Amazon brand and it:\n- Pulls trailing 12 month revenue, average selling price, growth vs category and top sellers\n- Builds a fully designed scorecard deck with sales talking points, as a PowerPoint or PDF\n- Finds the brand's key contacts and drafts outreach tailored to each person's role\n\nAll in about five seconds. It used to take hours.\n\nThis is what we mean when we say everyone is a builder now.\n\nIf you want to help your Sales & Business Development team get set up for this next chapter of AI change, let's chat.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Slack #pod-ai-marketing thread, Joyce Chen draft for John, 2026-10-19; John posted 2026-10-20",
+   "note": "Outcome-first customer story (Joyce's experiment: lead with the outcome, not the name). John flagged on 10-20 that the case-study model needs revisiting before more go out, so treat the structure as a draft pattern, not proven."
+  },
+  {
+   "id": "c-014",
+   "kind": "post",
+   "text": "The team behind the ASU+GSV Summit just put 33 people through the AI Builder Program.\n\nPartnerships, marketing and programs team. All building together.\n\nBefore, most of the team used AI for simple productivity stuff. Now they're building real systems. A few things they built:\n\n- Lucy Baldwin (VP, Product) built a meeting prep system her team triggers from Slack. It researches every attendee, writes the prep doc and sends the calendar invite. ~8 hours a week of prep automated in busy season.\n- Uma Sankar Reddy, a civil engineer by training, built a daily Slack digest that pulls to-dos from Slack, Airtable, Granola and email. It freed up 50% of Uma's time, enough to take on a second role.\n- Genny Velazquez (SVP, Global Partnerships) built a proposal generator that writes in her voice. Proposals went from 2 hours to 30 minutes. That's 7.5 hours back every week.\n\nLucy said it best:\n\n\"It put everyone in a builder mindset.\"\n\nThat's the whole point of the AI Builder Program. It's not a learning experience, it's a building experience.\n\nShout out to Lucy, Uma, Genny and the whole ASU+GSV team.\n\nIf you want to help your team get set up for this next chapter of AI change, let's chat.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (ASU+GSV, posted)",
+   "note": "Team case study. Three named people, three real numbers, one verbatim quote. The strongest B2B post pattern on file."
+  },
+  {
+   "id": "c-015",
+   "kind": "post",
+   "text": "Dalton on our team shipped a full careers site in about two hours.\n\nIt was generic and out of the box, and it did nothing to sell candidates on the culture.\n\nSo he gave Claude Code our Leonardo design skill and brand docs. It asked the right clarifying questions and had an on-brand prototype up almost immediately.\n\nA few days of refining later, we had a live careers site covering our mission, culture, values, benefits and open roles.\n\nTotal work: about two hours. Most of it spent polishing copy.\n\nShout out to Dalton. This is what AI-native looks like.\n\nIf you want to help your HR / Recruiting team get set up for this next chapter of AI change, let's chat.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (Dalton Brough, posted)",
+   "note": "Internal build story. Short paragraphs, one number repeated, one named person."
+  },
+  {
+   "id": "c-016",
+   "kind": "post",
+   "text": "PlayPower marketing team had a project they'd been putting off for years.\n\n1,500+ product spec sheets that needed to be rebuilt. At 8 to 15 minutes a sheet, it was scoped at 12 months. As Ryan Moats, their VP of Global Marketing, put it: \"We're never going to get through that.\"\n\nThey got it done in weeks.\n\nTheir marketing team pulled data scattered across multiple systems into one spreadsheet, then had Claude generate every sheet. Then they kept going: a weekly competitive report that saves 6 to 8 hours, and ad campaigns bringing in more qualified leads.\n\nMy favorite part is the mindset shift. Ryan said the old excuse of \"no resources or bandwidth\" is almost gone.\n\nSuper fun to watch teams like this build. Proud they learned it in our AI Builder Program.\n\nShout out to Ryan and the whole PlayPower marketing team!",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (PlayPower, drafted)",
+   "note": "Before and after with numbers in the second line. The closing exclamation point is Joyce writing in John's LinkedIn voice; drop it on brand surfaces."
+  },
+  {
+   "id": "c-017",
+   "kind": "post",
+   "text": "Faisal is a marketer at a medical device company. Part of his job is tracking competitors across trade publications, clinical journals and conferences.\n\nDoing that by hand, whenever he remembered, meant it mostly didn't happen.\n\nSo in the AI Builder Program he built a scanner that runs every Monday morning. It:\n\n- Searches all of those sources\n- Classifies what it finds by significance\n- Files structured entries into a Notion database covering 12 competitors\n- Sends him a Slack DM with the single most interesting finding\n\nLast run, that was a competitor's clinical results for a new device.\n\nThe job that never got done now does itself every week.\n\nIf you want to help your Marketing team get set up for this next chapter of AI change, let's chat.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (Faisal Khan, drafted)",
+   "note": "Individual story by function. \"The job that never got done now does itself every week\" is the line to keep."
+  },
+  {
+   "id": "c-018",
+   "kind": "post",
+   "text": "15 to 20 hours of competitor research, replaced by a wiki that updates itself\n\nPatrick is the VP of Operations at a healthcare company. The old way meant manually browsing competitor websites, press releases and pricing pages, then dropping it all into a static doc.\n\nIn the AI Builder Program, he built something better. He used Claude Code to research 19 healthcare competitors and build a dossier on each:\n\n- Positioning\n- Pricing models\n- Unit economics\n- Market trends\n- How each one is adopting AI\n\nIt all feeds a linked wiki that Claude Code keeps up to date. When he drops in a new source, it updates.\n\nIn his words: \"It exceeded my expectations in what I could learn to build in only 3 weeks.\"\n\nIf you want to help your Operations team get set up for this next chapter of AI change, let's chat.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (Patrick Weeks, drafted)",
+   "note": "Headline-style first line (hours saved, what replaced them). Verbatim quote with a timeframe."
+  },
+  {
+   "id": "c-019",
+   "kind": "post",
+   "text": "Greg is a customer success manager responsible for about 900 accounts.\n\nThere's no way to personally check in on 900 accounts. And his CRM had no way to tell him which ones needed attention first.\n\nSo in the AI Builder Program, he built a customer health score. He worked with Claude to define the inputs that should drive the score, then had it build a complete Power BI model that plugs into the data sources he already has.\n\nHis company is switching CRMs in a few months, so he built it to transfer cleanly between systems.\n\nNow 900 accounts come with a clear answer: who needs his attention first.\n\nIf you want to help your Customer Success team get set up for this next chapter of AI change, let's chat.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (Greg Rellaford, drafted)",
+   "note": "One number carried through the whole post. Ends on the outcome, then the CTA."
+  },
+  {
+   "id": "c-020",
+   "kind": "post",
+   "text": "Introducing... the fastest growing product Leland has ever launched:\n\nThe AI Builder Program.\n\nIf you have been feeling behind, overwhelmed, excited, scared, or anything else about AI, this is for you:\n\nAI Builder Program (AIBP) Overview\n- A 5-Level Program, taught live, online, by leading AI Instructors.\n- Each Level is 6-sessions, taught over a condensed 3-week period, and focused on tangible impact and progress.\n- The program will teach you all the most up-to-date and in-demand tools (Claude Code, n8n, Cowork, and more).\n\nEach level of the program builds directly on the last. By the end of the program you will build workflows, agents, systems that run, self-correct, and improve on their own.\n\n1. Level 1 teaches you to build AI skills and workflows that automate research, communication, and analysis.\n2. Level 2 is where you build agents and agent teams to help you complete multi-step processes across tools.\n3. Level 3 takes those agents and embeds them in systems that trigger and run on their own.\n4. Level 4 focuses on orchestrating multiple agents in a unified system so they coordinate, delegate, and check each other's work.\n5. Level 5 builds a goal-directed system with memory and self-correction loops.\n\nThe program is designed for non-technical knowledge workers of all AI skill levels.\n\nOur next cohorts begin April 21, and will fill up, so we encourage you to join quickly. I have a limited number of discount codes, so if you are interested, shoot me a DM. I recommend starting with Level 1.\n\nWe've also sold several companies and enterprises on team access to this program, so if you think your company might be interested, shoot me a DM and we can talk more about group discounts.\n\nAI is not coming. It is here. And the teams and individuals who adopt it are becoming 10x, 100x, and eventually 1,000x more impactful. The AIBP is just one step in a series of big announcements we'll be making over the coming months to ensure humans are brought along in this AI wave.\n\nReach out if you'd like the link to learn more (and want a discount).",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Slack #launch-events, John's post draft, 2026-03-24 (posted 2026-03-25)",
+   "note": "John's founder launch post. The level-by-level breakdown and \"shoot me a DM\" ask are what work; the 10x/1,000x line is John's energy, not brand copy. John says AIBP posts reliably bring inbound leads (#pod-ai-marketing 2026-09-29).",
+   "performed": true
+  },
+  {
+   "id": "c-021",
+   "kind": "post",
+   "text": "Share Your Livestream Clips in Community\n\nLast week we introduced livestream clips, and we told you more was coming. Well, here it is! Starting this week, you can post your clips directly to Community.\n\nEvery livestream has moments worth sharing: the question everyone asks, the story about your own journey, the advice you give on every intro call. Clips pull those moments out for you, and now you can get them in front of the people who need them, right inside Leland.\n\nHow it works\n\n- Open any past livestream in your livestreams dashboard to see your clips.\n- Click Share on a clip and select Post to Leland. We'll start a post with the clip attached, so all you need to add is a sentence of context.\n- Or start from the feed: open the composer on your Community home and choose Share a clip.\n\nClips play right in the feed and show up in the Activity tab on your profile, so prospective clients who find you later will see them too.\n\nWhy this matters for you\n\nMost people in Community aren't ready to book yet. A one-hour recording is a big ask at that stage, but a 30-second clip is an easy way to show them what it's like to work with you. We've already seen experts get booked after customers found them through Community posts, and clips make it much easier to post consistently without extra time on camera.\n\nTry this week: Post one clip from your most recent livestream with a quick note on who it's for. Then make it a habit!\n\nDon't see clips on a past livestream? It may predate the beta. Host a new livestream with recording upload enabled and your clips will be ready shortly after. And keep using the thumbs up/down on each clip, it helps us learn which ones are worth sharing!",
+   "for": "clips",
+   "platform": "any",
+   "source": "Slack #launch-events, Jake Evans, 2026-10-27 (approved by Ella Hess, posted to expert Slack by Chandler)",
+   "note": "Expert-facing clips announcement. \"A one-hour recording is a big ask, a 30-second clip is easy\" is the pitch. Exclamation points are Jake's; strip for brand surfaces."
+  },
+  {
+   "id": "c-022",
+   "kind": "post",
+   "text": "Your income shouldn't be limited by the hours in your week. If you already have valuable content sitting in a folder or built into your existing workflow, you can turn work you've already done into a new source of income. This content can be sold by itself on your storefront, or come included in a package with 1:1 hours.",
+   "for": "coaching",
+   "platform": "email",
+   "source": "Notion: Expert Newsletter - October 21 (Ella Hess), 2026-10-21, Content section",
+   "note": "Expert-facing pitch for selling content. First sentence is the headline-grade line."
+  },
+  {
+   "id": "c-023",
+   "kind": "post",
+   "text": "Until now, clients had to scroll through hours of livestream recordings to find answers to their questions. Now, you can share short, focused clips that deliver value right away.",
+   "for": "clips",
+   "platform": "email",
+   "source": "Notion: Expert Newsletter - October 21 (Ella Hess), 2026-10-21, Clips section",
+   "note": "Two-sentence before/after for clips. Reusable as a sub-hero."
+  },
+  {
+   "id": "c-024",
+   "kind": "post",
+   "text": "We're opening the funnel to ambitious people in the exploration phase of their career, including those who are still figuring out what they want to do next. Some know they want an MBA, a PhD, or a career in tech. Others are exploring consulting, finance, or a new career path and aren't sure where to start.\n\nThat early exploration is a big part of the opportunity. Your experience can help someone discover a path they hadn't considered, understand what it takes to get there, or figure out their next step.",
+   "for": "community",
+   "platform": "email",
+   "source": "Slack #pod-community-product thread, Ella Hess with Nick Van Slooten, 2026-10-15 (expert ICP email)",
+   "note": "How we describe the Community audience to experts. Lift for any expert-facing explainer."
+  },
+  {
+   "id": "c-025",
+   "kind": "post",
+   "text": "Lead with what you built, not the logo.",
+   "for": "community",
+   "platform": "any",
+   "source": "Drive: Community Launch Videos copy sheet (Michael), 2026-09-30, Learn video card 1 reply",
+   "note": "Sample expert reply in the launch video. Seven words, one instruction. Model for in-feed answer tone."
+  },
+  {
+   "id": "c-026",
+   "kind": "headline",
+   "text": "Learn from people who've done it",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (hero)",
+   "note": "Lead launch hero. The thesis in six words."
+  },
+  {
+   "id": "c-027",
+   "kind": "headline",
+   "text": "Ask anything. Get real answers.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (hero)",
+   "note": "Two beats, two periods. Carousel cover."
+  },
+  {
+   "id": "c-028",
+   "kind": "headline",
+   "text": "Your next move starts here.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (hero)",
+   "note": "Works for students and switchers."
+  },
+  {
+   "id": "c-029",
+   "kind": "headline",
+   "text": "Accomplish your goals, together.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (hero)",
+   "note": "Pairs with a signed-offer visual."
+  },
+  {
+   "id": "c-030",
+   "kind": "headline",
+   "text": "Find your people.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (hero)",
+   "note": "Use only with expert-heavy copy; the graphic carries the community angle."
+  },
+  {
+   "id": "c-031",
+   "kind": "headline",
+   "text": "Answers come to you.",
+   "for": "community",
+   "platform": "any",
+   "source": "data/manifest.json header mh-answers (Michael), 2026-10",
+   "note": "Feed value prop in four words."
+  },
+  {
+   "id": "c-032",
+   "kind": "headline",
+   "text": "One question. Real answers.",
+   "for": "community",
+   "platform": "any",
+   "source": "data/manifest.json header mh-question (Michael), 2026-10",
+   "note": "Question-to-answer format."
+  },
+  {
+   "id": "c-033",
+   "kind": "headline",
+   "text": "Thousands of people who've done it.",
+   "for": "community",
+   "platform": "any",
+   "source": "data/manifest.json header mh-thousands (Michael), 2026-10",
+   "note": "Scale line. Do not attach a specific count unless confirmed."
+  },
+  {
+   "id": "c-034",
+   "kind": "headline",
+   "text": "Real answers from people who've done it.",
+   "for": "community",
+   "platform": "any",
+   "source": "Drive: Community Launch Videos copy sheet (Michael), 2026-09-30, Learn video end card",
+   "note": "End card. Also works as a sub-hero."
+  },
+  {
+   "id": "c-035",
+   "kind": "headline",
+   "text": "Built something with AI? Show us.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (AIBP graphic)",
+   "note": "Question then ask. Best AIBP headline."
+  },
+  {
+   "id": "c-036",
+   "kind": "headline",
+   "text": "Learn it. Build it. Share it.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (AIBP graphic)",
+   "note": "Three verbs. AIBP community line."
+  },
+  {
+   "id": "c-037",
+   "kind": "headline",
+   "text": "Builders share what they ship.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (AIBP graphic)",
+   "note": "Describes the feed for builders."
+  },
+  {
+   "id": "c-038",
+   "kind": "headline",
+   "text": "From course project to company win.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (AIBP graphic)",
+   "note": "Case-study headline pattern."
+  },
+  {
+   "id": "c-039",
+   "kind": "headline",
+   "text": "Your AI builder community.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (AIBP graphic)",
+   "note": "Plain announcement line for AIBP grads."
+  },
+  {
+   "id": "c-040",
+   "kind": "headline",
+   "text": "Increase your reach, with Clips.",
+   "for": "clips",
+   "platform": "any",
+   "source": "data/manifest.json film-leland-clips-launch-film-v8 (Michael), 2026-10-27",
+   "note": "Clips film line. Expert-facing."
+  },
+  {
+   "id": "c-041",
+   "kind": "headline",
+   "text": "Your next job is already looking for you.",
+   "for": "jobs",
+   "platform": "any",
+   "source": "data/manifest.json film-leland-jobs-film-v13 (Michael), 2026-10",
+   "note": "Jobs film line. Talent-pool angle: hiring teams come to you."
+  },
+  {
+   "id": "c-042",
+   "kind": "headline",
+   "text": "One conversation could open the door.",
+   "for": "community",
+   "platform": "any",
+   "source": "data/manifest.json film-onconversation (Michael), 2026-10",
+   "note": "Community film line. Intro-call angle."
+  },
+  {
+   "id": "c-043",
+   "kind": "headline",
+   "text": "Sell more than your hours",
+   "for": "coaching",
+   "platform": "any",
+   "source": "LE rewrite of Notion: Expert Newsletter - October 21 (Ella Hess), 2026-10-21 section title \"Sell More Than Your Hours - Content is live on Leland\" (sentence case, trailing clause cut)",
+   "note": "Expert-facing headline for content offerings."
+  },
+  {
+   "id": "c-044",
+   "kind": "headline",
+   "text": "Your livestreams, now in clips",
+   "for": "clips",
+   "platform": "any",
+   "source": "LE rewrite of Notion: Expert Newsletter - October 21 (Ella Hess), 2026-10-21 section title \"Your Livestreams, Now in Clips\" (sentence case)",
+   "note": "Expert-facing clips headline."
+  },
+  {
+   "id": "c-045",
+   "kind": "headline",
+   "text": "Become an AI Builder in 6-10 weeks",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 (live hero on ai.joinleland.com)",
+   "note": "Outcome plus timeframe. The guide's reference hero."
+  },
+  {
+   "id": "c-046",
+   "kind": "headline",
+   "text": "Walk away certified.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 (trust signal)",
+   "note": "Period is the move. Certification line."
+  },
+  {
+   "id": "c-047",
+   "kind": "headline",
+   "text": "AI is moving fast, are you keeping up?",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Slack #launch-events, Josh, 2025-10-31 (IG post headline for AI event week)",
+   "note": "Question headline chosen to stop the scroll for event weeks."
+  },
+  {
+   "id": "c-048",
+   "kind": "headline",
+   "text": "Fast replies win clients",
+   "for": "coaching",
+   "platform": "any",
+   "source": "LE rewrite of Notion: Expert Newsletter - October 21 (Ella Hess), 2026-10-21 tip title \"Fast Replies Win Clients\" (sentence case)",
+   "note": "Expert-success headline. Back it with the 1.5x stat."
+  },
+  {
+   "id": "c-049",
+   "kind": "tagline",
+   "text": "Own your future.",
+   "for": "brand",
+   "platform": "any",
+   "source": "Slack #brand, John, 2026-06-08 (tagline shortlist); Own your future chosen 2026-06-11",
+   "note": "Primary company tagline. Chosen over the others in #brand."
+  },
+  {
+   "id": "c-050",
+   "kind": "tagline",
+   "text": "The home for ambition.",
+   "for": "brand",
+   "platform": "any",
+   "source": "Slack #brand, John, 2026-06-08 (tagline shortlist); Own your future chosen 2026-06-11; board tagline \"The home for ambitious people.\"",
+   "note": "Positioning line. Used as the Community outcomes film end card."
+  },
+  {
+   "id": "c-051",
+   "kind": "tagline",
+   "text": "Get there, with the people who've been there.",
+   "for": "brand",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (headline); logo outro in launch videos",
+   "note": "Launch headline. Nick's sophomore copy swap doc: already works for the ICP, no change."
+  },
+  {
+   "id": "c-052",
+   "kind": "tagline",
+   "text": "Accomplish your goals.",
+   "for": "brand",
+   "platform": "any",
+   "source": "BRAND-BRIEF.md approved list; data/brand.json taglines",
+   "note": "Approved. Flatter than the others; use on consumer surfaces."
+  },
+  {
+   "id": "c-053",
+   "kind": "tagline",
+   "text": "Ambition lives here.",
+   "for": "brand",
+   "platform": "any",
+   "source": "Slack #brand, John, 2026-06-08 (tagline shortlist); Own your future chosen 2026-06-11 (shortlist, not chosen)",
+   "note": "Runner-up. Fine for a secondary surface."
+  },
+  {
+   "id": "c-054",
+   "kind": "tagline",
+   "text": "Make your move.",
+   "for": "brand",
+   "platform": "any",
+   "source": "Slack #brand, John, 2026-06-08 (tagline shortlist); Own your future chosen 2026-06-11 (consumer shortlist)",
+   "note": "Consumer ad tagline candidate. Verb-first."
+  },
+  {
+   "id": "c-055",
+   "kind": "tagline",
+   "text": "Bet on yourself.",
+   "for": "brand",
+   "platform": "any",
+   "source": "Slack #brand, John, 2026-06-08 (tagline shortlist); Own your future chosen 2026-06-11 (consumer shortlist)",
+   "note": "Consumer ad tagline candidate."
+  },
+  {
+   "id": "c-056",
+   "kind": "tagline",
+   "text": "Go places.",
+   "for": "brand",
+   "platform": "any",
+   "source": "Slack #brand, John, 2026-06-08 (tagline shortlist); Own your future chosen 2026-06-11 (consumer shortlist)",
+   "note": "Two words. Works over a crosswalk photo."
+  },
+  {
+   "id": "c-057",
+   "kind": "tagline",
+   "text": "Build an AI-native company, quickly.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Slack #brand, John, 2026-06-08 (tagline shortlist); Own your future chosen 2026-06-11 (B2B main)",
+   "note": "B2B tagline John proposed as main."
+  },
+  {
+   "id": "c-058",
+   "kind": "tagline",
+   "text": "Deploy, train, and hire for an AI-first world.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Slack #brand, John, 2026-06-08 (tagline shortlist); Own your future chosen 2026-06-11 (B2B other)",
+   "note": "B2B three-verb line matching leland.ai's training, services, talent."
+  },
+  {
+   "id": "c-059",
+   "kind": "tagline",
+   "text": "Win the day.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] (hook); Momentum video end card",
+   "note": "Momentum line. Use with wins, not with product features."
+  },
+  {
+   "id": "c-060",
+   "kind": "hook",
+   "text": "Sophomores: you don't need to know someone at Google to learn how people get into Google.",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 5 first line",
+   "note": "Names the audience and the company in one line."
+  },
+  {
+   "id": "c-061",
+   "kind": "hook",
+   "text": "Is a 690 GMAT a dealbreaker for Wharton?",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 2 first line",
+   "note": "A real question as the opener. Swap in any real feed question."
+  },
+  {
+   "id": "c-062",
+   "kind": "hook",
+   "text": "\"Is it actually possible to land a FAANG job if you've never had an internship?\"",
+   "for": "community",
+   "platform": "x",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], card-kevin / idea 4",
+   "note": "Quoted question hook. Answer card follows."
+  },
+  {
+   "id": "c-063",
+   "kind": "hook",
+   "text": "Today we launched Leland Community.",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 1 first line; kit Use list (\"Today we launched...\")",
+   "note": "The approved announcement opener. Replaces \"Thrilled to announce\"."
+  },
+  {
+   "id": "c-064",
+   "kind": "hook",
+   "text": "In college I didn't know a single person who'd [done the thing you wanted to do]. So I guessed.",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 3 first line",
+   "note": "Personal memory hook. Fill the bracket."
+  },
+  {
+   "id": "c-065",
+   "kind": "hook",
+   "text": "A 7am interview. Day 14 of LSAT logic games, up 8 points. A signed PM offer.",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 9 first line",
+   "note": "Three fragments, three wins. Rhythm hook."
+  },
+  {
+   "id": "c-066",
+   "kind": "hook",
+   "text": "One of our AI Builder Program alumni lost his sales engineer. So he built one.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (Mike Penrod)",
+   "note": "Outcome-first hook. Two sentences, a turn in the second."
+  },
+  {
+   "id": "c-067",
+   "kind": "hook",
+   "text": "15 to 20 hours of competitor research, replaced by a wiki that updates itself",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (Patrick Weeks)",
+   "note": "Hours saved, what replaced them. No verb needed."
+  },
+  {
+   "id": "c-068",
+   "kind": "hook",
+   "text": "Dalton on our team shipped a full careers site in about two hours.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (Dalton Brough)",
+   "note": "Named person, concrete thing, timeframe."
+  },
+  {
+   "id": "c-069",
+   "kind": "hook",
+   "text": "The team behind the ASU+GSV Summit just put 33 people through the AI Builder Program.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (ASU+GSV)",
+   "note": "Named customer plus a number in the first line."
+  },
+  {
+   "id": "c-070",
+   "kind": "hook",
+   "text": "PlayPower marketing team had a project they'd been putting off for years.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (PlayPower)",
+   "note": "Tension hook; the number lands in line two."
+  },
+  {
+   "id": "c-071",
+   "kind": "hook",
+   "text": "Today we are reintroducing Leland to the world.",
+   "for": "brand",
+   "platform": "linkedin",
+   "source": "Notion: Launch post content (Josh edit for John), 2026-06-15 rebrand launch",
+   "note": "Rebrand opener. One sentence, no adjectives."
+  },
+  {
+   "id": "c-072",
+   "kind": "hook",
+   "text": "3 years at a 12-person startup nobody knows. Is Harvard out of the question?",
+   "for": "community",
+   "platform": "any",
+   "source": "Drive: Community Launch Videos copy sheet (Michael), 2026-09-30, Learn card 1 question",
+   "note": "Sample feed question written for the launch video. Pattern: specific situation, then the fear as a question."
+  },
+  {
+   "id": "c-073",
+   "kind": "hook",
+   "text": "Signed the Bain offer. Six months ago I froze in every case.",
+   "for": "community",
+   "platform": "any",
+   "source": "Drive: Community Launch Videos copy sheet (Michael), 2026-09-30, Momentum post 3",
+   "note": "Sample win post from the launch video. Outcome first, then the before."
+  },
+  {
+   "id": "c-074",
+   "kind": "hook",
+   "text": "Hot take: your GMAT matters less than your 'why now.'",
+   "for": "community",
+   "platform": "any",
+   "source": "Drive: Community Launch Videos copy sheet (Michael), 2026-09-30, feed post 2",
+   "note": "Sample hot-take format. Opinion posts get reach (John, #linkedin-competition 2025-06-09)."
+  },
+  {
+   "id": "c-075",
+   "kind": "hook",
+   "text": "Your resume gets you the interview. Your story gets you the offer.",
+   "for": "coaching",
+   "platform": "any",
+   "source": "Drive: Community Launch Videos copy sheet (Michael), 2026-09-30, feed post 8",
+   "note": "Sample expert take. Parallel structure, no hedge."
+  },
+  {
+   "id": "c-076",
+   "kind": "hook",
+   "text": "I don't have a strong network yet. Is McKinsey or Bain out of reach?",
+   "for": "community",
+   "platform": "any",
+   "source": "Drive: Community Launch Video: Copy Swap for the Sophomore ICP (Nick Van Slooten), 2026-10-08",
+   "note": "The sophomore ICP question, as rewritten for the launch video. Use as the opening question for any student-facing asset."
+  },
+  {
+   "id": "c-077",
+   "kind": "cta",
+   "text": "Come ask.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] guardrails (approved CTA)",
+   "note": "The launch CTA. Two words, then a link."
+  },
+  {
+   "id": "c-078",
+   "kind": "cta",
+   "text": "Come ask yours.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 2",
+   "note": "Variant after a list of questions."
+  },
+  {
+   "id": "c-079",
+   "kind": "cta",
+   "text": "Follow along and bring your questions.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 7; guardrails (\"Follow along\")",
+   "note": "Expert-voice CTA."
+  },
+  {
+   "id": "c-080",
+   "kind": "cta",
+   "text": "Send this to someone who needs it.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] voice section",
+   "note": "Share CTA. Warmth from the invitation."
+  },
+  {
+   "id": "c-081",
+   "kind": "cta",
+   "text": "It's free on iOS, Android and web.",
+   "for": "community",
+   "platform": "any",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], ideas 1 and 10",
+   "note": "Closing line that doubles as the CTA. Always before the link."
+  },
+  {
+   "id": "c-082",
+   "kind": "cta",
+   "text": "Come see what they're shipping.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 12",
+   "note": "AIBP feed CTA."
+  },
+  {
+   "id": "c-083",
+   "kind": "cta",
+   "text": "Go take a look:",
+   "for": "community",
+   "platform": "linkedin",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[], idea 8",
+   "note": "Casual team-post CTA, link follows the colon."
+  },
+  {
+   "id": "c-084",
+   "kind": "cta",
+   "text": "If you want to help your team get set up for this next chapter of AI change, let's chat.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27 (every case-study post)",
+   "note": "B2B closer. Swap \"team\" for the function (Marketing, Operations, HR / Recruiting). John wants the model revisited, so test a shorter close too."
+  },
+  {
+   "id": "c-085",
+   "kind": "cta",
+   "text": "Enroll Now →",
+   "for": "aibp",
+   "platform": "web",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 CTA conventions",
+   "note": "Primary button. Verb plus arrow, title case on buttons only."
+  },
+  {
+   "id": "c-086",
+   "kind": "cta",
+   "text": "Schedule a Call →",
+   "for": "aibp",
+   "platform": "web",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 CTA conventions",
+   "note": "B2B button."
+  },
+  {
+   "id": "c-087",
+   "kind": "cta",
+   "text": "Talk with Our Team →",
+   "for": "aibp",
+   "platform": "web",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 CTA conventions",
+   "note": "Secondary B2B button; the only CTA allowed in IT briefs."
+  },
+  {
+   "id": "c-088",
+   "kind": "cta",
+   "text": "Book an expert →",
+   "for": "coaching",
+   "platform": "web",
+   "source": "LE rewrite of Drive: marketing-copy-guide.md v1.0, 2026-06-09 \"Book a Coach →\" (expert, not coach)",
+   "note": "Marketplace button. The guide still says coach; the brand says expert."
+  },
+  {
+   "id": "c-089",
+   "kind": "cta",
+   "text": "Reply to this email and we'll enroll you for free.",
+   "for": "aibp",
+   "platform": "email",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 CTA conventions (warm lists)",
+   "note": "Reply-CTA beats a button for alumni and returning users."
+  },
+  {
+   "id": "c-090",
+   "kind": "cta",
+   "text": "Get This Expensed",
+   "for": "aibp",
+   "platform": "web",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 trust signals",
+   "note": "B2B callout. Kristen added it to ai.joinleland.com (#launch-events 2026-03-19)."
+  },
+  {
+   "id": "c-091",
+   "kind": "cta",
+   "text": "Grab your seat and bring your team.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "LE rewrite of Joyce Chen's AI Transformation Week blurb (#marketing-organic-social, 2026-10-15): \"Grab your seat (and bring your team) before it fills up:\"",
+   "note": "Event CTA without the parenthetical or the fill-up threat."
+  },
+  {
+   "id": "c-092",
+   "kind": "cta",
+   "text": "Try this week: post one clip from your most recent livestream with a quick note on who it's for.",
+   "for": "clips",
+   "platform": "email",
+   "source": "LE rewrite of Jake Evans' clips post (#launch-events, 2026-10-27), exclamation removed",
+   "note": "Expert nudge CTA. \"Try this week:\" is a reusable frame (also in the Oct 21 newsletter)."
+  },
+  {
+   "id": "c-093",
+   "kind": "cta",
+   "text": "Link in bio.",
+   "for": "community",
+   "platform": "instagram",
+   "source": "Notion: Community Launch: Social Kit (Dave Christison, assets by Michael), 2026-10-13; mirrored in data/manifest.json posts[] carousel caption",
+   "note": "IG/TikTok closer."
+  },
+  {
+   "id": "c-094",
+   "kind": "cta",
+   "text": "Join Your First GRE Livestream",
+   "for": "coaching",
+   "platform": "email",
+   "source": "Slack #email, Christian, 2026-08-27 (preferred over \"Explore Free GRE Livestreams\")",
+   "note": "Name the action, not the browsing. Swap the category."
+  },
+  {
+   "id": "c-095",
+   "kind": "cta",
+   "text": "Open your livestreams dashboard",
+   "for": "clips",
+   "platform": "email",
+   "source": "Notion: Expert Newsletter - October 21 (Ella Hess), 2026-10-21, Clips section button",
+   "note": "Expert transactional CTA, sentence case."
+  },
+  {
+   "id": "c-096",
+   "kind": "subject",
+   "text": "Welcome to Leland 👋",
+   "for": "brand",
+   "platform": "email",
+   "source": "Slack #email, Christian, 2026-08-16",
+   "note": "First welcome email. Open rate roughly doubled to ~35% and clicks lifted 80% vs the aggressive subject below.",
+   "performed": true
+  },
+  {
+   "id": "c-097",
+   "kind": "subject",
+   "text": "Meet the experts getting customers into HBS, GSB and Wharton",
+   "for": "coaching",
+   "platform": "email",
+   "source": "Slack #email, Christian, 2026-08-16",
+   "note": "Did not improve opens as a first-touch subject. Keep for warmed MBA lists later in a sequence, not email one."
+  },
+  {
+   "id": "c-098",
+   "kind": "subject",
+   "text": "Leland Community Strategy Update",
+   "for": "community",
+   "platform": "email",
+   "source": "Slack #pod-community-product, Nick Van Slooten, 2026-10-15",
+   "note": "Expert-facing. Plain and framed as an update so a long email still lands."
+  },
+  {
+   "id": "c-099",
+   "kind": "subject",
+   "text": "Stanford MBA Director of Admissions: 5 Things You Need to Know Before Submitting",
+   "for": "coaching",
+   "platform": "email",
+   "source": "Slack #email, Christian, 2026-08-11 (Monday event invite model)",
+   "note": "Named person, named school, a number."
+  },
+  {
+   "id": "c-100",
+   "kind": "subject",
+   "text": "Need to Boost Your GMAT Score By 10 Pt? Free Expert Workshop",
+   "for": "coaching",
+   "platform": "email",
+   "source": "Slack #email, Christian, 2026-08-11 (Wednesday workshop model)",
+   "note": "Question plus a number. Written title case in HubSpot; sentence case on brand surfaces."
+  },
+  {
+   "id": "c-101",
+   "kind": "subject",
+   "text": "4 Weeks Until R1 MBA Deadlines. Here's how to prep your recommenders",
+   "for": "coaching",
+   "platform": "email",
+   "source": "Slack #email, Christian, 2026-08-11 (Friday resource model)",
+   "note": "Deadline countdown plus one concrete help."
+  },
+  {
+   "id": "c-102",
+   "kind": "subject",
+   "text": "All the MBA Events You'll Need This Week",
+   "for": "coaching",
+   "platform": "email",
+   "source": "Slack #email, Christian, 2026-08-11 (Sunday digest model)",
+   "note": "Weekly digest subject. Swap the category."
+  },
+  {
+   "id": "c-103",
+   "kind": "subject",
+   "text": "Leland+ just got a brand new look",
+   "for": "brand",
+   "platform": "email",
+   "source": "Slack #launch-events, Kristen, 2025-10-03 (Leland+ launch email)",
+   "note": "Product refresh subject. No hype words."
+  },
+  {
+   "id": "c-104",
+   "kind": "subject",
+   "text": "Your clips are ready to share",
+   "for": "clips",
+   "platform": "email",
+   "source": "LE rewrite of John's notification idea (#launch-events, 2026-10-21: \"your clips are ready to share or something\")",
+   "note": "Transactional subject for the post-livestream clips notification."
+  },
+  {
+   "id": "c-105",
+   "kind": "subject",
+   "text": "Continue AI Foundations with Lesson 3",
+   "for": "aibp",
+   "platform": "email",
+   "source": "Slack #pod-ai-marketing, Caleb Haymore, 2026-08-03 (drip nudge subject pattern)",
+   "note": "Drip subject. Direct, names the next step."
+  },
+  {
+   "id": "c-106",
+   "kind": "ad",
+   "text": "Leland is hosting a free AI Transformation Week: 8+ virtual sessions for non-technical professionals who want to become AI-native. Whether you work in Sales, GTM, Product, Design, Ops or Finance, there's a session built for your role. 6,000+ people and companies joined last time.",
+   "for": "aibp",
+   "platform": "linkedin",
+   "source": "LE rewrite of Joyce Chen's AI Transformation Week blurb (#marketing-organic-social, 2026-10-15): exclamation and \"FREE\" caps removed, benefit list cut to the role line and the proof number",
+   "note": "Event ad body. The 6,000+ line is the proof; keep it."
+  },
+  {
+   "id": "c-107",
+   "kind": "ad",
+   "text": "Ex-Booth AdCom | HBS 2+2 Co-Founder | GSB Deferred Admit",
+   "for": "coaching",
+   "platform": "ads",
+   "source": "Slack #paid-ads via Lebrain, Luke Edelheit feedback to Dario, 2026-10-23 (Deferred MBA Week statics)",
+   "note": "Credential line pattern for ad cards. Luke rejected the generic \"Expert Deferred MBA Coaches\" in favor of per-speaker school and firm credentials."
+  },
+  {
+   "id": "c-108",
+   "kind": "ad",
+   "text": ">30,000 reviews, 4.99/5 star average",
+   "for": "brand",
+   "platform": "x",
+   "source": "Notion: Launch post content, Josh's X thread tweet 2, 2026-06-15",
+   "note": "Trust stat as used at the rebrand. Re-verify the count before reuse."
+  },
+  {
+   "id": "c-109",
+   "kind": "ad",
+   "text": "Experts who respond quickly convert 1.5x more clients.",
+   "for": "coaching",
+   "platform": "email",
+   "source": "Notion: Expert Newsletter - October 21 (Ella Hess), 2026-10-21, Expert Success tip (based on 11,500+ intro calls)",
+   "note": "Expert-facing proof line. Pair with \"Aim to respond within two hours.\""
+  },
+  {
+   "id": "c-110",
+   "kind": "ad",
+   "text": "Taught by experts from places like:",
+   "for": "aibp",
+   "platform": "web",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 trust signals",
+   "note": "Cred-via-association lead-in, followed by logos. Use verbatim."
+  },
+  {
+   "id": "c-111",
+   "kind": "bio",
+   "text": "Samantha Parker ✓ · HBS '18 · Ex-McKinsey",
+   "for": "community",
+   "platform": "any",
+   "source": "Drive: Community Launch Videos copy sheet (Michael), 2026-09-30, Learn card 1 expert line",
+   "note": "Expert credential format in-feed: name, check, school and year, firm. Middle dots."
+  },
+  {
+   "id": "c-112",
+   "kind": "bio",
+   "text": "Georgetown '24 · McKinsey",
+   "for": "community",
+   "platform": "any",
+   "source": "Drive: Community Launch Video: Copy Swap for the Sophomore ICP (Nick Van Slooten), 2026-10-08",
+   "note": "For the sophomore ICP, badges read one to three years ahead and non-Ivy, so the viewer thinks \"people from schools like mine got there.\""
+  },
+  {
+   "id": "c-113",
+   "kind": "bio",
+   "text": "Asha T. ★ 5.0 · 109 reviews · 67,335 min coached",
+   "for": "coaching",
+   "platform": "any",
+   "source": "Drive: Community Launch Videos copy sheet (Michael), 2026-09-30, People video coach 1 (real expert stats)",
+   "note": "Expert profile stat line. Real numbers from the profile, never rounded up."
+  },
+  {
+   "id": "c-114",
+   "kind": "bio",
+   "text": "Sarah K. · Wharton '25",
+   "for": "coaching",
+   "platform": "any",
+   "source": "Drive: marketing-copy-guide.md v1.0, 2026-06-09 testimonial attribution pattern",
+   "note": "Testimonial attribution: name or initial, middle dot, detail."
+  },
+  {
+   "id": "c-115",
+   "kind": "quote",
+   "text": "It put everyone in a builder mindset.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Lucy Baldwin, VP Product, ASU+GSV, via Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27",
+   "note": "Verbatim customer quote. Attribute as Lucy Baldwin · ASU+GSV."
+  },
+  {
+   "id": "c-116",
+   "kind": "quote",
+   "text": "We're never going to get through that.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Ryan Moats, VP Global Marketing, PlayPower, via Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27",
+   "note": "The before-state quote. Follow with the after."
+  },
+  {
+   "id": "c-117",
+   "kind": "quote",
+   "text": "It exceeded my expectations in what I could learn to build in only 3 weeks.",
+   "for": "aibp",
+   "platform": "any",
+   "source": "Patrick Weeks, VP Operations, via Notion: John's Weekly AIBP Case Study / Customer Story LinkedIn Post (Joyce Chen ghostwriting for John), 2026-09-30 to 2026-10-27",
+   "note": "Verbatim, includes a timeframe. Attribute as Patrick Weeks · Level 1."
+  }
+ ]
+}
