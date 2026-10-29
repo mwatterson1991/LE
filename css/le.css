@@ -247,7 +247,7 @@ h2.sub{font-size:1.125rem;margin:32px 0 12px}
 .mrow{display:grid;grid-template-columns:170px 1fr 300px;gap:18px;align-items:start;padding:12px 14px;border-radius:10px;background:var(--g1);margin-bottom:8px}
 .mrow.def{box-shadow:inset 0 0 0 2px var(--ink)}
 .mdemo{aspect-ratio:16/9;border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:500;font-size:.875rem;color:#111;cursor:pointer}
-.mdemo em{font-style:normal;color:var(--soft)}.mdemo img{height:22px}.mdemo span{display:inline-flex;align-items:center;gap:6px;white-space:pre}.mdemo b{font-size:1rem;letter-spacing:-.02em}
+.mdemo em{font-style:normal;color:var(--soft)}.mdemo img{height:22px}.mdemo span{display:inline-flex;align-items:center;gap:0;white-space:pre}.mdemo span img{margin-right:6px}.mdemo b{font-size:1rem;letter-spacing:-.02em}
 .mdemo.go span{animation:m-rise .7s var(--ease) both}
 .mdemo[data-anim=typed].go span{animation:m-type 1.2s steps(18) both;overflow:hidden;white-space:nowrap;max-width:100%}
 .mdemo[data-anim=words].go span{animation:o-words .45s ease-out both}
