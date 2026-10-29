@@ -4,12 +4,11 @@
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#3963D7}
+:root{--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--paper:#F9F8F3;--ink:#010101;--neutral:#222}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#869AA6;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#F3F1E6;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
 .h{position:absolute;margin:0;font:500 66px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#010101;left:80px;top:72px;width:1120px}
-.h em{font-style:normal;color:#fff}
-.sub{position:absolute;left:80px;margin:0;font:400 26px/1.3 'Macan',sans-serif;color:#F3F1E6;width:1120px;white-space:nowrap}
+.h em{font-style:normal;color:#80ACED}
 .logo{position:absolute;left:80px;bottom:64px;width:120px}
 svg{position:absolute;left:0;top:0;overflow:visible}
 svg text{font-family:'Macan',sans-serif}
@@ -18,8 +17,7 @@ svg text{font-family:'Macan',sans-serif}
 </style></head><body>
 <div class="stage">
   <h1 class="h">Your best people have <em>day jobs</em>.</h1>
-  <p class="sub">Your strongest AI people are not always your teachers.</p>
-  <img class="logo" src="../../brand/logo-white.svg" alt="">
+  <img class="logo" src="../../brand/logo.svg" alt="">
   <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
   <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
   
@@ -29,36 +27,34 @@ const D=10; window.DURATION=D;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
 const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
 const svg=document.getElementById('svg');
-const _H=document.querySelector('.h'), _S=document.querySelector('.sub');
-const place=()=>{_S.style.top=(_H.getBoundingClientRect().bottom+18)+'px'}; place(); document.fonts.ready.then(place);
 const NS='http://www.w3.org/2000/svg';
 const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
 const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
 const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
 let _s=8; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
-const INK='#010101', WHITE='#fff', YEL='#FFD96F', BLUE='#80ACED', FOLLOW='#3963D7', SLATE='#869AA6', TAN='#EBD4B5', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+const INK='#010101', WHITE='#fff', BLUE='#80ACED', FOLLOW=BLUE, SLATE='#869AA6', BEIGE='#F3F1E6', PAPER='#F9F8F3';
 
 // Your internal champion's week fills with meetings until 'teach the team' is pushed off the calendar. A Leland expert takes it.
 const GX=80, GY=262, CW=152, RH=48, DAYS=['Mon','Tue','Wed','Thu','Fri'], ROWS=7;
 const cal=mk('g',{'clip-path':'url(#calclip)'});
 mk('rect',{x:GX,y:GY-30,width:CW*5,height:30+RH*ROWS},mk('clipPath',{id:'calclip'},mk('defs')));
-DAYS.forEach((d,i)=>{ txt(GX+i*CW+CW/2,GY-9,d,{'font-size':16,'font-weight':500,fill:WHITE,'text-anchor':'middle'}); });
-for(let r=0;r<=ROWS;r++) mk('line',{x1:GX,y1:GY+r*RH,x2:GX+CW*5,y2:GY+r*RH,stroke:WHITE,'stroke-width':1,opacity:.35});
-for(let c=0;c<=5;c++) mk('line',{x1:GX+c*CW,y1:GY,x2:GX+c*CW,y2:GY+RH*ROWS,stroke:WHITE,'stroke-width':1,opacity:.35});
+DAYS.forEach((d,i)=>{ txt(GX+i*CW+CW/2,GY-9,d,{'font-size':16,'font-weight':500,fill:INK,'text-anchor':'middle'}); });
+for(let r=0;r<=ROWS;r++) mk('line',{x1:GX,y1:GY+r*RH,x2:GX+CW*5,y2:GY+r*RH,stroke:INK,'stroke-width':1,opacity:.25});
+for(let c=0;c<=5;c++) mk('line',{x1:GX+c*CW,y1:GY,x2:GX+c*CW,y2:GY+RH*ROWS,stroke:INK,'stroke-width':1,opacity:.25});
 const block=(col,row,label,fill,tc,h=1,p=cal)=>{ const g=mk('g',{},p); mk('rect',{x:GX+col*CW+4,y:GY+row*RH+4,width:CW-8,height:RH*h-8,fill},g); txt(GX+col*CW+14,GY+row*RH+RH*h/2+6,label,{'font-size':16,'font-weight':500,fill:tc},g); return g; };
 const M=[[0,0,'Standup'],[1,0,'Pipeline review'],[1,2,'Customer call'],[0,3,'1:1'],[2,2,'Roadmap'],[3,0,'Hiring panel'],[1,3,'Board prep'],[3,2,'Escalation'],[2,3,'Forecast'],[4,2,'Customer call'],[4,3,'Offsite planning'],[3,3,'Planning'],[0,5,'Interview'],[4,6,'Pipeline review']];
 const meetings=M.map((m,i)=>({g:block(m[0],m[1],m[2],WHITE,INK),t:.6+i*.38}));
 // the teach block starts Tue 2pm (row 2), gets pushed to Wed, Thu, Fri, then off the edge
-const teach=mk('g',{},cal); mk('rect',{x:4,y:4,width:CW-8,height:RH*2-8,fill:YEL},teach); txt(14,RH+6,'Teach the team',{'font-size':17,'font-weight':500,fill:INK},teach);
+const teach=mk('g',{},cal); mk('rect',{x:4,y:4,width:CW-8,height:RH*2-8,fill:BLUE},teach); txt(14,RH+6,'Teach the team',{'font-size':17,'font-weight':500,fill:INK},teach);
 const path=[[1,2],[2,2],[3,2],[4,2],[5.3,2]]; // last one is off-grid
 const pushT=[meetings[2].t,meetings[4].t,meetings[7].t,meetings[9].t];
 // expert card
 const card=mk('g'); const cc=mk('clipPath',{id:'ec'},mk('defs')); mk('circle',{cx:1052,cy:360,r:56},cc);
-mk('rect',{x:900,y:262,width:300,height:336,fill:WHITE},card);
+mk('rect',{x:900,y:262,width:300,height:336,fill:WHITE,stroke:INK,'stroke-width':1.5},card);
 mk('image',{href:'../../experts/claudia-p.jpg',x:996,y:304,width:112,height:112,'clip-path':'url(#ec)',preserveAspectRatio:'xMidYMid slice'},card);
 txt(1050,452,'Claudia P.',{'font-size':22,'font-weight':500,fill:INK,'text-anchor':'middle'},card);
 txt(1050,478,'Leland expert',{'font-size':16,fill:INK,'text-anchor':'middle',opacity:.7},card);
-const teach2=mk('g',{},card); mk('rect',{x:924,y:500,width:252,height:74,fill:YEL},teach2); txt(1050,543,'Teach the team',{'font-size':17,'font-weight':500,fill:INK,'text-anchor':'middle'},teach2);
+const teach2=mk('g',{},card); mk('rect',{x:924,y:500,width:252,height:74,fill:BLUE},teach2); txt(1050,543,'Teach the team',{'font-size':17,'font-weight':500,fill:INK,'text-anchor':'middle'},teach2);
 function render(t){
   const reset=E.in(seg(t,8.6,9.4));
   meetings.forEach(m=>{ const k=E.out(seg(t,m.t,m.t+.35))*(1-reset); m.g.setAttribute('opacity',k); m.g.setAttribute('transform',`translate(0 ${lerp(-10,0,k)})`); });
@@ -71,7 +67,7 @@ function render(t){
   const land=E.out(seg(t,6.6,7.1))*(1-reset); teach2.setAttribute('opacity',land); teach2.setAttribute('transform',`translate(0 ${lerp(-14,0,land)})`);
 }
 
-window.seek=t=>{place();render(((t%D)+D)%D)};
+window.seek=t=>render(((t%D)+D)%D);
 render(0);
 if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

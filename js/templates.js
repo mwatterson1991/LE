@@ -4,7 +4,7 @@
   'use strict';
 
   /* ---------- palette & brand rules ---------- */
-  var PAL = { yellow: '#FFD96F', blue: '#80ACED', slate: '#869AA6', beige: '#F3F1E6', tan: '#EBD4B5', paper: '#F9F8F3', ink: '#010101', neutral: '#222222', follow: '#3963D7', white: '#ffffff' };
+  var PAL = { yellow: '#FFD96F', blue: '#80ACED', slate: '#869AA6', beige: '#F3F1E6', tan: '#EBD4B5', paper: '#F9F8F3', ink: '#010101', neutral: '#222222', white: '#ffffff' };
   var DARK = { blue: 1, slate: 1, ink: 1, neutral: 1 };
   function fieldHex(name, pal) { return (pal && pal[name]) || PAL[name] || name || PAL.yellow; }
   function isDark(name) { return !!DARK[name]; }
@@ -12,12 +12,8 @@
   function inkFor(name) { return isDark(name) ? PAL.white : PAL.ink; }
   /* secondary type: same hue, lower alpha */
   function dimFor(name) { return isDark(name) ? 'rgba(255,255,255,.72)' : 'rgba(1,1,1,.58)'; }
-  /* the one coloured phrase in a headline: blue on light, white on blue/slate/ink, ink on yellow/tan */
-  function accentFor(name) {
-    if (name === 'yellow' || name === 'tan') return PAL.ink;
-    if (isDark(name)) return PAL.white;
-    return PAL.follow || '#3963D7';
-  }
+  /* the one coloured phrase in a headline: the brand blue #80ACED on every field (the UI blue #3963D7 never appears in assets) */
+  function accentFor(name) { return PAL.blue; }
 
   /* ---------- vector lockup (assets/brand/logo.svg, viewBox 0 0 112 24) ---------- */
   var LOGO_D = [

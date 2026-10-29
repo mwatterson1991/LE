@@ -4,188 +4,242 @@
     {
       "kind": "cover",
       "data": {
-        "eyebrow": "SheerID x Leland",
         "title": "Layered support for the AI Acceleration Initiative.",
-        "sub": "October through February, and the year that follows.",
-        "photo": "bg-sky-2",
-        "color": "blue"
+        "illus": "sheerid-cover.png",
+        "color": "ink"
       }
     },
     {
       "kind": "agenda",
       "data": {
         "title": "Agenda.",
-        "items": "What we heard | AI Acceleration at SheerID\nAbout Leland | An end-to-end AI enablement partner\nOur solution | Enablement, dedicated support, and services\nCommercial details | What it costs and what happens next",
+        "items": "What we heard\nOur solution\nCommercial details",
         "color": "beige"
       }
     },
     {
-      "kind": "heard",
+      "kind": "pair",
       "data": {
-        "eyebrow": "What we heard",
-        "title": "An AI acceleration initiative over six months, [the whole company activated by AKO in February.]",
-        "sub": "This is every company's first AI transformation.",
-        "lhead": "Challenges",
-        "left": "**AI policy and risk.** Standardizing and unifying the company's AI policy ahead of mass adoption, avoiding costly economic, legal, and reputational risks.\n**Capability.** Make every role and level AI-first.\n**Resistance.** Change threatens identity. Will what people were good at still matter, and will the new job be as interesting?\n**L&D capacity.** Your strongest AI people have day jobs, and aren't always the strongest teachers.\n**Tracking impact.** Challenging to report ROI, progress, and impact to the board.",
-        "rhead": "Outcomes",
-        "right": "**Output that scales without headcount.** ICs become managers of agents, scaling their impact.\n**An AI-first operating model.** Every role, process, and project is redesigned to be AI-first.\n**Company engagement.** A workforce that is excited about being AI-first, and feels prepared for the future rather than scared.\n**Customer alignment.** SheerID supports many of the most advanced AI companies. Keeping up with AI fluency keeps you aligned with them.\n**Clear ROI.** Board-ready reporting on the transformation and its impact.",
-        "color": "paper"
+        "title": "Six months to AKO in February, [the whole company activated.]",
+        "left": "Every role and level AI-first\nChange threatens identity\nHard to report impact to the board",
+        "right": "An AI-first operating model\nA workforce excited and prepared\nBoard-ready ROI reporting",
+        "color": "white"
       }
     },
     {
-      "kind": "proof",
+      "kind": "stats",
       "data": {
-        "eyebrow": "About Leland",
         "title": "An end-to-end [AI enablement partner.]",
-        "logos": "Adobe, LinkedIn, Morgan Stanley, =Salesforce, =Cisco, =Nomura, =Discover, =GitLab",
-        "logolabel": "Trusted by teams at",
         "stats": "3,500+ | industry experts, 150+ pathways\n4.99 | average rating\n7.5M+ | people building careers on Leland",
-        "lines": "**Verizon.** 13,000 employees supported through career transformation.\n**Governor's Office of Economic Development.** Selected to support entrepreneurs statewide with AI enablement.",
-        "color": "paper"
+        "logos": "Adobe, LinkedIn, Morgan Stanley, =Salesforce, =Cisco, =Nomura, =Discover, =GitLab",
+        "color": "white"
       }
     },
     {
-      "kind": "agenda",
+      "kind": "illus",
       "data": {
-        "eyebrow": "Our solution",
+        "title": "Proven at scale.",
+        "lines": "**Verizon.** 13,000 employees supported through career transformation.\n**Governor's Office of Economic Development.** Selected to support entrepreneurs statewide with AI enablement.",
+        "illus": "sheerid-partner.png",
+        "ill": "ill-handshake",
+        "ph": "rings",
+        "color": "white"
+      }
+    },
+    {
+      "kind": "layers",
+      "data": {
         "title": "End-to-end layered support for [AI acceleration.]",
-        "items": "AI Builder Foundations | Drive a 15% productivity improvement across all ~185 employees, and mitigate risk around data handling, shadow AI, and unverified output.\nAI Builder Program | Phased enablement in waves: SLT and ELT first, squads in roadmap order, then company-wide at AKO.\n1:1 support in your function | Each executive and cluster lead paired with an AI-first leader who has run this inside their own function.\nAI engineering and AI services | 10 hours a month from kickoff, drawn on demand for AI engineering or AI leadership support.\nWorkshops and the AI Innovation Sprint | Three executive workshops built on your context, and the AI Innovation Sprint ahead of AKO so squads walk in with working agents to demo.",
-        "numbers": "no",
-        "color": "paper"
+        "layers": "Workshops and the AI Innovation Sprint\nAI engineering and AI services\n1:1 support in your function\nAI Builder Program\nAI Builder Foundations",
+        "illus": "sheerid-layers.png",
+        "color": "white"
+      }
+    },
+    {
+      "kind": "illus",
+      "data": {
+        "title": "Squads walk into AKO [with working agents to demo.]",
+        "lines": "**Three executive workshops**, built on your context.\n**The AI Innovation Sprint**, ahead of AKO.",
+        "illus": "sheerid-sprint.png",
+        "ill": "ill-rocket-launch",
+        "ph": "launch",
+        "color": "white"
       }
     },
     {
       "kind": "timeline",
       "data": {
-        "eyebrow": "",
         "title": "An 18-month roadmap: [October 1, 2026 to March 31, 2028.]",
         "months": "Oct, Nov, Dec, Jan, Feb · AKO",
         "band": "2.5 | 3 | Holidays",
-        "rows": "Foundations | Everyone, self-paced | 0-2 solid All ~185 employees\nAI Builder Program | SLT / ELT | 1-3 solid 20 leaders\nAI Builder Program | Phase 2 squads | 2-4 light In roadmap order\nELT / SLT workshops | Three, half-day | 2-3.2 light Three workshops\nCluster support | Domain experts, 1:1s | 1-5 light Six clusters, twelve experts paired\nAI Innovation Sprint | Hackathon | 3.3-4.7 solid Squads ship agents\nAI engineers | Build support | 0-5 dashed 10 hours a month, on demand, for AI engineering or AI leadership support",
-        "note": "**Why October.** A November start runs into the holidays, which slow progress and momentum. Driving baseline fluency in October, ahead of the phased enablement waves, has produced the strongest adoption while mitigating near-term compliance, security, and reputational risks.",
-        "color": "paper"
+        "rows": "Foundations | | 0-2 blue All ~185 employees\nAI Builder Program | Leaders, then squads | 1-3 solid 20 leaders ; 3-4.7 light Squads\nExecutive workshops | Three, half-day | 2-3.2 light\nAI Innovation Sprint | | 3.3-4.7 solid Squads ship agents\nDedicated support | Experts and engineers | 0-5 dashed Twelve experts, 10 hours/month",
+        "color": "white"
       }
     },
     {
       "kind": "timeline",
       "data": {
-        "eyebrow": "",
+        "title": "Start in October, [not November.]",
+        "months": "Oct, Nov, Dec, Jan, Feb · AKO",
+        "band": "2.5 | 3 | Holidays",
+        "rows": "October start | Baseline fluency first | 0-2.4 blue Fluency ; 2.4-5 light Phased waves\nNovember start | Runs into the holidays | 1-2.9 dashed Momentum stalls",
+        "size": "big",
+        "color": "white"
+      }
+    },
+    {
+      "kind": "timeline",
+      "data": {
         "title": "The roadmap continues: [February 2027 onward.]",
         "months": "Feb · AKO, Mar, Apr, May, Jun, Jul",
-        "rows": "AI Builder Program | Rest of the company, then ongoing | 0-2.5 solid Company-wide upskilling ; 2.5-6 light Continued access through March 2028\nROI and behavior change | Workshop, March | 1-2 solid Metrics, feedback loops, and what to do next\nRedesign squads | Workflows and roles | 0-6 light Rolling all year, in ROI order\nOn-demand support | 1:1s and AI engineers | 0-6 dashed Monthly 1:1s continue, remaining bank hours drawn on demand",
-        "cols": "Continued access | Employees retain access to the AI Builder Program and its updated curriculum through March 2028, so skills compound as models change.\nOn-demand support | The AIA, squad leaders, and executives keep 1:1 support from domain experts, with AI engineers on call for technical help.\nROI analysis | Metrics, reporting, and feedback loops to track ROI and flag opportunities for cost savings, process improvement, and continued enablement.",
-        "color": "paper"
+        "rows": "AI Builder Program | Rest of the company | 0-2.5 solid Company-wide ; 2.5-6 light Access through March 2028\nROI and behavior change | Workshop, March | 1-2 blue Metrics\nRedesign squads | Workflows and roles | 0-6 light In ROI order\nOn-demand support | 1:1s and AI engineers | 0-6 dashed",
+        "color": "white"
       }
     },
     {
       "kind": "cards3",
       "data": {
-        "eyebrow": "Leland x SheerID",
         "title": "18 months of support for [AI Acceleration.]",
-        "h1": "AI enablement for every employee",
-        "c1": "Baseline fluency for all ~185 employees with Foundations\nThe full AI Builder Program for all ~200 employees, delivered in waves, so every team builds agents, automations, and tools for their own roles\nCustom curriculum on SheerID's data privacy, standards, and tool-specific nuances\n18 months of curriculum access for all ~200 employees",
-        "h2": "Dedicated support from AI-first leaders",
-        "c2": "A domain expert paired with every functional cluster and lead\nSix months of FY27 support from domain experts\nA 60-hour bank from kickoff, 10 hours a month, drawn on demand for AI engineering or AI leadership support\nAnalytics on engagement, project builds, and skill improvement",
-        "h3": "Custom workshops and curriculum, built for SheerID",
-        "c3": "Three executive workshops: reclaim their own time, lead the change with their teams, prove ROI to the board\nThe AI Innovation Sprint (Hackathon) ahead of AKO\nROI Analysis and Behavior Change Workshop in March",
-        "color": "beige"
+        "h1": "Enablement for every employee",
+        "c1": "Foundations for ~185, the full program for ~200, 18 months of access.",
+        "i1": "ill-team-work",
+        "h2": "Dedicated support",
+        "c2": "An expert per cluster, six months of FY27, a 60-hour bank.",
+        "i2": "ill-joint-effort",
+        "h3": "Custom workshops",
+        "c3": "Reclaim time, lead the change, prove ROI. Analytics included.",
+        "i3": "ill-strategic-planning",
+        "color": "white"
       }
     },
     {
       "kind": "price",
       "data": {
-        "eyebrow": "Commercial details",
         "title": "18 months of dedicated support for the AIA.",
-        "e1": "Full solution",
         "p1": "$250,000",
-        "l1": "Scalable, impactful AI enablement for every employee\nAvoid costly mistakes with dedicated support from AI-first leaders\nAddress executive priorities and accelerate time-to-value with custom workshops and innovation sprints",
         "d1": "October 1, 2026 through March 31, 2028 · Kickoff October 1",
+        "l1": "AI enablement for every employee\nDedicated support from AI-first leaders\nCustom workshops and innovation sprints",
         "color": "ink"
       }
     },
     {
       "kind": "price",
       "data": {
-        "eyebrow": "",
-        "title": "Two ways to begin.",
-        "e1": "Option 1 · Full partnership",
+        "title": "Option 1: the full partnership, [24% below list.]",
         "p1": "$190,000",
-        "l1": "Company-wide AI Foundations with your policy content, data-privacy design group, and board reporting\nThe full AI Builder Program for every employee: SLT / ELT first, then squads in roadmap order, then company-wide\nThree executive workshops and the AI Innovation Sprint ahead of AKO\nDomain experts across all six functional clusters, plus monthly 1:1s for cluster leads\nA 60-hour bank from kickoff, 10 hours a month, drawn on demand for AI engineering or AI leadership support\n18 months of curriculum access for all ~200 employees",
-        "d1": "Signed by September 18 · kickoff October 1",
-        "e2": "Option 2 · Foundations pilot and design partner",
-        "p2": "$55,000",
-        "l2": "Company-wide AI Foundations for all 185\nYour AI policy and data-classification content woven in\nData privacy and guardrails designed with a five-person group before launch\nBoard-ready reporting pack\nEverything in Option 1 priced and dated, credited in full if you continue",
-        "d2": "Signed by September 30 · kickoff October 10",
-        "note": "List price for this scope is $250,000. The partnership is $190,000, 24% below list.",
-        "color": "paper"
+        "d1": "List $250,000 · Signed by September 18 · Kickoff October 1",
+        "l1": "Foundations, the full program, 18 months of access for ~200\nThree executive workshops and the AI Innovation Sprint\nSix cluster experts, monthly 1:1s, a 60-hour bank",
+        "color": "white"
+      }
+    },
+    {
+      "kind": "price",
+      "data": {
+        "title": "Option 2: a Foundations pilot, [credited in full.]",
+        "p1": "$55,000",
+        "d1": "Signed by September 30 · Kickoff October 10",
+        "l1": "Company-wide AI Foundations for all 185, with your policy content\nGuardrails designed with a five-person group before launch\nBoard-ready reporting; Option 1 priced and dated",
+        "color": "white"
       }
     },
     {
       "kind": "steps",
       "data": {
-        "eyebrow": "Next steps",
         "title": "From here to kickoff.",
-        "steps": "Sept 7-8 | Solution refinement with Laura\nSept 9-11 | Onsite with the AIA and leadership team\nSept 14-15 | Finalized SOW\nSept 18 | Contracting complete\nOct 1 | Kick-off",
-        "color": "yellow"
+        "steps": "Sept 7-8 | Solution refinement with Laura\nSept 9-11 | Onsite with the AIA and leadership\nSept 14-15 | Finalized SOW\nSept 18 | Contracting complete\nOct 1 | Kick-off",
+        "color": "white"
       }
     },
     {
       "kind": "section",
       "data": {
         "title": "Appendix.",
-        "sub": "Foundations, the five levels, the bench, and how progress gets measured.",
         "num": "",
-        "color": "slate"
+        "color": "beige"
       }
     },
     {
       "kind": "cards3",
       "data": {
-        "eyebrow": "AI Builder Foundations",
-        "title": "Near-term productivity, [while mitigating risks.]",
-        "h1": "Everyone, self-paced, about seven hours",
-        "c1": "**See the potential.** Where AI actually fits their own job, and what it can do beyond search.\n**Use it effectively.** Giving AI real context, staying organized, and getting output worth keeping.\n**Use it responsibly.** Security, honesty about what AI produces, and control of what it costs.",
-        "h2": "Four live sessions over two weeks",
-        "c2": "Deliver a working product, end to end\nAutomate communication in your voice, analyze data, and create presentations with AI\nDesign role-specific skills\nDemo day and certificates. Access included for the SLT / ELT and every wave that follows",
-        "h3": "Custom to SheerID",
-        "c3": "**AI policy reinforcement.** Your AI policy and data classification, taught in the same round, so level set and policy launch are one motion.\n**Data-privacy guardrails.** A five-person design group goes first, so data boundaries are set before the company-wide launch.\n**Board-ready reporting.** Baseline and post competency, completion, compliance, and adoption, reported to the AI Acceleration team each cohort.",
-        "color": "paper"
+        "title": "Foundations: everyone, self-paced, [about seven hours.]",
+        "h1": "See the potential",
+        "c1": "Where AI fits their own job, beyond search.",
+        "i1": "ill-creative-mind",
+        "h2": "Use it effectively",
+        "c2": "Real context, organized, output worth keeping.",
+        "i2": "ill-boost-productivity",
+        "h3": "Use it responsibly",
+        "c3": "Security, honesty about output, control of cost.",
+        "i3": "ill-safe-data",
+        "color": "white"
+      }
+    },
+    {
+      "kind": "cards3",
+      "data": {
+        "title": "Four live sessions over two weeks, [a 15% productivity lift.]",
+        "h1": "Deliver a working product",
+        "c1": "End to end, with AI.",
+        "i1": "ill-blocks",
+        "h2": "Automate, analyze, present",
+        "c2": "Communication in your voice, data, presentations, role-specific skills.",
+        "i2": "ill-productivity",
+        "h3": "Demo day and certificates",
+        "c3": "Access included for the SLT / ELT and every wave.",
+        "i3": "ill-achievement-certificate",
+        "color": "white"
+      }
+    },
+    {
+      "kind": "cards3",
+      "data": {
+        "title": "Custom to SheerID, [mitigating risk from day one.]",
+        "h1": "AI policy reinforcement",
+        "c1": "Your policy and data classification, taught in the same round.",
+        "i1": "ill-checklist",
+        "h2": "Data-privacy guardrails",
+        "c2": "A five-person design group goes first.",
+        "i2": "ill-risk-management",
+        "h3": "Board-ready reporting",
+        "c3": "Baseline and post competency, completion, compliance, adoption.",
+        "i3": "ill-business-report",
+        "color": "white"
       }
     },
     {
       "kind": "levels",
       "data": {
-        "eyebrow": "AI Builder Program",
         "title": "Empower every team to be [an AI Builder.]",
-        "intro": "Five levels of enablement, from first build to an orchestration layer, designed by AI experts for knowledge workers, with a year of curriculum updates as models change.\nOne matched expert per functional cluster, plus a monthly 1:1 with every cluster lead.",
         "levels": "Use AI to 10x your impact\nBuild complex agentic workflows\nCreate autonomous agents\nBuild your agent workforce\nDesign your AI orchestration layer",
-        "note": "Level one clears your infrastructure gate today. The deeper levels unlock as systems connect. The program moves at the speed of your infrastructure, not our calendar.",
-        "color": "beige"
+        "color": "white"
       }
     },
     {
       "kind": "people",
       "data": {
-        "eyebrow": "",
         "title": "Domain experts who have run this [inside their own function.]",
-        "groups": "## Go-to-Market\nTara C. | SVP Marketing; VP MktOps, AppFolio\nAlbert C. | P&G, Google, Meta\n## Finance\nElyse R. | Deloitte, KPMG, PwC; Copilot to 5,000+\nJuston B. | Sr Financial Analyst, Google; MS in AI\n## Info Security\nAtul T. | IBM, HCLTech; security and governance\nFrances C. | Slack, JupiterOne; compliance\n## Product\nCharles T. | Head of AI Product, Intuit\nDessy K. | Ex-TikTok Head of Product\n## Marketing\nNasiim S. | Meta, Microsoft; AI operating systems\nRachael D. | Airbnb, Meta, eBay; lifecycle AI\n## People and Leadership\nCheryl R. | VP of AI Transformation; ICF-certified\nMike H. | Stanford GSB; leading teams in the AI era",
-        "note": "Each cluster lead keeps a monthly 1:1 through February, and six months further into FY27.",
-        "color": "paper"
+        "groups": "## Go-to-Market\nTara C. | SVP Marketing; AppFolio\n## Finance\nElyse R. | Deloitte, KPMG, PwC\n## Info Security\nAtul T. | IBM, HCLTech\n## Product\nCharles T. | Head of AI Product, Intuit\n## Marketing\nNasiim S. | Meta, Microsoft\n## People and Leadership\nCheryl R. | VP of AI Transformation",
+        "illus": "sheerid-experts.png",
+        "color": "white"
       }
     },
     {
-      "kind": "cards3",
+      "kind": "people",
       "data": {
-        "eyebrow": "Reporting",
+        "title": "A monthly 1:1 through February, [then six months into FY27.]",
+        "groups": "## Go-to-Market\nAlbert C. | P&G, Google, Meta\n## Finance\nJuston B. | Sr Financial Analyst, Google\n## Info Security\nFrances C. | Slack, JupiterOne\n## Product\nDessy K. | Ex-TikTok Head of Product\n## Marketing\nRachael D. | Airbnb, Meta, eBay\n## People and Leadership\nMike H. | Stanford GSB",
+        "color": "white"
+      }
+    },
+    {
+      "kind": "illus",
+      "data": {
         "title": "How progress [gets measured.]",
-        "h1": "Fluency improvement",
-        "c1": "Before the program, participants are surveyed to baseline current AI competency. After, a follow-up survey gauges the lift, person by person.",
-        "h2": "Engagement and accountability",
-        "c2": "Attendance, recording views, and completion tracked throughout and reported to the AI Acceleration team, so you can see who is progressing and who needs support.",
-        "h3": "Business impact",
-        "c3": "Agents and automations built inside the program, counted per cohort, then function-specific builds from the Sprint, showcased at AKO.",
-        "note": "These become the first numbers behind the ROI gates in your own plan, and the progress report your board is expecting.",
-        "color": "beige"
+        "lines": "**Fluency.** A survey before and after, person by person.\n**Engagement.** Attendance, views, and completion, reported each cohort.\n**Impact.** Agents built per cohort, then Sprint builds showcased at AKO.",
+        "illus": "sheerid-measured.png",
+        "ill": "ill-success-graph",
+        "ph": "rise",
+        "color": "white"
       }
     }
   ]

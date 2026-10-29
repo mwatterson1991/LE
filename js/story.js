@@ -19,7 +19,7 @@ async function renderStorySlide(kind,W,H){const c=document.createElement('canvas
   const eyebrow=(t)=>{x.font=`600 ${30*u}px Macan`;x.fillStyle='#767676';x.fillText(t.toUpperCase(),pad,pad);x.fillStyle='#111'};
   const lockup=(y,size)=>{const lh=size,lw=lm.width/lm.height*lh;x.drawImage(lm,pad,y,lw,lh);x.font=`600 ${size*.95}px Macan`;x.fillStyle='#111';x.textBaseline='middle';x.fillText('Leland',pad+lw+size*.35,y+lh/2);x.textBaseline='top'};
   const body=(t,y,size,maxW,ink='#111',lh=1.3)=>{x.font=`400 ${size}px Macan`;x.fillStyle=ink;const ls=wrapText(x,t,maxW);ls.forEach(l=>{x.fillText(l,pad,y);y+=size*lh});return y};
-  const accent=(BG[kind]==='#FFD96F')?'#010101':'#3963D7';const head=(t,y,size,maxW)=>{x.font=`500 ${size}px Season, Georgia, serif`;const ls=wrapText(x,t,maxW);ls.forEach(l=>{drawRich(x,l,pad,y,'left','#111',accent);y+=size*1.06});return y};
+  const accent='#80ACED';const head=(t,y,size,maxW)=>{x.font=`500 ${size}px Season, Georgia, serif`;const ls=wrapText(x,t,maxW);ls.forEach(l=>{drawRich(x,l,pad,y,'left','#111',accent);y+=size*1.06});return y};
   const lg=A(story.logo);
   if(kind==='cover'){eyebrow('AI Builder Program');
     if(lg){const im=await loadImg(lg.src);const s=220*u;roundRect(x,pad,pad+90*u,s,s,s*.18);x.save();x.clip();x.drawImage(im,pad,pad+90*u,s,s);x.restore()}

@@ -2,6 +2,16 @@
 
 Source of truth: `brand/board.html` (the living brand board). Open it in a browser. Everything below is derived from it.
 
+
+## Leonardo 3.0 rules (Oct 29, 2026, from Michael)
+1. White is the default field (#FFFFFF). Beige/paper are occasional, not everywhere. One field color per tile.
+2. No eyebrow text. No small caps label above a headline ("ABOUT LELAND", "WHAT WE HEARD"). No subcopy under it. The headline stands alone.
+3. Yellow is an accent, used sparingly, never as a background and never under or behind text. The lockup may sit on yellow; words may not.
+4. #3963D7 (the Follow-button blue) is UI, not brand. Never use it in assets. The brand blue is #80ACED. On light fields the accent phrase is #80ACED, used sparingly.
+5. Text limits per slide/tile: headline ≤ 10 words; body ≤ 40 words total; ≤ 3 items. If a slide needs more, it is two slides.
+6. Illustrate the concept instead of describing it. One illustration or diagram per slide, large. Claude does not draw illustrations; it writes the ChatGPT image prompt (see assets/illus/PROMPTS.md), the image is generated there, dropped into assets/illus/, and the renderer picks it up. Diagrams (timelines, layers, grids) are drawn in code.
+7. Type: Season Mix headlines, Macan body. At most two body sizes on a slide.
+
 ## Palette (marketing assets)
 | name | hex | use |
 |---|---|---|
@@ -13,7 +23,7 @@ Source of truth: `brand/board.html` (the living brand board). Open it in a brows
 | paper | #F9F8F3 | off-white page |
 | ink | #010101 | type, the mark |
 | neutral | #222222 | body text on light |
-| follow | #3963D7 | the one saturated blue, for a link/button accent only |
+| follow | #3963D7 | UI only (the LE tool). Never in assets. |
 | white | #FFFFFF | type and lockup on photos, blue, slate, black |
 
 Rules: one field color per tile. Ink type on yellow/beige/tan/paper; white type on blue/slate/black/photos. No gradients, no green ever. The mark is ink or white, never yellow itself (it sits ON yellow). The LE tool's own chrome is monochrome; that is not the brand palette.
