@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useSiteData } from './siteData.jsx'
 import posthog from 'posthog-js'
 import Marquee from 'react-fast-marquee'
 import Squares from './components/Squares'
@@ -140,14 +141,7 @@ function FaqItem({ question, answer, index, open, onToggle }) {
 }
 
 function ReviewsCarousel() {
-  const [reviews, setReviews] = useState([])
-
-  useEffect(() => {
-    fetch('/data/featured-reviews.json')
-      .then(r => r.ok ? r.json() : [])
-      .then(d => setReviews(d || []))
-      .catch(() => setReviews([]))
-  }, [])
+  const reviews = useSiteData('featured-reviews.json') || []
 
   if (!reviews.length) return null
 
@@ -1715,8 +1709,9 @@ function HomePage() {
   )
 }
 
-function App() {
-  const path = window.location.pathname
+// `path` is passed in by the build-time prerender (src/entry-server.jsx),
+// where there is no window. In the browser it falls back to the real URL.
+function App({ path = window.location.pathname }) {
 
   useEffect(() => {
     const pageNames = {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useSiteData } from '../siteData.jsx'
 import posthog from 'posthog-js'
 
 // Small deterministic tilt per card, mirroring the results page marquee
@@ -42,15 +43,8 @@ export default function ResultsCTASection({
   heading = 'See what people have built',
   subhead = 'Watch real demos of what AI Builder Program graduates have built during the program.',
 } = {}) {
-  const [demos, setDemos] = useState([])
+  const demos = useSiteData('demos.json') || []
   const trackRef = useRef(null)
-
-  useEffect(() => {
-    fetch('/data/demos.json')
-      .then(r => r.ok ? r.json() : [])
-      .then(d => setDemos(d || []))
-      .catch(() => setDemos([]))
-  }, [])
 
   const levels = [...new Set(demos.map(d => d.level).filter(Boolean))].sort()
   const doubled = [...demos, ...demos]

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useNow } from '../now.js'
+import { useSiteData } from '../siteData.jsx'
 import { TextMorph } from 'torph/react'
 import posthog from 'posthog-js'
 import { motion, AnimatePresence } from 'motion/react'
@@ -14,13 +16,14 @@ import './home-rebrand.css'
 import './leland-ai.css'
 import './program-for-teams.css'
 
-const ENROLL_URL = (() => {
+// Checkout link for the next open Level 1 cohort. Takes `now` from useNow() so the
+// build-time HTML and the browser agree (see src/now.js).
+function nextEnrollUrl(now) {
   const cohorts = COURSE_COHORTS[1] || []
-  const now = new Date()
   const next = cohorts.find(c => c.enrollUrl && !c.soldOut && new Date(c.iso) >= now)
     || cohorts.find(c => c.enrollUrl && !c.soldOut)
   return next?.enrollUrl || cohorts[0]?.enrollUrl
-})()
+}
 
 const NEXT_COHORT_DISPLAY = (() => {
   const l1 = COURSE_COHORTS[1] || []
@@ -178,14 +181,7 @@ function FaqItem({ question, answer, index, open, onToggle }) {
 }
 
 function TestimonialsBoard() {
-  const [reviews, setReviews] = useState([])
-
-  useEffect(() => {
-    fetch('/data/featured-reviews.json')
-      .then(r => r.ok ? r.json() : [])
-      .then(d => setReviews(d || []))
-      .catch(() => setReviews([]))
-  }, [])
+  const reviews = useSiteData('featured-reviews.json') || []
 
   if (!reviews.length) return null
 
@@ -239,14 +235,7 @@ function TestimonialsBoard() {
 }
 
 function ReviewsCarousel() {
-  const [reviews, setReviews] = useState([])
-
-  useEffect(() => {
-    fetch('/data/featured-reviews.json')
-      .then(r => r.ok ? r.json() : [])
-      .then(d => setReviews(d || []))
-      .catch(() => setReviews([]))
-  }, [])
+  const reviews = useSiteData('featured-reviews.json') || []
 
   if (!reviews.length) return null
 
@@ -271,8 +260,7 @@ function ReviewsCarousel() {
   )
 }
 
-function getDefaultCohort(cohorts) {
-  const now = new Date()
+function getDefaultCohort(cohorts, now) {
   return (
     cohorts.find(c => c.enrollUrl && !c.soldOut && new Date(c.iso) >= now) ||
     cohorts.find(c => c.enrollUrl && !c.soldOut) ||
@@ -281,7 +269,10 @@ function getDefaultCohort(cohorts) {
 }
 
 function CourseAccordionItem({ course, open, onToggle }) {
-  const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
+  // Until the visitor picks a cohort, the default follows today's date.
+  const now = useNow()
+  const [pickedCohort, setSelectedCohort] = useState(null)
+  const selectedCohort = pickedCohort ?? getDefaultCohort(course.cohorts, now)
   const [showAllMobile, setShowAllMobile] = useState(false)
   const enrollUrl = (selectedCohort && !selectedCohort.soldOut ? selectedCohort.enrollUrl : null) ?? course.enrollUrl
   const detail = courseData[parseInt(course.num, 10)] || {}
@@ -930,6 +921,7 @@ function TeamPricingSection({ id, variant = 'solution', headline = 'Bring AI Bui
 }
 
 function ValueStack({ id, showIncludes = true, showAdvisor = false, headline = 'Choose your path', sub = 'Three ways to become an AI Builder. Start small or commit to the full journey.' }) {
+  const now = useNow()
   const CORE_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)'
   const ADVANCED_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)'
 
@@ -945,7 +937,7 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, headline = '
       price: '$999',
       monthly: '$257/mo with payment plan',
       cta: 'Start with Level 1',
-      enrollUrl: ENROLL_URL,
+      enrollUrl: nextEnrollUrl(now),
       utm: 'value-stack-l1',
       buildsHeader: "What you'll build",
       builds: [
@@ -1391,7 +1383,8 @@ function TeamsProgramPageInner() {
 
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 768)
+  // Starts false to match the build-time HTML; the resize effect sets it on mount.
+  const [isMobile, setIsMobile] = useState(false)
   const navRef = useRef(null)
   const [openFaq, setOpenFaq] = useState(null)
   const [openAccordion, setOpenAccordion] = useState(0)
@@ -1458,6 +1451,7 @@ function TeamsProgramPageInner() {
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 768)
+    onResize()
     window.addEventListener('resize', onResize, { passive: true })
     return () => window.removeEventListener('resize', onResize)
   }, [])

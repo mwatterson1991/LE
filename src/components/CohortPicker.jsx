@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNow } from '../now.js'
 
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -17,10 +18,10 @@ function formatCohortDate(cohort) {
 // Cohorts that have already started must never render. Special-track cohorts use a
 // non-date suffix (e.g. '2026-07-14-utah'), so compare on the leading YYYY-MM-DD only.
 // Anything unparseable is kept rather than silently dropped.
-function hasNotStarted(cohort) {
+function hasNotStarted(cohort, now) {
   const start = new Date(`${cohort.iso?.slice(0, 10)}T12:00:00`)
   if (isNaN(start)) return true
-  const today = new Date()
+  const today = new Date(now)
   today.setHours(0, 0, 0, 0)
   return start >= today
 }
@@ -77,7 +78,8 @@ function SessionTimesLabel({ sessionTimes, scheduleDays }) {
 }
 
 export default function CohortPicker({ cohorts, selected, onChange }) {
-  const upcoming = (cohorts || []).filter(hasNotStarted)
+  const now = useNow()
+  const upcoming = (cohorts || []).filter(c => hasNotStarted(c, now))
   if (upcoming.length <= 1) return null
   return (
     <div className="cohort-picker">

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useMemo, useCallback } fro
 import '../index.css'
 import './home-rebrand.css'
 import ReviewCard, { orderReviews } from '../components/ReviewCard'
+import { useSiteData } from '../siteData.jsx'
 
 // Where "back" goes. The reviews page is reachable from more than one landing
 // page, so it reads ?from= instead of assuming /program. Only known internal
@@ -18,6 +19,8 @@ function returnPath() {
   return RETURN_PATHS[from] || '/program'
 }
 
+// The build-time render has no screen width, so it lays out the desktop column
+// count, and the browser corrects it before the first paint.
 function useColumnCount() {
   const getCount = useCallback(() => {
     const w = window.innerWidth
@@ -26,9 +29,10 @@ function useColumnCount() {
     if (w >= 540) return 2
     return 1
   }, [])
-  const [count, setCount] = useState(getCount)
-  useEffect(() => {
+  const [count, setCount] = useState(4)
+  useLayoutEffect(() => {
     const handler = () => setCount(getCount())
+    handler()
     window.addEventListener('resize', handler)
     return () => window.removeEventListener('resize', handler)
   }, [getCount])
@@ -36,9 +40,11 @@ function useColumnCount() {
 }
 
 export default function ReviewsPage() {
-  const [featured, setFeatured] = useState([])
-  const [feed, setFeed] = useState([])
-  const [loading, setLoading] = useState(true)
+  const featuredFile = useSiteData('featured-reviews.json')
+  const feedFile = useSiteData('reviews-list.json')
+  const loading = featuredFile === null || feedFile === null
+  const featured = useMemo(() => (featuredFile || []).filter(r => !r.legacy), [featuredFile])
+  const feed = useMemo(() => (feedFile || []).filter(r => r.rating === 5 && !r.legacy), [feedFile])
 
   useLayoutEffect(() => {
     document.title = 'AI Builder Reviews | Leland'
@@ -50,19 +56,10 @@ export default function ReviewsPage() {
     }
   }, [])
 
-  useEffect(() => {
-    Promise.all([
-      fetch('/data/featured-reviews.json').then(r => r.json()).catch(() => []),
-      fetch('/data/reviews-list.json').then(r => r.json()).catch(() => []),
-    ]).then(([f, all]) => {
-      setFeatured((f || []).filter(r => !r.legacy))
-      setFeed((all || []).filter(r => r.rating === 5 && !r.legacy))
-      setLoading(false)
-    })
-  }, [])
-
   const colCount = useColumnCount()
-  const backTo = useMemo(() => returnPath(), [])
+  // ?from= is only known in the browser, so read it after the first render.
+  const [backTo, setBackTo] = useState('/program')
+  useEffect(() => setBackTo(returnPath()), [])
 
   // Combined: featured first, then unique 5-star feed (dedup by quote signature),
   // normalized to the shared ReviewCard shape and ordered the same way as /program
