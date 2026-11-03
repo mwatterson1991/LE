@@ -54,6 +54,8 @@ run `npm run build`. A hook blocks writes to both.
 
 ## How it deploys
 
-Cloudflare builds from `main` automatically. A broken build ships nothing and
+Cloudflare builds from `main` automatically, and again every night
+(`.github/workflows/scheduled-rebuild.yml`) so the prerendered dates stay
+current. A broken build ships nothing and
 silently keeps the previous version live, so a red pull request check means the
 change would not have shipped.

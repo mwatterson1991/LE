@@ -1,0 +1,39 @@
+name: Scheduled rebuild
+
+# Pages are rendered to HTML at build time (scripts/build.mjs), so what crawlers
+# and AI answer engines read (next cohort date, default checkout link) is fixed
+# as of the last deploy. Visitors always see live dates once the page loads.
+# Rebuilding daily keeps the crawled HTML current even when nobody merges.
+#
+# It calls a Cloudflare Workers Builds deploy hook, which builds `main` exactly
+# as a merge would. A failed build keeps the previous version live.
+#
+# Setup (once): Cloudflare dashboard > Workers & Pages > ai-mastery > Settings >
+# Builds > Deploy Hooks > create a hook for the `main` branch. Save its URL as the
+# repo secret CLOUDFLARE_DEPLOY_HOOK_URL. Treat the URL like a password: anyone
+# who has it can trigger builds.
+
+on:
+  schedule:
+    # 08:15 UTC = shortly after midnight Pacific, so the day's dates roll over
+    # before US morning traffic.
+    - cron: '15 8 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare build of main
+        env:
+          HOOK_URL: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK_URL" ]; then
+            echo "::error::Repo secret CLOUDFLARE_DEPLOY_HOOK_URL is not set. See the setup note at the top of this workflow."
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error -X POST "$HOOK_URL"
+          echo
+          echo "Build requested. Follow it in the Cloudflare dashboard under the ai-mastery Worker's Deployments."
