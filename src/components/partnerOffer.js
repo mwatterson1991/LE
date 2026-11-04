@@ -44,8 +44,16 @@ export function partnerForPath(pathname) {
   return Object.hasOwn(PARTNERS, slug) ? PARTNERS[slug] : null
 }
 
+// The build-time prerender has no window, so it says which page it is rendering
+// (src/entry-server.jsx). Pages render one at a time there, so a module-level
+// value is safe.
+let renderPath = null
+export function setRenderPath(path) {
+  renderPath = path
+}
+
 export function activePartner() {
-  if (typeof window === 'undefined') return null
+  if (typeof window === 'undefined') return renderPath ? partnerForPath(renderPath) : null
   return partnerForPath(window.location.pathname)
 }
 

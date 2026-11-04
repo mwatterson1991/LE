@@ -27,6 +27,22 @@ add-a-page skill, which covers the whole checklist.
 A clean URL that does not match a file name needs a rule in
 `public/_redirects`. That is how `/program/v2` reaches `program-v2.html`.
 
+## Pages are prerendered
+
+`npm run build` (scripts/build.mjs) renders every React page to HTML, so
+crawlers and AI answer engines read the content without running JavaScript.
+The browser then takes over that HTML. Two rules keep this working:
+
+- Never read `window`, `document` or `localStorage` while a component renders.
+  Do it inside `useEffect`. The build fails and names the page if you forget.
+- Never call `new Date()` or `Date.now()` while rendering. Use `useNow()` from
+  `src/now.js`, so the build-time HTML and the browser agree on the time. For
+  "which day is it" logic, use `useToday()` there, never `setHours` or
+  `getDate`: Cloudflare builds in UTC and visitors are in other timezones.
+
+JSON in `public/data` that a page shows goes through `useSiteData()` in
+`src/siteData.jsx`, so it is part of the HTML too.
+
 ## Images and video
 
 The budget is 400 KB per image and 2 MB per video. Camera and stock exports run
@@ -40,6 +56,8 @@ run `npm run build`. A hook blocks writes to both.
 
 ## How it deploys
 
-Cloudflare builds from `main` automatically. A broken build ships nothing and
+Cloudflare builds from `main` automatically, and again every night
+(`.github/workflows/scheduled-rebuild.yml`) so the prerendered dates stay
+current. A broken build ships nothing and
 silently keeps the previous version live, so a red pull request check means the
 change would not have shipped.

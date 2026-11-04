@@ -8,6 +8,16 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default defineConfig({
   plugins: [react()],
   base: '/',
+  // Build time, shared by the browser build and the build-time prerender so they
+  // agree on "now". scripts/build.mjs sets it; see src/now.js.
+  define: {
+    __BUILD_TIME__: JSON.stringify(Number(process.env.BUILD_TIME) || Date.now()),
+  },
+  // react-fast-marquee ships CommonJS, which Node cannot import as a React
+  // component. Bundling it into the prerender build fixes the import.
+  ssr: {
+    noExternal: ['react-fast-marquee'],
+  },
   build: {
     rollupOptions: {
       input: {

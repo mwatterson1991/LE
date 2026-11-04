@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useNow, useToday, daysBetween } from '../now.js'
+import { useSiteData } from '../siteData.jsx'
 import posthog from 'posthog-js'
 import { motion, AnimatePresence } from 'motion/react'
 import Marquee from 'react-fast-marquee'
@@ -38,23 +40,24 @@ import './home-rebrand.css'
 import './leland-ai.css'
 import './program.css'
 
-const ENROLL_URL = (() => {
+// Checkout link for the next open Level 1 cohort. Takes `now` from useNow() so the
+// build-time HTML and the browser agree (see src/now.js).
+function nextEnrollUrl(now) {
   const cohorts = COURSE_COHORTS[1] || []
-  const now = new Date()
   const next = cohorts.find(c => c.enrollUrl && !c.soldOut && new Date(c.iso) >= now)
     || cohorts.find(c => c.enrollUrl && !c.soldOut)
   return next?.enrollUrl || cohorts[0]?.enrollUrl
-})()
+}
 
-const NEXT_COHORT_DISPLAY = (() => {
+// "June 22" for the next open Level 1 cohort. Takes `now` from useNow().
+function nextCohortDisplay(now) {
   const l1 = COURSE_COHORTS[1] || []
-  const now = new Date()
   const next = l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso) && new Date(c.iso + 'T15:00:00Z') >= now)
     || l1.find(c => c.enrollUrl && !c.soldOut && /^\d{4}-\d{2}-\d{2}$/.test(c.iso))
   const target = next ? new Date(next.iso + 'T15:00:00Z') : new Date('2026-06-22T15:00:00Z')
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
   return `${months[target.getUTCMonth()]} ${target.getUTCDate()}`
-})()
+}
 const SALES_URL = 'https://form.typeform.com/to/bZuwV6t5'
 
 // These CTAs sit next to team-facing copy, so utm_campaign=teams tags them for
@@ -238,14 +241,7 @@ function highlightBold(text) {
 }
 
 function TestimonialsBoard() {
-  const [reviews, setReviews] = useState([])
-
-  useEffect(() => {
-    fetch('/data/featured-reviews.json')
-      .then(r => r.ok ? r.json() : [])
-      .then(d => setReviews(d || []))
-      .catch(() => setReviews([]))
-  }, [])
+  const reviews = useSiteData('featured-reviews.json') || []
 
   const mapped = reviews
     .filter(r => !/40 hours of work each quarter/.test(r.review || ''))
@@ -309,14 +305,7 @@ function TestimonialsBoard() {
 }
 
 function ReviewsCarousel() {
-  const [reviews, setReviews] = useState([])
-
-  useEffect(() => {
-    fetch('/data/featured-reviews.json')
-      .then(r => r.ok ? r.json() : [])
-      .then(d => setReviews(d || []))
-      .catch(() => setReviews([]))
-  }, [])
+  const reviews = useSiteData('featured-reviews.json') || []
 
   if (!reviews.length) return null
 
@@ -644,6 +633,7 @@ const INDIVIDUAL_INCLUDES = [
 ]
 
 function IndividualPriceCard({ partner }) {
+  const now = useNow()
   const { price, listPrice, discountLabel } = offerPricing(partner)
   return (
     <div className="prog-pc prog-pc-individual">
@@ -664,7 +654,7 @@ function IndividualPriceCard({ partner }) {
           >
             Enroll now &rarr;
           </button>
-          <span className="prog-pc-next">Next cohort starts {NEXT_COHORT_DISPLAY}</span>
+          <span className="prog-pc-next">Next cohort starts {nextCohortDisplay(now)}</span>
         </div>
       </div>
       <div className="prog-pc-right">
@@ -698,8 +688,7 @@ function IndividualPriceCard({ partner }) {
   )
 }
 
-function getDefaultCohort(cohorts) {
-  const now = new Date()
+function getDefaultCohort(cohorts, now) {
   return (
     cohorts.find(c => c.enrollUrl && !c.soldOut && new Date(c.iso) >= now) ||
     cohorts.find(c => c.enrollUrl && !c.soldOut) ||
@@ -780,7 +769,10 @@ function FoundationsAccordionItem({ open, onToggle }) {
 }
 
 function CourseAccordionItem({ course, open, onToggle }) {
-  const [selectedCohort, setSelectedCohort] = useState(() => getDefaultCohort(course.cohorts))
+  // Until the visitor picks a cohort, the default follows today's date.
+  const now = useNow()
+  const [pickedCohort, setSelectedCohort] = useState(null)
+  const selectedCohort = pickedCohort ?? getDefaultCohort(course.cohorts, now)
   const [showAllMobile, setShowAllMobile] = useState(false)
   const enrollUrl = withPartnerDiscount((selectedCohort && !selectedCohort.soldOut ? selectedCohort.enrollUrl : null) ?? course.enrollUrl)
   const detail = courseData[parseInt(course.num, 10)] || {}
@@ -1272,6 +1264,7 @@ function RoleUseCases() {
 }
 
 function ValueStack({ id, showIncludes = true, showAdvisor = false, showTiers = true, headline = 'One price, the whole program', sub = 'No tiers to choose between. Every level is included, for individuals and for teams.' }) {
+  const now = useNow()
   const CORE_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c42d15df04fb0e41cebd10%2C69c42e503e28f6893aca718e)'
   const ADVANCED_URL = 'https://www.joinleland.com/checkout?bootcampCohort=urn%3AbootcampCohort%3A(urn%3Abootcamp%3A69c433d93e28f6893acab6c9%2C69c433eddf04fb0e41cf2000)'
 
@@ -1287,7 +1280,7 @@ function ValueStack({ id, showIncludes = true, showAdvisor = false, showTiers = 
       crossed: offerPricing().listPrice,
       monthly: null,
       cta: 'Reserve your seat',
-      enrollUrl: ENROLL_URL,
+      enrollUrl: nextEnrollUrl(now),
       utm: 'value-stack-everything',
       buildsHeader: "What you'll build",
       builds: [
@@ -1437,14 +1430,13 @@ const L1_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'
 // Next Level 1 cohorts only. Level 1 is the one live cohort everyone starts in, so
 // dates for the other levels just add noise here.
 function L1CohortStrip() {
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
+  const today = useToday()
 
   const all = (COURSE_COHORTS[1] || [])
     .filter(c => /^\d{4}-\d{2}-\d{2}/.test(c.iso))
     .map(c => {
       const d = new Date(`${c.iso.slice(0, 10)}T12:00:00Z`)
-      return { ...c, d, daysOut: Math.round((d - today) / 86400000) }
+      return { ...c, d, daysOut: daysBetween(today, c.iso.slice(0, 10)) }
     })
     .sort((a, b) => a.d - b.d)
 
@@ -1801,6 +1793,7 @@ export default function ProgramSinglePricePage() {
 }
 
 function ProgramSinglePriceInner() {
+  const now = useNow()
   const heroRef = useRef(null)
   // null on /program. Set on partner routes like /scaling, which serve this same
   // page with the partner's logo in the nav and their discount on the price.
@@ -1841,7 +1834,8 @@ function ProgramSinglePriceInner() {
 
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 768)
+  // Starts false to match the build-time HTML; the resize effect sets it on mount.
+  const [isMobile, setIsMobile] = useState(false)
   const navRef = useRef(null)
   const [openFaq, setOpenFaq] = useState(null)
   const [openAccordion, setOpenAccordion] = useState(0)
@@ -1899,6 +1893,7 @@ function ProgramSinglePriceInner() {
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 768)
+    onResize()
     window.addEventListener('resize', onResize, { passive: true })
     return () => window.removeEventListener('resize', onResize)
   }, [])
@@ -2632,7 +2627,7 @@ function ProgramSinglePriceInner() {
             src={`${import.meta.env.BASE_URL}assets/logos/aibp-light.png`}
             alt="AI Builder Program"
           />
-          <h2 className="rb-prefooter-heading">Next cohort starting <br />{NEXT_COHORT_DISPLAY}</h2>
+          <h2 className="rb-prefooter-heading">Next cohort starting <br />{nextCohortDisplay(now)}</h2>
           <a
             href="#pricing"
             className="btn btn-primary btn-lg"

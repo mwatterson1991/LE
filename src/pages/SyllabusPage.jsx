@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useToday } from '../now.js'
 import { courseData, allCourses, ENROLL_URLS, SESSION_SCHEDULES } from './courseData'
 import './SyllabusPage.css'
 
@@ -133,6 +134,7 @@ const VALUE_ITEMS = [
 ]
 
 export default function SyllabusPage() {
+  const today = useToday()
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -296,7 +298,7 @@ export default function SyllabusPage() {
           <a href="/" className="sy-footer-logo">
             <img src={`${import.meta.env.BASE_URL}assets/logo-white.svg`} alt="Leland" />
           </a>
-          <span className="sy-footer-copy">&copy; {new Date().getFullYear()} Leland</span>
+          <span className="sy-footer-copy">&copy; {today.slice(0, 4)} Leland</span>
         </div>
       </footer>
     </>
