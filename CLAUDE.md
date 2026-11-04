@@ -36,7 +36,9 @@ The browser then takes over that HTML. Two rules keep this working:
 - Never read `window`, `document` or `localStorage` while a component renders.
   Do it inside `useEffect`. The build fails and names the page if you forget.
 - Never call `new Date()` or `Date.now()` while rendering. Use `useNow()` from
-  `src/now.js`, so the build-time HTML and the browser agree on the date.
+  `src/now.js`, so the build-time HTML and the browser agree on the time. For
+  "which day is it" logic, use `useToday()` there, never `setHours` or
+  `getDate`: Cloudflare builds in UTC and visitors are in other timezones.
 
 JSON in `public/data` that a page shows goes through `useSiteData()` in
 `src/siteData.jsx`, so it is part of the HTML too.

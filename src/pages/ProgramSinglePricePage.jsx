@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useNow } from '../now.js'
+import { useNow, useToday, daysBetween } from '../now.js'
 import { useSiteData } from '../siteData.jsx'
 import posthog from 'posthog-js'
 import { motion, AnimatePresence } from 'motion/react'
@@ -1430,14 +1430,13 @@ const L1_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'
 // Next Level 1 cohorts only. Level 1 is the one live cohort everyone starts in, so
 // dates for the other levels just add noise here.
 function L1CohortStrip() {
-  const today = useNow()
-  today.setHours(0, 0, 0, 0)
+  const today = useToday()
 
   const all = (COURSE_COHORTS[1] || [])
     .filter(c => /^\d{4}-\d{2}-\d{2}/.test(c.iso))
     .map(c => {
       const d = new Date(`${c.iso.slice(0, 10)}T12:00:00Z`)
-      return { ...c, d, daysOut: Math.round((d - today) / 86400000) }
+      return { ...c, d, daysOut: daysBetween(today, c.iso.slice(0, 10)) }
     })
     .sort((a, b) => a.d - b.d)
 
