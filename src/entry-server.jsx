@@ -1,4 +1,4 @@
-// Build-time entry. scripts/prerender.mjs imports this after `vite build` and
+// Build-time entry. scripts/build.mjs imports this after the Vite builds and
 // renders each page to HTML, so crawlers and AI answer engines read real
 // content instead of an empty <div id="root">. It never runs in the browser.
 import { StrictMode } from 'react'

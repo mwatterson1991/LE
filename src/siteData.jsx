@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 // JSON files in public/data (reviews, demos) that pages show.
 //
-// At build time, scripts/prerender.mjs reads these files and passes them in, so
+// At build time, scripts/build.mjs reads these files and passes them in, so
 // the reviews and demos are part of the HTML that crawlers and AI answer engines
 // read. The prerender also writes whatever a page used into a
 // <script id="__SITE_DATA__"> tag, and main.jsx hands that back here so the

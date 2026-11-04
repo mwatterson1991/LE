@@ -18,7 +18,7 @@ const app = (
   </StrictMode>
 )
 
-// Built pages arrive with their HTML already rendered (scripts/prerender.mjs),
+// Built pages arrive with their HTML already rendered (scripts/build.mjs),
 // so React takes over that markup instead of drawing the page again. `npm run
 // dev` serves an empty #root, which still needs a normal first render.
 const root = document.getElementById('root')

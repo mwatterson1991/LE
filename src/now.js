@@ -3,7 +3,7 @@ import { useSyncExternalStore } from 'react'
 // "Now" for anything a page renders from the date or time: the next cohort, the
 // default checkout link, the scarcity counts, the footer year.
 //
-// Pages are rendered to HTML at build time (scripts/prerender.mjs) and then
+// Pages are rendered to HTML at build time (scripts/build.mjs) and then
 // taken over by React in the browser. If the browser computed those values from
 // a different "now" than the build did, the HTML would not match and React
 // would throw it away and redraw the page.

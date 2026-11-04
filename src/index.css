@@ -4058,12 +4058,18 @@ footer a:hover {
 }
 
 .rv-grid-wrap { padding: 40px 16px 80px; max-width: 1280px; margin: 0 auto; }
+/* The prerendered HTML always has 4 columns (the build has no screen width).
+   Wrapping lets them stack on narrow screens until React sets the real count,
+   and for visitors without JavaScript. Once React sets the count, every column
+   is wider than 220px, so nothing wraps. */
 .rv-masonry {
   display: flex;
+  flex-wrap: wrap;
   gap: 14px;
 }
 .rv-masonry-col {
-  flex: 1;
+  flex: 1 1 220px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
