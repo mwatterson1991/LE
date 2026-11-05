@@ -3575,6 +3575,7 @@ function renderPdfBps(){
   $('#pdfBps').innerHTML=cover+p.map(function(id,i){return printBlueprint(M[id],i+1,p.length);}).join('')+cta;
 }
 window.addEventListener('beforeprint',renderPdfBps);
+window.renderPdfBps=renderPdfBps;
 function openBuild(id,fromHash){
   var b=byId()[id],d=BP[id];if(!b||!d)return;
   if(!drawerOpen)drawerReturn=document.activeElement;
@@ -3641,7 +3642,7 @@ fromHash();
   if(btn)btn.addEventListener('click',function(){
     if(window.posthog&&window.posthog.capture)window.posthog.capture('roadmap_pdf_download');
     if(window.dataLayer)window.dataLayer.push({event:'roadmap_pdf_download'});
-    renderPdfBps();
+    try{if(window.renderPdfBps)window.renderPdfBps();}catch(e){}
     var t=document.title;document.title='My AI Build Roadmap - Leland';
     window.print();
     setTimeout(function(){document.title=t;},500);
