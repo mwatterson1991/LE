@@ -34,6 +34,7 @@ export default defineConfig({
         'pledge': resolve(__dirname, 'pledge.html'),
         'recruit': resolve(__dirname, 'recruit.html'),
         'services': resolve(__dirname, 'services.html'),
+        'roadmap': resolve(__dirname, 'roadmap.html'),
         'southwest-technical-college': resolve(__dirname, 'southwest-technical-college.html'),
       }
     }
