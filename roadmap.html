@@ -626,7 +626,8 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
 
 .lib-inline{margin-top:56px;background:none;padding:0}
 .roadmap-panel{background:var(--tan-light);border-radius:24px;padding:40px 36px 32px}
-.section-roadmap .pdf-bar{background:var(--tan-light);border:0}
+.section-roadmap .pdf-bar{background:var(--tan-light);border:0;padding:44px 28px}
+.section-roadmap .pdf-bar .pdf-title{font-size:34px}
 @media(max-width:560px){.roadmap-panel{padding:28px 18px 24px;border-radius:18px}}
 @media print{.roadmap-panel{background:none;padding:0;border-radius:0}}
 .lib-inline .lib-head{align-items:center}
@@ -638,17 +639,15 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
 .pdf-bar .pdf-title{font:500 clamp(32px,3.6vw,44px)/1.12 var(--serif);margin-top:10px}
 .pdf-bar .pdf-note{margin-top:14px;font-size:17px;line-height:1.55;color:var(--muted);max-width:620px}
 .pdf-bar .btn-lg{margin-top:28px;font-size:18px;padding:18px 40px}
-.pdf-reset{margin-top:16px;font-weight:500;color:var(--muted)}
-.pdf-reset:disabled{display:none}
+.reset-btn{font-weight:500;color:var(--muted)}
+.reset-btn:disabled{display:none}
+@media print{.reset-btn{display:none!important}}
 
 .pdf-bar .eyebrow{color:var(--ink)}
 .pdf-bar .pdf-note{color:rgba(34,34,34,.85)}
 .pdf-bar .pdf-note b{color:var(--ink)}
-.pdf-bar .pdf-reset{color:rgba(34,34,34,.75)}
 
-.ai-tip{margin-top:28px;max-width:560px;background:rgba(255,255,255,.6);border-radius:16px;padding:18px 22px;text-align:left}
-.ai-tip-title{font:600 15px var(--sans);color:var(--ink)}
-.ai-tip p:not(.ai-tip-title){margin-top:6px;font-size:15px;line-height:1.55;color:rgba(34,34,34,.85)}
+.ai-tip{margin-top:20px;max-width:440px;text-align:center;font-size:15px;line-height:1.55;color:rgba(34,34,34,.85)}
 .ai-say{font-weight:600;color:var(--ink)}
 /* site footer (Footer.jsx) */
 .footer{background:#222;padding:64px 48px 48px;border-top:1px solid rgba(255,255,255,.08)}
@@ -823,6 +822,7 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
           <h2 class="h2" id="trackTitle">Your AI roadmap</h2>
           <p class="lead" id="trackBlurb"></p>
         </div>
+        <button class="linkbtn reset-btn" id="resetBtn" data-action="reset" type="button">Reset to recommended</button>
       </div>
 
       <ol class="steps three" id="trackGrid"></ol>
@@ -848,11 +848,7 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
     <div class="pdf-bar">
       <h3 class="pdf-title">Get your roadmap as a PDF</h3>
       <button class="btn btn-primary btn-lg" id="pdfBtn" type="button">Download my roadmap (PDF)</button>
-      <div class="ai-tip">
-        <p class="ai-tip-title">Then let your AI do the build</p>
-        <p>Drop the PDF into a new chat in Claude or ChatGPT and say <span class="ai-say">“Help me build #1 from this roadmap.”</span> The PDF has every prompt and step, so your AI can walk you through each build.</p>
-      </div>
-      <button class="linkbtn pdf-reset" id="resetBtn" data-action="reset" type="button">Reset to recommended</button>
+      <p class="ai-tip">Drop it into Claude or ChatGPT and say <span class="ai-say">“Help me build #1 from this roadmap.”</span> Your AI walks you through each build.</p>
     </div>
 
 
