@@ -646,6 +646,10 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
 .pdf-bar .pdf-note b{color:var(--ink)}
 .pdf-bar .pdf-reset{color:rgba(34,34,34,.75)}
 
+.ai-tip{margin-top:28px;max-width:560px;background:rgba(255,255,255,.6);border-radius:16px;padding:18px 22px;text-align:left}
+.ai-tip-title{font:600 15px var(--sans);color:var(--ink)}
+.ai-tip p:not(.ai-tip-title){margin-top:6px;font-size:15px;line-height:1.55;color:rgba(34,34,34,.85)}
+.ai-say{font-weight:600;color:var(--ink)}
 /* site footer (Footer.jsx) */
 .footer{background:#222;padding:64px 48px 48px;border-top:1px solid rgba(255,255,255,.08)}
 .footer-inner{max-width:1280px;margin:0 auto;display:flex;gap:80px}
@@ -783,7 +787,7 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
     <ol class="hero-steps">
       <li><span class="n">1</span><span>Pick your function and the areas you want to improve.</span></li>
       <li><span class="n">2</span><span>Get 3 recommended builds. Swap in any build from the library.</span></li>
-      <li><span class="n">3</span><span>Download your roadmap as a PDF with a step-by-step blueprint for each build.</span></li>
+      <li><span class="n">3</span><span>Download your roadmap as a PDF. Drop it into Claude or ChatGPT and your AI walks you through each build.</span></li>
     </ol>
     <a href="#role" class="btn btn-primary">Build my AI roadmap</a>
   </div>
@@ -842,10 +846,12 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
     </div>
 
     <div class="pdf-bar">
-      <p class="eyebrow">Your roadmap</p>
       <h3 class="pdf-title">Get your roadmap as a PDF</h3>
-      <p class="pdf-note" id="pdfNote"></p>
       <button class="btn btn-primary btn-lg" id="pdfBtn" type="button">Download my roadmap (PDF)</button>
+      <div class="ai-tip">
+        <p class="ai-tip-title">Then let your AI do the build</p>
+        <p>Drop the PDF into a new chat in Claude or ChatGPT and say <span class="ai-say">“Help me build #1 from this roadmap.”</span> The PDF has every prompt and step, so your AI can walk you through each build.</p>
+      </div>
       <button class="linkbtn pdf-reset" id="resetBtn" data-action="reset" type="button">Reset to recommended</button>
     </div>
 
@@ -1237,7 +1243,7 @@ function renderSummary(){}
 var GRIP='<svg width="12" height="16" viewBox="0 0 12 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="9" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="9" cy="13" r="1.6"/></svg>';
 
 function pdfPicks(){return track(S.fn).slice(0,3);}
-function renderPdfNote(){var M=byId(),p=pdfPicks().filter(function(id){return M[id];});$('#pdfNote').innerHTML=p.length?'One page for your roadmap, then a step-by-step blueprint for <b>'+p.map(function(id){return esc(titleOf(id));}).join('</b>, <b>')+'</b>.':'Add a build to get its blueprint in your PDF.';}
+function renderPdfNote(){if(!$('#pdfNote'))return;var M=byId(),p=pdfPicks().filter(function(id){return M[id];});$('#pdfNote').innerHTML=p.length?'One page for your roadmap, then a step-by-step blueprint for <b>'+p.map(function(id){return esc(titleOf(id));}).join('</b>, <b>')+'</b>.':'Add a build to get its blueprint in your PDF.';}
 function renderTrack(){
   var f=FN[S.fn],M=byId();
   var items=trackItems();
@@ -3584,7 +3590,7 @@ function renderPdfBps(){
         '<h2>'+esc(titleOf(id))+'</h2>'+
         '<p class="pc-desc">'+esc(b.desc||'')+'</p></div></li>';}).join('')+'</ol>'+
     '<div class="pc-how"><p class="pc-sec">How to use it</p>'+
-      '<p>Start with build 1. Each blueprint on the pages that follow has a prompt you paste into a new project in Claude or ChatGPT. Your AI asks you a few questions, builds from your answers, then tests the result with you on real work. Finish one build before you start the next.</p></div>'+
+      '<p>Drop this PDF into a new chat in Claude or ChatGPT and say “Help me build #1 from this roadmap.” Your AI walks you through it. Finish one build before you start the next.</p></div>'+
   '</section>';
   var cta='<section class="pc-cta"><div class="pc-ctabox">'+
     '<div class="pc-lock"><img src="/assets/logo-white.svg" alt="Leland"><span class="pc-div"></span><img class="pc-aibp" src="/assets/logos/aibp-light.png" alt="AI Builder Program"></div>'+
@@ -3598,6 +3604,27 @@ function renderPdfBps(){
   $('#pdfBps').innerHTML=cover+p.map(function(id,i){return printBlueprint(M[id],i+1,p.length);}).join('')+cta;
 }
 window.addEventListener('beforeprint',renderPdfBps);
+window.renderPdfBps=renderPdfBps;
+window.RoadmapPdfData=function(){
+  var M=byId(),f=FN[S.fn],p=pdfPicks().filter(function(id){return M[id];});
+  return {fn:f.name,blurb:f.blurb,builds:p.map(function(id){
+    var b=M[id],d=BP[id],skill=d&&d.kind==='skill',real=d&&d.kind==='blueprint';
+    var o={title:titleOf(id),type:skill?'Skill':b.type,focus:b.focus,desc:b.desc||'',metric:b.metric,fn:FN[b.fn].name,
+      sub:real?d.sub:(skill?d.desc:(b.desc||'')),time:real&&d.time?d.time:'',lead:skill?d.what:(real?(d.lead||''):'')};
+    if(skill){
+      o.steps=[['Copy the skill below.','Copy everything in the box, from the first line to the last.'],['Add it to your AI tool.','Claude: '+d.claude+' ChatGPT: '+d.chatgpt],['Test it.',d.test]];
+      o.boxLabel='The skill';o.box=d.md;o.need=[];o.watch='';
+    }else{
+      o.steps=[['Set up.','Open a new project in Claude or ChatGPT.'+(real?' Have ready: '+d.ready:' Have one real example from your week ready.')],
+        ['Scope.','Paste the prompt below. Your AI tool asks you questions one at a time, then writes a short spec with three checks. Confirm it before anything gets built.'],
+        ['Build.','It builds from your spec and asks for '+(real?d.asks:'the files, examples, or connections it needs')+', one thing at a time.'],
+        ['Evaluate.','It runs the build once on '+(real?d.evalYou:'a real example')+', grades the output against your three checks, and fixes what fails.']];
+      o.watch=real?(d.watch||''):'';o.need=real?d.setup.map(function(r){return [r[0],r[2]];}):[];
+      o.boxLabel='The prompt';o.box=real?bpPrompt(d):genericPrompt(b);
+    }
+    return o;
+  })};
+};
 function openBuild(id,fromHash){
   var b=byId()[id],d=BP[id];if(!b||!d)return;
   if(!drawerOpen)drawerReturn=document.activeElement;
@@ -3664,10 +3691,15 @@ fromHash();
   if(btn)btn.addEventListener('click',function(){
     if(window.posthog&&window.posthog.capture)window.posthog.capture('roadmap_pdf_download');
     if(window.dataLayer)window.dataLayer.push({event:'roadmap_pdf_download'});
-    renderPdfBps();
-    var t=document.title;document.title='My AI Build Roadmap - Leland';
-    window.print();
-    setTimeout(function(){document.title=t;},500);
+    function printFallback(){
+      try{if(window.renderPdfBps)window.renderPdfBps();}catch(e){}
+      var t=document.title;document.title='My AI Build Roadmap - Leland';
+      window.print();
+      setTimeout(function(){document.title=t;},500);
+    }
+    if(!window.RoadmapPdf){printFallback();return;}
+    var label=btn.textContent;btn.disabled=true;btn.textContent='Building your PDF…';
+    window.RoadmapPdf().catch(function(e){if(window.console)console.error(e);printFallback();}).then(function(){btn.disabled=false;btn.textContent=label;});
   });
   var cta=document.getElementById('programCta');
   if(cta)cta.addEventListener('click',function(){
@@ -3680,5 +3712,6 @@ fromHash();
   });
 })();
 </script>
+<script type="module" src="/src/roadmap/pdf.js"></script>
   </body>
 </html>

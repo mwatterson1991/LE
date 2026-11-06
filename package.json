@@ -12,6 +12,7 @@
   "dependencies": {
     "border-beam": "^1.2.0",
     "gsap": "^3.14.2",
+    "jspdf": "^4.2.1",
     "motion": "^12.40.0",
     "ogl": "^1.0.11",
     "posthog-js": "^1.362.0",
