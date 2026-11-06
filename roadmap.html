@@ -49,7 +49,7 @@
 @font-face{font-family:'Macan';src:url('/assets/fonts/Macan/Macan-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:'Macan';src:url('/assets/fonts/Macan/Macan-SemiBold.woff2') format('woff2');font-weight:600 700;font-display:swap}
 :root{
-  --yellow:#FFD96F; --blue:#80ACED; --cream:#F3F1E6; --tan:#EBD4B5; --slate:#869AA6;
+  --yellow:#FFD96F; --blue:#80ACED; --cream:#F3F1E6; --tan:#EBD4B5; --tan-light:#F9F2E9; --slate:#869AA6;
   --ink:#222222; --muted:#4C4C4C; --card:#F5F5F2; --white:#FFFFFF;
   --serif:'Season',Georgia,serif;
   --sans:'Macan',-apple-system,'Segoe UI',Roboto,sans-serif;
@@ -105,22 +105,39 @@ button{cursor:pointer}
 .hero{position:relative;min-height:600px;display:flex;align-items:center;overflow:hidden;background:var(--blue)}
 .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
 .hero .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(18,16,14,.42),rgba(18,16,14,.5))}
-.hero .inner{position:relative;z-index:2;width:100%;text-align:center;padding-block:150px 110px}
+.hero .inner{position:relative;z-index:2;width:100%;text-align:center;padding-block:172px 140px}
 .hero .eyebrow{color:rgba(255,255,255,.9);margin-bottom:22px}
 .hero h1{color:#fff;max-width:960px;margin:0 auto}
 .hero .lead{color:rgba(255,255,255,.92);max-width:560px;margin:26px auto 0}
 .hero .btn{margin-top:40px}
 
 /* filters */
-.filters{display:grid;gap:18px}
-.frow{display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px;align-items:start}
-.frow .eyebrow-label{padding-top:13px}
+.filters{display:grid;gap:20px;margin-top:32px}
+.fn-btns{display:flex;flex-wrap:wrap;gap:10px}
+.fn-btn{border:1px solid rgba(0,0,0,.14);border-radius:999px;background:#fff;color:var(--ink);font:600 16px var(--sans);padding:10px 20px;transition:background .15s,border-color .15s,color .15s}
+.fn-btn:hover{border-color:rgba(0,0,0,.4)}
+.fn-btn.on{background:#fff;border-color:var(--ink);color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.focus-block{display:grid;gap:12px;margin-top:28px}
+@media(min-width:561px){.focus-block{padding-inline:36px}}
+@media(max-width:860px){.role-main,.focus-block{text-align:center}.fn-btns,#focusChips{justify-content:center}}
+.focus-label{font-size:14px;color:var(--muted)}
+#focusChips .pill{font-size:14px;padding:6px 13px;border-color:rgba(0,0,0,.1);color:var(--muted)}
+#focusChips .pill:hover{border-color:rgba(0,0,0,.3);color:var(--ink)}
+#focusChips .pill.on{background:#fff;border-color:var(--ink);color:var(--ink)}
+.section.section-role{padding-top:0;padding-bottom:0;margin-top:-72px;position:relative;z-index:2}
+.role-panel{background:#fff;border-radius:24px;padding:40px 36px;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+#roleTitle{font-size:34px}@media(max-width:560px){.role-panel{padding:28px 18px;border-radius:18px}}
+.role-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:56px;align-items:center}
+.role-main{align-self:center}
+.role-art img{width:100%;height:auto;aspect-ratio:998/484;display:block;border-radius:18px}
+@media(max-width:860px){.role-grid{grid-template-columns:1fr}.role-art{display:none}}
+.section.section-roadmap{padding-top:56px}
+.section-roadmap .rhead{margin-top:0}
 .pills{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
 .pill{border:0;border-radius:999px;background:var(--card);color:var(--ink);font:500 16px var(--sans);padding:11px 20px}
 .pill:hover{background:var(--cream)}
 .pill.on{background:var(--ink);color:#fff}
 .pill.sm{font-size:14px;padding:8px 14px}
-.pill .ct{font-size:12px;opacity:.6;margin-left:6px}
 
 /* roadmap header */
 .rhead{margin-top:72px;display:flex;flex-wrap:wrap;gap:20px 32px;align-items:flex-end;justify-content:space-between}
@@ -186,7 +203,7 @@ button{cursor:pointer}
 textarea{resize:vertical}
 .err{color:#B3261E;font-weight:500;font-size:15px}
 .form-actions{display:flex;gap:8px;flex-wrap:wrap}
-@media(max-width:760px){.grid2{grid-template-columns:1fr 1fr}.frow{grid-template-columns:1fr;gap:6px}.frow .eyebrow-label{padding-top:0}}
+@media(max-width:760px){.grid2{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.grid2{grid-template-columns:1fr}}
 
 /* sequenced track (horizontal, wraps to rows) */
@@ -211,7 +228,8 @@ textarea{resize:vertical}
 .step h3{font:600 16px/1.25 var(--sans);text-wrap:balance}
 .step .desc{font-size:13.5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .step .metric{margin-top:auto;padding:8px 10px}
-.step .meta{font-size:12px}
+.step .meta{font-size:12px;display:flex;align-items:center;gap:8px;margin-top:8px;color:var(--muted)}
+.step .meta .eff{margin-right:0}
 .s-bottom{display:flex;align-items:center;gap:4px}
 .step .status{padding:6px 11px;font-size:12px}
 .btn-ghost.x{width:28px;padding:5px 0;text-align:center;font-size:20px;line-height:1}
@@ -238,7 +256,7 @@ textarea{resize:vertical}
 .drop-bar{position:fixed;z-index:79;width:4px;border-radius:2px;background:var(--ink);pointer-events:none}
 body.is-dragging,body.is-dragging *{cursor:grabbing!important;user-select:none}
 .grow{flex:1}
-.type{font:600 12px var(--sans);background:#fff;padding:5px 11px;border-radius:999px}
+.type{font:500 12px var(--sans);background:#fff;padding:5px 11px;border-radius:999px}
 .tag{font:600 12px var(--sans);background:#fff;color:var(--muted);padding:5px 11px;border-radius:999px}
 .nowtag{font:600 12px var(--sans);background:var(--yellow);color:var(--ink);padding:5px 11px;border-radius:999px}
 .desc{font-size:15px;color:var(--muted)}
@@ -279,9 +297,7 @@ body.is-dragging,body.is-dragging *{cursor:grabbing!important;user-select:none}
 .lib .lead{margin-top:14px;max-width:560px}
 .lib-controls{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center}
 .lib-controls input[type=text]{flex:1 1 240px;width:auto}
-.lib-controls select{width:auto}
-.chk{display:inline-flex;align-items:center;gap:8px;font-size:15px;color:var(--muted)}
-.chk input{width:18px;height:18px;accent-color:var(--ink)}
+.lib-controls select{width:auto;appearance:none;-webkit-appearance:none;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23222' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
 .banner{position:sticky;top:calc(88px + env(safe-area-inset-top,0px));z-index:40;margin-top:20px;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;background:var(--ink);color:#fff;border-radius:12px;padding:12px 16px;font-size:15px}
 .banner .btn-soft{background:#fff;color:var(--ink)}
 .group{margin-top:48px}
@@ -500,12 +516,12 @@ body{line-height:1.6}
 .hero .lead{font-size:20px;line-height:28px;color:rgba(255,255,255,.85);max-width:640px;margin-top:16px}
 .hero .btn{margin-top:36px}
 .hero-steps li{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;backdrop-filter:none;-webkit-backdrop-filter:none;color:rgba(255,255,255,.9)}
-.hero-steps .n{background:var(--yellow);color:var(--ink)}
+.hero-steps .n{background:#CCDEF8;color:var(--ink)}
 @media(max-width:768px){.hero{min-height:100vh}.hero .lead{font-size:17px}}
 
 /* filter pills: site role tabs */
 .pill{background:#fff;border:1px solid rgba(0,0,0,.14);font:500 15px var(--sans);padding:9px 18px;transition:background .15s,border-color .15s,color .15s}
-.pill:hover{background:#fff;border-color:rgba(0,0,0,.32)}
+.pill:hover{background:#fff;border-color:rgba(0,0,0,.4)}
 .pill.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .pill.sm{font-size:14px;padding:7px 14px}
 
@@ -550,8 +566,10 @@ body{line-height:1.6}
 .rail-card h4{font-size:16px}
 .rail-card .desc{font-size:13.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .rail-card .metric{margin-top:auto;padding:8px 10px}
-.rail-card .card-actions{margin-top:4px}
-.out-lbl{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.rail-card .card-actions{margin-top:auto;padding-top:4px}
+.rail-card .card-actions .btn-soft{background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:999px;padding:8px 12px;font:500 14px var(--sans)}
+.rail-card .card-actions .btn-soft:hover:not(:disabled){background:var(--yellow);border-color:rgba(0,0,0,.12);box-shadow:none}
+.out-lbl{display:none;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
 @media(max-width:768px){.rail-nav{display:none}.lib-rail{grid-auto-columns:78%}}
 
 .cta-head{max-width:720px;margin:0 auto;text-align:center}
@@ -580,7 +598,7 @@ body{line-height:1.6}
 .steps.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 16px}
 @media(max-width:860px){.steps.three{grid-template-columns:1fr}.steps.three .rail::after{display:none}}
 .steps.three .scard{cursor:pointer}
-.steps.three .s-bottom{margin-top:6px;gap:6px}
+.steps.three .s-bottom{margin-top:auto;padding-top:6px;gap:6px}
 .step.pickable .scard{outline:2px solid var(--yellow);outline-offset:3px}
 .step.drop-target .scard,.step.drop-target .slot-empty{outline:3px solid var(--ink);outline-offset:3px;background:var(--cream-soft)}
 body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{outline:2px dashed rgba(0,0,0,.3);outline-offset:3px}
@@ -589,6 +607,7 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
 .slot-empty .sub{font-size:13px;color:var(--muted);max-width:220px}
 .step.empty .rail::after{display:none}
 .slot-hint{margin-top:16px;font-size:14px;color:var(--muted)}
+.slot-hint:empty{display:none}
 .slot-hint b{color:var(--ink)}
 .linkbtn{background:none;border:0;padding:0;margin-left:6px;font:600 14px var(--sans);color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .lib-rail .card[data-bid]{cursor:grab;user-select:none;-webkit-user-select:none}
@@ -605,10 +624,14 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
 .more-strip .btn-soft:hover:not(:disabled){background:transparent;border-color:rgba(255,255,255,.7);box-shadow:none}
 @media print{.slot-hint,.pdf-bar,.more-strip,.s-bottom,.slot-empty{display:none!important}.steps.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-.lib-inline{margin-top:24px;background:var(--cream-soft);border-radius:18px;padding:24px 24px 10px}
+.lib-inline{margin-top:56px;background:none;padding:0}
+.roadmap-panel{background:var(--tan-light);border-radius:24px;padding:40px 36px 32px}
+.section-roadmap .pdf-bar{background:var(--tan-light);border:0;padding:44px 28px}
+.section-roadmap .pdf-bar .pdf-title{font-size:34px}
+@media(max-width:560px){.roadmap-panel{padding:28px 18px 24px;border-radius:18px}}
+@media print{.roadmap-panel{background:none;padding:0;border-radius:0}}
 .lib-inline .lib-head{align-items:center}
 .lib-title{font:500 26px/1.2 var(--serif);margin-top:6px}
-.lib-sub{margin-top:6px;font-size:14px;color:var(--muted)}
 .lib-inline .lib-controls{margin-top:16px}
 .lib-inline .lib-rail{margin-top:16px}
 
@@ -616,18 +639,15 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
 .pdf-bar .pdf-title{font:500 clamp(32px,3.6vw,44px)/1.12 var(--serif);margin-top:10px}
 .pdf-bar .pdf-note{margin-top:14px;font-size:17px;line-height:1.55;color:var(--muted);max-width:620px}
 .pdf-bar .btn-lg{margin-top:28px;font-size:18px;padding:18px 40px}
-.pdf-reset{margin-top:16px;font-weight:500;color:var(--muted)}
-.pdf-reset:disabled{display:none}
+.reset-btn{font-weight:500;color:var(--muted)}
+.reset-btn:disabled{display:none}
+@media print{.reset-btn{display:none!important}}
 
-.pdf-bar{background:#CCDEF8;border-color:#CCDEF8}
 .pdf-bar .eyebrow{color:var(--ink)}
 .pdf-bar .pdf-note{color:rgba(34,34,34,.85)}
 .pdf-bar .pdf-note b{color:var(--ink)}
-.pdf-bar .pdf-reset{color:rgba(34,34,34,.75)}
 
-.ai-tip{margin-top:28px;max-width:560px;background:rgba(255,255,255,.6);border-radius:16px;padding:18px 22px;text-align:left}
-.ai-tip-title{font:600 15px var(--sans);color:var(--ink)}
-.ai-tip p:not(.ai-tip-title){margin-top:6px;font-size:15px;line-height:1.55;color:rgba(34,34,34,.85)}
+.ai-tip{margin-top:20px;max-width:440px;text-align:center;font-size:15px;line-height:1.55;color:rgba(34,34,34,.85)}
 .ai-say{font-weight:600;color:var(--ink)}
 /* site footer (Footer.jsx) */
 .footer{background:#222;padding:64px 48px 48px;border-top:1px solid rgba(255,255,255,.08)}
@@ -662,7 +682,7 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   html{scroll-behavior:auto}
   body::before{display:none}
-  .lnav,.hero,.footer,.filters,.lib,.cta,.track-actions,#formWrap,.bd,.bd-scrim,.toast,.grip,.btn-ghost,.step.add{display:none!important}
+  .lnav,.hero,.footer,.section-role,.lib,.cta,.track-actions,#formWrap,.bd,.bd-scrim,.toast,.grip,.btn-ghost,.step.add{display:none!important}
   .section{padding:0!important}
   .print-only{display:flex}
   .print-head{align-items:center;justify-content:space-between;margin:0 0 18px;font:600 14px var(--sans);color:var(--muted)}
@@ -751,7 +771,7 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
       </a>
     </div>
     <div class="lnav-links">
-      <a href="#roadmap" class="btn btn-primary">Build my roadmap</a>
+      <a href="#role" class="btn btn-primary">Build my roadmap</a>
       <a href="/program" class="lnav-text">Join the program</a>
     </div>
   </div>
@@ -761,54 +781,66 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
   <video class="hero-video" src="/assets/images/Animated%20Gradient%20-%2006.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <div class="scrim"></div>
   <div class="inner container">
-    <h1 class="h1">Your AI build roadmap, built for your role.</h1>
+    <h1 class="h1">Your AI roadmap, built for your role.</h1>
     <p class="lead">Most people know AI could save them hours, but they aren’t sure what to build first. Get a plan made for your job.</p>
     <ol class="hero-steps">
       <li><span class="n">1</span><span>Pick your function and the areas you want to improve.</span></li>
-      <li><span class="n">2</span><span>Get 3 recommended builds tied to the metrics you own. Swap in any build from the library.</span></li>
+      <li><span class="n">2</span><span>Get 3 recommended builds. Swap in any build from the library.</span></li>
       <li><span class="n">3</span><span>Download your roadmap as a PDF. Drop it into Claude or ChatGPT and your AI walks you through each build.</span></li>
     </ol>
-    <a href="#roadmap" class="btn btn-primary">Build my AI roadmap →</a>
+    <a href="#role" class="btn btn-primary">Build my AI roadmap</a>
   </div>
 </header>
 
 <main>
 <div class="print-only print-head"><img src="/assets/logo-dark.svg" alt="Leland"><span>My AI Build Roadmap</span></div>
-<section class="section" id="roadmap" aria-labelledby="trackTitle">
+<section class="section section-role" id="role" aria-labelledby="roleTitle">
   <div class="container">
-    <div class="filters">
-      <div class="frow"><span class="eyebrow-label">Function</span><div id="fnTabs" class="pills" role="group" aria-label="Function"></div></div>
-      <div class="frow"><span class="eyebrow-label">Focus areas</span><div id="focusChips" class="pills" role="group" aria-label="Focus areas. Pick as many as you like."></div></div>
-    </div>
-
-    <div class="rhead">
-      <div>
-        <p class="eyebrow" id="trackKicker"></p>
-        <h2 class="h2" id="trackTitle">My AI Build Roadmap</h2>
-        <p class="lead" id="trackBlurb"></p>
+    <div class="role-panel">
+      <div class="role-grid">
+        <div class="role-main">
+          <h2 class="h2" id="roleTitle">Choose your role</h2>
+          <div class="filters">
+            <div id="fnTabs" class="fn-btns" role="group" aria-label="Function"></div>
+          </div>
+        </div>
+        <div class="role-art"><img src="/assets/images/roadmap-role.png" alt="" width="998" height="484" loading="lazy"></div>
       </div>
     </div>
+    <div class="focus-block">
+      <p class="focus-label" id="focusTitle">Focus areas (optional)</p>
+      <div id="focusChips" class="pills" role="group" aria-labelledby="focusTitle"></div>
+    </div>
+  </div>
+</section>
 
-    <ol class="steps three" id="trackGrid"></ol>
-    <p class="slot-hint" id="slotHint"></p>
+<section class="section section-roadmap" id="roadmap" aria-labelledby="trackTitle">
+  <div class="container">
+    <div class="roadmap-panel">
+      <div class="rhead">
+        <div>
+          <h2 class="h2" id="trackTitle">Your AI roadmap</h2>
+          <p class="lead" id="trackBlurb"></p>
+        </div>
+        <button class="linkbtn reset-btn" id="resetBtn" data-action="reset" type="button">Reset to recommended</button>
+      </div>
+
+      <ol class="steps three" id="trackGrid"></ol>
+      <p class="slot-hint" id="slotHint"></p>
+    </div>
 
     <div class="lib lib-inline" id="library" aria-labelledby="libTitle">
       <div class="lib-head">
         <div>
-          <p class="eyebrow-label" id="libKicker"></p>
-          <h3 class="lib-title" id="libTitle">Swap in a different build</h3>
-          <p class="lib-sub">Drag a card onto one of your 3 builds, or tap Add to roadmap.</p>
-        </div>
+          <h3 class="lib-title" id="libTitle">Swap in a different build</h3>        </div>
       <div class="rail-nav">
         <button class="rail-btn" data-action="lib-scroll" data-dir="-1" aria-label="Scroll library left"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="rail-btn" data-action="lib-scroll" data-dir="1" aria-label="Scroll library right"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
       </div>
       <div class="lib-controls">
-        <input type="text" id="q" placeholder="Search builds or metrics" aria-label="Search builds or metrics" autocomplete="off">
-        <select id="typeSel" aria-label="Build type"></select>
-        <label class="chk"><input type="checkbox" id="hideOn"> Hide builds on my roadmap</label>
-      </div>
+        <input type="text" id="q" placeholder="Search builds" aria-label="Search builds" autocomplete="off">
+        <select id="typeSel" aria-label="Build type"></select>      </div>
       <div id="banner"></div>
       <div id="libGrid"></div>
     </div>
@@ -816,11 +848,7 @@ body.lib-dragging #trackGrid .scard,body.lib-dragging #trackGrid .slot-empty{out
     <div class="pdf-bar">
       <h3 class="pdf-title">Get your roadmap as a PDF</h3>
       <button class="btn btn-primary btn-lg" id="pdfBtn" type="button">Download my roadmap (PDF)</button>
-      <div class="ai-tip">
-        <p class="ai-tip-title">Then let your AI do the build</p>
-        <p>Drop the PDF into a new chat in Claude or ChatGPT and say <span class="ai-say">“Help me build #1 from this roadmap.”</span> The PDF has every prompt and step, so your AI can walk you through each build.</p>
-      </div>
-      <button class="linkbtn pdf-reset" id="resetBtn" data-action="reset" type="button">Reset to recommended</button>
+      <p class="ai-tip">Drop it into Claude or ChatGPT and say <span class="ai-say">“Help me build #1 from this roadmap.”</span> Your AI walks you through each build.</p>
     </div>
 
 
@@ -1106,7 +1134,7 @@ BASE.forEach(function(b){b.lvl=lvlOf(b.type,b.effort);});
 
 var KEY='ai-build-roadmap-v2';
 var S={fn:'marketing',tracks:{},status:{},custom:[],pdf:{},picked:{}};
-var UI={focus:[],incoming:null,out:'All',q:'',type:'All',hideOn:false,replacing:null,adding:false,form:false};
+var UI={focus:[],incoming:null,out:'All',q:'',type:'All',replacing:null,adding:false,form:false};
 var lastSnap=null,toastTimer=null,formFn=null;
 
 try{
@@ -1172,23 +1200,18 @@ function effortHtml(n){
   var s='';for(var i=1;i<=5;i++)s+='<i'+(i<=n?' class="on"':'')+'></i>';
   return '<span class="eff" role="img" aria-label="Difficulty '+n+' of 5" title="Difficulty '+n+' of 5">'+s+'</span>';
 }
-function lvlHtml(b){var l=b.lvl||2;return '<span class="lvl" title="Needs AI Builder Program Level '+l+' to build">L'+l+'</span>';}
-function metaDiff(b){return '<span class="effwrap">'+effortHtml(b.effort)+lvlHtml(b)+'</span>';}
-function metricHtml(b){return '<div class="metric"><span class="mlabel">Moves</span><span class="mval">'+esc(b.metric)+'</span></div>';}
+function metaDiff(b){return '<span class="effwrap">'+effortHtml(b.effort)+'</span>';}
 
 function renderTabs(){
   $('#fnTabs').innerHTML=Object.keys(FN).map(function(k){
-    return '<button class="pill'+(k===S.fn?' on':'')+'" data-action="fn" data-fn="'+k+'" aria-pressed="'+(k===S.fn)+'">'+esc(FN[k].name)+'</button>';
+    return '<button class="fn-btn'+(k===S.fn?' on':'')+'" data-action="fn" data-fn="'+k+'" aria-pressed="'+(k===S.fn)+'">'+esc(FN[k].name)+'</button>';
   }).join('');
 }
 function renderFocus(){
   var fs=focuses(S.fn);
   UI.focus=UI.focus.filter(function(f){return fs.indexOf(f)>-1;});
-  var list=fnBuilds(S.fn);
-  var html='<button class="pill sm'+(!UI.focus.length?' on':'')+'" data-action="focus" data-focus="All" aria-pressed="'+(!UI.focus.length)+'">All focus areas</button>';
-  html+=fs.map(function(f){
-    var c=list.filter(function(b){return b.focus===f;}).length;
-    return '<button class="pill sm'+(UI.focus.indexOf(f)>-1?' on':'')+'" data-action="focus" data-focus="'+esc(f)+'" aria-pressed="'+(UI.focus.indexOf(f)>-1)+'">'+esc(f)+'<span class="ct">'+c+'</span></button>';
+  var html=fs.map(function(f){
+    return '<button class="pill sm'+(UI.focus.indexOf(f)>-1?' on':'')+'" data-action="focus" data-focus="'+esc(f)+'" aria-pressed="'+(UI.focus.indexOf(f)>-1)+'">'+esc(f)+'</button>';
   }).join('');
   $('#focusChips').innerHTML=html;
 }
@@ -1221,7 +1244,7 @@ function renderTrack(){
   var f=FN[S.fn],M=byId();
   var items=trackItems();
   var picked=!!S.picked[S.fn];
-  $('#trackKicker').textContent=f.name+' · '+(picked?'Your 3 builds':'Recommended for you');
+  $('#trackTitle').textContent='Your '+f.name+' AI roadmap';
   $('#trackBlurb').textContent=f.blurb;
   $('#resetBtn').disabled=!picked;
   var html='';
@@ -1234,7 +1257,7 @@ function renderTrack(){
     }
     var id=esc(b.id);
     var bottom=UI.incoming?
-      '<button class="btn btn-primary btn-sm" data-action="put" data-id="'+id+'">Replace with this</button>':
+      '<button class="btn btn-primary btn-sm" data-action="put" data-id="'+id+'">Replace this build</button>':
       viewBtnLbl(b.id)+'<span class="grow"></span><button class="btn-ghost" data-action="replace" data-id="'+id+'">Replace</button>';
     html+='<li class="step'+(UI.replacing===b.id?' repl':'')+(UI.incoming?' pickable':'')+'" data-id="'+id+'" data-slot="'+i+'">'+
       '<div class="rail"><span class="node" aria-hidden="true">'+(i+1)+'</span></div>'+
@@ -1243,13 +1266,12 @@ function renderTrack(){
           '<button class="grip" data-action="grip" data-id="'+id+'" aria-label="Reorder '+esc(b.title)+'. Drag, or use the arrow keys." title="Drag to reorder">'+GRIP+'</button></div>'+
         '<h3>'+esc(b.title)+'</h3>'+
         '<p class="desc" title="'+esc(b.desc||'')+'">'+esc(b.desc||'')+'</p>'+
-        '<div class="metric"><span class="mlabel">Moves</span><span class="mval">'+esc(b.metric)+'</span></div>'+
-        '<div class="meta">'+metaDiff(b)+'</div>'+
+        '<div class="meta"><span class="dlabel">Difficulty</span>'+metaDiff(b)+'</div>'+
         '<div class="s-bottom">'+bottom+'</div>'+
       '</div></li>';
   }
   $('#trackGrid').innerHTML=html;
-  var hint='Drag any card from the library onto one of these to swap it in.';
+  var hint='';
   if(UI.incoming&&M[UI.incoming])hint='Choose which build to replace with <b>'+esc(M[UI.incoming].title)+'</b>. <button class="linkbtn" data-action="cancel-incoming">Cancel</button>';
   else if(UI.replacing&&M[UI.replacing])hint='Pick a build in the library below to swap in for <b>'+esc(M[UI.replacing].title)+'</b>. <button class="linkbtn" data-action="cancel-replace">Cancel</button>';
   $('#slotHint').innerHTML=hint;
@@ -1272,11 +1294,11 @@ function renderLib(){
   var q=UI.q;
   var fil=list.filter(function(b){
     if(UI.type!=='All'&&b.type!==UI.type)return false;
-    if(UI.hideOn&&on.indexOf(b.id)>=0)return false;
+    if(on.indexOf(b.id)>=0)return false;
+    if(!matches(b))return false;
     if(q&&(b.title+' '+b.desc+' '+b.metric+' '+b.focus+' '+outName(b)).toLowerCase().indexOf(q)<0)return false;
     return true;
   });
-  $('#libKicker').textContent=f.name+' · '+fil.length+' of '+list.length+' builds';
 
   var banner='';
   if(UI.replacing&&M[UI.replacing]){
@@ -1287,7 +1309,7 @@ function renderLib(){
   $('#banner').innerHTML='';
 
   if(!fil.length){
-    $('#libGrid').innerHTML='<p class="empty">No builds match. Clear the search or the type filter.</p>';
+    $('#libGrid').innerHTML='<p class="empty">No builds match. Clear the search or the filters.</p>';
     return;
   }
   var cards=[];
@@ -1299,7 +1321,7 @@ function renderLib(){
       else if(UI.adding)btn='<button class="btn btn-primary btn-sm" data-action="add" data-id="'+esc(b.id)+'">Add to roadmap</button>';
       else btn='<button class="btn-soft" data-action="add" data-id="'+esc(b.id)+'">Add to roadmap</button>';
       cards.push({m:matches(b),h:'<article class="card rail-card" data-bid="'+esc(b.id)+'"'+openAttrs(b)+'><div class="tile-top"><span class="type">'+esc(b.type)+'</span>'+(b.custom?'<span class="tag">Custom</span>':'')+'<span class="grow"></span><span class="out-lbl">'+esc(o[1])+'</span></div>'+
-        '<h4>'+esc(b.title)+'</h4><p class="desc">'+esc(b.desc||'No description yet.')+'</p>'+metricHtml(b)+
+        '<h4>'+esc(b.title)+'</h4><p class="desc">'+esc(b.desc||'No description yet.')+'</p>'+
         '<div class="card-actions">'+btn+'</div></article>'});
     });
   });
@@ -1323,7 +1345,7 @@ document.addEventListener('click',function(e){
     case 'fn':
       S.fn=t.dataset.fn;UI.replacing=null;UI.incoming=null;UI.adding=false;UI.focus=[];UI.out='All';save();renderAll();break;
     case 'focus':
-      (function(f){if(f==='All'){UI.focus=[];return;}var i=UI.focus.indexOf(f);if(i>-1)UI.focus.splice(i,1);else UI.focus.push(f);})(t.dataset.focus);if(!S.picked[S.fn]){S.tracks[S.fn]=recommend(S.fn);save();}renderLens();break;
+      (function(f){var i=UI.focus.indexOf(f);if(i>-1)UI.focus.splice(i,1);else UI.focus.push(f);})(t.dataset.focus);if(!S.picked[S.fn]){S.tracks[S.fn]=recommend(S.fn);save();}renderLens();break;
     case 'pdf-pick':
       pdfToggle(id);break;
     case 'out':
@@ -1569,7 +1591,6 @@ document.addEventListener('keydown',function(e){
 
 $('#q').addEventListener('input',function(e){UI.q=e.target.value.trim().toLowerCase();renderLib();});
 $('#typeSel').addEventListener('change',function(e){UI.type=e.target.value;renderLib();});
-$('#hideOn').addEventListener('change',function(e){UI.hideOn=e.target.checked;renderLib();});
 
 $('#typeSel').innerHTML='<option value="All">All types</option>'+TYPES.map(function(t){return '<option>'+t+'</option>';}).join('');
 
@@ -3484,7 +3505,7 @@ function renderBlueprint(b,d){
   var intro=d.lead+' You’ll answer a few questions, have Claude or ChatGPT build it from your answers, then run it once and fix what’s off.'+(d.safe?' '+d.safe:'');
   return '<header class="bd-head"><div class="bd-tags"><span class="fn">'+esc(FN[b.fn].name)+'</span><span>Blueprint</span><span>'+esc(b.type)+'</span><span>'+esc(b.focus)+'</span></div>'+
     '<h2 id="bdTitle">'+esc(b.title)+'</h2><p class="bd-sub">'+esc(d.sub)+'</p>'+
-    '<div class="bd-moves"><span>Moves <b>'+esc(b.metric)+'</b></span><span>Works in <b>Claude or ChatGPT</b></span><span class="bd-diff">Difficulty '+metaDiff(b)+'</span></div></header>'+
+    '<div class="bd-moves"><span>Works in <b>Claude or ChatGPT</b></span><span class="bd-diff">Difficulty '+metaDiff(b)+'</span></div></header>'+
     stripHtml(b,d)+
     '<p class="lede">'+esc(intro)+'</p>'+
     '<section><h3>Setup</h3><div class="tbl"><table><thead><tr><th>You need</th><th>Why</th><th>How to set it up</th></tr></thead><tbody>'+
@@ -3502,7 +3523,7 @@ function renderSkill(b,d){
   COPYTEXT.skill=d.md;
   return '<header class="bd-head"><div class="bd-tags"><span class="fn">'+esc(FN[b.fn].name)+'</span><span>Skill</span><span>'+esc(b.focus)+'</span><span>Updated Nov 2026</span></div>'+
     '<h2 id="bdTitle">'+esc(d.name)+'</h2><p class="bd-sub">'+esc(d.desc)+'</p>'+
-    '<div class="bd-moves"><span>Moves <b>'+esc(b.metric)+'</b></span><span>Works in <b>Claude or ChatGPT</b></span><span class="bd-diff">Difficulty '+metaDiff(b)+'</span></div></header>'+
+    '<div class="bd-moves"><span>Works in <b>Claude or ChatGPT</b></span><span class="bd-diff">Difficulty '+metaDiff(b)+'</span></div></header>'+
     '<section><h3>What it does</h3><p>'+esc(d.what)+'</p></section>'+
     '<section><h3>Install this skill</h3><p class="lead-line">Copy the text below, then add it yourself.</p>'+
       '<ul class="steps-plain"><li><b>Claude:</b> '+esc(d.claude)+'</li><li><b>ChatGPT:</b> '+esc(d.chatgpt)+'</li></ul></section>'+
@@ -3526,7 +3547,7 @@ function printBlueprint(b,n,tot){
     '<div class="pbp-top"><img src="/assets/logo-dark.svg" alt="Leland"><span>Blueprint '+n+' of '+tot+'</span></div>'+
     '<p class="pbp-kick">'+esc(FN[b.fn].name)+' · '+esc(skill?'Skill':b.type)+'</p>'+
     '<h2>'+esc(titleOf(b.id))+'</h2><p class="pbp-sub">'+esc(sub)+'</p>'+
-    '<div class="pbp-chips"><span>Moves <b>'+esc(b.metric)+'</b></span><span>Works in <b>Claude or ChatGPT</b></span>'+(real&&d.time?'<span>'+esc(d.time)+'</span>':'')+'</div>';
+    '<div class="pbp-chips"><span>Works in <b>Claude or ChatGPT</b></span>'+(real&&d.time?'<span>'+esc(d.time)+'</span>':'')+'</div>';
   if(skill){
     h+='<p class="pbp-lead">'+esc(d.what)+'</p>'+
       '<h3>Step by step</h3><ol class="pbp-steps">'+
@@ -3554,7 +3575,7 @@ function renderPdfBps(){
     '<div class="pc-band">'+
       '<div class="pc-lock"><img src="/assets/logo-white.svg" alt="Leland"><span class="pc-div"></span><img class="pc-aibp" src="/assets/logos/aibp-light.png" alt="AI Builder Program"></div>'+
       '<p class="pc-eyebrow">AI Build Roadmap · '+esc(f.name)+'</p>'+
-      '<h1>Your AI build roadmap</h1>'+
+      '<h1>Your AI roadmap</h1>'+
       '<p class="pc-lead">'+esc(f.blurb)+'</p>'+
       '<p class="pc-date">Made on '+esc(date)+' at leland.ai/roadmap</p>'+
     '</div>'+
@@ -3563,8 +3584,7 @@ function renderPdfBps(){
       return '<li><span class="pc-n">'+(i+1)+'</span><div class="pc-b">'+
         '<p class="pc-meta">'+esc(b.type)+' · '+esc(b.focus)+'</p>'+
         '<h2>'+esc(titleOf(id))+'</h2>'+
-        '<p class="pc-desc">'+esc(b.desc||'')+'</p>'+
-        '<p class="pc-moves">Moves <b>'+esc(b.metric)+'</b></p></div></li>';}).join('')+'</ol>'+
+        '<p class="pc-desc">'+esc(b.desc||'')+'</p></div></li>';}).join('')+'</ol>'+
     '<div class="pc-how"><p class="pc-sec">How to use it</p>'+
       '<p>Drop this PDF into a new chat in Claude or ChatGPT and say “Help me build #1 from this roadmap.” Your AI walks you through it. Finish one build before you start the next.</p></div>'+
   '</section>';
