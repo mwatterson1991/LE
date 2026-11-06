@@ -2514,6 +2514,13 @@ body.rb-home .footer-col-link:hover {
   color: var(--white);
 }
 
+/* Tablet: the logo panel plus five content-width columns need about 1100px,
+   so below that the panel moves above the columns and the columns wrap. */
+@media (max-width: 1100px) {
+  body.rb-home .footer-inner { flex-direction: column; gap: 40px; }
+  body.rb-home .footer-columns { flex-wrap: wrap; justify-content: flex-start; row-gap: 40px; }
+}
+
 /* ---------- Testimonials board — tablet ---------- */
 @media (max-width: 1024px) {
   body.rb-home .tboard { grid-template-columns: repeat(2, 1fr); }
