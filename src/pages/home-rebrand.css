@@ -2474,10 +2474,13 @@ body.rb-home .footer-copyright {
 body.rb-home .footer-columns {
   display: flex;
   flex: 1;
+  /* Columns are sized to their content and the leftover space is shared
+     out evenly, so the visible gap between every column is the same. */
+  justify-content: space-between;
   gap: 48px;
 }
 body.rb-home .footer-col {
-  flex: 1;
+  flex: 0 1 auto;
   min-width: 0;
 }
 body.rb-home .footer-col-heading {
