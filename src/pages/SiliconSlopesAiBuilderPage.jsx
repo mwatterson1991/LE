@@ -2045,6 +2045,15 @@ function HomePageRebrandInner() {
                 <li><a href="https://www.joinleland.com/privacy" className="footer-col-link">Privacy</a></li>
               </ul>
             </div>
+
+            <div className="footer-col">
+              <h4 className="footer-col-heading">Compare</h4>
+              <ul className="footer-col-links">
+                <li><a href="https://www.joinleland.com/library/a/leland-vs-multiverse" className="footer-col-link">Leland vs. Multiverse</a></li>
+                <li><a href="https://www.joinleland.com/library/a/leland-vs-section-ai" className="footer-col-link">Leland vs. Section</a></li>
+                <li><a href="https://www.joinleland.com/library/a/leland-vs-maven" className="footer-col-link">Leland vs. Maven</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </footer>
