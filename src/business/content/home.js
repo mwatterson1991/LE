@@ -211,3 +211,82 @@ export const FINAL_CTA = {
     { label: 'Advertising', href: '#todo:/advertise' },
   ],
 }
+
+/* ------------------------------------------------------------------
+   Hi-fi 4 direction (Dave's "Nature dark, product hero"). Option A.
+   ------------------------------------------------------------------ */
+
+export const HIFI_HERO = {
+  // Kept for search/answer engines; rendered almost invisible.
+  eyebrow: 'Leland for Business',
+  title: 'AI workforce transformation',
+  sub: 'Assess every team, train them with experts, and prove the impact.',
+  primaryCta: 'Book a demo',
+  secondaryCta: 'Take the AI assessment',
+}
+
+// Product mock. Labels follow the real admin dashboard (AI-Native Score,
+// bands, by team). Numbers are illustrative.
+export const HIFI_DASH = {
+  nav: ['Overview', 'Assessment', 'Cohorts', 'Builds', 'Talent', 'Reports'],
+  greeting: 'Good morning',
+  period: 'Q4 · AI transformation',
+  score: 3.4,
+  band: 'AI Fluent',
+  delta: '+1.2 this quarter',
+  teams: [['Sales', 3.9], ['Marketing', 3.6], ['Operations', 3.1], ['Finance', 2.6]],
+  session: { title: 'Build your first agent team', meta: 'Thursday 2pm · 24 joining', img: 'andrew-q' },
+  shipped: [
+    { title: 'Post-call tasks agent', team: 'Ops' },
+    { title: 'SDR follow-up agent', team: 'Sales' },
+    { title: 'Cash-flow forecast', team: 'Finance' },
+    { title: 'Competitor digest', team: 'Marketing' },
+  ],
+}
+
+export const HIFI_TRANSFORM = {
+  eyebrow: 'AI Transformation',
+  title: 'Your company’s AI transformation',
+  sub: 'Assess every team, learn with experts and ship real work with AI.',
+  cards: [
+    {
+      key: 'assess',
+      title: 'Assess',
+      desc: 'Everyone gets a score and a plan from how they actually use AI.',
+      bg: 'motion-green',
+    },
+    {
+      key: 'learn',
+      title: 'Learn with experts',
+      desc: 'Live sessions for each function, led by people who do the work.',
+      bg: 'learn',
+    },
+    {
+      key: 'build',
+      title: 'Build it with us',
+      desc: 'Our builders work alongside your team to ship the agents that matter most.',
+      bg: 'build',
+    },
+  ],
+}
+
+// Real customer stories, already published on leland.ai/program.
+export const HIFI_STORIES = {
+  eyebrow: 'Customer stories',
+  title: 'What teams say about Leland',
+  featured: {
+    quote: 'The course probably accelerated our company’s AI adoption by six months.',
+    name: 'Udit Pillay',
+    title: 'Chief Revenue Officer',
+    company: 'Ethisphere',
+    logo: 'org-logos/ethisphere.png',
+    photo: 'udit-pillay',
+    stat: ['95%', 'of eligible staff through the program'],
+    bg: 'motion-orange',
+  },
+  cards: [
+    { quote: 'It was a huge shift in the mindset of what’s possible. Those excuses are almost gone.', name: 'Ryan Moats', title: 'VP Global Marketing', company: 'PlayPower', photo: 'ryan-moats', stat: ['1,500+', 'spec sheets rebuilt'], bg: 'motion-teal' },
+    { quote: 'It put everyone in a builder mindset. Many didn’t think it was possible to truly build something.', name: 'Lucy Baldwin', title: 'VP Product', company: 'ASU+GSV Summit', photo: 'lucy-baldwin', stat: ['8 hrs', 'of meeting prep automated weekly'], bg: 'motion-blue' },
+    { quote: 'I got more value out of that program for a thousand dollars than what I got out of my entire MBA.', name: 'Gerritt Vander Linden', title: 'Commercial Partnerships', company: '47G', photo: 'gerritt-vander-linden', stat: ['89%', 'faster partnership plans'], bg: 'motion-prism' },
+  ],
+}

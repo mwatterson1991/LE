@@ -3,15 +3,18 @@ import { MotionConfig } from 'motion/react'
 import BusinessNav from './BusinessNav'
 import BusinessFooter from './BusinessFooter'
 import { ForIndividualsBar } from './sections'
-import { HeroA, HeroB } from './home/Hero'
-import { Proof, PathsA, PathsB, StoryAI, DeepDiveA, DeepDiveB, StoryOther, Beyond, Enterprise, Faq, FinalCta } from './home/Sections'
+import { HeroB } from './home/Hero'
+import { HeroHifi, TransformCards, Stories } from './home/Hifi'
+import { Proof, PathsA, PathsB, DeepDiveB, Beyond, Enterprise, Faq, FinalCta } from './home/Sections'
 import { useHomeVariants, VariantToggle } from './home/variants'
 import '../pages/home-rebrand.css'
 import '../pages/leland-ai.css'
 import './business.css'
 import './home/home.css'
+import './home/hifi.css'
 
-// business.joinleland.com homepage, built on Dave's wireframe Idea A.
+// business.joinleland.com homepage: Dave's wireframe Idea A in his Hi-fi 4
+// style (black page, white product UI on vivid imagery).
 // Copy lives in ./content/home.js. Sections with alternatives are switched by
 // the Variations pill (bottom left); option A is the default.
 
@@ -33,14 +36,13 @@ export default function BusinessHomePage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bh">
+      <div className="bh bh-darkpage">
         <BusinessNav variant="transparent" />
-        {v.hero === 'b' ? <HeroB /> : <HeroA />}
+        {v.hero === 'b' ? <HeroB /> : <HeroHifi />}
+        {v.deep === 'b' ? <DeepDiveB /> : <TransformCards />}
+        <Stories />
         <Proof />
         {v.paths === 'b' ? <PathsB /> : <PathsA />}
-        <StoryAI />
-        {v.deep === 'b' ? <DeepDiveB /> : <DeepDiveA />}
-        <StoryOther />
         <Beyond />
         <Enterprise />
         <Faq />
