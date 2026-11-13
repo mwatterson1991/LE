@@ -2,7 +2,7 @@
 
 Read `README.md` in this folder first: branch flow, preview links, ownership.
 
-- Work branches come off `business-site` and PRs target `business-site`, never `main`.
+- Each person works on their own branch (`biz-michael`, `biz-dave`, `biz-tanner`); merge `business-site` into it before starting. Shared changes go by PR into `business-site`, never `main`.
 - Copy lives in `src/business/content/<page>.js`; components import it. Don't hardcode words in JSX.
 - Class prefixes: `biz-` (pages), `vk-`/`v*-` (variations). Don't edit shared leland.ai CSS or components unless the task is about them.
 - Placeholders stay in `[brackets]`. Never invent quotes or results for real companies.

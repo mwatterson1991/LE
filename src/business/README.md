@@ -20,21 +20,20 @@ can see them, so don't put anything confidential on them.
 
 ## The loop
 
-1. Start from the latest `business-site`:
-   `git checkout business-site && git pull`
-2. Make a short branch for your piece: `git checkout -b tanner/hero`
-3. Work (Claude Code locally, or a cloud session at claude.ai/code on this repo).
-4. Run `npm run check` and `npm run build`. Both must pass.
-5. Push and open a PR **into `business-site`** (not `main`). Cloudflare comments
-   on the PR with a preview link for just your change.
-6. Someone else looks at the preview and approves; merge into `business-site`.
-   The shared preview link updates a minute or two later.
+| Branch | What it is | Preview |
+| --- | --- | --- |
+| `business-site` | The shared main version | https://business-site-ai-mastery.leland-9bc.workers.dev/business |
+| `biz-michael` | Michael's version | https://biz-michael-ai-mastery.leland-9bc.workers.dev/business |
+| `biz-dave` | Dave's version | https://biz-dave-ai-mastery.leland-9bc.workers.dev/business |
+| `biz-tanner` | Tanner's version | https://biz-tanner-ai-mastery.leland-9bc.workers.dev/business |
+
+1. Work in your own branch. Every push updates your preview link.
+2. Before starting, pull the latest main into yours: `git checkout biz-<you> && git merge business-site`.
+3. When something should become the shared version, open a PR from `biz-<you>` into `business-site`.
+   Someone else looks and approves, then it merges and the main link updates.
+4. Run `npm run check` and `npm run build` before pushing. Both must pass.
 
 `business-site` only goes to `main` (and live) when we decide to launch.
-
-**Not on GitHub?** Review the preview links and leave notes in the Slack thread
-or on the PR. Copy edits can go straight into the content files below through
-GitHub's web editor ("Edit this file", then "Create a new branch").
 
 ## Where things live
 
