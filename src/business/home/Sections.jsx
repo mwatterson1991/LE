@@ -5,7 +5,6 @@ import { usePledgeData } from '../../pledgeData'
 import { useRatingsData } from '../../ratingsData'
 import { PROOF, PATHS, STORY_AI, DEEP_DIVE, STORY_OTHER, BEYOND, ENTERPRISE, FAQ, FINAL_CTA } from '../content/home'
 import { BOOK_DEMO_URL, ASSESSMENT_URL } from '../siteMap'
-import { Illus } from '../sections'
 
 const asset = (p) => `${import.meta.env.BASE_URL}assets/${p}`
 const build = (n) => asset(`business/v/builds/build-${String(n).padStart(2, '0')}.webp`)
@@ -53,21 +52,18 @@ export function PathsA() {
       <div className="bh-wrap">
         <motion.div className="bh-head" {...reveal}>
           <h2>{PATHS.title}</h2>
-          <p>{PATHS.sub}</p>
         </motion.div>
         <motion.a href={ai.cta.href} className="bh-path-ai" {...reveal}>
           <div className="bh-path-ai-copy">
             <span className="bh-eyebrow bh-eyebrow-dark">{ai.label}</span>
             <h3>{ai.title}</h3>
-            <p>{ai.desc}</p>
             <span className="bh-btn bh-btn-blue">{ai.cta.label} <Arrow /></span>
           </div>
           <div className="bh-path-ai-parts">
             {ai.parts.map((p) => (
               <div className="bh-part" key={p.n}>
-                <span>{p.n}</span>
+                <PartVisual n={p.n} />
                 <b>{p.title}</b>
-                <em>{p.desc}</em>
               </div>
             ))}
           </div>
@@ -75,15 +71,40 @@ export function PathsA() {
         <motion.div className="bh-path-grid" {...group}>
           {PATHS.others.map((o) => (
             <motion.a href={o.href} className="bh-path" key={o.title} {...child}>
-              <Illus name={o.illus} className="bh-path-illus" />
-              <span className="bh-eyebrow">{o.label}</span>
               <b>{o.title}</b>
-              <em>{o.desc} <Arrow /></em>
+              <Arrow />
             </motion.a>
           ))}
         </motion.div>
       </div>
     </section>
+  )
+}
+
+/** Real imagery and small product views for the four parts of the platform. */
+function PartVisual({ n }) {
+  if (n === '01') {
+    return (
+      <div className="bh-pv bh-pv-assess">
+        <div className="bh-pv-num"><b>3.4</b><span>/ 5</span></div>
+        <div className="bh-pv-scale">{[1, 1, 1, 0.4, 0].map((f, i) => <i key={i} style={{ '--f': f }} />)}</div>
+      </div>
+    )
+  }
+  if (n === '02') return <div className="bh-pv"><img src={asset('business/hifi/expert.webp')} alt="" loading="lazy" /></div>
+  if (n === '03') return <div className="bh-pv"><img src={asset('business/hifi/build.webp')} alt="" loading="lazy" /></div>
+  // Reporting: the org at a glance, each node shaded by its team's level.
+  const kids = [[60, 0.9], [150, 0.55], [240, 0.75]]
+  return (
+    <div className="bh-pv bh-pv-org">
+      <svg viewBox="0 0 300 130" aria-hidden="true">
+        {kids.map(([x]) => <path key={x} d={`M150 26 V48 H${x} V66`} />)}
+        {kids.flatMap(([x], k) => [x - 26, x, x + 26].map((cx) => <path key={`${k}-${cx}`} d={`M${x} 82 V94 H${cx} V104`} />))}
+        <circle cx="150" cy="18" r="10" className="bh-org-top" />
+        {kids.map(([x, l]) => <circle key={x} cx={x} cy="74" r="9" style={{ '--l': l }} />)}
+        {kids.flatMap(([x, l], k) => [x - 26, x, x + 26].map((cx, j) => <circle key={`${k}-${j}`} cx={cx} cy="112" r="7" style={{ '--l': Math.max(0.15, l - 0.25 + j * 0.2) }} />))}
+      </svg>
+    </div>
   )
 }
 
@@ -271,11 +292,14 @@ export function Beyond() {
         <motion.h2 className="bh-h2" {...reveal}>{BEYOND.title}</motion.h2>
         <motion.div className="bh-beyond" {...group}>
           {BEYOND.cards.map((c) => (
-            <motion.a href={c.href} className="bh-beyond-card" key={c.label} {...child}>
-              <span className="bh-eyebrow">{c.label}</span>
+            <motion.a href={c.href} className="bh-beyond-card" key={c.key} {...child}>
+              <div className="bh-beyond-visual">
+                {c.faces ? <div className="bh-faces">{c.faces.map((f) => <img key={f} src={person(f)} alt="" />)}</div> : null}
+                {c.logos ? <div className="bh-unis">{c.logos.map((l) => <img key={l} src={asset(`business/hifi/uni/${l}.svg`)} alt={l} />)}</div> : null}
+                {c.stat ? <div className="bh-beyond-stat"><b>{c.stat[0]}</b><span>{c.stat[1]}</span></div> : null}
+              </div>
               <b>{c.title}</b>
-              <blockquote>“{c.quote}”</blockquote>
-              <span className="bh-who">{c.who}</span>
+              <p>{c.desc}</p>
               <span className="bh-link">{c.cta}</span>
             </motion.a>
           ))}
@@ -286,7 +310,13 @@ export function Beyond() {
 }
 
 /* ---------- 8. Enterprise ---------- */
-const ENT_ICON = ['M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5z', 'M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z', 'M4 20V10M10 20V4M16 20v-7M22 20H2', 'M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z']
+// Lucide-style 24px line icons, drawn on a 1.75 stroke.
+const ENT_ICONS = [
+  <><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></>,
+  <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></>,
+  <><path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></>,
+]
+const MODEL_LOGOS = ['claude-ai', 'openai', 'gemini-ai']
 export function Enterprise() {
   return (
     <section className="bh-sec bh-dark">
@@ -295,7 +325,11 @@ export function Enterprise() {
         <motion.div className="bh-ent" {...group}>
           {ENTERPRISE.items.map((it, i) => (
             <motion.div className="bh-ent-item" key={it.title} {...child}>
-              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d={ENT_ICON[i]} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" /></svg>
+              {ENT_ICONS[i] ? (
+                <span className="bh-ent-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{ENT_ICONS[i]}</svg></span>
+              ) : (
+                <span className="bh-ent-models">{MODEL_LOGOS.map((m) => <img key={m} src={asset(`logos/tools/${m}.png`)} alt="" />)}</span>
+              )}
               <b>{it.title}</b>
               <p>{it.desc}</p>
             </motion.div>
@@ -344,10 +378,6 @@ export function FinalCta() {
             <div className="bh-ctas">
               <a href={BOOK_DEMO_URL} target="_blank" rel="noopener noreferrer" className="bh-btn bh-btn-blue" onClick={track('final')}>{f.primary}</a>
               <a href={ASSESSMENT_URL} className="bh-btn bh-btn-glass">{f.secondary}</a>
-            </div>
-            <div className="bh-goto">
-              <span>Or go straight to:</span>
-              {f.goTo.map((g) => <a key={g.label} href={g.href}>{g.label} <Arrow /></a>)}
             </div>
           </div>
         </motion.div>

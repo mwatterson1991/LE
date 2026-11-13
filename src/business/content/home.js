@@ -81,12 +81,13 @@ export const HERO = {
 
 export const PROOF = {
   title: 'Trusted by companies, universities and teams',
-  // trained = live pledge counter; rating = live AI Builder Program feed.
+  // trained = live pledge counter. The rest are published on joinleland.com
+  // and leland.ai (as of Nov 2026).
   stats: [
     { key: 'trained', label: 'people learning AI on Leland' },
-    { value: '[X]', label: 'experts in the network' },
-    { value: '[X]', label: 'companies and universities' },
-    { key: 'rating', label: 'AI Builder Program rating' },
+    { value: '500+', label: 'trained AI experts' },
+    { value: '250+', label: 'teams trained' },
+    { value: '4.99', label: 'average rating from 37,185 reviews' },
   ],
 }
 
@@ -157,9 +158,9 @@ export const STORY_OTHER = {
 export const BEYOND = {
   title: 'Talent, universities and brands work with Leland too.',
   cards: [
-    { label: 'Talent', title: 'Hiring & Outplacement', quote: '[Short HR quote]', who: '[Name, Company]', href: '/recruit', cta: 'Explore Talent' },
-    { label: 'Universities', title: 'Career centers · MBA · Undergrad', quote: '[Short university quote]', who: '[Name, School]', href: '#todo:/universities', cta: 'Explore Universities' },
-    { label: 'Advertising', title: 'Employers · Schools · Tools', quote: '[Short advertiser quote]', who: '[Name, Company]', href: '#todo:/advertise', cta: 'Explore Advertising' },
+    { key: 'talent', label: 'Talent', title: 'Hiring and outplacement', desc: 'Hire AI-native operators and support people in transition.', href: '/recruit', cta: 'Explore Talent', faces: ['pic-07', 'pic-02', 'pic-13'] },
+    { key: 'uni', label: 'Universities', title: 'Career centers, MBA and undergrad', desc: 'Expert coaching for every student you serve.', href: '#todo:/universities', cta: 'Explore Universities', logos: ['byu', 'kellogg', 'usc-marshall'] },
+    { key: 'ads', label: 'Advertising', title: 'Employers, schools and tools', desc: 'Reach people while they choose their next step.', href: '#todo:/advertise', cta: 'Explore Advertising', stat: ['300K+', 'students using Leland'] },
   ],
 }
 
@@ -175,7 +176,7 @@ export const ENTERPRISE = {
 }
 
 export const FAQ = {
-  title: 'Questions, answered.',
+  title: 'FAQ',
   items: [
     {
       q: 'What does Leland do for businesses?',
@@ -230,18 +231,28 @@ export const HIFI_HERO = {
 export const HIFI_DASH = {
   nav: ['Overview', 'Assessment', 'Cohorts', 'Builds', 'Talent', 'Reports'],
   greeting: 'Good morning',
-  period: 'Q4 · AI transformation',
+  period: 'Q4',
   score: 3.4,
   band: 'AI Fluent',
-  delta: '+1.2 this quarter',
+  change: 'Up 1.2 since July',
+  bands: ['Starter', 'Explorer', 'Fluent', 'Proficient', 'AI-Native'],
   teams: [['Sales', 3.9], ['Marketing', 3.6], ['Operations', 3.1], ['Finance', 2.6]],
-  session: { title: 'Build your first agent team', meta: 'Thursday 2pm · 24 joining', img: 'andrew-q' },
-  shipped: [
-    { title: 'Post-call tasks agent', team: 'Ops' },
-    { title: 'SDR follow-up agent', team: 'Sales' },
-    { title: 'Cash-flow forecast', team: 'Finance' },
-    { title: 'Competitor digest', team: 'Marketing' },
+  sessions: [
+    { img: 'andrew-q', title: 'Build your first agent team', when: 'Live now', live: true },
+    { img: 'dessy-k', title: 'Make every output sound like you', when: 'Monday 10am' },
+    { img: 'kristen-h', title: 'Automate your inbox with n8n', when: 'Tuesday 1pm' },
   ],
+  builds: [
+    { build: 3, title: 'Post-call tasks agent', meta: 'Ops · runs after every call' },
+    { build: 24, title: 'SDR follow-up agent', meta: 'Sales · runs every morning' },
+    { build: 9, title: 'Cash-flow forecast', meta: 'Finance · updated weekly' },
+  ],
+  roles: [
+    { title: 'GTM Engineer', meta: '3 verified candidates' },
+    { title: 'Operations Builder', meta: 'Offer accepted' },
+    { title: 'Sales Builder', meta: '5 verified candidates' },
+  ],
+  report: { label: 'Hours saved per week', value: '1,920', series: [12, 18, 22, 31, 40, 52, 61, 74] },
 }
 
 export const HIFI_TRANSFORM = {
@@ -274,19 +285,10 @@ export const HIFI_TRANSFORM = {
 export const HIFI_STORIES = {
   eyebrow: 'Customer stories',
   title: 'What teams say about Leland',
-  featured: {
-    quote: 'The course probably accelerated our company’s AI adoption by six months.',
-    name: 'Udit Pillay',
-    title: 'Chief Revenue Officer',
-    company: 'Ethisphere',
-    logo: 'org-logos/ethisphere.png',
-    photo: 'udit-pillay',
-    stat: ['95%', 'of eligible staff through the program'],
-    bg: 'motion-orange',
-  },
   cards: [
-    { quote: 'It was a huge shift in the mindset of what’s possible. Those excuses are almost gone.', name: 'Ryan Moats', title: 'VP Global Marketing', company: 'PlayPower', photo: 'ryan-moats', stat: ['1,500+', 'spec sheets rebuilt'], bg: 'motion-teal' },
-    { quote: 'It put everyone in a builder mindset. Many didn’t think it was possible to truly build something.', name: 'Lucy Baldwin', title: 'VP Product', company: 'ASU+GSV Summit', photo: 'lucy-baldwin', stat: ['8 hrs', 'of meeting prep automated weekly'], bg: 'motion-blue' },
-    { quote: 'I got more value out of that program for a thousand dollars than what I got out of my entire MBA.', name: 'Gerritt Vander Linden', title: 'Commercial Partnerships', company: '47G', photo: 'gerritt-vander-linden', stat: ['89%', 'faster partnership plans'], bg: 'motion-prism' },
+    { quote: 'The course probably accelerated our company’s AI adoption by six months.', name: 'Udit Pillay', title: 'Chief Revenue Officer', company: 'Ethisphere', logo: 'co/ethisphere.svg', photo: 'cut-udit-pillay', stat: ['95%', 'of eligible staff through the program'], bg: 'motion-orange' },
+    { quote: 'It was a huge shift in the mindset of what’s possible. Those excuses are almost gone.', name: 'Ryan Moats', title: 'VP Global Marketing', company: 'PlayPower', logo: 'co/playpower.png', photo: 'cut-ryan-moats', stat: ['1,500+', 'spec sheets rebuilt'], bg: 'motion-teal' },
+    { quote: 'It put everyone in a builder mindset. Many didn’t think it was possible to truly build something.', name: 'Lucy Baldwin', title: 'VP Product', company: 'ASU+GSV Summit', logo: 'co/asugsv.png', photo: 'cut-lucy-baldwin', stat: ['8 hrs', 'of meeting prep automated weekly'], bg: 'motion-blue' },
+    { quote: 'I got more value out of that program for a thousand dollars than what I got out of my entire MBA.', name: 'Gerritt Vander Linden', title: 'Commercial Partnerships', company: '47G', logo: 'co/47g.png', photo: 'cut-gerritt-vander-linden', stat: ['89%', 'faster partnership plans'], bg: 'motion-prism' },
   ],
 }

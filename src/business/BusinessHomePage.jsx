@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { MotionConfig } from 'motion/react'
 import BusinessNav from './BusinessNav'
 import BusinessFooter from './BusinessFooter'
-import { ForIndividualsBar } from './sections'
 import { HeroB } from './home/Hero'
 import { HeroHifi, TransformCards, Stories } from './home/Hifi'
 import { Proof, PathsA, PathsB, DeepDiveB, Beyond, Enterprise, Faq, FinalCta } from './home/Sections'
@@ -47,7 +46,6 @@ export default function BusinessHomePage() {
         <Enterprise />
         <Faq />
         <FinalCta />
-        <ForIndividualsBar />
         <BusinessFooter />
         <VariantToggle v={v} choose={choose} />
       </div>

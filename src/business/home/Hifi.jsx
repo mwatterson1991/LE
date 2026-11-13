@@ -10,10 +10,165 @@ import { BOOK_DEMO_URL, ASSESSMENT_URL } from '../siteMap'
 const asset = (p) => `${import.meta.env.BASE_URL}assets/${p}`
 const hifi = (n) => asset(`business/hifi/${n}.webp`)
 const person = (f) => asset(`business/v/people/${f}.webp`)
+const build = (n) => asset(`business/v/builds/build-${String(n).padStart(2, '0')}.webp`)
 const EASE_OUT = [0.23, 1, 0.32, 1]
 const track = (source) => () => posthog.capture('biz--cta_click', { source })
 
-// Logos already shown on leland.ai. Rendered white on the dark page.
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => { setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches) }, [])
+  return reduced
+}
+
+/* ---------------------------------------------------------------- Hero */
+
+/** Steps through the dashboard's nav while in view; a click takes over. */
+function useTour(length, inView, ms = 3800) {
+  const reduced = useReducedMotion()
+  const [i, setI] = useState(0)
+  const [manual, setManual] = useState(false)
+  useEffect(() => {
+    if (!inView || manual || reduced) return undefined
+    const t = setInterval(() => setI((x) => (x + 1) % length), ms)
+    return () => clearInterval(t)
+  }, [inView, manual, reduced, length, ms])
+  const pick = (n) => { setManual(true); setI(n) }
+  return [i, pick]
+}
+
+function Bars({ rows, max = 5 }) {
+  return (
+    <div className="bx-bars">
+      {rows.map(([name, v], i) => (
+        <div className="bx-bar" key={name}>
+          <span>{name}</span>
+          <div className="bx-track"><i style={{ '--w': v / max, animationDelay: `${120 + i * 70}ms` }} /></div>
+          <b>{v.toFixed(1)}</b>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function Rows({ items }) {
+  return (
+    <ul className="bx-rows">
+      {items.map((it) => (
+        <li key={it.title}>
+          {it.img ? <img src={it.img} alt="" /> : null}
+          <div><b>{it.title}</b><span>{it.meta}</span></div>
+          {it.side ? <em>{it.side}</em> : null}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function Chart({ series }) {
+  const max = Math.max(...series)
+  const pts = series.map((v, i) => `${(i / (series.length - 1)) * 300},${90 - (v / max) * 80}`).join(' ')
+  return (
+    <svg className="bx-chart" viewBox="0 0 300 96" preserveAspectRatio="none" aria-hidden="true">
+      <polygon points={`0,96 ${pts} 300,96`} className="bx-chart-area" />
+      <polyline points={pts} className="bx-chart-line" pathLength="1" />
+    </svg>
+  )
+}
+
+function DashView({ view }) {
+  const d = HIFI_DASH
+  if (view === 'Overview') {
+    const filled = Math.floor(d.score)
+    return (
+      <div className="bx-view">
+        <span className="bx-k">AI-Native Score</span>
+        <div className="bx-big"><b>{d.score.toFixed(1)}</b><span>/ 5</span></div>
+        <p className="bx-line">{d.band} · {d.change}</p>
+        <div className="bx-scale">
+          {d.bands.map((b, i) => (
+            <div key={b} className={i < filled ? 'is-full' : i === filled ? 'is-part' : ''} style={i === filled ? { '--p': d.score - filled } : undefined}>
+              <i /><span>{b}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+  if (view === 'Assessment') {
+    return (
+      <div className="bx-view">
+        <span className="bx-k">Average score by team</span>
+        <Bars rows={d.teams} />
+      </div>
+    )
+  }
+  if (view === 'Cohorts') {
+    return (
+      <div className="bx-view">
+        <span className="bx-k">Live sessions this week</span>
+        <Rows items={d.sessions.map((s) => ({ title: s.title, meta: s.when, img: person(s.img), side: s.live ? 'Join' : null }))} />
+      </div>
+    )
+  }
+  if (view === 'Builds') {
+    return (
+      <div className="bx-view">
+        <span className="bx-k">Shipped this week</span>
+        <Rows items={d.builds.map((b) => ({ title: b.title, meta: b.meta, img: build(b.build) }))} />
+      </div>
+    )
+  }
+  if (view === 'Talent') {
+    return (
+      <div className="bx-view">
+        <span className="bx-k">Open roles</span>
+        <Rows items={d.roles.map((r) => ({ title: r.title, meta: r.meta }))} />
+      </div>
+    )
+  }
+  return (
+    <div className="bx-view">
+      <span className="bx-k">{d.report.label}</span>
+      <div className="bx-big"><b>{d.report.value}</b><span>hrs</span></div>
+      <Chart series={d.report.series} />
+    </div>
+  )
+}
+
+function Dashboard() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { margin: '-60px' })
+  const d = HIFI_DASH
+  const [i, pick] = useTour(d.nav.length, inView)
+  const view = d.nav[i]
+  return (
+    <div className="bx-app" ref={ref}>
+      <aside className="bx-side">
+        <img className="bx-side-logo" src={asset('logos/New Leland Logo/Full Logo/Logo-Black.svg')} alt="Leland" />
+        {d.nav.map((n, idx) => (
+          <button type="button" key={n} className={idx === i ? 'is-on' : ''} onClick={() => pick(idx)}>
+            {idx === i ? <motion.span layoutId="bx-nav-pill" className="bx-side-pill" transition={{ duration: 0.3, ease: EASE_OUT }} /> : null}
+            <span className="bx-side-label">{n}</span>
+          </button>
+        ))}
+      </aside>
+      <div className="bx-main">
+        <div className="bx-main-top"><b>{d.greeting}</b><span>{d.period}</span></div>
+        <div className="bx-stage">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div key={view} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.22, ease: EASE_OUT }}>
+              <DashView view={view} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* -------------------------------------------------------------- Logos */
+
+// Logos already shown on leland.ai. Each slot flips in place to the next logo.
 const LOGOS = [
   { src: 'assets/logos/google.svg', alt: 'Google', h: 26 },
   { src: 'assets/logos/JPMorganChase.svg', alt: 'JPMorgan Chase', h: 20 },
@@ -23,111 +178,57 @@ const LOGOS = [
   { src: 'logos/adobe.svg', alt: 'Adobe', h: 22 },
   { src: 'logos/american_express.svg', alt: 'American Express', h: 14 },
   { src: 'logos/datavant.svg', alt: 'Datavant', h: 20 },
+  { src: 'logos/gitlab-logo-400-rgb.svg', alt: 'GitLab', h: 40 },
+  { src: 'assets/logos/gsv-ventures.svg', alt: 'GSV', h: 30 },
+  { src: 'assets/logos/Partners_Group_Logo_2024.svg', alt: 'Partners Group', h: 26 },
+  { src: 'assets/logos/runpod.svg', alt: 'RunPod', h: 24 },
+  { src: 'logos/clozd.svg', alt: 'Clozd', h: 20 },
 ]
+const SLOTS = 6
 
-function useCountUp(to, start, ms = 1400) {
-  const [n, setN] = useState(0)
+function useLogoSlots() {
+  const [slots, setSlots] = useState(() => Array.from({ length: SLOTS }, (_, i) => i))
+  const reduced = useReducedMotion()
   useEffect(() => {
-    if (!start) return undefined
-    let raf
-    const t0 = performance.now()
-    const tick = (t) => {
-      const p = Math.min(1, (t - t0) / ms)
-      setN(to * (1 - Math.pow(1 - p, 3)))
-      if (p < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [to, start, ms])
-  return n
-}
-
-/** Rotates a list: every `ms` the next item slides in on top. */
-function useRotatingFeed(items, visible = 3, ms = 2600) {
-  const [offset, setOffset] = useState(0)
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
-    const t = setInterval(() => setOffset((o) => o + 1), ms)
+    if (reduced) return undefined
+    let turn = 0
+    const t = setInterval(() => {
+      setSlots((cur) => {
+        const free = LOGOS.map((_, i) => i).filter((i) => !cur.includes(i))
+        const next = [...cur]
+        next[(turn * 4) % SLOTS] = free[turn % free.length]
+        return next
+      })
+      turn += 1
+    }, 1400)
     return () => clearInterval(t)
-  }, [ms])
-  return Array.from({ length: visible }, (_, i) => {
-    const idx = (offset + i) % items.length
-    return { ...items[idx], key: `${offset + i}` }
-  })
+  }, [reduced])
+  return slots
 }
 
-/* ---------------------------------------------------------------- Hero */
-
-function Dashboard() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-  const score = useCountUp(HIFI_DASH.score, inView)
-  const feed = useRotatingFeed(HIFI_DASH.shipped)
-  const d = HIFI_DASH
+export function LogoStrip() {
+  const slots = useLogoSlots()
   return (
-    <div className={`bx-app${inView ? ' is-in' : ''}`} ref={ref}>
-      <aside className="bx-side">
-        <img className="bx-side-logo" src={asset('logos/New Leland Logo/Full Logo/Logo-Black.svg')} alt="Leland" />
-        {d.nav.map((n, i) => <span key={n} className={i === 0 ? 'is-on' : ''}>{n}</span>)}
-      </aside>
-      <div className="bx-main">
-        <div className="bx-main-top">
-          <b>{d.greeting}</b>
-          <span>{d.period}</span>
-        </div>
-        <div className="bx-card bx-score">
-          <div className="bx-row-between">
-            <span className="bx-lbl">AI-Native Score</span>
-            <span className="bx-tag">{d.delta}</span>
+    <div className="bx-logostrip" aria-label="Trusted by teams at these companies">
+      {slots.map((li, s) => {
+        const l = LOGOS[li]
+        return (
+          <div className="bx-logoslot" key={s}>
+            <AnimatePresence initial={false}>
+              <motion.img
+                key={l.alt}
+                src={`${import.meta.env.BASE_URL}${l.src}`}
+                alt={l.alt}
+                style={{ height: l.h }}
+                initial={{ opacity: 0, rotateX: -80, y: 12 }}
+                animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                exit={{ opacity: 0, rotateX: 80, y: -12 }}
+                transition={{ duration: 0.55, ease: EASE_OUT }}
+              />
+            </AnimatePresence>
           </div>
-          <div className="bx-score-num">
-            <b>{score.toFixed(1)}</b><em>/ 5</em><span className="bx-band">{d.band}</span>
-          </div>
-          <div className="bx-scale" aria-hidden="true">
-            {['Starter', 'Explorer', 'Fluent', 'Proficient', 'AI-Native'].map((b) => <i key={b}><span>{b}</span></i>)}
-            <u style={{ '--x': d.score / 5 }} />
-          </div>
-          <div className="bx-teams">
-            {d.teams.map(([t, v], i) => (
-              <div key={t} className="bx-team">
-                <span>{t}</span>
-                <div className="bx-track"><i style={{ '--w': v / 5, transitionDelay: `${200 + i * 80}ms` }} /></div>
-                <b>{v.toFixed(1)}</b>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="bx-col">
-          <div className="bx-card bx-live">
-            <img src={person(d.session.img)} alt="" />
-            <div>
-              <span className="bx-lbl"><i className="bx-dot" />Live with an expert</span>
-              <b>{d.session.title}</b>
-              <span>{d.session.meta}</span>
-            </div>
-            <span className="bx-join">Join</span>
-          </div>
-          <div className="bx-card bx-feed">
-            <span className="bx-lbl">Shipped this week</span>
-            <ul>
-              <AnimatePresence initial={false}>
-                {feed.map((f) => (
-                  <motion.li
-                    key={f.key}
-                    layout
-                    initial={{ opacity: 0, y: -12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, transition: { duration: 0.15 } }}
-                    transition={{ duration: 0.35, ease: EASE_OUT }}
-                  >
-                    <b>{f.title}</b><span>{f.team}</span>
-                  </motion.li>
-                ))}
-              </AnimatePresence>
-            </ul>
-          </div>
-        </div>
-      </div>
+        )
+      })}
     </div>
   )
 }
@@ -148,14 +249,11 @@ export function HeroHifi() {
             <a href={ASSESSMENT_URL} className="bx-btn bx-btn-d" onClick={track('hero-assessment')}>{h.secondaryCta}</a>
           </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.15, ease: EASE_OUT }}>
+        <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.15, ease: EASE_OUT }}>
           <Dashboard />
         </motion.div>
-        <div className="bx-logos">
-          <span>Trusted by teams at</span>
-          {LOGOS.map((l) => <img key={l.alt} src={`${import.meta.env.BASE_URL}${l.src}`} alt={l.alt} style={{ height: l.h }} loading="lazy" />)}
-        </div>
       </div>
+      <LogoStrip />
     </section>
   )
 }
@@ -165,55 +263,22 @@ export function HeroHifi() {
 const PRINCIPLES = [
   ['AI-first', 'Is AI your first step on new work?', 4.1],
   ['Builder', 'Are you building systems that handle core parts of your job?', 2.4],
-  ['Judgment', 'Do you direct and review AI’s work?', 3.6],
 ]
 
 function AssessUI({ on }) {
   return (
     <div className={`bx-ui bx-assess${on ? ' is-in' : ''}`}>
-      <div className="bx-row-between">
-        <span className="bx-ui-k">Your AI profile · from Claude</span>
-        <span className="bx-band">AI Fluent</span>
-      </div>
-      <div className="bx-assess-score"><b>3.2</b><em>/ 5</em></div>
-      {PRINCIPLES.map(([name, q, v], i) => (
+      <span className="bx-k">Your AI profile</span>
+      <div className="bx-big bx-big-sm"><b>3.2</b><span>/ 5</span></div>
+      <p className="bx-line">AI Fluent</p>
+      {PRINCIPLES.map(([name, q, v]) => (
         <div className="bx-princ" key={name}>
           <div className="bx-row-between"><b>{name}</b><span>{v.toFixed(1)}</span></div>
           <p>{q}</p>
-          <div className="bx-track"><i style={{ '--w': v / 5, transitionDelay: `${150 + i * 90}ms` }} /></div>
+          <div className="bx-track"><i style={{ '--w': v / 5 }} /></div>
         </div>
       ))}
       <div className="bx-start">Start here: automate your weekly report <span aria-hidden="true">→</span></div>
-    </div>
-  )
-}
-
-function LearnUI() {
-  return (
-    <div className="bx-ui bx-learn">
-      <span className="bx-ui-k"><i className="bx-dot" />Live now</span>
-      <b>Make every output sound like you</b>
-      <div className="bx-learn-who">
-        <img src={person('dessy-k')} alt="" />
-        <span>Dessy K. · AI Builder instructor</span>
-      </div>
-      <div className="bx-stack">
-        {['pic-03', 'pic-06', 'pic-09', 'pic-11'].map((p) => <img key={p} src={person(p)} alt="" />)}
-        <span>+24 from Sales</span>
-      </div>
-    </div>
-  )
-}
-
-function BuildUI() {
-  return (
-    <div className="bx-builds">
-      <div className="bx-ui bx-build">
-        <i className="bx-run" /><div><b>Invoice triage agent</b><span>Ops · shipped with Leland in week 2</span></div>
-      </div>
-      <div className="bx-ui bx-build">
-        <i className="bx-run" /><div><b>Pipeline digest</b><span>Sales · runs every morning</span></div>
-      </div>
     </div>
   )
 }
@@ -222,7 +287,6 @@ export function TransformCards() {
   const t = HIFI_TRANSFORM
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
-  const ui = { assess: <AssessUI on={inView} />, learn: <LearnUI />, build: <BuildUI /> }
   return (
     <section className="bx-sec">
       <div className="bx-wrap">
@@ -243,7 +307,7 @@ export function TransformCards() {
             >
               <img className="bx-fill" src={hifi(c.bg)} alt="" loading="lazy" />
               <div className="bx-shade" />
-              {ui[c.key]}
+              {c.key === 'assess' ? <AssessUI on={inView} /> : <span />}
               <div className="bx-fcard-copy">
                 <h3>{c.title}</h3>
                 <p>{c.desc}</p>
@@ -258,27 +322,10 @@ export function TransformCards() {
 
 /* ------------------------------------------------------- Customer stories */
 
-function Who({ s }) {
-  return (
-    <div className="bx-who">
-      <img className="bx-who-face" src={hifi(s.photo)} alt={s.name} />
-      <div><b>{s.name}</b><span>{s.title}</span></div>
-    </div>
-  )
-}
-
-function Company({ s }) {
-  return (
-    <div className="bx-co">
-      {s.logo ? <img src={asset(s.logo)} alt="" /> : null}
-      <span>{s.company}</span>
-    </div>
-  )
-}
-
+// Four identical cards: logo, result, quote, then the person as a cut-out
+// standing on the card's bottom edge.
 export function Stories() {
   const st = HIFI_STORIES
-  const f = st.featured
   return (
     <section className="bx-sec">
       <div className="bx-wrap">
@@ -287,26 +334,23 @@ export function Stories() {
           <h2>{st.title}</h2>
         </div>
         <div className="bx-stories">
-          <motion.article className="bx-tcard bx-tcard-feature" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6, ease: EASE_OUT }}>
-            <img className="bx-fill" src={hifi(f.bg)} alt="" loading="lazy" />
-            <div className="bx-veil" />
-            <Company s={f} />
-            <div className="bx-tcard-portrait"><img src={hifi(f.photo)} alt={f.name} /></div>
-            <div className="bx-tcard-body">
-              <blockquote>“{f.quote}”</blockquote>
-              <div className="bx-stat"><b>{f.stat[0]}</b><span>{f.stat[1]}</span></div>
-              <Who s={f} />
-            </div>
-          </motion.article>
           {st.cards.map((c, i) => (
-            <motion.article className="bx-tcard" key={c.name} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6, delay: 0.08 * (i + 1), ease: EASE_OUT }}>
+            <motion.article
+              className="bx-tcard"
+              key={c.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, delay: 0.07 * i, ease: EASE_OUT }}
+            >
               <img className="bx-fill" src={hifi(c.bg)} alt="" loading="lazy" />
               <div className="bx-veil" />
-              <Company s={c} />
-              <div className="bx-tcard-body">
-                <div className="bx-stat"><b>{c.stat[0]}</b><span>{c.stat[1]}</span></div>
-                <blockquote>“{c.quote}”</blockquote>
-                <Who s={c} />
+              <img className="bx-tcard-logo" src={asset(`business/hifi/${c.logo}`)} alt={c.company} />
+              <div className="bx-stat"><b>{c.stat[0]}</b><span>{c.stat[1]}</span></div>
+              <blockquote>“{c.quote}”</blockquote>
+              <div className="bx-tcard-foot">
+                <div className="bx-tcard-who"><b>{c.name}</b><span>{c.title}</span></div>
+                <img className="bx-tcard-cut" src={hifi(c.photo)} alt={c.name} />
               </div>
             </motion.article>
           ))}
