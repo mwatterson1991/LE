@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 // saw. Option A is always the default and what ships unless we decide otherwise.
 // To add an option: add it here, then branch on `v.<section>` in the page.
 export const VARIANT_SECTIONS = [
-  { id: 'hero', name: 'Hero', options: [{ key: 'a', label: 'Product stage (Idea A)' }, { key: 'b', label: 'Audience switcher (Idea D)' }] },
+  { id: 'hero', name: 'Hero', options: [{ key: 'a', label: 'Audience switcher (Idea D)' }, { key: 'b', label: 'Product stage (Idea A)' }] },
   { id: 'paths', name: 'Paths', options: [{ key: 'a', label: 'AI tile + four doors (Idea A)' }, { key: 'b', label: 'Glass rows (Hi-fi 6)' }] },
   { id: 'deep', name: 'AI deep dive', options: [{ key: 'a', label: 'Four tiles (Idea A)' }, { key: 'b', label: 'Sticky scroll (Idea D)' }] },
 ]

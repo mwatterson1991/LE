@@ -35,7 +35,7 @@ export default function BusinessHomePage() {
     <MotionConfig reducedMotion="user">
       <div className="bh">
         <BusinessNav variant="transparent" />
-        {v.hero === 'b' ? <HeroB /> : <HeroA />}
+        {v.hero === 'b' ? <HeroA /> : <HeroB />}
         <Proof />
         {v.paths === 'b' ? <PathsB /> : <PathsA />}
         <StoryAI />
