@@ -14,6 +14,9 @@ import PledgePage from './pages/PledgePage'
 import RecruitPage from './pages/RecruitPage'
 import LelandAIPage from './pages/LelandAIPage'
 import ServicesPage from './pages/ServicesPage'
+import BusinessHomePage from './business/BusinessHomePage'
+import AITransformationPage from './business/AITransformationPage'
+import VariationsPage from './business/variations/VariationsPage'
 import LPPopup from './components/LPPopup'
 import GetThisExpensed from './components/GetThisExpensed'
 import CohortPicker from './components/CohortPicker'
@@ -1718,6 +1721,8 @@ function App({ path = window.location.pathname }) {
       '/teams': 'Teams',
       '/syllabus': 'Syllabus',
       '/services': 'Services',
+      '/business': 'Business Home',
+      '/ai': 'AI Transformation',
     }
     const pageName = pageNames[path.replace(/\/$/, '')] || 'Home'
     window.dataLayer = window.dataLayer || []
@@ -1757,6 +1762,16 @@ function App({ path = window.location.pathname }) {
   }
   if (path.startsWith('/services')) {
     return <ServicesPage />
+  }
+  // business.joinleland.com redesign previews (noindex until launch)
+  if (path.startsWith('/business-variations')) {
+    return <VariationsPage />
+  }
+  if (path.startsWith('/business')) {
+    return <BusinessHomePage />
+  }
+  if (path === '/ai' || path.startsWith('/ai/')) {
+    return <AITransformationPage />
   }
   return <LelandAIPage />
 }

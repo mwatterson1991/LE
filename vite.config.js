@@ -36,6 +36,9 @@ export default defineConfig({
         'services': resolve(__dirname, 'services.html'),
         'roadmap': resolve(__dirname, 'roadmap.html'),
         'southwest-technical-college': resolve(__dirname, 'southwest-technical-college.html'),
+        'business': resolve(__dirname, 'business.html'),
+        'ai': resolve(__dirname, 'ai.html'),
+        'business-variations': resolve(__dirname, 'business-variations.html'),
       }
     }
   }
