@@ -257,3 +257,40 @@ body.rb-home .bh-darkpage .rb-nav-scrolled .rb-logo-dark { filter: invert(1); }
 }
 .bh-footer-brand { align-items: flex-end; }
 body.rb-home .bh .bh-footer-brand span { color: #80aced; font-weight: 500; line-height: 1; margin-bottom: 1px; }
+
+/* ------------------------------------------------------- Member build wall */
+.bu-sec { overflow: hidden; }
+.bu-rows { display: flex; flex-direction: column; gap: 14px; }
+.bu-card { position: relative; width: 340px; aspect-ratio: 16 / 10; margin-right: 14px; border: 0; padding: 0; border-radius: 18px; overflow: hidden; background: #2a2a2a; cursor: pointer; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+.bu-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bu-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(10, 10, 10, 0.85) 100%); }
+.bu-card-meta { position: absolute; left: 16px; right: 56px; bottom: 14px; z-index: 1; display: flex; flex-direction: column; gap: 2px; text-align: left; color: #fff; }
+.bu-card-meta b { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bu-card-meta span { font-size: 13px; color: rgba(255, 255, 255, 0.72); }
+.bu-play { position: absolute; right: 14px; bottom: 14px; z-index: 1; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--yellow); color: #222; }
+.bu-card:active { transform: scale(0.97); }
+@media (hover: hover) { .bu-card:hover { transform: scale(1.03); } }
+.bu-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 24px; background: rgba(0, 0, 0, 0.8); }
+.bu-modal-box { width: min(1080px, 100%); border-radius: 20px; overflow: hidden; background: #191919; }
+.bu-modal-box iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.bu-modal-foot { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; color: rgba(255, 255, 255, 0.72); font-size: 15px; }
+.bu-modal-foot b { color: #fff; font-weight: 600; }
+.bu-modal-foot button { border: 0; background: rgba(255, 255, 255, 0.08); color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; }
+
+/* --------------------------------------------------------- Statement band */
+.bu-band { position: relative; height: min(78vh, 720px); min-height: 420px; overflow: hidden; display: grid; place-items: center; background: #191919; }
+.bu-band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bu-band-veil { position: absolute; inset: 0; background: linear-gradient(180deg, #191919 0%, rgba(25, 25, 25, 0.1) 22%, rgba(25, 25, 25, 0.1) 78%, #191919 100%); }
+.bu-band h2 { position: relative; margin: 0; padding: 0 24px; max-width: 980px; text-align: center; text-wrap: balance; font-family: var(--font-heading); font-weight: 500; font-size: clamp(44px, 7vw, 96px); line-height: 1; letter-spacing: -0.02em; color: #fff; text-shadow: 0 2px 40px rgba(0, 0, 0, 0.35); }
+
+/* ------------------------------------------- AI tile: visual placeholder */
+.bh-darkpage .bh-path-ai-ph { position: relative; min-height: 320px; border-radius: 18px; border: 1.5px dashed rgba(255, 255, 255, 0.18); display: grid; place-items: center; color: rgba(255, 255, 255, 0.4); font-size: 14px; }
+
+/* ----------------------------------------------- Final CTA: escalator photo */
+.bh-darkpage .bh-final-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bh-darkpage .bh-final-veil { position: absolute; inset: 0; background: rgba(20, 20, 20, 0.45); }
+
+@media (max-width: 720px) {
+  .bu-card { width: 260px; }
+  .bu-band { min-height: 360px; height: 60vh; }
+}

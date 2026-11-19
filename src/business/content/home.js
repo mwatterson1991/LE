@@ -286,9 +286,40 @@ export const HIFI_STORIES = {
   eyebrow: 'Customer stories',
   title: 'What teams say about Leland',
   cards: [
-    { quote: 'The course probably accelerated our company’s AI adoption by six months.', name: 'Udit Pillay', title: 'Chief Revenue Officer', company: 'Ethisphere', logo: 'co/ethisphere.svg', photo: 'cut-udit-pillay', stat: ['95%', 'of eligible staff through the program'], bg: 'motion-orange' },
-    { quote: 'It was a huge shift in the mindset of what’s possible. Those excuses are almost gone.', name: 'Ryan Moats', title: 'VP Global Marketing', company: 'PlayPower', logo: 'co/playpower.png', photo: 'cut-ryan-moats', stat: ['1,500+', 'spec sheets rebuilt'], bg: 'motion-teal' },
-    { quote: 'It put everyone in a builder mindset. Many didn’t think it was possible to truly build something.', name: 'Lucy Baldwin', title: 'VP Product', company: 'ASU+GSV Summit', logo: 'co/asugsv.png', photo: 'cut-lucy-baldwin', stat: ['8 hrs', 'of meeting prep automated weekly'], bg: 'motion-blue' },
-    { quote: 'I got more value out of that program for a thousand dollars than what I got out of my entire MBA.', name: 'Gerritt Vander Linden', title: 'Commercial Partnerships', company: '47G', logo: 'co/47g.png', photo: 'cut-gerritt-vander-linden', stat: ['89%', 'faster partnership plans'], bg: 'motion-prism' },
+    { quote: 'The course probably accelerated our company’s AI adoption by six months.', name: 'Udit Pillay', title: 'Chief Revenue Officer', company: 'Ethisphere', logo: 'co/ethisphere.svg', photo: 'cut-udit-pillay', stat: ['95%', 'of eligible staff through the program'], bg: 'tex-orange' },
+    { quote: 'It was a huge shift in the mindset of what’s possible. Those excuses are almost gone.', name: 'Ryan Moats', title: 'VP Global Marketing', company: 'PlayPower', logo: 'co/playpower.png', photo: 'cut-ryan-moats', stat: ['1,500+', 'spec sheets rebuilt'], bg: 'tex-water' },
+    { quote: 'It put everyone in a builder mindset. Many didn’t think it was possible to truly build something.', name: 'Lucy Baldwin', title: 'VP Product', company: 'ASU+GSV Summit', logo: 'co/asugsv.png', photo: 'cut-lucy-baldwin', stat: ['8 hrs', 'of meeting prep automated weekly'], bg: 'tex-gold' },
+    { quote: 'I got more value out of that program for a thousand dollars than what I got out of my entire MBA.', name: 'Gerritt Vander Linden', title: 'Commercial Partnerships', company: '47G', logo: 'co/47g.png', photo: 'cut-gerritt-vander-linden', stat: ['89%', 'faster partnership plans'], bg: 'tex-sky' },
   ],
+}
+
+// Real member builds from the AI Builder Program gallery (Cloudflare Stream ids).
+export const UGC = {
+  title: 'Built by people like your team',
+  videos: [
+    ['fc914e8fd2fa480974f1f8f205cbef21', 'Lux travel OS', 'Itzel M.'],
+    ['d925b1a8a6d03a2237ce7bec7f3dd138', 'VLOOKUP Claude skill', 'Gerritt V.'],
+    ['9725445a32c005e27d07c4db72c69e8e', 'Swipe-to-plan dinner', 'Parker S.'],
+    ['36bfa26ffae2466b3bb3689f44f1358d', 'Proposal comparison engine', 'Chris A.'],
+    ['c5721fb10dbebe8851aa044c6788f555', 'AI router', 'Enoch C.'],
+    ['dfb6241a1a253d697b80644f3754ac85', 'PocketCFO', 'Thomas N.'],
+    ['a08710408304fc642efac5736813c3c1', 'Careers site in 2 hours', 'Dalton B.'],
+    ['e54998ca89d3677dd3d20a47ad02e9f0', 'Shipment digest', 'Kira F.'],
+    ['4924e69155b6913cfde26b0d234a221f', 'Soulbox', 'Ashton J.'],
+    ['cc12b17ceaa267e441df0bd319cb4668', 'Regulatory dashboard', 'Sophia L.'],
+    ['0a6996a724a0a14e42401fe81a085690', '3D AI agency', 'Osama R.'],
+    ['809c87953b8ec3e64ebba670c6071fd7', 'Post-call automation', 'John D.'],
+    ['2b3ba734989e04a59202d1f73b82115a', 'CommonCents', 'Shreeya S.'],
+    ['49b8a5c3d818a62a9ef51cb23da17263', 'Marketplace scout', 'Johanna D.'],
+    ['3c5fb9e4bc8ce487f3b7693f749bc3ed', 'Morning agent pair', 'Enoch C.'],
+    ['53356739a7c7dcc64d32adc08ae0a463', 'Member onboarding', 'Gerritt V.'],
+    ['a9fbc9ac92c619bfc4e139b889d4a7a2', 'Job search digest', 'Ilisa G.'],
+    ['51e6f54dc32a03c4a1932f911538c13c', 'Agency positioning', 'Randy D.'],
+    ['54b0bdf2cd046cc9d30950cf986e682b', 'SIFT v2', 'Johanna D.'],
+    ['0a836a917f9db036d225d424f8e20b9b', 'Job tracker', 'J T.'],
+  ].map(([id, title, author]) => ({ id, title, author })),
+}
+
+export const STATEMENT = {
+  line: 'Your whole company, building with AI.',
 }

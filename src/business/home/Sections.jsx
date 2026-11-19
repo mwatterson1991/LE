@@ -59,14 +59,7 @@ export function PathsA() {
             <h3>{ai.title}</h3>
             <span className="bh-btn bh-btn-blue">{ai.cta.label} <Arrow /></span>
           </div>
-          <div className="bh-path-ai-parts">
-            {ai.parts.map((p) => (
-              <div className="bh-part" key={p.n}>
-                <PartVisual n={p.n} />
-                <b>{p.title}</b>
-              </div>
-            ))}
-          </div>
+          <div className="bh-path-ai-ph">Placeholder: platform visual</div>
         </motion.a>
         <motion.div className="bh-path-grid" {...group}>
           {PATHS.others.map((o) => (
@@ -78,33 +71,6 @@ export function PathsA() {
         </motion.div>
       </div>
     </section>
-  )
-}
-
-/** Real imagery and small product views for the four parts of the platform. */
-function PartVisual({ n }) {
-  if (n === '01') {
-    return (
-      <div className="bh-pv bh-pv-assess">
-        <div className="bh-pv-num"><b>3.4</b><span>/ 5</span></div>
-        <div className="bh-pv-scale">{[1, 1, 1, 0.4, 0].map((f, i) => <i key={i} style={{ '--f': f }} />)}</div>
-      </div>
-    )
-  }
-  if (n === '02') return <div className="bh-pv"><img src={asset('business/hifi/expert.webp')} alt="" loading="lazy" /></div>
-  if (n === '03') return <div className="bh-pv"><img src={asset('business/hifi/build.webp')} alt="" loading="lazy" /></div>
-  // Reporting: the org at a glance, each node shaded by its team's level.
-  const kids = [[60, 0.9], [150, 0.55], [240, 0.75]]
-  return (
-    <div className="bh-pv bh-pv-org">
-      <svg viewBox="0 0 300 130" aria-hidden="true">
-        {kids.map(([x]) => <path key={x} d={`M150 26 V48 H${x} V66`} />)}
-        {kids.flatMap(([x], k) => [x - 26, x, x + 26].map((cx) => <path key={`${k}-${cx}`} d={`M${x} 82 V94 H${cx} V104`} />))}
-        <circle cx="150" cy="18" r="10" className="bh-org-top" />
-        {kids.map(([x, l]) => <circle key={x} cx={x} cy="74" r="9" style={{ '--l': l }} />)}
-        {kids.flatMap(([x, l], k) => [x - 26, x, x + 26].map((cx, j) => <circle key={`${k}-${j}`} cx={cx} cy="112" r="7" style={{ '--l': Math.max(0.15, l - 0.25 + j * 0.2) }} />))}
-      </svg>
-    </div>
   )
 }
 
@@ -369,10 +335,8 @@ export function FinalCta() {
     <section className="bh-sec">
       <div className="bh-wrap">
         <motion.div className="bh-final" {...reveal}>
-          <div className="bh-hero-bg" aria-hidden="true">
-            <video src={asset('images/Animated Gradient - 06.mp4')} autoPlay loop muted playsInline />
-            <div className="bh-hero-veil" />
-          </div>
+          <img className="bh-final-photo" src={asset('business/hifi/escalator.webp')} alt="" loading="lazy" />
+          <div className="bh-final-veil" aria-hidden="true" />
           <div className="bh-final-inner">
             <h2>{f.title}</h2>
             <div className="bh-ctas">

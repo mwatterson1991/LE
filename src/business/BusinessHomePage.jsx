@@ -5,6 +5,7 @@ import BusinessFooter from './BusinessFooter'
 import { HeroB } from './home/Hero'
 import { HeroHifi, TransformCards, Stories } from './home/Hifi'
 import { Proof, PathsA, PathsB, DeepDiveB, Beyond, Enterprise, Faq, FinalCta } from './home/Sections'
+import { BuildWall, StatementBand } from './home/Builds'
 import { useHomeVariants, VariantToggle } from './home/variants'
 import '../pages/home-rebrand.css'
 import '../pages/leland-ai.css'
@@ -39,8 +40,10 @@ export default function BusinessHomePage() {
         <BusinessNav variant="transparent" />
         {v.hero === 'b' ? <HeroB /> : <HeroHifi />}
         {v.deep === 'b' ? <DeepDiveB /> : <TransformCards />}
+        <BuildWall />
         <Stories />
         <Proof />
+        <StatementBand />
         {v.paths === 'b' ? <PathsB /> : <PathsA />}
         <Beyond />
         <Enterprise />
