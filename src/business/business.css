@@ -39,7 +39,7 @@ body.biz-page :is(.lai-cta-yellow, .lai-cta-primary, .lai-feature-btn, .rb-nav-g
 /* Same box for the white and dark logo, so swapping them on scroll moves nothing. */
 body.rb-home .biz-nav .biz-nav-logo img { height: 24px; width: auto; display: block; }
 /* Sub-brand lockup: "for Business" in blue, sitting on the logo's baseline. */
-body.rb-home .biz-nav .biz-nav-suffix { white-space: nowrap; font-size: 16px; font-weight: 500; line-height: 1; margin-bottom: 1px; color: #80aced; }
+body.rb-home .biz-nav .biz-nav-suffix { white-space: nowrap; font-size: 16px; font-weight: 500; line-height: 1; margin-bottom: -3.7px; color: #80aced; }
 body.rb-home .rb-nav-scrolled .biz-nav .biz-nav-suffix { color: #3f6fb8; }
 .biz-nav-links { gap: 4px; margin-left: 20px; }
 .biz-nav-item { position: relative; display: inline-flex; align-items: center; }

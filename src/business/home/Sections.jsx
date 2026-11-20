@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import posthog from 'posthog-js'
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
+import { CountUp } from './fx'
 import { usePledgeData } from '../../pledgeData'
 import { useRatingsData } from '../../ratingsData'
 import { PROOF, PATHS, STORY_AI, DEEP_DIVE, STORY_OTHER, BEYOND, ENTERPRISE, FAQ, FINAL_CTA } from '../content/home'
@@ -251,6 +252,36 @@ export function StoryOther() {
 }
 
 /* ---------- 7. Beyond AI ---------- */
+// University logos take turns in one slot, flipping in place.
+function useTurns(length, ms = 2200) {
+  const [i, setI] = useState(0)
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    const t = setInterval(() => setI((n) => (n + 1) % length), ms)
+    return () => clearInterval(t)
+  }, [length, ms])
+  return i
+}
+
+function UniLogos({ logos }) {
+  const i = useTurns(logos.length)
+  return (
+    <div className="bh-uni-slot">
+      <AnimatePresence initial={false}>
+        <motion.img
+          key={logos[i]}
+          src={asset(`business/hifi/uni/${logos[i]}.svg`)}
+          alt={logos[i]}
+          initial={{ opacity: 0, rotateX: -80, y: 14 }}
+          animate={{ opacity: 1, rotateX: 0, y: 0 }}
+          exit={{ opacity: 0, rotateX: 80, y: -14 }}
+          transition={{ duration: 0.55, ease: EASE_OUT }}
+        />
+      </AnimatePresence>
+    </div>
+  )
+}
+
 export function Beyond() {
   return (
     <section className="bh-sec bh-tint">
@@ -260,9 +291,15 @@ export function Beyond() {
           {BEYOND.cards.map((c) => (
             <motion.a href={c.href} className="bh-beyond-card" key={c.key} {...child}>
               <div className="bh-beyond-visual">
-                {c.faces ? <div className="bh-faces">{c.faces.map((f) => <img key={f} src={person(f)} alt="" />)}</div> : null}
-                {c.logos ? <div className="bh-unis">{c.logos.map((l) => <img key={l} src={asset(`business/hifi/uni/${l}.svg`)} alt={l} />)}</div> : null}
-                {c.stat ? <div className="bh-beyond-stat"><b>{c.stat[0]}</b><span>{c.stat[1]}</span></div> : null}
+                {c.faces ? (
+                  <div className="bh-faces">
+                    {c.faces.map((f, i) => (
+                      <motion.img key={f} src={person(f)} alt="" initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.15 + i * 0.08, ease: EASE_OUT }} />
+                    ))}
+                  </div>
+                ) : null}
+                {c.logos ? <UniLogos logos={c.logos} /> : null}
+                {c.stat ? <div className="bh-beyond-stat"><b><CountUp value={c.stat[0]} suffix={c.stat[1]} duration={1.8} /></b><span>{c.stat[2]}</span></div> : null}
               </div>
               <b>{c.title}</b>
               <p>{c.desc}</p>

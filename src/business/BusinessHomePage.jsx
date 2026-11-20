@@ -37,7 +37,7 @@ export default function BusinessHomePage() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="bh bh-darkpage">
-        <BusinessNav variant="transparent" />
+        <BusinessNav variant="light" />
         {v.hero === 'b' ? <HeroB /> : <HeroHifi />}
         {v.deep === 'b' ? <DeepDiveB /> : <TransformCards />}
         <BuildWall />

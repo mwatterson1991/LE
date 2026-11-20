@@ -22,16 +22,23 @@ function useOpenVideo() {
   return [open, setOpen]
 }
 
-function BuildCard({ v, onOpen }) {
+// Every build sits on a brand photo as a framed screen, so recordings of very
+// different quality read as one consistent set.
+const FRAMES = ['nat-water', 'nat-clay', 'nat-trees', 'nat-wheat', 'nat-clouds', 'nat-flowers']
+
+function BuildCard({ v, i, onOpen }) {
   return (
     <button type="button" className="bu-card" onClick={() => onOpen(v)} aria-label={`Play ${v.title} by ${v.author}`}>
-      <img src={preview(v.id)} alt="" loading="lazy" />
+      <img className="bu-card-bg" src={asset(`business/hifi/${FRAMES[i % FRAMES.length]}.webp`)} alt="" loading="lazy" />
+      <span className="bu-screen">
+        <img src={preview(v.id)} alt="" loading="lazy" />
+        <span className="bu-play" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 12 12"><path d="M3 1.8v8.4L10 6z" fill="currentColor" /></svg>
+        </span>
+      </span>
       <span className="bu-card-meta">
         <b>{v.title}</b>
         <span>{v.author}</span>
-      </span>
-      <span className="bu-play" aria-hidden="true">
-        <svg width="12" height="12" viewBox="0 0 12 12"><path d="M3 1.8v8.4L10 6z" fill="currentColor" /></svg>
       </span>
     </button>
   )
@@ -50,8 +57,8 @@ export function BuildWall() {
       </div>
       <div className="bu-rows">
         {rows.map((row, r) => (
-          <Marquee key={r} speed={28} direction={r ? 'right' : 'left'} pauseOnHover autoFill>
-            {row.map((v) => <BuildCard key={v.id} v={v} onOpen={setOpen} />)}
+          <Marquee key={r} speed={22} direction={r ? 'right' : 'left'} pauseOnHover autoFill>
+            {row.map((v, i) => <BuildCard key={v.id} v={v} i={i + r * 3} onOpen={setOpen} />)}
           </Marquee>
         ))}
       </div>
