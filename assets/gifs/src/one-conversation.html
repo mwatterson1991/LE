@@ -1,65 +1,74 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>One conversation</title>
+<html lang="en"><head><meta charset="utf-8"><title>One conversation could open the door.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
-:root{--yellow:#FFD96F;--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#80ACED}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--beige);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:var(--neutral)}
-.h{position:absolute;left:80px;top:68px;margin:0;font:500 60px/1 'Season',Georgia,serif;letter-spacing:-.022em;color:var(--ink)}
-.h b{font-weight:500;color:var(--blue)}
-.chat{position:absolute;left:80px;top:196px;width:680px}
-.q{position:absolute;left:0;top:0;width:600px;background:#fff;border-radius:24px 24px 24px 6px;padding:26px 30px;box-sizing:border-box;font:400 27px/1.3 'Macan';color:var(--ink);opacity:0;will-change:transform}
-.who{position:absolute;left:0;top:184px;display:flex;align-items:center;gap:12px;opacity:0;will-change:transform}
-.who .av{width:52px;height:52px;border-radius:50%;background:url(../../kit/card-marcus.jpg) no-repeat;background-size:998.4px auto;background-position:-208px -54.6px}
-.who .nm{font:600 19px/1 'Macan';color:var(--ink);display:flex;align-items:center;gap:6px}
-.who .nm svg{width:15px;height:15px}
-.who .cr{margin-top:6px;font:400 16px/1 'Macan';color:#5d5d59}
-.a{position:absolute;left:0;top:248px;width:560px;background:var(--tan);border-radius:24px 24px 24px 6px;padding:26px 30px;box-sizing:border-box;font:500 27px/1.3 'Macan';color:var(--ink);opacity:0;will-change:transform;transform-origin:0 0}
-.dots{position:absolute;left:0;top:248px;width:92px;height:60px;background:var(--tan);border-radius:22px 22px 22px 6px;opacity:0;display:flex;align-items:center;justify-content:center;gap:7px}
-.dots i{width:9px;height:9px;border-radius:50%;background:var(--ink);display:block}
-.ill{position:absolute;left:800px;top:200px;width:420px;height:420px;opacity:0;transform-origin:50% 60%;will-change:transform}
-.ill img{width:100%;height:100%;object-fit:contain;display:block}
-.mark{position:absolute;right:80px;bottom:60px;width:34px;height:34px}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:560px;margin:0;font:500 66px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
+.h em{font-style:normal;color:#80ACED}
+.h span{display:block}
+.logo{position:absolute;left:80px;bottom:64px;width:66px}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
 </style></head><body>
 <div class="stage">
-  <h1 class="h">One conversation could <b>open the door.</b></h1>
-  <div class="chat">
-    <div class="q" id="q">I don't have a strong network yet. Is McKinsey or Bain out of reach?</div>
-    <div class="who" id="who"><i class="av"></i><div><div class="nm">Marcus Bell<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#80ACED"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
-    <div class="dots" id="dots"><i></i><i></i><i></i></div>
-    <div class="a" id="a">Lead with what you built, not the logo.</div>
-  </div>
-  <div class="ill" id="ill"><img src="../../illustrations/key.svg" alt=""></div>
-  <img class="mark" src="../../brand/mark.svg" alt="">
+  
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">One conversation could <em>open the door</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
 </div>
 <script>
 const D=10; window.DURATION=D;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
-const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
-  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2,
-  back:(x,s=1.4)=>{const c=s+1;return 1+c*Math.pow(x-1,3)+s*Math.pow(x-1,2)}};
-const lerp=(a,b,k)=>a+(b-a)*k;
-const $=id=>document.getElementById(id);
-const q=$('q'),who=$('who'),dots=$('dots'),a=$('a'),ill=$('ill');
-const dot=[...dots.children];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
+
+// Two turns of a conversation: a question, an answer. Then the door opens.
+const DX=1000,DY=250,DW=128,DH=256;
+line(900,DY+DH,DX+DW+72,DY+DH,G3,2);
+const dr=door(DX,DY,DW,DH);
+const q=[0,1,2].map(i=>dot(730+i*22,352,6,G2)), a=[0,1,2].map(i=>dot(808+i*22,404,6,INK));
+const QT=[.9,1.2,1.5], AT=[2.6,2.85,3.3];
 function render(t){
-  const out=E.in(seg(t,8.0,8.8)); // everything scrolls up and away
-  const oy=-out*160;
-  const k1=E.back(seg(t,.4,1.2),1.1); q.style.opacity=seg(t,.4,.6)*(1-out); q.style.transform=`translateY(${lerp(40,0,k1)+oy}px)`;
-  const k2=E.out(seg(t,1.5,2.1)); who.style.opacity=seg(t,1.5,1.7)*(1-out); who.style.transform=`translateY(${lerp(24,0,k2)+oy}px)`;
-  // typing dots 1.9 - 3.1
-  const td=t>1.9&&t<3.05?1:0; dots.style.opacity=td*seg(t,1.9,2.05);
-  dot.forEach((d,i)=>{d.style.transform=`translateY(${-Math.max(0,Math.sin((t-1.9)*7-i*.9))*5}px)`});
-  const k3=E.back(seg(t,3.05,3.85),1.3); a.style.opacity=seg(t,3.05,3.2)*(1-out); a.style.transform=`translateY(${oy}px) scale(${lerp(.6,1,k3)})`;
-  // the key: settles in once the answer lands, then turns a little, like a key in a lock
-  const k4=E.back(seg(t,3.6,4.7),1.2); const turn=Math.sin(seg(t,4.7,6.2)*Math.PI)*-10;
-  ill.style.opacity=seg(t,3.6,3.9)*(1-E.in(seg(t,8.1,8.7)));
-  ill.style.transform=`translateY(${lerp(50,0,k4)}px) rotate(${lerp(-14,0,k4)+turn}deg) scale(${lerp(.8,1,k4)})`;
+  q.forEach((d,i)=>op(d,at(t,QT[i],.35)));a.forEach((d,i)=>op(d,at(t,AT[i],.35)));
+  dr.set(ezio(seg(t,4.2,5.6)),INK,true);
 }
-let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
-(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

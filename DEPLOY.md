@@ -13,7 +13,9 @@ Private repos need GitHub Pro/Team for Pages. If you're on Free, either upgrade 
 ## 2. Custom domain (optional)
 Repo → **Add file → Create new file** → name it `CNAME` → contents `le.joinleland.com` → Commit. Ask whoever runs DNS to add a CNAME record `le` → `<your-github-username>.github.io`.
 
-## 3. Turn on Opus (1 minute)
+## 3. Turn on Opus (not in the UI since Nov 23, 2026)
+The Opus connection went with the video maker and case study builder that used it (parked in `js/unused/video.js`). Steps 3 and 4 apply again if those come back.
+
 Open LE → **Me → Connect Opus** → paste an Anthropic API key from console.anthropic.com → OK. The key stays in your browser only.
 
 ## 4. Team Opus + shared "Ready to post" (15 minutes, optional)
@@ -26,4 +28,4 @@ Open LE → **Me → Connect Opus** → paste an Anthropic API key from console.
 7. In LE: **Me → Connect Opus** → leave the key blank → OK → paste that URL.
 
 ## 5. Give Claude the library (1 minute)
-Open LE → **Brand → Use LE in Claude → Copy skill**. Paste into Claude as a new skill named `le`. From then on anyone can say "make a Leland post about X" in Claude and it pulls from the real library.
+Open LE → **Skill → Copy** (or Download .md). Paste into Claude as a new skill named `le`. From then on anyone can say "make a Leland post about X" in Claude and it pulls from the real library.

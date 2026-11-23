@@ -1,53 +1,78 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Before, after</title>
+<html lang="en"><head><meta charset="utf-8"><title>Before by hand, after it runs.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--yellow:#FFD96F;--blue:#80ACED;--ink:#010101}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--blue);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
-.layer{position:absolute;inset:0;overflow:hidden}
-.photo img.bg{position:absolute;left:-3%;top:-3%;width:106%;height:106%;object-fit:cover;object-position:50% 40%;display:block;will-change:transform}
-.after{background:var(--blue)}
-.lbl{position:absolute;top:56px;margin:0;font:500 64px/1 'Season',Georgia,serif;letter-spacing:-.022em;color:#fff;white-space:nowrap;will-change:transform}
-.lbl.b{right:1280px;padding-right:72px}
-.lbl.a{left:0;padding-left:72px}
-.logo{position:absolute;right:72px;bottom:60px;width:140px}
-.frame{position:absolute;left:400px;top:120px;width:560px;height:466px;border-radius:18px;overflow:hidden;background:#fff;will-change:transform}
-.frame img{position:absolute;display:block}
-.edge{position:absolute;top:0;bottom:0;width:4px;background:#fff;margin-left:-2px;will-change:transform}
-.cap{position:absolute;left:72px;bottom:64px;font:500 18px/1.4 'Macan';color:#fff;width:300px}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
+.h em{font-style:normal;color:#80ACED}
+.h span{display:block}
+.logo{position:absolute;left:80px;bottom:64px;width:66px}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
 </style></head><body>
 <div class="stage">
-  <div class="layer photo"><img id="ph" class="bg" src="../../photos/hands-writing-notebook-startup-planning.jpg" alt=""><h1 class="lbl b" id="lb">Before</h1><img class="logo" src="../../brand/logo-white.svg" alt=""></div>
-  <div class="layer after" id="after">
-    <h1 class="lbl a" id="la">After</h1><img class="logo" src="../../brand/logo-white.svg" alt="">
-    <div class="frame" id="frame"><img src="../../kit/ai-tom.jpg" alt=""></div>
-  </div>
-  <div class="edge" id="edge"></div>
+  
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">Before by hand, <em>after it runs</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
 </div>
 <script>
 const D=10; window.DURATION=D;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
-const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
-  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2};
-const lerp=(a,b,k)=>a+(b-a)*k;
-// show only the card region of the kit screenshot (card at 403..1516 x 76..1003 in the 1920x1080 jpg)
-const fi=document.querySelector('#frame img'); const S=560/1089; fi.style.width=1920*S+'px'; fi.style.left=-415*S+'px'; fi.style.top=-86*S+'px';
-const after=document.getElementById('after'), edge=document.getElementById('edge'), frame=document.getElementById('frame'), ph=document.getElementById('ph');
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
+
+// The same job twice. By hand it crawls and wanders. Once it runs, it is one clean line.
+const X=690,W=480,YA=318,YB=452;
+lab(X,YA-34,'Before');lab(X,YB-34,'After');
+line(X,YA,X+W,YA,HAIR,2);line(X,YB,X+W,YB,HAIR,2);
+let d=`M${X} ${YA}`;for(let x=6;x<=W;x+=6){const y=3.2*Math.sin(x*.045)+2.2*Math.sin(x*.13+1)+1.4*Math.sin(x*.31+2);d+=` L${X+x} ${(YA+y*Math.min(1,x/30)).toFixed(2)}`}
+const hand=mk('path',{d,fill:'none',stroke:INK,'stroke-width':2,'stroke-linecap':'round','stroke-linejoin':'round'});
+const pen=dot(0,0,4,INK);
+const run=line(X,YB,X,YB,SKY,2.5), tip=dot(X,YB,6,SKY);
+const K=[[.8,0],[1.7,.10],[2.3,.10],[3.3,.21],[3.9,.21],[5.0,.31],[5.7,.31],[6.9,.42],[7.5,.42],[8.9,.52]];
 function render(t){
-  // divider: sits at the right edge, sweeps left (after revealed), holds, sweeps back
-  const a=E.xio(seg(t,1.2,3.1)), b=E.xio(seg(t,6.6,8.5));
-  const x=lerp(1280,0,a)+lerp(0,1280,b);
-  after.style.clipPath=`inset(0 0 0 ${x}px)`;
-  edge.style.transform=`translateX(${x}px)`; edge.style.opacity=(x>2&&x<1278)?1:0;
-  // the labels ride the divider: Before on its left, After on its right; each parks at the edge when its side is full
-  document.getElementById('lb').style.transform=`translateX(${Math.min(x,332)}px)`;
-  document.getElementById('la').style.transform=`translateX(${x}px)`;
-  // the card rides a little with the divider, so the two sides have depth
-  frame.style.transform=`translateX(${(x/1280)*90}px)`;
+  let p=0;for(let i=1;i<K.length;i++){const s=seg(t,K[i-1][0],K[i][0]);if(s>0)p=lerp(K[i-1][1],K[i][1],s<.5?2*s*s:1-2*(1-s)*(1-s))}
+  dash(hand,p);const L=hand._L||hand.getTotalLength(), q=hand.getPointAtLength(L*p);S(pen,{cx:q.x,cy:q.y});op(pen,seg(t,.6,.8));
+  const r=at(t,3.6,1.2);grow(run,X,YB,X+W,YB,r);S(tip,{cx:X+W*r});op(tip,seg(t,3.5,3.7));
 }
-let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
-(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

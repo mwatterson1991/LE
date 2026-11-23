@@ -1,61 +1,74 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Cohort</title>
+<html lang="en"><head><meta charset="utf-8"><title>Live, together.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--yellow:#FFD96F;--blue:#80ACED;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--beige);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:var(--neutral)}
-.eyebrow{position:absolute;left:60px;top:52px;font:500 18px/1 'Macan';color:var(--ink)}
-.tile{position:absolute;border-radius:14px;overflow:hidden;will-change:transform}
-.tile img.face{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block}
-.live{background:#fff;color:var(--ink)}
-.live .big{position:absolute;left:36px;top:30px;font:500 96px/1 'Season',Georgia,serif;letter-spacing:-.022em}
-.live .dot{position:absolute;left:38px;bottom:40px;width:12px;height:12px;border-radius:50%;background:var(--ink)}
-.live .sub{position:absolute;left:60px;bottom:36px;font:500 20px/1 'Macan'}
-.live .mark{position:absolute;right:30px;bottom:30px;width:44px;height:44px}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
+.h em{font-style:normal;color:#80ACED}
+.h span{display:block}
+.logo{position:absolute;left:80px;bottom:64px;width:66px}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
 </style></head><body>
 <div class="stage">
-  <div id="grid"></div>
+  
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">Live, <em>together</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span><img src="../../experts/claudia-p.jpg" alt=""><img src="../../experts/ryan-p.jpg" alt=""><img src="../../experts/meghna-s.jpg" alt=""><img src="../../experts/alex-h.jpg" alt=""><img src="../../experts/isabela-u.jpg" alt=""></div>
 </div>
 <script>
 const D=11; window.DURATION=D;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
-const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
-  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2,
-  back:(x,s=1.5)=>{const c=s+1;return 1+c*Math.pow(x-1,3)+s*Math.pow(x-1,2)}};
-const lerp=(a,b,k)=>a+(b-a)*k;
-// grid: 4 x 3, margins 60, top 100
-const X0=60,Y0=100,GW=1160,GH=560,G=16,COLS=4,ROWS=3;
-const TW=(GW-(COLS-1)*G)/COLS, TH=(GH-(ROWS-1)*G)/ROWS;
-const at=(c,r,w=1,h=1)=>({x:X0+c*(TW+G),y:Y0+r*(TH+G),w:w*TW+(w-1)*G,h:h*TH+(h-1)*G});
-const faces=['claudia-p','ryan-p','meghna-s','alex-h','isabela-u','soven-b','laura-b','theo-m'];
-const slots=[[2,0],[3,0],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2]];
-const order=[0,4,2,6,1,5,3,7]; // join order (which face index joins k-th)
-const grid=document.getElementById('grid');
-const live=document.createElement('div'); live.className='tile live';
-live.innerHTML=`<div class="big">Live</div><i class="dot"></i><div class="sub">6 sessions over 3 weeks</div><img class="mark" src="../../brand/mark.svg" alt="">`;
-grid.appendChild(live);
-const tiles=faces.map((f,i)=>{const d=document.createElement('div');d.className='tile';d.innerHTML=`<img class="face" src="../../experts/${f}.jpg" alt="">`;grid.appendChild(d);return d;});
-function place(el,r){el.style.left=r.x+'px';el.style.top=r.y+'px';el.style.width=r.w+'px';el.style.height=r.h+'px';}
-place(live,at(0,0,2,2));
-const J=k=>.6+k*.62; // join time of k-th joiner
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
+
+// A live session. People join, one at a time, at the pace people actually join.
+const X=690,S_=92,GAP=10,Y=330;
+const who=['claudia-p','ryan-p','meghna-s','alex-h','isabela-u'];
+const IN=[.9,2.3,3.0,4.7,5.6];
+const fs=who.map((w,i)=>face(X+i*(S_+GAP),Y,S_,w));
+const live=dot(X+6,Y-30,6,SKY);lab(X+24,Y-22,'Live','start',INK);
 function render(t){
-  // live dot breathes
-  live.querySelector('.dot').style.opacity=.55+.45*Math.sin(t*2.6);
-  tiles.forEach((el,i)=>{
-    const k=order.indexOf(i); const [c,r]=slots[i]; const R=at(c,r); place(el,R);
-    const jn=E.back(seg(t,J(k),J(k)+.75)), o=seg(t,J(k),J(k)+.18);
-    const lv=E.in(seg(t,8.6+(7-k)*.08,9.1+(7-k)*.08));
-    const s=lerp(.55,1,jn)*lerp(1,.8,lv);
-    // live photos breathe very slightly after joining
-    const z=1+.025*E.out(seg(t,J(k)+.75,J(k)+5));
-    el.style.opacity=o*(1-lv); el.style.transform=`scale(${s})`;
-    el.firstElementChild.style.transform=`scale(${z})`;
-  });
+  fs.forEach((f,i)=>rise(f,at(t,IN[i],.8),12));
+  op(live,.62+.38*Math.cos(t*Math.PI*2/1.6));
 }
-let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
-(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

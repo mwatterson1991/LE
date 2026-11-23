@@ -1,33 +1,34 @@
-# LE — Leland's asset engine
+# LE — Leland's repository
 
-Come here, grab an on-brand asset, or make one in seconds. Or don't come here at all: `/le` gives Claude the whole library.
+A repository of our work and the images people draw from, plus one skill. `/le` gives Claude the whole of it.
 
 ## Run
 `npx serve .` (or any static server) and open the URL. Opening `index.html` directly works for browsing but blocks exports, because browsers won't let a `file://` page draw images to a canvas.
 
 ## What's in it
-- **Make** — pick Image, Video or Deck. Below it, **Ready to post**: real launch-kit assets paired with the real post copy. Pick where, pick when, Schedule. Three clicks.
-- **Library** — the Community launch kit (51 images, 9 cuts), the 5 launch films, their soundtracks, 20 brand backgrounds, 47 library photos, 8 graphics, 165 icons, 4 taglines, 12 post ideas. Click anything to preview in place; back button and Esc both return you.
-- **Editor** — Image: Season headline with one `[blue]` phrase, Macan subhead, button, background, position. Video: the launch-film template — hook, product shot, outro, music. Deck: slides on the same system. Everything downloads as real files (PNG, MP4/WebM with music, slides as PNGs).
-- **Brand** — fonts, logo, color, taglines, how we talk about it, guardrails, the Claude skill, Opus connection.
+- **Make** — Image (six types, one of them a chart) and Deck. Video reads "Coming soon"; its code is parked in `js/unused/`.
+- **Library** — Images (launch kit, backgrounds, photos, experts, illustrations, graphics, logos, icons), GIFs (and Leo, the animated face, as a pack), Videos (films, scenes, music), Copy (taglines, voice, posts), Fonts.
+- **Projects** — drafts autosave here; delete from the row.
+- **Skill** — the `/le` skill, assembled from the manifest, copy.json and BRAND-BRIEF.md. Copy it or download the .md.
+- **Motion** — the motion rules, with the guidelines' live demos.
+- **Brand** — the brand board and the brief, then the chat interface guidelines (`brand/chat-guidelines.html`).
 
 ## Fonts
 `fonts/` has Season Mix Medium and Macan Book/Medium/SemiBold as woff2, pulled from apps.joinleland.com. Keep this repo private — they're licensed.
 
 ## Structure
-    index.html · css/le.css · js/le.js
-    data/manifest.json      every asset + copy + brand, the file Claude reads
-    assets/kit/             launch kit images (+ thumbs/, video/)
-    assets/films/           the five launch films (+ posters)
-    assets/audio/           soundtracks from the films
-    assets/img/             brand backgrounds (+ xs/)
-    assets/photos/ graphics/ icons/   design library
-    fonts/                  Season + Macan
-    skills/le/SKILL.md      the Claude skill
-    worker/                 optional proxy for shared Opus + shared queue
+    index.html · css/le.css
+    js/le.js                the app
+    js/templates.js         image types (canvas)        js/deck.js · js/present.js   decks
+    js/mark.js · js/orb.js  the animated mark and orb, lifted from the chat interface guidelines
+    js/unused/              parked: video maker, case study builder, five retired image types
+    data/manifest.json      every asset, the file Claude reads
+    data/copy.json          every line with its source, and the voice
+    brand/                  board.html · chat-guidelines.html
+    assets/                 kit/ films/ scenes/ audio/ img/ photos/ brand/ graphics/ illustrations/ orgs/ icons/ gifs/ leo/
+    fonts/                  Season Mix, Macan, and Macan with a plain question mark (-Q, built by tools/macan-q.py)
+    skills/le/SKILL.md      the skill as a file (same text as the Skill page)
+    tools/                  macan-q.py · manifest-nov23.py
 
 ## Add an asset
 Drop the file in the right `assets/` folder and add an entry to `data/manifest.json` (`id`, `type`, `group`, `title`, `tags`, `src`, `thumb`). That's the whole system — LE and Claude both read the manifest.
-
-## Opus
-Me → Connect Opus → paste a key (stays in your browser). The brief bar and Rewrite then write real copy inside the guardrails. Scripted fallback otherwise. For a team key, deploy `worker/` (see DEPLOY.md).

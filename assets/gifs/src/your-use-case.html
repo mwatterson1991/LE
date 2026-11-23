@@ -1,74 +1,77 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Your use case</title>
+<html lang="en"><head><meta charset="utf-8"><title>Built on your company's work.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--yellow:#FFD96F;--blue:#80ACED;--beige:#F3F1E6;--tan:#EBD4B5;--paper:#F9F8F3;--ink:#010101;--neutral:#222;--follow:#80ACED}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--tan);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:var(--neutral)}
-.h{position:absolute;left:80px;top:72px;width:460px;margin:0;font:500 58px/1.02 'Season',Georgia,serif;letter-spacing:-.022em;color:var(--ink)}
-.h b{font-weight:500;color:var(--blue)}
-.eyebrow{position:absolute;left:80px;bottom:64px;font:500 18px/1 'Macan';color:var(--ink)}
-.tile{position:absolute;background:var(--paper);border-radius:22px;overflow:hidden;will-change:transform}
-.logo{position:absolute;will-change:transform;transform-origin:0 0}
-.logo img{width:100%;height:100%;object-fit:contain;display:block}
-.rows{position:absolute;left:44px;right:44px;top:124px}
-.row{position:relative;height:60px;display:flex;align-items:center;gap:16px;opacity:0}
-.row .lb{font:500 22px/1 'Macan';color:var(--ink);width:190px}
-.row .bar{flex:1;height:8px;border-radius:4px;background:#E9E6DA;overflow:hidden}
-.row .bar i{display:block;height:100%;background:var(--blue);transform-origin:0 50%;transform:scaleX(0)}
-.row .ok{width:24px;height:24px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;opacity:0;transform:scale(.5)}
-.row .ok svg{width:13px;height:13px;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.hdr{position:absolute;left:116px;top:58px;font:500 18px/1.2 'Macan';color:#5d5d59;opacity:0}
-.mark{position:absolute;right:80px;bottom:60px;width:34px;height:34px}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
+.h em{font-style:normal;color:#80ACED}
+.h span{display:block}
+.logo{position:absolute;left:80px;bottom:64px;width:66px}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
 </style></head><body>
 <div class="stage">
-  <h1 class="h">Build an AI-native company, <b>quickly.</b></h1>
-  <div class="tile" id="tile">
-    <div class="hdr" id="hdr">Research, communication and analysis</div>
-    <div class="rows"><div class="row"><span class="lb">Research</span><span class="bar"><i></i></span><span class="ok"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4L18 8"/></svg></span></div><div class="row"><span class="lb">Communication</span><span class="bar"><i></i></span><span class="ok"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4L18 8"/></svg></span></div><div class="row"><span class="lb">Analysis</span><span class="bar"><i></i></span><span class="ok"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4L18 8"/></svg></span></div></div>
-  </div>
-  <div class="logo" id="logo"><img id="li" src="../../orgs/mono/Google-black.png" alt=""></div>
-  <img class="mark" src="../../brand/mark.svg" alt="">
+  
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">Built on <em>your company's work</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span><img src="../../orgs/mono/Google-black.png" alt=""><img src="../../orgs/mono/Goldman_Sachs-black.png" alt=""><img src="../../orgs/mono/Microsoft-black.png" alt=""></div>
 </div>
 <script>
 const D=10.5; window.DURATION=D;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
-const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
-  xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2,
-  back:(x,s=1.2)=>{const c=s+1;return 1+c*Math.pow(x-1,3)+s*Math.pow(x-1,2)}};
-const lerp=(a,b,k)=>a+(b-a)*k;
-const ORGS=['Google','Goldman_Sachs','Microsoft'];
-const PER=D/3;
-const tile=document.getElementById('tile'), logo=document.getElementById('logo'), li=document.getElementById('li'), hdr=document.getElementById('hdr');
-const rows=[...document.querySelectorAll('.row')];
-// collapsed: 300x300 tile centered at (930,400); expanded: 600x330 at (600..1200, 235..565)
-const C={x:770,y:220,w:320,h:320}, X={x:580,y:200,w:620,h:360};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=false;
+
+// Their logo on the left. Three lines of work grow out of it. Then the next company.
+const ORGS=['Google','Goldman_Sachs','Microsoft'], LX=700,LY=336,LS=72, X1=LX+LS+24, X2=940, CY=LY+LS/2;
+const YS=[262,372,482], names=['Research','Communication','Analysis'];
+const logos=ORGS.map(o=>mk('image',{href:`../../orgs/mono/${o}-black.png`,x:LX,y:LY,width:LS,height:LS}));
+const base=YS.map(y=>mk('path',{d:`M${X1} ${CY} C${X1+70} ${CY} ${X2-70} ${y} ${X2} ${y}`,fill:'none',stroke:HAIR,'stroke-width':2}));
+const paths=YS.map(y=>mk('path',{d:`M${X1} ${CY} C${X1+70} ${CY} ${X2-70} ${y} ${X2} ${y}`,fill:'none',stroke:SKY,'stroke-width':2}));
+const g1=names.map((s,i)=>lab(X2+18,YS[i]+8,s,'start',G2)), g2=names.map((s,i)=>lab(X2+18,YS[i]+8,s,'start',INK));
+const C=D/3, ST=[.7,1.15,1.75];
 function render(t){
-  const k=Math.floor(t/PER), u=t-k*PER;
-  li.src=`../../orgs/mono/${ORGS[k]}-black.png`;
-  const open=E.xio(seg(u,.25,1.05)), close=E.xio(seg(u,PER-.95,PER-.2));
-  const m=open-close; // 0 collapsed, 1 expanded
-  const r={x:lerp(C.x,X.x,m),y:lerp(C.y,X.y,m),w:lerp(C.w,X.w,m),h:lerp(C.h,X.h,m)};
-  tile.style.left=r.x+'px';tile.style.top=r.y+'px';tile.style.width=r.w+'px';tile.style.height=r.h+'px';
-  // logo: 120px centered in the collapsed tile -> 48px at the tile's top-left when expanded
-  const ls=lerp(128,52,m), lx=lerp(C.x+96,X.x+44,m), ly=lerp(C.y+96,X.y+44,m);
-  logo.style.left=lx+'px';logo.style.top=ly+'px';logo.style.width=ls+'px';logo.style.height=ls+'px';
-  // the logo swaps while the tile is collapsed: a quick drop-and-rise between orgs at the seam
-  const sw=u<.25?E.out(seg(u,0,.25)):1, swo=u>PER-.2?E.in(seg(u,PER-.2,PER)):0;
-  logo.style.opacity=sw*(1-swo); logo.style.transform=`translateY(${lerp(14,0,sw)+swo*-14}px)`;
-  hdr.style.opacity=seg(m,.7,1);
-  rows.forEach((row,i)=>{
-    const st=1.0+i*.72;
-    row.style.opacity=seg(u,.9+i*.08,1.15+i*.08)*(1-seg(u,PER-1.0,PER-.85));
-    const run=E.xio(seg(u,st,st+.7));
-    row.querySelector('.bar i').style.transform=`scaleX(${run})`;
-    const ok=E.back(seg(u,st+.6,st+.95),1.6);
-    const okEl=row.querySelector('.ok'); okEl.style.opacity=seg(u,st+.6,st+.7); okEl.style.transform=`scale(${lerp(.5,1,ok)})`;
-  });
+  const k=Math.floor(t/C)%3, u=t-k*C, out=1-ez(seg(u,C-.6,C-.1));
+  logos.forEach((l,i)=>op(l,i===k?Math.min(at(u,.1,.6),out):0));
+  paths.forEach((p,i)=>{dash(p,at(u,ST[i],.8));op(p,out);op(g2[i],Math.min(at(u,ST[i]+.45,.5),out))});
 }
-let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
-(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

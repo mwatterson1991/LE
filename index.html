@@ -9,134 +9,118 @@
 </head>
 <body>
 
-<div class="top">
-  <a class="logo" href="#make"><svg id="leo" width="30" height="30" aria-label="Leland"></svg><span class="word">Leland</span><span class="rule"></span><span class="le">LE</span></a>
-  <div class="search"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" placeholder="Search the library" oninput="searchLib(this.value)" onfocus="if(!isOn('lib'))go('lib')"></div>
-  <div class="right">
-    <button class="me" onclick="menu('m-me')"><div class="av">MW</div>Me</button>
+<header class="top">
+  <a class="logo" href="#make" aria-label="LE"><span class="lmw" id="lemark"></span><span class="le">LE</span></a>
+  <div class="search" id="search">
+    <svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q" aria-label="Search" autocomplete="off" spellcheck="false">
+    <span class="ph" id="qph" aria-hidden="true"></span>
+    <div class="sugg" id="sugg"></div>
   </div>
-</div>
-<div class="menu" id="m-me">
-  <button id="opusbtn" onclick="connectOpus();closeMenus()">Connect Opus</button>
-  <button onclick="copyText(SKILL(),'Skill copied. Paste it into Claude as /le.');closeMenus()">Copy the /le skill</button>
-  <div class="sep"></div>
-  <button onclick="toast('Signed out (demo)');closeMenus()">Sign out</button>
-</div>
+</header>
 
 <div class="app">
   <nav class="side">
-    <a id="s-make" class="on" href="#make"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Make</a>
-    <a id="s-lib" href="#lib"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/></svg>Library</a>
-    <a id="s-projects" href="#projects"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>Projects</a>
-    <a id="s-connect" href="#connect"><svg class="ico" viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>Connect</a>
-    <a id="s-motion" href="#motion"><svg class="ico" viewBox="0 0 24 24"><path d="M4 12c3-6 5-6 8 0s5 6 8 0"/></svg>Motion</a>
-    <a id="s-brand" href="#brand"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>Brand</a>
+    <a id="s-make" class="on" href="#make">Make</a>
+    <a id="s-lib" href="#lib">Library</a>
+    <a id="s-projects" href="#projects">Projects</a>
+    <a id="s-skill" href="#skill">Skill</a>
+    <a id="s-motion" href="#motion">Motion</a>
+    <a id="s-brand" href="#brand">Brand</a>
   </nav>
 
   <div class="main" id="main">
 
-    <!-- ===== MAKE ===== -->
     <section id="make" class="screen on">
-      <div class="wrap" style="padding-top:44px">
+      <div class="wrap">
         <h1>What are we making?</h1>
         <div class="picks" id="picks"></div>
       </div>
     </section>
 
-    <!-- ===== PICK A TYPE ===== -->
     <section id="pick" class="screen">
       <div class="wrap">
-        <div class="ehead"><button class="back" onclick="go('make')"><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Make</button><h1 id="pickTitle" style="margin:0"></h1></div>
+        <div class="ehead"><button class="back" onclick="go('make')"><svg class="ico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Make</button></div>
+        <h1 id="pickTitle"></h1>
         <div id="pickBody"></div>
       </div>
     </section>
 
-    <!-- ===== LIBRARY ===== -->
     <section id="lib" class="screen">
       <div class="wrap">
         <h1>Library</h1>
         <div class="tabs" id="tabs"></div>
-        <div class="chips" id="chips"></div>
-        <div class="grid" id="grid"></div>
+        <div class="subs" id="chips"></div>
+        <div id="grid"></div>
       </div>
     </section>
 
-    <!-- ===== EDITOR ===== -->
     <section id="editor" class="screen">
-      <div class="wrap" style="padding-top:18px">
+      <div class="wrap">
         <div class="ehead">
-          <button class="back" id="eback" onclick="go('make')"><svg class="ico" style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Back</button>
+          <button class="back" id="eback" onclick="go('make')"><svg class="ico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Back</button>
           <input class="title" id="etitle" value="Untitled">
           <div class="right"><button class="btn" id="prbtn" onclick="presentCurrent()" style="display:none">Present</button><button class="btn black" id="dlbtn" onclick="exportCurrent()">Download</button></div>
         </div>
         <div class="egrid" id="egrid">
           <div class="estage">
-            <div class="stage" id="stage"><img id="canvasImg" alt=""><video id="resultVid" controls playsinline style="display:none"></video></div>
+            <div class="stage" id="stage"><img id="canvasImg" alt=""></div>
             <div class="stagebar" id="stagebar"></div>
             <div class="slides" id="slides"></div>
           </div>
           <div class="panel" id="panel"></div>
         </div>
         <div class="drawer" id="drawer">
-          <div class="dhead"><div class="tabs" id="dtabs" style="margin:0"></div><div class="search" style="width:220px;height:32px"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="dq" placeholder="Search" oninput="renderDrawer()"></div><button class="btn sm" onclick="closeDrawer()">Done</button></div>
+          <div class="dhead"><div class="tabs" id="dtabs"></div><input id="dq" class="dsearch" aria-label="Search" oninput="renderDrawer()"><button class="btn sm" onclick="closeDrawer()">Done</button></div>
           <div class="grid" id="dgrid"></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== PROJECTS ===== -->
     <section id="projects" class="screen">
       <div class="wrap">
-        <div class="hrow"><h1>Projects</h1><button class="btn black" onclick="go('make')">New</button></div>
-        <div class="list" id="projlist"></div>
+        <div class="hrow"><h1>Projects</h1><button class="btn black" id="projnew" onclick="go('make')">New</button></div>
+        <div id="projlist"></div>
       </div>
     </section>
 
-    <!-- ===== CONNECT ===== -->
-    <section id="connect" class="screen">
-      <div class="wrap">
-        <div class="hrow"><h1>Connect</h1><a class="btn" href="DEVELOPERS.md" download>Developer instructions</a></div>
-        <h2 class="sub">Create</h2>
-        <div class="conns" id="connCreate"></div>
-        <h2 class="sub">Distribute and measure</h2>
-        <div class="conns" id="connDist"></div>
-        <h2 class="sub">Assets and where they ran</h2>
-        <div class="place" id="placements"></div>
+    <section id="skill" class="screen">
+      <div class="wrap text">
+        <div class="hrow"><h1>Skill</h1><div class="acts"><a class="link" href="DEVELOPERS.md" download>Developer instructions</a><button class="btn" onclick="downloadSkill()">Download .md</button><button class="btn black" onclick="copyText(SKILL(),'Copied')">Copy</button></div></div>
+        <div class="md" id="skillbody"></div>
       </div>
     </section>
 
-    <!-- ===== MOTION ===== -->
     <section id="motion" class="screen">
-      <div class="wrap">
-        <div class="hrow"><h1>Motion</h1><div style="display:flex;gap:6px"><button class="btn" onclick="motionReset()">Reset to the films</button><button class="btn black" onclick="motionExport()">Export presets</button></div></div>
-        <div class="motion" id="motionlist"></div>
+      <div class="wrap text">
+        <h1>Motion</h1>
+        <div class="doc" id="motionbody"></div>
       </div>
     </section>
 
-    <!-- ===== BRAND ===== -->
     <section id="brand" class="screen">
-      <div class="wrap wide">
+      <div class="wrap text">
         <h1>Brand</h1>
-        <div id="brandbody"></div>
+        <div class="doc" id="brandbody"></div>
       </div>
     </section>
   </div>
 </div>
 
 <div class="pv" id="pv" onclick="if(event.target===this)closePreview()">
-  <button class="close" onclick="closePreview()"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-  <button class="nav prev" onclick="stepPreview(-1)"><svg class="ico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-  <button class="nav next" onclick="stepPreview(1)"><svg class="ico" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button class="close" onclick="closePreview()" aria-label="Close"><svg class="ico" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="nav prev" onclick="stepPreview(-1)" aria-label="Previous"><svg class="ico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="nav next" onclick="stepPreview(1)" aria-label="Next"><svg class="ico" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
   <div class="box"><div class="stage" id="pvstage"></div><div class="side2" id="pvside"></div></div>
 </div>
 <div class="ov" id="ov"><h1>Working on it</h1><p id="ovp"></p></div>
 <div class="toast" id="toast"></div>
 
+<script src="js/mark.js"></script>
+<script src="js/orb.js"></script>
 <script src="js/templates.js"></script>
 <script src="js/deck.js"></script>
 <script src="js/le.js"></script>
 <script src="js/present.js"></script>
-<script src="js/story.js"></script>
-<script src="js/leo.js"></script>
 </body>
 </html>

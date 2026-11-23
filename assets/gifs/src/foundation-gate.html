@@ -1,86 +1,76 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Level one opens the door</title>
+<html lang="en"><head><meta charset="utf-8"><title>Level one opens the door.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--paper:#F9F8F3;--ink:#010101;--neutral:#222}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#FFFFFF;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
-.h{position:absolute;margin:0;font:500 66px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#010101;left:80px;top:72px;width:1120px}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
 .h em{font-style:normal;color:#80ACED}
+.h span{display:block}
 .logo{position:absolute;left:80px;bottom:64px;width:66px}
-svg{position:absolute;left:0;top:0;overflow:visible}
-svg text{font-family:'Macan',sans-serif}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
 .pre{position:absolute;left:-9999px;top:0;opacity:0}
 
 </style></head><body>
 <div class="stage">
-  <h1 class="h">Level one opens the <em>door</em>.</h1>
-  <img class="logo" src="../../brand/logo.svg" alt="">
-  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
-  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
   
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">Level one opens the <em>door</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
 </div>
 <script>
 const D=10; window.DURATION=D;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
-const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
-const svg=document.getElementById('svg');
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
 const NS='http://www.w3.org/2000/svg';
 const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
-const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
-const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
-let _s=4; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
-const INK='#010101', WHITE='#fff', BLUE='#80ACED', FOLLOW=BLUE, SLATE='#869AA6', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
 
-// Level one clears the infrastructure gate today. The deeper levels unlock as systems connect.
-const FY=560; // floor
-mk('line',{x1:80,y1:FY,x2:1200,y2:FY,stroke:INK,'stroke-width':2});
-// gate
-const GX=180; const gate=mk('g'); mk('line',{x1:GX,y1:FY,x2:GX,y2:380,stroke:INK,'stroke-width':4},gate);
-const bar=mk('g',{},gate); mk('line',{x1:0,y1:0,x2:96,y2:0,stroke:INK,'stroke-width':6,'stroke-linecap':'round'},bar);
-txt(GX,FY+34,'Your infrastructure gate',{'font-size':16,'font-weight':500,fill:INK,'text-anchor':'middle'});
-const DOORS=['Use AI to 10x your impact','Build agentic workflows','Create autonomous agents','Build your agent workforce','Design your orchestration layer'];
-const SYS=['','CRM','Docs','Data','SSO'];
-const DX=[330,500,670,840,1010], DW=120, DH=190, DY=FY-DH;
-const doors=DOORS.map((n,i)=>{
-  const x=DX[i]; const g=mk('g');
-  mk('rect',{x,y:DY,width:DW,height:DH,fill:'none',stroke:INK,'stroke-width':2.5},g);
-  const panel=mk('rect',{x:x+2,y:DY+2,width:DW-4,height:DH-4,fill:INK},g);
-  txt(x+DW/2,FY+34,'Level '+(i+1),{'font-size':17,'font-weight':500,fill:INK,'text-anchor':'middle'},g);
-  const w=mk('foreignObject',{x:x-20,y:FY+46,width:DW+40,height:60},g);
-  const dv=document.createElementNS('http://www.w3.org/1999/xhtml','div'); dv.setAttribute('style','font:400 14px/1.25 Macan;color:#010101;text-align:center'); dv.textContent=n; w.appendChild(dv);
-  let plug=null, chip=null;
-  if(i>0){
-    chip=mk('g',{},g); mk('rect',{x:x+DW/2-50,y:266,width:100,height:38,fill:WHITE,stroke:INK,'stroke-width':1.5},chip);
-    txt(x+DW/2,291,SYS[i],{'font-size':17,'font-weight':500,fill:INK,'text-anchor':'middle'},chip);
-    plug=mk('line',{x1:x+DW/2,y1:304,x2:x+DW/2,y2:304,stroke:INK,'stroke-width':2.5},g);
-    mk('circle',{cx:x+DW/2,cy:DY,r:5,fill:'none',stroke:INK,'stroke-width':2},g);
-  }
-  return {x,panel,plug,chip,open:i===0?1.6:2.4+(i-1)*1.1};
-});
-const walker=mk('circle',{cx:110,cy:FY-14,r:12,fill:FOLLOW});
+// Five doors. The first opens on day one. The others unlock as each system connects.
+const X=700,W=62,H=118,GAP=42,Y=318;
+line(X-30,Y+H,X+5*W+4*GAP+30,Y+H,G3,2);
+const ds=[0,1,2,3,4].map(i=>door(X+i*(W+GAP),Y,W,H));
+const T=[1.0,3.3,4.6,6.1,7.2], sys=[null,'CRM','Docs','Data','SSO'];
+const cx=i=>X+i*(W+GAP)+W/2;
+lab(cx(0),Y+H+42,'Level 1','middle');lab(cx(4),Y+H+42,'Level 5','middle');
+const tx=sys.map((s,i)=>s?lab(cx(i),Y-30,s,'middle',INK):null);
 function render(t){
-  const reset=E.in(seg(t,8.7,9.5));
-  const go=E.io(seg(t,.6,1.2))*(1-reset); bar.setAttribute('transform',`translate(${GX} 380) rotate(${lerp(0,-80,go)})`);
-  doors.forEach((d,i)=>{
-    const o=E.io(seg(t,d.open,d.open+.6))*(1-reset);
-    d.panel.setAttribute('transform',`translate(${d.x+2} ${DY+2}) scale(${lerp(1,.1,o)} 1) translate(${-(d.x+2)} ${-(DY+2)})`);
-    if(d.plug){ const p=E.out(seg(t,d.open-.6,d.open-.1))*(1-reset); d.plug.setAttribute('y2',lerp(304,DY-6,p)); }
-  });
-  // walker steps through each door as it opens
-  let x=110;
-  const stops=[[1.3,1.9,110,250],[1.9,2.5,250,DX[0]+DW+40]];
-  doors.forEach((d,i)=>{ if(i>0) stops.push([d.open+.4,d.open+1.0,DX[i-1]+DW+40,DX[i]+DW+40]); });
-  stops.forEach(s=>{ const k=E.io(seg(t,s[0],s[1])); x=lerp(x,s[3],k)});
-  // last leg off the right edge
-  x=lerp(x,1300,E.in(seg(t,7.9,8.6)));
-  if(t>=8.7) x=110;
-  walker.setAttribute('cx',x); walker.setAttribute('opacity',t>=8.7?E.out(seg(t,9.2,9.6)):1);
+  ds.forEach((d,i)=>{const k=ezio(seg(t,T[i],T[i]+1.0));d.set(k*(i?0.62:1),i&&t<T[i]?G3:INK,i===0)});
+  tx.forEach((e,i)=>{if(e)rise(e,Math.min(at(t,T[i]-.5,.5),i<4?1-seg(t,T[i+1]-.9,T[i+1]-.55):1),0)});
 }
 
-window.seek=t=>render(((t%D)+D)%D);
-render(0);
-if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

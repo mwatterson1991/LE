@@ -1,79 +1,85 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Your work</title>
+<html lang="en"><head><meta charset="utf-8"><title>Built on your work, not examples.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
-:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#80ACED;--sky:#80aced}
-html,body{margin:0;background:#fff}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
-h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
-h1 b{font-weight:500;color:var(--blue)}
-.mark{position:absolute;right:80px;bottom:60px;width:30px}
-svg{position:absolute;left:0;top:0}
-.name{font-family:'Macan',sans-serif;font-weight:500;font-size:22px;fill:#111}
-.src{font-family:'Macan',sans-serif;font-weight:500;font-size:15px;fill:#767676}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
+.h em{font-style:normal;color:#80ACED}
+.h span{display:block}
+.logo{position:absolute;left:80px;bottom:64px;width:66px}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
 </style></head><body>
 <div class="stage">
-  <h1>Built on <b>your work,</b> not examples.</h1>
-  <svg id="s" width="1280" height="720" viewBox="0 0 1280 720" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg>
-  <img class="mark" src="../../logomark.png" alt="">
+  
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">Built on <em>your work</em>, not examples.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
 </div>
 <script>
 const D=9; window.DURATION=D;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
-const eo=x=>1-Math.pow(1-x,3), eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
-const mix=(a,b,k)=>{const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));const A=p(a),B=p(b);return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(',')+')';};
-const TW=300,TH=200,TY=330,TX=[80,490,900];
-const NAMES=['Research','Draft','Send'], SRC=['Your docs','Your spreadsheets','Your inbox'];
-// glyphs drawn in a 64x64 box centered at 0,0
-const GLYPH=[
- // document with folded corner + lines
- `<path d="M-20 -28 H8 L20 -16 V28 H-20 Z"/><path d="M8 -28 V-16 H20"/><path d="M-10 0 H10 M-10 10 H10 M-10 20 H2"/>`,
- // spreadsheet grid
- `<rect x="-28" y="-20" width="56" height="40" rx="4"/><path d="M-28 -6 H28 M-28 8 H28 M-10 -20 V20 M10 -20 V20"/>`,
- // inbox tray with envelope
- `<path d="M-28 -16 H28 V22 H-28 Z"/><path d="M-28 -16 L0 4 L28 -16"/>`
-];
-const svg=document.getElementById('s'); let html='';
-for(let i=0;i<3;i++){const x=TX[i],cx=x+TW/2,cy=TY+TH/2;
-  html+=`<rect id="tile${i}" x="${x}" y="${TY}" width="${TW}" height="${TH}" rx="18" stroke="#eee" stroke-width="2"/>`;
-  html+=`<g id="g${i}" stroke="#4c4c4c" stroke-width="2" transform="translate(${cx} ${cy})">${GLYPH[i]}</g>`;
-  html+=`<text id="src${i}" class="src" x="${cx}" y="${TY+TH+34}" text-anchor="middle">${SRC[i]}</text>`;
-  html+=`<text id="nm${i}" class="name" x="${x+28}" y="${TY+TH-28}">${NAMES[i]}</text>`;
-  const ck=`M${x+TW-42} ${TY+30} l5 5 l10 -10`;
-  html+=`<circle id="ckc${i}" cx="${x+TW-36}" cy="${TY+30}" r="13" stroke="#80ACED" stroke-width="2" stroke-dasharray="82" stroke-dashoffset="82"/><path id="ck${i}" d="${ck}" stroke="#80ACED" stroke-width="2.2" stroke-dasharray="22" stroke-dashoffset="22"/>`;
-}
-for(let i=0;i<2;i++){const x1=TX[i]+TW,x2=TX[i+1],y=TY+TH/2;html+=`<path id="ln${i}" d="M${x1} ${y} H${x2}" stroke="#80ACED" stroke-width="2" stroke-dasharray="${x2-x1}" stroke-dashoffset="${x2-x1}"/><circle id="ld${i}" cx="${x2-6}" cy="${y}" r="4" fill="#80ACED" opacity="0"/>`;}
-svg.innerHTML=html;
-const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
+
+// A doc, a sheet and an inbox, lying around. They line up and become one flow.
+const Y=350, XS=[740,930,1120];
+const st={fill:'none',stroke:INK,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'};
+const ic=XS.map(()=>mk('g'));
+mk('path',Object.assign({d:'M-17 -23 h22 l12 12 v34 h-34 z M5 -23 v12 h12 M-8 2 h16 M-8 11 h16'},st),ic[0]);
+mk('path',Object.assign({d:'M-23 -18 h46 v36 h-46 z M-23 -6 h46 M-23 6 h46 M-7 -18 v36'},st),ic[1]);
+mk('path',Object.assign({d:'M-24 -17 h48 v34 h-48 z M-24 -17 l24 19 l24 -19'},st),ic[2]);
+const OFF=[{dy:-46,r:-9},{dy:34,r:7},{dy:-18,r:-5}], IN=[.5,1.0,1.7];
+const link=[line(0,0,0,0,INK,2),line(0,0,0,0,INK,2)];
+const words=['Research','Draft','Send'].map((s,i)=>lab(XS[i],Y+72,s,'middle',INK));
+const run=dot(0,Y,6,SKY);
 function render(t){
-  const m=eio(seg(t,2.6,3.4));            // morph
-  const fade=seg(t,7.6,8.2);              // system fades out
-  const back=eo(seg(t,8.3,8.9));          // generic glyphs return
-  for(let i=0;i<3;i++){const x=TX[i],cx=x+TW/2,cy=TY+TH/2;
-    const k=t<7.6?m:(1-fade); // 0 generic, 1 system
-    $('tile'+i).setAttribute('stroke',mix('#eeeeee','#111111',k));
-    // glyph: center 64px -> top-left small
-    const gx=cx+(x+28+16-cx)*m, gy=cy+(TY+28+16-cy)*m, sc=1-0.5*m;
-    const g=$('g'+i); g.setAttribute('transform',`translate(${gx} ${gy}) scale(${sc})`);
-    g.setAttribute('stroke',mix('#4c4c4c','#111111',m));
-    let gop=1; if(t>=7.6)gop=Math.max(1-fade,back); g.setAttribute('opacity',gop);
-    if(t>=8.3){g.setAttribute('transform',`translate(${cx} ${cy})`);g.setAttribute('stroke','#4c4c4c');}
-    const so=t<7.6?1-seg(t,2.4,2.8):back; $('src'+i).setAttribute('opacity',so);
-    const no=t<7.6?seg(t,3.1,3.5):1-fade; $('nm'+i).setAttribute('opacity',no);
-    const ct=[3.9,5.0,6.1][i]; const c=eo(seg(t,ct,ct+0.35)), ck=eo(seg(t,ct+0.2,ct+0.5));
-    const cop=t<7.6?1:1-fade;
-    $('ckc'+i).setAttribute('stroke-dashoffset',82*(1-c)); $('ckc'+i).setAttribute('opacity',cop);
-    $('ck'+i).setAttribute('stroke-dashoffset',22*(1-ck)); $('ck'+i).setAttribute('opacity',cop);
-  }
-  for(let i=0;i<2;i++){const lt=[4.3,5.4][i]; const d=eio(seg(t,lt,lt+0.6)); const len=TX[i+1]-TX[i]-TW;
-    $('ln'+i).setAttribute('stroke-dashoffset',len*(1-d)); $('ln'+i).setAttribute('opacity',t<7.6?1:1-fade);
-    $('ld'+i).setAttribute('opacity',(d>=1?1:0)*(t<7.6?1:1-fade));
-  }
+  const al=ezio(seg(t,2.6,3.7));
+  ic.forEach((e,i)=>{op(e,at(t,IN[i],.6));e.setAttribute('transform',`translate(${XS[i]} ${Y+OFF[i].dy*(1-al)}) rotate(${OFF[i].r*(1-al)})`)});
+  link.forEach((l,i)=>grow(l,XS[i]+38,Y,XS[i+1]-38,Y,at(t,3.8+i*.55,.6)));
+  words.forEach((w,i)=>rise(w,at(t,[4.2,4.8,5.6][i],.6),8));
+  const k=ezio(seg(t,6.0,7.6));
+  S(run,{cx:lerp(XS[0]+38,XS[2]-38,k)});
+  const cx=lerp(XS[0]+38,XS[2]-38,k);
+  op(run,(Math.abs(cx-XS[1])<38?0:1)*Math.min(seg(t,6.0,6.15),1-seg(t,7.5,7.6)));
 }
-let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
-(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

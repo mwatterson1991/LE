@@ -1,77 +1,79 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>One person, more output</title>
+<html lang="en"><head><meta charset="utf-8"><title>One person, more output.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--paper:#F9F8F3;--ink:#010101;--neutral:#222}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#FFFFFF;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
-.h{position:absolute;margin:0;font:500 70px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#010101;left:80px;top:80px;width:500px}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
 .h em{font-style:normal;color:#80ACED}
+.h span{display:block}
 .logo{position:absolute;left:80px;bottom:64px;width:66px}
-svg{position:absolute;left:0;top:0;overflow:visible}
-svg text{font-family:'Macan',sans-serif}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
 .pre{position:absolute;left:-9999px;top:0;opacity:0}
 
 </style></head><body>
 <div class="stage">
-  <h1 class="h">One person, <em>more output</em>.</h1>
-  <img class="logo" src="../../brand/logo.svg" alt="">
-  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
-  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
   
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">One person, <em>more output</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span><img src="../../experts/mia-t.jpg" alt=""></div>
 </div>
 <script>
 const D=10; window.DURATION=D;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
-const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
-const svg=document.getElementById('svg');
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
 const NS='http://www.w3.org/2000/svg';
 const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
-const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
-const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
-let _s=2; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
-const INK='#010101', WHITE='#fff', BLUE='#80ACED', FOLLOW=BLUE, SLATE='#869AA6', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
 
-// One person at a desk. Agents fan out and start finishing work. Output grows; headcount stays at one.
-const PX=700, PY=300;
-const clip=mk('clipPath',{id:'c'},mk('defs')); mk('circle',{cx:PX,cy:PY,r:60},clip);
-mk('image',{href:'../../experts/mia-t.jpg',x:PX-60,y:PY-60,width:120,height:120,'clip-path':'url(#c)',preserveAspectRatio:'xMidYMid slice'});
-txt(PX,PY+96,'Headcount',{'font-size':18,'font-weight':500,fill:INK,'text-anchor':'middle',opacity:.7});
-txt(PX,PY+150,'1',{'font-size':56,'font-family':'Season',fill:INK,'text-anchor':'middle'});
-const A=[{n:'Research agent',y:150},{n:'Outreach agent',y:290},{n:'Reporting agent',y:430}];
-const cards=A.map((a,i)=>{
-  const g=mk('g'); const link=mk('line',{x1:PX+60,y1:PY,x2:880,y2:a.y+48,stroke:INK,'stroke-width':1.5,opacity:.4},g);
-  const b=mk('g',{},g);
-  mk('rect',{x:880,y:a.y,width:320,height:96,fill:WHITE,stroke:INK,'stroke-width':1.5},b);
-  txt(902,a.y+36,a.n,{'font-size':21,'font-weight':500,fill:INK},b);
-  const ticks=[0,1,2,3,4].map(j=>{ const tg=mk('g',{transform:`translate(${902+j*30} ${a.y+54})`},b); mk('rect',{x:0,y:0,width:22,height:22,fill:'none',stroke:INK,'stroke-width':1.4},tg); const f=mk('rect',{x:0,y:0,width:22,height:22,fill:FOLLOW,opacity:0},tg); return f; });
-  return {g,b,link,ticks,t:.6+i*.7,y:a.y};
-});
-// output bar
-txt(880,588,'Output',{'font-size':18,'font-weight':500,fill:INK,opacity:.7});
-mk('rect',{x:880,y:600,width:320,height:36,fill:'none',stroke:INK,'stroke-width':1.5});
-const bar=mk('rect',{x:880,y:600,width:48,height:36,fill:FOLLOW});
-// tick schedule: 15 ticks between 2.6 and 6.4, round-robin
-const sched=[]; for(let j=0;j<5;j++)for(let i=0;i<3;i++)sched.push({i,j,t:2.6+(j*3+i)*.25});
+// One person. Three agents. Their output keeps growing; the person count does not.
+const FX=690,FS=84,CY=372, X=900, YS=[262,372,482], XE=1180;
+const f=face(FX,CY-FS/2,FS,'mia-t');
+const names=['Research agent','Outreach agent','Reporting agent'];
+const con=YS.map(y=>mk('path',{d:`M${FX+FS+14} ${CY} C${FX+FS+70} ${CY} ${X-70} ${y-8} ${X-16} ${y-8}`,fill:'none',stroke:G3,'stroke-width':2}));
+const tx=names.map((s,i)=>lab(X,YS[i],s,'start',INK));
+const out=YS.map(y=>line(X,y+22,X,y+22,SKY,2.5));
+const IN=[1.2,1.8,2.7];
+const STEP=[[[3.4,.3],[4.9,.55],[6.6,.85],[7.6,1]],[[3.9,.22],[5.3,.5],[6.1,.72],[7.3,1]],[[4.3,.35],[5.8,.6],[7.0,.8],[7.9,1]]];
 function render(t){
-  const reset=E.in(seg(t,8.5,9.3));
-  cards.forEach(c=>{
-    const k=E.out(seg(t,c.t,c.t+.7))*(1-reset);
-    const vis=t>=c.t?1:0;
-    const dx=lerp(PX-880-100,0,k), dy=lerp(PY-48-c.y,0,k);
-    c.g.setAttribute('opacity',Math.min(1,k*2)*vis);
-    c.b.setAttribute('transform',`translate(${dx} ${dy}) scale(${lerp(.5,1,k)})`);
-    c.b.setAttribute('transform-origin',`880 ${c.y+48}`);
-    c.link.setAttribute('x2',880+dx); c.link.setAttribute('y2',c.y+48+dy);
-  });
-  let done=0;
-  sched.forEach(s=>{ const k=E.out(seg(t,s.t,s.t+.25))*(1-reset); cards[s.i].ticks[s.j].setAttribute('opacity',k); done+=k; });
-  bar.setAttribute('width',48+done/15*272);
+  op(f,at(t,.5,.6));
+  con.forEach((c,i)=>dash(c,at(t,IN[i],.7)));
+  tx.forEach((e,i)=>rise(e,at(t,IN[i]+.4,.6),0));
+  out.forEach((l,i)=>{let k=0,prev=0;STEP[i].forEach(([s,v])=>{k=lerp(k,v,at(t,s,.7))});grow(l,X,YS[i]+22,XE,YS[i]+22,k)});
 }
 
-window.seek=t=>render(((t%D)+D)%D);
-render(0);
-if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

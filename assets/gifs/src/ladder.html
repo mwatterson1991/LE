@@ -1,71 +1,82 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Ladder</title>
+<html lang="en"><head><meta charset="utf-8"><title>From using AI to building with it.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
-:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#80ACED;--sky:#80aced}
-html,body{margin:0;background:#fff}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
-h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
-h1 b{font-weight:500;color:var(--blue)}
-.mark{position:absolute;right:80px;bottom:60px;width:30px}
-svg{position:absolute;left:0;top:0}
-.lbl{font-family:'Macan',sans-serif;font-weight:500;font-size:17px;fill:var(--ink3)}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
+.h em{font-style:normal;color:#80ACED}
+.h span{display:block}
+.logo{position:absolute;left:80px;bottom:64px;width:66px}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
 </style></head><body>
 <div class="stage">
-  <h1>From using AI to <b>building with it.</b></h1>
-  <svg id="s" width="1280" height="720" viewBox="0 0 1280 720" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg>
-  <img class="mark" src="../../logomark.png" alt="">
+  
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">From using AI to <em>building with it</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
 </div>
 <script>
 const D=8; window.DURATION=D;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
-const eo=x=>1-Math.pow(1-x,3), ei=x=>x*x*x, eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
-const LABELS=['Use AI','Agentic workflows','Autonomous agents','Agent workforce','Orchestration layer'];
-const X0=80, W=216, Y0=630, R=72;
-const tread=i=>({x0:X0+i*W,x1:X0+(i+1)*W,y:Y0-i*R});
-const svg=document.getElementById('s');
-// static base staircase
-let base='M'+X0+' '+Y0;
-for(let i=0;i<5;i++){const s=tread(i);base+=' H'+s.x1;if(i<4)base+=' V'+tread(i+1).y;}
-let html=`<path d="${base}" stroke="#eee" stroke-width="3"/>`;
-// lit segments: riser into tread i + tread i
-for(let i=0;i<5;i++){const s=tread(i);let d=i===0?`M${s.x0} ${s.y} H${s.x1}`:`M${s.x0} ${tread(i-1).y} V${s.y} H${s.x1}`;const len=(i===0?0:R)+W;
-  html+=`<path id="lit${i}" d="${d}" stroke="#80ACED" stroke-width="3" stroke-dasharray="${len}" stroke-dashoffset="${len}"/>`;
-  html+=`<text id="lab${i}" class="lbl" x="${s.x0+6}" y="${s.y-18}">${LABELS[i]}</text>`;}
-html+=`<circle id="halo" r="18" fill="#80aced" opacity="0"/><circle id="dot" r="8" fill="#80ACED"/>`;
-svg.innerHTML=html;
-const lit=[],lab=[];for(let i=0;i<5;i++){lit.push(document.getElementById('lit'+i));lab.push(document.getElementById('lab'+i));}
-const dot=document.getElementById('dot'),halo=document.getElementById('halo');
-const L=i=>0.4+i*0.9;
-// dot path: centers of treads with corners
-function dotPos(p){ // p in [0,4] continuous step index
-  const i=clamp(Math.floor(p),0,3), f=p-i; const a=tread(i), b=tread(i+1);
-  const cx=a.x0+W/2, legs=[W/2,R,W/2], tot=W+R; let d=f*tot;
-  if(d<=legs[0])return{x:cx+d,y:a.y};
-  d-=legs[0]; if(d<=legs[1])return{x:a.x1,y:a.y-d};
-  d-=legs[1]; return{x:a.x1+d,y:b.y};
-}
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
+
+// Five steps. One dot climbs them, resting on each.
+const X0=690,Y0=540,TW=98,RH=72;
+let d=`M${X0} ${Y0}`;for(let i=0;i<5;i++){d+=` h${TW}`;if(i<4)d+=` v${-RH}`}
+const base=mk('path',{d,fill:'none',stroke:G3,'stroke-width':2,'stroke-linejoin':'miter'});
+const done=mk('path',{d,fill:'none',stroke:INK,'stroke-width':2});
+lab(X0,Y0+40,'Use AI');
+const topl=lab(X0+5*TW,Y0-4*RH-40,'Orchestration layer','end');
+const me=dot(0,0,7,SKY);
+const stop=i=>TW/2+i*(TW+RH);
+const T=[1.0,2.0,3.15,4.2,5.5];        // when the dot leaves for step i (step 0 = when it appears)
 function render(t){
-  // lighting
-  for(let i=0;i<5;i++){
-    const on=eo(seg(t,L(i),L(i)+0.45)); const off=seg(t,6.2+(4-i)*0.12,6.5+(4-i)*0.12);
-    const len=(i===0?0:R)+W; lit[i].setAttribute('stroke-dashoffset',len*(1-on)); lit[i].setAttribute('opacity',1-off);
-    const k=on*(1-off); lab[i].setAttribute('fill',mix('#767676','#111111',k));
-  }
-  // dot
-  let p=0;
-  for(let i=0;i<4;i++)p+=eio(seg(t,L(i)+0.35,L(i)+0.85));
-  if(t>=6.3)p=4*(1-eio(seg(t,6.3,7.3)));
-  const q=dotPos(p===4?3.9999:p); if(p>=4){q.x=tread(4).x0+W/2;q.y=tread(4).y;}
-  dot.setAttribute('cx',q.x);dot.setAttribute('cy',q.y);halo.setAttribute('cx',q.x);halo.setAttribute('cy',q.y);
-  // halo pulse on arrival at top
-  const hp=seg(t,4.4,5.2); halo.setAttribute('r',8+22*eo(hp)); halo.setAttribute('opacity',hp>0?0.5*(1-hp):0);
+  let len=stop(0);
+  for(let i=1;i<5;i++)len=lerp(len,stop(i),ez(seg(t,T[i]-.85,T[i])));
+  const p=base.getPointAtLength(len);S(me,{cx:p.x,cy:p.y-13});
+  op(me,at(t,T[0]-.4,.5));
+  dash(done,t<T[0]-.4?0:len/base.getTotalLength());
+  topl.setAttribute('fill',t>T[4]?INK:G1);
 }
-function mix(a,b,k){const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));const A=p(a),B=p(b);return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(',')+')';}
-let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
-(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

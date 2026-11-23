@@ -1,68 +1,76 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Experts who have been there</title>
+<html lang="en"><head><meta charset="utf-8"><title>Experts who have been there.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--paper:#F9F8F3;--ink:#010101;--neutral:#222}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#010101;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#fff}
-.h{position:absolute;margin:0;font:500 70px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#fff;left:80px;top:80px;width:500px}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
 .h em{font-style:normal;color:#80ACED}
+.h span{display:block}
 .logo{position:absolute;left:80px;bottom:64px;width:66px}
-svg{position:absolute;left:0;top:0;overflow:visible}
-svg text{font-family:'Macan',sans-serif}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
 .pre{position:absolute;left:-9999px;top:0;opacity:0}
 
 </style></head><body>
 <div class="stage">
-  <h1 class="h">Experts who have <em>been there</em>.</h1>
-  <img class="logo" src="../../brand/logo-white.svg" alt="">
-  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
-  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
   
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">Experts who have <em>been there</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span><img src="../../experts/spencer-s.jpg" alt=""></div>
 </div>
 <script>
 const D=9; window.DURATION=D;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
-const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
-const svg=document.getElementById('svg');
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
 const NS='http://www.w3.org/2000/svg';
 const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
-const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
-const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
-let _s=13; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
-const INK='#010101', WHITE='#fff', BLUE='#80ACED', FOLLOW=BLUE, SLATE='#869AA6', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
 
-// A trail to a summit. The expert is already at the top; the path lights up from them back down to you.
-const SX=680,SY=620, TX=1110,TY=150;
-// contour lines around the summit
-[[70,40],[130,80],[200,130],[280,190],[370,260]].forEach(([rx,ry],i)=>{ mk('ellipse',{cx:TX-20-i*20,cy:TY+30+i*40,rx,ry,fill:'none',stroke:'#3d3d3d','stroke-width':2,transform:`rotate(-18 ${TX} ${TY})`}); });
-const d=`M${SX} ${SY} C 700 480, 900 560, 940 440 S 860 300, 980 250 S 1040 190, ${TX-62} ${TY+4}`;
-const base=mk('path',{d,fill:'none',stroke:'#555','stroke-width':6,'stroke-dasharray':'0 16','stroke-linecap':'round'});
-const lit=mk('path',{d,fill:'none',stroke:BLUE,'stroke-width':8,'stroke-dasharray':'0 16','stroke-linecap':'round'});
-const LEN=lit.getTotalLength();
-const litClip=mk('clipPath',{id:'lc'},mk('defs')); const reveal=mk('path',{d,fill:'none',stroke:'#000','stroke-width':20},litClip);
-lit.setAttribute('clip-path','url(#lc)');
-// you
-const you=mk('g'); mk('circle',{cx:0,cy:0,r:18,fill:INK,stroke:WHITE,'stroke-width':4},you); txt(0,48,'You',{'font-size':20,'font-weight':500,fill:WHITE,'text-anchor':'middle'},you);
-// the expert at the summit
-const cp=mk('clipPath',{id:'ex'},mk('defs')); mk('circle',{cx:TX,cy:TY-10,r:56},cp);
-mk('image',{href:'../../experts/spencer-s.jpg',x:TX-56,y:TY-66,width:112,height:112,'clip-path':'url(#ex)',preserveAspectRatio:'xMidYMid slice'});
-const flag=mk('g',{transform:`translate(${TX+64} ${TY-40})`}); mk('line',{x1:0,y1:0,x2:0,y2:-50,stroke:WHITE,'stroke-width':3},flag); mk('path',{d:'M0 -50 h30 l-7 10 l7 10 h-30 z',fill:BLUE},flag);
-txt(TX,TY+76,'Spencer S.',{'font-size':22,'font-weight':500,fill:WHITE,'text-anchor':'middle'});
-txt(TX,TY+100,'Leland expert',{'font-size':16,fill:WHITE,opacity:.7,'text-anchor':'middle'});
+// The expert is already at the top. The trail lights from them down to you. You start up it.
+const d='M708 548 C 800 548 770 452 868 428 S 960 330 1040 306 S 1082 262 1092 236';
+const trail=mk('path',{d,fill:'none',stroke:G3,'stroke-width':3,'stroke-linecap':'round','stroke-dasharray':'0.1 11'});
+const lit=mk('path',{d,fill:'none',stroke:SKY,'stroke-width':2.5,'stroke-linecap':'round'});
+face(1084,150,80,'spencer-s');lab(1068,198,'Spencer S.','end',INK);
+const you=dot(0,0,7,INK);const yl=lab(708,592,'You','middle',INK);
 function render(t){
-  const reset=E.in(seg(t,7.9,8.7));
-  // light the path from the summit back down: reveal clip grows from the far end
-  const k=E.io(seg(t,.8,3.2))*(1-reset);
-  reveal.setAttribute('stroke-dasharray',`${LEN} ${LEN}`); reveal.setAttribute('stroke-dashoffset',-LEN*(1-k));
-  // you start walking once the way is lit
-  const w=E.io(seg(t,3.8,6.4))*(1-reset); const p=lit.getPointAtLength(LEN*.32*w);
-  you.setAttribute('transform',`translate(${p.x} ${p.y})`);
+  const L=lit._L||(lit._L=lit.getTotalLength());
+  const k=ezio(seg(t,1.4,3.8));
+  lit.setAttribute('stroke-dasharray',`${L*k} ${L+4}`);lit.setAttribute('stroke-dashoffset',-(L*(1-k)));lit.setAttribute('visibility',k>0.001?'visible':'hidden');
+  const c=ezio(seg(t,4.8,7.0))*.3, p=lit.getPointAtLength(L*c);S(you,{cx:p.x,cy:p.y});op(yl,1-seg(t,4.6,5.0));
 }
 
-window.seek=t=>render(((t%D)+D)%D);
-render(0);
-if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

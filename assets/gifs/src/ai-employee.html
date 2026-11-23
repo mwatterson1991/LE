@@ -1,69 +1,79 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>AI employee</title>
+<html lang="en"><head><meta charset="utf-8"><title>An agent that owns the job.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-@font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
-:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#80ACED;--sky:#80aced}
-html,body{margin:0;background:#fff}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
-h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
-h1 b{font-weight:500;color:var(--blue)}
-.mark{position:absolute;right:80px;bottom:60px;width:30px}
-svg{position:absolute;left:0;top:0}
-.nl{font-family:'Macan',sans-serif;font-weight:500;font-size:20px;fill:#111}
-.ri{font-family:'Macan',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;fill:#767676}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
+html,body{margin:0;background:#000}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
+.h em{font-style:normal;color:#80ACED}
+.h span{display:block}
+.logo{position:absolute;left:80px;bottom:64px;width:66px}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
+.pre{position:absolute;left:-9999px;top:0;opacity:0}
+
 </style></head><body>
 <div class="stage">
-  <h1>An agent that <b>owns the job.</b></h1>
-  <svg id="s" width="1280" height="720" viewBox="0 0 1280 720" fill="none" stroke-linecap="round" stroke-linejoin="round"></svg>
-  <img class="mark" src="../../logomark.png" alt="">
+  
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">An agent that <em>owns the job</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
 </div>
 <script>
 const D=8; window.DURATION=D;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const mix=(a,b,k)=>{const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));const A=p(a),B=p(b);return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(',')+')';};
-const L=230,Rr=1000,T=330,B=596,NR=32;
-const NODES=[{x:L,y:T,n:'Trigger',pos:'above'},{x:Rr,y:T,n:'Research',pos:'above'},{x:Rr,y:B,n:'Draft',pos:'below'},{x:L,y:B,n:'Deliver',pos:'below'}];
-const ICON=[
- `<circle r="11"/><path d="M0 -6 V0 L4 3"/>`,                                   // clock
- `<circle cx="-2" cy="-2" r="9"/><path d="M5 5 L12 12"/>`,                     // magnifier
- `<path d="M-9 -12 H9 V12 H-9 Z"/><path d="M-4 -4 H4 M-4 2 H4 M-4 8 H0"/>`,     // draft page
- `<path d="M-12 -2 L12 -10 L4 12 L0 2 Z"/><path d="M0 2 L12 -10"/>`            // paper plane
-];
-const svg=document.getElementById('s');
-const loopPath=`M${L} ${T} H${Rr} V${B} H${L} Z`;
-let html=`<path id="lp" d="${loopPath}" stroke="#eee" stroke-width="2"/>`;
-// direction chevrons at edge midpoints
-const mx=(L+Rr)/2,my=(T+B)/2;
-html+=`<g stroke="#767676" stroke-width="2"><path d="M${mx-5} ${T-6} L${mx+1} ${T} L${mx-5} ${T+6}"/><path d="M${Rr-6} ${my-5} L${Rr} ${my+1} L${Rr+6} ${my-5}"/><path d="M${mx+5} ${B-6} L${mx-1} ${B} L${mx+5} ${B+6}"/><path d="M${L-6} ${my+5} L${L} ${my-1} L${L+6} ${my+5}"/></g>`;
-NODES.forEach((n,i)=>{
-  html+=`<circle id="halo${i}" cx="${n.x}" cy="${n.y}" r="${NR}" fill="#80aced" opacity="0"/>`;
-  html+=`<circle id="node${i}" cx="${n.x}" cy="${n.y}" r="${NR}" fill="#fff" stroke="#111" stroke-width="2"/>`;
-  html+=`<g id="ic${i}" transform="translate(${n.x} ${n.y})" stroke="#111" stroke-width="2">${ICON[i]}</g>`;
-  const ly=n.pos==='above'?n.y-NR-22:n.y+NR+34;
-  html+=`<text class="nl" x="${n.x}" y="${ly}" text-anchor="middle">${n.n}</text>`;
-});
-html+=`<g transform="translate(${mx} ${my})"><g id="ri" stroke="#767676" stroke-width="1.8" transform="translate(-62 0)"><path d="M-8 -2 A8 8 0 0 1 7 -5"/><path d="M7 -9 V-5 H3"/><path d="M8 2 A8 8 0 0 1 -7 5"/><path d="M-7 9 V5 H-3"/></g><text class="ri" x="12" y="5" text-anchor="middle">RUNS ITSELF</text></g>`;
-html+=`<circle id="trail" r="14" fill="#80aced" opacity=".35"/><circle id="dot" r="8" fill="#80ACED"/>`;
-svg.innerHTML=html;
-const lp=document.getElementById('lp'),dot=document.getElementById('dot'),trail=document.getElementById('trail');
-const LEN=lp.getTotalLength();
-const nodeLen=[0,Rr-L,(Rr-L)+(B-T),2*(Rr-L)+(B-T)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
+const NS='http://www.w3.org/2000/svg';
+const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=false;
+
+// A loop that runs on its own. The dot goes round, the word in the middle says where it is.
+const CX=930,CY=372,R=150;
+mk('circle',{cx:CX,cy:CY,r:R,fill:'none',stroke:G3,'stroke-width':2});
+const P=i=>[CX+R*Math.cos(-Math.PI/2+i*Math.PI/2),CY+R*Math.sin(-Math.PI/2+i*Math.PI/2)];
+for(let i=0;i<4;i++){const [x,y]=P(i);mk('circle',{cx:x,cy:y,r:9,fill:FIELD});dot(x,y,4,INK)}
+const words=['Trigger','Research','Draft','Deliver'].map(s=>{const e=lab(CX,CY+9,s,'middle',INK);e.setAttribute('font-size',26);return e});
+const me=dot(0,0,8,SKY);
+const GO=[.9,2.9,4.9,6.9], MOVE=.8;
 function render(t){
-  const s=(t/D)*LEN; const p=lp.getPointAtLength(s);
-  dot.setAttribute('cx',p.x);dot.setAttribute('cy',p.y);trail.setAttribute('cx',p.x);trail.setAttribute('cy',p.y);
-  let near=Infinity; nodeLen.forEach(nl=>{let d=Math.abs(s-nl); d=Math.min(d,LEN-d); near=Math.min(near,d);});
-  const vis=clamp((near-(NR-10))/14,0,1); dot.setAttribute('opacity',vis); trail.setAttribute('opacity',0.35*vis);
-  NODES.forEach((n,i)=>{
-    let d=Math.abs(s-nodeLen[i]); d=Math.min(d,LEN-d);
-    const k=clamp(1-d/90,0,1);
-    document.getElementById('node'+i).setAttribute('stroke',mix('#111111','#80ACED',k));
-    document.getElementById('ic'+i).setAttribute('stroke',mix('#111111','#80ACED',k));
-    const h=document.getElementById('halo'+i); h.setAttribute('r',NR+16*k); h.setAttribute('opacity',0.45*k);
-  });
+  let q=0;GO.forEach(s=>q+=ezio(seg(t,s,s+MOVE)));
+  const a=-Math.PI/2+q*Math.PI/2;S(me,{cx:CX+R*Math.cos(a),cy:CY+R*Math.sin(a)});
+  words.forEach((w,i)=>{
+    const inn=i===0?Math.max(1-seg(t,GO[0]+.1,GO[0]+.4),seg(t,GO[3]+MOVE-.25,GO[3]+MOVE+.1)):Math.min(seg(t,GO[i-1]+MOVE-.25,GO[i-1]+MOVE+.1),1-seg(t,GO[i]+.1,GO[i]+.4));
+    op(w,inn)});
 }
-let auto=true; window.seek=t=>{auto=false;render(((t%D)+D)%D)};
-(function loop(){if(auto)render((performance.now()/1000)%D);requestAnimationFrame(loop)})();
+
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

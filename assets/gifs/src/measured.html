@@ -1,69 +1,71 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Progress you can show the board</title>
+<html lang="en"><head><meta charset="utf-8"><title>Progress you can show the board.</title>
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--blue:#80ACED;--slate:#869AA6;--beige:#F3F1E6;--paper:#F9F8F3;--ink:#010101;--neutral:#222}
+@font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#FFFFFF;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#010101}
-.h{position:absolute;margin:0;font:500 66px/1.04 'Season',Georgia,serif;letter-spacing:-.022em;color:#010101;left:80px;top:72px;width:1120px}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
 .h em{font-style:normal;color:#80ACED}
+.h span{display:block}
 .logo{position:absolute;left:80px;bottom:64px;width:66px}
-svg{position:absolute;left:0;top:0;overflow:visible}
-svg text{font-family:'Macan',sans-serif}
+svg#svg{position:absolute;left:0;top:0;overflow:visible}
+svg text{font-family:'QMark','Macan',sans-serif}
 .pre{position:absolute;left:-9999px;top:0;opacity:0}
 
 </style></head><body>
 <div class="stage">
-  <h1 class="h">Progress you can <em>show the board</em>.</h1>
-  <img class="logo" src="../../brand/logo.svg" alt="">
-  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"></svg>
-  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
   
+  <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
+  <h1 class="h" id="h">Progress you can <em>show the board</em>.</h1>
+  <img class="logo" src="../../brand/logo.svg" alt="">
+  <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
 </div>
 <script>
 const D=9; window.DURATION=D;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0,1), lerp=(a,b,k)=>a+(b-a)*k;
-const E={io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2, out:x=>1-Math.pow(1-x,3), in:x=>x*x*x, lin:x=>x};
-const svg=document.getElementById('svg');
+function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
+const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
+const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
+const svg=document.getElementById('svg'), defs=document.getElementById('defs');
 const NS='http://www.w3.org/2000/svg';
 const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
-const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||svg).appendChild(e);return e};
-const txt=(x,y,s,a,p)=>{const e=mk('text',Object.assign({x,y},a||{}),p);e.textContent=s;return e};
-let _s=6; const rnd=()=>{_s=(_s*1103515245+12345)&0x7fffffff;return _s/0x7fffffff};
-const INK='#010101', WHITE='#fff', BLUE='#80ACED', FOLLOW=BLUE, SLATE='#869AA6', BEIGE='#F3F1E6', PAPER='#F9F8F3';
+const g=S(document.createElementNS(NS,'g'),{});svg.appendChild(g);
+const mk=(tag,a,p)=>{const e=document.createElementNS(NS,tag);S(e,a||{});(p||g).appendChild(e);return e};
+const line=(x1,y1,x2,y2,c,w,p)=>mk('line',{x1,y1,x2,y2,stroke:c||INK,'stroke-width':w||2,'stroke-linecap':'round'},p);
+const dot=(cx,cy,r,c,p)=>mk('circle',{cx,cy,r,fill:c||INK},p);
+const lab=(x,y,s,anchor,c,p)=>{const e=mk('text',{x,y,'font-size':24,fill:c||G1,'text-anchor':anchor||'start'},p);e.textContent=s;return e};
+const op=(el,o)=>el.setAttribute('opacity',clamp(o,0,1));
+const rise=(el,k,dy)=>{op(el,k);el.setAttribute('transform',`translate(0 ${((1-k)*(dy==null?10:dy)).toFixed(2)})`)};
+const grow=(el,x1,y1,x2,y2,k)=>{S(el,{x1,y1,x2:lerp(x1,x2,k),y2:lerp(y1,y2,k)});el.setAttribute('visibility',k>0.001?'visible':'hidden')};
+const dash=(p,k)=>{const L=p._L||(p._L=p.getTotalLength());p.setAttribute('stroke-dasharray',`${(L*k).toFixed(2)} ${L+4}`);p.setAttribute('visibility',k>0.001?'visible':'hidden')};
+let _id=0;
+function face(x,y,s,slug,p){const id='fc'+(_id++);const cp=mk('clipPath',{id},defs);mk('rect',{x,y,width:s,height:s,rx:6},cp);
+  const gg=mk('g',{},p);mk('image',{href:`../../experts/${slug}.jpg`,x,y,width:s,height:s,'clip-path':`url(#${id})`,preserveAspectRatio:'xMidYMid slice'},gg);return gg}
+function door(x,y,w,h,p){const gg=mk('g',{},p);
+  const inside=mk('rect',{x,y,width:w,height:h,fill:SKY,opacity:0},gg);
+  const frame=mk('rect',{x,y,width:w,height:h,fill:'none',stroke:INK,'stroke-width':2},gg);
+  const leaf=mk('polygon',{fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const knob=mk('circle',{r:w>100?4:2.5,fill:INK},gg);
+  return {gg,inside,set(k,c,sky){const th=k*1.12, lw=w*Math.cos(th), dy=Math.sin(th)*h*.06;
+    leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
+    S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
+    op(inside,sky?seg(k,0,.25):0)}}}
+const FADE=true;
 
-// Three ways progress gets measured: fluency lift person by person, engagement, and what got built per cohort.
-const PX=[80,460,840], PW=340, PY=250;
-['Fluency lift','Engagement and accountability','Business impact'].forEach((s,i)=>{ txt(PX[i],PY,s,{'font-size':22,'font-weight':500,fill:INK}); mk('line',{x1:PX[i],y1:PY+16,x2:PX[i]+PW,y2:PY+16,stroke:INK,'stroke-width':1.5}); });
-const SUB=['baseline survey, then follow-up, person by person','attendance and completion, reported to your AI team','agents and automations built, counted per cohort'];
-SUB.forEach((s,i)=>{ const w=mk('foreignObject',{x:PX[i],y:PY+26,width:PW,height:44}); const dv=document.createElementNS('http://www.w3.org/1999/xhtml','div'); dv.setAttribute('style','font:400 16px/1.3 Macan;color:#010101;opacity:.7'); dv.textContent=s; w.appendChild(dv); });
-// panel 1: rows of people, baseline (slate) then follow-up (blue)
-const rows=[...Array(7)].map((_,i)=>{ const y=PY+92+i*42; const base=90+rnd()*70, lift=base+70+rnd()*90;
-  mk('circle',{cx:PX[0]+8,cy:y,r:7,fill:INK});
-  const b=mk('rect',{x:PX[0]+26,y:y-10,width:0,height:20,fill:SLATE}); const l=mk('rect',{x:PX[0]+26+base,y:y-10,width:0,height:20,fill:FOLLOW});
-  return {b,l,base,lift,t:.5+i*.12}; });
-// panel 2: completion ring and attendance ticks
-const RC=[PX[1]+PW/2,PY+210], RR=92;
-mk('circle',{cx:RC[0],cy:RC[1],r:RR,fill:'none',stroke:SLATE,'stroke-width':20,opacity:.45});
-const C=2*Math.PI*RR; const ring=mk('circle',{cx:RC[0],cy:RC[1],r:RR,fill:'none',stroke:FOLLOW,'stroke-width':20,'stroke-dasharray':`0 ${C}`,transform:`rotate(-90 ${RC[0]} ${RC[1]})`});
-txt(RC[0],RC[1]+8,'completion',{'font-size':16,'font-weight':500,fill:INK,'text-anchor':'middle'});
-const ticks=[...Array(9)].map((_,i)=>{ const x=PX[1]+16+i*38, y=PY+364; const g=mk('g'); mk('rect',{x:x-14,y:y-14,width:28,height:28,fill:'none',stroke:INK,'stroke-width':1.5},g); const c=mk('path',{d:`M${x-8} ${y} l5 5 l11 -12`,fill:'none',stroke:FOLLOW,'stroke-width':3,opacity:0},g); return {c,t:1.2+i*.22}; });
-txt(PX[1],PY+402,'attendance',{'font-size':16,fill:INK,opacity:.7});
-// panel 3: builds per cohort
-const COH=['Cohort 1','Cohort 2','Cohort 3']; const builds=[];
-COH.forEach((c,i)=>{ const x=PX[2]+i*116; txt(x,PY+402,c,{'font-size':16,fill:INK,opacity:.7}); const n=[5,8,11][i];
-  for(let j=0;j<n;j++){ const col=j%3,row=Math.floor(j/3); const r=mk('rect',{x:x+col*34,y:PY+372-row*34-28,width:28,height:28,fill:i===2?INK:(i===1?BLUE:SLATE),opacity:0}); builds.push({r,t:1.0+i*.9+j*.17}); } });
-function render(t){
-  const reset=E.in(seg(t,7.6,8.4));
-  rows.forEach(r=>{ const kb=E.out(seg(t,r.t,r.t+.6))*(1-reset), kl=E.out(seg(t,r.t+1.6,r.t+2.4))*(1-reset); r.b.setAttribute('width',r.base*kb); r.l.setAttribute('width',(r.lift-r.base)*kl); r.l.setAttribute('opacity',kl>0?1:0); });
-  const k=E.io(seg(t,.8,3.6))*(1-reset); ring.setAttribute('stroke-dasharray',`${C*.84*k} ${C}`);
-  ticks.forEach(x=>x.c.setAttribute('opacity',E.out(seg(t,x.t,x.t+.2))*(1-reset)));
-  builds.forEach(b=>{ const o=E.out(seg(t,b.t,b.t+.3))*(1-reset); b.r.setAttribute('opacity',o); b.r.setAttribute('transform',`translate(0 ${lerp(8,0,o)})`); });
-}
+// Five people, measured twice. Every line ends higher than it started. No numbers.
+const XA=750,XB=1110,TOP=232,BOT=500;
+line(XA,TOP,XA,BOT,G3,2);line(XB,TOP,XB,BOT,G3,2);
+lab(XA,BOT+44,'Baseline','middle');lab(XB,BOT+44,'Follow-up','middle');
+const YA=[462,418,482,392,440], YB=[338,262,396,286,316], T=[1.9,2.7,3.3,4.3,4.9], A0=[.6,.75,1.0,1.1,1.35];
+const ps=YA.map((y,i)=>({a:dot(XA,y,5,INK),l:line(XA,y,XA,y,INK,1.5),b:dot(XB,YB[i],6,SKY)}));
+function render(t){ps.forEach((p,i)=>{op(p.a,at(t,A0[i],.4));grow(p.l,XA,YA[i],XB,YB[i],at(t,T[i],.9));op(p.b,at(t,T[i]+.55,.4))})}
 
-window.seek=t=>render(((t%D)+D)%D);
-render(0);
-if(location.hash==='#play'){(function loop(){render((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
+function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
+window.seek=t=>frame(((t%D)+D)%D);
+frame(0);
+if(location.hash==='#play'){(function loop(){frame((performance.now()/1000)%D);requestAnimationFrame(loop)})();}
 </script></body></html>

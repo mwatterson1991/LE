@@ -97,3 +97,36 @@ Fixed
 Left as is (needs a call)
 - SheerID deck slides with five rows (Layers, Levels, Timeline, next-step dates) and six people groups exceed "three items"; they describe the real program and schedule. Split into two slides or accept five for structural content.
 - Before/after column labels, the film's store badges, Motion preset descriptions and autosaved untouched drafts in Projects are noted in the defect log but not changed.
+
+
+## Nov 23, later — cleaned up
+Direction from the review: LE is a repository of our work and the images people draw from, plus one solid skill. Less is more; every element needs a reason. The chrome now follows the chat interface guidelines (brand/chat-guidelines.html): its tokens, type scale, 96px section rhythm and one line colour.
+
+Chrome
+- Top-left is the mark from the guidelines (it paints down and sweeps into the curves once, again on hover) and "LE" in Helvetica Neue. The face and the "Leland" word are gone. Nav is text only, in Helvetica Neue: Make, Library, Projects, Skill, Motion, Brand.
+- Search is rounded, types through real examples from the manifest, and suggests as you type (grouped by shelf; arrows, Enter, Esc). No Macan question mark anywhere: the app loads Macan-*-Q.woff2 and maps U+003F to Helvetica Neue.
+- Nothing shifts between shelves: fixed-height rows, a reserved scrollbar gutter, no counts. Measured in Playwright across all 17 shelves; every position identical.
+- No counts beside sub-shelves, no captions under cards. A name shows only under logos, experts and music. The Me menu, Connect and the Opus connection are gone; Developer instructions is a link on Skill.
+
+Library
+- Photos at their true shape, three to a row. 47 photos retitled by scene or action, never by race or ethnicity (tools/manifest-nov23.py). 65 photos now: the 47, six from the guidelines (Clouds, Trees, Clay, Wheat, Water, Flowers) and twelve from the brand board. More need a source.
+- Logos on white, one size, name beneath. Graphics 8 to 16 (four Leland lockups, four product frames from assets/decks/frames). Nothing drawn.
+- Videos: all 11 finished films on disk are on the shelf (5 launch films, 6 launch-kit cuts).
+- Copy is Taglines, Voice, Posts. Click a line to copy it. The other kinds stay in data/copy.json, off the shelves.
+- Fonts shelf: Season Mix, Macan Book / Medium / SemiBold, and three Macan cuts with a plain question mark (tools/macan-q.py copies the "?" from Arimo, weight-matched, into each Macan weight).
+- Leo, the animated face, is a pack under GIFs (assets/leo: leo.html, leo.js, leo.svg, leo-pack.zip).
+
+Make
+- Six image types: Headline on a field, Photo with lockup, Expert spotlight, Chart, Three illustrations, Product moment. Chart is new (bars or line from typed values; default 120 min to 30 min from the ASU+GSV story in copy.json). One number, Quote, Before and after, Numbered list and Announcement are in js/unused/templates-extra.js.
+- Video reads "Coming soon". The maker is in js/unused/video.js. The case study builder is out (js/unused/story.js). Deck stays.
+
+Skill, Motion, Brand, Projects
+- Skill is a page: the /le skill, built from the manifest, copy.json and BRAND-BRIEF.md (Leonardo 3.0 rules verbatim), with Copy and Download .md. skills/le/SKILL.md is the same text.
+- Motion is a list of rules: the guidelines' Motion, Logo, Orb and Voice with their live demos, then the six film rules. No presets, no default, no reset, no export.
+- Brand: the board, Leonardo 3.0 rules, Colour, Lockup, Type, Photography (uncropped), Illustration, each 96px apart, then the chat interface guidelines whole (Logo through Ten rules).
+- Projects can be deleted from the row, with an inline confirm.
+
+Still open
+- Photo ids and file names keep the old stock-library words (the paths were kept on purpose; decks reference the ids). Rename files and ids together when there is time.
+- brand/chat-guidelines.html names tree green #79A360 for the chat input; BRAND-BRIEF.md says no green in marketing assets. Both are shown as written.
+- Macan-*-Q.woff2 uses Arimo's question mark (OFL). If Helvetica Neue's exact glyph is wanted in the font file, it needs a licensed source.
