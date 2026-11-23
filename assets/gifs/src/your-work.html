@@ -5,7 +5,7 @@
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
-:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#2f5fd6;--sky:#80aced}
+:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#80ACED;--sky:#80aced}
 html,body{margin:0;background:#fff}
 .stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
 h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
@@ -44,9 +44,9 @@ for(let i=0;i<3;i++){const x=TX[i],cx=x+TW/2,cy=TY+TH/2;
   html+=`<text id="src${i}" class="src" x="${cx}" y="${TY+TH+34}" text-anchor="middle">${SRC[i]}</text>`;
   html+=`<text id="nm${i}" class="name" x="${x+28}" y="${TY+TH-28}">${NAMES[i]}</text>`;
   const ck=`M${x+TW-42} ${TY+30} l5 5 l10 -10`;
-  html+=`<circle id="ckc${i}" cx="${x+TW-36}" cy="${TY+30}" r="13" stroke="#2f5fd6" stroke-width="2" stroke-dasharray="82" stroke-dashoffset="82"/><path id="ck${i}" d="${ck}" stroke="#2f5fd6" stroke-width="2.2" stroke-dasharray="22" stroke-dashoffset="22"/>`;
+  html+=`<circle id="ckc${i}" cx="${x+TW-36}" cy="${TY+30}" r="13" stroke="#80ACED" stroke-width="2" stroke-dasharray="82" stroke-dashoffset="82"/><path id="ck${i}" d="${ck}" stroke="#80ACED" stroke-width="2.2" stroke-dasharray="22" stroke-dashoffset="22"/>`;
 }
-for(let i=0;i<2;i++){const x1=TX[i]+TW,x2=TX[i+1],y=TY+TH/2;html+=`<path id="ln${i}" d="M${x1} ${y} H${x2}" stroke="#2f5fd6" stroke-width="2" stroke-dasharray="${x2-x1}" stroke-dashoffset="${x2-x1}"/><circle id="ld${i}" cx="${x2-6}" cy="${y}" r="4" fill="#2f5fd6" opacity="0"/>`;}
+for(let i=0;i<2;i++){const x1=TX[i]+TW,x2=TX[i+1],y=TY+TH/2;html+=`<path id="ln${i}" d="M${x1} ${y} H${x2}" stroke="#80ACED" stroke-width="2" stroke-dasharray="${x2-x1}" stroke-dashoffset="${x2-x1}"/><circle id="ld${i}" cx="${x2-6}" cy="${y}" r="4" fill="#80ACED" opacity="0"/>`;}
 svg.innerHTML=html;
 const $=id=>document.getElementById(id);
 function render(t){

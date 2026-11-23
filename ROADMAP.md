@@ -76,3 +76,24 @@ Today: three draggable layers on the canvas (text, illustration, product shot), 
 - GIFs: 15 looping sales concepts (assets/gifs, sources in assets/gifs/src).
 - No pills anywhere. No subcopy on cards. One Download button per editor. Drafts autosave to Projects.
 - Still weak: org logos are favicon-size sources (blurry when large; 27 mono versions are silhouettes); the PDF export loads jsPDF from a CDN at click time; Connect is honest about needing a developer (DEVELOPERS.md).
+
+
+## Nov 23 — polish pass
+Full-app QA against the Leonardo 3.0 rules and SALES-DECK.md (defect log with screenshots in the session scratchpad, qa3/defects.md). 33 defects found, 33 fixed in code or assets; 8 judgment calls left as they were, listed below.
+
+Fixed
+- Image templates: white is the default field everywhere; yellow is no longer a field option (an old saved "yellow" renders white). "Line two" / "Line" subcopy fields removed from Headline, Photo with lockup and Announcement. Mark and lockup are 1.85% of the unit (the deck's LOCK 24 at 1920), down from 9.5% / 2.9%. Numbered list is capped at three points.
+- Template defaults now come from data/copy.json or the deck JSON: Expert spotlight shows a manifest expert with "Leland expert" and a real headline (no invented credential or quote); Three illustrations uses "Learn from people who've done it" and three approved CTAs; Product moment uses "Real answers from people who've done it."; Numbered list uses the AIBP overview bullets; Photo with lockup uses the exact approved tagline.
+- Deck engine: the section slide no longer draws a number above the title; covers, stats and the price slide default to white (SALES-DECK: no black backgrounds); close-slide lockup 36px like the cover; photo-slide lockup 36px; agenda capped at three rows. Generated illustrations are listed in assets/illus/index.json so a named-but-not-yet-generated file draws its placeholder without a 404 (PROMPTS.md says to add the file name).
+- SheerID deck: the two missing illustration references no longer 404; the price slide is white.
+- Case study (story.js) rewritten to the rules: white field, no eyebrows, headline alone, one blue phrase in #80ACED, the vector lockup at the deck proportion, Season + Macan, three builds at most, close slide is the CTA line alone, company name on the lockup line. Web page export matches (no eyebrow, brand blue, joinleland.com/ai).
+- GIFs rebuilt (14 of 25): own-your-future and get-there on white; five-levels, cohort and your-use-case lose their eyebrow; the Level 5 card and Agents slab are blue with white type, the Live tile white; one-conversation bubbles are tan; your-feed's tag chip is beige; the verified badges and every #2f5fd6 are now #80ACED. No #3963D7 or #2f5fd6 remains in js/ or assets/gifs/src.
+- Template example images and the five deck covers re-rendered from the fixed renderers.
+- Tool chrome: library tabs are text only; library and project cards show the title alone; Connect rows show the name and one control ("Imported", "Connect", "Needs a developer"); panel headings are sentence case, no small caps anywhere; the screenshot count beside "Three screenshots" is gone; the preview panel shows the title and the source only; every radius is 4–6px (cards, menu, drawer, preview, stage, close/arrow buttons, palette swatches); the Me menu's Opus status is the button label itself.
+- Video editor: the header button reads Download once the film has rendered.
+- Film posters: the 11 films had blank first-frame posters; regenerated from content frames.
+- PDF export: jsPDF 2.5.1 is vendored at js/vendor/ (CDN kept as a fallback), so deck and carousel PDFs work offline and inside locked-down networks.
+
+Left as is (needs a call)
+- SheerID deck slides with five rows (Layers, Levels, Timeline, next-step dates) and six people groups exceed "three items"; they describe the real program and schedule. Split into two slides or accept five for structural content.
+- Before/after column labels, the film's store badges, Motion preset descriptions and autosaved untouched drafts in Projects are noted in the defect log but not changed.

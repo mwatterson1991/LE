@@ -28,10 +28,10 @@ const E={out:x=>1-Math.pow(1-x,3),in:x=>x*x*x,xo:x=>x>=1?1:1-Math.pow(2,-10*x),
   xio:x=>x<=0?0:x>=1?1:x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2,
   back:(x,s=1.3)=>{const c=s+1;return 1+c*Math.pow(x-1,3)+s*Math.pow(x-1,2)}};
 const lerp=(a,b,k)=>a+(b-a)*k;
-const SL=[{t:'Skills',c:'#F3F1E6'},{t:'Workflows',c:'#EBD4B5'},{t:'Agents',c:'#FFD96F'},{t:'Systems',c:'#F9F8F3'}];
+const SL=[{t:'Skills',c:'#F3F1E6'},{t:'Workflows',c:'#EBD4B5'},{t:'Agents',c:'#80ACED',w:1},{t:'Systems',c:'#F9F8F3'}];
 const H=84,G=10,BOT=656;
 const stack=document.getElementById('stack');
-const slabs=SL.map((s,i)=>{const d=document.createElement('div');d.className='slab';d.style.background=s.c;d.textContent=s.t;d.style.top=(BOT-H-i*(H+G))+'px';stack.appendChild(d);return d;});
+const slabs=SL.map((s,i)=>{const d=document.createElement('div');d.className='slab';d.style.background=s.c;if(s.w)d.style.color='#fff';d.textContent=s.t;d.style.top=(BOT-H-i*(H+G))+'px';stack.appendChild(d);return d;});
 const person=document.createElement('div');person.className='person';person.style.top=(BOT-4*(H+G)-220)+'px';
 person.innerHTML=`<img src="../../brand/board-6.webp" alt=""><span></span>`;stack.appendChild(person);
 const IN=i=>.4+i*.55;

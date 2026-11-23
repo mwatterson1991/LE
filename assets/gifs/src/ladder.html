@@ -5,7 +5,7 @@
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
-:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#2f5fd6;--sky:#80aced}
+:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#80ACED;--sky:#80aced}
 html,body{margin:0;background:#fff}
 .stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
 h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
@@ -34,9 +34,9 @@ for(let i=0;i<5;i++){const s=tread(i);base+=' H'+s.x1;if(i<4)base+=' V'+tread(i+
 let html=`<path d="${base}" stroke="#eee" stroke-width="3"/>`;
 // lit segments: riser into tread i + tread i
 for(let i=0;i<5;i++){const s=tread(i);let d=i===0?`M${s.x0} ${s.y} H${s.x1}`:`M${s.x0} ${tread(i-1).y} V${s.y} H${s.x1}`;const len=(i===0?0:R)+W;
-  html+=`<path id="lit${i}" d="${d}" stroke="#2f5fd6" stroke-width="3" stroke-dasharray="${len}" stroke-dashoffset="${len}"/>`;
+  html+=`<path id="lit${i}" d="${d}" stroke="#80ACED" stroke-width="3" stroke-dasharray="${len}" stroke-dashoffset="${len}"/>`;
   html+=`<text id="lab${i}" class="lbl" x="${s.x0+6}" y="${s.y-18}">${LABELS[i]}</text>`;}
-html+=`<circle id="halo" r="18" fill="#80aced" opacity="0"/><circle id="dot" r="8" fill="#2f5fd6"/>`;
+html+=`<circle id="halo" r="18" fill="#80aced" opacity="0"/><circle id="dot" r="8" fill="#80ACED"/>`;
 svg.innerHTML=html;
 const lit=[],lab=[];for(let i=0;i<5;i++){lit.push(document.getElementById('lit'+i));lab.push(document.getElementById('lab'+i));}
 const dot=document.getElementById('dot'),halo=document.getElementById('halo');

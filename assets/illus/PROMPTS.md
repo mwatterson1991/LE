@@ -1,7 +1,7 @@
 # Illustration prompts (ChatGPT image generation)
 
 Claude does not draw illustrations. Generate each image below in ChatGPT, save it under the file name given, drop it in
-`assets/illus/`, and the deck renderer (js/deck.js) picks it up on the next render. Until the file exists the slide draws a
+`assets/illus/`, add the file name to `assets/illus/index.json`, and the deck renderer (js/deck.js) picks it up on the next render. Until the file exists the slide draws a
 code placeholder (stacked bars, a grid of circles, an arrow) or a library illustration from assets/illustrations/.
 
 Shared style, paste before every prompt:

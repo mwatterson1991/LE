@@ -5,7 +5,7 @@
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
-:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#2f5fd6;--sky:#80aced}
+:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#80ACED;--sky:#80aced}
 html,body{margin:0;background:#fff}
 .stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
 h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
@@ -37,7 +37,7 @@ const WF=1120, WS=70; // 30 min of 8 hrs = 1/16 of the track
 function render(t){
   const sh=eio(seg(t,1.4,3.0));
   const w=WF+(WS-WF)*sh;
-  const col=mix('#eeeeee','#2f5fd6',eio(seg(t,1.8,2.8)));
+  const col=mix('#eeeeee','#80ACED',eio(seg(t,1.8,2.8)));
   // reset: fade out blue, fade in grey
   const out=seg(t,5.8,6.3), back=eo(seg(t,6.5,7.1));
   let op=1, width=w, color=col;

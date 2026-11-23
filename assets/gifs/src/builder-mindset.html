@@ -5,7 +5,7 @@
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Book.woff2) format('woff2');font-weight:400}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-SemiBold.woff2) format('woff2');font-weight:600}
-:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#2f5fd6;--sky:#80aced}
+:root{--ink:#111;--ink2:#4c4c4c;--ink3:#767676;--g2:#eee;--blue:#80ACED;--sky:#80aced}
 html,body{margin:0;background:#fff}
 .stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#fff;font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
 h1{position:absolute;left:80px;top:72px;margin:0;font-family:'Season',serif;font-weight:500;font-size:56px;line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:800px}
@@ -35,7 +35,7 @@ function render(t){
     const T=0.8+d.dist*0.6; const k=seg(t,T,T+0.5);
     let on=eo(k); if(t>=6.3)on=1-reset;
     const pop=Math.sin(Math.PI*k)*0.16*(t<6.3?1:0);
-    d.el.setAttribute('fill',mix('#eeeeee','#2f5fd6',on));
+    d.el.setAttribute('fill',mix('#eeeeee','#80ACED',on));
     d.el.setAttribute('r',R*(1+pop));
   }
 }

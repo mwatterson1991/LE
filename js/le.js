@@ -121,7 +121,7 @@ function startVideo(saved){openEditor('video',saved?saved.t:'Untitled video',sav
 function renderVideoPanel(){
   const shots=ED.shots.map(id=>A(id)).filter(Boolean);
   $('panel').innerHTML=`<div class="sec"><h3>The story</h3><div class="f"><textarea id="vStory" style="min-height:96px" oninput="ED.story=this.value;renderVideoBtn()" placeholder="Jobs is live. Drop your resume and your next job finds you.">${esc(ED.story)}</textarea></div></div>
-  <div class="sec"><h3>Three screenshots <small>${shots.length}</small></h3><div class="shotlist">${shots.map((a,i)=>`<div class="shotc"><img src="${a.thumb||a.poster||a.src}" alt=""><button class="x" onclick="ED.shots.splice(${i},1);renderVideoPanel()">×</button></div>`).join('')}<label class="shotc add">+<input type="file" accept="image/*" multiple style="display:none" onchange="uploadShots(this.files)"></label></div><button class="link" onclick="openDrawer(['card','aipost','hero','gif'],'shots')">From the library</button></div>
+  <div class="sec"><h3>Three screenshots</h3><div class="shotlist">${shots.map((a,i)=>`<div class="shotc"><img src="${a.thumb||a.poster||a.src}" alt=""><button class="x" onclick="ED.shots.splice(${i},1);renderVideoPanel()">×</button></div>`).join('')}<label class="shotc add">+<input type="file" accept="image/*" multiple style="display:none" onchange="uploadShots(this.files)"></label></div><button class="link" onclick="openDrawer(['card','aipost','hero','gif'],'shots')">From the library</button></div>
   <div class="sec"><h3>Length</h3><div class="seg">${[15,20,30].map(d=>`<button class="${ED.dur===d?'on':''}" onclick="ED.dur=${d};renderVideoPanel()">${d}s</button>`).join('')}</div></div>
   <div class="sec"><h3>Music</h3><div class="music">${byGroup('music').map(a=>`<button class="${ED.vibe===a.id?'on':''}" onclick="ED.vibe='${a.id}';renderVideoPanel()"><img src="${a.thumb}" alt="">${esc(a.title)}<small>${a.duration}s</small></button>`).join('')}<button class="${ED.vibe===null?'on':''}" onclick="ED.vibe=null;renderVideoPanel()"><span style="width:34px"></span>No music</button></div></div>
   <div class="sec"><h3>Close with</h3><div class="f"><input value="${esc(ED.tag)}" oninput="ED.tag=this.value"></div><div class="copylist">${(M.brand.taglines||[]).filter(t=>t!==ED.tag).map(t=>`<button onclick='ED.tag=${JSON.stringify(t)};renderVideoPanel()'>${esc(t)}</button>`).join('')}</div><div class="f" style="margin-top:10px"><div class="seg"><button class="${ED.badges?'on':''}" onclick="ED.badges=true;renderVideoPanel()">App badges</button><button class="${!ED.badges?'on':''}" onclick="ED.badges=false;renderVideoPanel()">No badges</button></div></div></div>
@@ -139,7 +139,7 @@ async function makeVideo(){const story=ED.story.trim();busy(true,'Writing the ho
   state.dark=ED.dark;state.music=ED.vibe;state.outro=MOTION.defaults.logo;
   busy(true,'Rendering '+Math.round(S.reduce((a,s)=>a+sceneDur(s),0))+' seconds in your browser');
   try{const {blob,ext,T}=await renderVideo(S);ED.blob=blob;ED.ext=ext;const v=$('resultVid');v.src=URL.createObjectURL(blob);v.style.display='';$('canvasImg').style.display='none';$('stage').className='stage r169';$('main').scrollTop=0;v.play().catch(()=>{});
-    addProject({t:$('etitle').value,m:'Video · '+T.toFixed(0)+'s',th:(A(ED.shots[0])||{}).thumb,kind:'video',shots:ED.shots.filter(id=>!id.startsWith('upload')),story:ED.story,video:{dur:ED.dur,vibe:ED.vibe,dark:ED.dark,tag:ED.tag,badges:ED.badges}});toast('Play it, then download.')}catch(e){console.error(e);toast('Render error: '+e.message)}
+    addProject({t:$('etitle').value,m:'Video · '+T.toFixed(0)+'s',th:(A(ED.shots[0])||{}).thumb,kind:'video',shots:ED.shots.filter(id=>!id.startsWith('upload')),story:ED.story,video:{dur:ED.dur,vibe:ED.vibe,dark:ED.dark,tag:ED.tag,badges:ED.badges}});renderVideoBtn();toast('Play it, then download.')}catch(e){console.error(e);toast('Render error: '+e.message)}
   busy(false)}
 
 /* ---------- Deck: a type, pasted text, slides ---------- */
@@ -159,7 +159,7 @@ async function exportDeck(kind){const name=slug($('etitle').value);const h=helpe
   if(kind==='png'){for(let i=0;i<cs.length;i++){await new Promise(r=>cs[i].toBlob(b=>{dl(b,`${name}-${String(i+1).padStart(2,'0')}.png`);setTimeout(r,250)},'image/png'))}}
   else{try{await loadJsPDF();const {jsPDF}=window.jspdf;const pdf=new jsPDF({unit:'px',format:[1920,1080],orientation:'landscape',hotfixes:['px_scaling']});cs.forEach((c,i)=>{if(i)pdf.addPage([1920,1080],'landscape');pdf.addImage(c.toDataURL('image/jpeg',.92),'JPEG',0,0,1920,1080)});pdf.save(`${name}.pdf`)}catch(e){busy(false);await exportDeck('png');toast('PDF library unreachable, so the slides came down as PNGs');return}}
   busy(false);addProject({t:$('etitle').value,m:'Deck · '+ED.slides.length+' slides',th:ED.thumbs&&ED.thumbs[0],kind:'deck',deck:{type:ED.type.id,text:ED.text}});toast(kind==='png'?ED.slides.length+' slides downloaded':'Deck downloaded')}
-function loadJsPDF(){if(window.jspdf)return Promise.resolve();return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)})}
+function loadJsPDF(){if(window.jspdf)return Promise.resolve();const load=src=>new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)});return load('js/vendor/jspdf.umd.min.js').catch(()=>load('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'))}
 
 /* ---------- Story (story.js renders; this is the shell) ---------- */
 function startStory(saved){openEditor('story',saved?saved.t:'Untitled story',saved);$('stage').className='stage r45';
@@ -192,7 +192,7 @@ const COPY_KINDS=['post','headline','hook','tagline','cta','subject','ad','bio',
 const subOf=k=>{for(const t of LIB)for(const s of t[3])if(s[0]===k)return {tab:t,sub:s};return {tab:LIB[0],sub:LIB[0][3][0]}};
 const CHIPS={scene:[['all','All'],['intro','Intros'],['text','Text'],['product','Product'],['outro','Outros']],org:[['all','All'],['school','Schools'],['company','Companies']],illustration:[['all','All'],['social','Communication'],['work','Work'],['growth','Growth']],post:[['all','All'],['community','Community'],['aibp','AI Builder'],['coaching','Coaching'],['jobs','Jobs']]};
 function count(s){return COPY_KINDS.includes(s[0])?copyItems(s[0]).length:byGroup(...s[2]).length}
-function renderTabs(){const cur=state.q?null:subOf(state.tab).tab[0];$('tabs').innerHTML=LIB.map(([k,n,ic,subs])=>`<button class="${cur===k?'on':''}" onclick="go('lib','${subs[0][0]}')"><svg class="ico" viewBox="0 0 24 24">${ic}</svg>${n}</button>`).join('')}
+function renderTabs(){const cur=state.q?null:subOf(state.tab).tab[0];$('tabs').innerHTML=LIB.map(([k,n,ic,subs])=>`<button class="${cur===k?'on':''}" onclick="go('lib','${subs[0][0]}')">${n}</button>`).join('')}
 function renderChips(){const {tab,sub}=subOf(state.tab);const el=$('chips');if(state.q){el.innerHTML='';return}
   let h=tab[3].map(s=>`<button class="${s[0]===sub[0]?'on':''}" onclick="go('lib','${s[0]}')">${s[1]}<small>${count(s)}</small></button>`).join('');
   const c=CHIPS[sub[0]];if(c)h+=`<span class="filters">${c.map(([k,n])=>`<button class="${state.chip===k?'on':''}" onclick="state.chip='${k}';renderLib()">${n}</button>`).join('')}</span>`;
@@ -203,16 +203,16 @@ function match(a){const q=state.q;if(!q)return true;return ((a.title||'')+' '+(a
 function chipMatch(a){const c=state.chip;if(!c||c==='all')return true;if(a.group==='scene')return a.style===c;if(a.group==='org')return a.kind===c;if(a.group==='illustration')return a.set===c;if(a.group==='copy')return a.for===c;return true}
 const logoSrc=a=>state.logoMode==='color'||!a.mono?a.src:a.mono[state.logoMode];
 function card(a){
-  if(a.type==='video')return `<div class="card vid" onclick="openAsset('${a.id}')" onmouseenter="hoverPlay(this,1)" onmouseleave="hoverPlay(this,0)"><div class="th" style="background-image:url('${a.poster}')"><video muted loop playsinline preload="none" poster="${a.poster}" data-src="${a.src}"></video>${a.duration?`<span class="dur">${fmtDur(a.duration)}</span>`:''}</div><div class="t">${esc(a.title)}</div><div class="m">${esc(a.sub||a.group)}</div></div>`;
-  if(a.type==='gif')return `<div class="card gif" onclick="openAsset('${a.id}')" onmouseenter="this.querySelector('img').src='${a.src}'" onmouseleave="this.querySelector('img').src='${a.poster}'"><div class="th"><img src="${a.poster}" alt=""></div><div class="t">${esc(plain(a.title))}</div><div class="m">${esc(a.sub)}</div></div>`;
-  if(a.type==='audio')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th" style="background-image:url('${a.thumb}')"></div><div class="t">${esc(a.title)}</div><div class="m">${a.duration}s</div></div>`;
-  if(a.type==='icon')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th icon"><img loading="lazy" src="${a.src}" alt=""></div><div class="m" style="text-align:center;margin-top:6px">${esc(a.title)}</div></div>`;
+  if(a.type==='video')return `<div class="card vid" onclick="openAsset('${a.id}')" onmouseenter="hoverPlay(this,1)" onmouseleave="hoverPlay(this,0)"><div class="th" style="background-image:url('${a.poster}')"><video muted loop playsinline preload="none" poster="${a.poster}" data-src="${a.src}"></video>${a.duration?`<span class="dur">${fmtDur(a.duration)}</span>`:''}</div><div class="t">${esc(a.title)}</div></div>`;
+  if(a.type==='gif')return `<div class="card gif" onclick="openAsset('${a.id}')" onmouseenter="this.querySelector('img').src='${a.src}'" onmouseleave="this.querySelector('img').src='${a.poster}'"><div class="th"><img src="${a.poster}" alt=""></div><div class="t">${esc(plain(a.title))}</div></div>`;
+  if(a.type==='audio')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th" style="background-image:url('${a.thumb}')"></div><div class="t">${esc(a.title)}</div></div>`;
+  if(a.type==='icon')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th icon"><img loading="lazy" src="${a.src}" alt=""></div><div class="t" style="text-align:center;font-size:.75rem;margin-top:6px">${esc(a.title)}</div></div>`;
   if(a.group==='org')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th contain sq ${state.logoMode==='white'?'dark':''}"><img loading="lazy" src="${logoSrc(a)}" alt=""></div><div class="t">${esc(a.title)}</div></div>`;
   if(a.group==='illustration')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th ill"><img loading="lazy" src="${a.src}" alt=""></div><div class="t">${esc(a.title)}</div></div>`;
   if(a.group==='graphic')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th contain r43"><img loading="lazy" src="${a.src}" alt=""></div><div class="t">${esc(a.title)}</div></div>`;
   if(a.group==='expert')return `<div class="card" onclick="openAsset('${a.id}')"><div class="th sq" style="background-image:url('${a.thumb}')"></div><div class="t">${esc(a.title)}</div></div>`;
-  if(a.group==='copy')return `<div class="card copy ${a.kind==='post'?'post':''}" onclick="openAsset('${a.id}')"><div class="th">${esc(a.kind==='post'?a.text.split('\n')[0]:plain(a.text))}</div><div class="m">${esc(a.sub)}</div></div>`;
-  return `<div class="card" onclick="openAsset('${a.id}')"><div class="th ${a.group==='photo'?'r43':''}" style="background-image:url('${a.thumb||a.src}')"></div><div class="t">${esc(a.title)}</div><div class="m">${esc(a.group==='background'?(a.tags||[]).filter(t=>t!=='background').slice(0,3).join(' · '):a.sub||a.group)}</div></div>`}
+  if(a.group==='copy')return `<div class="card copy ${a.kind==='post'?'post':''}" onclick="openAsset('${a.id}')"><div class="th">${esc(a.kind==='post'?a.text.split('\n')[0]:plain(a.text))}</div></div>`;
+  return `<div class="card" onclick="openAsset('${a.id}')"><div class="th ${a.group==='photo'?'r43':''}" style="background-image:url('${a.thumb||a.src}')"></div><div class="t">${esc(a.title)}</div></div>`}
 const fmtDur=d=>`${Math.floor(d/60)}:${String(Math.round(d%60)).padStart(2,'0')}`;
 function hoverPlay(el,on){const v=el.querySelector('video');if(!v)return;if(on){if(!v.src)v.src=v.dataset.src;v.currentTime=0;v.play().catch(()=>{})}else{v.pause()}}
 function copyItems(kind){const items=(COPY.items||[]).map(c=>({id:c.id,type:'copy',group:'copy',kind:c.kind,for:c.for,title:c.kind==='post'?c.text.split('\n')[0].slice(0,60):plain(c.text),sub:[c.for,c.platform].filter(x=>x&&x!=='any').join(' · ')+(c.performed?' · performed':''),text:c.text,note:c.note,source:c.source,tags:[c.kind,c.for,c.platform]}));
@@ -251,7 +251,7 @@ function showPreview(id){
   else if(['background','photo','hero','header','aibp'].includes(a.group))actions=`<button class="btn black" onclick="${useIn('photo-lockup','photo')}">Use as the photo</button><a class="btn" href="${a.src}" download>Download</a>`;
   else if(['card','aipost','upload'].includes(a.group))actions=`<button class="btn black" onclick="${useIn('product-moment','shot')}">Use as the product shot</button><button class="btn" onclick="closePreview(true);startVideo();ED.shots=['${a.id}'];renderVideoPanel()">Start a film with it</button><a class="btn" href="${a.src}" download>Download</a>`;
   else actions=`<a class="btn black" href="${a.src}" download>Download</a>`;
-  sd.innerHTML=`<h2>${esc(plain(a.title))}</h2><div class="m">${esc(a.sub||'')}${a.note&&!/manifest/i.test(a.note)?`<br><br>${esc(a.note)}`:''}${a.source?`<br><br><span class="dim">${esc(String(a.source).split(';')[0])}</span>`:''}${a.best?`<br><b style="color:var(--ink)">Best for:</b> ${esc(a.best)}`:''}${a.idea?`<br><br>${esc(a.idea)}`:''}</div>${actions}`;
+  sd.innerHTML=`<h2>${esc(plain(a.title))}</h2>${a.source?`<div class="m"><span class="dim">${esc(String(a.source).split(';')[0])}</span></div>`:''}${actions}`;
   $('pv').classList.add('on');
 }
 function closePreview(silent){const pv=$('pv');if(!pv.classList.contains('on'))return;pv.classList.remove('on');pv.querySelectorAll('video,audio').forEach(v=>v.pause());$('pvstage').innerHTML='';if(!silent&&location.hash.startsWith('#asset/')){if(pvPushed)history.back();else location.hash=state.tab?'lib/'+state.tab:'lib'}pvPushed=false}
@@ -293,7 +293,7 @@ async function opus(system,user,max=900){const body={model:'claude-opus-4-1',max
 const SYSTEM=()=>`You write marketing copy for Leland (joinleland.com). ${M.brand.pitch?M.brand.pitch.oneliner:''} Voice: ${(COPY.voice&&COPY.voice.summary)||'direct, concrete, warm, no hype'}. Rules: ${((COPY.voice&&COPY.voice.rules)||[]).join(' ')} Approved taglines: ${(M.brand.taglines||[]).join(' | ')}. Guardrails: ${(M.brand.guardrails||[]).join(' ')} In headlines, wrap the one phrase that should be blue in [square brackets]. Respond ONLY with JSON.`;
 const jsonOf=s=>{try{return JSON.parse(s.replace(/```json|```/g,'').trim())}catch(e){const m=s.match(/\{[\s\S]*\}/);return m?JSON.parse(m[0]):null}};
 function connectOpus(){const k=prompt('Paste an Anthropic API key (stays in this browser). Leave blank to use a proxy URL.');if(k===null)return;if(k.trim()){CFG.key=k.trim();CFG.api=''}else{const u=prompt('Proxy URL (your Cloudflare Worker)');if(u&&u.trim()){CFG.api=u.trim()}}opusNote();renderConnect();toast(hasOpus()?'Opus connected':'Not connected')}
-function opusNote(){$('opusst').textContent=hasOpus()?'on':''}
+function opusNote(){const b=$('opusbtn');if(b)b.textContent=hasOpus()?'Opus connected':'Connect Opus'}
 
 /* ---------- export helpers ---------- */
 function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src})}
@@ -352,16 +352,16 @@ async function renderVideo(S,ratioKey=''){const [W,H]=SIZES[ratioKey];const c=do
 let projects=[];
 function restoreProjects(){try{projects=JSON.parse(localStorage.getItem('le-projects')||'[]')}catch(e){projects=[]}renderProjects()}
 function addProject(p){const id=ED.pid||p.id||(crypto.randomUUID?crypto.randomUUID():String(Date.now()));projects=projects.filter(q=>q.id!==id);projects.unshift({...p,id,at:new Date().toISOString()});projects=projects.slice(0,60);try{localStorage.setItem('le-projects',JSON.stringify(projects))}catch(e){}renderProjects()}
-function renderProjects(){const nb=document.querySelector('#projects .hrow .btn');if(nb)nb.style.display=projects.length?'':'none';$('projlist').innerHTML=projects.length?`<div class="pgrid2">${projects.map((p,i)=>`<div class="proj" onclick="openProject(${i})"><div class="th" style="background-image:url('${p.th||''}')"></div><div class="t">${esc(p.t)}</div><div class="m">${esc(p.m)} · ${new Date(p.at).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</div></div>`).join('')}</div>`:`<div class="empty big"><button class="btn black" onclick="go('make')">Make something</button></div>`}
+function renderProjects(){const nb=document.querySelector('#projects .hrow .btn');if(nb)nb.style.display=projects.length?'':'none';$('projlist').innerHTML=projects.length?`<div class="pgrid2">${projects.map((p,i)=>`<div class="proj" onclick="openProject(${i})"><div class="th" style="background-image:url('${p.th||''}')"></div><div class="t">${esc(p.t)}</div></div>`).join('')}</div>`:`<div class="empty big"><button class="btn black" onclick="go('make')">Make something</button></div>`}
 function openProject(i){const p=projects[i];if(p.kind==='image'&&p.tid)startImage(p.tid,p);else if(p.kind==='deck'&&p.deck)startDeck(p.deck.type,p);else if(p.kind==='story'&&p.story)startStory(p);else if(p.kind==='video')startVideo(p);else toast(p.m)}
 
 /* ---------- connect ---------- */
 const CONNS={create:[
-  {id:'figma',n:'Figma',d:'Product illustrations, brand file',st:()=>'Imported · 299 illustrations'},
-  {id:'drive',n:'Google Drive',d:'Brand library, expert photos, launch kit',st:()=>'Imported · brand library'},
-  {id:'notion',n:'Notion',d:'Case study drafts, post copy',st:()=>'Imported · copy'},
+  {id:'figma',n:'Figma',d:'Product illustrations, brand file',st:()=>'Imported'},
+  {id:'drive',n:'Google Drive',d:'Brand library, expert photos, launch kit',st:()=>'Imported'},
+  {id:'notion',n:'Notion',d:'Case study drafts, post copy',st:()=>'Imported'},
   {id:'opus',n:'Claude Opus',d:'Writes copy inside the guardrails',st:()=>hasOpus()?'Connected':'',act:'connectOpus()',label:'Connect'},
-  {id:'slack',n:'Slack',d:'Where requests and the voice come from',st:()=>'Imported · voice'}],
+  {id:'slack',n:'Slack',d:'Where requests and the voice come from',st:()=>'Imported'}],
   dist:[
   {id:'linkedin',n:'LinkedIn',d:'Posts, carousels, company page',st:()=>''},
   {id:'instagram',n:'Instagram',d:'Posts, reels, stories',st:()=>''},
@@ -370,7 +370,7 @@ const CONNS={create:[
   {id:'youtube',n:'YouTube',d:'Films and clips',st:()=>''},
   {id:'posthog',n:'PostHog',d:'What happens after the click',st:()=>''}]};
 const LOGO_SVG={figma:'<path d="M9 3h6a3 3 0 010 6H9zM9 9h6a3 3 0 010 6H9zM9 15h3a3 3 0 11-3 3z"/><path d="M15 9a3 3 0 110 6 3 3 0 010-6z"/>',drive:'<path d="M8 4h8l5 9-4 7H7l-4-7z"/><path d="M8 4l4 9h9M12 13l-4 7"/>',notion:'<rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 16V8l6 8V8"/>',opus:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',slack:'<path d="M9 4v6M15 14v6M4 15h6M14 9h6M9 10a2 2 0 11-2-2M15 14a2 2 0 112 2M10 15a2 2 0 11-2 2M14 9a2 2 0 112-2"/>',linkedin:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10v6M8 7v.5M12 16v-3.5a2 2 0 014 0V16"/>',instagram:'<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><path d="M17 7v.5"/>',meta:'<path d="M3 16c2-8 5-8 9 0 4-8 7-8 9 0"/>',gads:'<path d="M6 17l6-10 6 10"/><circle cx="6" cy="17" r="2"/>',youtube:'<rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10 9l5 3-5 3z"/>',posthog:'<path d="M4 18l6-6 4 4 6-6"/>'};
-function renderConnect(){const row=c=>{const s=c.st();return `<div class="conn ${s?'on':''}"><svg class="ico" viewBox="0 0 24 24">${LOGO_SVG[c.id]||''}</svg><div><b>${c.n}</b><span>${c.d}</span></div><button class="btn sm" onclick="${c.act||`connReq('${c.n}')`}">${s||c.label||'Needs a developer'}</button></div>`};
+function renderConnect(){const row=c=>{const s=c.st();return `<div class="conn ${s?'on':''}"><svg class="ico" viewBox="0 0 24 24">${LOGO_SVG[c.id]||''}</svg><div><b>${c.n}</b></div><button class="btn sm" onclick="${c.act||`connReq('${c.n}')`}">${s||c.label||'Needs a developer'}</button></div>`};
   $('connCreate').innerHTML=CONNS.create.map(row).join('');$('connDist').innerHTML=CONNS.dist.map(row).join('');
   const rows=projects.map(p=>`<div class="prow"><div class="th" style="background-image:url('${p.th||''}')"></div><div class="t">${esc(p.t)}</div><div>${esc(p.m)}</div><div>Saved</div><div class="dim">—</div><div class="dim">—</div></div>`).join('');
   $('placements').innerHTML=`<div class="prow head"><div></div><div>Asset</div><div>Format</div><div>Where</div><div>Spend</div><div>Results</div></div>${rows||'<div class="empty">Nothing made yet.</div>'}`}

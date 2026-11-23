@@ -3,7 +3,7 @@
 <style>
 @font-face{font-family:'Season';src:url(../../../fonts/SeasonMix-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
-:root{--yellow:#FFD96F;--ink:#010101}
+:root{--yellow:#FFFFFF;--ink:#010101} /* Leonardo 3.0: words never sit on yellow, so the tile is white */
 html,body{margin:0;background:#000}
 .stage{position:relative;width:1280px;height:720px;overflow:hidden;background:var(--yellow);font-family:'Macan',sans-serif;-webkit-font-smoothing:antialiased}
 .layer{position:absolute;inset:0}
@@ -76,7 +76,7 @@ function render(t){
   cursor.style.transform=`translate(${cx+80}px,${cy+76}px)`;
   const blink=t<3.2?0:t<4.7?1:(t<6.2?(Math.floor((t-4.7)*2.4)%2===0?1:0):0);
   cursor.style.opacity=blink;
-  // 3. loop out: a fresh yellow tile pushes up from below, like the board
+  // 3. loop out: a fresh tile pushes up from below, like the board
   const w=E.xio(seg(t,8.2,9.3));
   wipe.style.clipPath=`inset(${(1-w)*100}% 0 0 0)`;
   content.style.transform=`translateY(${-w*300}px)`;

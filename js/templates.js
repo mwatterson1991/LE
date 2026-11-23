@@ -6,7 +6,8 @@
   /* ---------- palette & brand rules ---------- */
   var PAL = { yellow: '#FFD96F', blue: '#80ACED', slate: '#869AA6', beige: '#F3F1E6', tan: '#EBD4B5', paper: '#F9F8F3', ink: '#010101', neutral: '#222222', white: '#ffffff' };
   var DARK = { blue: 1, slate: 1, ink: 1, neutral: 1 };
-  function fieldHex(name, pal) { return (pal && pal[name]) || PAL[name] || name || PAL.yellow; }
+  /* yellow is never a field under type: an old saved 'yellow' renders white */
+  function fieldHex(name, pal) { if (name === 'yellow') name = 'white'; return (pal && pal[name]) || PAL[name] || name || PAL.white; }
   function isDark(name) { return !!DARK[name]; }
   /* type colour on a field */
   function inkFor(name) { return isDark(name) ? PAL.white : PAL.ink; }
@@ -149,8 +150,9 @@
   }
   function fill(x, W, H, hex) { x.fillStyle = hex; x.fillRect(0, 0, W, H); }
   /* one size for the mark and one for the lockup, on every template */
-  function markSize(f) { return Math.round(f.u * .095); }
-  function logoSize(f) { return Math.round(f.u * .029); }
+  /* the deck's LOCK is 24px on a 1296 unit (1.85%); the same proportion on every tile */
+  function markSize(f) { return Math.max(18, Math.round(f.u * .0185)); }
+  function logoSize(f) { return Math.max(18, Math.round(f.u * .0185)); }
   /* an outlined store badge: small line over a bold name, no platform logos */
   function storeBadge(x, X, Y, w, h, small, big, ink) {
     x.save(); x.strokeStyle = ink; x.lineWidth = Math.max(2, Math.round(h * .035)); roundRect(x, X, Y, w, h, h * .22); x.stroke();
@@ -177,28 +179,27 @@
   function get(d, k, def) { var v = d[k]; if (v == null) return def; v = String(v).trim(); return v === '' ? def : v; }
 
   /* ---------- templates ---------- */
-  var FIELDS = ['yellow', 'blue', 'beige', 'tan', 'slate', 'paper', 'ink'];
+  var FIELDS = ['white', 'paper', 'beige', 'tan', 'slate', 'blue', 'ink'];
 
   var T = [];
 
   /* 1. Headline on a field — the board's "Own your future." tile */
   T.push({
     id: 'field-headline', name: 'Headline on a field',
-    desc: 'One Season line on a yellow, blue or beige field with the mark.',
+    desc: 'One Season line on a white field with the mark.',
     ratios: ['r45', 'r11', '', 'r916'],
     fields: [
       { key: 'head', label: 'Headline', type: 'text', max: 60 },
-      { key: 'sub', label: 'Line two', type: 'text', max: 120, optional: true },
       { key: 'color', label: 'Field', type: 'color', options: FIELDS },
       { key: 'brand', label: 'Brand', type: 'choice', options: ['mark', 'lockup'] },
       { key: 'align', label: 'Align', type: 'choice', options: ['left', 'center'] }
     ],
-    defaults: { head: 'Own your future.', sub: '', color: 'yellow', brand: 'mark', align: 'left' },
+    defaults: { head: 'Own your future.', color: 'white', brand: 'mark', align: 'left' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'yellow'), ink = inkFor(c), acc = accentFor(c), center = get(d, 'align', 'left') === 'center';
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), acc = accentFor(c), center = get(d, 'align', 'left') === 'center';
       fill(x, W, H, fieldHex(c, h.PAL));
       var brandH = get(d, 'brand', 'mark') === 'lockup' ? logoSize(f) : markSize(f);
-      var head = get(d, 'head', ''), sub = get(d, 'sub', '');
+      var head = get(d, 'head', ''), sub = '';
       var maxW = f.land ? f.cw * .78 : f.cw * .9, textTop = f.pad, textBottom = H - f.pad - brandH - f.u * .06;
       var hr = fit(x, head, 'display', maxW, (textBottom - textTop) * (sub ? .72 : 1), f.u * (f.land ? .15 : .145), f.u * .06, .98, 4);
       var sr = sub ? (font(x, 'text400', f.u * .034), fit(x, sub, 'text400', Math.min(maxW, f.u * .78), f.u * .3, f.u * .034, f.u * .024, 1.32, 4)) : null;
@@ -220,17 +221,16 @@
     fields: [
       { key: 'photo', label: 'Photo', type: 'asset', groups: ['photo', 'background', 'hero'] },
       { key: 'head', label: 'Headline', type: 'text', max: 60 },
-      { key: 'sub', label: 'Line two', type: 'text', max: 120, optional: true },
       { key: 'align', label: 'Align', type: 'choice', options: ['left', 'center'] }
     ],
-    defaults: { photo: 'photo-businesswoman-outdoors-city-skyscrapers', head: 'Get there, with the people who have been there.', sub: '', align: 'left' },
+    defaults: { photo: 'photo-businesswoman-outdoors-city-skyscrapers', head: 'Get there, with the people who\'ve been there.', align: 'left' },
     render: async function (x, W, H, d, h) {
       var f = frame(W, H), center = get(d, 'align', 'left') === 'center';
       var img = await loadAsset(h, get(d, 'photo', ''), 'photo');
       fill(x, W, H, PAL.neutral);
       if (img) cover(x, img, 0, 0, W, H, .5, .35);
       var lh = logoSize(f);
-      var head = get(d, 'head', ''), sub = get(d, 'sub', '');
+      var head = get(d, 'head', ''), sub = '';
       var maxW = f.land ? f.cw * .7 : f.cw;
       var hr = fit(x, head, 'display', maxW, H * .42, f.u * (f.land ? .11 : .105), f.u * .055, 1.0, 4);
       var sr = sub ? fit(x, sub, 'text400', Math.min(maxW, f.u * .72), f.u * .22, f.u * .034, f.u * .024, 1.32, 3) : null;
@@ -250,24 +250,23 @@
   /* 3. Expert spotlight — a face, a credential, a quote */
   T.push({
     id: 'expert-spotlight', name: 'Expert spotlight',
-    desc: 'Headshot on a warm field with name, credential and a short quote.',
+    desc: 'Headshot with the name and one line.',
     ratios: ['r45', 'r11', '', 'r916'],
     fields: [
       { key: 'expert', label: 'Expert', type: 'asset', groups: ['expert'] },
       { key: 'name', label: 'Name', type: 'text', max: 32 },
-      { key: 'role', label: 'Credential', type: 'text', max: 70 },
-      { key: 'quote', label: 'Quote', type: 'text', max: 140 },
-      { key: 'color', label: 'Field', type: 'color', options: ['beige', 'tan', 'yellow', 'blue', 'paper', 'slate'] },
+      { key: 'role', label: 'Credential', type: 'text', max: 70, optional: true },
+      { key: 'quote', label: 'Line (quote it yourself if it is one)', type: 'text', max: 140 },
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'beige', 'tan', 'blue', 'slate'] },
       { key: 'shape', label: 'Photo', type: 'choice', options: ['square', 'circle'] }
     ],
-    defaults: { expert: 'coach-ava-b', name: 'Ava B.', role: 'MBA admissions expert · Stanford GSB · 100+ admits', quote: 'The essay that gets you in is the one only you could have written.', color: 'beige', shape: 'square' },
+    defaults: { expert: 'coach-ava-b', name: 'Ava B.', role: 'Leland expert', quote: 'Learn from people who\'ve done it', color: 'white', shape: 'square' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'beige'), ink = inkFor(c), dim = dimFor(c);
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), dim = dimFor(c);
       fill(x, W, H, fieldHex(c, h.PAL));
       var img = await loadAsset(h, get(d, 'expert', ''), 'expert');
       var markH = markSize(f), circle = get(d, 'shape', 'square') === 'circle';
       var name = get(d, 'name', ''), role = get(d, 'role', ''), quote = get(d, 'quote', '');
-      if (quote && !/^[“"]/.test(quote)) quote = '“' + quote.replace(/[”"]$/, '') + '”';
       var ph, tx, ty, tw, th;
       if (f.land) { ph = Math.round(Math.min(f.ch, W * .36)); tx = f.pad + ph + f.u * .06; ty = f.pad; tw = W - f.pad - tx; th = f.ch - markH - f.u * .04; }
       else { ph = Math.round(f.u * (f.tall ? .44 : f.ch > f.cw * 1.15 ? .4 : .27)); tx = f.pad; ty = f.pad + ph + f.u * .06; tw = f.cw; th = H - f.pad - markH - f.u * .05 - ty; }
@@ -302,11 +301,11 @@
       { key: 'number', label: 'Number', type: 'text', max: 8 },
       { key: 'label', label: 'What it means', type: 'text', max: 90 },
       { key: 'source', label: 'Source', type: 'text', max: 60, optional: true },
-      { key: 'color', label: 'Field', type: 'color', options: ['blue', 'yellow', 'ink', 'slate', 'beige', 'tan'] }
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'beige', 'tan', 'slate', 'blue', 'ink'] }
     ],
-    defaults: { number: '33', label: 'people on the ASU+GSV Summit team went through the AI Builder Program together.', source: 'Customer story, October 2026', color: 'blue' },
+    defaults: { number: '33', label: 'people on the ASU+GSV Summit team went through the AI Builder Program together.', source: 'ASU+GSV customer story, October 2026', color: 'white' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'blue'), ink = inkFor(c), dim = dimFor(c);
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), dim = dimFor(c);
       fill(x, W, H, fieldHex(c, h.PAL));
       var num = get(d, 'number', ''), label = get(d, 'label', ''), src = get(d, 'source', '');
       var lh = logoSize(f), footH = lh + (src ? f.u * .07 : 0);
@@ -342,11 +341,11 @@
       { key: 'cap2', label: 'Caption 2', type: 'text', max: 40 },
       { key: 'ill3', label: 'Illustration 3', type: 'asset', groups: ['illustration'] },
       { key: 'cap3', label: 'Caption 3', type: 'text', max: 40 },
-      { key: 'color', label: 'Field', type: 'color', options: ['paper', 'beige', 'white', 'tan', 'yellow'] }
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'beige', 'tan'] }
     ],
-    defaults: { head: 'Three ways to use Leland this week.', ill1: 'ill-group-chat', cap1: 'Ask an expert in the feed', ill2: 'ill-on-air', cap2: 'Catch a livestream', ill3: 'ill-calendar', cap3: 'Book a session', color: 'paper' },
+    defaults: { head: 'Learn from people who\'ve done it', ill1: 'ill-group-chat', cap1: 'Come ask.', ill2: 'ill-on-air', cap2: 'Follow along and bring your questions.', ill3: 'ill-calendar', cap3: 'Send this to someone who needs it.', color: 'white' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'paper'), ink = inkFor(c);
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c);
       fill(x, W, H, fieldHex(c, h.PAL));
       var head = get(d, 'head', ''), lh = logoSize(f);
       var imgs = await Promise.all([1, 2, 3].map(function (i) { return loadAsset(h, get(d, 'ill' + i, ''), 'illustration'); }));
@@ -379,12 +378,12 @@
     fields: [
       { key: 'head', label: 'Headline', type: 'text', max: 60 },
       { key: 'shot', label: 'Screenshot', type: 'asset', groups: ['card', 'aipost', 'hero', 'upload'] },
-      { key: 'color', label: 'Field', type: 'color', options: ['blue', 'yellow', 'beige', 'tan', 'slate', 'paper', 'ink'] },
+      { key: 'color', label: 'Field', type: 'color', options: FIELDS },
       { key: 'align', label: 'Headline', type: 'choice', options: ['left', 'above'] }
     ],
-    defaults: { head: 'Follow the people who have done what you are trying to do.', shot: 'card-alex', color: 'blue', align: 'left' },
+    defaults: { head: 'Real answers from people who\'ve done it.', shot: 'card-alex', color: 'white', align: 'left' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'blue'), ink = inkFor(c), acc = accentFor(c);
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), acc = accentFor(c);
       fill(x, W, H, fieldHex(c, h.PAL));
       var img = await loadAsset(h, get(d, 'shot', ''), 'card');
       var head = get(d, 'head', ''), lh = logoSize(f), side = get(d, 'align', 'left') === 'left' && f.land;
@@ -419,17 +418,17 @@
   /* 7. Quote — one Season line from a customer or expert, attributed */
   T.push({
     id: 'quote', name: 'Quote',
-    desc: 'A big Season quote on a warm field, with who said it.',
+    desc: 'A big Season quote, with who said it.',
     ratios: ['r45', 'r11', '', 'r916'],
     fields: [
       { key: 'quote', label: 'Quote', type: 'text', max: 160 },
       { key: 'name', label: 'Name', type: 'text', max: 32 },
       { key: 'role', label: 'Role', type: 'text', max: 60, optional: true },
-      { key: 'color', label: 'Field', type: 'color', options: ['beige', 'tan', 'yellow', 'paper'] }
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'beige', 'tan'] }
     ],
-    defaults: { quote: 'It put everyone in a builder mindset.', name: 'Lucy Baldwin', role: 'VP Product, ASU+GSV', color: 'beige' },
+    defaults: { quote: 'It put everyone in a builder mindset.', name: 'Lucy Baldwin', role: 'VP Product, ASU+GSV', color: 'white' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'beige'), ink = inkFor(c), dim = dimFor(c);
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), dim = dimFor(c);
       fill(x, W, H, fieldHex(c, h.PAL));
       var quote = get(d, 'quote', ''), name = get(d, 'name', ''), role = get(d, 'role', '');
       if (quote && !/^[“"]/.test(quote)) quote = '“' + quote.replace(/[”"]$/, '') + '”';
@@ -461,16 +460,16 @@
       { key: 'before', label: 'Before', type: 'text', max: 110 },
       { key: 'afterBig', label: 'After, the number', type: 'text', max: 14, optional: true },
       { key: 'after', label: 'After', type: 'text', max: 110 },
-      { key: 'color', label: 'Field', type: 'color', options: ['paper', 'beige', 'tan', 'yellow'] }
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'beige', 'tan'] }
     ],
-    defaults: { head: 'PlayPower rebuilt 1,500+ product spec sheets.', beforeBig: '12 months', before: 'Scoped at 8 to 15 minutes a sheet. “We’re never going to get through that.”', afterBig: 'Weeks', after: 'One spreadsheet, then Claude generated every sheet.', color: 'paper' },
+    defaults: { head: 'PlayPower rebuilt 1,500+ product spec sheets.', beforeBig: '12 months', before: 'Scoped at 8 to 15 minutes a sheet. “We’re never going to get through that.”', afterBig: 'Weeks', after: 'One spreadsheet, then Claude generated every sheet.', color: 'white' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'paper'), ink = inkFor(c), dim = dimFor(c);
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), dim = dimFor(c);
       fill(x, W, H, fieldHex(c, h.PAL));
       var head = get(d, 'head', ''), markH = markSize(f);
       var cols = [
         { label: 'Before', big: get(d, 'beforeBig', ''), body: get(d, 'before', ''), rule: 'rgba(1,1,1,.22)' },
-        { label: 'After', big: get(d, 'afterBig', ''), body: get(d, 'after', ''), rule: c === 'yellow' || c === 'tan' ? PAL.ink : PAL.blue }
+        { label: 'After', big: get(d, 'afterBig', ''), body: get(d, 'after', ''), rule: c === 'tan' ? PAL.ink : PAL.blue }
       ];
       var hr = fit(x, head, 'display', f.land ? f.cw * .8 : f.cw, H * .3, f.u * (f.land ? .085 : .09), f.u * .05, 1.0, 3);
       var gap = f.u * .07, colW = (f.cw - gap) / 2, top = f.pad + hr.h + f.u * .08, bottom = H - f.pad - markH - f.u * .06;
@@ -500,23 +499,21 @@
   /* 9. Numbered list — three to five points */
   T.push({
     id: 'list', name: 'Numbered list',
-    desc: 'A headline and three to five numbered points.',
+    desc: 'A headline and up to three numbered points.',
     ratios: ['r45', 'r11', '', 'r916'],
     fields: [
       { key: 'head', label: 'Headline', type: 'text', max: 60 },
       { key: 'item1', label: 'Point 1', type: 'text', max: 70 },
       { key: 'item2', label: 'Point 2', type: 'text', max: 70 },
-      { key: 'item3', label: 'Point 3', type: 'text', max: 70 },
-      { key: 'item4', label: 'Point 4', type: 'text', max: 70, optional: true },
-      { key: 'item5', label: 'Point 5', type: 'text', max: 70, optional: true },
-      { key: 'color', label: 'Field', type: 'color', options: ['paper', 'beige', 'tan', 'yellow'] }
+      { key: 'item3', label: 'Point 3', type: 'text', max: 70, optional: true },
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'beige', 'tan'] }
     ],
-    defaults: { head: 'Five levels of the AI Builder Program.', item1: 'Use AI to 10x your impact', item2: 'Build complex agentic workflows', item3: 'Create autonomous agents', item4: 'Build your agent workforce', item5: 'Design your AI orchestration layer', color: 'paper' },
+    defaults: { head: 'The AI Builder Program.', item1: 'A 5-level program, taught live, online, by leading AI instructors', item2: 'Each level is 6 sessions over a condensed 3-week period', item3: 'Taught on the most in-demand tools: Claude Code, n8n, Cowork and more', color: 'white' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'paper'), ink = inkFor(c);
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c);
       fill(x, W, H, fieldHex(c, h.PAL));
       var head = get(d, 'head', ''), markH = markSize(f), num = accentFor(c);
-      var items = [1, 2, 3, 4, 5].map(function (i) { return get(d, 'item' + i, ''); }).filter(Boolean);
+      var items = [1, 2, 3].map(function (i) { return get(d, 'item' + i, ''); }).filter(Boolean);
       var hr = fit(x, head, 'display', f.land ? f.cw * .42 : f.cw, H * (f.land ? .6 : .3), f.u * (f.land ? .085 : .09), f.u * .05, 1.0, f.land ? 4 : 3);
       var lx = f.land ? f.pad + f.cw * .48 : f.pad, lw = f.land ? f.cw * .52 : f.cw;
       var top = f.land ? f.pad : f.pad + hr.h + f.u * .07, bottom = H - f.pad - markH - f.u * .06;
@@ -550,20 +547,19 @@
   /* 10. Announcement — a launch tile with store badges */
   T.push({
     id: 'announcement', name: 'Announcement',
-    desc: 'Lockup, a launch headline, one line and the store badges.',
+    desc: 'Lockup, a launch headline, a screenshot and the store badges.',
     ratios: ['r45', 'r11', '', 'r916'],
     fields: [
       { key: 'head', label: 'Headline', type: 'text', max: 60 },
-      { key: 'line', label: 'Line', type: 'text', max: 90, optional: true },
       { key: 'shot', label: 'Screenshot', type: 'asset', groups: ['card', 'aipost', 'hero'], optional: true },
-      { key: 'color', label: 'Field', type: 'color', options: ['yellow', 'blue'] },
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'blue'] },
       { key: 'badges', label: 'Badges', type: 'choice', options: ['both', 'none'] }
     ],
-    defaults: { head: 'Today we launched Leland Community.', line: 'It’s free on iOS, Android and web.', shot: 'card-alex', color: 'yellow', badges: 'both' },
+    defaults: { head: 'Today we launched Leland Community.', shot: 'card-alex', color: 'white', badges: 'both' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'yellow'), ink = inkFor(c), acc = accentFor(c);
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), acc = accentFor(c);
       fill(x, W, H, fieldHex(c, h.PAL));
-      var head = get(d, 'head', ''), line = get(d, 'line', ''), lh = logoSize(f), badges = get(d, 'badges', 'both') !== 'none';
+      var head = get(d, 'head', ''), line = '', lh = logoSize(f), badges = get(d, 'badges', 'both') !== 'none';
       var img = await loadAsset(h, get(d, 'shot', ''), null);
       logo(x, f.pad, f.pad, lh, ink);
       var bh = Math.round(f.u * .072), bw = Math.round(bh * 3.1), bgap = Math.round(f.u * .02);

@@ -146,10 +146,18 @@
     try { return await h.loadImg(a.src); } catch (e) { return null; }
   }
   /* an illustration generated outside (assets/illus/<file>); null when the file is not there yet */
-  var illusCache = {};
+  var illusCache = {}, illusIndex = null;
+  /* assets/illus/index.json lists the generated files, so a slide that names one not generated yet draws its placeholder without a 404 */
+  function illusList() {
+    if (illusIndex) return illusIndex;
+    illusIndex = (typeof fetch === 'function' ? fetch('assets/illus/index.json').then(function (r) { return r.ok ? r.json() : null; }) : Promise.resolve(null)).catch(function () { return null; });
+    return illusIndex;
+  }
   async function loadIllus(h, file) {
     file = String(file || '').trim(); if (!file) return null;
     if (illusCache[file] !== undefined) return illusCache[file];
+    var list = await illusList();
+    if (Array.isArray(list) && list.indexOf(file) < 0) { illusCache[file] = null; return null; }
     var img = null;
     try { img = await h.loadImg('assets/illus/' + file); } catch (e) { img = null; }
     illusCache[file] = img; return img;
@@ -338,11 +346,11 @@
       ILLUS, ILL,
       { key: 'photo', label: 'Photo (asset or path, instead of a field)', type: 'text', max: 120, optional: true },
       { key: 'focus', label: 'Focus (x,y fractions)', type: 'text', max: 20, optional: true },
-      { key: 'color', label: 'Field', type: 'color', options: ['ink', 'white', 'blue', 'beige'] }
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'beige', 'blue', 'ink'] }
     ],
-    defaults: { title: 'The AI Builder Program', meta: '', illus: '', ill: '', photo: '', color: 'ink' },
+    defaults: { title: 'The AI Builder Program', meta: '', illus: '', ill: '', photo: '', color: 'white' },
     render: async function (x, d, h, slide) {
-      var c = get(d, 'color', 'ink'), ink = inkFor(c), acc = accentFor(c), dim = dimFor(c);
+      var c = get(d, 'color', 'white'), ink = inkFor(c), acc = accentFor(c), dim = dimFor(c);
       var img = get(d, 'photo', '') ? await loadAsset(h, get(d, 'photo', '')) : null;
       fill(x, W0, H0, fieldHex(c, h.PAL));
       if (img) {
@@ -370,19 +378,16 @@
     name: 'Section',
     fields: [
       { key: 'title', label: 'Title', type: 'text', max: 70 },
-      { key: 'num', label: 'Number', type: 'text', max: 4, optional: true },
       { key: 'color', label: 'Field', type: 'color', options: ['white', 'beige', 'blue', 'slate', 'ink'] }
     ],
-    defaults: { title: 'How the program works', num: '', color: 'white' },
+    defaults: { title: 'How the program works', color: 'white' },
     render: async function (x, d, h, slide) {
       var c = get(d, 'color', 'white'), ink = inkFor(c), acc = accentFor(c);
       fill(x, W0, H0, fieldHex(c, h.PAL));
-      var title = get(d, 'title', ''), num = get(d, 'num', '');
+      var title = get(d, 'title', '');
       var top = PADY, bottom = foot(x, h, c, pageOf(slide));
-      var numH = num ? 60 : 0;
-      var hr = fit(x, title, 'display', CW * .8, (bottom - top - numH) * .85, 150, 64, .98, 3);
-      var y = top + (bottom - top - numH - hr.h) / 2;
-      if (num) { font(x, 'text500', 30); x.fillStyle = dimFor(c); x.textBaseline = 'alphabetic'; x.fillText(num, PAD, y + 26); y += numH; }
+      var hr = fit(x, title, 'display', CW * .8, (bottom - top) * .85, 150, 64, .98, 3);
+      var y = top + (bottom - top - hr.h) / 2;
       font(x, 'display', hr.px); block(x, hr, PAD, y, 'left', ink, acc);
       visual(null);
     }
@@ -533,7 +538,7 @@
       var hr = title ? fit(x, title, 'display', CW * .7, H0 * .4, 120, 56, 1.0, 3) : null;
       var y = H0 - PADY - (hr ? hr.h : 0);
       grain(x, W0, H0, .05);
-      h.logo(x, PAD, PADY, 56, 'white');
+      h.logo(x, PAD, PADY, 36, 'white');
       if (hr) { font(x, 'display', hr.px); block(x, hr, PAD, y, 'left', PAL.white, PAL.white); }
       var p = pageOf(slide);
       if (p) { font(x, 'text500', PAGE_PX); x.fillStyle = 'rgba(255,255,255,.8)'; x.textAlign = 'right'; x.textBaseline = 'alphabetic'; x.fillText(String(p), W0 - PAD, FOOT_Y + LOCK - 8); x.textAlign = 'left'; }
@@ -592,13 +597,13 @@
       var c = get(d, 'color', 'white'), ink = inkFor(c), acc = accentFor(c);
       fill(x, W0, H0, fieldHex(c, h.PAL));
       var title = get(d, 'title', ''), contact = get(d, 'contact', '');
-      var lockH = 132, lockW = 112 / 24 * lockH;
+      var lockH = 36, lockW = 112 / 24 * lockH;
       var hr = title ? fit(x, title, 'display', CW * .8, 260, 110, 56, 1.0, 2) : null;
       var cr = contact ? fit(x, contact, 'text400', CW * .8, 120, BODY, BODY_MIN, 1.3, 2) : null;
-      var total = lockH + (hr ? 72 + hr.h : 0) + (cr ? 28 + cr.h : 0);
+      var total = lockH + (hr ? 56 + hr.h : 0) + (cr ? 28 + cr.h : 0);
       var y = (H0 - total) / 2 - 10;
       h.logo(x, (W0 - lockW) / 2, y, lockH, isDark(c) ? 'white' : 'ink'); y += lockH;
-      if (hr) { font(x, 'display', hr.px); y = block(x, hr, W0 / 2, y + 72, 'center', ink, acc); }
+      if (hr) { font(x, 'display', hr.px); y = block(x, hr, W0 / 2, y + 56, 'center', ink, acc); }
       if (cr) { font(x, 'text400', cr.px); block(x, cr, W0 / 2, y + 28, 'center', dimFor(c)); }
       visual(null);
     }
@@ -620,7 +625,7 @@
       var c = get(d, 'color', 'white'), ink = inkFor(c);
       fill(x, W0, H0, fieldHex(c, h.PAL));
       var H = head(x, d, c, h, slide, { gap: 56 });
-      var rows = splitLines(get(d, 'items', '')).slice(0, 5).map(function (l) { return l.split('|')[0].trim(); });
+      var rows = splitLines(get(d, 'items', '')).slice(0, 3).map(function (l) { return l.split('|')[0].trim(); });
       if (!rows.length) return;
       var numbered = get(d, 'numbers', 'yes') !== 'no', numW = numbered ? 120 : 0;
       var avail = H.bottom - H.y, n = rows.length, rowH = Math.min(220, Math.floor(avail / n)), tpx = Math.min(72, Math.round(rowH * .4));
@@ -1191,11 +1196,11 @@
       { key: 'l1', label: 'Lines (one per line, up to three)', type: 'text', max: 400 },
       { key: 'p1', label: 'Figure', type: 'text', max: 14 },
       { key: 'd1', label: 'Term (follows the figure, parts split by ·)', type: 'text', max: 120, optional: true },
-      { key: 'color', label: 'Field', type: 'color', options: ['ink', 'white', 'beige', 'blue'] }
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'beige', 'blue', 'ink'] }
     ],
-    defaults: { title: '18 months of dedicated support.', p1: '$250,000', d1: '', l1: '', color: 'ink' },
+    defaults: { title: '18 months of dedicated support.', p1: '$250,000', d1: '', l1: '', color: 'white' },
     render: async function (x, d, h, slide) {
-      var c = get(d, 'color', 'ink'), ink = inkFor(c);
+      var c = get(d, 'color', 'white'), ink = inkFor(c);
       fill(x, W0, H0, fieldHex(c, h.PAL));
       var H = head(x, d, c, h, slide, { gap: 72 }), y = H.y, bottom = H.bottom;
       /* the lines are the body (Macan 36, hairlines between); the figure is one quiet Macan 500 line at body size, last */
@@ -1310,13 +1315,13 @@
     function flushPending() {
       if (!pending) return;
       var p = pending; pending = null;
-      if (!out.length) { push('cover', { title: p, color: 'ink' }); return; }
-      if (p.length <= 60) { sectionN++; push('section', { title: p, num: pad2(sectionN), color: (colorFlip++ % 2) ? 'beige' : 'white' }); }
+      if (!out.length) { push('cover', { title: p, color: 'white' }); return; }
+      if (p.length <= 60) { sectionN++; push('section', { title: p, color: (colorFlip++ % 2) ? 'beige' : 'white' }); }
       else {
         /* a paragraph: first sentence is the title, the rest is a single point */
         var m = p.match(/^(.{10,70}?[.!?])\s+(.+)$/);
         if (m) push('bullets', { title: m[1].replace(/[.!?]$/, ''), b1: m[2], color: 'white' });
-        else push('section', { title: p.slice(0, 70), num: '', color: 'white' });
+        else push('section', { title: p.slice(0, 70), color: 'white' });
       }
     }
     function bulletsFor(title, items) {
@@ -1332,8 +1337,8 @@
       var raw = lines[i], s = stripMd(raw);
       if (!s) continue;
       var m;
-      if ((m = raw.match(/^\s*#\s+(.+)/))) { flushPending(); push('cover', { title: stripMd(m[1]), color: 'ink' }); continue; }
-      if ((m = raw.match(/^\s*##\s+(.+)/))) { flushPending(); sectionN++; push('section', { title: stripMd(m[1]), num: pad2(sectionN), color: (colorFlip++ % 2) ? 'beige' : 'white' }); continue; }
+      if ((m = raw.match(/^\s*#\s+(.+)/))) { flushPending(); push('cover', { title: stripMd(m[1]), color: 'white' }); continue; }
+      if ((m = raw.match(/^\s*##\s+(.+)/))) { flushPending(); sectionN++; push('section', { title: stripMd(m[1]), color: (colorFlip++ % 2) ? 'beige' : 'white' }); continue; }
       if ((m = raw.match(/^\s*###+\s+(.+)/))) { flushPending(); pending = stripMd(m[1]); continue; }
       if (/^\s*[-*•]\s+/.test(raw) || /^\s*\d+[.)]\s+/.test(raw)) {
         var items = [];
@@ -1375,8 +1380,7 @@
       }
       if ((m = s.match(STAT_RE)) && m[1].replace(/\s/g, '').length <= 10) {
         flushPending();
-        var nStats = out.filter(function (sl) { return sl.kind === 'stat'; }).length;
-        push('stat', { number: m[1].replace(/\s+/g, ' ').trim(), label: m[2].replace(/^[,:—–-]\s*/, ''), source: '', color: (nStats % 2) ? 'ink' : 'white' });
+        push('stat', { number: m[1].replace(/\s+/g, ' ').trim(), label: m[2].replace(/^[,:—–-]\s*/, ''), source: '', color: 'white' });
         continue;
       }
       /* plain line */
@@ -1385,8 +1389,8 @@
     }
     flushPending();
 
-    if (!out.length) push('cover', { title: T.name, color: 'ink' });
-    if (out[0].kind !== 'cover') out.unshift({ kind: 'cover', data: { title: out[0].kind === 'section' ? out[0].data.title : T.name, color: 'ink' } });
+    if (!out.length) push('cover', { title: T.name, color: 'white' });
+    if (out[0].kind !== 'cover') out.unshift({ kind: 'cover', data: { title: out[0].kind === 'section' ? out[0].data.title : T.name, color: 'white' } });
     if (out.length > MAX_SLIDES - 1) out = out.slice(0, MAX_SLIDES - 1);
     out.push({ kind: 'close', data: { title: T.closeTitle, contact: contact || T.contact, color: 'white' } });
     out.forEach(function (sl, i) { sl.index = i; sl.page = i + 1; });
@@ -1502,7 +1506,7 @@
   };
   /* the proposal sample is a real deck kept as JSON in data/decks/; fetched once at load, with a short stand-in until it arrives */
   SAMPLES.proposal = JSON.stringify({ slides: [
-    { kind: 'cover', data: { title: 'Layered support for your AI initiative.', color: 'ink' } },
+    { kind: 'cover', data: { title: 'Layered support for your AI initiative.', color: 'white' } },
     { kind: 'agenda', data: K.agenda.defaults },
     { kind: 'price', data: K.price.defaults }
   ] }, null, 2);
