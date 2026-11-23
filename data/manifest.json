@@ -1035,21 +1035,36 @@
    "art": "assets/audio/leland-clips-launch-film-v8-art.png"
   },
   {
-   "id": "film-leland-jobs-film-v13",
+   "id": "film-leland-ai-assessment",
+   "type": "video",
+   "group": "film",
+   "title": "AI assessment launch film",
+   "ratio": "16/9",
+   "src": "assets/films/leland-ai-assessment.mp4",
+   "poster": "assets/films/leland-ai-assessment.jpg",
+   "duration": 57,
+   "tags": [
+    "launch",
+    "film",
+    "ai",
+    "assessment"
+   ]
+  },
+  {
+   "id": "film-leland-jobs-film-v31",
    "type": "video",
    "group": "film",
    "title": "Jobs launch film",
    "sub": "Your next job is already looking for you.",
    "ratio": "16/9",
-   "src": "assets/films/leland-jobs-film-v13.mp4",
-   "poster": "assets/films/leland-jobs-film-v13.jpg",
-   "duration": 32,
+   "src": "assets/films/leland-jobs-film-v31.mp4",
+   "poster": "assets/films/leland-jobs-film-v31.jpg",
+   "duration": 42,
    "tags": [
     "launch",
     "film",
     "jobs"
-   ],
-   "audio": "assets/audio/leland-jobs-film-v13.mp3"
+   ]
   },
   {
    "id": "audio-leland-jobs-film-v13",
@@ -1157,6 +1172,170 @@
    ],
    "thumb": "assets/audio/community-outcomes-v4-preview-xs.png",
    "art": "assets/audio/community-outcomes-v4-preview-art.png"
+  },
+  {
+   "id": "photo-nature-clouds",
+   "type": "image",
+   "group": "background",
+   "title": "Clouds",
+   "src": "assets/brand/nature-clouds.jpg",
+   "thumb": "assets/brand/nature-clouds.jpg",
+   "tags": [
+    "background",
+    "nature",
+    "motion",
+    "blur",
+    "grain",
+    "clouds",
+    "chat interface guidelines"
+   ],
+   "from": "brand/chat-guidelines.html",
+   "w": 1200,
+   "h": 675,
+   "ratio": "1200/675"
+  },
+  {
+   "id": "photo-board-1",
+   "type": "image",
+   "group": "background",
+   "title": "Sky with clouds",
+   "src": "assets/brand/board-1.webp",
+   "thumb": "assets/brand/board-1.webp",
+   "tags": [
+    "background",
+    "brand board",
+    "leland 2.0",
+    "sky",
+    "clouds"
+   ],
+   "from": "brand/board.html",
+   "w": 1200,
+   "h": 630,
+   "ratio": "1200/630"
+  },
+  {
+   "id": "photo-nature-trees",
+   "type": "image",
+   "group": "background",
+   "title": "Trees",
+   "src": "assets/brand/nature-trees.jpg",
+   "thumb": "assets/brand/nature-trees.jpg",
+   "tags": [
+    "background",
+    "nature",
+    "motion",
+    "blur",
+    "grain",
+    "trees",
+    "chat interface guidelines"
+   ],
+   "from": "brand/chat-guidelines.html",
+   "w": 1200,
+   "h": 675,
+   "ratio": "1200/675"
+  },
+  {
+   "id": "photo-board-9",
+   "type": "image",
+   "group": "background",
+   "title": "Trees in motion",
+   "src": "assets/brand/board-9.webp",
+   "thumb": "assets/brand/board-9.webp",
+   "tags": [
+    "background",
+    "brand board",
+    "leland 2.0",
+    "trees",
+    "motion"
+   ],
+   "from": "brand/board.html",
+   "w": 586,
+   "h": 878,
+   "ratio": "586/878"
+  },
+  {
+   "id": "photo-nature-wheat",
+   "type": "image",
+   "group": "background",
+   "title": "Wheat",
+   "src": "assets/brand/nature-wheat.jpg",
+   "thumb": "assets/brand/nature-wheat.jpg",
+   "tags": [
+    "background",
+    "nature",
+    "motion",
+    "blur",
+    "grain",
+    "wheat",
+    "chat interface guidelines"
+   ],
+   "from": "brand/chat-guidelines.html",
+   "w": 1200,
+   "h": 675,
+   "ratio": "1200/675"
+  },
+  {
+   "id": "photo-nature-water",
+   "type": "image",
+   "group": "background",
+   "title": "Water",
+   "src": "assets/brand/nature-water.jpg",
+   "thumb": "assets/brand/nature-water.jpg",
+   "tags": [
+    "background",
+    "nature",
+    "motion",
+    "blur",
+    "grain",
+    "water",
+    "chat interface guidelines"
+   ],
+   "from": "brand/chat-guidelines.html",
+   "w": 1200,
+   "h": 675,
+   "ratio": "1200/675"
+  },
+  {
+   "id": "photo-nature-flowers",
+   "type": "image",
+   "group": "background",
+   "title": "Flowers",
+   "src": "assets/brand/nature-flowers.jpg",
+   "thumb": "assets/brand/nature-flowers.jpg",
+   "tags": [
+    "background",
+    "nature",
+    "motion",
+    "blur",
+    "grain",
+    "flowers",
+    "chat interface guidelines"
+   ],
+   "from": "brand/chat-guidelines.html",
+   "w": 1200,
+   "h": 675,
+   "ratio": "1200/675"
+  },
+  {
+   "id": "photo-nature-clay",
+   "type": "image",
+   "group": "background",
+   "title": "Clay",
+   "src": "assets/brand/nature-clay.jpg",
+   "thumb": "assets/brand/nature-clay.jpg",
+   "tags": [
+    "background",
+    "nature",
+    "motion",
+    "blur",
+    "grain",
+    "clay",
+    "chat interface guidelines"
+   ],
+   "from": "brand/chat-guidelines.html",
+   "w": 1200,
+   "h": 675,
+   "ratio": "1200/675"
   },
   {
    "id": "bg-crosswalk",
@@ -1304,23 +1483,6 @@
    "light": false
   },
   {
-   "id": "bg-godrays-02",
-   "type": "image",
-   "group": "background",
-   "title": "Godrays 02",
-   "ratio": "16/9",
-   "src": "assets/img/godrays-02.jpg",
-   "thumb": "assets/img/xs/godrays-02.jpg",
-   "tags": [
-    "background",
-    "aibp",
-    "godrays",
-    "gradient",
-    "dark"
-   ],
-   "light": false
-  },
-  {
    "id": "bg-godrays-03",
    "type": "image",
    "group": "background",
@@ -1372,23 +1534,6 @@
    "light": false
   },
   {
-   "id": "bg-godrays-06",
-   "type": "image",
-   "group": "background",
-   "title": "Godrays 06",
-   "ratio": "16/9",
-   "src": "assets/img/godrays-06.jpg",
-   "thumb": "assets/img/xs/godrays-06.jpg",
-   "tags": [
-    "background",
-    "aibp",
-    "godrays",
-    "gradient",
-    "dark"
-   ],
-   "light": false
-  },
-  {
    "id": "bg-godrays-07",
    "type": "image",
    "group": "background",
@@ -1406,23 +1551,6 @@
    "light": false
   },
   {
-   "id": "bg-godrays-08",
-   "type": "image",
-   "group": "background",
-   "title": "Godrays 08",
-   "ratio": "16/9",
-   "src": "assets/img/godrays-08.jpg",
-   "thumb": "assets/img/xs/godrays-08.jpg",
-   "tags": [
-    "background",
-    "aibp",
-    "godrays",
-    "gradient",
-    "dark"
-   ],
-   "light": false
-  },
-  {
    "id": "bg-godrays-09",
    "type": "image",
    "group": "background",
@@ -1430,23 +1558,6 @@
    "ratio": "16/9",
    "src": "assets/img/godrays-09.jpg",
    "thumb": "assets/img/xs/godrays-09.jpg",
-   "tags": [
-    "background",
-    "aibp",
-    "godrays",
-    "gradient",
-    "dark"
-   ],
-   "light": false
-  },
-  {
-   "id": "bg-godrays-10",
-   "type": "image",
-   "group": "background",
-   "title": "Godrays 10",
-   "ratio": "16/9",
-   "src": "assets/img/godrays-10.jpg",
-   "thumb": "assets/img/xs/godrays-10.jpg",
    "tags": [
     "background",
     "aibp",
@@ -2418,151 +2529,6 @@
    "h": 853
   },
   {
-   "id": "photo-nature-clouds",
-   "type": "image",
-   "group": "photo",
-   "title": "Clouds",
-   "src": "assets/brand/nature-clouds.jpg",
-   "thumb": "assets/brand/nature-clouds.jpg",
-   "tags": [
-    "photo",
-    "nature",
-    "motion",
-    "blur",
-    "grain",
-    "clouds",
-    "chat interface guidelines"
-   ],
-   "from": "brand/chat-guidelines.html",
-   "w": 1200,
-   "h": 675,
-   "ratio": "1200/675"
-  },
-  {
-   "id": "photo-nature-trees",
-   "type": "image",
-   "group": "photo",
-   "title": "Trees",
-   "src": "assets/brand/nature-trees.jpg",
-   "thumb": "assets/brand/nature-trees.jpg",
-   "tags": [
-    "photo",
-    "nature",
-    "motion",
-    "blur",
-    "grain",
-    "trees",
-    "chat interface guidelines"
-   ],
-   "from": "brand/chat-guidelines.html",
-   "w": 1200,
-   "h": 675,
-   "ratio": "1200/675"
-  },
-  {
-   "id": "photo-nature-clay",
-   "type": "image",
-   "group": "photo",
-   "title": "Clay",
-   "src": "assets/brand/nature-clay.jpg",
-   "thumb": "assets/brand/nature-clay.jpg",
-   "tags": [
-    "photo",
-    "nature",
-    "motion",
-    "blur",
-    "grain",
-    "clay",
-    "chat interface guidelines"
-   ],
-   "from": "brand/chat-guidelines.html",
-   "w": 1200,
-   "h": 675,
-   "ratio": "1200/675"
-  },
-  {
-   "id": "photo-nature-wheat",
-   "type": "image",
-   "group": "photo",
-   "title": "Wheat",
-   "src": "assets/brand/nature-wheat.jpg",
-   "thumb": "assets/brand/nature-wheat.jpg",
-   "tags": [
-    "photo",
-    "nature",
-    "motion",
-    "blur",
-    "grain",
-    "wheat",
-    "chat interface guidelines"
-   ],
-   "from": "brand/chat-guidelines.html",
-   "w": 1200,
-   "h": 675,
-   "ratio": "1200/675"
-  },
-  {
-   "id": "photo-nature-water",
-   "type": "image",
-   "group": "photo",
-   "title": "Water",
-   "src": "assets/brand/nature-water.jpg",
-   "thumb": "assets/brand/nature-water.jpg",
-   "tags": [
-    "photo",
-    "nature",
-    "motion",
-    "blur",
-    "grain",
-    "water",
-    "chat interface guidelines"
-   ],
-   "from": "brand/chat-guidelines.html",
-   "w": 1200,
-   "h": 675,
-   "ratio": "1200/675"
-  },
-  {
-   "id": "photo-nature-flowers",
-   "type": "image",
-   "group": "photo",
-   "title": "Flowers",
-   "src": "assets/brand/nature-flowers.jpg",
-   "thumb": "assets/brand/nature-flowers.jpg",
-   "tags": [
-    "photo",
-    "nature",
-    "motion",
-    "blur",
-    "grain",
-    "flowers",
-    "chat interface guidelines"
-   ],
-   "from": "brand/chat-guidelines.html",
-   "w": 1200,
-   "h": 675,
-   "ratio": "1200/675"
-  },
-  {
-   "id": "photo-board-1",
-   "type": "image",
-   "group": "photo",
-   "title": "Sky with clouds",
-   "src": "assets/brand/board-1.webp",
-   "thumb": "assets/brand/board-1.webp",
-   "tags": [
-    "photo",
-    "brand board",
-    "leland 2.0",
-    "sky",
-    "clouds"
-   ],
-   "from": "brand/board.html",
-   "w": 1200,
-   "h": 630,
-   "ratio": "1200/630"
-  },
-  {
    "id": "photo-board-2",
    "type": "image",
    "group": "photo",
@@ -2707,25 +2673,6 @@
    "w": 896,
    "h": 1184,
    "ratio": "896/1184"
-  },
-  {
-   "id": "photo-board-9",
-   "type": "image",
-   "group": "photo",
-   "title": "Trees in motion",
-   "src": "assets/brand/board-9.webp",
-   "thumb": "assets/brand/board-9.webp",
-   "tags": [
-    "photo",
-    "brand board",
-    "leland 2.0",
-    "trees",
-    "motion"
-   ],
-   "from": "brand/board.html",
-   "w": 586,
-   "h": 878,
-   "ratio": "586/878"
   },
   {
    "id": "photo-board-10",
@@ -2883,119 +2830,6 @@
     "graphic",
     "video",
     "cal"
-   ]
-  },
-  {
-   "id": "gfx-lockup",
-   "type": "image",
-   "group": "graphic",
-   "title": "Leland lockup",
-   "src": "assets/brand/logo.svg",
-   "tags": [
-    "graphic",
-    "leland",
-    "lockup",
-    "logo",
-    "brand"
-   ]
-  },
-  {
-   "id": "gfx-lockup-white",
-   "type": "image",
-   "group": "graphic",
-   "title": "Leland lockup, white",
-   "src": "assets/brand/logo-white.svg",
-   "tags": [
-    "graphic",
-    "leland",
-    "lockup",
-    "logo",
-    "brand"
-   ],
-   "dark": true
-  },
-  {
-   "id": "gfx-mark",
-   "type": "image",
-   "group": "graphic",
-   "title": "Leland mark",
-   "src": "assets/brand/mark.svg",
-   "tags": [
-    "graphic",
-    "leland",
-    "mark",
-    "logo",
-    "brand"
-   ]
-  },
-  {
-   "id": "gfx-mark-white",
-   "type": "image",
-   "group": "graphic",
-   "title": "Leland mark, white",
-   "src": "assets/brand/mark-white.svg",
-   "tags": [
-    "graphic",
-    "leland",
-    "mark",
-    "logo",
-    "brand"
-   ],
-   "dark": true
-  },
-  {
-   "id": "gfx-expert-profile",
-   "type": "image",
-   "group": "graphic",
-   "title": "Expert profile",
-   "src": "assets/decks/frames/expert-profile.jpg",
-   "tags": [
-    "graphic",
-    "expert",
-    "profile",
-    "product",
-    "ui"
-   ]
-  },
-  {
-   "id": "gfx-intro-call",
-   "type": "image",
-   "group": "graphic",
-   "title": "Intro call",
-   "src": "assets/decks/frames/intro-call.jpg",
-   "tags": [
-    "graphic",
-    "intro",
-    "call",
-    "product",
-    "ui"
-   ]
-  },
-  {
-   "id": "gfx-live-session",
-   "type": "image",
-   "group": "graphic",
-   "title": "Live session",
-   "src": "assets/decks/frames/live-session.jpg",
-   "tags": [
-    "graphic",
-    "live",
-    "session",
-    "product",
-    "ui"
-   ]
-  },
-  {
-   "id": "gfx-moments",
-   "type": "image",
-   "group": "graphic",
-   "title": "Moments",
-   "src": "assets/decks/frames/moments.jpg",
-   "tags": [
-    "graphic",
-    "moments",
-    "product",
-    "ui"
    ]
   },
   {
@@ -13170,7 +13004,7 @@
    "poster": "assets/scenes/leland-jobs-v13-1.jpg",
    "duration": 7,
    "style": "product",
-   "from": "film-leland-jobs-film-v13",
+   "from": "film-leland-jobs-film-v31",
    "tags": [
     "scene",
     "product",
@@ -13187,7 +13021,7 @@
    "poster": "assets/scenes/leland-jobs-v13-2.jpg",
    "duration": 6,
    "style": "text",
-   "from": "film-leland-jobs-film-v13",
+   "from": "film-leland-jobs-film-v31",
    "tags": [
     "scene",
     "text",
@@ -13204,7 +13038,7 @@
    "poster": "assets/scenes/leland-jobs-v13-3.jpg",
    "duration": 9,
    "style": "text",
-   "from": "film-leland-jobs-film-v13",
+   "from": "film-leland-jobs-film-v31",
    "tags": [
     "scene",
     "text",
@@ -13221,7 +13055,7 @@
    "poster": "assets/scenes/leland-jobs-v13-4.jpg",
    "duration": 5,
    "style": "product",
-   "from": "film-leland-jobs-film-v13",
+   "from": "film-leland-jobs-film-v31",
    "tags": [
     "scene",
     "product",
@@ -13238,7 +13072,7 @@
    "poster": "assets/scenes/leland-jobs-v13-5.jpg",
    "duration": 5.1,
    "style": "outro",
-   "from": "film-leland-jobs-film-v13",
+   "from": "film-leland-jobs-film-v31",
    "tags": [
     "scene",
     "outro",
