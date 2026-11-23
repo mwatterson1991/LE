@@ -56,18 +56,25 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=false;
 
-// Their logo on the left. Three lines of work grow out of it. Then the next company.
-const ORGS=['Google','Goldman_Sachs','Microsoft'], LX=700,LY=336,LS=72, X1=LX+LS+24, X2=940, CY=LY+LS/2;
-const YS=[262,372,482], names=['Research','Communication','Analysis'];
-const logos=ORGS.map(o=>mk('image',{href:`../../orgs/mono/${o}-black.png`,x:LX,y:LY,width:LS,height:LS}));
-const base=YS.map(y=>mk('path',{d:`M${X1} ${CY} C${X1+70} ${CY} ${X2-70} ${y} ${X2} ${y}`,fill:'none',stroke:HAIR,'stroke-width':2}));
-const paths=YS.map(y=>mk('path',{d:`M${X1} ${CY} C${X1+70} ${CY} ${X2-70} ${y} ${X2} ${y}`,fill:'none',stroke:SKY,'stroke-width':2}));
-const g1=names.map((s,i)=>lab(X2+18,YS[i]+8,s,'start',G2)), g2=names.map((s,i)=>lab(X2+18,YS[i]+8,s,'start',INK));
-const C=D/3, ST=[.7,1.15,1.75];
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A folder with their logo on it. Three sheets of their work rise out of it. Then the next company.
+const ORGS=['Google','Goldman_Sachs','Microsoft'], FX=766,FW=328,FT=408,FB=570, names=['Research','Communication','Analysis'];
+floor(FB);
+mk('path',Object.assign({d:`M${FX} ${FB} V${FT-64} H${FX+128} l14 22 H${FX+FW} V${FB} Z`},P2));
+const UP=[214,258,302], DOWN=FT+8;
+const sh=names.map((s,i)=>{const gg=mk('g');mk('rect',{x:FX+16,y:0,width:FW-32,height:152,fill:SKY,stroke:INK,'stroke-width':2},gg);
+  const e=lab(FX+34,31,s,'start',INK,gg);e.setAttribute('font-size',22);return gg});
+box(FX,FT,FW,FB-FT);
+const logos=ORGS.map(o=>mk('image',{href:`../../orgs/mono/${o}-black.png`,x:FX+FW/2-36,y:FT+(FB-FT)/2-36,width:72,height:72}));
+const C=D/3;
 function render(t){
-  const k=Math.floor(t/C)%3, u=t-k*C, out=1-ez(seg(u,C-.6,C-.1));
-  logos.forEach((l,i)=>op(l,i===k?Math.min(at(u,.1,.6),out):0));
-  paths.forEach((p,i)=>{dash(p,at(u,ST[i],.8));op(p,out);op(g2[i],Math.min(at(u,ST[i]+.45,.5),out))});
+  const k=Math.floor(t/C)%3, u=t-k*C, out=1-ezio(seg(u,2.95,3.45));
+  logos.forEach((l,i)=>op(l,i===k?Math.min(at(u,.05,.5),1-seg(u,3.1,3.45)):0));
+  sh.forEach((gg,i)=>{const r=Math.min(ezio(seg(u,.5+i*.4,1.3+i*.4)),out);gg.setAttribute('transform',`translate(0 ${lerp(DOWN,UP[i],r).toFixed(2)})`)});
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

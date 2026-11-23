@@ -56,15 +56,19 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// Two turns of a conversation: a question, an answer. Then the door opens.
-const DX=1000,DY=250,DW=128,DH=256;
-line(900,DY+DH,DX+DW+72,DY+DH,G3,2);
+// A question. An answer. Then the door opens.
+const DX=1034,DY=236,DW=150,DH=300;
+line(900,DY+DH,1214,DY+DH,G3,2);
 const dr=door(DX,DY,DW,DH);
-const q=[0,1,2].map(i=>dot(730+i*22,352,6,G2)), a=[0,1,2].map(i=>dot(808+i*22,404,6,INK));
-const QT=[.9,1.2,1.5], AT=[2.6,2.85,3.3];
+function bubble(x,y,w,h,right,c){const gg=mk('g'), r=12;
+  const tail=right?`H${x+w-28} L${x+w-22} ${y+h+20} L${x+w-52} ${y+h}`:`H${x+52} L${x+22} ${y+h+20} L${x+28} ${y+h}`;
+  mk('path',{d:`M${x+r} ${y} H${x+w-r} a${r} ${r} 0 0 1 ${r} ${r} V${y+h-r} a${r} ${r} 0 0 1 ${-r} ${r} ${tail} H${x+r} a${r} ${r} 0 0 1 ${-r} ${-r} V${y+r} a${r} ${r} 0 0 1 ${r} ${-r} Z`,fill:FIELD,stroke:c,'stroke-width':2,'stroke-linejoin':'round'},gg);
+  const ds=[0,1,2].map(i=>dot(x+w/2-28+i*28,y+h/2,6,c,gg));return {gg,ds}}
+const q=bubble(668,300,176,72,false,G2), a=bubble(780,412,176,72,true,INK);
 function render(t){
-  q.forEach((d,i)=>op(d,at(t,QT[i],.35)));a.forEach((d,i)=>op(d,at(t,AT[i],.35)));
-  dr.set(ezio(seg(t,4.2,5.6)),INK,true);
+  rise(q.gg,at(t,.7,.5),10);q.ds.forEach((d,i)=>op(d,at(t,1.0+i*.3,.3)));
+  rise(a.gg,at(t,2.5,.5),10);a.ds.forEach((d,i)=>op(d,at(t,2.8+i*.3,.3)));
+  dr.set(ezio(seg(t,4.3,5.7)),INK,true);
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

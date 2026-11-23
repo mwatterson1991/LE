@@ -6,8 +6,8 @@
 @font-face{font-family:'Macan';src:url(../../../fonts/Macan-Medium.woff2) format('woff2');font-weight:500}
 @font-face{font-family:'QMark';src:local('Helvetica Neue'),local('Helvetica'),local('Arial'),local('Liberation Sans');unicode-range:U+003F}
 html,body{margin:0;background:#000}
-.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#0f0f10;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#ffffff}
-.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#ffffff}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#ffffff;font-family:'QMark','Macan',sans-serif;-webkit-font-smoothing:antialiased;color:#0f0f10}
+.h{position:absolute;left:80px;top:76px;width:520px;margin:0;font:500 70px/1.04 'QMark','Season',Georgia,serif;letter-spacing:-.022em;color:#0f0f10}
 .h em{font-style:normal;color:#80ACED}
 .h span{display:block}
 .logo{position:absolute;left:80px;bottom:64px;width:66px}
@@ -20,7 +20,7 @@ svg text{font-family:'QMark','Macan',sans-serif}
   
   <svg id="svg" width="1280" height="720" viewBox="0 0 1280 720"><defs id="defs"></defs></svg>
   <h1 class="h" id="h">A license is not <em>adoption</em>.</h1>
-  <img class="logo" src="../../brand/logo-white.svg" alt="">
+  <img class="logo" src="../../brand/logo.svg" alt="">
   <div class="pre"><span style="font:500 20px Season">a</span><span style="font:400 20px Macan">a</span><span style="font:500 20px Macan">a</span></div>
 </div>
 <script>
@@ -29,7 +29,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), seg=(t,a,b)=>clamp((t-a)/(b-a),0
 function bez(x1,y1,x2,y2){const f=(u,a,b)=>3*(1-u)*(1-u)*u*a+3*(1-u)*u*u*b+u*u*u;return x=>{if(x<=0)return 0;if(x>=1)return 1;let lo=0,hi=1,u=.5;for(let i=0;i<26;i++){u=(lo+hi)/2;if(f(u,x1,x2)<x)lo=u;else hi=u}return f(u,y1,y2)}}
 const ez=bez(.2,.8,.2,1), ezio=bez(.77,0,.18,1);   // the guide's two curves
 const at=(t,a,d)=>ez(seg(t,a,a+(d||.7)));           // "arrive": 0..1 starting at a
-const INK='#ffffff', G1='#b4b6bb', G2='#77797f', G3='#3c3d41', HAIR='#232326', SOFT='#19191b', SKY='#80ACED', FIELD='#0f0f10';
+const INK='#0f0f10', G1='#5c5f66', G2='#9a9ca1', G3='#c9cacd', HAIR='#ececed', SOFT='#f4f4f5', SKY='#80ACED', FIELD='#ffffff';
 const svg=document.getElementById('svg'), defs=document.getElementById('defs');
 const NS='http://www.w3.org/2000/svg';
 const S=(el,a)=>{for(const k in a)el.setAttribute(k,a[k]);return el};
@@ -54,25 +54,27 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
     S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
     op(inside,sky?seg(k,0,.25):0)}}}
-const FADE=false;
+const FADE=true;
 
-// A building at night. Every window has a seat licensed; one light is on. Then the floors come on.
-const BX=850,BY=176,COLS=3,ROWS=6,WW=30,WH=40,PX=56,PY=70,PAD=22;
-const BW=PAD*2+(COLS-1)*PX+WW, BH=PAD*2+(ROWS-1)*PY+WH+8;
-mk('rect',{x:BX,y:BY,width:BW,height:BH,fill:'none',stroke:G3,'stroke-width':1.5});
-line(BX-110,BY+BH,BX+BW+110,BY+BH,G3,1.5);
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// An office building. Every window has a seat licensed; one light is on. Then the floors come on.
+const COLS=4,ROWS=6,WW=36,WH=34,PX=58,PY=54,PAD=27,GF=70, BW=PAD*2+(COLS-1)*PX+WW, BH=PAD+ROWS*PY+GF, BX=930-BW/2, BASE=582, BY=BASE-BH;
+floor(BASE,690,1170);
+box(BX,BY,BW,BH);box(BX-9,BY-12,BW+18,12);
+box(930-24,BASE-50,48,50);line(930,BASE-50,930,BASE,INK,2);
 let s=5;const rnd=()=>{s=(s*1103515245+12345)&0x7fffffff;return s/0x7fffffff};
-const FLOOR=[2.0,2.75,3.3,4.2,4.7,5.5];   // bottom floor first; uneven, the way a rollout goes
+const FLOOR=[2.0,2.75,3.3,4.2,4.7,5.5];
 const win=[];
 for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
   const x=BX+PAD+c*PX, y=BY+PAD+(ROWS-1-r)*PY, first=(r===3&&c===1);
-  mk('rect',{x,y,width:WW,height:WH,fill:'none',stroke:G3,'stroke-width':1.5});
-  win.push({first,on:FLOOR[r]+rnd()*.4,lit:mk('rect',{x,y,width:WW,height:WH,fill:first?SKY:'#fff',opacity:first?1:0})});
+  box(x,y,WW,WH,{'stroke-width':1.5});
+  win.push({first,on:FLOOR[r]+rnd()*.45,lit:mk('rect',{x,y,width:WW,height:WH,fill:SKY,stroke:INK,'stroke-width':1.5,opacity:first?1:0})});
 }
-function render(t){
-  const off=1-ez(seg(t,8.0,8.7));
-  win.forEach(w=>{if(!w.first)op(w.lit,Math.min(at(t,w.on,.6),off))});
-}
+function render(t){win.forEach(w=>{if(!w.first)op(w.lit,at(t,w.on,.5))})}
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
 window.seek=t=>frame(((t%D)+D)%D);

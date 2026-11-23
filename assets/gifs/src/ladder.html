@@ -56,23 +56,26 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// Five steps. One dot climbs them, resting on each.
-const X0=690,Y0=540,TW=98,RH=72;
-let d=`M${X0} ${Y0}`;for(let i=0;i<5;i++){d+=` h${TW}`;if(i<4)d+=` v${-RH}`}
-const base=mk('path',{d,fill:'none',stroke:G3,'stroke-width':2,'stroke-linejoin':'miter'});
-const done=mk('path',{d,fill:'none',stroke:INK,'stroke-width':2});
-lab(X0,Y0+40,'Use AI');
-const topl=lab(X0+5*TW,Y0-4*RH-40,'Orchestration layer','end');
-const me=dot(0,0,7,SKY);
-const stop=i=>TW/2+i*(TW+RH);
-const T=[1.0,2.0,3.15,4.2,5.5];        // when the dot leaves for step i (step 0 = when it appears)
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A solid staircase with a wide landing. A ball climbs it step by step; the landing is where it arrives.
+const X0=716,Y0=556,TW=80,RH=56,LAND=144, LX=X0+4*TW, RX=LX+LAND, TOP=Y0-5*RH;
+floor(Y0,640,1214);
+const land=mk('rect',{x:LX,y:TOP,width:LAND,height:RH,fill:SKY,opacity:0});
+for(let i=1;i<5;i++)line(X0+i*TW,Y0-i*RH,RX,Y0-i*RH,G3,1.5);
+let d=`M${X0} ${Y0}`;for(let i=0;i<4;i++)d+=` v${-RH} h${TW}`;d+=` v${-RH} h${LAND} V${Y0}`;
+mk('path',{d,fill:'none',stroke:INK,'stroke-width':2,'stroke-linejoin':'miter'});
+lab(650,Y0+44,'Use AI');lab(RX,Y0+44,'Orchestration layer','end');
+const P=[[X0-44,Y0]];for(let i=1;i<5;i++)P.push([X0+(i-1)*TW+TW/2,Y0-i*RH]);P.push([LX+LAND/2,TOP]);
+const ball=mk('circle',{r:18,fill:FIELD,stroke:INK,'stroke-width':2});
+const T=[0,1.5,2.5,3.6,4.6,5.8];
 function render(t){
-  let len=stop(0);
-  for(let i=1;i<5;i++)len=lerp(len,stop(i),ez(seg(t,T[i]-.85,T[i])));
-  const p=base.getPointAtLength(len);S(me,{cx:p.x,cy:p.y-13});
-  op(me,at(t,T[0]-.4,.5));
-  dash(done,t<T[0]-.4?0:len/base.getTotalLength());
-  topl.setAttribute('fill',t>T[4]?INK:G1);
+  let x=P[0][0],y=P[0][1];
+  for(let i=1;i<6;i++){const k=seg(t,T[i]-.75,T[i]);if(k>0){const s=k*k*(3-2*k);x=lerp(P[i-1][0],P[i][0],s);y=lerp(P[i-1][1],P[i][1],s)-Math.sin(Math.PI*s)*30}}
+  S(ball,{cx:x,cy:y-19});op(land,at(t,5.75,.6));
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

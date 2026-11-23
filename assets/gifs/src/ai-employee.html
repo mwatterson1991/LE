@@ -54,22 +54,25 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     leaf.setAttribute('points',`${x},${y} ${x+lw},${y-dy} ${x+lw},${y+h+dy} ${x},${y+h}`);
     S(knob,{cx:x+lw*.8,cy:y+h*.53,fill:c||INK});frame.setAttribute('stroke',c||INK);leaf.setAttribute('stroke',c||INK);
     op(inside,sky?seg(k,0,.25):0)}}}
-const FADE=false;
+const FADE=true;
 
-// A loop that runs on its own. The dot goes round, the word in the middle says where it is.
-const CX=930,CY=372,R=150;
-mk('circle',{cx:CX,cy:CY,r:R,fill:'none',stroke:G3,'stroke-width':2});
-const P=i=>[CX+R*Math.cos(-Math.PI/2+i*Math.PI/2),CY+R*Math.sin(-Math.PI/2+i*Math.PI/2)];
-for(let i=0;i<4;i++){const [x,y]=P(i);mk('circle',{cx:x,cy:y,r:9,fill:FIELD});dot(x,y,4,INK)}
-const words=['Trigger','Research','Draft','Deliver'].map(s=>{const e=lab(CX,CY+9,s,'middle',INK);e.setAttribute('font-size',26);return e});
-const me=dot(0,0,8,SKY);
-const GO=[.9,2.9,4.9,6.9], MOVE=.8;
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A desk with nobody at it. The in-tray empties into the out-tray, one sheet at a time.
+const DY=470, IN=690, OUT=1010, TWd=180, SWd=148, SHh=14, PIT=20;
+floor(580);box(884,DY-96,92,96,{rx:6});line(930,DY,930,580,INK,2);bench(DY,664,1200,580);
+[IN,OUT].forEach(x=>mk('path',{d:`M${x} ${DY-64} V${DY-1} H${x+TWd} V${DY-64}`,fill:'none',stroke:INK,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'}));
+lab(IN+TWd/2,DY+56,'In','middle');lab(OUT+TWd/2,DY+56,'Out','middle');
+const yj=j=>DY-5-SHh-j*PIT;
+const sh=[0,1,2,3].map(n=>{const gg=mk('g');box(0,0,SWd,SHh,{},gg);const f=mk('rect',{x:0,y:0,width:SWd,height:SHh,fill:SKY,stroke:INK,'stroke-width':2,opacity:0},gg);return {gg,f}});
+const T=[1.0,2.4,3.7,5.1];
 function render(t){
-  let q=0;GO.forEach(s=>q+=ezio(seg(t,s,s+MOVE)));
-  const a=-Math.PI/2+q*Math.PI/2;S(me,{cx:CX+R*Math.cos(a),cy:CY+R*Math.sin(a)});
-  words.forEach((w,i)=>{
-    const inn=i===0?Math.max(1-seg(t,GO[0]+.1,GO[0]+.4),seg(t,GO[3]+MOVE-.25,GO[3]+MOVE+.1)):Math.min(seg(t,GO[i-1]+MOVE-.25,GO[i-1]+MOVE+.1),1-seg(t,GO[i]+.1,GO[i]+.4));
-    op(w,inn)});
+  sh.forEach((s,n)=>{const k=ezio(seg(t,T[n],T[n]+1.1));
+    const x=lerp(IN+16,OUT+16,k), y=lerp(yj(3-n),yj(n),k)-Math.sin(Math.PI*k)*130;
+    s.gg.setAttribute('transform',`translate(${x.toFixed(2)} ${y.toFixed(2)})`);op(s.f,seg(k,.55,1))});
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

@@ -56,19 +56,27 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// Three separate parts. They close into one ring.
-const CX=930,CY=380,R=118,OUT=44, MID=[-90,30,150];
-const pt=(a,r)=>[CX+r*Math.cos(a*Math.PI/180),CY+r*Math.sin(a*Math.PI/180)];
-const arcs=MID.map(m=>{const [x1,y1]=pt(m-60,R),[x2,y2]=pt(m+60,R);const gg=mk('g');
-  const p=mk('path',{d:`M${x1} ${y1} A${R} ${R} 0 0 1 ${x2} ${y2}`,fill:'none',stroke:INK,'stroke-width':2},gg);return {gg,p,m}});
-const ring=mk('circle',{cx:CX,cy:CY,r:R,fill:'none',stroke:SKY,'stroke-width':2.5});
-const L=[lab(CX,CY-R-OUT-22,'Skills','middle',INK),lab(CX+R*.87+OUT+22,CY+R*.5+OUT*.5+8,'Agents','start',INK),lab(CX-R*.87-OUT-22,CY+R*.5+OUT*.5+8,'Workflows','end',INK)];
-const IN=[.6,1.6,2.8];
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// Three keys lying apart. One ring. They go onto it one by one.
+const CX=930,CY=236,R=72, LEN=216, TH=[42,0,-42], X0=[730,930,1130], Y0=340, names=['Skills','Agents','Workflows'];
+const keys=names.map(()=>{const gg=mk('g');
+  mk('path',Object.assign({d:`M-8 40 V${LEN} H8 V208 H32 V192 H8 V182 H26 V168 H8 V40 Z`},P2),gg);
+  mk('circle',Object.assign({cx:0,cy:18,r:30},P2),gg);mk('circle',Object.assign({cx:0,cy:0,r:7},P2),gg);return gg});
+const ringG=mk('circle',{cx:CX,cy:CY,r:R,fill:'none',stroke:INK,'stroke-width':2.5});
+const ring=mk('circle',{cx:CX,cy:CY,r:R,fill:'none',stroke:SKY,'stroke-width':4});
+const tx=names.map(s=>lab(0,0,s,'middle',INK));
+const T=[1.3,2.7,4.1];
 function render(t){
-  const j=ezio(seg(t,4.6,5.8));
-  arcs.forEach((a,i)=>{dash(a.p,at(t,IN[i],.8));const [dx,dy]=pt(a.m,OUT*(1-j));a.gg.setAttribute('transform',`translate(${dx-CX} ${dy-CY})`);op(a.gg,1-seg(t,5.8,6.3))});
-  L.forEach((l,i)=>op(l,Math.min(at(t,IN[i]+.3,.6),1-seg(t,4.3,4.8))));
-  op(ring,seg(t,5.7,6.3));
+  keys.forEach((gg,i)=>{const k=ezio(seg(t,T[i],T[i]+1.1)), th=TH[i]*k, r=th*Math.PI/180, dx=-Math.sin(r), dy=Math.cos(r);
+    const ex=CX+R*-Math.sin(TH[i]*Math.PI/180), ey=CY+R*Math.cos(TH[i]*Math.PI/180);
+    const x=lerp(X0[i],ex,k), y=lerp(Y0,ey,k);
+    gg.setAttribute('transform',`translate(${x.toFixed(2)} ${y.toFixed(2)}) rotate(${th.toFixed(2)})`);
+    S(tx[i],{x:(x+LEN*dx).toFixed(2),y:(y+LEN*dy+42).toFixed(2)})});
+  op(ring,at(t,5.5,.6));
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

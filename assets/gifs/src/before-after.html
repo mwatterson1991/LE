@@ -56,19 +56,31 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// The same job twice. By hand it crawls and wanders. Once it runs, it is one clean line.
-const X=690,W=480,YA=318,YB=452;
-lab(X,YA-34,'Before');lab(X,YB-34,'After');
-line(X,YA,X+W,YA,HAIR,2);line(X,YB,X+W,YB,HAIR,2);
-let d=`M${X} ${YA}`;for(let x=6;x<=W;x+=6){const y=3.2*Math.sin(x*.045)+2.2*Math.sin(x*.13+1)+1.4*Math.sin(x*.31+2);d+=` L${X+x} ${(YA+y*Math.min(1,x/30)).toFixed(2)}`}
-const hand=mk('path',{d,fill:'none',stroke:INK,'stroke-width':2,'stroke-linecap':'round','stroke-linejoin':'round'});
-const pen=dot(0,0,4,INK);
-const run=line(X,YB,X,YB,SKY,2.5), tip=dot(X,YB,6,SKY);
-const K=[[.8,0],[1.7,.10],[2.3,.10],[3.3,.21],[3.9,.21],[5.0,.31],[5.7,.31],[6.9,.42],[7.5,.42],[8.9,.52]];
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A machine and its cord. By hand: tangled, tugged, going nowhere. Then it pulls straight, plugs in and runs.
+const Y=392, MX=660, MW=112, XS0=MX+MW, SX=1144, FAR=1010;
+const cordI=mk('polyline',{fill:'none',stroke:INK,'stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round'});
+const cordS=mk('polyline',{fill:'none',stroke:SKY,'stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'});
+box(MX,Y-80,MW,160,{rx:8});line(MX+26,Y+40,MX+MW-26,Y+40,INK,2);line(MX+26,Y+54,MX+MW-26,Y+54,INK,2);
+mk('circle',Object.assign({cx:MX+MW/2,cy:Y-30,r:17},P2));const lamp=mk('circle',{cx:MX+MW/2,cy:Y-30,r:17,fill:SKY,stroke:INK,'stroke-width':2});
+const plug=mk('g');line(30,-7,44,-7,INK,3,plug);line(30,7,44,7,INK,3,plug);box(0,-15,30,30,{rx:3},plug);
+box(SX,Y-60,62,120,{rx:8});line(SX+24,Y-15,SX+24,Y-3,INK,3);line(SX+24,Y+3,SX+24,Y+15,INK,3);
+const la=lab(MX,Y-108,'Before','start',INK), lb=lab(MX,Y-108,'After','start',INK);
+const bump=(t,a,b)=>Math.pow(Math.sin(Math.PI*seg(t,a,b)),2);
 function render(t){
-  let p=0;for(let i=1;i<K.length;i++){const s=seg(t,K[i-1][0],K[i][0]);if(s>0)p=lerp(K[i-1][1],K[i][1],s<.5?2*s*s:1-2*(1-s)*(1-s))}
-  dash(hand,p);const L=hand._L||hand.getTotalLength(), q=hand.getPointAtLength(L*p);S(pen,{cx:q.x,cy:q.y});op(pen,seg(t,.6,.8));
-  const r=at(t,3.6,1.2);grow(run,X,YB,X+W,YB,r);S(tip,{cx:X+W*r});op(tip,seg(t,3.5,3.7));
+  const tug=bump(t,1.3,2.2)+bump(t,2.8,3.7), p=ezio(seg(t,4.5,6.0));
+  const A=(1-p)*(1-.1*tug), xe=lerp(FAR+30*tug,SX-30,p);
+  let s='';for(let j=0;j<=260;j++){const u=j/260, e=Math.sin(Math.PI*u);
+    const x=XS0+u*(xe-XS0)+A*e*74*Math.sin(2*Math.PI*3.5*u+.5), y=Y+A*e*(84*Math.cos(2*Math.PI*3.5*u)+44*Math.sin(2*Math.PI*1.5*u)+10);
+    s+=x.toFixed(1)+','+y.toFixed(1)+' '}
+  cordI.setAttribute('points',s);cordS.setAttribute('points',s);
+  const on=seg(t,6.0,6.45);op(cordS,on);op(lamp,on);
+  plug.setAttribute('transform',`translate(${xe.toFixed(2)} ${Y})`);
+  op(la,1-seg(t,4.5,4.9));rise(lb,at(t,6.2,.6),8);
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

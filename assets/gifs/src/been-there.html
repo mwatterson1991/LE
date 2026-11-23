@@ -56,17 +56,25 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// The expert is already at the top. The trail lights from them down to you. You start up it.
-const d='M708 548 C 800 548 770 452 868 428 S 960 330 1040 306 S 1082 262 1092 236';
-const trail=mk('path',{d,fill:'none',stroke:G3,'stroke-width':3,'stroke-linecap':'round','stroke-dasharray':'0.1 11'});
-const lit=mk('path',{d,fill:'none',stroke:SKY,'stroke-width':2.5,'stroke-linecap':'round'});
-face(1084,150,80,'spencer-s');lab(1068,198,'Spencer S.','end',INK);
-const you=dot(0,0,7,INK);const yl=lab(708,592,'You','middle',INK);
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A hill with a flag at the top, where the expert already is. The trail lights from the flag down to you; you start up it.
+const GY=570;
+floor(GY);
+mk('path',{d:`M690 ${GY} C800 ${GY} 900 250 1010 250 C1100 250 1150 500 1200 ${GY}`,fill:FIELD,stroke:INK,'stroke-width':2});
+const d='M772 562 L1118 506 L892 434 L1074 368 L966 306 L1008 256';
+mk('path',{d,fill:'none',stroke:G2,'stroke-width':2.5,'stroke-linecap':'round','stroke-linejoin':'round','stroke-dasharray':'0.1 10'});
+const lit=mk('path',{d,fill:'none',stroke:SKY,'stroke-width':3.5,'stroke-linecap':'round','stroke-linejoin':'round'});
+line(1010,250,1010,176,INK,2);mk('polygon',Object.assign({points:'1010,176 1052,191 1010,206'},P2));
+face(1080,138,86,'spencer-s');lab(1080,258,'Spencer S.','start',INK);
+const you=dot(0,0,8,INK), yl=lab(772,GY+42,'You','middle',INK);
 function render(t){
-  const L=lit._L||(lit._L=lit.getTotalLength());
-  const k=ezio(seg(t,1.4,3.8));
+  const L=lit._L||(lit._L=lit.getTotalLength()), k=ezio(seg(t,1.3,3.9));
   lit.setAttribute('stroke-dasharray',`${L*k} ${L+4}`);lit.setAttribute('stroke-dashoffset',-(L*(1-k)));lit.setAttribute('visibility',k>0.001?'visible':'hidden');
-  const c=ezio(seg(t,4.8,7.0))*.3, p=lit.getPointAtLength(L*c);S(you,{cx:p.x,cy:p.y});op(yl,1-seg(t,4.6,5.0));
+  const c=ezio(seg(t,4.7,7.0))*.42, p=lit.getPointAtLength(L*c);S(you,{cx:p.x,cy:p.y});op(yl,1-seg(t,4.5,4.9));
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

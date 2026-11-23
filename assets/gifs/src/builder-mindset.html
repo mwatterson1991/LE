@@ -56,11 +56,20 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// A row of people. One starts building. The rest follow.
-const N=9,X=700,GAP=58,Y=372,FIRST=3;
-const ON=[3.5,3.0,2.55,1.3,2.35,2.9,3.6,4.05,4.4];   // not a stagger: near neighbours first, pace picks up
-const ds=[...Array(N)].map((_,i)=>({a:dot(X+i*GAP,Y,8,G3),b:dot(X+i*GAP,Y,8,SKY)}));
-function render(t){ds.forEach((d,i)=>op(d.b,at(t,ON[i],.6)))}
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// Five lamps over one long bench. One comes on. The others follow.
+const CEIL=214, SHY=296, TB=516, XS=[0,1,2,3,4].map(i=>710+i*110);
+floor(580);
+const cones=XS.map(x=>mk('polygon',{points:`${x-32},${SHY+42} ${x+32},${SHY+42} ${x+50},${TB} ${x-50},${TB}`,fill:SKY,opacity:0}));
+line(656,CEIL,1204,CEIL,INK,2);
+XS.forEach(x=>{line(x,CEIL,x,SHY,INK,2);mk('polygon',Object.assign({points:`${x-11},${SHY} ${x+11},${SHY} ${x+32},${SHY+42} ${x-32},${SHY+42}`},P2))});
+bench(TB,664,1200,580);
+const ON=[2.75,1.2,3.1,3.7,4.2];
+function render(t){cones.forEach((c,i)=>op(c,at(t,ON[i],.45)))}
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
 window.seek=t=>frame(((t%D)+D)%D);

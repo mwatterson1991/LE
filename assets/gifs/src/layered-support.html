@@ -56,15 +56,21 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// Four layers, widest at the bottom. Each is named as it lands.
-const CX=930, W=[440,320,210,110], Y=[540,464,388,312];
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A column built in four courses. Each is named as it is lowered onto the last.
+const CX=790, GY=570, PART=[[280,44],[140,118],[140,118],[220,40]];
 const names=['AI Builder Foundations','AI Builder Program','Matched domain expert','Innovation Sprint'];
-const T=[.8,2.6,4.4,6.2];
-const ls=W.map((w,i)=>line(CX,Y[i],CX,Y[i],i===0?SKY:INK,i===0?3:2));
-const tx=names.map((s,i)=>lab(CX,Y[i]-24,s,'middle',INK));
+floor(GY);
+const T=[.8,2.6,4.4,6.2];let y=GY;
+const cs=PART.map(([w,h],i)=>{y-=h;const gg=mk('g');box(CX-w/2,y,w,h,i===0?{fill:SKY}:{},gg);
+  if(i===1||i===2)[-35,0,35].forEach(dx=>line(CX+dx,y+12,CX+dx,y+h-12,G3,1.5,gg));
+  return {gg,tx:lab(CX+166,y+h/2+8,names[i],'start',INK)}});
 function render(t){
-  ls.forEach((l,i)=>{const k=at(t,T[i],.9);S(l,{x1:CX-W[i]/2*k,x2:CX+W[i]/2*k});l.setAttribute('visibility',k>0?'visible':'hidden')});
-  tx.forEach((e,i)=>rise(e,Math.min(at(t,T[i]+.35,.6),i<3?1-seg(t,T[i+1]-.35,T[i+1]):1),0));
+  cs.forEach((c,i)=>{rise(c.gg,at(t,T[i],.9),-30);rise(c.tx,Math.min(at(t,T[i]+.4,.6),i<3?1-seg(t,T[i+1]-.35,T[i+1]):1),0)});
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

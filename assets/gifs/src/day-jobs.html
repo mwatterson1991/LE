@@ -56,19 +56,25 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// A week, five days on a line. Meetings fill it. The teaching block is lifted out, and an expert takes it.
-const X=690,SW=96,Y=500,BH=56,BW=86, MID=2, LIFT=150;
-line(X,Y,X+5*SW,Y,G3,2);
-const bx=i=>X+i*SW+(SW-BW)/2;
-const meet=[0,1,2,3,4].map(i=>mk('rect',{x:bx(i),y:Y-BH-8,width:BW,height:BH,rx:4,fill:'#e4e5e7'}));
-const IN=[1.5,3.1,4.5,3.6,2.2];
-const tg=mk('g');mk('rect',{x:bx(MID),y:Y-BH-8,width:BW,height:BH,rx:4,fill:SKY},tg);
-lab(bx(MID)+BW/2,Y-BH-8-20,'Teach the team','middle',INK,tg);
-const ex=mk('g');face(bx(MID)+BW+18,Y-BH-8-LIFT-8,72,'claudia-p',ex);lab(bx(MID)+BW+18+72+16,Y-BH-8-LIFT+36,'Claudia P.','start',INK,ex);
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A week planner. Meetings fill every day. The one block that matters is handed to an expert.
+const BX=660,BW=320,BT=250,BH=302,HD=38,CW=BW/5, EX_=1040;
+box(BX,BT,BW,BH);line(BX,BT+HD,BX+BW,BT+HD,INK,2);
+for(let i=1;i<5;i++)line(BX+i*CW,BT,BX+i*CW,BT+BH,G3,1.5);
+const SL=[[0,296,70,1.9],[0,372,100,3.4],[0,478,68,2.6],[1,296,110,1.3],[1,412,60,3.0],[1,478,68,4.1],[2,296,60,2.2],[2,452,94,3.7],
+          [3,296,84,1.6],[3,386,70,3.9],[3,462,84,2.9],[4,296,60,2.4],[4,362,110,1.1],[4,478,68,3.2],[2,362,84,6.3]];
+const ms=SL.map(([c,y,h,tm])=>({tm,e:mk('rect',{x:BX+c*CW+5,y,width:CW-10,height:h,rx:3,fill:G3})}));
+const ex=mk('g');face(EX_,262,104,'claudia-p',ex);lab(EX_,262+104+36,'Claudia P.','start',INK,ex);
+const tb=mk('rect',{width:CW-10,height:84,rx:3,fill:SKY}), tl=lab(EX_,566,'Teach the team','start',INK);
 function render(t){
-  meet.forEach((m,i)=>rise(m,at(t,IN[i],.7),10));
-  op(tg,at(t,.5,.6));tg.setAttribute('transform',`translate(0 ${(-LIFT*ezio(seg(t,4.2,5.4))).toFixed(2)})`);
-  rise(ex,at(t,5.9,.8),0);
+  ms.forEach(m=>rise(m.e,at(t,m.tm,.6),-12));
+  rise(ex,at(t,4.4,.7),0);
+  const k=ezio(seg(t,5.1,6.4));S(tb,{x:lerp(BX+2*CW+5,EX_,k),y:lerp(362,446,k)});
+  rise(tl,at(t,6.5,.6),0);
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

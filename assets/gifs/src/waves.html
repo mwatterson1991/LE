@@ -56,14 +56,16 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// One drop. Three rings, each named as it lands.
-const CX=930,CY=338,R=[58,122,186], T=[1.3,3.1,4.9], names=['Leadership','Squads','Company-wide'];
-const c=dot(CX,CY,6,INK);
-const rings=R.map((r,i)=>mk('circle',{cx:CX,cy:CY,r,fill:'none',stroke:i===2?SKY:INK,'stroke-width':2}));
-const tx=names.map(s=>lab(CX,CY+R[2]+56,s,'middle',INK));
+// A pond. A pebble drops in. Three ripples spread to the shore, each named as it lands.
+const CX=930,CY=412,RX=262,RY=114,Q=RY/RX, R=[70,148,228], T=[1.25,3.0,4.8], names=['Leadership','Squads','Company-wide'];
+mk('ellipse',{cx:CX,cy:CY+5,rx:RX+15,ry:RY+13,fill:'none',stroke:G3,'stroke-width':2});
+mk('ellipse',{cx:CX,cy:CY,rx:RX,ry:RY,fill:FIELD,stroke:INK,'stroke-width':2});
+const rings=R.map((r,i)=>mk('ellipse',{cx:CX,cy:CY,fill:'none',stroke:i===2?SKY:INK,'stroke-width':i===2?3:2}));
+const peb=dot(CX,0,9,INK);
+const tx=names.map(s=>lab(CX,CY+RY+54,s,'middle',INK));
 function render(t){
-  op(c,at(t,.5,.5));
-  rings.forEach((e,i)=>{const k=at(t,T[i],1.1);S(e,{r:lerp(i?R[i-1]:6,R[i],k)});op(e,seg(t,T[i],T[i]+.25))});
+  const f=seg(t,.5,1.2);S(peb,{cy:lerp(176,CY,f*f)});op(peb,Math.min(seg(t,.4,.6),1-seg(t,1.18,1.26)));
+  rings.forEach((e,i)=>{const r=lerp(i?R[i-1]:4,R[i],at(t,T[i],1.2));S(e,{rx:r,ry:r*Q});op(e,seg(t,T[i],T[i]+.2))});
   tx.forEach((e,i)=>rise(e,Math.min(at(t,T[i]+.4,.6),i<2?1-seg(t,T[i+1],T[i+1]+.35):1),0));
 }
 

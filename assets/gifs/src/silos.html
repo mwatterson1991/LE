@@ -56,20 +56,26 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// Two teams build the same four steps either side of a wall. The wall goes. The two become one.
-const CX=930, DX=140, W=150, YS=[440,400,360,320], TOP=250, BOT=478;
-const wall=line(CX,TOP,CX,BOT,INK,2);
-const TA=[.7,1.1,1.7,2.1], TB=[1.0,1.6,2.0,2.6];
-const A=mk('g'), B=mk('g'), M=mk('g');
-YS.forEach(y=>{line(CX-DX-W/2,y,CX-DX+W/2,y,INK,2,A);line(CX+DX-W/2,y,CX+DX+W/2,y,INK,2,B);line(CX-W/2,y,CX+W/2,y,SKY,2.5,M)});
-const la=lab(CX-DX,YS[3]-34,'Sales','middle',INK), lb=lab(CX+DX,YS[3]-34,'Ops','middle',INK);
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// One room, split by a wall, a table each side. The wall lifts. The two tables slide into one.
+const RX_=660,RW=540,RT=250,RB=540,CX=930,TY=420,DX=50, TW2=180, TH2=18;
+floor(RB,640,1220);
+box(RX_,RT,RW,RB-RT,{fill:'none'});
+const tbl=cx=>{const gg=mk('g');[-TW2/2+14,TW2/2-26].forEach(dx=>box(cx+dx,TY+TH2,12,RB-TY-TH2,{},gg));box(cx-TW2/2,TY,TW2,TH2,{},gg);return gg};
+const A=tbl(CX-140), B=tbl(CX+140);
+const one=mk('rect',{x:CX-TW2,y:TY,width:TW2*2,height:TH2,fill:SKY,stroke:INK,'stroke-width':2});
+const wall=box(CX-7,RT,14,RB-RT);
+const la=lab(CX-140,TY-30,'Sales','middle',INK), lb=lab(CX+140,TY-30,'Ops','middle',INK);
 function render(t){
-  [...A.children].forEach((l,i)=>grow(l,CX-DX-W/2,YS[i],CX-DX+W/2,YS[i],at(t,TA[i],.6)));
-  [...B.children].forEach((l,i)=>grow(l,CX+DX-W/2,YS[i],CX+DX+W/2,YS[i],at(t,TB[i],.6)));
-  const wk=ezio(seg(t,3.6,4.5));S(wall,{y1:lerp(TOP,BOT,wk)});op(wall,Math.min(at(t,.3,.5),1-seg(t,4.4,4.5)));
-  const m=ezio(seg(t,4.7,5.9));A.setAttribute('transform',`translate(${DX*m} 0)`);B.setAttribute('transform',`translate(${-DX*m} 0)`);
-  const sk=seg(t,5.8,6.4);op(M,sk);op(A,1-sk);op(B,1-sk);
-  const lo=Math.min(1,1-seg(t,4.3,4.8));op(la,Math.min(at(t,.9,.6),lo));op(lb,Math.min(at(t,1.2,.6),lo));
+  const w=ezio(seg(t,2.8,4.1));S(wall,{height:Math.max(.01,(RB-RT)*(1-w))});op(wall,1-seg(w,.97,1));
+  const m=ezio(seg(t,4.5,5.8));A.setAttribute('transform',`translate(${DX*m} 0)`);B.setAttribute('transform',`translate(${-DX*m} 0)`);
+  la.setAttribute('transform',`translate(${DX*m} 0)`);lb.setAttribute('transform',`translate(${-DX*m} 0)`);
+  const lo=1-seg(t,5.5,5.9);op(la,lo);op(lb,lo);
+  op(one,at(t,5.8,.6));
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

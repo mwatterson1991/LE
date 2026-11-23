@@ -56,24 +56,27 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=false;
 
-// Three goals. Pick one and the list below re-sorts around it.
-const X=690, TY=268, goals=['MBA','Consulting','PM'], GX=[X,X+104,X+268];
-const tg=goals.map((s,i)=>lab(GX[i],TY,s,'start',G2)), ti=goals.map((s,i)=>lab(GX[i],TY,s,'start',INK));
-const under=line(0,TY+14,0,TY+14,SKY,2.5);
-const ROWY=[344,400,456,512], LEN=[440,270,360,190], TAG=[0,1,2,1];            // which goal each post belongs to
-const ORDER=[[0,1,2,3],[1,3,0,2],[2,0,1,3]];                                    // slot order per selected goal
-const rows=LEN.map(l=>({a:line(X,0,X+l,0,G3,2),b:line(X,0,X+l,0,INK,2)}));
-const C=D/3;
-const slot=(k,r)=>ROWY[ORDER[k].indexOf(r)];
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A signpost with three boards. The goal you pick swings round to point the way.
+const PX=930, GY=566, YS=[226,312,398], H=64, L=252, TIP=30, BK=36, names=['MBA','Consulting','PM'];
+floor(GY,760,1100);
+box(PX-7,192,14,GY-192);
+const pts=(y,sx)=>[[-BK,0],[L-TIP,0],[L,H/2],[L-TIP,H],[-BK,H]].map(p=>`${(PX+p[0]*sx).toFixed(2)},${y+p[1]}`).join(' ');
+const bd=YS.map((y,i)=>({y,w:mk('polygon',P2),s:mk('polygon',{fill:SKY,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'}),t:lab(0,0,names[i],'middle',INK)}));
+const C=D/3, MID=(L-TIP-BK)/2;
 function render(t){
   const k=Math.floor(t/C)%3, p=(k+2)%3, u=t-k*C;
-  const mv=ezio(seg(u,.1,.8)), so=ezio(seg(u,.55,1.6));
-  const bb=tg.map(e=>e.getBBox());
-  const x1=lerp(bb[p].x,bb[k].x,mv), x2=lerp(bb[p].x+bb[p].width,bb[k].x+bb[k].width,mv);
-  S(under,{x1,x2});
-  ti.forEach((e,i)=>op(e,i===k?seg(u,.3,.7):i===p?1-seg(u,.1,.5):0));
-  rows.forEach((r,i)=>{const y=lerp(slot(p,i),slot(k,i),so);S(r.a,{y1:y,y2:y});S(r.b,{y1:y,y2:y});
-    op(r.b,TAG[i]===k?seg(u,.9,1.5):TAG[i]===p?1-seg(u,.3,.8):0)});
+  bd.forEach((b,i)=>{
+    const sx=i===k?lerp(-1,1,ezio(seg(u,.35,1.45))):i===p?lerp(1,-1,ezio(seg(u,0,1.1))):-1;
+    const e=Math.abs(sx)<.02?(sx<0?-.02:.02):sx;
+    b.w.setAttribute('points',pts(b.y,e));b.s.setAttribute('points',pts(b.y,e));
+    op(b.s,i===k?seg(u,.9,1.4):i===p?1-seg(u,0,.5):0);
+    b.t.setAttribute('transform',`translate(${(PX+e*MID).toFixed(2)} ${b.y+H/2+8}) scale(${Math.abs(e).toFixed(3)} 1)`);
+  });
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

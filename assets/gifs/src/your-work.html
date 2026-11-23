@@ -56,26 +56,27 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// A doc, a sheet and an inbox, lying around. They line up and become one flow.
-const Y=350, XS=[740,930,1120];
-const st={fill:'none',stroke:INK,'stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round'};
-const ic=XS.map(()=>mk('g'));
-mk('path',Object.assign({d:'M-17 -23 h22 l12 12 v34 h-34 z M5 -23 v12 h12 M-8 2 h16 M-8 11 h16'},st),ic[0]);
-mk('path',Object.assign({d:'M-23 -18 h46 v36 h-46 z M-23 -6 h46 M-23 6 h46 M-7 -18 v36'},st),ic[1]);
-mk('path',Object.assign({d:'M-24 -17 h48 v34 h-48 z M-24 -17 l24 19 l24 -19'},st),ic[2]);
-const OFF=[{dy:-46,r:-9},{dy:34,r:7},{dy:-18,r:-5}], IN=[.5,1.0,1.7];
-const link=[line(0,0,0,0,INK,2),line(0,0,0,0,INK,2)];
-const words=['Research','Draft','Send'].map((s,i)=>lab(XS[i],Y+72,s,'middle',INK));
-const run=dot(0,Y,6,SKY);
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A workbench with your own document, sheet and inbox on it. Each is picked up in order and they join into one line.
+const BY=486, XS=[770,930,1090], LIFT=124, SC=1.5;
+floor(580);
+const rail=line(XS[0],BY-LIFT-44,XS[0],BY-LIFT-44,SKY,3);
+bench(BY,664,1200,580);line(718,BY+58,1146,BY+58,INK,2);
+const SH=[['M-24 0 V-64 H10 L24 -50 V0 Z','M10 -64 V-50 H24 M-12 -34 H12 M-12 -20 H12'],
+          ['M-36 0 V-54 H36 V0 Z','M-36 -36 H36 M-36 -18 H36 M-12 -54 V0'],
+          ['M-38 0 V-52 H38 V0 Z','M-38 -52 L0 -22 L38 -52']];
+const it=SH.map((s,i)=>{const gg=mk('g');mk('path',Object.assign({d:s[0]},P2),gg);const f=mk('path',{d:s[0],fill:SKY,opacity:0},gg);
+  mk('path',{d:s[0]+' '+s[1],fill:'none',stroke:INK,'stroke-width':1.4,'stroke-linejoin':'round','stroke-linecap':'round'},gg);return {gg,f}});
+const words=['Research','Draft','Send'].map((s,i)=>lab(XS[i],BY-LIFT-126,s,'middle',INK));
+const T=[1.2,2.6,4.0];
 function render(t){
-  const al=ezio(seg(t,2.6,3.7));
-  ic.forEach((e,i)=>{op(e,at(t,IN[i],.6));e.setAttribute('transform',`translate(${XS[i]} ${Y+OFF[i].dy*(1-al)}) rotate(${OFF[i].r*(1-al)})`)});
-  link.forEach((l,i)=>grow(l,XS[i]+38,Y,XS[i+1]-38,Y,at(t,3.8+i*.55,.6)));
-  words.forEach((w,i)=>rise(w,at(t,[4.2,4.8,5.6][i],.6),8));
-  const k=ezio(seg(t,6.0,7.6));
-  S(run,{cx:lerp(XS[0]+38,XS[2]-38,k)});
-  const cx=lerp(XS[0]+38,XS[2]-38,k);
-  op(run,(Math.abs(cx-XS[1])<38?0:1)*Math.min(seg(t,6.0,6.15),1-seg(t,7.5,7.6)));
+  it.forEach((e,i)=>{const k=ezio(seg(t,T[i],T[i]+.9));e.gg.setAttribute('transform',`translate(${XS[i]} ${BY-1-LIFT*k}) scale(${SC})`);op(e.f,seg(k,.5,1))});
+  words.forEach((w,i)=>rise(w,at(t,T[i]+.6,.6),8));
+  grow(rail,XS[0],BY-LIFT-44,XS[2],BY-LIFT-44,ezio(seg(t,5.4,6.6)));
 }
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}

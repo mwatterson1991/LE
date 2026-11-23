@@ -56,21 +56,19 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// One person. Three agents. Their output keeps growing; the person count does not.
-const FX=690,FS=84,CY=372, X=900, YS=[262,372,482], XE=1180;
-const f=face(FX,CY-FS/2,FS,'mia-t');
-const names=['Research agent','Outreach agent','Reporting agent'];
-const con=YS.map(y=>mk('path',{d:`M${FX+FS+14} ${CY} C${FX+FS+70} ${CY} ${X-70} ${y-8} ${X-16} ${y-8}`,fill:'none',stroke:G3,'stroke-width':2}));
-const tx=names.map((s,i)=>lab(X,YS[i],s,'start',INK));
-const out=YS.map(y=>line(X,y+22,X,y+22,SKY,2.5));
-const IN=[1.2,1.8,2.7];
-const STEP=[[[3.4,.3],[4.9,.55],[6.6,.85],[7.6,1]],[[3.9,.22],[5.3,.5],[6.1,.72],[7.3,1]],[[4.3,.35],[5.8,.6],[7.0,.8],[7.9,1]]];
-function render(t){
-  op(f,at(t,.5,.6));
-  con.forEach((c,i)=>dash(c,at(t,IN[i],.7)));
-  tx.forEach((e,i)=>rise(e,at(t,IN[i]+.4,.6),0));
-  out.forEach((l,i)=>{let k=0,prev=0;STEP[i].forEach(([s,v])=>{k=lerp(k,v,at(t,s,.7))});grow(l,X,YS[i]+22,XE,YS[i]+22,k)});
-}
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// One person beside three piles of finished pages. The piles keep growing; there is still one person.
+const BY=540, XS=[892,1026,1160], JIT=[0,5,-4,3,-6,2,-3,6,-2], names=['Research','Outreach','Reporting'];
+floor(BY,650,1216);
+const f=face(660,BY-134,126,'mia-t');
+names.forEach((s,i)=>lab(XS[i],BY+44,s,'middle',INK));
+const TM=[[1.6,2.5,3.3,4.0,4.8,5.5,6.2,6.9,7.5],[2.0,3.1,4.3,5.2,6.4,7.3],[2.3,3.0,3.9,4.6,5.4,6.0,6.8,7.6]];
+const pg=TM.map((ts,i)=>ts.map((tm,j)=>({tm,e:mk('rect',{x:XS[i]-50+JIT[(j+i*2)%9],y:BY-1-19*(j+1),width:100,height:14,fill:SKY,stroke:INK,'stroke-width':1.5})})));
+function render(t){op(f,at(t,.4,.6));pg.forEach(p=>p.forEach(s=>rise(s.e,at(t,s.tm,.5),-16)))}
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
 window.seek=t=>frame(((t%D)+D)%D);

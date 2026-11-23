@@ -56,13 +56,27 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// Five people, measured twice. Every line ends higher than it started. No numbers.
-const XA=750,XB=1110,TOP=232,BOT=500;
-line(XA,TOP,XA,BOT,G3,2);line(XB,TOP,XB,BOT,G3,2);
-lab(XA,BOT+44,'Baseline','middle');lab(XB,BOT+44,'Follow-up','middle');
-const YA=[462,418,482,392,440], YB=[338,262,396,286,316], T=[1.9,2.7,3.3,4.3,4.9], A0=[.6,.75,1.0,1.1,1.35];
-const ps=YA.map((y,i)=>({a:dot(XA,y,5,INK),l:line(XA,y,XA,y,INK,1.5),b:dot(XB,YB[i],6,SKY)}));
-function render(t){ps.forEach((p,i)=>{op(p.a,at(t,A0[i],.4));grow(p.l,XA,YA[i],XB,YB[i],at(t,T[i],.9));op(p.b,at(t,T[i]+.55,.4))})}
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// A tape measure on a surface. It is pulled out from the baseline mark to the follow-up mark.
+const CXL=660,CS=176,SY=470,CT=SY-CS, BLT=SY-42, X1=CXL+CS, BASE=930, FOL=1196;
+floor(SY+1);
+const blade=box(X1-6,BLT,10,42), sky=mk('rect',{x:BASE,y:BLT,width:0,height:42,fill:SKY});
+const tk=[];for(let x=X1+12,i=0;x<FOL-4;x+=14.5,i++)tk.push({x,e:line(x,BLT,x,BLT+(i%5===4?24:13),INK,1.5)});
+const edge=mk('rect',{x:X1-6,y:BLT,width:10,height:42,fill:'none',stroke:INK,'stroke-width':2});
+const hook=line(0,BLT-6,0,SY+8,INK,3.5);
+box(CXL,CT,CS,CS,{rx:22});mk('circle',Object.assign({cx:CXL+CS/2,cy:CT+CS/2,r:54},P2));dot(CXL+CS/2,CT+CS/2,8,INK);
+line(BASE,SY+10,BASE,SY+22,INK,2);const fm=line(FOL,SY+10,FOL,SY+22,INK,2);
+const la=lab(BASE,SY+56,'Baseline','middle',INK), lb=lab(FOL+2,SY+56,'Follow-up','end',INK);
+function render(t){
+  const x=lerp(BASE,FOL,ezio(seg(t,2.2,4.9)));
+  S(blade,{width:x-X1+6});S(edge,{width:x-X1+6});S(sky,{width:Math.max(0,x-BASE)});S(hook,{x1:x,x2:x});
+  tk.forEach(k=>k.e.setAttribute('visibility',k.x<x-3?'visible':'hidden'));
+  rise(la,at(t,.9,.6),0);rise(lb,at(t,4.7,.6),0);op(fm,at(t,4.7,.4));
+}
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
 window.seek=t=>frame(((t%D)+D)%D);

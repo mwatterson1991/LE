@@ -56,20 +56,22 @@ function door(x,y,w,h,p){const gg=mk('g',{},p);
     op(inside,sky?seg(k,0,.25):0)}}}
 const FADE=true;
 
-// Two starts on one calendar. October is done before the holidays. November stalls inside them.
-const X=690, HX1=980, HX2=1064, Y1=318, Y2=426, NX=778, END1=956, END2=1150;
-mk('rect',{x:HX1,y:250,width:HX2-HX1,height:236,fill:SOFT});
-lab((HX1+HX2)/2,524,'Holidays','middle');
-lab(X,Y1-22,'October','start',INK);lab(NX,Y2-22,'November','start',INK);
-const a=line(X,Y1,X,Y1,INK,2), ad=dot(X,Y1,7,SKY);
-const b1=line(NX,Y2,NX,Y2,INK,2), b2=mk('line',{x1:HX1,y1:Y2,x2:HX1,y2:Y2,stroke:G2,'stroke-width':2,'stroke-dasharray':'2 7','stroke-linecap':'round'}), b3=line(HX2,Y2,HX2,Y2,INK,2), bd=dot(NX,Y2,7,INK);
-function render(t){
-  const pa=seg(t,1.0,3.2), ka=1-Math.pow(1-pa,2);
-  grow(a,X,Y1,END1,Y1,ka);S(ad,{cx:lerp(X,END1,ka)});S(ad,{fill:pa>=1?SKY:INK});op(ad,seg(t,.9,1.1));
-  const k1=seg(t,2.0,3.9), k2=seg(t,3.9,6.6), k3=ez(seg(t,6.6,7.6));
-  grow(b1,NX,Y2,HX1,Y2,k1);grow(b2,HX1,Y2,HX2,Y2,k2*k2*(3-2*k2));grow(b3,HX2,Y2,END2,Y2,k3);
-  S(bd,{cx:k3>0?lerp(HX2,END2,k3):k2>0?lerp(HX1,HX2,k2*k2*(3-2*k2)):lerp(NX,HX1,k1)});op(bd,seg(t,1.9,2.1));
-}
+const P2={fill:FIELD,stroke:INK,'stroke-width':2,'stroke-linejoin':'round'};
+const box=(x,y,w,h,a,p)=>mk('rect',Object.assign({x,y,width:w,height:h},P2,a||{}),p);
+const floor=(y,x1,x2)=>line(x1==null?650:x1,y,x2==null?1210:x2,y,G3,2);
+const bench=(y,x1,x2,fy)=>{[x1+40,x2-54].forEach(x=>box(x,y+12,14,fy-y-12));box(x1,y,x2-x1,12)};
+
+// Three calendar pages. The days fill from the first of October and stop where the holidays are blocked out.
+const X0=660,PW=172,PG=17,PT=272,PH=200, names=['October','November','December'];
+const cells=[];
+names.forEach((n,m)=>{const px=X0+m*(PW+PG);
+  box(px,PT,PW,PH);line(px,PT+46,px+PW,PT+46,INK,2);
+  [44,PW-44].forEach(dx=>line(px+dx,PT-12,px+dx,PT+10,INK,3));
+  const e=lab(px+15,PT+32,n,'start',INK);e.setAttribute('font-size',22);
+  for(let r=0;r<5;r++)for(let c=0;c<7;c++){const x=px+15+c*21, y=PT+62+r*26, hol=(m===2&&r>=3);
+    mk('rect',{x,y,width:16,height:16,fill:hol?G3:'none',stroke:G3,'stroke-width':1.2});
+    if(!hol)cells.push(mk('rect',{x:x-.6,y:y-.6,width:17.2,height:17.2,fill:SKY,opacity:0}))}});
+function render(t){const s=seg(t,1.0,6.8), p=cells.length*(1-Math.pow(1-s,1.5));cells.forEach((c,i)=>op(c,p-i))}
 
 function frame(t){render(t);if(FADE)op(g,Math.min(ez(seg(t,.15,.8)),1-ez(seg(t,D-.8,D-.15))))}
 window.seek=t=>frame(((t%D)+D)%D);
