@@ -38,17 +38,17 @@ Example: the ask is "a photo of someone on stairs" → group `photo`, title "Cli
 
 | group | what it is | count | extra fields |
 |---|---|---|---|
-| photo | photography, true size | 65 | w, h, thumb |
-| background | sky, texture and abstract fields | 20 | thumb |
+| photo | photography, true size | 57 | w, h, thumb |
+| background | sky, texture and abstract fields | 24 | thumb |
 | hero, header, card, aibp, aipost | launch kit images we posted | 42 | thumb |
 | expert | expert headshots | 23 | thumb |
 | illustration | blue line illustrations (SVG) | 299 | set |
-| graphic | brand lockups and product graphics | 16 | dark (needs a dark field) |
+| graphic | brand lockups and product graphics | 8 | dark (needs a dark field) |
 | org | school and company logos | 199 | kind (school or company), mono.black, mono.white |
 | icon | interface icons (SVG) | 165 | |
 | gif | looping sales and marketing concepts | 25 | mp4, poster |
-| film, kit | finished films | 11 | poster, duration |
-| scene | single scenes cut from the films | 29 | style (intro, text, product, outro), from, poster |
+| film, kit | finished films | 12 | poster, duration |
+| scene | single scenes cut from the films | 31 | style (intro, text, product, outro), from, poster |
 | music | film soundtracks | 5 | duration |
 | font | Season Mix and Macan (woff2) | 7 | family, weight, plainQuestionMark |
 | pack | Leo, the animated face (zip) | 1 | preview, files |

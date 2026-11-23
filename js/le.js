@@ -35,7 +35,7 @@ function route(){
   const id=SCREENS.includes(scr)?scr:'make';
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));
   document.querySelectorAll('.side a').forEach(a=>a.classList.toggle('on',a.id==='s-'+(id==='pick'||id==='editor'?'make':id)));
-  $('main').scrollTop=0;stopPicks(id==='make');
+  $('main').scrollTop=0;
   if(id==='lib'){if(arg){state.tab=arg;state.chip='all';state.q='';$('q').value='';$('search').classList.remove('has')}renderLib()}
   if(id==='pick')renderPick(arg);
   if(id==='editor'&&!state.kind){location.replace('#make');return}
@@ -60,21 +60,16 @@ function mountLogo(){const host=$('lemark');if(!host||!window.LelandIntro)return
   const play=()=>{cancelAnimationFrame(raf);if(calm()){api.render(end);return}const t0=performance.now();const f=now=>{const t=(now-t0)/1000;api.render(Math.min(end,t));if(t<end)raf=requestAnimationFrame(f)};raf=requestAnimationFrame(f)};
   api.render(0);play();host.parentNode.addEventListener('mouseenter',play)}
 
-/* ---------- Make ---------- */
-let pickTimers=[];
+/* ---------- Make: three illustrated icons from the library, alive like the present-mode illustrations ---------- */
+const PICKS=[['image','Image','ill-instagram-post',[20,22]],['deck','Deck','ill-presentation-review',[6,7]],['video','Video','ill-video-ads',[8]]];   // kind, name, library illustration, the small shapes that float
+const PICK_PX=200;
 function renderPicks(){
-  const cyc=list=>list.map((s,i)=>`<img src="${s}" class="${i?'':'on'}" alt="">`).join('');
-  const tpl=(window.TEMPLATES||[]).map(t=>`assets/templates/${t.id}.jpg`);
-  const decks=(window.DECK?DECK.types:[]).map(t=>`assets/templates/deck-${t.id}.jpg`);
-  const clip=byGroup('scene').find(a=>a.from==='film-get-there-with-the-people-whove-been-there'&&a.style==='product')||byGroup('scene')[0]||{};
-  $('picks').innerHTML=`
-  <button class="pick" onclick="go('pick','image')"><div class="art" data-cycle="1">${cyc(tpl)}</div><b>Image</b></button>
-  <button class="pick" onclick="go('pick','deck')"><div class="art" data-cycle="1">${cyc(decks)}</div><b>Deck</b></button>
-  <div class="pick soon"><div class="art"><video muted loop playsinline autoplay poster="${clip.poster||''}" src="${clip.src||''}"></video></div><b>Video</b><span>Coming soon</span></div>`;
-  stopPicks(isOn('make'))}
-function stopPicks(start){pickTimers.forEach(clearInterval);pickTimers=[];if(!start)return;
-  document.querySelectorAll('#picks .art[data-cycle]').forEach(el=>{const imgs=[...el.querySelectorAll('img')];let i=0;pickTimers.push(setInterval(()=>{i=(i+1)%imgs.length;imgs.forEach((im,k)=>im.classList.toggle('on',k===i))},2600))});
-  document.querySelectorAll('#picks video').forEach(v=>v.play().catch(()=>{}))}
+  $('picks').innerHTML=PICKS.map(([k,n])=>k==='video'?`<div class="pick soon" id="pk-${k}"><div class="ill"></div><b>${n}</b><span>Coming soon</span></div>`:`<button class="pick" id="pk-${k}" onclick="go('pick','${k}')"><div class="ill"></div><b>${n}</b></button>`).join('');
+  PICKS.forEach(async([k,n,id,fl])=>{const a=A(id);if(!a)return;const box=document.querySelector(`#pk-${k} .ill`);
+    try{const t=await (await fetch(a.src)).text();box.innerHTML=`<div class="br"><div class="sway">${t.slice(t.indexOf('<svg'))}</div></div>`}catch(e){box.innerHTML=`<img src="${a.src}" alt="">`;return}
+    const svg=box.querySelector('svg');if(!svg)return;const vb=(svg.getAttribute('viewBox')||'0 0 100 100').split(/\s+/).map(Number);svg.removeAttribute('width');svg.removeAttribute('height');svg.setAttribute('aria-hidden','true');
+    const amp=6*Math.max(vb[2],vb[3])/PICK_PX;                               /* 6 screen px, in the drawing's own units */
+    const kids=[...svg.children].filter(e=>e.tagName!=='style');fl.forEach((i,j)=>{const e=kids[i];if(!e)return;e.classList.add('pfl');if(j)e.classList.add('b');e.style.setProperty('--amp',amp.toFixed(3)+'px')})})}
 
 /* ---------- Pick a type ---------- */
 function renderPick(kind){
@@ -150,12 +145,17 @@ function pickAsset(id){if(state.kind==='image'){setField(dkey,id)}else if(state.
 const LIB=[
  ['images','Images',[['kit','Launch kit',['hero','header','card','aibp','aipost']],['bg','Backgrounds',['background']],['photo','Photos',['photo']],['expert','Experts',['expert']],['illustration','Illustrations',['illustration']],['graphic','Graphics',['graphic']],['org','Logos',['org']],['icon','Icons',['icon']]]],
  ['gifs','GIFs',[['gif','Sales and marketing',['gif']],['leo','Leo',['pack']]]],
- ['videos','Videos',[['film','Films',['film','kit']],['scene','Scenes',['scene']],['music','Music',['music']]]],
+ ['videos','Videos',[['film','Films',['film','kit']],['io','Intros and outros',['scene'],a=>a.style==='intro'||a.style==='outro'],['scene','Scenes',['scene']],['music','Music',['music']]]],
  ['copy','Copy',[['tagline','Taglines',[]],['voice','Voice',[]],['post','Posts',[]]]],
  ['fonts','Fonts',[['font','Fonts',['font']]]]];
 const COPY_SHOWN=['tagline','post'];                    // the rest of data/copy.json stays in the file, off the shelves
+/* what a shelf holds, in shelf order: films before the kit's cuts (newest film first in the manifest); openings before closings */
+function shelfItems(s){let l=COPY_SHOWN.includes(s[0])?copyItems(s[0]):byGroup(...s[2]);if(s[3])l=l.filter(s[3]);
+  if(s[0]==='film')l=[...l].sort((a,b)=>s[2].indexOf(a.group)-s[2].indexOf(b.group));
+  if(s[0]==='io')l=[...l].sort((a,b)=>(a.style==='outro')-(b.style==='outro'));
+  return l}
 const subOf=k=>{for(const t of LIB)for(const s of t[2])if(s[0]===k)return {tab:t,sub:s};return {tab:LIB[0],sub:LIB[0][2][0]}};
-const CHIPS={scene:[['all','All'],['intro','Intros'],['text','Text'],['product','Product'],['outro','Outros']],org:[['all','All'],['school','Schools'],['company','Companies']],illustration:[['all','All'],['social','Communication'],['work','Work'],['growth','Growth']],post:[['all','All'],['community','Community'],['aibp','AI Builder'],['coaching','Coaching'],['jobs','Jobs']]};
+const CHIPS={io:[['all','All'],['intro','Intros'],['outro','Outros']],scene:[['all','All'],['intro','Intros'],['text','Text'],['product','Product'],['outro','Outros']],org:[['all','All'],['school','Schools'],['company','Companies']],illustration:[['all','All'],['social','Communication'],['work','Work'],['growth','Growth']],post:[['all','All'],['community','Community'],['aibp','AI Builder'],['coaching','Coaching'],['jobs','Jobs']]};
 function renderTabs(){const cur=state.q?null:subOf(state.tab).tab[0];$('tabs').innerHTML=LIB.map(([k,n,subs])=>`<button class="${cur===k?'on':''}" onclick="go('lib','${subs[0][0]}')">${n}</button>`).join('')}
 function renderChips(){const {tab,sub}=subOf(state.tab);const el=$('chips');if(state.q){el.innerHTML='';return}
   let h=tab[2].length>1?tab[2].map(s=>`<button class="${s[0]===sub[0]?'on':''}" onclick="go('lib','${s[0]}')">${s[1]}</button>`).join(''):'';
@@ -201,9 +201,9 @@ function renderLib(){
   const {sub}=subOf(state.tab);const t=sub[0];renderTabs();renderChips();const g=$('grid');
   if(state.q){const q=state.q;g.className='grid';g.innerHTML=allItems().filter(a=>hay(a).includes(q)).slice(0,300).map(a=>card(a)).join('')||'<div class="empty">Nothing matches.</div>';return}
   if(t==='voice'){g.className='voice';g.innerHTML=voiceHTML();return}
-  const items=(COPY_SHOWN.includes(t)?copyItems(t):byGroup(...sub[2])).filter(chipMatch);
+  const items=shelfItems(sub).filter(chipMatch);
   if(t==='photo'){g.className='rows';g.innerHTML=photoRows(items);return}
-  g.className=({icon:'grid icons',film:'grid video',scene:'grid three',gif:'grid three',leo:'grid three',graphic:'grid three',org:'grid orgs',illustration:'grid ills',expert:'grid people',tagline:'lines',post:'posts',font:'fonts'})[t]||'grid';
+  g.className=({icon:'grid icons',film:'grid video',io:'grid three',scene:'grid three',gif:'grid three',leo:'grid three',graphic:'grid three',org:'grid orgs',illustration:'grid ills',expert:'grid people',tagline:'lines',post:'posts',font:'fonts'})[t]||'grid';
   g.innerHTML=items.map(a=>card(a)).join('')||'<div class="empty">Nothing matches.</div>'}
 
 /* ---------- search: a typed-through placeholder, suggestions as you type ---------- */
@@ -225,7 +225,7 @@ function suggest(raw){const q=raw.trim().toLowerCase();if(!q){closeSugg();return
   const groups=[];const shelves=[];
   LIB.forEach(t=>t[2].forEach(s=>{const name=t[2].length>1?s[1]:t[1];if(name.toLowerCase().includes(q)||(t[1].toLowerCase().startsWith(q)&&s===t[2][0]))shelves.push({shelf:s[0],title:name})}));
   if(shelves.length)groups.push(['Library',shelves.slice(0,3),-1]);
-  LIB.forEach(t=>t[2].forEach(s=>{if(s[0]==='voice')return;const hits=(COPY_SHOWN.includes(s[0])?copyItems(s[0]):byGroup(...s[2])).filter(a=>hay(a).includes(q)).sort((a,b)=>rank(a)-rank(b));if(hits.length)groups.push([s[1],hits.slice(0,3),rank(hits[0])])}));
+  LIB.forEach(t=>t[2].forEach(s=>{if(s[0]==='voice'||s[0]==='io')return;const hits=shelfItems(s).filter(a=>hay(a).includes(q)).sort((a,b)=>rank(a)-rank(b));if(hits.length)groups.push([s[1],hits.slice(0,3),rank(hits[0])])}));
   const top=groups.sort((a,b)=>a[2]-b[2]).slice(0,5);
   sg=[];sgi=-1;const el=$('sugg');
   el.innerHTML=top.map(([name,items])=>`<div class="sgroup"><h4>${name}</h4>${items.map(a=>{const i=sg.push(a)-1;const im=a.shelf||a.type==='copy'||a.type==='font'||a.type==='pack'?'':`<img src="${a.poster||a.thumb||a.src}" alt="">`;return `<button data-i="${i}" onmousedown="event.preventDefault()" onclick="pickSugg(${i})">${im}<span>${esc(plain(a.title))}</span></button>`}).join('')}</div>`).join('')||'<div class="none">Nothing matches.</div>';
@@ -295,30 +295,108 @@ const briefPaletteRules=()=>((BRIEF.match(/\nRules: (.*)/)||[])[1]||'').split(/(
 async function guide(){if(GUIDE)return GUIDE;try{GUIDE=new DOMParser().parseFromString(await (await fetch('brand/chat-guidelines.html')).text(),'text/html')}catch(e){GUIDE=document.implementation.createHTMLDocument('')}return GUIDE}
 const guideRules=(doc,id)=>[...doc.querySelectorAll(`#${id} .rules li`)].map(li=>{const c=li.cloneNode(true);const n=c.querySelector('span');if(n)n.remove();return c.textContent.trim()});
 
-/* ---------- motion: the rules, with the guidelines' own live demos ---------- */
-const FILM_RULES=[
-  'Typed. Characters arrive left to right from where the finished line sits. Fast, about 45 characters a second; the rhythm comes from pauses, not slow letters.',
-  'Words. Each word fades up from below with a touch of blur, a tenth of a second apart. The house treatment for taglines and end cards.',
-  'Rise. A whole line or card rises and fades in. Used for UI cards and stacked status lines, never a hero headline.',
-  'Dissolve. A 0.35s cross-dissolve between scenes. Lockups and typed headlines leave on a hard cut.',
-  'The mark draws on stroke by stroke, holds a beat, then the wordmark types in while the lockup re-centres. This is what the films do.',
-  'On dark end cards the finished lockup fades in over a quarter second above a headline that already landed.'];
-async function renderMotion(){const g=await guide();const sec=(id,title,demo)=>`<section><h2>${title}</h2>${demo||''}${rules(guideRules(g,id))}</section>`;
-  $('motionbody').innerHTML=sec('motion','Motion')
-    +sec('logo','Logo','<div class="gstage"><div class="logohero"><div class="lmw" id="m-lm"></div></div></div><div class="phases" id="m-phases"></div>')
-    +sec('orb','Orb','<div class="og" id="m-og"></div>')
-    +sec('voice','Voice','<div class="gstage"><div class="chat" id="m-voice"></div></div>')
-    +`<section><h2>Films</h2>${rules(FILM_RULES)}</section>`;
-  /* the demos below are the guidelines' own, lifted as they are */
-  const vis=new Set();const io=new IntersectionObserver(es=>es.forEach(e=>{e.target.__vis=e.isIntersecting;e.isIntersecting?vis.add(e.target):vis.delete(e.target)}),{threshold:.05});
-  const loop=(el,fn)=>{io.observe(el);(async()=>{while(el.isConnected){if(vis.has(el))await fn();else await sleep(300)}})()};
-  const lmv=(host,opts)=>{const a=mountMark(host,opts);host.__vis=false;io.observe(host);a.start();return a};
-  lmv($('m-lm'),{phase:'all'});
-  [['draw','Draw in'],['retract','Into dots'],['spin','Spin'],['form','Form the cube'],['rubik','Rubik turns'],['turn','Turn around'],['flat','Flatten'],['tumble','Tumble']].forEach(([p,n])=>{const d=document.createElement('div');d.innerHTML=`<div class="lmw"></div><span>${n}</span>`;$('m-phases').appendChild(d);lmv(d.querySelector('.lmw'),{phase:p})});
-  [['Rest',o=>{}],['Arrive',o=>setInterval(()=>o.appear(),2600)],['Think',o=>o.think(true)],['Busy',o=>{o.set('solving');o.busy(true)}],['Correct',o=>o.glyph('check')],['Continue',o=>o.glyph('right')],['Operator',o=>o.glyph('operator')],['Analyst',o=>o.glyph('analyst')],['Creator',o=>o.glyph('creator')],['Builder',o=>o.glyph('builder')],['Reappear',o=>setInterval(()=>{o.vanish();setTimeout(()=>o.appear(),300)},2400)],['On photos',o=>o.think(true),1]].forEach(([n,f,dk])=>{const d=document.createElement('div');if(dk)d.className='dark';d.innerHTML=`<canvas></canvas><span>${n}</span>`;$('m-og').appendChild(d);const o=Orbs.mount(d.querySelector('canvas'),dk?{display:44,ink:'#ffffff'}:{display:44});o.appear();setTimeout(()=>f(o),400)});
-  async function speak(p,text){p.textContent='';const ws=text.split(' ');for(let i=0;i<ws.length;i++){let w=ws[i];const em=/^\*.*\*[.,?!]*$/.test(w);if(em){w=w.replace(/\*/g,'');await sleep(260)}const s=document.createElement('span');s.className='w';s.textContent=w;p.appendChild(s);if(i<ws.length-1)p.append(' ');requestAnimationFrame(()=>s.classList.add('on'));let d=58+Math.min(w.length,10)*8;if(/[,;]$/.test(w))d+=170;else if(/[.?!]$/.test(w))d+=340;if(em)d+=200;await sleep(d)}}
-  function aiRow(host){const r=document.createElement('div');r.className='ai';r.innerHTML='<canvas></canvas><p></p>';host.appendChild(r);const o=Orbs.mount(r.querySelector('canvas'),{display:24});o.appear();return{r,o,p:r.querySelector('p')}}
-  loop($('m-voice'),async()=>{const h=$('m-voice');h.innerHTML='';const a=aiRow(h);a.o.think(true);a.p.className='think';a.p.textContent='Taking in “Design”';await sleep(1600);a.p.className='';await speak(a.p,'Got it. Which tasks take up *most* of your week?');a.o.think(false);await sleep(3000)})}
+/* ---------- motion: how Leland moves. One rule a line, each with a demo that plays when it comes into view and again on hover or click.
+   Sentences come from the chat interface guidelines (read from the file), the film presets below, or state a number plainly.
+   Numbers come from data/motion-ref.json (measured from the films) and the guidelines' own CSS. ---------- */
+const FILM={
+  typed:'Typed. Characters arrive left to right from where the finished line sits. Fast, about 45 characters a second; the rhythm comes from pauses, not slow letters.',
+  words:'Words. Each word fades up from below with a touch of blur, a tenth of a second apart. The house treatment for taglines and end cards.',
+  rise:'Rise. A whole line or card rises and fades in. Used for UI cards and stacked status lines, never a hero headline.',
+  dissolve:'Dissolve. A 0.35s cross-dissolve between scenes. Lockups and typed headlines leave on a hard cut.',
+  draw:'The mark draws on stroke by stroke, holds a beat, then the wordmark types in while the lockup re-centres. This is what the films do.',
+  fade:'On dark end cards the finished lockup fades in over a quarter second above a headline that already landed.'};
+const CHECK='<svg class="ck" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+let WM=null;
+/* the lockup's wordmark, split into its letters so it can type in */
+async function wordmark(){if(WM)return WM;const t=await (await fetch('assets/brand/logo.svg')).text();const d=[...t.matchAll(/<path d="([^"]+)"/g)].map(m=>m[1]);
+  const NS='http://www.w3.org/2000/svg',s=document.createElementNS(NS,'svg');s.style.cssText='position:absolute;width:0;height:0;visibility:hidden';document.body.appendChild(s);
+  const bb=(d[3]||'').split(/(?=M)/).filter(Boolean).map(p=>{const e=document.createElementNS(NS,'path');e.setAttribute('d',p);s.appendChild(e);const b=e.getBBox();return {p,x0:b.x,x1:b.x+b.width}}).sort((a,b)=>a.x0-b.x0);s.remove();
+  const L=[];bb.forEach(b=>{const c=L[L.length-1];if(c&&b.x0<c.x1-.3){c.p+=b.p;c.x1=Math.max(c.x1,b.x1)}else L.push({...b})});
+  return WM={letters:L,x0:L[0].x0,x1:L[L.length-1].x1}}
+async function renderMotion(){
+  const g=await guide();let R={};try{R=await (await fetch('data/motion-ref.json')).json()}catch(e){}
+  const G=(id,i)=>guideRules(g,id)[i]||'';
+  const tx=R.text||{},lg=R.logo||{},hd=R.hold||{},v=(o,k,d)=>(o&&o[k])||d;
+  const D={cps:v(tx.typed,'chars_per_s',45),word:v(tx.words,'per_word',.25),wgap:v(tx.words,'stagger',.1),lgap:v(tx.words,'line_stagger',.5),rise:v(tx.rise,'speed',.4),rgap:v(tx.rise,'stagger',.1),
+    fade:v((R.transition||{}).fade,'dur',.35),lfade:v(lg.fade,'dur',.25),draw:v(lg.leo,'mark_only',.55),lock:v(lg.leo,'dur',1.5),hold:v(hd,'headline_after_settle',1),end:v(hd,'end_card',2.2)};
+  const tag=re=>plain((copyItems('tagline').find(c=>re.test(c.text))||{}).text||'');
+  const T={own:tag(/^Own/),home:tag(/^The home/),there:tag(/^Get there/),goals:tag(/^Accomplish/)};
+  const WM_=await wordmark().catch(()=>null);
+  const scenes=byGroup('scene').filter(a=>a.from==='film-get-there-with-the-people-whove-been-there').slice(0,2);   // two full-frame scenes that follow each other
+  /* the guidelines' own widget and chat demo lines */
+  const ONE=['Individual contributor','Manager','Director or above'],MANY=['Research synthesis','Concepts and mockups','Design QA','Presentations','Email','Data'];
+  const ASK=['Which tasks take up most of your week?','What would you hand to AI this quarter?'];
+  const opts=l=>`<div class="opts">${l.map(o=>`<div class="opt">${esc(o)}</div>`).join('')}</div>`;
+  const btn=(label,cls)=>`<button class="btn black mb ${cls||''}"><span class="lb">${label}</span>${CHECK}</button>`;
+  const s=x=>+(+x).toFixed(2)+'s';
+  const row=(n,text,id,html,h)=>`<div class="mrule" data-demo="${id}"><div class="mline"><span>${n}</span><div>${esc(text)}</div></div><div class="mdemo" style="height:${h}px">${html}</div></div>`;
+  const sec=(title,rows)=>`<section><h2>${title}</h2>${rows.map((r,i)=>row(i+1,...r)).join('')}</section>`;
+  $('motionbody').innerHTML=
+    sec('Text',[
+      [G('voice',0),'speak','<p class="say"></p>',40],
+      [G('voice',1),'beat','<p class="say"></p>',40],
+      [FILM.typed,'typed','<p class="head"></p>',44],
+      [FILM.words,'words','<p class="head"></p>',44],
+      [FILM.rise,'rise',`<p class="say mr">${esc(T.goals)}</p>`,40]])
+   +sec('Buttons',[
+      ['Press scales to 0.97 over 120ms. Release returns over 200ms.','press',btn('Continue'),36],
+      ['Hover drops to 85% opacity over 200ms. Nothing moves.','hover',btn('Continue'),36],
+      ['Keyboard focus draws a 2px ink ring, 2px outside the button. It does not animate.','focus',btn('Continue'),40],
+      ['Disabled is 28% opacity. It fades to full over 200ms.','off',btn('Continue'),36],
+      [G('widgets',2),'one',opts(ONE),48],
+      [G('widgets',0),'many',`${opts(MANY)}<div class="macts">${btn('Continue','off')}</div>`,152],
+      ['Loading shimmers the label and holds the width. Done swaps the label for a check over 200ms.','load',btn('Download'),36]])
+   +sec('Transitions',[
+      [`Fade. Text leaves on a ${s(D.fade)} blur-fade.`,'fade',`<p class="head mf">${esc(T.own)}</p>`,44],
+      [FILM.dissolve,'dissolve',`<div class="mfr">${scenes.map((a,i)=>`<img src="${a.poster}" class="${i?'':'on'}" alt="">`).join('')}</div>`,180],
+      [G('motion',2),'slide',`<p class="say ms on">${esc(ASK[0])}</p>`,40]])
+   +sec('Logo',[
+      [G('logo',0),'mark','<div class="lmw"></div>',96],
+      [FILM.draw,'lockup',`<div class="mfr"><div class="lock"><div class="lmw"></div><div class="wm">${WM_?`<svg viewBox="${WM_.x0} 0 ${WM_.x1-WM_.x0} 24">${WM_.letters.map(l=>`<path d="${l.p}"/>`).join('')}</svg>`:''}</div></div></div>`,180],
+      [FILM.fade,'outro',`<div class="mfr dark"><img class="lk" src="assets/brand/logo-white.svg" alt=""><p class="head">${esc(T.home)}</p></div>`,180]])
+   +`<section><h2>Timing and easing</h2><div class="mtime"><table>${[
+      ['Typed',`${D.cps} characters a second`],['Words',`${s(D.word)} a word, ${s(D.wgap)} apart`],['Lines',`${s(D.lgap)} apart`],['Rise',`${s(D.rise)}, ${s(D.rgap)} apart`],
+      ['Dissolve',s(D.fade)],['Lockup fade',s(D.lfade)],['Mark draws on',s(D.draw)],['Lockup, first motion to settled',s(D.lock)],['Headline holds',s(D.hold)],['End card holds',s(D.end)],
+      ['Selection','0.2s'],['Disabled to enabled','0.2s'],['Press','0.12s down, 0.2s up'],['Curve','cubic-bezier(.2,.8,.2,1)']
+     ].map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join('')}</table>
+     <div class="mcurve" data-demo="curve"><svg viewBox="0 0 120 120"><path class="ax" d="M0 0V120H120"/><path class="cv" d="M0 120C24 24 24 0 120 0"/></svg><i></i></div></div></section>`;
+
+  /* ----- the demos. `w` waits, or returns at once when the demo is only being set to its finished state ----- */
+  const marks=new Map();const markOf=h=>{if(!marks.has(h))marks.set(h,mountMark(h,{phase:'draw'}));return marks.get(h)};
+  const still=(els,fn)=>{els.forEach(e=>e.style.transition='none');fn();void document.body.offsetWidth;els.forEach(e=>e.style.transition='')};
+  async function speak(p,text,w){p.textContent='';const ws=text.split(' ');for(let i=0;i<ws.length;i++){let x=ws[i];const em=/^\*.*\*$/.test(x);if(em){x=x.replace(/\*/g,'');await w(260)}
+    const sp=document.createElement('span');sp.className='w';sp.textContent=x;p.appendChild(sp);if(i<ws.length-1)p.append(' ');void sp.offsetWidth;sp.classList.add('on');
+    let d=58+Math.min(x.length,10)*8;if(/[,;]$/.test(x))d+=170;else if(/[.?!]$/.test(x))d+=340;if(em)d+=200;await w(d)}}
+  const draw=(api,dur,w,live)=>{const d1=api.T.draw[1]-.5;if(!live){api.render(d1+.2);return Promise.resolve()}
+    return new Promise(res=>{const t0=performance.now();const f=now=>{const t=(now-t0)/1000;if(!w.alive()){res();return}api.render(t<dur?d1*t/dur:d1+.2);if(t<dur)requestAnimationFrame(f);else res()};requestAnimationFrame(f)})};
+  const DEMO={
+    speak:(e,w)=>speak(e.querySelector('p'),T.there,w),
+    beat:(e,w)=>speak(e.querySelector('p'),T.own.replace(/(\S+)$/,'*$1*'),w),
+    async typed(e,w){const p=e.querySelector('p');for(let k=0;k<=T.home.length;k++){p.textContent=T.home.slice(0,k);await w(1000/D.cps)}},
+    async words(e,w){const p=e.querySelector('p');p.innerHTML=T.there.split(' ').map(x=>`<span class="mw">${esc(x)}</span>`).join(' ');void p.offsetWidth;for(const x of p.children){x.classList.add('on');await w(D.wgap*1000)}},
+    async rise(e,w){const p=e.querySelector('p');still([p],()=>p.classList.remove('on'));await w(120);p.classList.add('on')},
+    async press(e,w){const b=e.querySelector('.mb');await w(300);b.classList.add('dn');await w(220);b.classList.remove('dn')},
+    async hover(e,w,live){const b=e.querySelector('.mb');b.classList.remove('hv');if(!live)return;await w(300);b.classList.add('hv');await w(1100);b.classList.remove('hv')},
+    async focus(e,w,live){const b=e.querySelector('.mb');b.classList.remove('fc');if(!live)return;await w(300);b.classList.add('fc');await w(1600);b.classList.remove('fc')},
+    async off(e,w){const b=e.querySelector('.mb');still([b],()=>b.classList.add('off'));await w(900);b.classList.remove('off')},
+    async one(e,w){const o=e.querySelector('.opts');still([...o.children],()=>{o.classList.remove('locked');[...o.children].forEach(c=>c.classList.remove('sel'))});await w(800);o.children[1].classList.add('sel');await w(400);o.classList.add('locked')},
+    async many(e,w){const o=e.querySelector('.opts'),b=e.querySelector('.mb');still([...o.children,b],()=>{[...o.children].forEach(c=>c.classList.remove('sel'));b.classList.add('off')});await w(800);for(const i of [0,1,3]){o.children[i].classList.add('sel');b.classList.remove('off');await w(650)}},
+    async load(e,w,live){const b=e.querySelector('.mb');still([...b.children],()=>b.classList.remove('ld','ok'));if(!live)return;await w(400);b.classList.add('ld');await w(1600);b.classList.remove('ld');b.classList.add('ok');await w(1800);b.classList.remove('ok')},
+    async fade(e,w,live){const p=e.querySelector('p');still([p],()=>p.classList.remove('out'));if(!live)return;await w(400);p.classList.add('out');await w(D.fade*1000+500);still([p],()=>p.classList.remove('out'))},
+    async dissolve(e,w,live){if(!live)return;const im=[...e.querySelectorAll('img')];if(im.length<2)return;await w(300);const on=im.findIndex(i=>i.classList.contains('on'));im.forEach((i,k)=>i.classList.toggle('on',k!==on))},
+    async slide(e,w,live){const p=e.querySelector('p');if(!live)return;const next=ASK[(ASK.indexOf(p.textContent)+1)%ASK.length];still([p],()=>{p.classList.remove('on');p.textContent=next});await w(120);p.classList.add('on')},
+    mark:(e,w,live)=>{const a=markOf(e.querySelector('.lmw'));return draw(a,a.T.draw[1]-.5,w,live)},
+    async lockup(e,w,live){const a=markOf(e.querySelector('.lmw')),wm=e.querySelector('.wm'),L=[...wm.querySelectorAll('path')];if(!WM_)return draw(a,D.draw,w,live);
+      const u=wm.querySelector('svg').getBoundingClientRect().height/24,full=(WM_.x1-WM_.x0)*u;
+      if(!live){a.render(a.T.draw[1]-.3);L.forEach(l=>l.style.opacity=1);wm.style.width=full+'px';return}
+      still([wm],()=>{L.forEach(l=>l.style.opacity=0);wm.style.width='0px'});a.render(0);await w(200);await draw(a,D.draw,w,true);await w(250);
+      const per=Math.min(.6,D.lock-D.draw-.25)*1000/L.length;for(let i=0;i<L.length;i++){L[i].style.opacity=1;wm.style.width=((WM_.letters[i].x1-WM_.x0)*u)+'px';await w(per)}wm.style.width=full+'px'},
+    async outro(e,w,live){const k=e.querySelector('.lk');if(!live){k.classList.add('on');return}still([k],()=>k.classList.remove('on'));await w(700);k.classList.add('on')},
+    async curve(e,w,live){const d=e.querySelector('i');still([d],()=>d.classList.remove('on'));if(!live)return;await w(200);d.classList.add('on')}};
+  const play=(el,live)=>{live=live&&!calm();const tok=el._tok=(el._tok||0)+1;const w=async ms=>{if(live)await sleep(ms);if(el._tok!==tok)throw 0};w.alive=()=>el._tok===tok&&el.isConnected;
+    Promise.resolve().then(()=>DEMO[el.dataset.demo](el,w,live)).catch(e=>{if(e!==0)console.error(e)})};
+  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){io.unobserve(x.target);play(x.target,true)}}),{threshold:.6});
+  document.querySelectorAll('#motionbody [data-demo]').forEach(el=>{play(el,false);io.observe(el);el.addEventListener('mouseenter',()=>play(el,true));el.addEventListener('click',()=>play(el,true))})}
 
 /* ---------- brand: the board and the brief, then the chat interface guidelines whole ---------- */
 function renderBrand(){

@@ -1004,37 +1004,6 @@
    "best": ""
   },
   {
-   "id": "film-leland-clips-launch-film-v8",
-   "type": "video",
-   "group": "film",
-   "title": "Clips launch film",
-   "sub": "Increase your reach, with Clips.",
-   "ratio": "16/9",
-   "src": "assets/films/leland-clips-launch-film-v8.mp4",
-   "poster": "assets/films/leland-clips-launch-film-v8.jpg",
-   "duration": 28,
-   "tags": [
-    "launch",
-    "film",
-    "clips"
-   ],
-   "audio": "assets/audio/leland-clips-launch-film-v8.mp3"
-  },
-  {
-   "id": "audio-leland-clips-launch-film-v8",
-   "type": "audio",
-   "group": "music",
-   "title": "Clips launch film",
-   "src": "assets/audio/leland-clips-launch-film-v8.mp3",
-   "duration": 28,
-   "tags": [
-    "music",
-    "clips"
-   ],
-   "thumb": "assets/audio/leland-clips-launch-film-v8-xs.png",
-   "art": "assets/audio/leland-clips-launch-film-v8-art.png"
-  },
-  {
    "id": "film-leland-ai-assessment",
    "type": "video",
    "group": "film",
@@ -1065,6 +1034,37 @@
     "film",
     "jobs"
    ]
+  },
+  {
+   "id": "film-leland-clips-launch-film-v8",
+   "type": "video",
+   "group": "film",
+   "title": "Clips launch film",
+   "sub": "Increase your reach, with Clips.",
+   "ratio": "16/9",
+   "src": "assets/films/leland-clips-launch-film-v8.mp4",
+   "poster": "assets/films/leland-clips-launch-film-v8.jpg",
+   "duration": 28,
+   "tags": [
+    "launch",
+    "film",
+    "clips"
+   ],
+   "audio": "assets/audio/leland-clips-launch-film-v8.mp3"
+  },
+  {
+   "id": "audio-leland-clips-launch-film-v8",
+   "type": "audio",
+   "group": "music",
+   "title": "Clips launch film",
+   "src": "assets/audio/leland-clips-launch-film-v8.mp3",
+   "duration": 28,
+   "tags": [
+    "music",
+    "clips"
+   ],
+   "thumb": "assets/audio/leland-clips-launch-film-v8-xs.png",
+   "art": "assets/audio/leland-clips-launch-film-v8-art.png"
   },
   {
    "id": "audio-leland-jobs-film-v13",
@@ -12924,6 +12924,40 @@
     "headshot",
     "person",
     "theo m."
+   ]
+  },
+  {
+   "id": "scene-leland-ai-assessment-1",
+   "type": "video",
+   "group": "scene",
+   "title": "AI assessment launch film \u00b7 1",
+   "sub": "Intro \u00b7 2s",
+   "src": "assets/scenes/leland-ai-assessment-1.mp4",
+   "poster": "assets/scenes/leland-ai-assessment-1.jpg",
+   "duration": 1.9,
+   "style": "intro",
+   "from": "film-leland-ai-assessment",
+   "tags": [
+    "scene",
+    "intro",
+    "ai assessment launch film"
+   ]
+  },
+  {
+   "id": "scene-leland-ai-assessment-2",
+   "type": "video",
+   "group": "scene",
+   "title": "AI assessment launch film \u00b7 2",
+   "sub": "Outro \u00b7 5s",
+   "src": "assets/scenes/leland-ai-assessment-2.mp4",
+   "poster": "assets/scenes/leland-ai-assessment-2.jpg",
+   "duration": 4.6,
+   "style": "outro",
+   "from": "film-leland-ai-assessment",
+   "tags": [
+    "scene",
+    "outro",
+    "ai assessment launch film"
    ]
   },
   {

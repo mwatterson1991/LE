@@ -7,10 +7,10 @@ A repository of our work and the images people draw from, plus one skill. `/le` 
 
 ## What's in it
 - **Make** — Image (six types, one of them a chart) and Deck. Video reads "Coming soon"; its code is parked in `js/unused/`.
-- **Library** — Images (launch kit, backgrounds, photos, experts, illustrations, graphics, logos, icons), GIFs (and Leo, the animated face, as a pack), Videos (films, scenes, music), Copy (taglines, voice, posts), Fonts.
+- **Library** — Images (launch kit, backgrounds, photos, experts, illustrations, graphics, logos, icons), GIFs (and Leo, the animated face, as a pack), Videos (films, intros and outros, scenes, music), Copy (taglines, voice, posts), Fonts.
 - **Projects** — drafts autosave here; delete from the row.
 - **Skill** — the `/le` skill, assembled from the manifest, copy.json and BRAND-BRIEF.md. Copy it or download the .md.
-- **Motion** — the motion rules, with the guidelines' live demos.
+- **Motion** — how Leland moves: text, buttons, transitions, logo, timing. One rule a line, each with a demo that replays on hover.
 - **Brand** — the brand board and the brief, then the chat interface guidelines (`brand/chat-guidelines.html`).
 
 ## Fonts
