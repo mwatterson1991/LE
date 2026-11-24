@@ -102,7 +102,6 @@ h3{font-size:14px;font-weight:500}
 @media(prefers-reduced-motion:reduce){.pick svg .d,.pick svg .run{stroke-dashoffset:0;animation:none!important}.pick svg .pop{opacity:1;transform:none;animation:none!important}.pick svg .bar{transform:none;animation:none!important}}
 .pick b{font-size:17px;font-weight:500;line-height:24px}
 .pick span{font-size:14px;line-height:20px;color:var(--g2)}
-.pick.soon svg{stroke:var(--g3)}.pick.soon svg .sky{fill:var(--g3)}.pick.soon svg .skys{stroke:var(--g3)}.pick.soon b{color:var(--g2)}
 @keyframes mbreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}
 @keyframes msway{0%,100%{transform:rotate(calc(var(--sw) * -1))}50%{transform:rotate(var(--sw))}}
 @keyframes mfloat{0%,100%{transform:translateY(calc(var(--amp) * var(--fk) * -1))}50%{transform:translateY(calc(var(--amp) * var(--fk)))}}

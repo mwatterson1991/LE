@@ -68,7 +68,7 @@ const PICK_ICONS={
 const PICKS=[['image','Image'],['deck','Deck'],['video','Video']];
 function renderPicks(){
   $('picks').innerHTML=PICKS.map(([k,n])=>k==='video'?`<div class="pick soon" id="pk-${k}"><div class="ic">${PICK_ICONS[k]}</div><b>${n}</b><span>Coming soon</span></div>`:`<button class="pick" id="pk-${k}" onclick="go('pick','${k}')"><div class="ic">${PICK_ICONS[k]}</div><b>${n}</b></button>`).join('');
-  document.querySelectorAll('#picks .pick').forEach((el,i)=>{const play=()=>{el.classList.remove('play');void el.offsetWidth;el.classList.add('play')};setTimeout(play,150+i*180);if(!el.classList.contains('soon')){el.addEventListener('mouseenter',play);el.addEventListener('focus',play)}})}
+  document.querySelectorAll('#picks .pick').forEach((el,i)=>{const play=()=>{el.classList.remove('play');void el.offsetWidth;el.classList.add('play')};setTimeout(play,150+i*180);el.addEventListener('mouseenter',play);el.addEventListener('focus',play)})}
 
 /* ---------- Pick a type ---------- */
 function renderPick(kind){
