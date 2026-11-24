@@ -60,16 +60,15 @@ function mountLogo(){const host=$('lemark');if(!host||!window.LelandIntro)return
   const play=()=>{cancelAnimationFrame(raf);if(calm()){api.render(end);return}const t0=performance.now();const f=now=>{const t=(now-t0)/1000;api.render(Math.min(end,t));if(t<end)raf=requestAnimationFrame(f)};raf=requestAnimationFrame(f)};
   api.render(0);play();host.parentNode.addEventListener('mouseenter',play)}
 
-/* ---------- Make: three illustrated icons from the library, alive like the present-mode illustrations ---------- */
-const PICKS=[['image','Image','ill-instagram-post',[20,22]],['deck','Deck','ill-presentation-review',[6,7]],['video','Video','ill-video-ads',[8]]];   // kind, name, library illustration, the small shapes that float
-const PICK_PX=200;
+/* ---------- Make: three line icons. Each draws once on load and again on hover; sky marks the one part that means "made". ---------- */
+const PICK_ICONS={
+ image:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect class="d" pathLength="1" x="6" y="9" width="36" height="30" rx="3"/><circle class="sky pop" cx="17" cy="19" r="3.5"/><path class="d d2" pathLength="1" d="M6 33l10-9 7 6 8-9 11 11"/></svg>',
+ deck:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect class="d" pathLength="1" x="5" y="8" width="38" height="25" rx="3"/><path class="d d2" pathLength="1" d="M24 33v7M17 40h14"/><path class="bar b1" d="M15 27v-5"/><path class="bar b2" d="M24 27v-9"/><path class="bar b3 skys" d="M33 27v-13"/></svg>',
+ video:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect class="d" pathLength="1" x="5" y="9" width="38" height="30" rx="3"/><path class="sky pop" d="M21 18.5l9 5.5-9 5.5z"/><path class="trk" d="M11 34h26"/><path class="run skys" pathLength="1" d="M11 34h26"/></svg>'};
+const PICKS=[['image','Image'],['deck','Deck'],['video','Video']];
 function renderPicks(){
-  $('picks').innerHTML=PICKS.map(([k,n])=>k==='video'?`<div class="pick soon" id="pk-${k}"><div class="ill"></div><b>${n}</b><span>Coming soon</span></div>`:`<button class="pick" id="pk-${k}" onclick="go('pick','${k}')"><div class="ill"></div><b>${n}</b></button>`).join('');
-  PICKS.forEach(async([k,n,id,fl])=>{const a=A(id);if(!a)return;const box=document.querySelector(`#pk-${k} .ill`);
-    try{const t=await (await fetch(a.src)).text();box.innerHTML=`<div class="br"><div class="sway">${t.slice(t.indexOf('<svg'))}</div></div>`}catch(e){box.innerHTML=`<img src="${a.src}" alt="">`;return}
-    const svg=box.querySelector('svg');if(!svg)return;const vb=(svg.getAttribute('viewBox')||'0 0 100 100').split(/\s+/).map(Number);svg.removeAttribute('width');svg.removeAttribute('height');svg.setAttribute('aria-hidden','true');
-    const amp=6*Math.max(vb[2],vb[3])/PICK_PX;                               /* 6 screen px, in the drawing's own units */
-    const kids=[...svg.children].filter(e=>e.tagName!=='style');fl.forEach((i,j)=>{const e=kids[i];if(!e)return;e.classList.add('pfl');if(j)e.classList.add('b');e.style.setProperty('--amp',amp.toFixed(3)+'px')})})}
+  $('picks').innerHTML=PICKS.map(([k,n])=>k==='video'?`<div class="pick soon" id="pk-${k}"><div class="ic">${PICK_ICONS[k]}</div><b>${n}</b><span>Coming soon</span></div>`:`<button class="pick" id="pk-${k}" onclick="go('pick','${k}')"><div class="ic">${PICK_ICONS[k]}</div><b>${n}</b></button>`).join('');
+  document.querySelectorAll('#picks .pick').forEach((el,i)=>{const play=()=>{el.classList.remove('play');void el.offsetWidth;el.classList.add('play')};setTimeout(play,150+i*180);if(!el.classList.contains('soon')){el.addEventListener('mouseenter',play);el.addEventListener('focus',play)}})}
 
 /* ---------- Pick a type ---------- */
 function renderPick(kind){

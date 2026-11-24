@@ -86,19 +86,23 @@ h3{font-size:14px;font-weight:500}
 /* ===== make: three illustrations from the library. No boxes; each breathes, sways and floats a small piece, a little more under the pointer ===== */
 @property --sw{syntax:'<angle>';initial-value:1deg;inherits:true}
 @property --fk{syntax:'<number>';initial-value:1;inherits:true}
-.picks{display:flex;gap:96px;padding-top:56px}
-.pick{display:flex;flex-direction:column;align-items:center;width:200px;--sw:1deg;--fk:1;transition:--sw .6s var(--ease),--fk .6s var(--ease)}
-.pick .ill{width:200px;height:200px;margin-bottom:28px;transition:transform .6s var(--ease)}
-.pick .br{width:100%;height:100%;animation:mbreathe 4s ease-in-out infinite}
-.pick .sway{width:100%;height:100%;animation:msway 7.3s ease-in-out infinite;transform-origin:50% 60%}
-.pick svg,.pick .ill img{width:100%;height:100%;overflow:visible}
-.pick .pfl{animation:mfloat 5.1s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
-.pick .pfl.b{animation-duration:6.4s;animation-delay:-2.1s}
-button.pick:hover,button.pick:focus-visible{--sw:2deg;--fk:1.5}
-button.pick:hover .ill,button.pick:focus-visible .ill{transform:scale(1.05)}
+.picks{display:flex;gap:72px;padding-top:48px}
+.pick{display:flex;flex-direction:column;align-items:flex-start;width:120px;text-align:left}
+.pick .ic{width:56px;height:56px;margin-bottom:20px}
+.pick svg{width:100%;height:100%;overflow:visible;fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.pick svg .sky{fill:var(--sky);stroke:none}.pick svg .skys{stroke:var(--sky)}.pick svg .trk{stroke:var(--line)}
+.pick svg .d,.pick svg .run{stroke-dasharray:1;stroke-dashoffset:1}
+.pick svg .pop{opacity:0;transform:scale(.6);transform-box:fill-box;transform-origin:center}
+.pick svg .bar{transform:scaleY(0);transform-box:fill-box;transform-origin:bottom}
+.pick.play svg .d{animation:pkdraw .9s var(--ease) forwards}.pick.play svg .d2{animation-delay:.35s}
+.pick.play svg .pop{animation:pkpop .5s var(--ease) .7s forwards}
+.pick.play svg .bar{animation:pkbar .5s var(--ease) forwards}.pick.play svg .b1{animation-delay:.6s}.pick.play svg .b2{animation-delay:.72s}.pick.play svg .b3{animation-delay:.84s}
+.pick.play svg .run{animation:pkdraw 1.6s linear .9s forwards}
+@keyframes pkdraw{to{stroke-dashoffset:0}}@keyframes pkpop{to{opacity:1;transform:none}}@keyframes pkbar{to{transform:none}}
+@media(prefers-reduced-motion:reduce){.pick svg .d,.pick svg .run{stroke-dashoffset:0;animation:none!important}.pick svg .pop{opacity:1;transform:none;animation:none!important}.pick svg .bar{transform:none;animation:none!important}}
 .pick b{font-size:17px;font-weight:500;line-height:24px}
 .pick span{font-size:14px;line-height:20px;color:var(--g2)}
-.pick.soon .ill{opacity:.4}.pick.soon b{color:var(--g2)}
+.pick.soon svg{stroke:var(--g3)}.pick.soon svg .sky{fill:var(--g3)}.pick.soon svg .skys{stroke:var(--g3)}.pick.soon b{color:var(--g2)}
 @keyframes mbreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}
 @keyframes msway{0%,100%{transform:rotate(calc(var(--sw) * -1))}50%{transform:rotate(var(--sw))}}
 @keyframes mfloat{0%,100%{transform:translateY(calc(var(--amp) * var(--fk) * -1))}50%{transform:translateY(calc(var(--amp) * var(--fk)))}}
