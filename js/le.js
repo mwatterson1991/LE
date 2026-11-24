@@ -60,15 +60,10 @@ function mountLogo(){const host=$('lemark');if(!host||!window.LelandIntro)return
   const play=()=>{cancelAnimationFrame(raf);if(calm()){api.render(end);return}const t0=performance.now();const f=now=>{const t=(now-t0)/1000;api.render(Math.min(end,t));if(t<end)raf=requestAnimationFrame(f)};raf=requestAnimationFrame(f)};
   api.render(0);play();host.parentNode.addEventListener('mouseenter',play)}
 
-/* ---------- Make: three line icons. Each draws once on load and again on hover; sky marks the one part that means "made". ---------- */
-const PICK_ICONS={
- image:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect class="d" pathLength="1" x="6" y="9" width="36" height="30" rx="3"/><circle class="sky pop" cx="17" cy="19" r="3.5"/><path class="d d2" pathLength="1" d="M6 33l10-9 7 6 8-9 11 11"/></svg>',
- deck:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect class="d" pathLength="1" x="5" y="8" width="38" height="25" rx="3"/><path class="d d2" pathLength="1" d="M24 33v7M17 40h14"/><path class="bar b1" d="M15 27v-5"/><path class="bar b2" d="M24 27v-9"/><path class="bar b3 skys" d="M33 27v-13"/></svg>',
- video:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect class="d" pathLength="1" x="5" y="9" width="38" height="30" rx="3"/><path class="sky pop" d="M21 18.5l9 5.5-9 5.5z"/><path class="trk" d="M11 34h26"/><path class="run skys" pathLength="1" d="M11 34h26"/></svg>'};
+/* ---------- Make: three illustrations (generated, flat style), one per thing you can make ---------- */
 const PICKS=[['image','Image'],['deck','Deck'],['video','Video']];
 function renderPicks(){
-  $('picks').innerHTML=PICKS.map(([k,n])=>k==='video'?`<div class="pick soon" id="pk-${k}"><div class="ic">${PICK_ICONS[k]}</div><b>${n}</b><span>Coming soon</span></div>`:`<button class="pick" id="pk-${k}" onclick="go('pick','${k}')"><div class="ic">${PICK_ICONS[k]}</div><b>${n}</b></button>`).join('');
-  document.querySelectorAll('#picks .pick').forEach((el,i)=>{const play=()=>{el.classList.remove('play');void el.offsetWidth;el.classList.add('play')};setTimeout(play,150+i*180);el.addEventListener('mouseenter',play);el.addEventListener('focus',play)})}
+  $('picks').innerHTML=PICKS.map(([k,n])=>{const art=`<div class="art"><img src="assets/make/${k}.jpg" alt=""></div><b>${n}</b>`;return k==='video'?`<div class="pick soon" id="pk-${k}">${art}<span>Coming soon</span></div>`:`<button class="pick" id="pk-${k}" onclick="go('pick','${k}')">${art}</button>`}).join('')}
 
 /* ---------- Pick a type ---------- */
 function renderPick(kind){
