@@ -8,13 +8,13 @@
   .f.on .name{color:var(--ink);font-weight:600}
   .f .val{position:absolute;top:0;font-size:30px;line-height:44px;text-align:right}
   .f .usd{right:150px}.f .pc{right:0}
-  .f .bar{position:absolute;left:0;top:48px;height:20px;border-radius:5px}
+  .f .bar{position:absolute;left:0;top:48px;height:20px;border-radius:0;background:#C9CACD}
 </style></head>
 <body>
 <span id="subj"></span>
 <h1 class="under">Administration was <em>11%</em><br>of Stanford’s $8.4 billion<br>in expenses</h1>
 <div class="chart" id="chart"></div>
-<p class="src">Source: NCES IPEDS Finance. Institutional support expenses per full-time-equivalent student. Stanford University expenses by function, fiscal year 2024.</p>
+<p class="src">Source: NCES IPEDS Finance. Total expenses by function, Stanford University, fiscal year 2024.</p>
 <script src="base.js"></script>
 <script>
 const FN = [['instruction', 'Instruction'], ['research', 'Research'], ['public_service', 'Public service'], ['academic_support', 'Academic support'], ['student_services', 'Student services'],
@@ -31,7 +31,7 @@ const money = v => v >= 1e9 ? '$' + (v / 1e9).toFixed(2) + ' billion' : '$' + Ma
     d.appendChild(el('div', 'name', o.name));
     const a = el('div', 'val usd', money(o.v)); a.style.color = greenText(t); a.dataset.k = 'stanford.2024.' + o.k + '.money'; d.appendChild(a);
     const p = el('div', 'val pc', pct(o.v / tot, 1)); p.style.color = greenText(t); p.dataset.k = 'stanford.2024.' + o.k + '.share1'; d.appendChild(p);
-    const b = el('div', 'bar'); b.style.width = (o.v / max * W).toFixed(1) + 'px'; b.style.background = greenBar(t); d.appendChild(b);
+    const b = el('div', 'bar'); b.style.width = (o.v / max * W).toFixed(1) + 'px'; if (o.k === 'inst_support') b.style.background = INK_BAR; d.appendChild(b);
     c.appendChild(d);
   });
   await ready();

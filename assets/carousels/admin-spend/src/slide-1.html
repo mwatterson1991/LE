@@ -11,24 +11,26 @@
   .row .name{position:absolute;left:76px;top:0;line-height:80px;font-size:33px}
   .row .val{position:absolute;right:0;top:0;line-height:80px;font-size:37px}
   .row .hair{position:absolute;left:76px;right:0;bottom:3px;height:2px;background:var(--hair)}
-  .row .bar{position:absolute;left:76px;bottom:-1px;height:10px;border-radius:5px}
+  .row .bar{position:absolute;left:76px;bottom:-1px;height:10px;border-radius:0;background:#0F0F10}
 </style></head>
 <body>
 <h1>The colleges that spend<br>the most on <em>administration</em><br>per student</h1>
 <div class="fy" id="fy"></div>
 <div class="list" id="list"></div>
-<p class="src">Source: NCES IPEDS Finance. Institutional support expenses per full-time-equivalent student. Fiscal years 2011 to 2024.</p>
+<p class="src">Source: NCES IPEDS Finance. Institutional support expenses per full-time-equivalent student. Fiscal years 2017 to 2024.</p>
 <script src="base.js"></script>
 <script>
 /* Timeline: hold on FY 2011, travel a year at a time to FY 2024, hold, then run back to the start so the loop has no cut. */
-const HOLD0 = 1.0, PER = 0.7, HOLD1 = 2.5, BACK = 0.8, NY = Y1 - Y0;
+const YA = 2017;   /* first year shown: FY 2017 to FY 2024 are the years checked against every large US institution */
+const HOLD0 = 1.0, PER = 1.2, HOLD1 = 2.5, BACK = 0.8, NY = Y1 - YA;
+window.TRAVEL = [HOLD0, HOLD0 + NY * PER, PER];
 window.DURATION = HOLD0 + NY * PER + HOLD1 + BACK;
 window.FINAL = HOLD0 + NY * PER + 1.2;         /* a settled FY 2024 frame, used for slide-1.png */
 const ROWH = 85, SHOW = 10, BARMAX = 60000;     /* bar length: dollars / 60,000 of the full width, the same at every year */
 (async () => {
   lelandMark();
   const S = await loadData(), keys = Object.keys(S), list = document.getElementById('list'), fy = document.getElementById('fy');
-  const years = []; for (let y = Y0; y <= Y1; y++) years.push(y);
+  const years = []; for (let y = YA; y <= Y1; y++) years.push(y);
   const rank = {}, val = {};
   years.forEach(y => { const r = ranking(S, y); keys.forEach(k => { (rank[k] = rank[k] || {})[y] = r.indexOf(k); (val[k] = val[k] || {})[y] = S[k].years[y].per_student; }); });
   const slotOf = r => Math.min(r, SHOW);         /* everything outside the top ten waits just below the list */
@@ -44,11 +46,11 @@ const ROWH = 85, SHOW = 10, BARMAX = 60000;     /* bar length: dollars / 60,000 
   /* state at time t: (from year, to year, eased progress) */
   function at(t) {
     t = ((t % DURATION) + DURATION) % DURATION;
-    if (t < HOLD0) return [Y0, Y0, 1];
+    if (t < HOLD0) return [YA, YA, 1];
     const u = t - HOLD0;
-    if (u < NY * PER) { const i = Math.floor(u / PER); return [Y0 + i, Y0 + i + 1, EASE((u - i * PER) / PER)]; }
+    if (u < NY * PER) { const i = Math.floor(u / PER); return [YA + i, YA + i + 1, EASE((u - i * PER) / PER)]; }
     if (u < NY * PER + HOLD1) return [Y1, Y1, 1];
-    return [Y1, Y0, EASE((u - NY * PER - HOLD1) / BACK)];
+    return [Y1, YA, EASE((u - NY * PER - HOLD1) / BACK)];
   }
   window.seek = t => {
     const [a, b, p] = at(t);
@@ -58,7 +60,7 @@ const ROWH = 85, SHOW = 10, BARMAX = 60000;     /* bar length: dollars / 60,000 
       o.r.style.transform = `translateY(${(y * ROWH).toFixed(2)}px)`;
       o.r.style.zIndex = 100 - Math.round(Math.min(rank[k][a], rank[k][b]) * 4) + (rank[k][b] < rank[k][a] ? 2 : 0);   /* the row that is rising passes in front */
       o.v.textContent = usd(v); o.v.style.color = greenText(psT(v));
-      o.b.style.width = (Math.min(1, v / BARMAX) * barW).toFixed(1) + 'px'; o.b.style.background = greenBar(psT(v));
+      o.b.style.width = (Math.min(1, v / BARMAX) * barW).toFixed(1) + 'px';
       o.v.dataset.k = p >= 1 ? `${k}.${b}.per_student` : '';
     });
   };

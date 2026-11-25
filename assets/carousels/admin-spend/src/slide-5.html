@@ -7,7 +7,7 @@
   .s .logo,.s .ph{position:absolute;left:0;top:0}
   .s .name{position:absolute;left:76px;top:0;font-size:32px;line-height:56px}
   .s .lab{position:absolute;left:76px;font-size:24px;line-height:28px;color:var(--slate);white-space:nowrap}
-  .s .bar{position:absolute;left:290px;height:20px;border-radius:4px}
+  .s .bar{position:absolute;left:290px;height:20px;border-radius:0}
   .s .val{position:absolute;font-size:30px;line-height:28px}
   .s .ra{top:68px}.s .rb{top:108px}.s .bar.ra{top:72px}.s .bar.rb{top:112px}
 </style></head>
@@ -26,7 +26,7 @@
     d.appendChild(logoEl(k)); d.appendChild(el('div', 'name', S[k].name));
     [['ra', 'Administration', adm, 'per_student'], ['rb', 'Student services', ss, 'ss_per_fte']].forEach(([cl, lab, v, key]) => {
       d.appendChild(el('div', 'lab ' + cl, lab));
-      const b = el('div', 'bar ' + cl), w = v / max * BW; b.style.width = w.toFixed(1) + 'px'; b.style.background = greenBar(psT(v)); d.appendChild(b);
+      const b = el('div', 'bar ' + cl), w = v / max * BW; b.style.width = w.toFixed(1) + 'px'; b.style.background = cl === 'ra' ? INK_BAR : GREY_BAR; d.appendChild(b);
       const s = el('div', 'val ' + cl, usd(v)); s.style.left = (290 + w + 16).toFixed(1) + 'px'; s.style.color = greenText(psT(v)); s.dataset.k = `${k}.2024.${key}`; d.appendChild(s);
     });
     c.appendChild(d);

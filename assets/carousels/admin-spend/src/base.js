@@ -1,7 +1,7 @@
 /* Shared helpers for the admin-spend carousel. Every number on a slide comes from DATA (data/lists/ipeds-admin-spend.json). */
 const ROOT = '../../../../';
 const DATA_URL = ROOT + 'data/lists/ipeds-admin-spend.json';
-const LOGO_DIR = ROOT + 'assets/orgs/uni/';
+const LOGO_DIR = 'logos/';   /* trimmed copies written by prep_logos.py from assets/orgs/uni/ */
 const Y0 = 2011, Y1 = 2024;
 
 /* ---- one green scale for every slide ----
@@ -10,7 +10,8 @@ const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
 const mix = (a, b, p) => 'rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * p)).join(',') + ')';
 function ramp(stops, t) { t = Math.max(0, Math.min(1, t)); const n = stops.length - 1, i = Math.min(n - 1, Math.floor(t * n)); return mix(hex(stops[i]), hex(stops[i + 1]), t * n - i); }
 const greenText = t => ramp(['#5E9B7E', '#306E54', '#1E4937'], t);
-const greenBar = t => ramp(['#CCEADE', '#5E9B7E', '#306E54', '#1E4937'], t);
+/* green is for money figures only: bars and lines are ink, or grey for the comparison series */
+const INK_BAR = '#0F0F10', GREY_BAR = '#C9CACD';
 /* per-student dollars share one domain on slides 1, 3, 4 and 5 */
 const PS_LO = 15000, PS_HI = 50000;
 const psT = v => (v - PS_LO) / (PS_HI - PS_LO);

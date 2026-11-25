@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Rebuild the admin-spend carousel. Usage: python3 build.py [stills] [v1] [v6] [sheets]  (no args = everything)
+"""Rebuild the admin-spend carousel. Usage: python3 build.py [stills] [v1] [v6] [sheets] [pack]  (no args = everything)
 Serves the repo root on a free port, renders each slide's HTML with Playwright, encodes video with ffmpeg."""
 import sys, os, subprocess, socket, time, shutil, tempfile
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from playwright.sync_api import sync_playwright
 from PIL import Image
 
@@ -37,7 +38,8 @@ def video(b, base, n):
     if n == 1:   # filmstrip: 8 evenly spaced frames across the travel
         fr = []
         for j in range(8):
-            t = 1.0 + (dur - 0.8 - 2.5 - 1.0) * j / 7 + (0.25 if 0 < j < 7 else 0)
+            a, z, per = pg.evaluate('window.TRAVEL')   # one frame per year, FY 2017..2024: the first and last settled, the six between caught early in the move into that year
+            t = a if j == 0 else z + 1 if j == 7 else a + (j - 1) * per + 0.22 * per
             pg.evaluate(f'window.seek({t})'); p = f'{WORK}/film{j}.png'; shot(pg, p); fr.append(p)
         sheet(fr, f'{OUT}/film.png', 4, 540)
     pg.close()
@@ -45,7 +47,7 @@ def video(b, base, n):
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', f'{d}/f%04d.png', '-c:v', 'libx264', '-pix_fmt', 'yuv420p',
                     '-crf', '18', '-preset', 'slow', '-movflags', '+faststart', mp4], check=True)
     gif, pal = f'{OUT}/slide-{n}.gif', f'{WORK}/pal{n}.png'
-    vf = 'fps=15,scale=540:-1:flags=lanczos'
+    vf = 'fps=15,scale=720:-1:flags=lanczos'
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', f'{d}/f%04d.png', '-vf', f'{vf},palettegen=max_colors=128:stats_mode=diff', pal], check=True)
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', f'{d}/f%04d.png', '-i', pal, '-lavfi', f'{vf} [x]; [x][1:v] paletteuse=dither=none:diff_mode=rectangle', '-loop', '0', gif], check=True)
     print(f'slide-{n}: {nf} frames, {dur:.2f}s, mp4 {os.path.getsize(mp4)/1e6:.2f}MB, gif {os.path.getsize(gif)/1e6:.2f}MB, missing logomarks: {missing}')
@@ -57,8 +59,19 @@ def sheet(paths, out, cols, w):
         im.paste(Image.open(p).convert('RGB').resize((w, h), Image.LANCZOS), (g + (i % cols) * (w + g), g + (i // cols) * (h + g)))
     im.save(out)
 
+def pack():
+    # carousel.pdf: six pages, 1080x1350 points each (72 dpi), then the zip for handing off
+    import zipfile
+    ims = [Image.open(f'{OUT}/slide-{n}.png').convert('RGB') for n in range(1, 7)]
+    ims[0].save(f'{OUT}/carousel.pdf', save_all=True, append_images=ims[1:], resolution=72.0)
+    names = ['carousel.pdf', 'slide-1.mp4', 'slide-6.mp4', 'slide-1.gif'] + [f'slide-{n}.png' for n in range(1, 7)] + ['README.txt']
+    with zipfile.ZipFile(f'{OUT}/admin-spend-carousel.zip', 'w', zipfile.ZIP_DEFLATED) as z:
+        for f in names: z.write(f'{OUT}/{f}', f'admin-spend-carousel/{f}')
+    print('pack:', ', '.join(f'{f} {os.path.getsize(OUT + "/" + f) / 1e6:.2f}MB' for f in ['carousel.pdf', 'admin-spend-carousel.zip']))
+
 if __name__ == '__main__':
-    what = set(sys.argv[1:]) or {'stills', 'v1', 'v6', 'sheets'}
+    what = set(sys.argv[1:]) or {'stills', 'v1', 'v6', 'sheets', 'pack'}
+    import prep_logos; print(len(prep_logos.run()), 'logomarks trimmed')
     srv, base = serve()
     try:
         with sync_playwright() as pw:
@@ -71,5 +84,6 @@ if __name__ == '__main__':
             if 'v6' in what: video(b, base, 6)
             b.close()
         if 'sheets' in what: sheet([f'{OUT}/slide-{n}.png' for n in range(1, 7)], f'{OUT}/all.png', 6, 540)
+        if 'pack' in what: pack()
     finally:
         srv.terminate()

@@ -33,7 +33,7 @@ chk('slide 4 Rochester FY2023 rank', top(2023).index('rochester') + 1, 8); chk('
 t5 = top(2024, 5); chk('slide 5 admin > student services at all five', all(S[k]['years']['2024']['per_student'] > S[k]['years']['2024']['student_services'] / S[k]['years']['2024']['fte'] for k in t5), True)
 fn = ['instruction', 'research', 'public_service', 'academic_support', 'student_services', 'inst_support', 'auxiliary', 'hospital', 'independent_ops', 'net_grant_aid']
 chk('slide 2 functions sum to total (within $1,000)', abs(sum(st[f] or 0 for f in fn) - st['total_expenses']) < 1000, True)
-ALLOW = {1: {'2011', '2024'}, 2: {'2024'}, 3: {'2011', '2016', '2021', '2024', '$0', '$20,000', '$40,000', '$60,000'}, 4: {'2023', '2024'} | {str(i) for i in range(1, 11)}, 5: {'2024'}, 6: {'7', '3'}}
+ALLOW = {1: {'2017', '2024'}, 2: {'2024'}, 3: {'2011', '2016', '2021', '2024', '$0', '$20,000', '$40,000', '$60,000'}, 4: {'2023', '2024'} | {str(i) for i in range(1, 11)}, 5: {'2024'}, 6: {'7', '3'}}
 srv, base = B.serve()
 try:
     with sync_playwright() as pw:
@@ -53,8 +53,9 @@ try:
             for tok in sorted(tokens(vis) - allowed): bad.append(f'slide {s}: number {tok!r} is on the slide but was not recomputed from the file')
             n += len(tokens(vis))
             if s == 1:   # every settled year of the animation
-                for i, y in enumerate(range(2011, 2025)):
-                    pg.evaluate(f'window.seek({1.0 + i * 0.7 - 0.001 if i else 0.5})')
+                a, z, per = pg.evaluate('window.TRAVEL')
+                for i, y in enumerate(range(2017, 2025)):
+                    pg.evaluate(f'window.seek({a + i * per - 0.001 if i else 0.5})')
                     rows = pg.evaluate("[...document.querySelectorAll('.row')].map(r=>[r.getBoundingClientRect().top,r.querySelector('.name').textContent,r.querySelector('.val').textContent]).sort((a,b)=>a[0]-b[0]).slice(0,10).map(r=>r.slice(1))")
                     want = [[S[k]['name'], usd(S[k]['years'][str(y)]['per_student'])] for k in top(y)]
                     chk(f'slide 1 FY{y} top ten', rows, want); chk(f'slide 1 FY{y} readout', pg.evaluate("document.getElementById('fy').textContent"), f'FY {y}')

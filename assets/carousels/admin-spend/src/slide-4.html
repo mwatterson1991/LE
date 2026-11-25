@@ -29,9 +29,9 @@ const SHORT = { stanford: 'Stanford', harvard: 'Harvard', mit: 'MIT', usc: 'USC'
   const TOP = 418, STEP = 78, yc = i => TOP + i * STEP + 28, I = document.getElementById('items');
   const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('svg');
   const LX = 220, RX = 484;
-  /* lines first: grey for every school in both lists, green for Rochester */
-  A.forEach((k, i) => { const j = B.indexOf(k); if (j < 0 || k === 'rochester') return; const l = document.createElementNS(NS, 'line'); l.setAttribute('x1', LX); l.setAttribute('x2', RX); l.setAttribute('y1', yc(i)); l.setAttribute('y2', yc(j)); l.setAttribute('stroke', '#D9D9DC'); l.setAttribute('stroke-width', 3); l.setAttribute('stroke-linecap', 'round'); svg.appendChild(l); });
-  { const i = A.indexOf('rochester'), j = B.indexOf('rochester'), l = document.createElementNS(NS, 'line'); l.setAttribute('x1', LX); l.setAttribute('x2', RX); l.setAttribute('y1', yc(i)); l.setAttribute('y2', yc(j)); l.setAttribute('stroke', greenBar(psT(S.rochester.years[2024].per_student))); l.setAttribute('stroke-width', 8); l.setAttribute('stroke-linecap', 'round'); svg.appendChild(l); }
+  /* lines first: grey for every school in both lists, ink for Rochester */
+  A.forEach((k, i) => { const j = B.indexOf(k); if (j < 0 || k === 'rochester') return; const l = document.createElementNS(NS, 'line'); l.setAttribute('x1', LX); l.setAttribute('x2', RX); l.setAttribute('y1', yc(i)); l.setAttribute('y2', yc(j)); l.setAttribute('stroke', GREY_BAR); l.setAttribute('stroke-width', 3); l.setAttribute('stroke-linecap', 'butt'); svg.appendChild(l); });
+  { const i = A.indexOf('rochester'), j = B.indexOf('rochester'), l = document.createElementNS(NS, 'line'); l.setAttribute('x1', LX); l.setAttribute('x2', RX); l.setAttribute('y1', yc(i)); l.setAttribute('y2', yc(j)); l.setAttribute('stroke', INK_BAR); l.setAttribute('stroke-width', 8); l.setAttribute('stroke-linecap', 'butt'); svg.appendChild(l); }
   A.forEach((k, i) => { const d = el('div', 'it l'); d.style.top = (TOP + i * STEP) + 'px'; d.appendChild(el('div', 'rank', String(i + 1))); d.appendChild(logoEl(k)); I.appendChild(d); });
   B.forEach((k, j) => {
     const v = S[k].years[2024].per_student, d = el('div', 'it r' + (k === 'rochester' ? '' : ' dim')); d.style.top = (TOP + j * STEP) + 'px';

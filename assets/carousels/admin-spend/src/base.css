@@ -22,7 +22,7 @@ body{position:relative;font-family:'Num','Macan',sans-serif;font-weight:400;colo
 /* Leland mark, top right, same place on every data slide */
 .lmark{position:absolute;top:var(--m);right:var(--m);width:44px;height:44px;display:block}
 /* school logomark where one school is the subject: top left, mirrors the Leland mark */
-.subject{position:absolute;top:50px;left:calc(var(--m) - 12px);width:116px;height:116px;object-position:left center}
+.subject{position:absolute;top:72px;left:var(--m);width:64px;height:64px;object-position:left center}
 h1{position:absolute;left:var(--m);top:var(--m);width:840px;font-family:'Season',serif;font-weight:500;font-size:70px;line-height:1.05;letter-spacing:-.02em;color:var(--ink)}
 h1.under{top:188px}
 h1 em{font-style:normal;color:var(--blue)}

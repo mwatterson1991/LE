@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin-spend carousel</title>
+<style>
+  @font-face{font-family:'Macan';src:url('../../../fonts/Macan-Book-Q.woff2') format('woff2');font-weight:400}
+  @font-face{font-family:'Num';src:local('Helvetica Neue'),local('HelveticaNeue'),local('Helvetica'),local('Arial');unicode-range:U+0030-0039}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#fff;color:#010101}
+  body{font-family:'Num','Macan',"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.4;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:40px 0}
+  .row{display:flex;gap:16px;overflow-x:auto;padding:0 40px;scroll-snap-type:x proximity;scrollbar-width:thin}
+  .row>*{flex:none;height:min(72vh,675px);aspect-ratio:4/5;display:block;scroll-snap-align:center;outline:1px solid #ECECED;background:#fff}
+  .dl{display:flex;flex-wrap:wrap;gap:8px 22px;padding:0 40px}
+  .dl a{color:#010101;text-decoration:underline;text-decoration-color:#C9CACD;text-underline-offset:3px}
+  .dl a:hover{text-decoration-color:#010101}
+</style></head>
+<body>
+<div class="row">
+  <video src="slide-1.mp4" poster="slide-1.png" autoplay muted loop playsinline></video>
+  <img src="slide-2.png" alt="Slide 2">
+  <img src="slide-3.png" alt="Slide 3">
+  <img src="slide-4.png" alt="Slide 4">
+  <img src="slide-5.png" alt="Slide 5">
+  <video src="slide-6.mp4" poster="slide-6.png" autoplay muted loop playsinline></video>
+</div>
+<div class="dl">
+  <a href="carousel.pdf" download>PDF</a>
+  <a href="admin-spend-carousel.zip" download>Zip of everything</a>
+  <a href="slide-1.mp4" download>Slide 1 video</a>
+  <a href="slide-1.gif" download>Slide 1 GIF</a>
+  <a href="slide-1.png" download>Slide 1 image</a>
+  <a href="slide-2.png" download>Slide 2</a>
+  <a href="slide-3.png" download>Slide 3</a>
+  <a href="slide-4.png" download>Slide 4</a>
+  <a href="slide-5.png" download>Slide 5</a>
+  <a href="slide-6.mp4" download>Slide 6 video</a>
+  <a href="slide-6.png" download>Slide 6 image</a>
+</div>
+</body></html>
