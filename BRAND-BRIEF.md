@@ -43,10 +43,11 @@ Rules: one field color per tile. Ink type on yellow/beige/tan/paper; white type 
 
 ## Illustration
 - 299 blue line illustrations in `assets/illustrations/` (black line, #80ACED fills). Use on paper/beige/white, one or three at a time, never as a background texture.
+- 9 flat illustrations in `assets/illus/flat/` (manifest group `flat`; wide, square and tall crops). One per image, large, edge to edge on half the tile.
 
 ## Copy
 - Tagline on the board: "The home for ambitious people." Approved: Own your future. · Accomplish your goals. · The home for ambition. · Get there, with the people who've been there.
 - Voice: direct, concrete, warm, no hype, no exclamation points, no em dashes. Name the school, the company, the number, the person. Say expert, not coach.
 
 ## Assets available to renderers (data/manifest.json)
-groups: hero, header, card, aibp, aipost (launch kit) · film, kit, scene (video) · gif · background, photo, expert (headshots), graphic, illustration, org (logos, with mono.black/mono.white), icon, music.
+groups: hero, header, card, aibp, aipost (launch kit) · film, kit, scene (video) · gif · background, photo, expert (headshots), graphic, flat (flat illustrations), illustration (line), org (logos, with mono.black/mono.white), icon, music.

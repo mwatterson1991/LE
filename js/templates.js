@@ -70,10 +70,37 @@
     return px;
   }
   function plain(s) { return String(s || '').replace(/[\[\]]/g, ''); }
-  function mw(x, s) { return x.measureText(plain(s)).width; }
+  /* numerals: Macan's figures are not used. Inside Macan text every figure (with its currency sign, separators and percent)
+     is set in Helvetica Neue at the same size and weight; its figures are tabular. Season headlines keep their own. */
+  var NUMF = '"Helvetica Neue", Helvetica, Arial', NUMRE = /([$\u20ac\u00a3]?\d(?:[\d.,:]*\d)?%?)/;
+  function runs(x, s) { return /Macan/.test(x.font) && /\d/.test(s) ? String(s).split(NUMRE).filter(Boolean) : null; }
+  function isNum(p) { return /^[$\u20ac\u00a3]?\d/.test(p); }
+  /* width of a string in the current font, figures swapped */
+  function textW(x, s) {
+    var r = runs(x, s); if (!r) return x.measureText(s).width;
+    var base = x.font, nf = base.replace('Macan', NUMF), w = 0;
+    r.forEach(function (p) { x.font = isNum(p) ? nf : base; w += x.measureText(p).width; }); x.font = base; return w;
+  }
+  /* draw a string left-aligned at X on the alphabetic baseline, figures swapped; returns its width */
+  function td(x, s, X, Y, stroke) {
+    var r = runs(x, s); x.textAlign = 'left'; x.textBaseline = 'alphabetic';
+    if (!r) { if (stroke) x.strokeText(s, X, Y); else x.fillText(s, X, Y); return x.measureText(s).width; }
+    var base = x.font, nf = base.replace('Macan', NUMF), cx = X;
+    r.forEach(function (p) { x.font = isNum(p) ? nf : base; if (stroke) x.strokeText(p, cx, Y); else x.fillText(p, cx, Y); cx += x.measureText(p).width; }); x.font = base; return cx - X;
+  }
+  /* one plain line, aligned left / center / right on X */
+  function say(x, s, X, Y, align, color, stroke) {
+    var w = textW(x, s), cx = align === 'center' ? X - w / 2 : align === 'right' ? X - w : X;
+    if (stroke) x.strokeStyle = color; else x.fillStyle = color; td(x, s, cx, Y, stroke); return w;
+  }
+  /* shorten a line that cannot fit, with an ellipsis */
+  function clip(x, s, maxW) { s = String(s); if (textW(x, s) <= maxW) return s; while (s.length > 1 && textW(x, s + '\u2026') > maxW) s = s.slice(0, -1); return s.replace(/[\s,.]+$/, '') + '\u2026'; }
+  function mw(x, s) { return textW(x, plain(s)); }
   /* word wrap that keeps [bracketed] phrases intact, honours \n, and pulls one word down to avoid a widow */
   function wrap(x, text, maxW) {
     var out = [];
+    /* a bracketed phrase may break across lines: bracket each of its words so every piece keeps the accent */
+    text = String(text || '').replace(/\[([^\]]+)\]/g, function (m, p) { return p.trim().split(/\s+/).map(function (w) { return '[' + w + ']'; }).join(' '); });
     String(text || '').split(/\n/).forEach(function (para) {
       var words = para.trim().split(/\s+/).filter(Boolean), line = '';
       words.forEach(function (w) {
@@ -129,11 +156,11 @@
   /* one line with the [bracketed] phrase in accent */
   function rich(x, line, X, Y, align, ink, accent) {
     var parts = String(line).split(/(\[[^\]]+\])/).filter(Boolean);
-    var widths = parts.map(function (p) { return x.measureText(plain(p)).width; });
+    var widths = parts.map(function (p) { return textW(x, plain(p)); });
     var tw = widths.reduce(function (a, b) { return a + b; }, 0);
     var cx = align === 'center' ? X - tw / 2 : align === 'right' ? X - tw : X;
     x.textAlign = 'left'; x.textBaseline = 'alphabetic';
-    parts.forEach(function (p, i) { x.fillStyle = p.charAt(0) === '[' ? (accent || PAL.blue) : ink; x.fillText(plain(p), cx, Y); cx += widths[i]; });
+    parts.forEach(function (p, i) { x.fillStyle = p.charAt(0) === '[' ? (accent || PAL.blue) : ink; td(x, plain(p), cx, Y); cx += widths[i]; });
   }
   /* draw a fitted block with its top-left (or top-centre) at X,Y; returns bottom y */
   function block(x, r, X, Y, align, ink, accent) {
@@ -183,67 +210,84 @@
 
   var T = [];
 
-  /* 1. Headline on a field — the board's "Own your future." tile */
-  T.push({
-    id: 'field-headline', name: 'Headline on a field',
-    desc: 'One Season line on a white field with the mark.',
-    ratios: ['r45', 'r11', '', 'r916'],
-    fields: [
-      { key: 'head', label: 'Headline', type: 'text', max: 60 },
-      { key: 'color', label: 'Field', type: 'color', options: FIELDS },
-      { key: 'brand', label: 'Brand', type: 'choice', options: ['mark', 'lockup'] },
-      { key: 'align', label: 'Align', type: 'choice', options: ['left', 'center'] }
-    ],
-    defaults: { head: 'Own your future.', color: 'white', brand: 'mark', align: 'left' },
-    render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), acc = accentFor(c), center = get(d, 'align', 'left') === 'center';
-      fill(x, W, H, fieldHex(c, h.PAL));
-      var brandH = get(d, 'brand', 'mark') === 'lockup' ? logoSize(f) : markSize(f);
-      var head = get(d, 'head', ''), sub = '';
-      var maxW = f.land ? f.cw * .78 : f.cw * .9, textTop = f.pad, textBottom = H - f.pad - brandH - f.u * .06;
-      var hr = fit(x, head, 'display', maxW, (textBottom - textTop) * (sub ? .72 : 1), f.u * (f.land ? .15 : .145), f.u * .06, .98, 4);
-      var sr = sub ? (font(x, 'text400', f.u * .034), fit(x, sub, 'text400', Math.min(maxW, f.u * .78), f.u * .3, f.u * .034, f.u * .024, 1.32, 4)) : null;
-      var gap = sub ? f.u * .035 : 0, total = hr.h + gap + (sr ? sr.h : 0);
-      var X = center ? W / 2 : f.pad, al = center ? 'center' : 'left';
-      var y = center ? textTop + (textBottom - textTop - total) / 2 : textTop;
-      font(x, 'display', hr.px); y = block(x, hr, X, y, al, ink, acc);
-      if (sr) { font(x, 'text400', sr.px); block(x, sr, X, y + gap, al, dimFor(c)); }
-      if (get(d, 'brand', 'mark') === 'lockup') logo(x, center ? W / 2 - 112 / 24 * brandH / 2 : f.pad, H - f.pad - brandH, brandH, ink);
-      else mark(x, center ? W / 2 - brandH / 2 : W - f.pad - brandH, H - f.pad - brandH, brandH, ink);
-    }
-  });
+  /*@@PHOTO@@*/
+  /* a picture and a headline share the tile: side by side on wide tiles, picture on top on the others (half of a square, 55% of a tall tile) */
+  function halves(W, H, f) {
+    if (f.land) { var hw = Math.round(W / 2); return { side: true, ix: W - hw, iy: 0, iw: hw, ih: H, tx: f.pad, ty: f.pad, tw: W - hw - f.pad - Math.round(f.u * .05), tb: H - f.pad }; }
+    var ih = Math.round(H * (W >= H ? .5 : .55));
+    return { side: false, ix: 0, iy: 0, iw: W, ih: ih, tx: f.pad, ty: ih + Math.round(f.u * .06), tw: f.cw, tb: H - f.pad };
+  }
+  /* the headline at the top of the white half, the lockup in its bottom-left corner */
+  function halfText(x, f, g, head, H) {
+    var lh = logoSize(f);
+    var hr = fit(x, head, 'display', g.tw, g.tb - lh - f.u * .05 - g.ty, f.u * (g.side ? .1 : .098), f.u * .042, 1.0, g.side ? 5 : 3);
+    font(x, 'display', hr.px); block(x, hr, g.tx, g.ty, 'left', PAL.ink, accentFor('white'));
+    logo(x, f.pad, H - f.pad - lh, lh, 'ink');
+  }
 
-  /* 2. Photo with a white lockup — the board's stairs / city tiles */
+  /* 1. Photo with headline — full-bleed with the line over the photo, or split with the line on white */
   T.push({
-    id: 'photo-lockup', name: 'Photo with lockup',
-    desc: 'Full-bleed photo, white lockup, Season headline in white.',
+    id: 'photo-headline', name: 'Photo with headline',
+    desc: 'A photo and a Season headline: over the photo, or beside it on white.',
     ratios: ['r45', 'r11', '', 'r916'],
     fields: [
       { key: 'photo', label: 'Photo', type: 'asset', groups: ['photo', 'background', 'hero'] },
       { key: 'head', label: 'Headline', type: 'text', max: 60 },
-      { key: 'align', label: 'Align', type: 'choice', options: ['left', 'center'] }
+      { key: 'layout', label: 'Layout', type: 'choice', options: ['full', 'split'] }
     ],
-    defaults: { photo: 'photo-businesswoman-outdoors-city-skyscrapers', head: 'Get there, with the people who\'ve been there.', align: 'left' },
+    /* headline: data/copy.json c-051 (tagline) */
+    defaults: { photo: 'photo-college-friends-talking-hallway', head: 'Get there, with the people who\'ve been there.', layout: 'full' },
     render: async function (x, W, H, d, h) {
-      var f = frame(W, H), center = get(d, 'align', 'left') === 'center';
+      var f = frame(W, H), head = get(d, 'head', ''), lh = logoSize(f);
       var img = await loadAsset(h, get(d, 'photo', ''), 'photo');
+      if (get(d, 'layout', 'full') === 'split') {
+        var g = halves(W, H, f);
+        fill(x, W, H, PAL.white);
+        x.fillStyle = PAL.neutral; x.fillRect(g.ix, g.iy, g.iw, g.ih);
+        if (img) cover(x, img, g.ix, g.iy, g.iw, g.ih, .5, .35);
+        halfText(x, f, g, head, H);
+        return;
+      }
       fill(x, W, H, PAL.neutral);
       if (img) cover(x, img, 0, 0, W, H, .5, .35);
-      var lh = logoSize(f);
-      var head = get(d, 'head', ''), sub = '';
-      var maxW = f.land ? f.cw * .7 : f.cw;
-      var hr = fit(x, head, 'display', maxW, H * .42, f.u * (f.land ? .11 : .105), f.u * .055, 1.0, 4);
-      var sr = sub ? fit(x, sub, 'text400', Math.min(maxW, f.u * .72), f.u * .22, f.u * .034, f.u * .024, 1.32, 3) : null;
-      var gap = sub ? f.u * .03 : 0, total = hr.h + gap + (sr ? sr.h : 0) + (sr ? sr.px * .25 : hr.px * .12);
-      var X = center ? W / 2 : f.pad, al = center ? 'center' : 'left', y = H - f.pad - total;
-      /* no gradients: one flat darkening over the whole photo, the type carries a soft shadow */
-      x.fillStyle = 'rgba(0,0,0,.26)'; x.fillRect(0, 0, W, H);
-      grain(x, W, H, .05);
-      logo(x, center ? W / 2 - 112 / 24 * lh / 2 : f.pad, f.pad, lh, 'white');
-      x.save(); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = f.u * .05; x.shadowOffsetY = f.u * .006;
-      font(x, 'display', hr.px); y = block(x, hr, X, y, al, PAL.white, PAL.white);
-      if (sr) { font(x, 'text400', sr.px); block(x, sr, X, y + gap, al, 'rgba(255,255,255,.88)'); }
-      x.restore();
+      var lw = 112 / 24 * lh, maxW = Math.min(f.cw - lw - f.u * .05, f.land ? f.cw * .62 : f.cw);
+      var hr = fit(x, head, 'display', maxW, H * .4, f.u * (f.land ? .1 : .098), f.u * .05, 1.0, 4);
+      var top = H - f.pad - hr.h - hr.px * .1;
+      /* the photo darkens only behind the words: clear above the headline, deepest at the bottom edge */
+      var s0 = Math.max(0, top - f.u * .22), sh = x.createLinearGradient(0, s0, 0, H);
+      sh.addColorStop(0, 'rgba(0,0,0,0)'); sh.addColorStop(.45, 'rgba(0,0,0,.34)'); sh.addColorStop(1, 'rgba(0,0,0,.62)');
+      x.fillStyle = sh; x.fillRect(0, s0, W, H - s0);
+      font(x, 'display', hr.px); block(x, hr, f.pad, top, 'left', PAL.white, PAL.white);
+      logo(x, W - f.pad - lw, H - f.pad - lh, lh, 'white');
+    }
+  });
+
+  /* 2. Illustration with headline — one flat illustration fills half the tile, edge to edge */
+  /* the same drawing exists in several shapes (wide, square, tall): use the one closest to the space it fills */
+  function bestCrop(h, a, ar) {
+    if (!a || a.group !== 'flat' || !h.byGroup) return a;
+    var best = a, score = function (b) { return b.w && b.h ? Math.abs(Math.log((b.w / b.h) / ar)) : 9; };
+    h.byGroup('flat').forEach(function (b) { if (b.title === a.title && score(b) < score(best)) best = b; });
+    return best;
+  }
+  T.push({
+    id: 'illustration-headline', name: 'Illustration with headline',
+    desc: 'One flat illustration on half the tile, a Season headline on white on the other.',
+    ratios: ['r45', 'r11', '', 'r916'],
+    fields: [
+      { key: 'ill', label: 'Illustration', type: 'asset', groups: ['flat'] },
+      { key: 'head', label: 'Headline', type: 'text', max: 60 }
+    ],
+    /* headline: data/copy.json c-049 (tagline) */
+    defaults: { ill: 'flat-door-v', head: 'Own your future.' },
+    render: async function (x, W, H, d, h) {
+      var f = frame(W, H), g = halves(W, H, f);
+      fill(x, W, H, PAL.white);
+      var a = (h.A && h.A(get(d, 'ill', ''))) || (h.byGroup && h.byGroup('flat')[0]) || null, img = null;
+      a = bestCrop(h, a, g.iw / g.ih);
+      if (a) { try { img = await h.loadImg(a.src); } catch (e) { img = null; } }
+      if (img) cover(x, img, g.ix, g.iy, g.iw, g.ih, .5, .5);
+      halfText(x, f, g, get(d, 'head', ''), H);
     }
   });
 
@@ -296,7 +340,7 @@
   T.push({
     id: 'chart', name: 'Chart',
     desc: 'A bar or line chart from your numbers, with the source.',
-    ratios: ['r11', 'r45', '', 'r916'],
+    ratios: ['r45', 'r11', '', 'r916'],
     fields: [
       { key: 'head', label: 'Headline', type: 'text', max: 70 },
       { key: 'data', label: 'Values, one per line: label, number', type: 'text', max: 400 },
@@ -318,7 +362,7 @@
       var lh = logoSize(f), top = f.pad;
       var hr = fit(x, get(d, 'head', ''), 'display', f.land ? f.cw * .8 : f.cw, (H - 2 * f.pad) * .3, f.u * .078, f.u * .042, 1, 3);
       font(x, 'display', hr.px); var y = block(x, hr, f.pad, top, 'left', ink, accentFor(c));
-      var footH = lh + (src ? f.u * .07 : 0), valPx = f.u * (rows.length > 4 ? .034 : .05), labPx = f.u * .026;
+      var footH = lh + (src ? f.u * .07 : 0), labPx = f.u * .026, valPx = labPx * 1.25;   /* the value is one step above its label, never a giant figure over a small word */
       var plotTop = y + f.u * .07 + valPx * 1.3, plotBottom = H - f.pad - footH - f.u * .05 - labPx * 1.9, plotH = Math.max(10, plotBottom - plotTop);
       var n = rows.length || 1, max = Math.max.apply(null, rows.map(function (r) { return r.v; }).concat([1e-9]));
       var plotW = Math.min(f.cw, f.u * (.2 + .2 * n)), slot = plotW / n, bw = Math.min(slot - 2, slot * .62), x0 = f.pad;
@@ -340,11 +384,12 @@
       x.textBaseline = 'alphabetic';
       pts.forEach(function (p, i) {
         var show = !line || n <= 6 || i === 0 || i === n - 1;
-        if (show) { font(x, 'text600', valPx); x.textAlign = line ? 'center' : 'left'; var lx = line ? p.cx : p.cx - bw / 2, ly = p.y - valPx * .45 - (line ? f.u * .012 : 0);
+        var al = line ? 'center' : 'left';
+        if (show) { font(x, 'text600', valPx); var lx = line ? p.cx : p.cx - bw / 2, ly = p.y - valPx * .45 - (line ? f.u * .012 : 0);
           /* on a line chart the label sits on the line's path: a halo in the field colour keeps it readable */
-          if (line) { x.strokeStyle = fieldHex(c, h.PAL); x.lineWidth = valPx * .4; x.lineJoin = 'round'; x.strokeText(fmt(p.r.v), lx, ly); }
-          x.fillStyle = ink; x.fillText(fmt(p.r.v), lx, ly); }
-        font(x, 'text400', labPx); x.fillStyle = dim; x.textAlign = line ? 'center' : 'left'; x.fillText(p.r.label, line ? p.cx : p.cx - bw / 2, plotBottom + labPx * 1.6);
+          if (line) { x.lineWidth = valPx * .4; x.lineJoin = 'round'; say(x, fmt(p.r.v), lx, ly, al, fieldHex(c, h.PAL), true); }
+          say(x, fmt(p.r.v), lx, ly, al, ink); }
+        font(x, 'text400', labPx); say(x, p.r.label, line ? p.cx : p.cx - bw / 2, plotBottom + labPx * 1.6, al, dim);
       });
       x.textAlign = 'left';
       if (src) { var sr = fit(x, src, 'text400', f.cw, f.u * .1, f.u * .026, f.u * .02, 1.3, 2); font(x, 'text400', sr.px); block(x, sr, f.pad, H - f.pad - lh - f.u * .055 - sr.cap, 'left', dim); }
@@ -352,49 +397,7 @@
     }
   });
 
-  /* 5. Three line illustrations on paper */
-  T.push({
-    id: 'three-illustrations', name: 'Three illustrations',
-    desc: 'Headline over three line illustrations with short captions.',
-    ratios: ['r45', '', 'r11', 'r916'],
-    fields: [
-      { key: 'head', label: 'Headline', type: 'text', max: 60 },
-      { key: 'ill1', label: 'Illustration 1', type: 'asset', groups: ['illustration'] },
-      { key: 'cap1', label: 'Caption 1', type: 'text', max: 40 },
-      { key: 'ill2', label: 'Illustration 2', type: 'asset', groups: ['illustration'] },
-      { key: 'cap2', label: 'Caption 2', type: 'text', max: 40 },
-      { key: 'ill3', label: 'Illustration 3', type: 'asset', groups: ['illustration'] },
-      { key: 'cap3', label: 'Caption 3', type: 'text', max: 40 },
-      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'beige', 'tan'] }
-    ],
-    defaults: { head: 'Learn from people who\'ve done it', ill1: 'ill-group-chat', cap1: 'Come ask.', ill2: 'ill-on-air', cap2: 'Follow along and bring your questions.', ill3: 'ill-calendar', cap3: 'Send this to someone who needs it.', color: 'white' },
-    render: async function (x, W, H, d, h) {
-      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c);
-      fill(x, W, H, fieldHex(c, h.PAL));
-      var head = get(d, 'head', ''), lh = logoSize(f);
-      var imgs = await Promise.all([1, 2, 3].map(function (i) { return loadAsset(h, get(d, 'ill' + i, ''), 'illustration'); }));
-      var caps = [1, 2, 3].map(function (i) { return get(d, 'cap' + i, ''); });
-      var hr = fit(x, head, 'display', f.land ? f.cw * .7 : f.cw, H * .3, f.u * .1, f.u * .05, 1.0, f.land ? 2 : 3);
-      font(x, 'display', hr.px); var y = block(x, hr, f.pad, f.pad, 'left', ink, accentFor(c));
-      var gap = f.u * .035, colW = (f.cw - 2 * gap) / 3;
-      var areaTop = y + f.u * .06, areaBottom = H - f.pad - lh - f.u * .06, areaH = areaBottom - areaTop;
-      var capPx = f.u * .036, caps_ = caps.map(function (t) { return fit(x, t, 'text500', colW, f.u * .12, capPx, f.u * .022, 1.25, 3, true); });
-      /* the three captions share one size */
-      var capMin = Math.min.apply(null, caps_.map(function (r) { return r.px; }));
-      caps_ = caps.map(function (t) { return fit(x, t, 'text500', colW, f.u * .12, capMin, f.u * .022, 1.25, 3, true); });
-      var capH = Math.max.apply(null, caps_.map(function (r) { return r.h; }));
-      var illH = Math.min(colW, areaH - capH - f.u * .04, f.u * .4);
-      var blockH = illH + f.u * .04 + capH, top = areaTop + Math.max(0, (areaH - blockH) / 2) * (f.tall ? .6 : 1);
-      for (var i = 0; i < 3; i++) {
-        var cx = f.pad + i * (colW + gap);
-        if (imgs[i]) contain(x, imgs[i], cx + colW * .03, top, colW * .94, illH);
-        font(x, 'text500', caps_[i].px); block(x, caps_[i], cx + colW / 2, top + illH + f.u * .04, 'center', ink);
-      }
-      logo(x, f.pad, H - f.pad - lh, lh, ink);
-    }
-  });
-
-  /* 6. Product moment */
+  /* 5. Product moment */
   T.push({
     id: 'product-moment', name: 'Product moment',
     desc: 'A screenshot in a soft frame on a field, with a headline.',
@@ -436,6 +439,138 @@
         shot(sx, sy, sw2, sh2);
       }
       logo(x, f.pad, H - f.pad - lh, lh, ink);
+    }
+  });
+
+  /* 6. Quote — a customer's words, who said them */
+  function normName(s) { return String(s || '').toLowerCase().replace(/\([^)]*\)/g, ' ').replace(/[^a-z0-9+&]+/g, ' ').replace(/^the /, '').trim(); }
+  T.push({
+    id: 'quote', name: 'Quote',
+    desc: 'A customer\'s words in Season, their name and role beneath.',
+    ratios: ['r45', 'r11', '', 'r916'],
+    fields: [
+      { key: 'quote', label: 'Quote, word for word', type: 'text', max: 200 },
+      { key: 'name', label: 'Name', type: 'text', max: 40 },
+      { key: 'role', label: 'Role and company', type: 'text', max: 60, optional: true }
+    ],
+    /* data/copy.json c-115: verbatim, Lucy Baldwin, VP Product, ASU+GSV */
+    defaults: { quote: 'It put everyone in a builder mindset.', name: 'Lucy Baldwin', role: 'VP Product, ASU+GSV' },
+    render: async function (x, W, H, d, h) {
+      var f = frame(W, H), ink = PAL.ink, dim = dimFor('white');
+      fill(x, W, H, PAL.white);
+      var q = get(d, 'quote', '').replace(/^["“”\s]+|["“”\s]+$/g, ''), name = get(d, 'name', ''), role = get(d, 'role', '');
+      var lh = logoSize(f), lw = 112 / 24 * lh, px = Math.round(f.u * .03), lineH = px * 1.36;
+      /* a face only when the library holds a photo of this very person (an expert headshot titled with the same name) */
+      var who = name && h.byGroup ? h.byGroup('expert').filter(function (a) { return normName(a.title) === normName(name); })[0] : null, img = null;
+      if (who) { try { img = await h.loadImg(who.src); } catch (e) { img = null; } }
+      var rows = (name ? 1 : 0) + (role ? 1 : 0), footH = rows ? (rows - 1) * lineH + px : lh;
+      var ph = img ? Math.round(lineH + px * 1.5) : 0; if (img) footH = Math.max(footH, ph);
+      var footTop = H - f.pad - footH;
+      var maxW = f.land ? f.cw * .82 : f.cw;
+      var qr = fit(x, q + '”', 'display', maxW, footTop - f.u * .07 - f.pad, f.u * (f.land ? .105 : .11), f.u * .045, 1.04, 8);
+      font(x, 'display', qr.px);
+      /* the opening mark hangs in the margin so the words keep one left edge */
+      x.fillStyle = ink; x.textAlign = 'right'; x.textBaseline = 'alphabetic'; x.fillText('“', f.pad - qr.px * .02, f.pad + qr.cap); x.textAlign = 'left';
+      block(x, qr, f.pad, f.pad, 'left', ink, accentFor('white'));
+      var tx = f.pad;
+      if (img) { x.save(); x.beginPath(); x.arc(f.pad + ph / 2, footTop + footH / 2, ph / 2, 0, Math.PI * 2); x.closePath(); x.clip(); cover(x, img, f.pad, footTop + (footH - ph) / 2, ph, ph, .5, .3); x.restore(); tx = f.pad + ph + px * .7; }
+      var by = H - f.pad - (img ? (footH - ((rows - 1) * lineH + px)) / 2 : 0) - px * .12;
+      var nameW = W - f.pad - lw - f.u * .05 - tx;
+      if (role) { font(x, 'text400', px); say(x, clip(x, role, nameW), tx, by, 'left', dim); by -= lineH; }
+      if (name) { font(x, 'text600', px); say(x, clip(x, name, nameW), tx, by, 'left', ink); }
+      logo(x, W - f.pad - lw, H - f.pad - lh, lh, 'ink');
+    }
+  });
+
+  /* 7. Ranked list — the calm version of a "top 20" infographic */
+  /* a logo from the org shelf: an id if one is typed, else the title that equals the name, else the one title that holds it
+     (never a single school of a university: "Harvard" may find Harvard University, not Harvard Business School) */
+  function findOrg(h, name, id) {
+    if (!h.byGroup) return null;
+    if (id) { var a = h.A(id) || h.A('org-' + id); if (a && a.group === 'org') return a; }
+    var n = normName(name); if (!n) return null;
+    var orgs = h.byGroup('org'), exact = orgs.filter(function (o) { return normName(o.title) === n; })[0];
+    if (exact) return exact;
+    var near = orgs.filter(function (o) {
+      var t = ' ' + normName(o.title) + ' ', k = ' ' + n + ' ';
+      if (t.indexOf(k) >= 0) return !/\b(school|college|law|medicine|business)\b/.test(t.replace(k, ' '));
+      return t.trim().length >= 5 && k.indexOf(t) >= 0;
+    }).sort(function (a, b) { return a.title.length - b.title.length; });
+    return near[0] || null;
+  }
+  /* "Name, value" or "Name, value, logo-id": the value is the last part that carries a figure, so "$42,428" survives its comma */
+  function parseRanked(h, text) {
+    return String(text || '').split(/\n/).map(function (l) {
+      l = l.trim(); if (!l) return null;
+      var id = '', m = l.match(/^(.*\d.*?),\s*([A-Za-z][\w.()&+\-]*)$/);
+      if (m && h.A && (h.A(m[2]) || h.A('org-' + m[2]))) { l = m[1].trim(); id = m[2]; }
+      m = l.match(/^(.*?)[,\t]\s*([^\s,]*\d[\d,.]*[^\s,]*(?:\s+[^\d,]+)?)$/);
+      if (!m) return null;
+      var v = parseFloat(m[2].replace(/[^\d.\-]/g, ''));
+      return { name: m[1].trim(), value: m[2].trim(), v: isNaN(v) ? 0 : Math.max(0, v), id: id };
+    }).filter(Boolean);
+  }
+  T.push({
+    id: 'ranked-list', name: 'Ranked list',
+    desc: 'A ranking from your rows: name, value and a bar, with the source.',
+    ratios: ['r45', 'r11', '', 'r916'],
+    fields: [
+      { key: 'head', label: 'Headline', type: 'text', max: 70 },
+      { key: 'rows', label: 'Rows, one per line: name, value', type: 'text', max: 1600, tall: true },
+      { key: 'source', label: 'Source', type: 'text', max: 200 }
+    ],
+    /* the reference's top 10 (NCES IPEDS Finance, FY2023); the headline labels the data */
+    defaults: {
+      head: 'Top 10 colleges by [administration spending] per student',
+      rows: 'Stanford University, $42,428\nHarvard University, $33,487\nMIT, $31,400\nUSC, $28,876\nJohns Hopkins University, $27,115\nUniversity of Chicago, $26,040\nVanderbilt University, $24,695\nUniversity of Rochester, $23,023\nDuke University, $21,951\nUniversity of Miami, $21,759',
+      source: 'Source: NCES IPEDS Finance, FY2023. Institutional support expenses per FTE student, 4-year schools with 10,000+ FTE students.'
+    },
+    render: async function (x, W, H, d, h) {
+      var f = frame(W, H), ink = PAL.ink, dim = dimFor('white'), hair = 'rgba(1,1,1,.14)';
+      fill(x, W, H, PAL.white);
+      var rows = parseRanked(h, d.rows).slice(0, f.land ? 20 : f.tall ? 12 : 10), n = rows.length;
+      var cols = f.land && n > 10 ? 2 : 1, per = Math.ceil(n / cols) || 1, beside = f.land && cols === 1;
+      var lh = logoSize(f), lw = 112 / 24 * lh, head = get(d, 'head', ''), src = get(d, 'source', '');
+      /* logos: every row or none */
+      var orgs = rows.map(function (r) { return findOrg(h, r.name, r.id); }), logos = null;
+      if (n && orgs.every(Boolean)) { logos = await Promise.all(orgs.map(function (a) { return h.loadImg(a.src).catch(function () { return null; }); })); if (!logos.every(Boolean)) logos = null; }
+      /* foot: the source on the left, the lockup on the right, one baseline */
+      var headW = beside ? f.cw * .36 : f.land ? f.cw * .7 : f.cw;
+      var srcPx = Math.round(f.u * .021), sr = src ? fit(x, src, 'text400', Math.min(beside ? headW : f.cw - lw - f.u * .06, f.u * .78), f.u * .12, srcPx, srcPx, 1.36, 4) : null;
+      var footH = Math.max(lh, sr ? sr.h : 0), footTop = H - f.pad - footH;
+      if (sr) { font(x, 'text400', sr.px); block(x, sr, f.pad, H - f.pad - sr.h, 'left', dim); }
+      logo(x, W - f.pad - lw, H - f.pad - lh, lh, 'ink');
+      /* headline */
+      var hr = fit(x, head, 'display', headW, beside ? f.ch * .6 : H * .17, f.u * (beside ? .07 : .064), f.u * .04, 1.02, beside ? 5 : 3);
+      font(x, 'display', hr.px); var hb = block(x, hr, f.pad, f.pad, 'left', ink, accentFor('white'));
+      if (!n) return;
+      /* the list */
+      var lx = beside ? f.pad + f.cw * .44 : f.pad, lwid = W - f.pad - lx, cgap = f.u * .07, colW = (lwid - (cols - 1) * cgap) / cols;
+      var top = beside ? f.pad : hb + f.u * .05, bottom = beside ? H - f.pad - lh - f.u * .045 : footTop - f.u * .045;
+      var minPx = Math.round(f.u / 1080 * 30), rowH = Math.min((bottom - top) / per, minPx * (f.tall ? 4.2 : 3.2));
+      var floor = cols === 2 ? Math.round(minPx * .86) : minPx, px = Math.max(floor, Math.min(Math.round(rowH * .46), Math.round(f.u * .034)));
+      var max = Math.max.apply(null, rows.map(function (r) { return r.v; }).concat([1e-9]));
+      /* rank, name and value share one size: the largest that lets the longest name fit. Two columns on a wide tile may go a little under the floor before a name is cut */
+      var gap, rankW, valW, cap, logoS, nameX, nameW;
+      for (px = px + 1; px > floor;) {
+        px--; gap = px * .55;
+        font(x, 'text400', px); rankW = textW(x, n > 9 ? '00' : '0') + gap;
+        font(x, 'text500', px); valW = Math.max.apply(null, rows.map(function (r) { return textW(x, r.value); })); cap = capOf(x);
+        logoS = logos ? Math.round(px * 1.3) : 0; nameX = rankW + (logos ? logoS + gap : 0); nameW = colW - nameX - valW - gap * 1.4;
+        if (rows.every(function (r) { return textW(x, r.name) <= nameW; })) break;
+      }
+      var npx = px;
+      var barT = Math.max(3, Math.round(f.u * .004)), hairT = Math.max(1, Math.round(f.u * .0015));
+      rows.forEach(function (r, i) {
+        var c = Math.floor(i / per), X = lx + c * (colW + cgap), y = top + (i % per) * rowH, yb = y + rowH, base = Math.round(y + (rowH - barT) / 2 + cap / 2);
+        font(x, 'text400', px); say(x, String(i + 1), X, base, 'left', dim);
+        if (logos) contain(x, logos[i], X + rankW, Math.round(base - cap / 2 - logoS / 2), logoS, logoS);
+        font(x, 'text500', npx); say(x, clip(x, r.name, nameW), X + nameX, base, 'left', ink);
+        font(x, 'text500', px); say(x, r.value, X + colW, base, 'right', ink);
+        /* the rule under each row is the bar's track; the fill is the value against the largest */
+        x.fillStyle = hair; x.fillRect(X, yb - hairT, colW, hairT);
+        x.fillStyle = i === 0 ? PAL.blue : ink; x.fillRect(X, yb - barT, Math.max(barT, colW * r.v / max), barT);
+      });
     }
   });
 

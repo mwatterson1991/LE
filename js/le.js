@@ -81,7 +81,7 @@ function openEditor(kind,title,saved){let from=location.hash;if(/^#asset/.test(f
 const SW_CONTAIN=['graphic','illustration','icon','org'];
 const swBtn=(a,on,fn)=>`<button class="${on?'on':''}" style="background-image:url('${a.thumb||a.poster||a.src}');${SW_CONTAIN.includes(a.group)?'background-size:contain;background-repeat:no-repeat;background-color:#fff':''}" title="${esc(a.title)}" onclick="${fn}"></button>`;
 function field(f,v,on){
-  if(f.type==='text')return `<div class="f"><label>${esc(f.label)}</label>${(f.max||0)>70?`<textarea oninput="${on}">${esc(v)}</textarea>`:`<input value="${esc(v)}" oninput="${on}" placeholder="${f.optional?'Optional':''}">`}</div>`;
+  if(f.type==='text')return `<div class="f"><label>${esc(f.label)}</label>${(f.max||0)>70?`<textarea ${f.tall?'class="tall" ':''}oninput="${on}">${esc(v)}</textarea>`:`<input value="${esc(v)}" oninput="${on}" placeholder="${f.optional?'Optional':''}">`}</div>`;
   if(f.type==='color')return `<div class="f"><label>${esc(f.label)}</label><div class="pal">${(f.options||Object.keys(PAL)).map(c=>`<button class="${v===c?'on':''}" style="background:${PAL[c]}" title="${c}" onclick="${on.replace('this.value',`'${c}'`)}"></button>`).join('')}</div></div>`;
   if(f.type==='choice')return `<div class="f"><label>${esc(f.label)}</label><div class="seg">${f.options.map(o=>`<button class="${v===o?'on':''}" onclick="${on.replace('this.value',`'${o}'`)}">${esc(o[0].toUpperCase()+o.slice(1))}</button>`).join('')}</div></div>`;
   if(f.type==='asset'){const cur=A(v);let items=byGroup(...f.groups).slice(0,f.optional?6:7);if(cur&&!items.includes(cur))items=[cur].concat(items.slice(0,f.optional?5:6));return `<div class="f"><label>${esc(f.label)}<button class="link" onclick='openDrawer(${JSON.stringify(f.groups)},"${f.key}")'>Browse</button></label><div class="sw">${items.map(a=>swBtn(a,v===a.id,on.replace('this.value',`'${a.id}'`))).join('')}${f.optional?`<button class="more ${!v?'on':''}" onclick="${on.replace('this.value','null')}">×</button>`:''}</div></div>`}
@@ -91,7 +91,9 @@ const SIZES={'':[1920,1080],r11:[1080,1080],r45:[1080,1350],r916:[1080,1920]};
 const RNAME={'':'16:9',r11:'1:1',r45:'4:5',r916:'9:16'};
 
 /* ---------- Image: a template, its fields, a canvas ---------- */
-function startImage(tid,saved){const t=TEMPLATES.find(x=>x.id===tid);if(!t)return;openEditor('image',saved?saved.t:t.name,saved);
+/* types that left the picker reopen as the type that replaced them */
+const TPL_ALIAS={'photo-lockup':'photo-headline','three-illustrations':'illustration-headline','field-headline':'photo-headline'};
+function startImage(tid,saved){tid=TPL_ALIAS[tid]||tid;const t=TEMPLATES.find(x=>x.id===tid);if(!t)return;openEditor('image',saved?saved.t:t.name,saved);
   ED={pid:ED.pid,t,d:{...t.defaults,...(saved&&saved.d||{})},ratio:saved?saved.ratio:t.ratios[0]};
   $('stagebar').innerHTML=`<div class="seg" id="ratio">${t.ratios.map(r=>`<button class="${ED.ratio===r?'on':''}" onclick="ED.ratio='${r}';imageSync();renderStagebar()">${RNAME[r]}</button>`).join('')}</div>`;
   renderImagePanel();imageSync()}
@@ -126,18 +128,19 @@ function loadJsPDF(){if(window.jspdf)return Promise.resolve();const load=src=>ne
 
 /* ---------- drawer (asset picker inside the editor) ---------- */
 let dgroups=[],dkey='',dtab='';
-const DNAMES={background:'Backgrounds',photo:'Photos',hero:'Launch kit',header:'Launch kit',card:'Launch kit',aipost:'Launch kit',aibp:'Launch kit',expert:'Experts',illustration:'Illustrations',org:'Logos',graphic:'Graphics',icon:'Icons',gif:'GIFs',scene:'Scenes'};
+const DNAMES={background:'Backgrounds',photo:'Photos',hero:'Launch kit',header:'Launch kit',card:'Launch kit',aipost:'Launch kit',aibp:'Launch kit',expert:'Experts',illustration:'Line illustrations',flat:'Illustrations',org:'Logos',graphic:'Graphics',icon:'Icons',gif:'GIFs',scene:'Scenes'};
 function openDrawer(groups,key){dgroups=groups;dkey=key;dtab=DNAMES[groups[0]]||groups[0];$('dq').value='';renderDrawer();$('drawer').classList.add('on')}
 function closeDrawer(){$('drawer').classList.remove('on')}
 function renderDrawer(){const tabs=[...new Set(dgroups.map(g=>DNAMES[g]||g))];$('dtabs').innerHTML=tabs.map(t=>`<button class="${dtab===t?'on':''}" onclick="dtab='${t}';renderDrawer()">${t}</button>`).join('');
   const gs=dgroups.filter(g=>(DNAMES[g]||g)===dtab);const q=$('dq').value.toLowerCase();const items=byGroup(...gs).filter(a=>!q||((a.title||'')+' '+(a.tags||[]).join(' ')).toLowerCase().includes(q));
+  if(gs.includes('flat')){$('dgrid').className='rows';$('dgrid').innerHTML=photoRows(items,6,a=>`pickAsset('${a.id}')`)||'<div class="empty">Nothing matches.</div>';return}
   $('dgrid').className='grid'+(gs.includes('icon')?' icons':gs.includes('illustration')?' ills':gs.includes('org')?' orgs':'');
   $('dgrid').innerHTML=items.map(a=>card(a,`pickAsset('${a.id}')`)).join('')||'<div class="empty">Nothing matches.</div>'}
 function pickAsset(id){if(state.kind==='image'){setField(dkey,id)}else if(state.kind==='deck'){const s=ED.slides[ED.i];s.data[dkey]=id;(s.edited=s.edited||{})[dkey]=id;renderDeckPanel();deckSync(true)}closeDrawer()}
 
 /* ---------- library: shelves, sub-shelves beneath. Nothing carries a count; nothing moves when you switch. ---------- */
 const LIB=[
- ['images','Images',[['kit','Launch kit',['hero','header','card','aibp','aipost']],['bg','Backgrounds',['background']],['photo','Photos',['photo']],['expert','Experts',['expert']],['illustration','Illustrations',['illustration']],['graphic','Graphics',['graphic']],['org','Logos',['org']],['icon','Icons',['icon']]]],
+ ['images','Images',[['kit','Launch kit',['hero','header','card','aibp','aipost']],['bg','Backgrounds',['background']],['photo','Photos',['photo']],['expert','Experts',['expert']],['flat','Illustrations',['flat']],['illustration','Line illustrations',['illustration']],['graphic','Graphics',['graphic']],['org','Logos',['org']],['icon','Icons',['icon']]]],
  ['gifs','GIFs',[['gif','Sales and marketing',['gif']],['leo','Leo',['pack']]]],
  ['videos','Videos',[['film','Films',['film','kit']],['io','Intros and outros',['scene'],a=>a.style==='intro'||a.style==='outro'],['scene','Scenes',['scene']],['music','Music',['music']]]],
  ['copy','Copy',[['tagline','Taglines',[]],['voice','Voice',[]],['post','Posts',[]]]],
@@ -174,9 +177,9 @@ function card(a,act){
   if(a.group==='expert')return `<div class="card" ${on}><div class="th sq" style="background-image:url('${a.thumb}')"></div><div class="t">${esc(a.title)}</div></div>`;
   return `<div class="card" ${on}><div class="th ${a.group==='photo'?'r32':''}" style="background-image:url('${a.thumb||a.src}')"></div></div>`}
 /* photos at their true shape: rows of three, every photo in a row the same height, nothing cropped */
-function photoRows(items,per=3){let h='';for(let i=0;i<items.length;i+=per){const row=items.slice(i,i+per);const ars=row.map(a=>(a.w&&a.h)?a.w/a.h:1.5);
+function photoRows(items,per=3,act){let h='';for(let i=0;i<items.length;i+=per){const row=items.slice(i,i+per);const ars=row.map(a=>(a.w&&a.h)?a.w/a.h:1.5);
     const fill=row.length<per?`<i style="flex:${(ars.reduce((s,v)=>s+v,0)/row.length*(per-row.length)).toFixed(3)} 1 0"></i>`:'';
-    h+=`<div class="prow">${row.map((a,k)=>`<div class="card" onclick="openAsset('${a.id}')" ${tip(a)} style="flex:${ars[k].toFixed(4)} 1 0;aspect-ratio:${ars[k].toFixed(4)}"><img loading="lazy" src="${a.thumb||a.src}" alt=""></div>`).join('')}${fill}</div>`}return h}
+    h+=`<div class="prow">${row.map((a,k)=>`<div class="card" onclick="${act?act(a):`openAsset('${a.id}')`}" ${tip(a)} style="flex:${ars[k].toFixed(4)} 1 0;aspect-ratio:${ars[k].toFixed(4)}"><img loading="lazy" src="${a.thumb||a.src}" alt=""></div>`).join('')}${fill}</div>`}return h}
 function hoverPlay(el,on){const v=el.querySelector('video');if(!v)return;if(on){if(!v.src)v.src=v.dataset.src;v.currentTime=0;v.play().catch(()=>{})}else{v.pause()}}
 function copyItems(kind){const items=(COPY.items||[]).filter(c=>COPY_SHOWN.includes(c.kind)).map(c=>({id:c.id,type:'copy',group:'copy',kind:c.kind,for:c.for,title:c.kind==='post'?c.text.split('\n')[0].slice(0,60):plain(c.text),text:c.text,tags:[c.kind,c.for]}));
   const tags=(M.brand.taglines||[]).map((t,i)=>({id:'tag-'+i,type:'copy',group:'copy',kind:'tagline',for:'brand',title:t,text:t,tags:['tagline']}));
@@ -196,7 +199,7 @@ function renderLib(){
   if(state.q){const q=state.q;g.className='grid';g.innerHTML=allItems().filter(a=>hay(a).includes(q)).slice(0,300).map(a=>card(a)).join('')||'<div class="empty">Nothing matches.</div>';return}
   if(t==='voice'){g.className='voice';g.innerHTML=voiceHTML();return}
   const items=shelfItems(sub).filter(chipMatch);
-  if(t==='photo'){g.className='rows';g.innerHTML=photoRows(items);return}
+  if(t==='photo'||t==='flat'){g.className='rows';g.innerHTML=photoRows(items);return}
   g.className=({icon:'grid icons',film:'grid video',io:'grid three',scene:'grid three',gif:'grid three',leo:'grid three',graphic:'grid three',org:'grid orgs',illustration:'grid ills',expert:'grid people',tagline:'lines',post:'posts',font:'fonts'})[t]||'grid';
   g.innerHTML=items.map(a=>card(a)).join('')||'<div class="empty">Nothing matches.</div>'}
 
@@ -249,9 +252,10 @@ function showPreview(id){
   else if(a.type==='pack')actions=down(a.src,'Download the pack',1)+(a.files||[]).map(f=>down(f,f.split('/').pop())).join('');
   else if(a.type==='icon')actions=`<button class="btn black" onclick="copySvg('${a.src}')">Copy SVG</button>`+down(a.src);
   else if(a.group==='org')actions=down(a.src,'Download color',1)+(a.mono?`<div class="two">${down(a.mono.black,'Black')}${down(a.mono.white,'White')}</div>`:'');
-  else if(a.group==='illustration')actions=useIn('three-illustrations','ill1','Use in an image')+`<button class="btn" onclick="copySvg('${a.src}')">Copy SVG</button>`+down(a.src);
+  else if(a.group==='illustration')actions=`<button class="btn black" onclick="copySvg('${a.src}')">Copy SVG</button>`+down(a.src);
+  else if(a.group==='flat')actions=useIn('illustration-headline','ill','Use in an image')+down(a.src);
   else if(a.group==='expert')actions=useIn('expert-spotlight','expert','Use in an image')+down(a.src);
-  else if(['background','photo','hero','header','aibp'].includes(a.group))actions=useIn('photo-lockup','photo','Use as the photo')+down(a.src);
+  else if(['background','photo','hero','header','aibp'].includes(a.group))actions=useIn('photo-headline','photo','Use as the photo')+down(a.src);
   else if(['card','aipost'].includes(a.group))actions=useIn('product-moment','shot','Use as the product shot')+down(a.src);
   else actions=down(a.src,'Download',1);
   sd.innerHTML=`<h2>${esc(plain(a.title))}</h2>${actions}`;
@@ -280,7 +284,7 @@ function addProject(p){const id=ED.pid||p.id||(crypto.randomUUID?crypto.randomUU
 function renderProjects(){$('projnew').style.visibility=projects.length?'visible':'hidden';
   $('projlist').innerHTML=projects.length?`<div class="pgrid">${projects.map((p,i)=>`<div class="proj"><div class="th" onclick="openProject(${i})" style="background-image:url('${p.th||''}')"></div><div class="prow2"><span class="t" onclick="openProject(${i})">${esc(p.t)}</span>${delAsk===p.id?`<span class="ask"><button onclick="deleteProject('${p.id}')">Confirm</button><button onclick="delAsk=null;renderProjects()">Cancel</button></span>`:`<button class="del" onclick="delAsk='${p.id}';renderProjects()">Delete</button>`}</div></div>`).join('')}</div>`:`<div class="empty big"><button class="btn black" onclick="go('make')">Make something</button></div>`}
 function deleteProject(id){projects=projects.filter(p=>p.id!==id);delAsk=null;saveProjects();renderProjects();toast('Deleted')}
-function openProject(i){const p=projects[i];if(p.kind==='image'&&p.tid&&TEMPLATES.find(t=>t.id===p.tid))startImage(p.tid,p);else if(p.kind==='deck'&&p.deck)startDeck(p.deck.type,p);else toast('Coming soon')}
+function openProject(i){const p=projects[i];if(p.kind==='image'&&p.tid&&TEMPLATES.find(t=>t.id===(TPL_ALIAS[p.tid]||p.tid)))startImage(p.tid,p);else if(p.kind==='deck'&&p.deck)startDeck(p.deck.type,p);else toast('Coming soon')}
 
 /* ---------- what the brief and the guidelines say, read from the files themselves ---------- */
 function brief(name){const s=('\n'+BRIEF).split(/\n## /).find(x=>x.toLowerCase().startsWith(name.toLowerCase()));if(!s)return [];
@@ -453,6 +457,7 @@ Example: the ask is "a photo of someone on stairs" → group \`photo\`, title "$
 | background | sky, texture and abstract fields | ${n('background')} | thumb |
 | hero, header, card, aibp, aipost | launch kit images we posted | ${n('hero')+n('header')+n('card')+n('aibp')+n('aipost')} | thumb |
 | expert | expert headshots | ${n('expert')} | thumb |
+| flat | flat illustrations, one large per image (JPG) | ${n('flat')} | w, h, thumb, shape (wide, square or tall) |
 | illustration | blue line illustrations (SVG) | ${n('illustration')} | set |
 | graphic | brand lockups and product graphics | ${n('graphic')} | dark (needs a dark field) |
 | org | school and company logos | ${n('org')} | kind (school or company), mono.black, mono.white |
@@ -501,6 +506,11 @@ ${dash(M.brand.guardrails||[])}
 
 ## 8. Decks
 Follow ${b}SALES-DECK.md. It sits on top of the Leonardo 3.0 rules, which still govern fields, type, lockup and text limits.
+
+## 9. Image types (LE → Make → Image)
+${(window.TEMPLATES||[]).map((t,i)=>`${i+1}. ${t.name} (\`${t.id}\`): ${t.desc}`).join('\n')}
+
+In every image type, figures inside Macan text are set in Helvetica Neue at the size of the words beside them. Logos in a ranked list appear on every row or on none.
 `}
 /* a small reader for the skill's own markdown */
 function mdHTML(md){const inl=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/(https?:\/\/[^\s<,]+[^\s<,.])/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');

@@ -42,6 +42,7 @@ Example: the ask is "a photo of someone on stairs" → group `photo`, title "Cli
 | background | sky, texture and abstract fields | 24 | thumb |
 | hero, header, card, aibp, aipost | launch kit images we posted | 42 | thumb |
 | expert | expert headshots | 23 | thumb |
+| flat | flat illustrations, one large per image (JPG) | 9 | w, h, thumb, shape (wide, square or tall) |
 | illustration | blue line illustrations (SVG) | 299 | set |
 | graphic | brand lockups and product graphics | 8 | dark (needs a dark field) |
 | org | school and company logos | 199 | kind (school or company), mono.black, mono.white |
@@ -94,6 +95,7 @@ Photography:
 
 Illustration:
 - 299 blue line illustrations in assets/illustrations/ (black line, #80ACED fills). Use on paper/beige/white, one or three at a time, never as a background texture.
+- 9 flat illustrations in assets/illus/flat/ (manifest group flat; wide, square and tall crops). One per image, large, edge to edge on half the tile.
 
 ## 6. Fonts
 - Season Mix 500: https://mwatterson1991.github.io/LE/fonts/SeasonMix-Medium.woff2
@@ -111,3 +113,14 @@ Illustration:
 
 ## 8. Decks
 Follow https://mwatterson1991.github.io/LE/SALES-DECK.md. It sits on top of the Leonardo 3.0 rules, which still govern fields, type, lockup and text limits.
+
+## 9. Image types (LE → Make → Image)
+1. Photo with headline (`photo-headline`): A photo and a Season headline: over the photo, or beside it on white.
+2. Illustration with headline (`illustration-headline`): One flat illustration on half the tile, a Season headline on white on the other.
+3. Expert spotlight (`expert-spotlight`): Headshot with the name and one line.
+4. Chart (`chart`): A bar or line chart from your numbers, with the source.
+5. Product moment (`product-moment`): A screenshot in a soft frame on a field, with a headline.
+6. Quote (`quote`): A customer's words in Season, their name and role beneath.
+7. Ranked list (`ranked-list`): A ranking from your rows: name, value and a bar, with the source.
+
+In every image type, figures inside Macan text are set in Helvetica Neue at the size of the words beside them. Logos in a ranked list appear on every row or on none.

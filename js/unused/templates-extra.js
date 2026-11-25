@@ -212,3 +212,114 @@
       if (badges) { storeBadge(x, f.pad, H - f.pad - bh, bw, bh, 'Download on the', 'App Store', ink); storeBadge(x, f.pad + bw + bgap, H - f.pad - bh, bw, bh, 'Get it on', 'Google Play', ink); }
     }
   });
+
+
+  /* ---- taken out of the picker on Nov 25 (Headline on a field, Photo with lockup, Three illustrations).
+     Saved projects that used them reopen as Photo with headline / Illustration with headline (ALIAS in js/le.js). ---- */
+
+  /* 1. Headline on a field — the board's "Own your future." tile */
+  T.push({
+    id: 'field-headline', name: 'Headline on a field',
+    desc: 'One Season line on a white field with the mark.',
+    ratios: ['r45', 'r11', '', 'r916'],
+    fields: [
+      { key: 'head', label: 'Headline', type: 'text', max: 60 },
+      { key: 'color', label: 'Field', type: 'color', options: FIELDS },
+      { key: 'brand', label: 'Brand', type: 'choice', options: ['mark', 'lockup'] },
+      { key: 'align', label: 'Align', type: 'choice', options: ['left', 'center'] }
+    ],
+    defaults: { head: 'Own your future.', color: 'white', brand: 'mark', align: 'left' },
+    render: async function (x, W, H, d, h) {
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c), acc = accentFor(c), center = get(d, 'align', 'left') === 'center';
+      fill(x, W, H, fieldHex(c, h.PAL));
+      var brandH = get(d, 'brand', 'mark') === 'lockup' ? logoSize(f) : markSize(f);
+      var head = get(d, 'head', ''), sub = '';
+      var maxW = f.land ? f.cw * .78 : f.cw * .9, textTop = f.pad, textBottom = H - f.pad - brandH - f.u * .06;
+      var hr = fit(x, head, 'display', maxW, (textBottom - textTop) * (sub ? .72 : 1), f.u * (f.land ? .15 : .145), f.u * .06, .98, 4);
+      var sr = sub ? (font(x, 'text400', f.u * .034), fit(x, sub, 'text400', Math.min(maxW, f.u * .78), f.u * .3, f.u * .034, f.u * .024, 1.32, 4)) : null;
+      var gap = sub ? f.u * .035 : 0, total = hr.h + gap + (sr ? sr.h : 0);
+      var X = center ? W / 2 : f.pad, al = center ? 'center' : 'left';
+      var y = center ? textTop + (textBottom - textTop - total) / 2 : textTop;
+      font(x, 'display', hr.px); y = block(x, hr, X, y, al, ink, acc);
+      if (sr) { font(x, 'text400', sr.px); block(x, sr, X, y + gap, al, dimFor(c)); }
+      if (get(d, 'brand', 'mark') === 'lockup') logo(x, center ? W / 2 - 112 / 24 * brandH / 2 : f.pad, H - f.pad - brandH, brandH, ink);
+      else mark(x, center ? W / 2 - brandH / 2 : W - f.pad - brandH, H - f.pad - brandH, brandH, ink);
+    }
+  });
+
+  /* 2. Photo with a white lockup — the board's stairs / city tiles */
+  T.push({
+    id: 'photo-lockup', name: 'Photo with lockup',
+    desc: 'Full-bleed photo, white lockup, Season headline in white.',
+    ratios: ['r45', 'r11', '', 'r916'],
+    fields: [
+      { key: 'photo', label: 'Photo', type: 'asset', groups: ['photo', 'background', 'hero'] },
+      { key: 'head', label: 'Headline', type: 'text', max: 60 },
+      { key: 'align', label: 'Align', type: 'choice', options: ['left', 'center'] }
+    ],
+    defaults: { photo: 'photo-businesswoman-outdoors-city-skyscrapers', head: 'Get there, with the people who\'ve been there.', align: 'left' },
+    render: async function (x, W, H, d, h) {
+      var f = frame(W, H), center = get(d, 'align', 'left') === 'center';
+      var img = await loadAsset(h, get(d, 'photo', ''), 'photo');
+      fill(x, W, H, PAL.neutral);
+      if (img) cover(x, img, 0, 0, W, H, .5, .35);
+      var lh = logoSize(f);
+      var head = get(d, 'head', ''), sub = '';
+      var maxW = f.land ? f.cw * .7 : f.cw;
+      var hr = fit(x, head, 'display', maxW, H * .42, f.u * (f.land ? .11 : .105), f.u * .055, 1.0, 4);
+      var sr = sub ? fit(x, sub, 'text400', Math.min(maxW, f.u * .72), f.u * .22, f.u * .034, f.u * .024, 1.32, 3) : null;
+      var gap = sub ? f.u * .03 : 0, total = hr.h + gap + (sr ? sr.h : 0) + (sr ? sr.px * .25 : hr.px * .12);
+      var X = center ? W / 2 : f.pad, al = center ? 'center' : 'left', y = H - f.pad - total;
+      /* no gradients: one flat darkening over the whole photo, the type carries a soft shadow */
+      x.fillStyle = 'rgba(0,0,0,.26)'; x.fillRect(0, 0, W, H);
+      grain(x, W, H, .05);
+      logo(x, center ? W / 2 - 112 / 24 * lh / 2 : f.pad, f.pad, lh, 'white');
+      x.save(); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = f.u * .05; x.shadowOffsetY = f.u * .006;
+      font(x, 'display', hr.px); y = block(x, hr, X, y, al, PAL.white, PAL.white);
+      if (sr) { font(x, 'text400', sr.px); block(x, sr, X, y + gap, al, 'rgba(255,255,255,.88)'); }
+      x.restore();
+    }
+  });
+
+  /* 5. Three line illustrations on paper */
+  T.push({
+    id: 'three-illustrations', name: 'Three illustrations',
+    desc: 'Headline over three line illustrations with short captions.',
+    ratios: ['r45', '', 'r11', 'r916'],
+    fields: [
+      { key: 'head', label: 'Headline', type: 'text', max: 60 },
+      { key: 'ill1', label: 'Illustration 1', type: 'asset', groups: ['illustration'] },
+      { key: 'cap1', label: 'Caption 1', type: 'text', max: 40 },
+      { key: 'ill2', label: 'Illustration 2', type: 'asset', groups: ['illustration'] },
+      { key: 'cap2', label: 'Caption 2', type: 'text', max: 40 },
+      { key: 'ill3', label: 'Illustration 3', type: 'asset', groups: ['illustration'] },
+      { key: 'cap3', label: 'Caption 3', type: 'text', max: 40 },
+      { key: 'color', label: 'Field', type: 'color', options: ['white', 'paper', 'beige', 'tan'] }
+    ],
+    defaults: { head: 'Learn from people who\'ve done it', ill1: 'ill-group-chat', cap1: 'Come ask.', ill2: 'ill-on-air', cap2: 'Follow along and bring your questions.', ill3: 'ill-calendar', cap3: 'Send this to someone who needs it.', color: 'white' },
+    render: async function (x, W, H, d, h) {
+      var f = frame(W, H), c = get(d, 'color', 'white'), ink = inkFor(c);
+      fill(x, W, H, fieldHex(c, h.PAL));
+      var head = get(d, 'head', ''), lh = logoSize(f);
+      var imgs = await Promise.all([1, 2, 3].map(function (i) { return loadAsset(h, get(d, 'ill' + i, ''), 'illustration'); }));
+      var caps = [1, 2, 3].map(function (i) { return get(d, 'cap' + i, ''); });
+      var hr = fit(x, head, 'display', f.land ? f.cw * .7 : f.cw, H * .3, f.u * .1, f.u * .05, 1.0, f.land ? 2 : 3);
+      font(x, 'display', hr.px); var y = block(x, hr, f.pad, f.pad, 'left', ink, accentFor(c));
+      var gap = f.u * .035, colW = (f.cw - 2 * gap) / 3;
+      var areaTop = y + f.u * .06, areaBottom = H - f.pad - lh - f.u * .06, areaH = areaBottom - areaTop;
+      var capPx = f.u * .036, caps_ = caps.map(function (t) { return fit(x, t, 'text500', colW, f.u * .12, capPx, f.u * .022, 1.25, 3, true); });
+      /* the three captions share one size */
+      var capMin = Math.min.apply(null, caps_.map(function (r) { return r.px; }));
+      caps_ = caps.map(function (t) { return fit(x, t, 'text500', colW, f.u * .12, capMin, f.u * .022, 1.25, 3, true); });
+      var capH = Math.max.apply(null, caps_.map(function (r) { return r.h; }));
+      var illH = Math.min(colW, areaH - capH - f.u * .04, f.u * .4);
+      var blockH = illH + f.u * .04 + capH, top = areaTop + Math.max(0, (areaH - blockH) / 2) * (f.tall ? .6 : 1);
+      for (var i = 0; i < 3; i++) {
+        var cx = f.pad + i * (colW + gap);
+        if (imgs[i]) contain(x, imgs[i], cx + colW * .03, top, colW * .94, illH);
+        font(x, 'text500', caps_[i].px); block(x, caps_[i], cx + colW / 2, top + illH + f.u * .04, 'center', ink);
+      }
+      logo(x, f.pad, H - f.pad - lh, lh, ink);
+    }
+  });
+

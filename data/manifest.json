@@ -14059,6 +14059,7 @@
   },
   {
    "id": "flat-clock",
+   "type": "image",
    "group": "flat",
    "title": "Clock, minute hand pushed back",
    "src": "assets/illus/flat/clock.jpg",
@@ -14074,6 +14075,7 @@
   },
   {
    "id": "flat-door",
+   "type": "image",
    "group": "flat",
    "title": "Door opening onto light",
    "src": "assets/illus/flat/door.jpg",
@@ -14089,6 +14091,7 @@
   },
   {
    "id": "flat-keys",
+   "type": "image",
    "group": "flat",
    "title": "Three keys on one ring",
    "src": "assets/illus/flat/keys.jpg",
@@ -14104,6 +14107,7 @@
   },
   {
    "id": "flat-image",
+   "type": "image",
    "group": "flat",
    "title": "Hand holding a photo print",
    "src": "assets/illus/flat/image.jpg",
@@ -14119,6 +14123,7 @@
   },
   {
    "id": "flat-deck",
+   "type": "image",
    "group": "flat",
    "title": "Finger on the tallest bar of a slide",
    "src": "assets/illus/flat/deck.jpg",
@@ -14134,6 +14139,7 @@
   },
   {
    "id": "flat-door-v",
+   "type": "image",
    "group": "flat",
    "title": "Door opening onto light",
    "src": "assets/illus/flat/door-v.jpg",
@@ -14149,6 +14155,7 @@
   },
   {
    "id": "flat-lamp-v",
+   "type": "image",
    "group": "flat",
    "title": "Pendant lamp pulled on",
    "src": "assets/illus/flat/lamp-v.jpg",
@@ -14164,6 +14171,7 @@
   },
   {
    "id": "flat-tape-v",
+   "type": "image",
    "group": "flat",
    "title": "Tape measure beside a growing bar",
    "src": "assets/illus/flat/tape-v.jpg",
@@ -14179,6 +14187,7 @@
   },
   {
    "id": "flat-video",
+   "type": "image",
    "group": "flat",
    "title": "Hand on a clapperboard",
    "src": "assets/illus/flat/video.jpg",
