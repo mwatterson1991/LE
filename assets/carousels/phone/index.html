@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leland posts, phone demo</title>
+<style>
+@font-face{font-family:Macan;src:url(../../../fonts/Macan-Book-Q.woff2) format('woff2');font-weight:400}
+@font-face{font-family:Macan;src:url(../../../fonts/Macan-SemiBold-Q.woff2) format('woff2');font-weight:600}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#f4f4f5;font-family:Macan,-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;color:#fff;-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.stage{height:100%;display:flex;align-items:center;justify-content:center}
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border-radius:54px;box-shadow:0 0 0 11px #0f0f10,0 0 0 12px #2a2a2c;overflow:hidden;transform-origin:center}
+.island{position:absolute;top:11px;left:50%;width:120px;height:34px;margin-left:-60px;border-radius:20px;background:#000;z-index:9;pointer-events:none}
+.feed{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain}
+.feed::-webkit-scrollbar,.slides::-webkit-scrollbar{display:none}
+.post{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always}
+.slides{height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.slide{flex:none;width:100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;padding-top:90px}
+.slide img,.slide video{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#fff;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.tabs{position:absolute;top:58px;left:0;right:0;display:flex;justify-content:center;gap:22px;font-size:16px;font-weight:600;z-index:5;pointer-events:none}
+.tabs span{opacity:.6}.tabs span.on{opacity:1}
+.count{position:absolute;top:56px;right:14px;font:600 12px "Helvetica Neue",Helvetica,Arial,sans-serif;background:#1c1c1e;padding:5px 8px;border-radius:4px;z-index:6;font-variant-numeric:tabular-nums}
+.dots{position:absolute;top:591px;left:0;right:0;display:flex;justify-content:center;gap:6px;z-index:4}
+.dots i{width:6px;height:6px;border-radius:50%;background:#fff;opacity:.35;transition:opacity .2s}
+.dots i.on{opacity:1}
+.rail{position:absolute;right:12px;top:586px;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:4}
+.rail svg{width:26px;height:26px;display:block;fill:#fff}
+.rail .av{width:34px;height:34px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:2px}
+.rail .av img{width:19px;height:19px}
+.rail button.liked svg{fill:#C83E2E}
+.rail button{transition:transform .12s cubic-bezier(.2,.8,.2,1)}.rail button:active{transform:scale(.9)}
+.meta{position:absolute;left:14px;right:64px;top:612px;z-index:4}
+.meta b{display:block;font-size:16px;font-weight:600;margin-bottom:6px}
+.meta p{font-size:14.5px;line-height:1.35}
+.sound{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13.5px}
+.sound svg{width:14px;height:14px;fill:#fff;flex:none}
+.sound .tick{overflow:hidden;white-space:nowrap;max-width:190px}
+.sound .tick span{display:inline-block;padding-right:40px}
+.playing .sound .tick span{animation:tick 9s linear infinite}
+@keyframes tick{to{transform:translateX(-50%)}}
+.mute{position:absolute;top:53px;left:14px;width:30px;height:30px;border-radius:50%;background:#1c1c1e;display:flex;align-items:center;justify-content:center;z-index:6}
+.mute svg{width:16px;height:16px;fill:#fff}
+.nav{position:absolute;left:0;right:0;bottom:0;height:78px;padding:10px 6px 0;display:flex;justify-content:space-around;align-items:flex-start;background:#000;border-top:1px solid #1c1c1e;z-index:7;font-size:10.5px}
+.nav div{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:.6;width:60px}
+.nav div.on{opacity:1}
+.nav svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav .plus{opacity:1}.nav .plus svg{width:44px;height:28px;stroke:none;fill:#fff}
+.home{position:absolute;bottom:8px;left:50%;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#fff;z-index:8;pointer-events:none}
+.heartpop{position:absolute;width:90px;height:90px;margin:-45px 0 0 -45px;fill:#C83E2E;pointer-events:none;z-index:8;animation:pop .7s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes pop{0%{transform:scale(.4);opacity:0}25%{transform:scale(1.1);opacity:1}70%{transform:scale(1);opacity:1}100%{transform:scale(1.15);opacity:0}}
+@media (max-width:500px){html,body{background:#000}.phone{width:100vw;height:100dvh;border-radius:0;box-shadow:none;transform:none!important}.island{display:none}}
+@media (prefers-reduced-motion:reduce){.playing .sound .tick span,.heartpop{animation:none}}
+</style>
+</head>
+<body>
+<div class="stage"><div class="phone" id="phone">
+  <div class="island"></div>
+  <div class="tabs"><span>Following</span><span class="on">For You</span></div>
+  <button class="mute" id="mute" aria-label="Sound"></button>
+  <div class="feed" id="feed"></div>
+  <div class="nav">
+    <div class="on"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="#fff"/></svg>Home</div>
+    <div><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M16 6.2a3 3 0 010 5.6M17.5 14.8c2.1.6 3.5 2.4 3.5 5.2"/></svg>Friends</div>
+    <div class="plus"><svg viewBox="0 0 44 28"><rect width="44" height="28" rx="8"/><path d="M22 8v12M16 14h12" stroke="#000" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+    <div><svg viewBox="0 0 24 24"><path d="M4 6h16v10H9l-5 4z"/></svg>Inbox</div>
+    <div><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.5 20c0-4 3.4-6.2 7.5-6.2s7.5 2.2 7.5 6.2"/></svg>Profile</div>
+  </div>
+  <div class="home"></div>
+</div></div>
+
+<script>
+/* The posts. Each slide is a video (mp4) or an image. Captions are the slide headlines. */
+const POSTS=[
+ {dir:'../admin-spend/',caption:'The colleges that spend the most on administration per student',
+  slides:['slide-1.mp4','slide-2.png','slide-3.png','slide-4.png','slide-5.png','slide-6.png','slide-7.mp4']},
+ {dir:'../mba/',caption:'What does it take to get an MBA?',
+  slides:['slide-1.mp4','slide-2.png','slide-3.png','slide-4.png','slide-5.png','slide-6.png']}
+];
+const I={
+ heart:'<svg viewBox="0 0 24 24"><path d="M12 21s-8.5-5.2-8.5-11.3A4.7 4.7 0 0112 6.9a4.7 4.7 0 018.5 2.8C20.500 15.8 12 21 12 21z"/></svg>',
+ comment:'<svg viewBox="0 0 24 24"><path d="M12 3.5c5 0 9 3.4 9 7.7s-4 7.700-9 7.700c-.9 0-1.800-.1-2.600-.3L4.500 21l1.200-4.300C4 15.300 3 13.400 3 11.200c0-4.300 4-7.700 9-7.700z"/></svg>',
+ save:'<svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.500L6 21z"/></svg>',
+ share:'<svg viewBox="0 0 24 24"><path d="M13 4l8.500 7.500L13 19v-4.500C8 14.500 5 16 2.500 20 3 13.500 6.500 9.300 13 8.500z"/></svg>',
+ note:'<svg viewBox="0 0 24 24"><path d="M9 4v11.200A3.200 3.200 0 1011 18V8h7V4z"/></svg>',
+ on:'<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9zM15.500 8.500a5 5 0 010 7M18 6a8.500 8.500 0 010 12" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M3 9v6h4l5 4V5L7 9z"/></svg>',
+ off:'<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9z"/><path d="M16 9.500l5 5M21 9.500l-5 5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>'};
+const feed=document.getElementById('feed'),phone=document.getElementById('phone'),muteBtn=document.getElementById('mute');
+let sound=false,cur=0;const audio=POSTS.map(p=>{const a=new Audio(p.dir+'music.mp3');a.loop=true;a.preload='none';a.volume=.8;return a});
+
+feed.innerHTML=POSTS.map((p,i)=>`<section class="post" data-i="${i}">
+  <div class="slides">${p.slides.map(s=>`<div class="slide">${s.endsWith('.mp4')?`<video src="${p.dir+s}" muted loop playsinline preload="metadata" poster="${p.dir+s.replace('.mp4','.png')}"></video>`:`<img src="${p.dir+s}" alt="" draggable="false">`}</div>`).join('')}</div>
+  <div class="count"><span class="n">1</span>/${p.slides.length}</div>
+  <div class="dots">${p.slides.map((_,k)=>`<i class="${k?'':'on'}"></i>`).join('')}</div>
+  <div class="rail">
+    <div class="av"><img src="../../brand/mark.svg" alt="Leland"></div>
+    <button class="like" aria-label="Like">${I.heart}</button>
+    <button aria-label="Comment">${I.comment}</button>
+    <button aria-label="Save">${I.save}</button>
+    <button aria-label="Share">${I.share}</button>
+  </div>
+  <div class="meta"><b>leland</b><p>${p.caption}</p>
+    <div class="sound">${I.note}<div class="tick"><span>Original sound · Leland</span><span>Original sound · Leland</span></div></div></div>
+</section>`).join('');
+
+const posts=[...feed.querySelectorAll('.post')];
+function slideIndex(post){const s=post.querySelector('.slides');return Math.round(s.scrollLeft/s.clientWidth)}
+function sync(){
+  cur=Math.round(feed.scrollTop/feed.clientHeight);
+  posts.forEach((post,i)=>{
+    const k=slideIndex(post);post.querySelector('.n').textContent=k+1;
+    post.querySelectorAll('.dots i').forEach((d,j)=>d.classList.toggle('on',j===k));
+    post.querySelectorAll('video').forEach((v,j)=>{const idx=[...post.querySelectorAll('.slide')].indexOf(v.parentNode);
+      if(i===cur&&idx===k){if(v.paused){v.currentTime=0;v.play().catch(()=>{})}}else if(!v.paused)v.pause()});
+    post.classList.toggle('playing',sound&&i===cur);
+    if(sound&&i===cur){if(audio[i].paused)audio[i].play().catch(()=>{})}else audio[i].pause();
+  });
+  muteBtn.innerHTML=sound?I.on:I.off;
+}
+let raf;const onScroll=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(sync)};
+feed.addEventListener('scroll',onScroll,{passive:true});
+posts.forEach(p=>p.querySelector('.slides').addEventListener('scroll',onScroll,{passive:true}));
+muteBtn.onclick=e=>{e.stopPropagation();sound=!sound;sync()};
+
+function goSlide(d){const s=posts[cur].querySelector('.slides');s.scrollBy({left:d*s.clientWidth,behavior:'smooth'})}
+function goPost(d){feed.scrollBy({top:d*feed.clientHeight,behavior:'smooth'})}
+addEventListener('keydown',e=>{({ArrowRight:()=>goSlide(1),ArrowLeft:()=>goSlide(-1),ArrowDown:()=>goPost(1),ArrowUp:()=>goPost(-1)}[e.key]||(()=>{}))()});
+
+/* Mouse: drag to swipe (touch uses native scrolling). */
+let drag=null;
+phone.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.target.closest('button'))return;const s=posts[cur].querySelector('.slides');
+  drag={x:e.clientX,y:e.clientY,ax:null,s,sl:s.scrollLeft,st:feed.scrollTop,sc:phone.getBoundingClientRect().width/phone.offsetWidth};
+  s.style.scrollSnapType=feed.style.scrollSnapType='none';phone.setPointerCapture(e.pointerId)});
+phone.addEventListener('pointermove',e=>{if(!drag)return;const dx=(e.clientX-drag.x)/drag.sc,dy=(e.clientY-drag.y)/drag.sc;
+  if(!drag.ax&&Math.hypot(dx,dy)>6)drag.ax=Math.abs(dx)>Math.abs(dy)?'x':'y';
+  if(drag.ax==='x')drag.s.scrollLeft=drag.sl-dx;if(drag.ax==='y')feed.scrollTop=drag.st-dy});
+function endDrag(e){if(!drag)return;const d=drag;drag=null;const dx=(e.clientX-d.x)/d.sc,dy=(e.clientY-d.y)/d.sc;
+  const w=d.s.clientWidth,h=feed.clientHeight;
+  if(d.ax==='x'){const t=Math.round(d.sl/w)+(Math.abs(dx)>w*.15?-Math.sign(dx):0);d.s.scrollTo({left:t*w,behavior:'smooth'})}
+  if(d.ax==='y'){const t=Math.round(d.st/h)+(Math.abs(dy)>h*.12?-Math.sign(dy):0);feed.scrollTo({top:t*h,behavior:'smooth'})}
+  setTimeout(()=>{d.s.style.scrollSnapType=feed.style.scrollSnapType=''},420)}
+phone.addEventListener('pointerup',endDrag);phone.addEventListener('pointercancel',endDrag);
+
+/* Like: tap the heart, or double-tap the slide. */
+posts.forEach(post=>{const like=post.querySelector('.like');like.onclick=()=>like.classList.toggle('liked');
+  let last=0;post.querySelector('.slides').addEventListener('click',e=>{const now=Date.now();if(now-last<320){like.classList.add('liked');
+    const r=phone.getBoundingClientRect(),sc=r.width/phone.offsetWidth,h=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    h.setAttribute('viewBox','0 0 24 24');h.setAttribute('class','heartpop');h.innerHTML=I.heart.replace(/<\/?svg[^>]*>/g,'');
+    h.style.left=(e.clientX-r.left)/sc+'px';h.style.top=(e.clientY-r.top)/sc+'px';phone.appendChild(h);setTimeout(()=>h.remove(),720)}last=now})});
+
+/* Fit the phone to the window on desktop. */
+function fit(){if(innerWidth<=500){phone.style.transform='';return}phone.style.transform='scale('+Math.min(1,(innerHeight-40)/868,(innerWidth-40)/414)+')'}
+addEventListener('resize',fit);fit();sync();
+</script>
+</body>
+</html>
