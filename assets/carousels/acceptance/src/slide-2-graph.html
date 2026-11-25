@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 2, graph version: the fall 2023 ranking as bars</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  h1{font-size:68px}
+  .chart{position:absolute;left:var(--m);right:var(--m);top:340px}
+  .r{position:relative;height:85px}
+  .r .rank{position:absolute;left:0;top:14px}
+  .r .bar{position:absolute;left:72px;top:22px;height:36px;background:#0F0F10}
+  .r .logo,.r .ph{position:absolute;top:12px}
+  .r .nm{position:absolute;top:0;line-height:80px;font-size:26px}
+  .r .val{position:absolute;top:0;line-height:80px;font-size:34px}
+</style></head>
+<body>
+<h1>The ten lowest<br>acceptance rates, <em>fall 2023</em></h1>
+<div class="chart" id="chart"></div>
+<p class="src" id="src"></p>
+<script src="data.js"></script>
+<script src="base.js"></script>
+<script>
+/* The same ten rates as the table version of this slide, drawn as bars from 0%. A shorter bar is a lower rate. Each school's mark sits at the end of its bar, then its rate. */
+const BARW = 560;      /* length of the longest bar; every bar is its rate / the largest of the ten */
+(async () => {
+  lelandMark();
+  const top = ranking(2023).slice(0, 10), c = document.getElementById('chart'), max = Math.max(...top.map(k => R(k, 2023).rate)), USE = marksOk(top);
+  top.forEach((k, i) => {
+    const v = R(k, 2023).rate, w = v / max * BARW, r = el('div', 'r'); r.dataset.school = k;
+    r.appendChild(el('div', 'rank', String(i + 1)));
+    const b = el('div', 'bar'); b.style.width = w.toFixed(1) + 'px'; r.appendChild(b);
+    const l = markEl(k, USE); l.style.left = (72 + w + 14) + 'px'; r.appendChild(l);
+    const t = el('div', 'val', pc(v)); t.style.left = (72 + w + 14 + (USE ? 56 : 150) + 16) + 'px'; t.style.color = greenText(rateT(v)); t.dataset.k = `${k}.2023.rate`; r.appendChild(t);
+    c.appendChild(r);
+  });
+  document.getElementById('src').textContent = SRC_LINE + ' Fall 2023.';
+  isolate([...c.children]);
+  await ready();
+})();
+</script>
+</body></html>

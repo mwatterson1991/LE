@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 5: five schools, 2014 and 2023</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  svg{position:absolute;left:0;top:0;width:1080px;height:1350px}
+  .axn{font-family:'Macan',sans-serif;font-size:19px;fill:var(--grey)}
+  .col{position:absolute;top:340px;font-family:'Num','Macan',sans-serif;font-size:24px;line-height:30px;color:var(--grey)}
+  .it{position:absolute;height:56px;display:flex;align-items:center;white-space:nowrap}
+  .it .name{font-size:30px;margin-left:14px}
+  .it .val{font-size:34px}
+  .it.r .val{margin-left:auto}
+</style></head>
+<body>
+<h1>Five schools, all <em>harder to<br>get into</em> than in 2014</h1>
+<div class="col" style="right:800px">Fall 2014</div><div class="col" style="left:640px">Fall 2023</div>
+<svg id="svg" viewBox="0 0 1080 1350"></svg>
+<div id="items"></div>
+<p class="src" id="src"></p>
+<script src="data.js"></script>
+<script src="base.js"></script>
+<script>
+/* Harvard, Stanford, Columbia, Yale and Princeton: acceptance rate in fall 2014 (left) and fall 2023 (right), on the same upside-down axis as slide 1,
+   so a line that climbs is a school that admits a smaller share. Labels are nudged apart where two rates are close; a thin tick joins a nudged label to its point. */
+const FIVE = ['harvard', 'stanford', 'columbia', 'yale', 'princeton'], LX = 300, RX = 620, YT = 410, YB = 1150, V0 = 3.2, V1 = 7.6, GAP = 64;
+const yv = v => YT + (v - V0) / (V1 - V0) * (YB - YT);
+function spread(items) {   /* least-movement de-overlap, as on slide 1 */
+  const L = items.slice().sort((a, b) => a.y - b.y); const z = L.map((s, j) => s.y - j * GAP), bl = [];
+  z.forEach(v => { bl.push({ s: v, n: 1 }); while (bl.length > 1 && bl[bl.length - 2].s / bl[bl.length - 2].n > bl[bl.length - 1].s / bl[bl.length - 1].n) { const b = bl.pop(); bl[bl.length - 1].s += b.s; bl[bl.length - 1].n += b.n; } });
+  let j = 0; bl.forEach(b => { for (let n = 0; n < b.n; n++, j++) L[j].ly = b.s / b.n + j * GAP; });
+}
+(async () => {
+  lelandMark();
+  const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('svg'), I = document.getElementById('items'), USE = marksOk(FIVE);
+  const add = (tag, at, txt) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svg.appendChild(e); return e; };
+  const ex = (k, y) => R(k, y).admitted / R(k, y).applied * 100;
+  const A = FIVE.map(k => ({ k, y: yv(ex(k, 2014)) })), B = FIVE.map(k => ({ k, y: yv(ex(k, 2023)) })); spread(A); spread(B);
+  add('text', { x: 80, y: YT - 8, class: 'axn' }, 'harder to get into ↑');
+  const LN = {};
+  FIVE.forEach((k, i) => {
+    LN[k] = add('line', { x1: LX, x2: RX, y1: A[i].y, y2: B[i].y, stroke: INK_BAR, 'stroke-width': 5, 'stroke-linecap': 'butt' });
+    add('line', { x1: LX - 16, x2: LX, y1: A[i].ly, y2: A[i].y, stroke: INK_BAR, 'stroke-width': 1.5 }); add('line', { x1: RX, x2: RX + 16, y1: B[i].y, y2: B[i].ly, stroke: INK_BAR, 'stroke-width': 1.5 });
+    const a = R(k, 2014).rate, b = R(k, 2023).rate;
+    const l = el('div', 'it l'); l.style.right = (1080 - LX + 24) + 'px'; l.style.top = (A[i].ly - 28) + 'px'; l.dataset.school = k; const lv = el('div', 'val', pc(a)); lv.style.color = greenText(rateT(a)); lv.dataset.k = `${k}.2014.rate`; l.appendChild(lv); I.appendChild(l);
+    const r = el('div', 'it r'); r.style.left = (RX + 24) + 'px'; r.style.right = '80px'; r.style.top = (B[i].ly - 28) + 'px'; r.dataset.school = k; if (USE) r.appendChild(logoEl(k)); r.appendChild(el('div', 'name', S[k].short)); if (!USE) r.lastChild.style.marginLeft = 0;
+    const rv = el('div', 'val', pc(b)); rv.style.color = greenText(rateT(b)); rv.dataset.k = `${k}.2023.rate`; r.appendChild(rv); I.appendChild(r);
+  });
+  window.CHECK = { lower: FIVE.every(k => ex(k, 2023) < ex(k, 2014)), pts: FIVE.map((k, i) => [k, A[i].y, B[i].y]) };
+  document.getElementById('src').textContent = SRC_LINE + ' Fall 2014 and fall 2023.';
+  isolate([...I.children], x => { for (const k in LN) { LN[k].setAttribute('stroke', !x || x.dataset.school === k ? INK_BAR : GREY_BAR); if (x && x.dataset.school === k) svg.appendChild(LN[k]); } });
+  await ready();
+})();
+</script>
+</body></html>

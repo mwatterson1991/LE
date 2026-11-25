@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Acceptance-rate carousel</title>
+<script>
+/* ============ NARRATION: one entry per slide, in order. Rewrite freely. ============
+   Keep each under about 30 words. The line under the stage shows the sentence being spoken.
+   (build.py copies these lines into narration.txt.) */
+const NARRATION = /*NARRATION-START*/[
+  "These are the colleges that admit the smallest share of applicants, from fall 2014 to fall 2023. Harvard ends lowest, at 3.45 percent.",
+  "In fall 2023, Harvard admitted 3.45 percent of applicants, Stanford 3.91 percent and Columbia 4.23 percent.",
+  "Northeastern admitted 32.22 percent of applicants in fall 2014 and 5.65 percent in fall 2023. Its applicants went from 49,819 to 96,631.",
+  "Applications rose at all ten schools in fall 2021. Harvard went from 40,248 to 57,786, and Columbia from 40,462 to 61,110.",
+  "Harvard's rate went from 5.96 percent in fall 2014 to 3.45 percent in fall 2023. Stanford's went from 5.09 to 3.91 percent.",
+  "In fall 2023, 56,937 people applied to Harvard and 1,965 were admitted. At Stanford, 2,099 of 53,733 were admitted.",
+  "Leland MBA customers are admitted to M7 programs at 3x the national average."
+]/*NARRATION-END*/;
+/* ============ RECORDED VOICE (optional) ============
+   Browser speech differs on every device and cannot go into the MP4s. To use a recorded or licensed voice instead,
+   put the files in narration/ and list them here by slide number, e.g. { 1: 'narration/slide-1.mp3', 2: 'narration/slide-2.mp3' }.
+   A slide listed here plays its file; a slide not listed falls back to the browser's voice. */
+const RECORDED = {};
+const MUSIC = 'music.mp3';            /* Leland film music ("Community outcomes"), copied here by build.py */
+const MUSIC_LEVEL = 0.55, DUCK = 0.25; /* music volume, and the share of it left while the narrator is speaking */
+const SLIDES = 7, LIVE = [1, 7];       /* slides 1 and 7 are animations and restart when they come into view */
+</script>
+<style>
+  @font-face{font-family:'Macan';src:url('../../../fonts/Macan-Book-Q.woff2') format('woff2');font-weight:400}
+  @font-face{font-family:'Num';src:local('Helvetica Neue'),local('HelveticaNeue'),local('Helvetica'),local('Arial');unicode-range:U+0024,U+0025,U+0030-0039}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#fff;color:#010101;overflow:hidden;overscroll-behavior:none}
+  body{font-family:'Num','Macan',"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.4;-webkit-font-smoothing:antialiased}
+  #app{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  #stage{position:relative;width:100%;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+  #track{display:flex;will-change:transform;transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+  #track.drag{transition:none}
+  .cell{flex:none;width:100vw;display:flex;justify-content:center}
+  .tile{position:relative;overflow:hidden;background:#fff;outline:1px solid #ECECED}
+  .tile iframe{position:absolute;left:0;top:0;width:1080px;height:1350px;border:0;transform-origin:0 0;background:#fff}
+  #snd,#leoBtn{position:absolute;border:0;background:none;padding:0;cursor:pointer;color:#010101;-webkit-tap-highlight-color:transparent}
+  #snd{width:40px;height:40px;display:grid;place-items:center}
+  #snd svg{width:26px;height:26px;display:block}
+  #snd .wave{opacity:0;transition:opacity .2s}#snd .mute{transition:opacity .2s}
+  #snd[aria-pressed="true"] .wave{opacity:1}#snd[aria-pressed="true"] .mute{opacity:0}
+  #snd:focus-visible,#leoBtn:focus-visible,#dots button:focus-visible,#files a:focus-visible{outline:2px solid #010101;outline-offset:2px}
+  #leoBtn svg{display:block;width:100%;height:auto;aspect-ratio:1000/1010;overflow:visible}
+  #leo .ink{fill:#0f0f10}
+  #cap{width:min(560px,calc(100vw - 32px));min-height:2.8em;margin-top:14px;text-align:center;font-size:16px;line-height:1.4;color:#010101}
+  #dots{display:flex;gap:10px;margin-top:10px}
+  #dots button{width:18px;height:18px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+  #dots button i{display:block;width:6px;height:6px;border-radius:50%;background:#C9CACD;transition:background .2s}
+  #dots button[aria-current="true"] i{background:#010101}
+  #files{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;margin-top:14px;padding:0 16px;font-size:13px}
+  #files a{color:#616E78;text-decoration:underline;text-decoration-color:#C9CACD;text-underline-offset:3px}
+  #files a:hover{color:#010101}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media (prefers-reduced-motion:reduce){#track{transition:none}}
+  @media (max-height:640px){#files{display:none}}
+</style></head>
+<body>
+<main id="app">
+  <div id="stage" role="region" aria-roledescription="carousel" aria-label="The hardest colleges to get into, seven slides">
+    <div id="track"></div>
+    <button id="snd" aria-pressed="false" aria-label="Sound: music and narration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><g class="wave"><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></g><path class="mute" d="M16.5 9.5l5 5m0-5l-5 5"/></svg></button>
+    <button id="leoBtn" aria-label="Leo, the narrator. Replay this slide's narration"><svg id="leo"></svg></button>
+  </div>
+  <p id="cap" aria-live="polite"></p>
+  <nav id="dots" aria-label="Slides"></nav>
+  <div id="files">
+    <a href="carousel.pdf" download>PDF</a><a href="acceptance-carousel.zip" download>Zip of everything</a>
+    <a href="slide-1.mp4" download>Slide 1 video</a><a href="slide-1.gif" download>Slide 1 GIF</a><a href="slide-7.mp4" download>Slide 7 video</a>
+  </div>
+</main>
+<audio id="musicA" src="music.mp3" preload="none"></audio><audio id="musicB" src="music.mp3" preload="none"></audio>
+<script src="src/vendor/leo.js"></script>   <!-- assets/leo/leo.js, copied unchanged by build.py; it draws into #leo -->
+<script>
+(() => {
+const $ = id => document.getElementById(id), REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const stage = $('stage'), track = $('track'), cap = $('cap'), dots = $('dots'), snd = $('snd'), leoBtn = $('leoBtn');
+const frames = [], ready = [];
+for (let n = 1; n <= SLIDES; n++) {
+  const c = document.createElement('div'); c.className = 'cell'; c.setAttribute('role', 'group'); c.setAttribute('aria-roledescription', 'slide'); c.setAttribute('aria-label', `Slide ${n} of ${SLIDES}`);
+  const t = document.createElement('div'); t.className = 'tile'; const f = document.createElement('iframe'); f.src = `src/slide-${n}.html`; f.title = `Slide ${n}`; f.setAttribute('scrolling', 'no');
+  t.appendChild(f); c.appendChild(t); track.appendChild(c); frames.push(f);
+  const d = document.createElement('button'); d.setAttribute('aria-label', `Slide ${n}`); d.innerHTML = '<i></i>'; d.addEventListener('click', () => go(n - 1)); dots.appendChild(d);
+}
+const send = (i, cmd) => { try { frames[i].contentWindow.postMessage({ cmd }, '*'); } catch (e) {} };
+
+/* ---------- layout: one 4:5 tile, as large as the window allows ---------- */
+let W = 360, cur = 0, dragDx = 0;
+function layout() {
+  const vw = innerWidth, vh = innerHeight, wide = vw >= 760;
+  W = Math.max(240, Math.min(600, vw - (wide ? 300 : 24), (vh - (vh > 640 ? 168 : 120)) * .8)); const H = W * 1.25, s = W / 1080;
+  document.querySelectorAll('.tile').forEach(t => { t.style.width = W + 'px'; t.style.height = H + 'px'; t.firstChild.style.transform = `scale(${s})`; });
+  const L = (vw - W) / 2, leoW = wide ? 96 : 72;
+  stage.style.height = (wide ? H + 8 : H + 64) + 'px';
+  /* sound: bottom-left of the stage. Leo: bottom-right, beside the tile on wide screens, over its corner on phones */
+  snd.style.left = (wide ? L - 64 : L) + 'px'; snd.style.top = (wide ? H - 44 : H + 8) + 'px';
+  leoBtn.style.width = leoW + 'px'; leoBtn.style.left = (wide ? L + W + 22 : L + W - leoW + 4) + 'px'; leoBtn.style.top = (wide ? H - leoW - 12 : H - 26) + 'px';   /* Leo's mouth drops a little below his box when he speaks */
+  place();
+}
+const place = () => track.style.transform = `translate3d(${-cur * innerWidth + dragDx}px,0,0)`;
+addEventListener('resize', layout);
+
+/* ---------- moving between slides ---------- */
+function go(i, quiet) {
+  i = Math.max(0, Math.min(SLIDES - 1, i)); const changed = i !== cur; const prev = cur; cur = i; dragDx = 0; track.classList.remove('drag'); place();
+  [...dots.children].forEach((d, j) => d.setAttribute('aria-current', j === cur));
+  if (!changed && !quiet) return;
+  if (changed) { send(prev, LIVE.includes(prev + 1) ? 'final' : 'clear'); }
+  if (LIVE.includes(cur + 1)) send(cur, 'play');
+  narrate(cur);
+  window.__viewer.slide = cur + 1;
+}
+let drag = null, wheelAcc = 0, wheelAt = 0;
+const dragMove = dx => { dragDx = (cur === 0 && dx > 0) || (cur === SLIDES - 1 && dx < 0) ? dx * .3 : dx; track.classList.add('drag'); place(); };
+function dragEnd(dx, dy, ms, tap, item, fx) {
+  if (tap) { dragDx = 0; track.classList.remove('drag'); place(); if (!item && fx != null) { if (fx < 1 / 3) go(cur - 1); else if (fx > 2 / 3) go(cur + 1); } return; }
+  const fast = Math.abs(dx) / Math.max(1, ms) > .45 && Math.abs(dx) > 48;
+  if (Math.abs(dx) > Math.abs(dy) && (Math.abs(dx) > Math.min(90, W * .2) || fast)) go(cur + (dx < 0 ? 1 : -1)); else go(cur);
+}
+const onWheel = (dx, dy) => { const now = performance.now(); if (Math.abs(dx) < Math.abs(dy) || now - wheelAt < 650) { if (now - wheelAt >= 650) wheelAcc = 0; return; } wheelAcc += dx; if (Math.abs(wheelAcc) > 50) { wheelAt = now; go(cur + (wheelAcc > 0 ? 1 : -1)); wheelAcc = 0; } };
+const onKey = k => { if (k === 'ArrowRight') go(cur + 1); else if (k === 'ArrowLeft') go(cur - 1); else if (k === 'Home') go(0); else if (k === 'End') go(SLIDES - 1); };
+/* gestures that start on the page itself (the gutters beside the tile) */
+stage.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; drag = { x: e.clientX, y: e.clientY, t: performance.now() }; stage.setPointerCapture(e.pointerId); });
+stage.addEventListener('pointermove', e => { if (drag && Math.abs(e.clientX - drag.x) > 4) dragMove(e.clientX - drag.x); });
+const up = e => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; dragEnd(dx, dy, performance.now() - drag.t, Math.hypot(dx, dy) < 8, false, e.clientX / innerWidth); drag = null; };
+stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
+addEventListener('wheel', e => onWheel(e.deltaX, e.deltaY), { passive: true });
+addEventListener('keydown', e => onKey(e.key));
+/* gestures that start inside a slide are passed up by the slide (src/base.js) */
+addEventListener('message', e => { const m = e.data || {}; if (m.from !== 'slide') return;
+  if (m.type === 'ready') { ready[m.n - 1] = true; if (m.n - 1 === cur && LIVE.includes(m.n)) send(cur, 'play'); return; }
+  if (m.type === 'scrub') { window.__viewer.scrubYear = m.year; return; }
+  if (m.n - 1 !== cur) return;
+  if (m.type === 'drag') { if (Math.abs(m.dx) > 4 && Math.abs(m.dx) > Math.abs(m.dy)) dragMove(m.dx); }
+  else if (m.type === 'dragend') dragEnd(m.dx, m.dy, m.ms, m.tap, m.item, m.fx);
+  else if (m.type === 'wheel') onWheel(m.dx, m.dy);
+  else if (m.type === 'key') onKey(m.key);
+});
+
+/* ---------- sound: music under a narrator, both off until the viewer turns sound on ---------- */
+let soundOn = false, speaking = false, duck = 1, master = 0, active = 0, pulse = 0, token = 0, voice = null, recEl = null, analyser = null, capTimer = 0;
+const mus = [$('musicA'), $('musicB')], XF = 1.2;   /* the loop crossfades over 1.2 s */
+const fadeOf = [1, 0];
+function pickVoice() {
+  if (!('speechSynthesis' in window)) return; const vs = speechSynthesis.getVoices(); if (!vs.length) return;
+  const score = v => (/^en[-_]US/i.test(v.lang) ? 3 : /^en/i.test(v.lang) ? 2 : -9) + (v.localService ? 2 : 0) + (/natural|neural|enhanced|premium|siri/i.test(v.name) ? 3 : 0) + (/samantha|ava|allison|aria|jenny|google us english/i.test(v.name) ? 2 : 0);
+  voice = vs.slice().sort((a, b) => score(b) - score(a))[0];
+}
+if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.addEventListener && speechSynthesis.addEventListener('voiceschanged', pickVoice); }
+const showCap = s => { clearTimeout(capTimer); cap.textContent = s; };
+function stopNarration() { token++; speaking = false; if ('speechSynthesis' in window) speechSynthesis.cancel(); if (recEl) { recEl.pause(); recEl = null; } clearTimeout(capTimer); cap.textContent = ''; }
+function done(tk) { if (tk !== token) return; speaking = false; capTimer = setTimeout(() => { if (tk === token) cap.textContent = ''; }, 1600); }
+function narrate(i) {
+  stopNarration(); if (!soundOn) return; const tk = token, text = NARRATION[i]; if (!text) return;
+  const parts = text.replace(/([.!?])\s+/g, '$1\n').split('\n').filter(Boolean);   /* one caption per sentence */
+  if (RECORDED[i + 1]) {                       /* a recorded voice: captions are spread across its length, the mouth follows its loudness */
+    const a = recEl = new Audio(RECORDED[i + 1]); speaking = true; showCap(parts[0]);
+    if (location.protocol.startsWith('http') && (window.AudioContext || window.webkitAudioContext)) { try { const ac = narrate.ac || (narrate.ac = new (window.AudioContext || window.webkitAudioContext)()); const srcN = ac.createMediaElementSource(a); analyser = ac.createAnalyser(); analyser.fftSize = 256; srcN.connect(analyser); analyser.connect(ac.destination); ac.resume(); } catch (e) { analyser = null; } }
+    const total = text.length; a.addEventListener('timeupdate', () => { if (tk !== token || !a.duration) return; let acc = 0, at = a.currentTime / a.duration * total; for (const p of parts) { acc += p.length + 1; if (at <= acc) { showCap(p); break; } } });
+    a.addEventListener('ended', () => { analyser = null; done(tk); }); a.addEventListener('error', () => { analyser = null; done(tk); }); a.play().catch(() => done(tk)); return;
+  }
+  if (!('speechSynthesis' in window) || !window.SpeechSynthesisUtterance) {   /* no voice on this device: the captions still run */
+    let k = 0; speaking = true; const step = () => { if (tk !== token) return; if (k >= parts.length) return done(tk); showCap(parts[k]); capTimer = setTimeout(step, 600 + parts[k++].length * 62); }; step(); return;
+  }
+  let k = 0; const next = () => { if (tk !== token) return; if (k >= parts.length) return done(tk);
+    const u = new SpeechSynthesisUtterance(parts[k++]); if (voice) { u.voice = voice; u.lang = voice.lang; } else u.lang = 'en-US'; u.rate = 1; u.pitch = 1;
+    u.onstart = () => { if (tk !== token) return; speaking = true; showCap(u.text); }; u.onboundary = () => { pulse = 1; };
+    u.onend = () => next(); u.onerror = () => done(tk); speaking = true; showCap(u.text); speechSynthesis.speak(u); };
+  setTimeout(next, 80);                         /* a beat after cancel(), which some browsers need */
+}
+function setSound(on) {
+  soundOn = on; snd.setAttribute('aria-pressed', on); window.__viewer.sound = on;
+  if (on) { mus.forEach(a => a.load && a.readyState === 0 && a.load()); const a = mus[active]; a.volume = 0; a.play().catch(() => {}); narrate(cur); }
+  else { stopNarration(); }
+}
+snd.addEventListener('click', () => setSound(!soundOn));
+leoBtn.addEventListener('click', () => { if (!soundOn) setSound(true); else narrate(cur); });
+
+/* ---------- Leo: stays awake as a face; the band comes round under the eyes as a mouth and moves while he speaks ---------- */
+const pl = window.leo && window.leo.player; let mouth = 0, lastT = performance.now();
+if (pl) pl.play('wake');
+function tick(now) {
+  const dt = Math.min(.05, (now - lastT) / 1000); lastT = now;
+  /* music levels: master fades with the sound control, duck follows the narrator, the two players crossfade at the loop */
+  master += ((soundOn ? 1 : 0) - master) * Math.min(1, dt * 5); duck += ((speaking ? DUCK : 1) - duck) * Math.min(1, dt * 6);
+  const a = mus[active], b = mus[1 - active];
+  if (soundOn && a.duration && a.currentTime > a.duration - XF && b.paused) { b.currentTime = 0; b.volume = 0; b.play().catch(() => {}); }
+  if (!b.paused && a.duration) { const p = Math.max(0, Math.min(1, (a.currentTime - (a.duration - XF)) / XF)); fadeOf[active] = a.ended ? 0 : 1 - p; fadeOf[1 - active] = a.ended ? 1 : p; if (a.ended || p >= 1) { a.pause(); a.currentTime = 0; active = 1 - active; fadeOf[active] = 1; fadeOf[1 - active] = 0; } }
+  mus.forEach((m, j) => { m.volume = Math.max(0, Math.min(1, MUSIC_LEVEL * master * duck * fadeOf[j])); });
+  if (!soundOn && master < .02) mus.forEach(m => { if (!m.paused) m.pause(); });
+  /* mouth */
+  if (analyser) { const d = new Uint8Array(analyser.fftSize); analyser.getByteTimeDomainData(d); let s = 0; for (const v of d) s += (v - 128) * (v - 128); pulse = Math.min(1, Math.sqrt(s / d.length) / 28); }
+  else if (speaking) pulse = Math.max(pulse - dt * 5, .5 + .5 * Math.sin(now / 1000 * 2 * Math.PI * 4.3) * Math.sin(now / 1000 * 2 * Math.PI * 1.1 + 1)); else pulse = Math.max(0, pulse - dt * 6);
+  if (pl) {
+    pl.queue = pl.queue.filter(x => x !== 'bye' && x !== 'toSpin' && !(speaking && x !== 'wake'));     /* never back to the plain logo; no stray expressions mid-sentence */
+    if (!pl.cur && !pl.face) pl.play('wake');
+    mouth += ((speaking ? 1 : 0) - mouth) * Math.min(1, dt * 7);
+    const open = REDUCED ? 0 : pulse * mouth;
+    pl.held.sm = mouth; pl.held.orb = 540 * mouth; pl.held.bl = 54 * open; pl.held.er = 7 * open; pl.held.sy = 1 - .035 * open;
+  }
+  window.__viewer.mouth = +(pulse * mouth).toFixed(3); window.__viewer.speaking = speaking;
+  requestAnimationFrame(tick);
+}
+window.__viewer = { slide: 1, sound: false, speaking: false, mouth: 0, go: n => go(n - 1), frames };
+layout(); go(0, true); requestAnimationFrame(tick);
+})();
+</script>
+</body></html>

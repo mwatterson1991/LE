@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 2: the fall 2023 ranking (with ?anim, slide 1 as a table: the list re-ordering fall by fall)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  h1{font-size:68px}
+  .fy{position:absolute;right:var(--m);top:156px;font-family:var(--helv);font-weight:700;font-size:60px;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);display:none}
+  .hd{position:absolute;top:308px;text-align:right}
+  .list{position:absolute;left:var(--m);right:var(--m);top:340px;height:850px;overflow:hidden}
+  .slot{position:absolute;left:0;top:0}
+  .row{position:absolute;left:72px;right:0;top:0;height:85px;background:#fff;will-change:transform}
+  .row .logo,.row .ph{position:absolute;left:0;top:14px}
+  .row .name{position:absolute;left:76px;top:0;line-height:80px;font-size:33px}
+  .row.t .name{left:0}
+  .row .val{position:absolute;right:0;top:0;line-height:80px;font-size:37px}
+  .row .n{position:absolute;top:0;line-height:80px;font-size:27px;text-align:right;width:130px}
+  .row .hair{position:absolute;left:76px;right:0;bottom:3px;height:2px;background:var(--hair)}
+  .row .bar{position:absolute;left:76px;bottom:-1px;height:10px;background:#0F0F10}
+  .row.t .hair,.row.t .bar{left:0}
+  /* ?anim only (slide-1-table.mp4): the year, large, and a track of the ten falls across the top of the list with the current one marked */
+  body.anim .fy{display:block}
+  body.anim .hd{top:330px}
+  body.anim .list{top:362px;height:810px}
+  body.anim .row{height:81px}
+  body.anim .row .logo,body.anim .row .ph{top:12px}
+  body.anim .row .name,body.anim .row .val,body.anim .row .n{line-height:76px}
+  #track{position:absolute;left:var(--m);right:var(--m);top:262px;height:50px;display:none}
+  body.anim #track{display:block}
+  #track .base{position:absolute;left:0;right:0;top:6px;height:2px;background:var(--hair)}
+  #track .done{position:absolute;left:0;top:5px;height:4px;background:#0F0F10}
+  #track .knob{position:absolute;top:0;width:14px;height:14px;margin-left:-7px;background:#0F0F10}
+  #track .yr{position:absolute;top:24px;width:80px;margin-left:-40px;text-align:center;font-family:var(--helv);font-size:19px;line-height:1;color:var(--grey);font-variant-numeric:tabular-nums}
+  #track .yr:first-of-type{text-align:left;margin-left:0}#track .yr:last-of-type{text-align:right;margin-left:-80px}
+  #track .yr.on{color:#010101;font-weight:700}
+</style></head>
+<body>
+<h1 id="h"></h1>
+<div class="fy" id="fy"></div>
+<div id="track"><div class="base"></div><div class="done"></div><div class="knob"></div></div>
+<div class="hd" style="right:380px">Applied</div><div class="hd" style="right:230px">Admitted</div><div class="hd" style="right:80px">Rate</div>
+<div class="list" id="list"></div>
+<p class="src" id="src"></p>
+<script src="data.js"></script>
+<script src="base.js"></script>
+<script>
+/* As slide 2 this page is a still of fall 2023: rank, mark, school, applied, admitted, rate, and a bar (rate / 12% of the row).
+   With ?anim it is slide 1 as a table: hold on fall 2014, move a fall at a time to fall 2023, hold, then run back so the loop has no cut. */
+window.ANIM = new URLSearchParams(location.search).has('anim'); if (window.ANIM) document.body.classList.add('anim');
+const HOLD0 = 1.0, PER = 1.0, HOLD1 = 2.5, BACK = 0.8;
+window.TRAVEL = [HOLD0, HOLD0 + NY * PER, PER]; window.DURATION = HOLD0 + NY * PER + HOLD1 + BACK; window.FINAL = HOLD0 + NY * PER + 1.2;
+const ROWH = window.ANIM ? 81 : 85, SHOW = 10, BARMAX = 12;
+(async () => {
+  lelandMark();
+  document.getElementById('h').innerHTML = window.ANIM ? 'The hardest colleges<br>to <em>get into</em>' : 'The ten lowest<br>acceptance rates, <em>fall 2023</em>';
+  const list = document.getElementById('list'), fy = document.getElementById('fy'), USE = marksOk(KEYS);
+  const years = []; for (let y = YA; y <= Y1; y++) years.push(y);
+  const rank = {}; years.forEach(y => { const r = ranking(y); KEYS.forEach(k => (rank[k] = rank[k] || {})[y] = r.indexOf(k)); });
+  const slotOf = r => Math.min(r, SHOW), rows = {};
+  KEYS.forEach(k => {
+    const r = el('div', 'row' + (USE ? '' : ' t')); if (USE) r.appendChild(logoEl(k)); r.dataset.school = k;
+    r.appendChild(el('div', 'name', S[k].short));
+    const a = el('div', 'fig n'); a.style.right = '300px'; r.appendChild(a); const d = el('div', 'fig n'); d.style.right = '150px'; r.appendChild(d);
+    const v = el('div', 'val'); r.appendChild(v); r.appendChild(el('div', 'hair')); const b = el('div', 'bar'); r.appendChild(b);
+    list.appendChild(r); rows[k] = { r, v, b, a, d };
+  });
+  for (let i = 0; i < SHOW; i++) { const c = el('div', 'slot rank', String(i + 1)); c.style.transform = `translateY(${i * ROWH + (window.ANIM ? 12 : 14)}px)`; c.style.zIndex = 500; list.appendChild(c); }
+  const barW = list.clientWidth - 72 - (USE ? 76 : 0);
+  const track = document.getElementById('track'), TW = 920, yrs = years.map((y, i) => { const e = el('span', 'yr', String(y)); e.style.left = (i / NY * TW) + 'px'; track.appendChild(e); return e; });
+  function at(t) {
+    t = ((t % DURATION) + DURATION) % DURATION;
+    if (t < HOLD0) return [YA, YA, 1];
+    const u = t - HOLD0;
+    if (u < NY * PER) { const i = Math.floor(u / PER); return [YA + i, YA + i + 1, EASE((u - i * PER) / PER)]; }
+    if (u < NY * PER + HOLD1) return [Y1, Y1, 1];
+    return [Y1, YA, EASE((u - NY * PER - HOLD1) / BACK)];
+  }
+  const src = document.getElementById('src'), lerp = (x, y, p) => x + (y - x) * p;
+  window.seek = t => {
+    const [a, b, p] = at(t);
+    src.textContent = SRC_LINE + (window.ANIM ? ' Fall 2014 to fall 2023.' : ' Fall 2023.');
+    const pos = (a - YA) + (b - a) * p; track.querySelector('.done').style.width = (pos / NY * TW) + 'px'; track.querySelector('.knob').style.left = (pos / NY * TW) + 'px'; yrs.forEach((e, i) => e.classList.toggle('on', i === Math.round(pos)));
+    fy.textContent = 'Fall ' + (Math.abs(b - a) > 1 ? Math.round(a + (b - a) * p) : (p >= .5 ? b : a));
+    KEYS.forEach(k => {
+      const o = rows[k], A = R(k, a), B = R(k, b), y = lerp(slotOf(rank[k][a]), slotOf(rank[k][b]), p), v = lerp(A.rate, B.rate, p);
+      o.r.style.transform = `translateY(${(y * ROWH).toFixed(2)}px)`;
+      o.r.style.zIndex = 100 - Math.round(Math.min(rank[k][a], rank[k][b]) * 4) + (rank[k][b] < rank[k][a] ? 2 : 0);   /* the row that is rising passes in front */
+      o.v.textContent = pc(v); o.v.style.color = greenText(rateT(v)); o.a.textContent = commas(lerp(A.applied, B.applied, p)); o.d.textContent = commas(lerp(A.admitted, B.admitted, p));
+      o.b.style.width = (Math.min(1, v / BARMAX) * barW).toFixed(1) + 'px';
+      const done = p >= 1; o.v.dataset.k = done ? `${k}.${b}.rate` : ''; o.a.dataset.k = done ? `${k}.${b}.applied` : ''; o.d.dataset.k = done ? `${k}.${b}.admitted` : '';
+    });
+  };
+  window.seek(window.ANIM ? 0 : window.FINAL);
+  isolate(KEYS.map(k => rows[k].r));
+  await ready();
+  if (new URLSearchParams(location.search).has('play')) Player.play();
+})();
+</script>
+</body></html>

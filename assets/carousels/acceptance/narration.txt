@@ -1,0 +1,23 @@
+Narration, one entry per slide. This is a copy: to change what is spoken, edit the NARRATION list at the top of index.html.
+
+Slide 1
+These are the colleges that admit the smallest share of applicants, from fall 2014 to fall 2023. Harvard ends lowest, at 3.45 percent.
+
+Slide 2
+In fall 2023, Harvard admitted 3.45 percent of applicants, Stanford 3.91 percent and Columbia 4.23 percent.
+
+Slide 3
+Northeastern admitted 32.22 percent of applicants in fall 2014 and 5.65 percent in fall 2023. Its applicants went from 49,819 to 96,631.
+
+Slide 4
+Applications rose at all ten schools in fall 2021. Harvard went from 40,248 to 57,786, and Columbia from 40,462 to 61,110.
+
+Slide 5
+Harvard's rate went from 5.96 percent in fall 2014 to 3.45 percent in fall 2023. Stanford's went from 5.09 to 3.91 percent.
+
+Slide 6
+In fall 2023, 56,937 people applied to Harvard and 1,965 were admitted. At Stanford, 2,099 of 53,733 were admitted.
+
+Slide 7
+Leland MBA customers are admitted to M7 programs at 3x the national average.
+

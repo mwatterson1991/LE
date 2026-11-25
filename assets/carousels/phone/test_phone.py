@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Checks the phone demo (index.html) at 390x844 with touch, 360x640 with touch, and inside the desktop frame at 1280x900:
-every slide of both posts is reached by swiping; the Graph / Table switch appears only on slides that have both versions, changes the media in place,
+every slide of every post is reached by swiping; the Graph / Table switch appears only on slides that have both versions, changes the media in place,
 restarts the video and is remembered per post; keys g and t; the sound control; the icons, caption, switch and dots never overlap or leave the screen;
 no console errors, no failed requests. Usage: python3 test_phone.py [folder for screenshots]"""
 import sys, os, subprocess, socket, time, tempfile, json, re
@@ -58,13 +58,13 @@ def run(pw, name, vp, touch):
             ok(f'{tagn}: switch shows only when the slide has both versions', s['tog'] == both, str(s)); layout(pg, tagn)
             if not both: ok(f'{tagn}: file', s['src'].endswith(sl), s['src']); continue
             ok(f'{tagn}: starts on the graph', s['src'].endswith(sl['graph']) and s['sel'] == ['Graph'], str(s))
-            if (pi, k) in ((0, 0), (0, 1), (1, 1)): pg.wait_for_timeout(250); pg.screenshot(path=f'{SHOTS}/{name}-p{pi + 1}-s{k + 1}-graph.png')
+            if (pi, k) in ((0, 0), (0, 1), (1, 1), (2, 0), (2, 1)): pg.wait_for_timeout(250); pg.screenshot(path=f'{SHOTS}/{name}-p{pi + 1}-s{k + 1}-graph.png')
             tap(f'.post:nth-child({pi + 1}) .tog button[data-m="table"]'); pg.wait_for_timeout(350); t = st()
             ok(f'{tagn}: Table changes the media in place', t['src'].endswith(sl['table']) and t['sel'] == ['Table'] and t['slide'] == k and t['onCount'] == 1, str(t))
             ok(f'{tagn}: the table file loaded', pg.evaluate(f"(() => {{ const m=document.querySelectorAll('.post')[{pi}].querySelectorAll('.slide')[{k}].querySelector('.on'); return m.tagName==='IMG' ? m.complete && m.naturalWidth===1080 : !m.error || m.error.code===4; }})()"))
             if t['tag'] == 'VIDEO': ok(f'{tagn}: the video restarts on switching', t['starts'] >= 1 and pg.evaluate(f"document.querySelectorAll('.post')[{pi}].querySelectorAll('.slide')[{k}].querySelector('.on').currentTime || 0") < 1.5, str(t))
             layout(pg, tagn + ' (table)')
-            if (pi, k) in ((0, 0), (0, 1), (1, 1)): pg.wait_for_timeout(250); pg.screenshot(path=f'{SHOTS}/{name}-p{pi + 1}-s{k + 1}-table.png')
+            if (pi, k) in ((0, 0), (0, 1), (1, 1), (2, 0), (2, 1)): pg.wait_for_timeout(250); pg.screenshot(path=f'{SHOTS}/{name}-p{pi + 1}-s{k + 1}-table.png')
             if not touch:
                 pg.keyboard.press('g'); pg.wait_for_timeout(300); ok(f'{tagn}: key g', st()['sel'] == ['Graph'] and st()['src'].endswith(sl['graph'])); pg.keyboard.press('t'); pg.wait_for_timeout(300); ok(f'{tagn}: key t', st()['sel'] == ['Table'])
             tap(f'.post:nth-child({pi + 1}) .tog button[data-m="graph"]'); pg.wait_for_timeout(350); g = st()
@@ -77,8 +77,9 @@ def run(pw, name, vp, touch):
             pg.evaluate("(() => { const s=document.querySelectorAll('.post')[1].querySelector('.slides'); s.scrollTo({left:s.clientWidth*5}); })()"); pg.wait_for_timeout(500); tap('.post:nth-child(2) .tog button[data-m="table"]'); pg.wait_for_timeout(300)
             pg.evaluate("(() => { const s=document.querySelectorAll('.post')[1].querySelector('.slides'); s.scrollTo({left:s.clientWidth*1}); })()"); pg.wait_for_timeout(500)
             ok(f'{name}: the choice holds across the post', st()['sel'] == ['Table'] and st()['src'].endswith('slide-2-table.png'), str(st()))
-            ok(f'{name}: the other post keeps its own choice', pg.evaluate("document.querySelector('.post .media img[data-m=\"graph\"]').classList.contains('on')"))
-            pg.reload(); pg.wait_for_timeout(900); ok(f'{name}: the choice is remembered after a reload', pg.evaluate("[...document.querySelectorAll('.post')].map(p => p.querySelector('.tog button.on').textContent)") == ['Graph', 'Table'])
+            ok(f'{name}: the other posts keep their own choice', pg.evaluate("[...document.querySelectorAll('.post')].map(p => p.querySelector('.tog button.on').textContent)") == ['Graph', 'Table', 'Graph'])
+            pg.evaluate("(() => { const s=document.querySelectorAll('.post')[1].querySelector('.slides'); s.scrollTo({left:s.clientWidth*6}); })()"); pg.wait_for_timeout(500)
+    pg.reload(); pg.wait_for_timeout(900); ok(f'{name}: the choice is remembered after a reload', pg.evaluate("[...document.querySelectorAll('.post')].map(p => p.querySelector('.tog button.on').textContent)") == ['Graph', 'Table', 'Graph'])
     # sound: off until asked
     ok(f'{name}: silent at start', pg.evaluate('audio.every(a => a.paused)')); tap('#mute'); pg.wait_for_timeout(900)
     ok(f'{name}: the sound control starts the music', pg.evaluate('!audio[cur].paused && audio[cur].currentTime > 0'), str(pg.evaluate('[cur, audio.map(a => [a.paused, a.currentTime])]')))

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 3: Northeastern</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  h1{font-size:62px}
+  svg{position:absolute;left:0;top:0;width:1080px;height:1350px}
+  .ax{font-family:var(--helv);font-size:18px;fill:var(--grey);font-variant-numeric:tabular-nums}
+  .axn{font-family:'Macan',sans-serif;font-size:19px;fill:var(--grey)}
+  .pt{position:absolute;white-space:nowrap;background:#fff;padding:0 6px}
+  .pt .yr{display:block;font-family:'Num','Macan',sans-serif;font-size:22px;line-height:26px;color:var(--grey)}
+  .pt .val{display:block;font-size:32px;line-height:38px}
+</style></head>
+<body>
+<span id="subj"></span>
+<h1 class="under">Northeastern admitted 32% in<br>2014 and <em>6% in 2023</em></h1>
+<svg id="svg" viewBox="0 0 1080 1350"></svg>
+<div id="pts"></div>
+<p class="src" id="src"></p>
+<script src="data.js"></script>
+<script src="base.js"></script>
+<script>
+/* Top panel: Northeastern's acceptance rate each fall, black, on the same upside-down axis as slide 1 (0% at the top), over a grey band that spans the
+   lowest to the highest rate among the other fourteen schools that fall. Bottom panel: Northeastern's applicants each fall, bars from zero. */
+const K = 'northeastern', X0 = 190, X1 = 940, YT = 430, YB = 880, VMAX = 35, BT = 990, BB = 1140;
+(async () => {
+  lelandMark(); if (HAVE.has(K)) document.getElementById('subj').replaceWith(logoEl(K, 'subject'));
+  const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('svg'), P = document.getElementById('pts');
+  const add = (tag, at, txt) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svg.appendChild(e); return e; };
+  const ys = []; for (let y = YA; y <= Y1; y++) ys.push(y);
+  const x = y => X0 + (y - YA) / NY * (X1 - X0), yv = v => YT + v / VMAX * (YB - YT);
+  const others = KEYS.filter(k => k !== K), lo = ys.map(y => Math.min(...others.map(k => R(k, y).rate))), hi = ys.map(y => Math.max(...others.map(k => R(k, y).rate)));
+  add('polygon', { points: ys.map((y, i) => x(y) + ',' + yv(lo[i])).concat(ys.slice().reverse().map((y, i) => x(y) + ',' + yv(hi[NY - i]))).join(' '), fill: '#E4E4E7' });
+  [0, 10, 20, 30].forEach(g => { add('line', { x1: 160, x2: 1000, y1: yv(g), y2: yv(g), stroke: '#ECECED', 'stroke-width': 2 }); add('text', { x: 80, y: yv(g) + 6, class: 'ax' }, g + '%'); });
+  add('text', { x: 80, y: YT - 24, class: 'axn' }, 'harder to get into ↑');
+  add('text', { x: x(2017), y: yv((lo[3] + hi[3]) / 2) + 6, class: 'axn', 'text-anchor': 'middle' }, 'the other fourteen schools');
+  add('polyline', { points: ys.map(y => x(y).toFixed(1) + ',' + yv(R(K, y).rate).toFixed(1)).join(' '), fill: 'none', stroke: INK_BAR, 'stroke-width': 6, 'stroke-linecap': 'butt', 'stroke-linejoin': 'miter' });
+  ys.forEach(y => add('rect', { x: x(y) - 8, y: yv(R(K, y).rate) - 8, width: 16, height: 16, fill: INK_BAR }));
+  /* labelled falls: the first, the last, and the two either side of the drop */
+  [[2014, 14, 16, 'l'], [2021, 0, 18, 'c'], [2022, -22, -30, 'r'], [2023, 20, -86, 'r2']].forEach(([y, dx, dy, al]) => {
+    const v = R(K, y).rate, d = el('div', 'pt'); d.appendChild(el('span', 'yr', 'Fall ' + y)); const s = el('span', 'val', pc(v)); s.style.color = greenText(rateT(v)); s.dataset.k = `${K}.${y}.rate`; d.appendChild(s);
+    d.style.top = (yv(v) + dy) + 'px';
+    if (al === 'l') d.style.left = (x(y) + dx) + 'px'; else if (al === 'c') { d.style.left = x(y) + 'px'; d.style.transform = 'translateX(-50%)'; d.style.textAlign = 'center'; } else { d.style.right = (1080 - x(y) - dx) + 'px'; d.style.textAlign = 'right'; }
+    P.appendChild(d);
+  });
+  /* applicants */
+  const amax = Math.max(...ys.map(y => R(K, y).applied)), bh = v => v / amax * (BB - BT);
+  add('line', { x1: 160, x2: 1000, y1: BB, y2: BB, stroke: '#ECECED', 'stroke-width': 2 });
+  ys.forEach(y => { const a = R(K, y).applied; add('rect', { x: x(y) - 24, y: BB - bh(a), width: 48, height: bh(a), fill: INK_BAR }); add('text', { x: x(y), y: BB + 30, class: 'ax', 'text-anchor': 'middle' }, String(y)); });
+  add('text', { x: 80, y: BT - 22, class: 'axn' }, 'Applicants');
+  [YA, Y1].forEach(y => { const a = R(K, y).applied, d = el('div', 'val', commas(a)); d.style.cssText = `position:absolute;font-size:28px;line-height:1;top:${BB - bh(a) - 36}px;left:${x(y)}px;transform:translateX(-50%);color:${greenText(a / amax)}`; d.dataset.k = `${K}.${y}.applied`; P.appendChild(d); });
+  document.getElementById('src').textContent = SRC_LINE + ' Fall 2014 to fall 2023.';
+  await ready();
+})();
+</script>
+</body></html>

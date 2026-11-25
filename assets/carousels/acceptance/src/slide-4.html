@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 4: applications, fall 2020 and fall 2021</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .hd{position:absolute;top:318px}
+  .sw{display:inline-block;width:14px;height:14px;margin-right:8px;vertical-align:-1px}
+  .chart{position:absolute;left:var(--m);right:var(--m);top:352px}
+  .r{position:relative;height:84px}
+  .r .logo,.r .ph{position:absolute;left:0;top:13px}
+  .r .name{position:absolute;left:76px;top:0;line-height:82px;font-size:30px}
+  .r.t .name{left:0}
+  .r .bar{position:absolute;left:290px;height:18px}
+  .r .b0{top:20px;background:#C9CACD}.r .b1{top:44px;background:#0F0F10}
+  .r .n0{position:absolute;right:146px;top:0;font-size:26px;line-height:82px;color:var(--slate)}
+  .r .n1{position:absolute;right:0;top:0;font-size:28px;line-height:82px}
+  .r .hair{position:absolute;left:0;right:0;bottom:0;height:2px}
+</style></head>
+<body>
+<h1>Applications to all ten<br><em>rose in fall 2021</em></h1>
+<div class="hd" style="right:226px"><span class="sw" style="background:#C9CACD"></span>Fall 2020</div><div class="hd" style="right:80px"><span class="sw" style="background:#0F0F10"></span>Fall 2021</div>
+<div class="chart" id="chart"></div>
+<p class="src" id="src"></p>
+<script src="data.js"></script>
+<script src="base.js"></script>
+<script>
+/* The ten schools of the fall 2023 ranking, in that order. Two bars each from zero: applicants in fall 2020 (grey) and fall 2021 (black). */
+const BARW = 380;
+(async () => {
+  lelandMark();
+  const top = ranking(2023).slice(0, 10), c = document.getElementById('chart'), max = Math.max(...top.map(k => Math.max(R(k, 2020).applied, R(k, 2021).applied))), USE = marksOk(top), T = scaleT(top.map(k => R(k, 2021).applied));
+  top.forEach(k => {
+    const a = R(k, 2020).applied, b = R(k, 2021).applied, r = el('div', 'r' + (USE ? '' : ' t')); r.dataset.school = k;
+    if (USE) r.appendChild(logoEl(k)); r.appendChild(el('div', 'name', S[k].short));
+    [[a, 'b0', 'n0', 2020], [b, 'b1', 'n1', 2021]].forEach(([v, bc, nc, y]) => { const w = v / max * BARW, e = el('div', 'bar ' + bc); e.style.width = w.toFixed(1) + 'px'; r.appendChild(e);
+      const n = el('div', (nc === 'n1' ? 'val ' : 'fig ') + nc, commas(v)); if (nc === 'n1') n.style.color = greenText(T(v)); n.dataset.k = `${k}.${y}.applied`; r.appendChild(n); });
+    r.appendChild(el('div', 'hair')); c.appendChild(r);
+  });
+  window.CHECK = { rose: top.every(k => R(k, 2021).applied > R(k, 2020).applied) };
+  document.getElementById('src').textContent = SRC_LINE + ' Applicants, fall 2020 and fall 2021.';
+  isolate([...c.children]);
+  await ready();
+})();
+</script>
+</body></html>
