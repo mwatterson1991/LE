@@ -2,7 +2,6 @@
 <html lang="en"><head><meta charset="utf-8"><title>Slide 6: acceptance rate by school</title>
 <link rel="stylesheet" href="base.css">
 <style>
-  .src{width:600px}
   .row{position:absolute;left:var(--m);width:920px;height:112px}
   .row .rank{position:absolute;left:0;top:18px}
   .row .logo,.row .ph{position:absolute;left:72px;top:16px}
@@ -19,9 +18,10 @@
 <script src="data.js"></script>
 <script src="base.js"></script>
 <script>
-/* Ranked rows, lowest acceptance rate first. Bar length: rate / 30% of the full width. The Leland lockup closes the carousel, bottom right; this slide has no mark at the top. */
+/* Ranked rows, lowest acceptance rate first. Bar length: rate / 30% of the full width. Leland closes the carousel on the next slide (the shared end slide), so this one carries only the mark, top right, like the others. */
 const TOP = 372, ROW = 112, BARMAX = 30, AP = 620, EN = 770;   /* right edges of the two count columns */
 (async () => {
+  lelandMark();
   const c = document.getElementById('c'), keys = ORDER.slice().sort((a, b) => +S[a].admit.rate - +S[b].admit.rate), T = scaleT(keys.map(k => +S[k].admit.rate));
   put(c, 'div', 'hd', 'Applications', { right: 1080 - AP, top: TOP - 30 }); put(c, 'div', 'hd', 'Enrolled', { right: 1080 - EN, top: TOP - 30 }); put(c, 'div', 'hd', 'Admitted', { right: 80, top: TOP - 30 });
   const rows = keys.map((k, i) => {
@@ -32,7 +32,6 @@ const TOP = 372, ROW = 112, BARMAX = 30, AP = 620, EN = 770;   /* right edges of
     const v = el('div', 'val', a.rate + '%'); v.style.color = greenText(T(+a.rate)); v.dataset.k = k + '.admit.rate'; r.appendChild(v);
     r.appendChild(el('div', 'line hair')); const b = el('div', 'bar'); b.style.width = (Math.min(1, +a.rate / BARMAX) * (920 - 148)).toFixed(1) + 'px'; r.appendChild(b); return r;
   });
-  const lock = new Image(); lock.className = 'lock'; lock.alt = 'Leland'; lock.src = 'vendor/logo.svg'; document.body.appendChild(lock);
   document.getElementById('src').textContent = F.sources.admit;
   isolate(rows);
   await ready();

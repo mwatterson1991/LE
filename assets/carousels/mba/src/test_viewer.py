@@ -22,9 +22,9 @@ def run(pw, url, name, vp, touch=False, reduced=False, full=True):
     pg.on('console', lambda m: errs.append(m.text) if m.type == 'error' else None); pg.on('pageerror', lambda e: errs.append(str(e)))
     # a media element that stops buffering cancels its own request (ERR_ABORTED); that is not a failed load
     pg.on('requestfailed', lambda r: None if (r.failure or '').endswith('ERR_ABORTED') and r.url.endswith('.mp3') else failed.append(f'{r.failure} {r.url}')); pg.on('response', lambda r: failed.append(f'{r.status} {r.url}') if r.status >= 400 else None)
-    pg.goto(url); pg.wait_for_function("window.__viewer && window.__viewer.frames.length === 6"); pg.wait_for_timeout(1500)
+    pg.goto(url); pg.wait_for_function("window.__viewer && window.__viewer.frames.length === 7"); pg.wait_for_timeout(1500)
     fr = lambda n: next(f for f in pg.frames if f.url.endswith(f'slide-{n}.html'))
-    for n in range(1, 7): fr(n).wait_for_function('window.READY === true', timeout=20000)
+    for n in range(1, 8): fr(n).wait_for_function('window.READY === true', timeout=20000)
     cur = lambda: pg.evaluate('window.__viewer.slide')
     tile = pg.evaluate("(() => { const r = document.querySelector('.tile').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; })()")
     L, T, W, H = tile; ok(f'{name}: tile is 4:5 and fits', abs(H / W - 1.25) < .01 and L >= 0 and L + W <= vp['width'] + 1 and T + H <= vp['height'], str(tile))
@@ -58,7 +58,7 @@ def run(pw, url, name, vp, touch=False, reduced=False, full=True):
     pg.click('#dots button:nth-child(6)'); pg.wait_for_timeout(900); ok(f'{name}: dot goes to slide 6', cur() == 6)
     ok(f'{name}: slide 6 narration queued', any(u.startswith('For the Class of 2027') for u in pg.evaluate('window.__utter')))
     nu = pg.evaluate('window.__utter.length'); pg.click('#leoBtn'); pg.wait_for_timeout(400); ok(f'{name}: tapping Leo replays the narration', pg.evaluate('window.__utter.length') > nu)
-    pg.keyboard.press('ArrowRight'); pg.wait_for_timeout(500); ok(f'{name}: stops at the last slide', cur() == 6)
+    pg.keyboard.press('ArrowRight'); pg.wait_for_timeout(500); ok(f'{name}: stops at the last slide', cur() == 7)
     pg.click('#snd'); pg.wait_for_timeout(900); ok(f'{name}: sound off pauses music and clears the caption', pg.evaluate("document.getElementById('musicA').paused && document.getElementById('musicB').paused && document.getElementById('cap').textContent === ''"))
     # hover isolates a row (pointer devices)
     if not touch:
@@ -70,9 +70,9 @@ def run(pw, url, name, vp, touch=False, reduced=False, full=True):
         pg.evaluate('window.__viewer.go(1)'); pg.wait_for_timeout(700); fr(1).evaluate('Player.stop(); window.seek(window.FINAL)'); pg.mouse.move(cx(128), cy(928)); pg.wait_for_timeout(350)
         ok(f'{name}: hover isolates one mark on slide 1', fr(1).evaluate("[...document.querySelectorAll('.marks .logo')].filter(r=>+r.style.opacity===1).map(r=>r.dataset.school)") == ['harvard'], str(fr(1).evaluate("[...document.querySelectorAll('.marks .logo')].map(r=>r.style.opacity)"))); pg.mouse.move(2, 2)
     # a clean screenshot of every slide (animations settled on their last frame)
-    for s in range(1, 7):
+    for s in range(1, 8):
         pg.evaluate(f'window.__viewer.go({s})'); pg.wait_for_timeout(650)
-        if s == 1: fr(s).evaluate('Player.stop(); window.seek(window.FINAL)'); pg.wait_for_timeout(100)
+        if s in (1, 7): fr(s).evaluate('Player.stop(); window.seek(window.FINAL)'); pg.wait_for_timeout(100)
         pg.screenshot(path=f'{SHOTS}/{name}-{s}.png')
     ok(f'{name}: no console errors', not errs, str(errs)); ok(f'{name}: no failed requests', not failed, str(failed)); b.close()
 srv, base = B.serve(); web = base.replace('/src/', '/index.html')

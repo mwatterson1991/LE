@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the MBA carousel. Usage: python3 build.py [stills] [v1] [alt] [sheets] [pack]  (no args = everything)
+"""Rebuild the MBA carousel. Usage: python3 build.py [stills] [v1] [v7] [alt] [sheets] [pack]  (no args = everything)
 Serves the repo root on a free port, renders each slide's HTML with Playwright, encodes video with ffmpeg."""
 import sys, os, subprocess, socket, time, shutil, tempfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -17,6 +17,8 @@ def serve():
     p = subprocess.Popen([sys.executable, '-m', 'http.server', str(port), '--bind', '127.0.0.1'], cwd=REPO, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     time.sleep(0.8); return p, f'http://127.0.0.1:{port}/assets/carousels/mba/src/'
 
+TABLES = {2: 'gmat', 3: 'gpa', 4: 'work', 6: 'admit'}   # chart slides that also have a table version (slide-table.html?m=...), for the Graph / Table switch in the phone demo
+
 def page(b, base, n, q=''):
     pg = b.new_page(viewport={'width': W, 'height': H}, device_scale_factor=1)
     pg.on('console', lambda m: print('console', n, m.text) if m.type == 'error' else None)
@@ -32,7 +34,8 @@ MUSIC = 'assets/audio/community-outcomes-v4-preview.mp3'   # Leland's own film m
 
 def prepare():
     """Everything the pages need that lives elsewhere in the repo is copied in, unchanged, so the folder works on its own (from disk and on Pages)."""
-    import json, prep_logos
+    import json, prep_logos, importlib.util
+    sp = importlib.util.spec_from_file_location('refresh', f'{SRC}/../../_shared/refresh.py'); sh = importlib.util.module_from_spec(sp); sp.loader.exec_module(sh); sh.refresh()   # the shared end slide (slide 7)
     d = json.load(open(f'{SRC}/facts.json'))
     with open(f'{SRC}/data.js', 'w') as f:
         f.write('/* Written by build.py: a straight copy of facts.json, so the slides open from disk. Do not edit; edit facts.json. */\n')
@@ -85,10 +88,10 @@ def sheet(paths, out, cols, w):
         im.paste(Image.open(p).convert('RGB').resize((w, h), Image.LANCZOS), (g + (i % cols) * (w + g), g + (i // cols) * (h + g)))
     im.save(out)
 
-N = 6
-PACK = ['carousel.pdf', 'slide-1.mp4', 'slide-1.gif'] + [f'slide-{n}.png' for n in range(1, N + 1)] + ['all.png', 'alt/slide-2-with-booth.png', 'alt/slide-4-with-booth.png', 'narration.txt', 'README.txt']
+N = 7
+PACK = ['carousel.pdf', 'slide-1.mp4', 'slide-1.gif', 'slide-7.mp4'] + [f'slide-{n}.png' for n in range(1, N + 1)] + [f'slide-{n}-table.png' for n in TABLES] + ['all.png', 'alt/slide-2-with-booth.png', 'alt/slide-4-with-booth.png', 'narration.txt', 'README.txt']
 def pack():
-    # carousel.pdf: six pages, 1080x1350 points each (72 dpi), then the zip for handing off
+    # carousel.pdf: seven pages, 1080x1350 points each (72 dpi), then the zip for handing off
     import zipfile
     ims = [Image.open(f'{OUT}/slide-{n}.png').convert('RGB') for n in range(1, N + 1)]
     ims[0].save(f'{OUT}/carousel.pdf', save_all=True, append_images=ims[1:], resolution=72.0)
@@ -97,7 +100,7 @@ def pack():
     print('pack:', ', '.join(f'{f} {os.path.getsize(OUT + "/" + f) / 1e6:.2f}MB' for f in ['carousel.pdf', 'mba-carousel.zip']))
 
 if __name__ == '__main__':
-    what = set(sys.argv[1:]) or {'stills', 'v1', 'alt', 'sheets', 'pack'}
+    what = set(sys.argv[1:]) or {'stills', 'v1', 'v7', 'alt', 'sheets', 'pack'}
     prepare()
     srv, base = serve()
     try:
@@ -105,15 +108,18 @@ if __name__ == '__main__':
             b = pw.chromium.launch()
             miss = "[...document.querySelectorAll('[data-missing]')].map(e=>e.dataset.missing)"
             if 'stills' in what:
-                for n in range(2, N + 1):
+                for n in range(2, 7):
                     pg = page(b, base, n); shot(pg, f'{OUT}/slide-{n}.png'); print(f'slide-{n}: missing logomarks:', pg.evaluate(miss)); pg.close()
+                for n, m in TABLES.items():
+                    pg = page(b, base, 'table', f'?m={m}'); shot(pg, f'{OUT}/slide-{n}-table.png'); pg.close()
             if 'alt' in what:   # slides 2 and 4 with Chicago Booth's held figures shown, ready to swap in once they are confirmed
                 os.makedirs(f'{OUT}/alt', exist_ok=True)
                 for n in (2, 4):
                     pg = page(b, base, n, '?all'); shot(pg, f'{OUT}/alt/slide-{n}-with-booth.png'); pg.close()
             if 'v1' in what: video(b, base, 1, film=True, sound=True)
+            if 'v7' in what: video(b, base, 7, sound=True)
             b.close()
-        if 'sheets' in what: sheet([f'{OUT}/slide-{n}.png' for n in range(1, N + 1)], f'{OUT}/all.png', 6, 540)
+        if 'sheets' in what: sheet([f'{OUT}/slide-{n}.png' for n in range(1, N + 1)], f'{OUT}/all.png', 7, 540)
         if 'pack' in what: pack()
     finally:
         srv.terminate()

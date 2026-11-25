@@ -12,10 +12,25 @@
   .row .val{position:absolute;right:0;top:0;line-height:80px;font-size:37px}
   .row .hair{position:absolute;left:76px;right:0;bottom:3px;height:2px;background:var(--hair)}
   .row .bar{position:absolute;left:76px;bottom:-1px;height:10px;border-radius:0;background:#0F0F10}
+  /* ?anim only (slide-1-list.mp4): a larger year, and a track of the eight years across the top of the list with the current one marked */
+  body.anim .fy{font-size:60px;top:226px}
+  body.anim .list{top:384px;height:810px}
+  body.anim .row{height:81px}
+  body.anim .row .logo,body.anim .row .ph{top:12px}
+  body.anim .row .name,body.anim .row .val{line-height:76px}
+  #track{position:absolute;left:var(--m);right:var(--m);top:318px;height:50px;display:none}
+  body.anim #track{display:block}
+  #track .base{position:absolute;left:0;right:0;top:6px;height:2px;background:var(--hair)}
+  #track .done{position:absolute;left:0;top:5px;height:4px;background:#0F0F10}
+  #track .knob{position:absolute;top:0;width:14px;height:14px;margin-left:-7px;background:#0F0F10}
+  #track .yr{position:absolute;top:24px;width:80px;margin-left:-40px;text-align:center;font-family:var(--helv);font-size:19px;line-height:1;color:var(--grey);font-variant-numeric:tabular-nums}
+  #track .yr:first-of-type{text-align:left;margin-left:0}#track .yr:last-of-type{text-align:right;margin-left:-80px}
+  #track .yr.on{color:#010101;font-weight:700}
 </style></head>
 <body>
 <h1>The colleges that spend<br>the most on <em>administration</em><br>per student</h1>
 <div class="fy" id="fy"></div>
+<div id="track"><div class="base"></div><div class="done"></div><div class="knob"></div></div>
 <div class="list" id="list"></div>
 <p class="src" id="src"></p>
 <script src="data.js"></script>
@@ -27,7 +42,8 @@ const HOLD0 = 1.0, PER = 1.2, HOLD1 = 2.5, BACK = 0.8, NY = Y1 - YA;
 window.TRAVEL = [HOLD0, HOLD0 + NY * PER, PER];
 window.DURATION = HOLD0 + NY * PER + HOLD1 + BACK;
 window.FINAL = HOLD0 + NY * PER + 1.2;         /* a settled FY 2024 frame, used for slide-1.png */
-const ROWH = 85, SHOW = 10, BARMAX = 60000;     /* bar length: dollars / 60,000 of the full width, the same at every year */
+window.ANIM = new URLSearchParams(location.search).has('anim'); if (window.ANIM) document.body.classList.add('anim');
+const ROWH = window.ANIM ? 81 : 85, SHOW = 10, BARMAX = 60000;     /* bar length: dollars / 60,000 of the full width, the same at every year */
 (async () => {
   lelandMark();
   const S = await loadData(), keys = Object.keys(S), list = document.getElementById('list'), fy = document.getElementById('fy');
@@ -42,8 +58,9 @@ const ROWH = 85, SHOW = 10, BARMAX = 60000;     /* bar length: dollars / 60,000 
     const v = el('div', 'val'); r.appendChild(v); r.appendChild(el('div', 'hair')); const b = el('div', 'bar'); r.appendChild(b);
     list.appendChild(r); rows[k] = { r, v, b };
   });
-  for (let i = 0; i < SHOW; i++) { const c = el('div', 'slot rank', String(i + 1)); c.style.transform = `translateY(${i * ROWH + 14}px)`; c.style.zIndex = 500; list.appendChild(c); }
+  for (let i = 0; i < SHOW; i++) { const c = el('div', 'slot rank', String(i + 1)); c.style.transform = `translateY(${i * ROWH + (window.ANIM ? 12 : 14)}px)`; c.style.zIndex = 500; list.appendChild(c); }
   const barW = list.clientWidth - 72 - 76;
+  const track = document.getElementById('track'), TW = 920, yrs = years.map((y, i) => { const e = el('span', 'yr', String(y)); e.style.left = (i / NY * TW) + 'px'; track.appendChild(e); return e; });
   /* state at time t: (from year, to year, eased progress) */
   function at(t) {
     t = ((t % DURATION) + DURATION) % DURATION;
@@ -57,6 +74,7 @@ const ROWH = 85, SHOW = 10, BARMAX = 60000;     /* bar length: dollars / 60,000 
   window.seek = t => {
     const [a, b, p] = at(t);
     src.textContent = SRC + (window.ANIM ? 'Fiscal years 2017 to 2024.' : 'Fiscal year 2024.');
+    const pos = (a - YA) + (b - a) * p; track.querySelector('.done').style.width = (pos / NY * TW) + 'px'; track.querySelector('.knob').style.left = (pos / NY * TW) + 'px'; yrs.forEach((e, i) => e.classList.toggle('on', i === Math.round(pos)));
     fy.textContent = 'FY ' + (Math.abs(b - a) > 1 ? Math.round(a + (b - a) * p) : (p >= .5 ? b : a));
     keys.forEach(k => {
       const o = rows[k], y = slotOf(rank[k][a]) + (slotOf(rank[k][b]) - slotOf(rank[k][a])) * p, v = val[k][a] + (val[k][b] - val[k][a]) * p;
@@ -68,11 +86,10 @@ const ROWH = 85, SHOW = 10, BARMAX = 60000;     /* bar length: dollars / 60,000 
     });
   };
   /* as slide 2 this page is a still of FY 2024. ?anim turns it back into the reordering list (rendered as slide-1-list.mp4). */
-  window.ANIM = new URLSearchParams(location.search).has('anim');
   window.seek(window.ANIM ? 0 : window.FINAL);
   isolate(keys.map(k => rows[k].r));
   await ready();
-  if (new URLSearchParams(location.search).has('play')) { window.ANIM = true; Player.play(); }
+  if (new URLSearchParams(location.search).has('play')) Player.play();
 })();
 </script>
 </body></html>

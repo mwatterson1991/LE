@@ -67,6 +67,7 @@ def expect(key):
     if p[0] == 'gmat_focus': return p[1] if any(S[k]['gmat_focus']['value'] == int(p[1]) for k in ORDER) else None
     if p[0] == 'recs': return '2'
     s = S[p[0]]; f = '.'.join(p[1:])
+    if f == 'gmat_focus': return str(s['gmat_focus']['value'])
     if f == 'gmat_focus.mid80': return '–'.join(map(str, s['gmat_focus']['mid80']))
     if f == 'gre_share': return f"{s['gre_share']}%"
     if f == 'gpa': return s['gpa']['value']
@@ -163,8 +164,37 @@ try:
                 chk('slide 6 rank circles', pg.evaluate("[...document.querySelectorAll('.row')].sort((a,b)=>a.getBoundingClientRect().top-b.getBoundingClientRect().top).map(r=>r.querySelector('.rank').textContent)"), [str(i) for i in range(1, 8)])
                 w = dict(pg.evaluate("[...document.querySelectorAll('.row')].map(r => [r.dataset.school, r.querySelector('.bar').getBoundingClientRect().width])")); full = 920 - 148
                 for k in ORDER: chk(f'slide 6 {k} bar length', abs(w[k] - float(S[k]['admit']['rate']) / 30 * full) < 0.6, True)
-                chk('slide 6 Leland lockup, bottom right', pg.evaluate("(() => { const r = document.querySelector('.lock').getBoundingClientRect(); return r.right === 1000 && r.bottom > 1200 && r.width > 60; })()"), True)
+                chk('slide 6 has the mark top right and no lockup (Leland closes on slide 7)', pg.evaluate("[document.querySelectorAll('.lmark').length, document.querySelectorAll('.lock').length]"), [1, 0])
             pg.close()
+        # ---------- the table versions of the chart slides (Graph / Table in the phone demo): same figures, same order, same source line ----------
+        gmk = lambda: sorted(gm(True), key=lambda k: (-S[k]['gmat_focus']['value'], ORDER.index(k)))
+        TB = {'gmat': (2, gmk(), lambda k: S[k]['gmat_focus']['stat'] + (', middle 80%: ' + '–'.join(map(str, S[k]['gmat_focus']['mid80'])) if 'mid80' in S[k]['gmat_focus'] else '')),
+              'gpa': (3, by_gpa, lambda k: S[k]['gpa']['stat'] + (', range ' + '–'.join(S[k]['gpa']['range']) if 'range' in S[k]['gpa'] else '')),
+              'work': (4, by_work(True), lambda k: S[k]['work']['stat'] + (', middle 80%: ' + '–'.join(map(str, S[k]['work']['mid80'])) + ' years' if 'mid80' in S[k]['work'] else '')),
+              'admit': (6, by_rate, None)}
+        for m, (s, order, sub) in TB.items():
+            tag = f'slide {s} table'; pg = B.page(b, base, 'table', f'?m={m}'); chart = B.page(b, base, s)
+            head = pg.evaluate("document.querySelector('h1').innerText.replace(/\\s+/g,' ').trim()"); chk(f'{tag} headline is the chart slide\'s', head, chart.evaluate("document.querySelector('h1').innerText.replace(/\\s+/g,' ').trim()"))
+            chk(f'{tag} source line is the chart slide\'s', pg.evaluate("document.getElementById('src').textContent"), chart.evaluate("document.getElementById('src').textContent")); chart.close()
+            tagged = pg.evaluate(TAG); allowed = (allow(s, tagged) - AXIS.get(s, set())) | tokens(head)
+            for k, txt in tagged: chk(f'{tag} {k}', txt, expect(k)); allowed |= tokens(expect(k) or '')
+            vis = pg.evaluate(VIS)
+            for tok in sorted(tokens(vis) - allowed): bad.append(f'{tag}: number {tok!r} is on the slide but was not recomputed from the file')
+            n += len(tokens(vis))
+            d = pg.evaluate("[...document.querySelectorAll('.row')].map(r => [r.getBoundingClientRect().top, r.dataset.school, r.querySelector('.val').dataset.k, r.querySelector('.sub') ? r.querySelector('.sub').textContent : null, r.querySelector('.rank') ? r.querySelector('.rank').textContent : null]).sort((a, b) => a[0] - b[0]).map(r => r.slice(1))")
+            chk(f'{tag} schools, in order', [r[0] for r in d], order); chk(f'{tag} each row shows its own school\'s figure', all(r[1].startswith(r[0] + '.') for r in d), True)
+            if sub: chk(f'{tag} median / average labels', [r[2] for r in d], [sub(k) for k in order])
+            else: chk(f'{tag} rank circles', [r[3] for r in d], [str(i + 1) for i in range(len(order))])
+            chk(f'{tag} no missing logomarks', pg.evaluate("document.querySelectorAll('[data-missing]').length"), 0)
+            chk(f'{tag} nothing outside the tile', pg.evaluate("[...document.querySelectorAll('body *')].filter(e => { const r = e.getBoundingClientRect(); return r.width && (r.left < 0 || r.right > 1080 || r.top < 0 || r.bottom > 1350); }).length"), 0)
+            if s in (2, 4): chk(f'{tag} Booth is held', 'booth' in [r[0] for r in d], False)
+            pg.close()
+        # ---------- slide 7: the shared end slide ----------
+        pg = B.page(b, base, 7); pg.evaluate('window.seek(window.FINAL)')
+        chk('slide 7 line', pg.evaluate("document.querySelector('.line').innerText.replace(/\\s+/g,' ').trim()"), 'Leland MBA customers are admitted to M7 programs at 3x the national average.')
+        chk('slide 7 one accent phrase', pg.evaluate("[...document.querySelectorAll('.line em')].map(e => e.textContent)"), ['3x'])
+        chk('slide 7 is black with a white lockup and the lighter blue accent', pg.evaluate("[getComputedStyle(document.body).backgroundColor, getComputedStyle(document.querySelector('.wm svg')).fill, getComputedStyle(document.querySelector('.line em')).color]"), ['rgb(15, 15, 16)', 'rgb(255, 255, 255)', 'rgb(137, 171, 232)'])
+        chk('slide 7 has no other numbers', tokens(pg.evaluate(VIS)), {'7', '3'}); pg.close()
         b.close()
 finally: srv.terminate()
 
@@ -175,8 +205,8 @@ NARR = {1: set(), 2: {str(min(shown2)), str(max(shown2)), str(S['stanford']['gma
         3: {'%.1f' % min(gp), S['stanford']['gpa']['value'], S['harvard']['gpa']['value']},
         4: {S['stanford']['work']['value'], S['kellogg']['work']['value'], '80', *map(str, S['harvard']['work']['mid80'])},
         5: {str(S['harvard']['essays']['count']), str(S['stanford']['essays']['count']), str(S['wharton']['recs']['count']), str(S['wharton']['recs']['was'])},
-        6: {'2027', S['stanford']['admit']['rate'], S['harvard']['admit']['rate'], S['kellogg']['admit']['rate']}}
-chk('narration has six lines', len(lines), 6); chk('narration.txt is a copy', all(l in open(os.path.join(B.OUT, 'narration.txt')).read() for l in lines), True)
+        6: {'2027', S['stanford']['admit']['rate'], S['harvard']['admit']['rate'], S['kellogg']['admit']['rate']}, 7: {'7', '3'}}
+chk('narration has seven lines', len(lines), 7); chk('narration 7 is the on-screen line', lines[6], 'Leland MBA customers are admitted to M7 programs at 3x the national average.'); chk('narration.txt is a copy', all(l in open(os.path.join(B.OUT, 'narration.txt')).read() for l in lines), True)
 for i, l in enumerate(lines, 1):
     for tok in sorted(tokens(l) - NARR[i]): bad.append(f'narration {i}: number {tok!r} was not recomputed from the file')
     n += len(tokens(l)); chk(f'narration {i} under 30 words', len(l.split()) <= 30, True)

@@ -53,7 +53,7 @@ chk('narration 1 names the FY2024 leader', S[t24[0]]['name'].split()[0] in lines
 chk('narration 2 order', [S[k]['name'].replace('University of ', '').split()[0] for k in t24[:3]], [w for w in re.findall(r'[A-Z][a-z]+', lines[1]) if w not in ('In',)][:3])
 chk('narration 7 is the on-screen line', lines[6], 'Leland MBA customers are admitted to M7 programs at 3x the national average.')
 AX = {'$0', '$20,000', '$40,000', '$60,000'}; R10 = {str(i) for i in range(1, 11)}
-ALLOW = {1: {str(y) for y in range(2017, 2025)} | AX | R10, 2: {'2024'} | R10, 3: {'2024'}, 4: {'2011', '2016', '2021', '2024'} | AX, 5: {'2023', '2024'} | R10, 6: {'2024'}, 7: {'7', '3'}}
+ALLOW = {'2-graph': {'2024'} | R10, 1: {str(y) for y in range(2017, 2025)} | AX | R10, 2: {'2024'} | R10, 3: {'2024'}, 4: {'2011', '2016', '2021', '2024'} | AX, 5: {'2023', '2024'} | R10, 6: {'2024'}, 7: {'7', '3'}}
 VIS = """(() => { const L=document.querySelector('.list'); const lb=L?L.getBoundingClientRect().bottom:1e9; let out=[];
   const shown=e=>{ for(let x=e;x&&x.nodeType===1;x=x.parentElement){ const c=getComputedStyle(x); if(c.visibility==='hidden'||c.display==='none'||+c.opacity<0.05) return false;} return true; };
   const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT); let nd; while(nd=w.nextNode()){ const p=nd.parentElement; if(['SCRIPT','STYLE'].includes(p.tagName))continue; const r=p.getBoundingClientRect(); if(r.width===0||!shown(p))continue; if(L&&L.contains(p)&&r.top>lb-10)continue; out.push(nd.textContent);} return out.join(' | ') })()"""
@@ -63,7 +63,7 @@ srv, base = B.serve()
 try:
     with sync_playwright() as pw:
         b = pw.chromium.launch()
-        for s in range(1, 8):
+        for s in [1, 2, '2-graph', 3, 4, 5, 6, 7]:
             pg = B.page(b, base, s)
             if s in (1, 7): pg.evaluate('window.seek(window.FINAL)')
             tagged = pg.evaluate(TAG); allowed = set(ALLOW[s])
@@ -88,11 +88,16 @@ try:
             if s == 2:   # the list: the still, then every settled year of its animation (slide-1-list.mp4)
                 rowsjs = "[...document.querySelectorAll('.row')].map(r=>[r.getBoundingClientRect().top,r.querySelector('.name').textContent,r.querySelector('.val').textContent]).sort((a,b)=>a[0]-b[0]).slice(0,10).map(r=>r.slice(1))"
                 chk('slide 2 still', pg.evaluate(rowsjs), [[S[k]['name'], usd(S[k]['years']['2024']['per_student'])] for k in top(2024)])
-                a, z, per = pg.evaluate('window.TRAVEL')
+                pg.close(); pg = B.page(b, base, 2, '?anim'); a, z, per = pg.evaluate('window.TRAVEL')
+                extra = tokens(pg.evaluate(VIS)) - {str(y) for y in range(2017, 2025)} - R10 - {usd(S[k]['years']['2017']['per_student']) for k in top(2017)}; chk('list animation: no other numbers on its first frame', extra, set())
                 for i, y in enumerate(range(2017, 2025)):
-                    pg.evaluate(f'window.seek({a + i * per - 0.001 if i else 0.5})')
+                    pg.evaluate(f'window.seek({a + i * per - 0.001 if i else 0.5})'); chk(f'list animation FY{y} is the marked year on the track', pg.evaluate("[...document.querySelectorAll('#track .yr.on')].map(e=>e.textContent)"), [str(y)])
                     chk(f'list animation FY{y} top ten', pg.evaluate(rowsjs), [[S[k]['name'], usd(S[k]['years'][str(y)]['per_student'])] for k in top(y)])
                     chk(f'list animation FY{y} readout', pg.evaluate("document.getElementById('fy').textContent"), f'FY {y}')
+            if s == '2-graph':   # the bar-chart version of slide 2: same ten, same order, bars in proportion
+                d = pg.evaluate("[...document.querySelectorAll('.r')].map(r=>[r.getBoundingClientRect().top,r.dataset.school,r.querySelector('.val').textContent,r.querySelector('.rank').textContent,r.querySelector('.bar').getBoundingClientRect().width]).sort((a,b)=>a[0]-b[0]).map(r=>r.slice(1))")
+                chk('slide 2 graph: schools, figures, ranks', [r[:3] for r in d], [[k, usd(S[k]['years']['2024']['per_student']), str(i + 1)] for i, k in enumerate(top(2024))])
+                mx = S[top(2024)[0]]['years']['2024']['per_student']; chk('slide 2 graph: bar lengths in proportion', all(abs(r[3] / d[0][3] - S[r[0]]['years']['2024']['per_student'] / mx) < 0.002 for r in d), True)
             if s == 5:
                 c = pg.evaluate('window.CHECK'); chk('slide 5 FY2023 order', c['A'], top(2023)); chk('slide 5 FY2024 order', c['B'], top(2024))
             if s == 6: chk('slide 6 schools', sorted({k.split('.')[0] for k, _ in tagged}), sorted(t5))

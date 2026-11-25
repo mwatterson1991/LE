@@ -32,7 +32,8 @@ MUSIC = 'assets/audio/community-outcomes-v4-preview.mp3'   # Leland's own film m
 
 def prepare():
     """Everything the pages need that lives elsewhere in the repo is copied in, unchanged, so the folder works on its own (from disk and on Pages)."""
-    import json, prep_logos
+    import json, prep_logos, importlib.util
+    sp = importlib.util.spec_from_file_location('refresh', f'{SRC}/../../_shared/refresh.py'); sh = importlib.util.module_from_spec(sp); sp.loader.exec_module(sh); sh.refresh()   # the shared end slide (slide 7)
     d = json.load(open(f'{REPO}/data/lists/ipeds-admin-spend.json'))
     logo = open(f'{REPO}/assets/brand/logo.svg').read()
     with open(f'{SRC}/data.js', 'w') as f:
@@ -87,7 +88,7 @@ def sheet(paths, out, cols, w):
     im.save(out)
 
 N = 7
-PACK = ['carousel.pdf', 'slide-1.mp4', 'slide-7.mp4', 'slide-1.gif'] + [f'slide-{n}.png' for n in range(1, N + 1)] + ['slide-1-list.mp4', 'narration.txt', 'README.txt']
+PACK = ['carousel.pdf', 'slide-1.mp4', 'slide-7.mp4', 'slide-1.gif'] + [f'slide-{n}.png' for n in range(1, N + 1)] + ['slide-1-list.mp4', 'slide-2-graph.png', 'narration.txt', 'README.txt']
 def pack():
     # carousel.pdf: seven pages, 1080x1350 points each (72 dpi), then the zip for handing off
     import zipfile
@@ -105,11 +106,11 @@ if __name__ == '__main__':
         with sync_playwright() as pw:
             b = pw.chromium.launch()
             if 'stills' in what:
-                for n in (2, 3, 4, 5, 6):
+                for n in (2, '2-graph', 3, 4, 5, 6):   # 2-graph is the bar-chart version of slide 2, for the Graph / Table switch in the phone demo
                     pg = page(b, base, n); shot(pg, f'{OUT}/slide-{n}.png')
                     print(f'slide-{n}: missing logomarks:', pg.evaluate("[...document.querySelectorAll('[data-missing]')].map(e=>e.dataset.missing)")); pg.close()
             if 'v1' in what: video(b, base, 1, film=True, sound=True)
-            if 'list' in what: video(b, base, 2, q='?anim', name='slide-1-list', still=False, gif=False)   # the earlier reordering list, kept outside the sequence
+            if 'list' in what: video(b, base, 2, q='?anim', name='slide-1-list', gif=False)   # the earlier reordering list, kept outside the sequence
             if 'v7' in what: video(b, base, 7, sound=True)
             b.close()
         if 'sheets' in what: sheet([f'{OUT}/slide-{n}.png' for n in range(1, N + 1)], f'{OUT}/all.png', 7, 540)

@@ -11,7 +11,8 @@ const NARRATION = /*NARRATION-START*/[
   "Grade point averages run from 3.6 at Chicago Booth and Columbia to 3.8 at Stanford. Harvard's average is 3.77.",
   "Stanford's class averages 5.2 years of work experience, and Kellogg's 5.1. At Harvard, the middle 80 percent had 3 to 7 years.",
   "Harvard, Wharton and Columbia ask for 3 essays, and Stanford for 2. Wharton, Chicago Booth and Columbia now ask for 1 recommendation, down from 2.",
-  "For the Class of 2027, Stanford admitted 6.8 percent of applicants and Harvard 11.2 percent. Kellogg admitted 28.1 percent."
+  "For the Class of 2027, Stanford admitted 6.8 percent of applicants and Harvard 11.2 percent. Kellogg admitted 28.1 percent.",
+  "Leland MBA customers are admitted to M7 programs at 3x the national average."
 ]/*NARRATION-END*/;
 /* ============ RECORDED VOICE (optional) ============
    Browser speech differs on every device and cannot go into the MP4s. To use a recorded or licensed voice instead,
@@ -20,7 +21,7 @@ const NARRATION = /*NARRATION-START*/[
 const RECORDED = {};
 const MUSIC = 'music.mp3';            /* Leland film music ("Community outcomes"), copied here by build.py */
 const MUSIC_LEVEL = 0.55, DUCK = 0.25; /* music volume, and the share of it left while the narrator is speaking */
-const SLIDES = 6, LIVE = [1];          /* slide 1 is an animation and restarts when it comes into view */
+const SLIDES = 7, LIVE = [1, 7];       /* slides 1 and 7 are animations and restart when they come into view */
 </script>
 <style>
   @font-face{font-family:'Macan';src:url('../../../fonts/Macan-Book-Q.woff2') format('woff2');font-weight:400}
@@ -57,7 +58,7 @@ const SLIDES = 6, LIVE = [1];          /* slide 1 is an animation and restarts w
 </style></head>
 <body>
 <main id="app">
-  <div id="stage" role="region" aria-roledescription="carousel" aria-label="What does it take to get an MBA, six slides">
+  <div id="stage" role="region" aria-roledescription="carousel" aria-label="What does it take to get an MBA, seven slides">
     <div id="track"></div>
     <button id="snd" aria-pressed="false" aria-label="Sound: music and narration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor" stroke="none"/><g class="wave"><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></g><path class="mute" d="M16.5 9.5l5 5m0-5l-5 5"/></svg></button>
     <button id="leoBtn" aria-label="Leo, the narrator. Replay this slide's narration"><svg id="leo"></svg></button>
@@ -66,7 +67,7 @@ const SLIDES = 6, LIVE = [1];          /* slide 1 is an animation and restarts w
   <nav id="dots" aria-label="Slides"></nav>
   <div id="files">
     <a href="carousel.pdf" download>PDF</a><a href="mba-carousel.zip" download>Zip of everything</a>
-    <a href="slide-1.mp4" download>Slide 1 video</a><a href="slide-1.gif" download>Slide 1 GIF</a>
+    <a href="slide-1.mp4" download>Slide 1 video</a><a href="slide-1.gif" download>Slide 1 GIF</a><a href="slide-7.mp4" download>Slide 7 video</a>
   </div>
 </main>
 <audio id="musicA" src="music.mp3" preload="none"></audio><audio id="musicB" src="music.mp3" preload="none"></audio>

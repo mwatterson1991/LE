@@ -1,6 +1,6 @@
 # MBA carousel: "What does it take to get an MBA?"
 
-Six 1080×1350 slides rendered from the HTML in this folder, plus the swipeable viewer one level up (`../index.html`). The system is copied from `../../admin-spend/`. Every number is read from `facts.json` (through `data.js`, a straight copy that `build.py` writes so the pages also open from disk); `facts.json` is transcribed from `docs/research/viral-mba.md`, and `verify.py` re-reads that file's tables to check the transcription. Nothing is typed in by hand except the headlines and the narration lines.
+Seven 1080×1350 slides rendered from the HTML in this folder, plus the swipeable viewer one level up (`../index.html`). The system is copied from `../../admin-spend/`. Every number is read from `facts.json` (through `data.js`, a straight copy that `build.py` writes so the pages also open from disk); `facts.json` is transcribed from `docs/research/viral-mba.md`, and `verify.py` re-reads that file's tables to check the transcription. Nothing is typed in by hand except the headlines and the narration lines.
 
 | file | what it is |
 |---|---|
@@ -9,7 +9,9 @@ Six 1080×1350 slides rendered from the HTML in this folder, plus the swipeable 
 | `slide-3.html` | GPA by school, a point per school on one axis |
 | `slide-4.html` | average years of work experience, bars from zero; Harvard's middle 80% as a line |
 | `slide-5.html` | essays and recommendations asked for, one square per piece; an outlined square is a recommendation dropped this cycle |
-| `slide-6.html` | acceptance rate, Class of 2027, ranked bars with applications and enrolled; the Leland lockup bottom right |
+| `slide-6.html` | acceptance rate, Class of 2027, ranked bars with applications and enrolled |
+| `slide-7.html` | the Leland end slide: only the line is set here; the slide itself is `../../_shared/end-slide.js` and `.css`, shared by every post |
+| `slide-table.html` | table versions of slides 2, 3, 4 and 6 (`?m=gmat`, `gpa`, `work`, `admit`), rendered as `slide-N-table.png` |
 | `facts.json` | the numbers, and `hold`: figures the research file asks to confirm before publishing, which the slides leave off |
 | `base.css`, `base.js` | fonts, colours, the green scale for figures, helpers, and the messages a slide exchanges with the viewer |
 | `data.js`, `vendor/`, `logos/` | written by `build.py`: the facts copy, unchanged copies of `assets/brand/mark.svg`, `assets/brand/logo.svg`, `assets/leo/leo.js`, and trimmed school marks (`prep_logos.py`) |

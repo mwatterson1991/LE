@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Table versions of the chart slides (slide-table.html?m=gmat | gpa | work | admit)</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .row{position:absolute;left:var(--m);width:920px;height:112px}
+  .row .rank{position:absolute;left:0;top:20px}
+  .row .logo,.row .ph{position:absolute;left:0;top:22px}
+  .row .name{position:absolute;left:78px;top:22px;font-size:30px;line-height:1}
+  .row .sub{position:absolute;left:78px;top:62px}
+  .row .val{position:absolute;right:0;top:30px;font-size:40px;line-height:1}
+  .row .n{position:absolute;top:36px;font-size:26px;line-height:1;text-align:right;width:140px}
+  .row .line{position:absolute;left:0;right:0;bottom:0;height:2px}
+  .row.rk .logo,.row.rk .ph{left:72px}.row.rk .name{left:148px;top:40px}
+</style></head>
+<body>
+<h1 id="h"></h1>
+<div class="chart" id="c"></div>
+<p class="src" id="src"></p>
+<script src="data.js"></script>
+<script src="base.js"></script>
+<script>
+/* The same figures as the chart slide, as a plain ranked table: mark, school, whether the figure is a median or an average, the figure.
+   Used by the Graph / Table switch in the phone demo. Headlines and source lines are the chart slides' own. */
+const M = new URLSearchParams(location.search).get('m') || 'gmat';
+const desc = (a, b) => b.v - a.v || ORDER.indexOf(a.k) - ORDER.indexOf(b.k);
+const T = {
+  gmat: { h: 'The GMAT Focus scores of<br>the <em>latest MBA classes</em>', hd: 'GMAT Focus', keys: () => ORDER.filter(k => !held(k + '.gmat_focus')), v: k => S[k].gmat_focus.value, show: k => String(S[k].gmat_focus.value), key: k => k + '.gmat_focus',
+    sub: k => S[k].gmat_focus.stat + (S[k].gmat_focus.mid80 ? `, middle 80%: <span data-k="${k}.gmat_focus.mid80">${S[k].gmat_focus.mid80.join('–')}</span>` : ''), sort: desc,
+    src: () => F.sources.profiles + ` GMAT Focus scale: ${F.gmat_focus_scale.join('–')}.` + (held('booth.gmat_focus') ? ' Chicago Booth is not shown.' : '') },
+  gpa: { h: 'The GPAs of the<br><em>latest MBA classes</em>', hd: 'GPA', keys: () => ORDER.slice(), v: k => +S[k].gpa.value, show: k => S[k].gpa.value, key: k => k + '.gpa',
+    sub: k => S[k].gpa.stat + (S[k].gpa.range ? `, range <span data-k="${k}.gpa.range">${S[k].gpa.range.join('–')}</span>` : ''), sort: desc, src: () => F.sources.profiles },
+  work: { h: 'The <em>work experience</em> of<br>the latest MBA classes', hd: 'Years', keys: () => ORDER.filter(k => !held(k + '.work')), v: k => +S[k].work.value, show: k => S[k].work.value, key: k => k + '.work',
+    sub: k => S[k].work.stat + (S[k].work.mid80 ? `, middle 80%: <span data-k="${k}.work.mid80">${S[k].work.mid80.join('–')}</span> years` : ''), sort: desc,
+    src: () => F.sources.profiles + (held('booth.work') ? ' Chicago Booth is not shown.' : '') },
+  admit: { h: 'The <em>acceptance rates</em> for<br>the MBA Class of 2027', hd: 'Admitted', keys: () => ORDER.slice(), v: k => +S[k].admit.rate, show: k => S[k].admit.rate + '%', key: k => k + '.admit.rate', sub: null, sort: (a, b) => a.v - b.v, rank: true, src: () => F.sources.admit }
+}[M];
+const TOP = 372, ROW = 112, AP = 620, EN = 770;
+(async () => {
+  lelandMark(); document.getElementById('h').innerHTML = T.h; document.body.dataset.m = M;
+  const c = document.getElementById('c'), rowsD = T.keys().map(k => ({ k, v: T.v(k) })).sort(T.sort), G = scaleT(rowsD.map(r => r.v));
+  put(c, 'div', 'hd', T.hd, { right: 80, top: TOP - 32 }); put(c, 'div', 'hair', '', { left: 80, top: TOP - 2, width: 920, height: 2 });
+  if (T.rank) { put(c, 'div', 'hd', 'Applications', { right: 1080 - AP, top: TOP - 32 }); put(c, 'div', 'hd', 'Enrolled', { right: 1080 - EN, top: TOP - 32 }); }
+  const rows = rowsD.map(({ k, v }, i) => {
+    const r = put(c, 'div', 'row' + (T.rank ? ' rk' : ''), '', { top: TOP + i * ROW }); r.dataset.school = k;
+    if (T.rank) r.appendChild(el('div', 'rank', String(i + 1)));
+    r.appendChild(logoEl(k)); r.appendChild(el('div', 'name', S[k].name)); if (T.sub) r.appendChild(el('div', 'sub', T.sub(k)));
+    if (T.rank) { const a = S[k].admit; [['applications', AP], ['enrolled', EN]].forEach(([f, x]) => { const n = el('div', 'fig n', commas(a[f])); n.style.right = (1000 - x) + 'px'; n.dataset.k = `${k}.admit.${f}`; r.appendChild(n); }); }
+    const t = el('div', 'val', T.show(k)); t.style.color = greenText(G(v)); t.dataset.k = T.key(k); r.appendChild(t);
+    r.appendChild(el('div', 'line hair')); return r;
+  });
+  document.getElementById('src').textContent = T.src();
+  isolate(rows);
+  await ready();
+})();
+</script>
+</body></html>

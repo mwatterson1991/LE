@@ -7,7 +7,7 @@ The post is seven slides, 1080 x 1350 each:
   4  MIT over time
   5  Rochester, eighth to third
   6  administration against student services
-  7  Leland (moving)
+  7  Leland (moving; black, the end slide every post shares)
 
 carousel.pdf       All seven slides, one per page. Slides 1 and 7 are their final frames.
 slide-1.mp4        Slide 1 as a looping video with music (about 13 seconds).
@@ -16,7 +16,9 @@ slide-1.png        Slide 1's final frame (fiscal 2024), for platforms that need 
 slide-2.png to slide-6.png   The five still slides.
 slide-7.mp4        The Leland slide as a short video with music (logo animation, then the line).
 slide-7.png        The Leland slide's final frame.
-slide-1-list.mp4   The earlier version of slide 1 (the list re-ordering year by year, no sound). Not part of the sequence.
+slide-1-list.mp4   Slide 1 as a table: the ranked list re-ordering year by year, with the year marked on a track (no sound).
+                   The "Table" side of the Graph / Table switch in the phone demo. Use it in place of slide-1.mp4 if preferred.
+slide-2-graph.png  Slide 2 as a bar chart (the "Graph" side of the switch). slide-2.png is the table.
 narration.txt      What the narrator says on each slide in the interactive version.
 
 Where to post what

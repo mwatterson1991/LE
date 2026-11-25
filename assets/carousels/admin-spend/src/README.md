@@ -7,7 +7,8 @@ Seven 1080×1350 slides rendered from the HTML in this folder, plus the swipeabl
 | `slide-1.html` | the chart over time, FY 2017 to FY 2024: lines draw left to right, each school's logomark rides the tip (video + final still; scrubbable in the viewer) |
 | `slide-2.html` | the FY 2024 ranking (still). With `?anim` it is the earlier re-ordering list, rendered as `slide-1-list.mp4` |
 | `slide-3.html` … `slide-6.html` | Stanford's expenses, MIT over time, Rochester's move, administration against student services |
-| `slide-7.html` | the Leland lockup animation (from `js/mark.js`) and the closing line (video + final still) |
+| `slide-2-graph.html` | slide 2 as a bar chart (`slide-2-graph.png`), the Graph side of the Graph / Table switch in the phone demo |
+| `slide-7.html` | the Leland end slide: only the line is set here; the slide itself is `../../_shared/end-slide.js` and `.css`, shared by every post |
 | `base.css`, `base.js` | fonts, colours, the green scale for money figures, helpers, and the messages a slide exchanges with the viewer |
 | `data.js`, `vendor/`, `logos/` | written by `build.py`: the data copy, unchanged copies of `js/mark.js`, `assets/brand/mark.svg`, `assets/leo/leo.js`, and trimmed school marks (`prep_logos.py`) |
 | `build.py` | renders everything into the folder above |
@@ -31,7 +32,7 @@ From this folder:
 
 ## Editing
 
-- Headlines: the `<h1>` in each slide; `<em>` marks the one blue phrase. Slide 7's line is the `LINE` constant, with `[brackets]` for the blue phrase.
+- Headlines: the `<h1>` in each slide; `<em>` marks the one blue phrase. Slide 7's line is `window.END_LINE` in `slide-7.html`, with `[brackets]` for the accent phrase.
 - Narration: the `NARRATION` list at the top of `../index.html` (`narration.txt` is a copy). A recorded voice goes in `../narration/` and is listed in `RECORDED` just below it.
 - Music: `MUSIC` near the top of `build.py` (copied to `../music.mp3`).
 - Slide 1 timing: `HOLD0`, `PER`, `SETTLE`, `HOLD1`, `RESET` at the top of its script.
