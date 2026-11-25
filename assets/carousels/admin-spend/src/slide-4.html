@@ -1,44 +1,53 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Slide 4: Rochester, eighth to third</title>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 4: MIT over time</title>
 <link rel="stylesheet" href="base.css">
 <style>
   svg{position:absolute;left:0;top:0;width:1080px;height:1350px}
-  .col{position:absolute;top:366px;font-family:var(--helv);font-size:26px;line-height:32px;color:var(--grey);font-variant-numeric:tabular-nums}
-  .it{position:absolute;height:56px;display:flex;align-items:center}
-  .it .rank{flex:none}.it .logo,.it .ph{flex:none;margin-left:14px}
-  .it .name{font-size:30px;margin-left:16px}
-  .it.r{left:500px;right:var(--m)}.it.r .val{margin-left:auto;font-size:32px}
-  .it.l{left:var(--m)}
-  .lv{position:absolute;font-size:32px;line-height:56px}
-  .dim .name{color:var(--slate)}
+  .ax{font-family:var(--helv);font-size:22px;fill:var(--grey);font-variant-numeric:tabular-nums}
+  .pt{position:absolute;white-space:nowrap;background:#fff}
+  .pt .yr{display:block;font-family:var(--helv);font-size:26px;line-height:32px;color:var(--grey);font-variant-numeric:tabular-nums}
+  .pt .val{display:block;font-size:34px;line-height:40px}
 </style></head>
 <body>
 <span id="subj"></span>
-<h1 class="under">Rochester rose <em>from eighth to third</em> in one year</h1>
-<div class="col" style="left:80px">FY 2023</div><div class="col" style="left:500px">FY 2024</div>
+<h1 class="under">MIT’s administration<br>spending per student<br><em>fell 54%</em> in three years</h1>
 <svg id="svg" viewBox="0 0 1080 1350"></svg>
-<div id="items"></div>
-<p class="src">Source: NCES IPEDS Finance. Institutional support expenses per full-time-equivalent student. Fiscal years 2023 and 2024.</p>
+<div id="pts"></div>
+<p class="src">Source: NCES IPEDS Finance. Institutional support expenses per full-time-equivalent student. MIT, fiscal years 2011 to 2024.</p>
+<script src="data.js"></script>
 <script src="base.js"></script>
 <script>
-const SHORT = { stanford: 'Stanford', harvard: 'Harvard', mit: 'MIT', usc: 'USC', jhu: 'Johns Hopkins', uchicago: 'Chicago', vanderbilt: 'Vanderbilt', rochester: 'Rochester', duke: 'Duke', miami: 'Miami', nyu: 'NYU', national: 'National', yale: 'Yale' };
 (async () => {
   lelandMark();
-  const S = await loadData(), A = ranking(S, 2023).slice(0, 10), B = ranking(S, 2024).slice(0, 10);
-  document.getElementById('subj').replaceWith(logoEl('rochester', 'subject'));
-  const TOP = 418, STEP = 78, yc = i => TOP + i * STEP + 28, I = document.getElementById('items');
+  const S = await loadData(), Y = S.mit.years;
+  document.getElementById('subj').replaceWith(logoEl('mit', 'subject'));
+  const X0 = 96, X1 = 984, YB = 1150, YT = 590, MAX = 60000;       /* plot box; the axis runs from $0 to $60,000 */
+  const x = y => X0 + (y - Y0) / (Y1 - Y0) * (X1 - X0), yv = v => YB - v / MAX * (YB - YT);
   const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('svg');
-  const LX = 220, RX = 484;
-  /* lines first: grey for every school in both lists, ink for Rochester */
-  A.forEach((k, i) => { const j = B.indexOf(k); if (j < 0 || k === 'rochester') return; const l = document.createElementNS(NS, 'line'); l.setAttribute('x1', LX); l.setAttribute('x2', RX); l.setAttribute('y1', yc(i)); l.setAttribute('y2', yc(j)); l.setAttribute('stroke', GREY_BAR); l.setAttribute('stroke-width', 3); l.setAttribute('stroke-linecap', 'butt'); svg.appendChild(l); });
-  { const i = A.indexOf('rochester'), j = B.indexOf('rochester'), l = document.createElementNS(NS, 'line'); l.setAttribute('x1', LX); l.setAttribute('x2', RX); l.setAttribute('y1', yc(i)); l.setAttribute('y2', yc(j)); l.setAttribute('stroke', INK_BAR); l.setAttribute('stroke-width', 8); l.setAttribute('stroke-linecap', 'butt'); svg.appendChild(l); }
-  A.forEach((k, i) => { const d = el('div', 'it l'); d.style.top = (TOP + i * STEP) + 'px'; d.appendChild(el('div', 'rank', String(i + 1))); d.appendChild(logoEl(k)); I.appendChild(d); });
-  B.forEach((k, j) => {
-    const v = S[k].years[2024].per_student, d = el('div', 'it r' + (k === 'rochester' ? '' : ' dim')); d.style.top = (TOP + j * STEP) + 'px';
-    d.appendChild(el('div', 'rank', String(j + 1))); d.appendChild(logoEl(k)); d.appendChild(el('div', 'name', SHORT[k] || S[k].name));
-    const s = el('div', 'val', usd(v)); s.style.color = greenText(psT(v)); s.dataset.k = `${k}.2024.per_student`; d.appendChild(s); I.appendChild(d);
+  const add = (tag, at, txt) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svg.appendChild(e); return e; };
+  [0, 20000, 40000, 60000].forEach(g => { add('line', { x1: 80, x2: 1000, y1: yv(g), y2: yv(g), stroke: '#ECECED', 'stroke-width': 2 }); add('text', { x: 80, y: yv(g) - 10, class: 'ax' }, usd(g)); });
+  [2011, 2016, 2021, 2024].forEach(y => add('text', { x: x(y), y: YB + 36, class: 'ax', 'text-anchor': y === 2011 ? 'start' : y === 2024 ? 'end' : 'middle', dx: y === 2011 ? -16 : y === 2024 ? 16 : 0 }, 'FY ' + y));
+  const ys = []; for (let y = Y0; y <= Y1; y++) ys.push(y);
+  /* the line and its square markers are ink; only the dollar labels are green */
+  add('polyline', { points: ys.map(y => x(y).toFixed(1) + ',' + yv(Y[y].per_student).toFixed(1)).join(' '), fill: 'none', stroke: INK_BAR, 'stroke-width': 6, 'stroke-linecap': 'butt', 'stroke-linejoin': 'miter' });
+  ys.forEach(y => { const v = Y[y].per_student; add('rect', { x: x(y) - 8, y: yv(v) - 8, width: 16, height: 16, fill: INK_BAR }); });
+  const peak = ys.reduce((m, y) => Y[y].per_student > Y[m].per_student ? y : m, Y0);
+  const P = document.getElementById('pts');
+  [[Y0, 'l', -92], [peak, 'c', -98], [Y1, 'r', 22]].forEach(([y, al, dy]) => {
+    const v = Y[y].per_student, d = el('div', 'pt');
+    d.appendChild(el('span', 'yr', 'FY ' + y)); const s = el('span', 'val', usd(v)); s.style.color = greenText(psT(v)); s.dataset.k = `mit.${y}.per_student`; d.appendChild(s);
+    d.style.top = (yv(v) + dy) + 'px';
+    if (al === 'l') d.style.left = '80px'; else if (al === 'r') { d.style.right = '80px'; d.style.textAlign = 'right'; } else { d.style.left = x(y) + 'px'; d.style.transform = 'translateX(-50%)'; d.style.textAlign = 'center'; }
+    P.appendChild(d);
   });
-  window.CHECK = { A, B };
+  /* point at a year to read its figure */
+  const tipEl = el('div', 'pt'); tipEl.style.display = 'none'; tipEl.style.transform = 'translateX(-50%)'; tipEl.style.textAlign = 'center'; tipEl.style.padding = '0 8px'; tipEl.style.pointerEvents = 'none'; P.appendChild(tipEl);
+  const showYear = y => { if (y == null) { tipEl.style.display = 'none'; [...P.children].forEach(c => c.style.opacity = 1); return; } const v = Y[y].per_student; tipEl.innerHTML = ''; tipEl.appendChild(el('span', 'yr', 'FY ' + y)); const s = el('span', 'val', usd(v)); s.style.color = greenText(psT(v)); tipEl.appendChild(s);
+    tipEl.style.display = ''; tipEl.style.left = Math.max(150, Math.min(930, x(y))) + 'px'; tipEl.style.top = (yv(v) - 98) + 'px'; [...P.children].forEach(c => c.style.opacity = c === tipEl ? 1 : .15); };
+  ys.forEach(y => { const h = el('div'); h.dataset.tap = y; h.style.cssText = `position:absolute;left:${x(y) - 34}px;top:${YT - 40}px;width:68px;height:${YB - YT + 80}px;cursor:pointer`;
+    h.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') showYear(y); }); h.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') showYear(null); });
+    h.addEventListener('click', () => { if (matchMedia('(hover: none)').matches) showYear(h.dataset.on ? null : y), h.dataset.on = h.dataset.on ? '' : '1'; }); document.body.appendChild(h); });
+  window.clearIso = () => showYear(null); window.showYear = showYear;
   await ready();
 })();
 </script>

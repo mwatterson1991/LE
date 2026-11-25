@@ -1,0 +1,23 @@
+Narration, one entry per slide. This is a copy: to change what is spoken, edit the NARRATION list at the top of index.html.
+
+Slide 1
+From fiscal 2017 to 2024, here is how much each college spent on administration for every full-time-equivalent student. Stanford ends on top at 48,755 dollars.
+
+Slide 2
+In fiscal 2024, Stanford spent 48,755 dollars per student on administration. Harvard was second at 40,422 dollars, and Rochester third at 34,483 dollars.
+
+Slide 3
+Stanford's expenses came to 8.4 billion dollars in fiscal 2024. Administration was 921 million dollars of that, about 11 percent.
+
+Slide 4
+MIT's figure peaked at 59,581 dollars per student in fiscal 2021. Three years later it was 27,327 dollars, 54 percent lower.
+
+Slide 5
+Rochester went from 23,023 dollars per student in fiscal 2023 to 34,483 dollars in fiscal 2024. That moved it from eighth to third.
+
+Slide 6
+Each of the top five spent more per student on administration than on student services. At Harvard it was 40,422 dollars against 8,765 dollars.
+
+Slide 7
+Leland MBA customers are admitted to M7 programs at 3x the national average.
+

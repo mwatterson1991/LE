@@ -1,23 +1,42 @@
 Admin-spend carousel: what each file is for
 
-carousel.pdf      All six slides, one per page, 1080 x 1350. Slides 1 and 6 are their final frames.
-slide-1.mp4       Slide 1 as a looping video (about 13 seconds): the ranking moving from fiscal 2017 to fiscal 2024.
-slide-1.gif       The same loop as a GIF, for places that do not play video inline.
-slide-1.png       Slide 1's final frame (fiscal 2024), for platforms that need an image.
-slide-2.png to slide-5.png   The four breakdown slides.
-slide-6.mp4       The Leland slide as a short video (logo animation, then the line).
-slide-6.png       The Leland slide's final frame.
+The post is seven slides, 1080 x 1350 each:
+  1  the chart over time, fiscal 2017 to 2024 (moving)
+  2  the fiscal 2024 ranking
+  3  Stanford: where the money goes
+  4  MIT over time
+  5  Rochester, eighth to third
+  6  administration against student services
+  7  Leland (moving)
+
+carousel.pdf       All seven slides, one per page. Slides 1 and 7 are their final frames.
+slide-1.mp4        Slide 1 as a looping video with music (about 13 seconds).
+slide-1.gif        The same loop as a GIF (no sound), for places that do not play video inline.
+slide-1.png        Slide 1's final frame (fiscal 2024), for platforms that need an image.
+slide-2.png to slide-6.png   The five still slides.
+slide-7.mp4        The Leland slide as a short video with music (logo animation, then the line).
+slide-7.png        The Leland slide's final frame.
+slide-1-list.mp4   The earlier version of slide 1 (the list re-ordering year by year, no sound). Not part of the sequence.
+narration.txt      What the narrator says on each slide in the interactive version.
 
 Where to post what
-Instagram   slide-1.mp4 first, then slide-2.png to slide-5.png, then slide-6.mp4 (or slide-6.png).
+Instagram   slide-1.mp4 first, then slide-2.png to slide-6.png, then slide-7.mp4 (or slide-7.png).
+            Trending music is added inside Instagram when posting; mute the built-in track there if you use one.
 LinkedIn    carousel.pdf as a document post.
 Slack       Drop in slide-1.gif or slide-1.mp4, plus carousel.pdf.
 
+The interactive version (index.html, online or in the full folder, not in this zip) is swipeable, has a sound control,
+and a narrator. The narrator there uses the device's own speech voice, which differs from device to device and is not in
+the MP4s. A posted video with narration needs a recorded or licensed voice.
+
+Music
+"Community outcomes", from Leland's own film music (assets/audio/community-outcomes-v4-preview.mp3).
+
 Data source
 NCES IPEDS Finance. Institutional support expenses divided by reported 12-month full-time-equivalent enrollment.
-Slide 1 covers fiscal years 2017 to 2024. Slide 2 is Stanford's total expenses by function, fiscal 2024.
+Slides 1 and 2 cover fiscal years 2017 to 2024. Slide 3 is Stanford's total expenses by function, fiscal 2024.
 
 Before posting publicly
-Slide 6's statistic ("Leland MBA customers are admitted to M7 programs at 3x the national average") is Leland's own
+Slide 7's statistic ("Leland MBA customers are admitted to M7 programs at 3x the national average") is Leland's own
 internal figure and needs sign-off before it is posted publicly.
-The headlines on slides 1 to 5 are plain factual labels and can be replaced.
+The headlines on slides 1 to 6 are plain factual labels and can be replaced.

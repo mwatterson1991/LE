@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the admin-spend carousel. Usage: python3 build.py [stills] [v1] [v6] [sheets] [pack]  (no args = everything)
+"""Rebuild the admin-spend carousel. Usage: python3 build.py [stills] [v1] [list] [v7] [sheets] [pack]  (no args = everything)
 Serves the repo root on a free port, renders each slide's HTML with Playwright, encodes video with ffmpeg."""
 import sys, os, subprocess, socket, time, shutil, tempfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -28,29 +28,56 @@ def page(b, base, n, q=''):
 
 def shot(pg, path): pg.screenshot(path=path, clip={'x': 0, 'y': 0, 'width': W, 'height': H})
 
-def video(b, base, n):
-    d = os.path.join(WORK, f'frames{n}'); shutil.rmtree(d, ignore_errors=True); os.makedirs(d)
-    pg = page(b, base, n); dur = pg.evaluate('window.DURATION'); nf = int(round(dur * FPS))
+MUSIC = 'assets/audio/community-outcomes-v4-preview.mp3'   # Leland's own film music; see ../README.txt for why this one
+
+def prepare():
+    """Everything the pages need that lives elsewhere in the repo is copied in, unchanged, so the folder works on its own (from disk and on Pages)."""
+    import json, prep_logos
+    d = json.load(open(f'{REPO}/data/lists/ipeds-admin-spend.json'))
+    logo = open(f'{REPO}/assets/brand/logo.svg').read()
+    with open(f'{SRC}/data.js', 'w') as f:
+        f.write('/* Written by build.py: a straight copy of data/lists/ipeds-admin-spend.json (and the lockup svg), so the slides open from disk. Do not edit. */\n')
+        f.write('window.IPEDS = ' + json.dumps(d, separators=(',', ':')) + ';\n'); f.write('window.LELAND_LOGO_SVG = ' + json.dumps(logo) + ';\n')
+    os.makedirs(f'{SRC}/vendor', exist_ok=True)
+    for a, b in [('js/mark.js', 'mark.js'), ('assets/brand/mark.svg', 'mark.svg'), ('assets/leo/leo.js', 'leo.js')]: shutil.copyfile(f'{REPO}/{a}', f'{SRC}/vendor/{b}')
+    shutil.copyfile(f'{REPO}/{MUSIC}', f'{OUT}/music.mp3')
+    # narration.txt is a readable copy of the NARRATION array at the top of ../index.html (edit the array, not the copy)
+    html = open(f'{OUT}/index.html').read(); lines = json.loads(html.split('/*NARRATION-START*/')[1].split('/*NARRATION-END*/')[0])
+    with open(f'{OUT}/narration.txt', 'w') as f:
+        f.write('Narration, one entry per slide. This is a copy: to change what is spoken, edit the NARRATION list at the top of index.html.\n\n')
+        for i, l in enumerate(lines): f.write(f'Slide {i + 1}\n{l}\n\n')
+    print(len(prep_logos.run()), 'logomarks trimmed; data.js, vendor/ and music.mp3 refreshed')
+
+def video(b, base, n, q='', name=None, still=True, film=False, gif=True, sound=False):
+    name = name or f'slide-{n}'
+    d = os.path.join(WORK, f'frames-{name}'); shutil.rmtree(d, ignore_errors=True); os.makedirs(d)
+    pg = page(b, base, n, q); dur = pg.evaluate('window.DURATION'); nf = int(round(dur * FPS))
     for i in range(nf):
         pg.evaluate(f'window.seek({i / FPS})'); shot(pg, f'{d}/f{i:04d}.png')
-    pg.evaluate('window.seek(window.FINAL)'); pg.wait_for_timeout(50); shot(pg, f'{OUT}/slide-{n}.png')
+    if still: pg.evaluate('window.seek(window.FINAL)'); pg.wait_for_timeout(50); shot(pg, f'{OUT}/{name}.png')
     missing = pg.evaluate("[...document.querySelectorAll('[data-missing]')].map(e=>e.dataset.missing)")
-    if n == 1:   # filmstrip: 8 evenly spaced frames across the travel
-        fr = []
+    if film:   # filmstrip: one frame per fiscal year, FY 2017..2024, the last one settled with its rank circles
+        fr = []; a, z, per = pg.evaluate('window.TRAVEL')
         for j in range(8):
-            a, z, per = pg.evaluate('window.TRAVEL')   # one frame per year, FY 2017..2024: the first and last settled, the six between caught early in the move into that year
-            t = a if j == 0 else z + 1 if j == 7 else a + (j - 1) * per + 0.22 * per
-            pg.evaluate(f'window.seek({t})'); p = f'{WORK}/film{j}.png'; shot(pg, p); fr.append(p)
+            pg.evaluate(f'window.seek(window.FINAL)' if j == 7 else f'window.scrubYear({j})'); p = f'{WORK}/film{j}.png'; shot(pg, p); fr.append(p)
         sheet(fr, f'{OUT}/film.png', 4, 540)
     pg.close()
-    mp4 = f'{OUT}/slide-{n}.mp4'
+    mp4 = f'{OUT}/{name}.mp4'; silent = f'{WORK}/{name}-silent.mp4' if sound else mp4
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', f'{d}/f%04d.png', '-c:v', 'libx264', '-pix_fmt', 'yuv420p',
-                    '-crf', '18', '-preset', 'slow', '-movflags', '+faststart', mp4], check=True)
-    gif, pal = f'{OUT}/slide-{n}.gif', f'{WORK}/pal{n}.png'
-    vf = 'fps=15,scale=720:-1:flags=lanczos'
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', f'{d}/f%04d.png', '-vf', f'{vf},palettegen=max_colors=128:stats_mode=diff', pal], check=True)
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', f'{d}/f%04d.png', '-i', pal, '-lavfi', f'{vf} [x]; [x][1:v] paletteuse=dither=none:diff_mode=rectangle', '-loop', '0', gif], check=True)
-    print(f'slide-{n}: {nf} frames, {dur:.2f}s, mp4 {os.path.getsize(mp4)/1e6:.2f}MB, gif {os.path.getsize(gif)/1e6:.2f}MB, missing logomarks: {missing}')
+                    '-crf', '18', '-preset', 'slow', '-movflags', '+faststart', silent], check=True)
+    if sound:   # the music bed: faded in and out, levelled to about -16 LUFS
+        fo = max(0.8, min(1.5, dur * 0.15))
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', silent, '-i', f'{REPO}/{MUSIC}', '-map', '0:v', '-map', '1:a', '-t', f'{dur:.3f}',
+                        '-af', f'atrim=0:{dur:.3f},loudnorm=I=-16:TP=-1.5:LRA=11,afade=t=in:d=0.4,afade=t=out:st={dur - fo:.3f}:d={fo:.3f}',
+                        '-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', mp4], check=True)
+    msg = f'{name}: {nf} frames, {dur:.2f}s, mp4 {os.path.getsize(mp4)/1e6:.2f}MB'
+    if gif:
+        g, pal = f'{OUT}/{name}.gif', f'{WORK}/pal-{name}.png'
+        vf = 'fps=15,scale=720:-1:flags=lanczos'
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', f'{d}/f%04d.png', '-vf', f'{vf},palettegen=max_colors=128:stats_mode=diff', pal], check=True)
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', f'{d}/f%04d.png', '-i', pal, '-lavfi', f'{vf} [x]; [x][1:v] paletteuse=dither=none:diff_mode=rectangle', '-loop', '0', g], check=True)
+        msg += f', gif {os.path.getsize(g)/1e6:.2f}MB'
+    print(msg + f', missing logomarks: {missing}')
 
 def sheet(paths, out, cols, w):
     h = round(w * H / W); rows = (len(paths) + cols - 1) // cols; g = 12
@@ -59,31 +86,33 @@ def sheet(paths, out, cols, w):
         im.paste(Image.open(p).convert('RGB').resize((w, h), Image.LANCZOS), (g + (i % cols) * (w + g), g + (i // cols) * (h + g)))
     im.save(out)
 
+N = 7
+PACK = ['carousel.pdf', 'slide-1.mp4', 'slide-7.mp4', 'slide-1.gif'] + [f'slide-{n}.png' for n in range(1, N + 1)] + ['slide-1-list.mp4', 'narration.txt', 'README.txt']
 def pack():
-    # carousel.pdf: six pages, 1080x1350 points each (72 dpi), then the zip for handing off
+    # carousel.pdf: seven pages, 1080x1350 points each (72 dpi), then the zip for handing off
     import zipfile
-    ims = [Image.open(f'{OUT}/slide-{n}.png').convert('RGB') for n in range(1, 7)]
+    ims = [Image.open(f'{OUT}/slide-{n}.png').convert('RGB') for n in range(1, N + 1)]
     ims[0].save(f'{OUT}/carousel.pdf', save_all=True, append_images=ims[1:], resolution=72.0)
-    names = ['carousel.pdf', 'slide-1.mp4', 'slide-6.mp4', 'slide-1.gif'] + [f'slide-{n}.png' for n in range(1, 7)] + ['README.txt']
     with zipfile.ZipFile(f'{OUT}/admin-spend-carousel.zip', 'w', zipfile.ZIP_DEFLATED) as z:
-        for f in names: z.write(f'{OUT}/{f}', f'admin-spend-carousel/{f}')
+        for f in PACK: z.write(f'{OUT}/{f}', f'admin-spend-carousel/{f}')
     print('pack:', ', '.join(f'{f} {os.path.getsize(OUT + "/" + f) / 1e6:.2f}MB' for f in ['carousel.pdf', 'admin-spend-carousel.zip']))
 
 if __name__ == '__main__':
-    what = set(sys.argv[1:]) or {'stills', 'v1', 'v6', 'sheets', 'pack'}
-    import prep_logos; print(len(prep_logos.run()), 'logomarks trimmed')
+    what = set(sys.argv[1:]) or {'stills', 'v1', 'list', 'v7', 'sheets', 'pack'}
+    prepare()
     srv, base = serve()
     try:
         with sync_playwright() as pw:
             b = pw.chromium.launch()
             if 'stills' in what:
-                for n in (2, 3, 4, 5):
+                for n in (2, 3, 4, 5, 6):
                     pg = page(b, base, n); shot(pg, f'{OUT}/slide-{n}.png')
                     print(f'slide-{n}: missing logomarks:', pg.evaluate("[...document.querySelectorAll('[data-missing]')].map(e=>e.dataset.missing)")); pg.close()
-            if 'v1' in what: video(b, base, 1)
-            if 'v6' in what: video(b, base, 6)
+            if 'v1' in what: video(b, base, 1, film=True, sound=True)
+            if 'list' in what: video(b, base, 2, q='?anim', name='slide-1-list', still=False, gif=False)   # the earlier reordering list, kept outside the sequence
+            if 'v7' in what: video(b, base, 7, sound=True)
             b.close()
-        if 'sheets' in what: sheet([f'{OUT}/slide-{n}.png' for n in range(1, 7)], f'{OUT}/all.png', 6, 540)
+        if 'sheets' in what: sheet([f'{OUT}/slide-{n}.png' for n in range(1, N + 1)], f'{OUT}/all.png', 7, 540)
         if 'pack' in what: pack()
     finally:
         srv.terminate()
