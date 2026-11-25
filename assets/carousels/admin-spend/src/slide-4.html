@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 4: Rochester, eighth to third</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  svg{position:absolute;left:0;top:0;width:1080px;height:1350px}
+  .col{position:absolute;top:366px;font-family:var(--helv);font-size:26px;line-height:32px;color:var(--grey);font-variant-numeric:tabular-nums}
+  .it{position:absolute;height:56px;display:flex;align-items:center}
+  .it .rank{flex:none}.it .logo,.it .ph{flex:none;margin-left:14px}
+  .it .name{font-size:30px;margin-left:16px}
+  .it.r{left:500px;right:var(--m)}.it.r .val{margin-left:auto;font-size:32px}
+  .it.l{left:var(--m)}
+  .lv{position:absolute;font-size:32px;line-height:56px}
+  .dim .name{color:var(--slate)}
+</style></head>
+<body>
+<span id="subj"></span>
+<h1 class="under">Rochester rose <em>from eighth to third</em> in one year</h1>
+<div class="col" style="left:80px">FY 2023</div><div class="col" style="left:500px">FY 2024</div>
+<svg id="svg" viewBox="0 0 1080 1350"></svg>
+<div id="items"></div>
+<p class="src">Source: NCES IPEDS Finance. Institutional support expenses per full-time-equivalent student. Fiscal years 2023 and 2024.</p>
+<script src="base.js"></script>
+<script>
+const SHORT = { stanford: 'Stanford', harvard: 'Harvard', mit: 'MIT', usc: 'USC', jhu: 'Johns Hopkins', uchicago: 'Chicago', vanderbilt: 'Vanderbilt', rochester: 'Rochester', duke: 'Duke', miami: 'Miami', nyu: 'NYU', national: 'National', yale: 'Yale' };
+(async () => {
+  lelandMark();
+  const S = await loadData(), A = ranking(S, 2023).slice(0, 10), B = ranking(S, 2024).slice(0, 10);
+  document.getElementById('subj').replaceWith(logoEl('rochester', 'subject'));
+  const TOP = 418, STEP = 78, yc = i => TOP + i * STEP + 28, I = document.getElementById('items');
+  const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('svg');
+  const LX = 220, RX = 484;
+  /* lines first: grey for every school in both lists, green for Rochester */
+  A.forEach((k, i) => { const j = B.indexOf(k); if (j < 0 || k === 'rochester') return; const l = document.createElementNS(NS, 'line'); l.setAttribute('x1', LX); l.setAttribute('x2', RX); l.setAttribute('y1', yc(i)); l.setAttribute('y2', yc(j)); l.setAttribute('stroke', '#D9D9DC'); l.setAttribute('stroke-width', 3); l.setAttribute('stroke-linecap', 'round'); svg.appendChild(l); });
+  { const i = A.indexOf('rochester'), j = B.indexOf('rochester'), l = document.createElementNS(NS, 'line'); l.setAttribute('x1', LX); l.setAttribute('x2', RX); l.setAttribute('y1', yc(i)); l.setAttribute('y2', yc(j)); l.setAttribute('stroke', greenBar(psT(S.rochester.years[2024].per_student))); l.setAttribute('stroke-width', 8); l.setAttribute('stroke-linecap', 'round'); svg.appendChild(l); }
+  A.forEach((k, i) => { const d = el('div', 'it l'); d.style.top = (TOP + i * STEP) + 'px'; d.appendChild(el('div', 'rank', String(i + 1))); d.appendChild(logoEl(k)); I.appendChild(d); });
+  B.forEach((k, j) => {
+    const v = S[k].years[2024].per_student, d = el('div', 'it r' + (k === 'rochester' ? '' : ' dim')); d.style.top = (TOP + j * STEP) + 'px';
+    d.appendChild(el('div', 'rank', String(j + 1))); d.appendChild(logoEl(k)); d.appendChild(el('div', 'name', SHORT[k] || S[k].name));
+    const s = el('div', 'val', usd(v)); s.style.color = greenText(psT(v)); s.dataset.k = `${k}.2024.per_student`; d.appendChild(s); I.appendChild(d);
+  });
+  window.CHECK = { A, B };
+  await ready();
+})();
+</script>
+</body></html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 3: MIT over time</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  svg{position:absolute;left:0;top:0;width:1080px;height:1350px}
+  .ax{font-family:var(--helv);font-size:22px;fill:var(--grey);font-variant-numeric:tabular-nums}
+  .pt{position:absolute;white-space:nowrap;background:#fff}
+  .pt .yr{display:block;font-family:var(--helv);font-size:26px;line-height:32px;color:var(--grey);font-variant-numeric:tabular-nums}
+  .pt .val{display:block;font-size:34px;line-height:40px}
+</style></head>
+<body>
+<span id="subj"></span>
+<h1 class="under">MIT’s administration<br>spending per student<br><em>fell 54%</em> in three years</h1>
+<svg id="svg" viewBox="0 0 1080 1350"></svg>
+<div id="pts"></div>
+<p class="src">Source: NCES IPEDS Finance. Institutional support expenses per full-time-equivalent student. MIT, fiscal years 2011 to 2024.</p>
+<script src="base.js"></script>
+<script>
+(async () => {
+  lelandMark();
+  const S = await loadData(), Y = S.mit.years;
+  document.getElementById('subj').replaceWith(logoEl('mit', 'subject'));
+  const X0 = 96, X1 = 984, YB = 1150, YT = 590, MAX = 60000;       /* plot box; the axis runs from $0 to $60,000 */
+  const x = y => X0 + (y - Y0) / (Y1 - Y0) * (X1 - X0), yv = v => YB - v / MAX * (YB - YT);
+  const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('svg');
+  const add = (tag, at, txt) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; svg.appendChild(e); return e; };
+  [0, 20000, 40000, 60000].forEach(g => { add('line', { x1: 80, x2: 1000, y1: yv(g), y2: yv(g), stroke: '#ECECED', 'stroke-width': 2 }); add('text', { x: 80, y: yv(g) - 10, class: 'ax' }, usd(g)); });
+  [2011, 2016, 2021, 2024].forEach(y => add('text', { x: x(y), y: YB + 36, class: 'ax', 'text-anchor': y === 2011 ? 'start' : y === 2024 ? 'end' : 'middle', dx: y === 2011 ? -16 : y === 2024 ? 16 : 0 }, 'FY ' + y));
+  const ys = []; for (let y = Y0; y <= Y1; y++) ys.push(y);
+  /* each segment takes the green of the two values it joins; each dot the green of its own value */
+  for (let i = 0; i < ys.length - 1; i++) { const a = Y[ys[i]].per_student, b = Y[ys[i + 1]].per_student; add('line', { x1: x(ys[i]), y1: yv(a), x2: x(ys[i + 1]), y2: yv(b), stroke: greenBar(psT((a + b) / 2)), 'stroke-width': 7, 'stroke-linecap': 'round' }); }
+  ys.forEach(y => { const v = Y[y].per_student; add('circle', { cx: x(y), cy: yv(v), r: 11, fill: greenBar(psT(v)), stroke: '#fff', 'stroke-width': 4 }); });
+  const peak = ys.reduce((m, y) => Y[y].per_student > Y[m].per_student ? y : m, Y0);
+  const P = document.getElementById('pts');
+  [[Y0, 'l', -92], [peak, 'c', -98], [Y1, 'r', 22]].forEach(([y, al, dy]) => {
+    const v = Y[y].per_student, d = el('div', 'pt');
+    d.appendChild(el('span', 'yr', 'FY ' + y)); const s = el('span', 'val', usd(v)); s.style.color = greenText(psT(v)); s.dataset.k = `mit.${y}.per_student`; d.appendChild(s);
+    d.style.top = (yv(v) + dy) + 'px';
+    if (al === 'l') d.style.left = '80px'; else if (al === 'r') { d.style.right = '80px'; d.style.textAlign = 'right'; } else { d.style.left = x(y) + 'px'; d.style.transform = 'translateX(-50%)'; d.style.textAlign = 'center'; }
+    P.appendChild(d);
+  });
+  await ready();
+})();
+</script>
+</body></html>
