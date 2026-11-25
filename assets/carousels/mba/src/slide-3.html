@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 3: GPA by school</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .row{position:absolute;left:var(--m);width:920px;height:112px}
+  .row .logo,.row .ph{position:absolute;left:0;top:22px}
+  .row .name{position:absolute;left:78px;top:22px;font-size:30px;line-height:1}
+  .row .sub{position:absolute;left:78px;top:62px}
+  .row .val{position:absolute;right:0;top:30px;font-size:40px;line-height:1}
+  .row .line{position:absolute;left:0;right:0;bottom:0;height:2px}
+  .row .dot{position:absolute;top:36px;width:22px;height:22px;background:#0F0F10}
+</style></head>
+<body>
+<h1>The GPAs of the<br><em>latest MBA classes</em></h1>
+<div class="chart" id="c"></div>
+<p class="src" id="src"></p>
+<script src="data.js"></script>
+<script src="base.js"></script>
+<script>
+/* Rows, highest first (ties in the file's order). One shared axis, 3.5 to 3.9; a square marks each school's figure. */
+const TOP = 372, ROW = 112, AX0 = 440, AX1 = 820, LO = 3.5, HI = 3.9;
+const x = v => AX0 + (v - LO) / (HI - LO) * (AX1 - AX0);
+(async () => {
+  lelandMark();
+  const c = document.getElementById('c'), keys = ORDER.slice().sort((a, b) => +S[b].gpa.value - +S[a].gpa.value || ORDER.indexOf(a) - ORDER.indexOf(b)), T = scaleT(keys.map(k => +S[k].gpa.value));
+  for (let i = 0; i <= 4; i++) { const v = LO + i * .1; put(c, 'div', 'tick', v.toFixed(1), { left: x(v) - 30, top: TOP - 34, width: 60, textAlign: 'center' }).dataset.k = 'axis'; put(c, 'div', 'hair', '', { left: x(v) - 1, top: TOP, width: 2, height: ROW * keys.length }); }
+  put(c, 'div', 'hair', '', { left: 80, top: TOP - 2, width: 920, height: 2 });
+  const rows = keys.map((k, i) => {
+    const g = S[k].gpa, r = put(c, 'div', 'row', '', { top: TOP + i * ROW }); r.dataset.school = k;
+    r.appendChild(logoEl(k)); r.appendChild(el('div', 'name', S[k].name));
+    r.appendChild(el('div', 'sub', g.stat + (g.range ? `, range <span data-k="${k}.gpa.range">${g.range.join('–')}</span>` : '')));
+    const d = el('div', 'dot'); d.style.left = (x(+g.value) - 80 - 11) + 'px'; r.appendChild(d);
+    const v = el('div', 'val', g.value); v.style.color = greenText(T(+g.value)); v.dataset.k = k + '.gpa'; r.appendChild(v);
+    r.appendChild(el('div', 'line hair')); return r;
+  });
+  document.getElementById('src').textContent = F.sources.profiles;
+  isolate(rows);
+  await ready();
+})();
+</script>
+</body></html>

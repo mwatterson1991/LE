@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Slide 4: years of work experience by school</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .row{position:absolute;left:var(--m);width:920px}
+  .row .logo,.row .ph{position:absolute;left:0;top:26px}
+  .row .name{position:absolute;left:78px;top:38px;font-size:30px;line-height:1}
+  .row .val{position:absolute;right:0;top:32px;font-size:40px;line-height:1}
+  .row .line{position:absolute;left:0;right:0;bottom:0;height:2px}
+  .row .bar{position:absolute;top:46px;height:14px;background:#0F0F10}
+  .row .rng{position:absolute;top:80px;height:3px;background:#0F0F10}
+  .row .cap{position:absolute;top:74px;width:3px;height:15px;background:#0F0F10}
+  .row .sub{position:absolute;top:96px;background:#fff;padding:2px 8px 2px 0}
+</style></head>
+<body>
+<h1>The <em>work experience</em> of<br>the latest MBA classes</h1>
+<div class="chart" id="c"></div>
+<p class="src" id="src"></p>
+<script src="data.js"></script>
+<script src="base.js"></script>
+<script>
+/* Rows, highest first. Bars run from zero on a scale of 0 to 8 years; every figure is the school's average. Harvard also gives the middle 80% of its class, drawn as a thin line under its bar. */
+const TOP = 372, AX0 = 380, AX1 = 820, MAXY = 8;
+const x = v => AX0 + v / MAXY * (AX1 - AX0);
+(async () => {
+  lelandMark();
+  const c = document.getElementById('c'), keys = ORDER.filter(k => !held(k + '.work')).sort((a, b) => +S[b].work.value - +S[a].work.value || ORDER.indexOf(a) - ORDER.indexOf(b)), T = scaleT(keys.map(k => +S[k].work.value));
+  const ROW = keys.length > 6 ? 116 : 128, extra = 26, total = ROW * keys.length + extra;   /* Harvard's row is a little taller, for its range line */
+  for (let v = 0; v <= MAXY; v += 2) { put(c, 'div', 'tick', v === MAXY ? v + ' years' : String(v), { left: x(v) - 60, top: TOP - 34, width: 120, textAlign: 'center' }).dataset.k = 'axis'; put(c, 'div', 'hair', '', { left: x(v) - 1, top: TOP, width: 2, height: total }); }
+  put(c, 'div', 'hd', 'average', { right: 80, top: TOP - 35 });
+  put(c, 'div', 'hair', '', { left: 80, top: TOP - 2, width: 920, height: 2 });
+  let y = TOP; const rows = keys.map(k => {
+    const w = S[k].work, h = ROW + (w.mid80 ? extra : 0), r = put(c, 'div', 'row', '', { top: y, height: h }); y += h; r.dataset.school = k;
+    r.appendChild(logoEl(k)); r.appendChild(el('div', 'name', S[k].name));
+    const b = el('div', 'bar'); b.style.left = (AX0 - 80) + 'px'; b.style.width = (x(+w.value) - AX0) + 'px'; r.appendChild(b);
+    if (w.mid80) {
+      const a = x(w.mid80[0]) - 80, z = x(w.mid80[1]) - 80; const l = el('div', 'rng'); l.style.left = a + 'px'; l.style.width = (z - a) + 'px'; r.appendChild(l);
+      [a, z - 3].forEach(p => { const t = el('div', 'cap'); t.style.left = p + 'px'; r.appendChild(t); });
+      const s = el('div', 'sub', `middle 80%: <span data-k="${k}.work.mid80">${w.mid80.join('–')}</span> years`); s.style.left = a + 'px'; r.appendChild(s);
+    }
+    const v = el('div', 'val', w.value); v.style.color = greenText(T(+w.value)); v.dataset.k = k + '.work'; r.appendChild(v);
+    r.appendChild(el('div', 'line hair')); return r;
+  });
+  document.getElementById('src').textContent = F.sources.profiles + (held('booth.work') ? ' Chicago Booth is not shown.' : '');
+  isolate(rows);
+  await ready();
+})();
+</script>
+</body></html>
