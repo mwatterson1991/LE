@@ -138,5 +138,54 @@
     "src": "assets/orgs/uni/washu.png",
     "source_file": "File:Washington University in St. Louis seal.jpg",
     "unitid": 179867
+  },
+  {
+    "slug": "princeton",
+    "name": "Princeton University",
+    "src": "assets/orgs/uni/princeton.png",
+    "source_file": "File:Princeton seal.svg",
+    "unitid": 186131
+  },
+  {
+    "slug": "columbia",
+    "name": "Columbia University",
+    "src": "assets/orgs/uni/columbia.png",
+    "source_file": "File:Coat of Arms of Columbia University.svg",
+    "unitid": 190150
+  },
+  {
+    "slug": "penn",
+    "name": "University of Pennsylvania",
+    "src": "assets/orgs/uni/penn.png",
+    "source_file": "File:UPenn shield with banner.svg",
+    "unitid": 215062
+  },
+  {
+    "slug": "dartmouth",
+    "name": "Dartmouth College",
+    "src": "assets/orgs/uni/dartmouth.png",
+    "source_file": "File:Dartmouth College shield.svg",
+    "unitid": 182670
+  },
+  {
+    "slug": "northeastern",
+    "name": "Northeastern University",
+    "src": "assets/orgs/uni/northeastern.png",
+    "source_file": "File:NU RGB seal R.png",
+    "unitid": 167358
+  },
+  {
+    "slug": "navy",
+    "name": "United States Naval Academy",
+    "src": "assets/orgs/uni/navy.png",
+    "source_file": "File:Logo of the United States Naval Academy.svg",
+    "unitid": 164155
+  },
+  {
+    "slug": "westpoint",
+    "name": "United States Military Academy",
+    "src": "assets/orgs/uni/westpoint.png",
+    "source_file": "File:U.S. Military Academy Coat of Arms.svg",
+    "unitid": 197036
   }
 ]
