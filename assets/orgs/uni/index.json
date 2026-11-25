@@ -1,0 +1,142 @@
+[
+  {
+    "slug": "stanford",
+    "name": "Stanford University",
+    "src": "assets/orgs/uni/stanford.png",
+    "source_file": "File:Stanford Cardinal logo.svg",
+    "unitid": 243744
+  },
+  {
+    "slug": "harvard",
+    "name": "Harvard University",
+    "src": "assets/orgs/uni/harvard.png",
+    "source_file": "File:Harvard University shield.svg",
+    "unitid": 166027
+  },
+  {
+    "slug": "mit",
+    "name": "Massachusetts Institute of Technology",
+    "src": "assets/orgs/uni/mit.png",
+    "source_file": "File:MIT 2023 red logo.svg",
+    "unitid": 166683
+  },
+  {
+    "slug": "usc",
+    "name": "University of Southern California",
+    "src": "assets/orgs/uni/usc.png",
+    "source_file": "File:University of Southern California logo.svg",
+    "unitid": 123961
+  },
+  {
+    "slug": "jhu",
+    "name": "Johns Hopkins University",
+    "src": "assets/orgs/uni/jhu.png",
+    "source_file": "File:Johns Hopkins University logo.svg",
+    "unitid": 162928
+  },
+  {
+    "slug": "uchicago",
+    "name": "University of Chicago",
+    "src": "assets/orgs/uni/uchicago.png",
+    "source_file": "File:University of Chicago shield.svg",
+    "unitid": 144050
+  },
+  {
+    "slug": "vanderbilt",
+    "name": "Vanderbilt University",
+    "src": "assets/orgs/uni/vanderbilt.png",
+    "source_file": "File:Vanderbilt University logo.svg",
+    "unitid": 221999
+  },
+  {
+    "slug": "rochester",
+    "name": "University of Rochester",
+    "src": "assets/orgs/uni/rochester.png",
+    "source_file": "File:University of Rochester logo (2025).svg",
+    "unitid": 195030
+  },
+  {
+    "slug": "duke",
+    "name": "Duke University",
+    "src": "assets/orgs/uni/duke.png",
+    "source_file": "File:Duke University Emblem.svg",
+    "unitid": 198419
+  },
+  {
+    "slug": "miami",
+    "name": "University of Miami",
+    "src": "assets/orgs/uni/miami.png",
+    "source_file": "File:Miami Hurricanes logo.svg",
+    "unitid": 135726
+  },
+  {
+    "slug": "nyu",
+    "name": "New York University",
+    "src": "assets/orgs/uni/nyu.png",
+    "source_file": "File:Nyu short color.svg",
+    "unitid": 193900
+  },
+  {
+    "slug": "northwestern",
+    "name": "Northwestern University",
+    "src": "assets/orgs/uni/northwestern.png",
+    "source_file": "File:Northwestern University seal.svg",
+    "unitid": 147767
+  },
+  {
+    "slug": "emory",
+    "name": "Emory University",
+    "src": "assets/orgs/uni/emory.png",
+    "source_file": "File:Emory U Logo.svg",
+    "unitid": 139658
+  },
+  {
+    "slug": "national",
+    "name": "National University",
+    "src": "assets/orgs/uni/national.png",
+    "source_file": "File:National University Logo PNG.png",
+    "unitid": 119605
+  },
+  {
+    "slug": "yale",
+    "name": "Yale University",
+    "src": "assets/orgs/uni/yale.png",
+    "source_file": "File:Yale University Shield 1.svg",
+    "unitid": 130794
+  },
+  {
+    "slug": "notredame",
+    "name": "University of Notre Dame",
+    "src": "assets/orgs/uni/notredame.png",
+    "source_file": "File:University of Notre Dame coat of arms.svg",
+    "unitid": 152080
+  },
+  {
+    "slug": "howard",
+    "name": "Howard University",
+    "src": "assets/orgs/uni/howard.png",
+    "source_file": "File:Howard University logo.svg",
+    "unitid": 131520
+  },
+  {
+    "slug": "casewestern",
+    "name": "Case Western Reserve University",
+    "src": "assets/orgs/uni/casewestern.png",
+    "source_file": "File:CaseLogo.svg",
+    "unitid": 201645
+  },
+  {
+    "slug": "brown",
+    "name": "Brown University",
+    "src": "assets/orgs/uni/brown.png",
+    "source_file": "File:Shield of Brown University.svg",
+    "unitid": 217156
+  },
+  {
+    "slug": "washu",
+    "name": "Washington University in St. Louis",
+    "src": "assets/orgs/uni/washu.png",
+    "source_file": "File:Washington University in St. Louis seal.jpg",
+    "unitid": 179867
+  }
+]
