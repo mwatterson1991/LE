@@ -12,6 +12,22 @@ Source of truth: `brand/board.html` (the living brand board). Open it in a brows
 6. Illustrate the concept instead of describing it. One illustration or diagram per slide, large. Claude does not draw illustrations; it writes the ChatGPT image prompt (see assets/illus/PROMPTS.md), the image is generated there, dropped into assets/illus/, and the renderer picks it up. Diagrams (timelines, layers, grids) are drawn in code.
 7. Type: Season Mix headlines, Macan body. At most two body sizes on a slide.
 
+## Palette update (Nov 25, 2026, from Michael's colour board)
+Sampled from the board he sent. Five steps per family, dark to light; blank steps on the board are not defined yet.
+| family | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| blue | #31419B | #4362D0 | #89ABE8 | #C9D8F5 | #E4ECFA |
+| yellow | (rust #893D1B) | | #F9DA7F | #FCEDBF | #FDF5DF |
+| green | #1E4937 | #306E54 | | #CCEADE | #E6F5EF |
+| red | #8E2D21 | #C83E2E | #EB7E72 | #FAE7E4 | #FCF3F2 |
+| tan | #764833 | #B16F44 | #E7D5B9 | #F3EADC | #FAF7F2 |
+| slate | #616E78 | #8A99A5 | | | |
+| clay | #AC5F37 | | | | |
+| alternate green (potential) | #39472F | #577144 | #82A267 | | #F3F6F0 |
+- Coloured text (the one accent phrase in a headline) uses blue 2, #4362D0. Blue 3 (#89ABE8, the old #80ACED) is for fills and fields, not text: it is too pale to read.
+- This supersedes rule 4 above: #4362D0 is brand. The banned colour is the old Leland green #15B078, not green as such; the greens on this board are allowed.
+- Yellow #F9DA7F may sit behind a numeral as a small badge (rank circles). It is still never a field behind a headline.
+
 ## Palette (marketing assets)
 | name | hex | use |
 |---|---|---|
